@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
+  m_Name: TmpCompayA
+  m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
+  companyName: TmpCompanyA
+  totalShares: 100
+  initialBaseCompanyValue: 100
+  initialRevenue: 300
+  initialCost: 50
+  initialCash: 500
+  initialDebt: 200
+  initialTangibleAssets: 50
+  initialIntangibleAssets: 25
+  initialReputationB2C: 0
+  initialReputationB2B: 0
+  initialReputaionPlayer: 0
+  initialMarketPosition: 0
+  initialPlayerShares: 0
