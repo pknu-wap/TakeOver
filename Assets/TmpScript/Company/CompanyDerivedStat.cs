@@ -27,5 +27,6 @@ public enum CompanyDerivedStat
     SHARE_PRICE,
 
     // OwnerShip
-    REMAIN_SHARES
+    REMAIN_SHARES,
+    STAKE
 }

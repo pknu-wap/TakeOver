@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
-  m_Name: TmpCompayA
+  m_Name: TmpCompanyB
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
-  companyName: TmpCompanyA
-  totalShares: 100
-  initialBaseCompanyValue: 100
-  initialRevenue: 300
-  initialCost: 50
-  initialCash: 500
-  initialDebt: 200
-  initialTangibleAssets: 50
-  initialIntangibleAssets: 25
+  companyName: TmpCompanyB
+  totalShares: 500
+  initialBaseCompanyValue: 350
+  initialRevenue: 800
+  initialCost: 400
+  initialCash: 100
+  initialDebt: 300
+  initialTangibleAssets: 25
+  initialIntangibleAssets: 50
   initialReputationB2C: 0
   initialReputationB2B: 0
   initialReputaionPlayer: 0
   initialMarketPosition: 0
   initialPlayerShares: 0
+  initialTangibleCoefficient: 0
+  initialIntangibleCoefficient: 0

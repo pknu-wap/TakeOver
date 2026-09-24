@@ -8,7 +8,7 @@ public class CompanyStatCalculator
         calculateFactors(company);
         calculateFundamentalValue(company);
         calculateMarketValue(company, marketData);
-        calculateRemainShares(company);
+        calculateAboutShares(company);
     }
 
     public void calculateTurnend(Company company, TmpMarketData marketData)
@@ -17,22 +17,8 @@ public class CompanyStatCalculator
         calculateFactors(company);
         calculateFundamentalValue(company);
         calculateMarketValue(company, marketData);
-        calculateRemainShares(company);
+        calculateAboutShares(company);
         // calculateHistoryStat(company);
-    }
-
-    public void calculateCompanyValue(Company company)
-    {/*
-        float revenue = company.state.getStat(CompanyStat.REVENUE);
-        float cost = company.state.getStat(CompanyStat.COST);
-        float debt = company.state.getStat(CompanyStat.DEBT);
-        float marketPosition = company.state.getStat(CompanyStat.MARKET_POSITION);
-        float totalShares = company.state.totalShares;
-        float sharePrice = company.state.sharePrice;
-
-        float companyValue = totalShares * sharePrice;
-        company.state.setCompanyValue(companyValue);
-        */
     }
 
     public void calculateMetrics(Company company)
@@ -123,11 +109,13 @@ public class CompanyStatCalculator
             state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE) / state.totalShares);
     }
 
-    public void calculateRemainShares(Company company)
+    public void calculateAboutShares(Company company)
     {
         CompanyState state = company.state;
         state.setDerivedStat(CompanyDerivedStat.REMAIN_SHARES,
             state.totalShares - state.getStat(CompanyStat.PLAYER_SHARES));
+        state.setDerivedStat(CompanyDerivedStat.STAKE,
+            state.getStat(CompanyStat.PLAYER_SHARES) / state.totalShares * 100);
     }
 
     public void calculateHistoryStat(Company company)
