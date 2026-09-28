@@ -1,16 +1,24 @@
 using UnityEngine;
 
-public class UiManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    private void enterCompnayBrowser()
+    [SerializeField] GameObject dashBoardUI;
+    [SerializeField] GameObject companyBrowseUI;
+
+    public void Start()
     {
-        // 대쉬보드 끄기
-        // 기업 브라우징 UI 키기
+        dashBoardUI.SetActive(true);
+        companyBrowseUI.SetActive(false);
+    }
+    public void enterCompnayBrowser()
+    {
+        dashBoardUI.SetActive(false);
+        companyBrowseUI.SetActive(true);
     }
 
-    private void enterDashboard()
+    public void enterDashboard()
     {
-        // 기업 브라우징 UI 끄기
-        // 대쉬보드 키기
+        companyBrowseUI.SetActive(false);
+        dashBoardUI.SetActive(true);
     }
 }
