@@ -44,7 +44,8 @@ namespace TakeOver.NPC
             stored.influence = 1f;
             if (string.IsNullOrWhiteSpace(stored.memoryId)) stored.memoryId = Guid.NewGuid().ToString("N");
 
-            var existing = state.memories.Find(item => item != null && item.memoryId == stored.memoryId);
+            var memoryId = stored.memoryId;
+            var existing = state.memories.Find(item => item != null && item.memoryId == memoryId);
             // 목록에 살아 있는 기억끼리만 중복을 막는다. 만료되어 삭제된 뒤에는 같은 ID도 다시 기록할 수 있다.
             if (existing != null)
             {
