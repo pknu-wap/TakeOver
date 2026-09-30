@@ -8,6 +8,7 @@ namespace TakeOver.NPC
     [Serializable]
     public sealed class NpcEventReaction
     {
+        // targetNpcIds에 포함된 한 NPC의 기억 결과를 공통 payload 값보다 우선 적용한다.
         public string targetNpcId;
         public NpcMemoryType memoryType;
         public int strength = 1;
@@ -27,14 +28,18 @@ namespace TakeOver.NPC
     [Serializable]
     public sealed class NpcEventPayload
     {
+        // 사건 발생 단위의 고유 ID. 처리기는 각 대상의 Memory ID를 eventId:targetNpcId로 만든다.
         public string eventId;
+        // 사건이 일어난 회사와 행위자. NPC 대상은 targetNpcIds에서 별도로 지정한다.
         public string companyId;
         public string actorId;
         // 선호 행동 프로필과 결과를 연결한다. 미입력 시 선호 데이터를 조회하지 않는다.
         public string actionId;
+        // 사건 결과를 받을 NPC ID 목록. 채널이 비어 있음/중복을 검사하고 processor가 등록 여부를 확인한다.
         public List<string> targetNpcIds = new List<string>();
-        // 공통 결과는 기본값이며, 이 목록에 등록된 NPC는 개별 해석과 관계 효과를 사용한다.
+        // 대상별 결과가 있으면 해당 NPC에 우선 적용한다. 미지정 대상은 아래 공통 결과를 사용한다.
         public List<NpcEventReaction> targetReactions = new List<NpcEventReaction>();
+        // 개별 반응이 없는 대상에 적용할 기본 Memory 결과와 관계 변화량.
         public NpcMemoryType memoryType;
         public int strength = 1;
         public NpcPublicity publicity;

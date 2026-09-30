@@ -29,6 +29,7 @@ namespace TakeOver.NPC
 
         /// <summary>
         /// 새 기록 여부와 정규화된 결과를 함께 반환한다. 중복이면 기존 기록을 돌려주고 관계 변화와 알림은 반복하지 않는다.
+        /// 입력 influence는 사용하지 않고 새 기록을 1(100%)로 시작한다. 이후 턴 처리로 비영구 기억의 값을 계산한다.
         /// </summary>
         public bool TryRecordMemory(NpcRuntimeState state, NpcMemoryRecord memory, out NpcMemoryRecord stored)
         {
@@ -40,7 +41,8 @@ namespace TakeOver.NPC
             stored.reliability = Mathf.Clamp01(stored.reliability);
             stored.durationTurns = Mathf.Clamp(stored.durationTurns, 1, 20);
             stored.remainingTurns = stored.permanent ? 0 : stored.durationTurns;
-            // 두 종류 모두 최초 영향력은 100%다. 영구 여부는 이후 턴 감소를 적용할지 결정한다.
+            // 호출자가 전달한 influence는 저장 초기값으로 사용하지 않는다. 모든 새 기억은 100%에서 시작한다.
+            // 영구 여부는 이후 턴 감소 적용 여부와 조회 시 영향력 반환에만 관여한다.
             stored.influence = 1f;
             if (string.IsNullOrWhiteSpace(stored.memoryId)) stored.memoryId = Guid.NewGuid().ToString("N");
 

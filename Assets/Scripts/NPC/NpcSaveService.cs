@@ -19,8 +19,10 @@ namespace TakeOver.NPC
         [SerializeField] private GameTurnClock turnClock;
         [SerializeField] private string fileName = "takeover-npc-state.json";
 
+        /// <summary>현재 파일 이름을 Unity의 사용자별 영구 데이터 폴더에 결합한 경로다.</summary>
         public string SavePath => Path.Combine(Application.persistentDataPath, fileName);
 
+        /// <summary>저장 대상 NPC 레지스트리와 함께 복원할 공용 턴 시계를 연결한다.</summary>
         public void Configure(NpcStateRegistry stateRegistry, GameTurnClock clock)
         {
             registry = stateRegistry;
@@ -33,6 +35,7 @@ namespace TakeOver.NPC
             if (turnClock == null) turnClock = GetComponent<GameTurnClock>();
         }
 
+        /// <summary>현재 턴과 NPC 상태 사본을 JSON으로 저장한다. 레지스트리가 없으면 예외를 던진다.</summary>
         public void Save()
         {
             if (registry == null) throw new InvalidOperationException("NpcStateRegistry가 연결되지 않았습니다.");
@@ -44,6 +47,7 @@ namespace TakeOver.NPC
             File.WriteAllText(SavePath, JsonUtility.ToJson(data, true));
         }
 
+        /// <summary>저장 파일을 읽어 상태와 턴을 복원한다. 파일이 없거나 JSON 결과가 비면 false를 반환한다.</summary>
         public bool Load()
         {
             if (registry == null) throw new InvalidOperationException("NpcStateRegistry가 연결되지 않았습니다.");

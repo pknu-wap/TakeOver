@@ -52,6 +52,7 @@ namespace TakeOver.NPC
             return created;
         }
 
+        /// <summary>ID로 등록 상태를 조회한다. 찾지 못하면 false와 null 상태를 반환한다.</summary>
         public bool TryGet(string npcId, out NpcRuntimeState state) => states.TryGetValue(npcId ?? string.Empty, out state);
 
         /// <summary>
@@ -111,6 +112,7 @@ namespace TakeOver.NPC
             foreach (var item in orderedStates) StateChanged?.Invoke(item);
         }
 
+        /// <summary>저장용 독립 사본을 만든다. 반환 목록과 Memory 항목은 런타임 상태 객체와 분리된다.</summary>
         public List<NpcRuntimeState> CreateSnapshot()
         {
             var snapshot = new List<NpcRuntimeState>(orderedStates.Count);

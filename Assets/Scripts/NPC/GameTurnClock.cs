@@ -10,9 +10,11 @@ namespace TakeOver.NPC
         [SerializeField] private NpcStateRegistry registry;
         [SerializeField] private NpcMemoryService memoryService;
 
+        /// <summary>현재 게임 턴. 초기값은 1이며 RestoreTurn도 최소 1로 제한한다.</summary>
         public int CurrentTurn => currentTurn;
         public event Action<int> TurnAdvanced;
 
+        /// <summary>공용 상태 저장소와 기억 경과 처리 서비스를 연결한다.</summary>
         public void Configure(NpcStateRegistry stateRegistry, NpcMemoryService service)
         {
             registry = stateRegistry;
@@ -35,6 +37,7 @@ namespace TakeOver.NPC
             TurnAdvanced?.Invoke(currentTurn);
         }
 
+        /// <summary>저장 데이터에서 턴을 복원한다. 잘못된 0 이하 값은 1턴으로 보정한다.</summary>
         public void RestoreTurn(int turn) => currentTurn = Mathf.Max(1, turn);
     }
 }

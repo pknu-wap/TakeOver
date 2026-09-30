@@ -118,6 +118,7 @@ namespace TakeOver.NPC
         /// <summary>NPC 파트의 이벤트 진입 버튼에서 이벤트 파트 화면을 여는 연결점이다.</summary>
         public void OpenEventScreen()
         {
+            // 기존 Inspector 연결과 공용 내비게이션 연결은 각각 호출된다. 같은 화면 전환 함수를 양쪽에 중복 등록하지 않는다.
             onOpenEventScreen?.Invoke();
             screenNavigation.RequestEventScreen();
         }
@@ -125,6 +126,7 @@ namespace TakeOver.NPC
         /// <summary>NPC 파트의 포트폴리오 진입 버튼에서 지분/포트폴리오 화면을 여는 연결점이다.</summary>
         public void OpenPortfolioScreen()
         {
+            // 기존 Inspector 연결과 공용 내비게이션 연결은 각각 호출된다. 같은 화면 전환 함수를 양쪽에 중복 등록하지 않는다.
             onOpenPortfolioScreen?.Invoke();
             screenNavigation.RequestPortfolioScreen();
         }
