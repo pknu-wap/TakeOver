@@ -27,8 +27,7 @@ public class CompanyStatCalculator
         // CompanyState 생성자에는 별도 예외처리가 없어 계산식을 그대로 가져옴.
 
 
-        // 주의: initialRevenue 가 0 이하면 오류가 생길 수 있음. 거기까지고려안함
-        //          매출, 비용도 0이면 오류가 있을 수 있음
+        // 주의: initialRevenue 가 0 이하면 오류가 생길 수 있음. 이외에도 0이 되거나 NaN이 되는 오류가 있음.
         // NetProfit
         state.setDerivedStat(CompanyDerivedStat.NET_PROFIT,
             state.getStat(CompanyStat.REVENUE) - state.getStat(CompanyStat.COST));
