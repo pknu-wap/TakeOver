@@ -4,6 +4,8 @@ public class Company : MonoBehaviour
 {
     [SerializeField] private CompanyDefinition companyDefinition;
 
+    public CompanyDefinition definition => companyDefinition;
+
     public CompanyState state { get; private set; }
     public CompanyHistory history { get; private set; }
     public CompanyStatCalculator calculator;
