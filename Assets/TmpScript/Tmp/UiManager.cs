@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
         dashBoardUI.SetActive(true);
         companyBrowseUI.SetActive(false);
     }
-    public void enterCompnayBrowser()
+    public void enterCompanyBrowser()
     {
         dashBoardUI.SetActive(false);
         companyBrowseUI.SetActive(true);

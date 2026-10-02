@@ -1103,9 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2153b8fd0c7f54f907dfdb606e8b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSystem
-  companies:
-  - {fileID: 509240921}
-  - {fileID: 183636454}
+  companies: {fileID: 509980017}
   currentTurn: 1
   marketData: {fileID: 2075823792}
 --- !u!4 &509980014
@@ -3483,7 +3481,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1888529073}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: enterCompnayBrowser
+        m_MethodName: enterCompanyBrowser
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4302,9 +4300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34a81cc951794f439b3afd38006fe4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TmpMarketData
-  companyList:
-  - {fileID: 509240921}
-  - {fileID: 183636454}
+  companies: {fileID: 509980017}
 --- !u!4 &2075823793
 Transform:
   m_ObjectHideFlags: 0

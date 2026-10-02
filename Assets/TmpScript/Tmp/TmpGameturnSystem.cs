@@ -1,15 +1,14 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TmpGameturnSystem : MonoBehaviour
 {
-    [SerializeField] private List<Company> companies;
+    [SerializeField] private Companies companies;
     [SerializeField] private int currentTurn = 1;
     [SerializeField] private TmpMarketData marketData;
 
     private void Start()
     {
-        foreach(Company company in companies)
+        foreach(Company company in companies.CompanyList)
         {
             company.calculator.calculateInitializeStat(company, marketData);
         }
@@ -17,14 +16,14 @@ public class TmpGameturnSystem : MonoBehaviour
 
     public void endTurn()
     {
-        foreach(Company company in companies)
+        foreach(Company company in companies.CompanyList)
         {
             company.calculator.calculateTurnend(company, marketData);
         }
 
         saveAllCompanyHistory();
 
-        foreach(Company company in companies)
+        foreach(Company company in companies.CompanyList)
         {
             company.calculator.calculateHistoryStat(company);
         }
@@ -36,7 +35,7 @@ public class TmpGameturnSystem : MonoBehaviour
 
     private void saveAllCompanyHistory()
     {
-        foreach (Company company in companies)
+        foreach (Company company in companies.CompanyList)
         {
             company.history.recordHistory(currentTurn);
         }

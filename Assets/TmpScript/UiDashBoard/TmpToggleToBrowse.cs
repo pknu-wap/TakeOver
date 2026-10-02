@@ -9,7 +9,7 @@ public class A : MonoBehaviour
     {
         if (dashboardUI.activeSelf)
         {
-            UIManager.enterCompnayBrowser();
+            UIManager.enterCompanyBrowser();
         }
         else
         {
