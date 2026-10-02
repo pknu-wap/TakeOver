@@ -6,7 +6,7 @@ public class CompanyState
     private Dictionary<CompanyStat, float> stats;
     private Dictionary<CompanyDerivedStat, float> derivedStats;
 
-    public float totalShares { get; private set; }
+    public int totalShares { get; private set; }
 
     // 이전값 변수 추가. 생성 시 현재값으로 초기화
     public float beforeRevenue { get; set; }
@@ -48,7 +48,7 @@ public class CompanyState
         totalShares = definition.totalShares;
 
         marketLiquidity = 1f; // 임시값. TmpMarketData에 1f로 지정되어있으며, 현재 변동되는 로직 없음
-        netMarginTrendCoefficient = 1f; // 이건 뭔값이야 왜넣었는지 기억안남, PerfomanceTrend에 사용되는 계수임.
+        netMarginTrendCoefficient = 1f; // PerfomanceTrend에 사용되는 계수임.
         // tangibleCoefficient = 1f; // 현재 미사용. ASSET_VALUE 정식 계산 시 사용
         // intangibleCoefficient = 1f; // 현재 미사용. ASSET_VALUE 정식 계산 시 사용
 
