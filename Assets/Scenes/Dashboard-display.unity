@@ -3849,37 +3849,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f8b778252fa554b85b7e90ce03cfa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  APBox1: {fileID: 661361247}
-  APBox2: {fileID: 1157460618}
-  APBox3: {fileID: 1084786703}
-  APBox4: {fileID: 1539550358}
-  APBox5: {fileID: 979051993}
-  APBox6: {fileID: 1703685029}
-  APBox7: {fileID: 1384722240}
-  APBox8: {fileID: 1971490689}
-  APBox9: {fileID: 673112801}
-  F_APBox1: {fileID: 1734478023}
-  F_APBox2: {fileID: 994367451}
-  F_APBox3: {fileID: 1765107012}
-  F_APBox4: {fileID: 180314909}
-  F_APBox5: {fileID: 1694981802}
-  S_APBox1: {fileID: 403995250}
-  S_APBox2: {fileID: 1775172660}
-  S_APBox3: {fileID: 1231229441}
-  S_APBox4: {fileID: 108355327}
-  S_APBox5: {fileID: 510519501}
-  T_APBox1: {fileID: 367740508}
-  T_APBox2: {fileID: 1848563168}
-  T_APBox3: {fileID: 29772594}
-  T_APBox4: {fileID: 1341063042}
-  T_APBox5: {fileID: 377337971}
-  Monday: {fileID: 1251442251}
-  Tuesday: {fileID: 1655446404}
-  Wednesday: {fileID: 1770561274}
-  Thursday: {fileID: 15242106}
-  Friday: {fileID: 180640486}
-  Saturday: {fileID: 219203566}
-  Sunday: {fileID: 124636315}
+  apBox:
+  - {fileID: 661361247}
+  - {fileID: 1157460618}
+  - {fileID: 1084786703}
+  - {fileID: 1539550358}
+  - {fileID: 979051993}
+  - {fileID: 1703685029}
+  - {fileID: 1384722240}
+  - {fileID: 1971490689}
+  - {fileID: 673112801}
+  f_APBox:
+  - {fileID: 1734478023}
+  - {fileID: 994367451}
+  - {fileID: 1765107012}
+  - {fileID: 180314909}
+  - {fileID: 1694981802}
+  s_APBox:
+  - {fileID: 403995250}
+  - {fileID: 1775172660}
+  - {fileID: 1231229441}
+  - {fileID: 108355327}
+  - {fileID: 510519501}
+  t_APBox:
+  - {fileID: 367740508}
+  - {fileID: 1848563168}
+  - {fileID: 29772594}
+  - {fileID: 1341063042}
+  - {fileID: 377337971}
+  week:
+  - {fileID: 1251442251}
+  - {fileID: 1655446404}
+  - {fileID: 1770561274}
+  - {fileID: 15242106}
+  - {fileID: 180640486}
+  - {fileID: 219203566}
+  - {fileID: 124636315}
 --- !u!1 &1084786701
 GameObject:
   m_ObjectHideFlags: 0
@@ -6419,8 +6424,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1073549367}
-        m_TargetAssemblyTypeName: NewMonoBehaviourScript, Assembly-CSharp
-        m_MethodName: NextDay
+        m_TargetAssemblyTypeName: Dashboardscript, Assembly-CSharp
+        m_MethodName: nextDay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
