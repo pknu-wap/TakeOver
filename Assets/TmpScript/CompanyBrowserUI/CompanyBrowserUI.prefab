@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5089123800732095633}
         m_TargetAssemblyTypeName: CompanyDetailPanel, Assembly-CSharp
-        m_MethodName: Buy
+        m_MethodName: buy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -382,7 +382,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 925214539111534370}
         m_TargetAssemblyTypeName: BrowserViewToggle, Assembly-CSharp
-        m_MethodName: Toggle
+        m_MethodName: toggle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1505,7 +1505,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5089123800732095633}
         m_TargetAssemblyTypeName: CompanyDetailPanel, Assembly-CSharp
-        m_MethodName: Hide
+        m_MethodName: hide
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5403,7 +5403,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2310757153357902845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5899,7 +5899,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5089123800732095633}
         m_TargetAssemblyTypeName: CompanyDetailPanel, Assembly-CSharp
-        m_MethodName: Sell
+        m_MethodName: sell
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

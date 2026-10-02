@@ -8,7 +8,7 @@ public static class CompanyUIUtil
     //   UI가 계산보다 먼저 실행될 수도 있으니, 에러가 나면 0을 돌려주도록 감싼다.
     
 
-    public static float GetDerived(Company company, CompanyDerivedStat stat)
+    public static float getDerived(Company company, CompanyDerivedStat stat)
     {
         
         if (company == null || company.state == null)
@@ -28,7 +28,7 @@ public static class CompanyUIUtil
     }
 
     
-    public static float GetStat(Company company, CompanyStat stat)
+    public static float getStat(Company company, CompanyStat stat)
     {
         if (company == null || company.state == null)
         {

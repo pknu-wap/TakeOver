@@ -14,18 +14,18 @@ public class CompanyRow : MonoBehaviour
     [SerializeField] private Button button;           
 
     
-    public void Setup(Company company, Action<Company> onClick)
+    public void setup(Company company, Action<Company> onClick)
     {
         
         nameText.text = company.definition.companyName;
 
         
-        priceText.text = $"{CompanyUIUtil.GetDerived(company, CompanyDerivedStat.SHARE_PRICE):N2}";
+        priceText.text = $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.SHARE_PRICE):N2}";
         
-        revenueText.text = $"{CompanyUIUtil.GetStat(company, CompanyStat.REVENUE):N0}";
-        netProfitText.text = $"{CompanyUIUtil.GetDerived(company, CompanyDerivedStat.NET_PROFIT):N0}";
+        revenueText.text = $"{CompanyUIUtil.getStat(company, CompanyStat.REVENUE):N0}";
+        netProfitText.text = $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.NET_PROFIT):N0}";
         
-        stakeText.text = $"{CompanyUIUtil.GetDerived(company, CompanyDerivedStat.STAKE):0.#}%";
+        stakeText.text = $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.STAKE):0.#}%";
 
         button.onClick.RemoveAllListeners();              
         button.onClick.AddListener(() => onClick(company)); 

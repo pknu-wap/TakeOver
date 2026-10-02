@@ -42,10 +42,10 @@ public class CompanyListView : MonoBehaviour
         sortDropdown.ClearOptions();
         sortDropdown.AddOptions(SortOptions.ToList());
 
-        sortDropdown.onValueChanged.AddListener(_ => Refresh());
+        sortDropdown.onValueChanged.AddListener(_ => refresh());
 
         // [추가] "상세 패널에서 거래되면 내 Refresh도 불러줘"라고 알림 명단에 등록
-        detailPanel.OnTraded += Refresh;
+        detailPanel.OnTraded += refresh;
 
         // [추가] 한 프레임 기다렸다가 목록을 그린다.
         // 이유: 주가·순이익 같은 파생 수치는 팀원 코드가 각자의 Start()에서 계산한다.
@@ -55,7 +55,7 @@ public class CompanyListView : MonoBehaviour
         //       다음 프레임이면 모든 Start()가 끝난 뒤라 계산된 값이 들어 있다.
         yield return null;
 
-        Refresh();
+        refresh();
     }
 
     // [추가] 이 오브젝트가 삭제될 때 알림 명단에서 빠진다.
@@ -64,7 +64,7 @@ public class CompanyListView : MonoBehaviour
     {
         if (detailPanel != null)
         {
-            detailPanel.OnTraded -= Refresh;
+            detailPanel.OnTraded -= refresh;
         }
     }
 
@@ -73,19 +73,19 @@ public class CompanyListView : MonoBehaviour
     {
         if (companies != null)
         {
-            Refresh();
+            refresh();
         }
     }
 
 
-    public void Refresh()
+    public void refresh()
     {
 
         IEnumerable<Company> valid = companies.Where(c => c != null && c.state != null);
 
 
         int index = 0;
-        foreach (Company company in Sort(valid))
+        foreach (Company company in sort(valid))
         {
             // 줄이 모자랄 때만 새로 만든다 (보통 처음 한 번만 여기로 들어옴)
             if (index >= rows.Count)
@@ -95,7 +95,7 @@ public class CompanyListView : MonoBehaviour
 
             CompanyRow row = rows[index];
             row.gameObject.SetActive(true);
-            row.Setup(company, detailPanel.Show);
+            row.setup(company, detailPanel.show);
             index++;
         }
 
@@ -107,15 +107,15 @@ public class CompanyListView : MonoBehaviour
     }
 
     // 드롭다운에서 고른 기준으로 내림차순(큰 값이 위) 정렬한 결과를 돌려준다
-    private IEnumerable<Company> Sort(IEnumerable<Company> list)
+    private IEnumerable<Company> sort(IEnumerable<Company> list)
     {
         switch (sortDropdown.value)
         {
-            case 0: return list.OrderByDescending(c => CompanyUIUtil.GetDerived(c, CompanyDerivedStat.SHARE_PRICE));
-            case 1: return list.OrderByDescending(c => CompanyUIUtil.GetStat(c, CompanyStat.REVENUE));
-            case 2: return list.OrderByDescending(c => CompanyUIUtil.GetDerived(c, CompanyDerivedStat.NET_PROFIT));
-            case 3: return list.OrderByDescending(c => CompanyUIUtil.GetDerived(c, CompanyDerivedStat.DEBT_RATIO));
-            case 4: return list.OrderByDescending(c => CompanyUIUtil.GetDerived(c, CompanyDerivedStat.STAKE));
+            case 0: return list.OrderByDescending(c => CompanyUIUtil.getDerived(c, CompanyDerivedStat.SHARE_PRICE));
+            case 1: return list.OrderByDescending(c => CompanyUIUtil.getStat(c, CompanyStat.REVENUE));
+            case 2: return list.OrderByDescending(c => CompanyUIUtil.getDerived(c, CompanyDerivedStat.NET_PROFIT));
+            case 3: return list.OrderByDescending(c => CompanyUIUtil.getDerived(c, CompanyDerivedStat.DEBT_RATIO));
+            case 4: return list.OrderByDescending(c => CompanyUIUtil.getDerived(c, CompanyDerivedStat.STAKE));
             default: return list;
         }
     }

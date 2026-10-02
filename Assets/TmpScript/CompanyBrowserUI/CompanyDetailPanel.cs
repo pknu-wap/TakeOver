@@ -34,21 +34,21 @@ public class CompanyDetailPanel : MonoBehaviour
     private ShareTradingSystem tradingSystem;
     private Player player;
 
-    public void Show(Company company)
+    public void show(Company company)
     {
         current = company;
-        FindReferences();   
+        findReferences();   
 
         nameText.text = company.definition.companyName;
-        priceText.text = $"주가 {CompanyUIUtil.GetDerived(company, CompanyDerivedStat.SHARE_PRICE):N2}";
-        revenueText.text = $"매출 {CompanyUIUtil.GetStat(company, CompanyStat.REVENUE):N0}";
-        costText.text = $"비용 {CompanyUIUtil.GetStat(company, CompanyStat.COST):N0}";
-        netProfitText.text = $"순이익 {CompanyUIUtil.GetDerived(company, CompanyDerivedStat.NET_PROFIT):N0}";
-        cashText.text = $"현금 {CompanyUIUtil.GetStat(company, CompanyStat.CASH):N0}";
-        debtText.text = $"부채 {CompanyUIUtil.GetStat(company, CompanyStat.DEBT):N0}";
+        priceText.text = $"주가 {CompanyUIUtil.getDerived(company, CompanyDerivedStat.SHARE_PRICE):N2}";
+        revenueText.text = $"매출 {CompanyUIUtil.getStat(company, CompanyStat.REVENUE):N0}";
+        costText.text = $"비용 {CompanyUIUtil.getStat(company, CompanyStat.COST):N0}";
+        netProfitText.text = $"순이익 {CompanyUIUtil.getDerived(company, CompanyDerivedStat.NET_PROFIT):N0}";
+        cashText.text = $"현금 {CompanyUIUtil.getStat(company, CompanyStat.CASH):N0}";
+        debtText.text = $"부채 {CompanyUIUtil.getStat(company, CompanyStat.DEBT):N0}";
         
-        debtRatioText.text = $"부채비율 {CompanyUIUtil.GetDerived(company, CompanyDerivedStat.DEBT_RATIO):P1}";
-        stakeText.text = $"보유 지분 {CompanyUIUtil.GetDerived(company, CompanyDerivedStat.STAKE):0.#}%";
+        debtRatioText.text = $"부채비율 {CompanyUIUtil.getDerived(company, CompanyDerivedStat.DEBT_RATIO):P1}";
+        stakeText.text = $"보유 지분 {CompanyUIUtil.getDerived(company, CompanyDerivedStat.STAKE):0.#}%";
 
         // [추가] 내 잔액 표시. Player를 못 찾았거나 아직 준비 전이면 0으로 표시한다.
         // (C#의 ?. 연산자로 줄일 수도 있지만, Unity 오브젝트에는 ?.가 제대로 동작하지 않는
@@ -64,32 +64,32 @@ public class CompanyDetailPanel : MonoBehaviour
     }
 
     
-    public void Hide()
+    public void hide()
     {
         gameObject.SetActive(false);
     }
 
     
-    public void Buy()
+    public void buy()
     {
-        Trade(true);
+        trade(true);
     }
 
     
-    public void Sell()
+    public void sell()
     {
-        Trade(false);
+        trade(false);
     }
 
     
-    private void Trade(bool isBuy)
+    private void trade(bool isBuy)
     {
         if (current == null)
         {
             return;   // 선택된 회사가 없으면 아무것도 안 함
         }
 
-        FindReferences();
+        findReferences();
         if (tradingSystem == null)
         {
             messageText.text = "거래 시스템을 찾을 수 없어요";
@@ -112,7 +112,7 @@ public class CompanyDetailPanel : MonoBehaviour
         if (success)
         {
             messageText.text = $"{amount}주 {action} 완료";
-            Show(current);          
+            show(current);          
             OnTraded?.Invoke();     
         }
         else
@@ -124,7 +124,7 @@ public class CompanyDetailPanel : MonoBehaviour
     }
 
     
-    private void FindReferences()
+    private void findReferences()
     {
         if (tradingSystem == null)
         {

@@ -14,8 +14,8 @@ public class CompanyMapNode : MonoBehaviour
     public Company company { get; private set; }
 
     // company : 표시할 회사
-    // onClick : 클릭하면 실행할 함수 (보통 상세 패널의 Show)
-    public void Setup(Company company, Action<Company> onClick)
+    // onClick : 클릭하면 실행할 함수 (보통 상세 패널의 show)
+    public void setup(Company company, Action<Company> onClick)
     {
         this.company = company;   // this.company = 이 클래스의 변수, company = 매개변수. 이름이 같아서 this로 구분
         nameText.text = company.definition.companyName;

@@ -29,7 +29,7 @@ public class MapZoom : MonoBehaviour, IScrollHandler
 
     void Start()
     {
-        UpdateZoomText();
+        updateZoomText();
     }
 
     // 마우스 휠 (EventSystem이 자동으로 불러줌)
@@ -45,25 +45,25 @@ public class MapZoom : MonoBehaviour, IScrollHandler
         RectTransformUtility.ScreenPointToWorldPointInRectangle(
             content, eventData.position, eventData.pressEventCamera, out Vector3 pivotWorld);
 
-        Step(Mathf.Sign(wheel), pivotWorld);
+        step(Mathf.Sign(wheel), pivotWorld);
     }
 
    
-    public void ZoomIn()
+    public void zoomIn()
     {
-        Step(1f, viewport.position);    // viewport.position = 보이는 창의 가운데
+        step(1f, viewport.position);    // viewport.position = 보이는 창의 가운데
     }
 
     // [추가] − 버튼 OnClick에 연결
-    public void ZoomOut()
+    public void zoomOut()
     {
-        Step(-1f, viewport.position);
+        step(-1f, viewport.position);
     }
 
     // [변경] 휠과 버튼이 같이 쓰는 확대 처리.
     // direction : +1이면 확대, -1이면 축소
     // pivotWorld : 이 지점이 확대 전후로 같은 자리에 머문다
-    private void Step(float direction, Vector3 pivotWorld)
+    private void step(float direction, Vector3 pivotWorld)
     {
         float newZoom = Mathf.Clamp(currentZoom * (1f + direction * zoomStep), minZoom, maxZoom);
         if (Mathf.Approximately(newZoom, currentZoom))
@@ -85,11 +85,11 @@ public class MapZoom : MonoBehaviour, IScrollHandler
         // 4) 차이만큼 지도를 옮겨서, 기준점 아래에 원래 보던 곳이 다시 오게 한다
         content.anchoredPosition += (after - before) * currentZoom;
 
-        UpdateZoomText();
+        updateZoomText();
     }
 
     // [추가] 배율 글자 갱신. 1.0 → "100%"
-    private void UpdateZoomText()
+    private void updateZoomText()
     {
         if (zoomText != null)
         {

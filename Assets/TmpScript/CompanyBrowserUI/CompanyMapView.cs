@@ -44,17 +44,17 @@ public class CompanyMapView : MonoBehaviour
             Company company = companies[i];
 
             CompanyMapNode node = Instantiate(nodePrefab, nodeParent);
-            node.Setup(company, detailPanel.Show);
+            node.setup(company, detailPanel.show);
 
             // 노드 위치 지정. UI 오브젝트의 위치는 RectTransform의 anchoredPosition으로 바꾼다.
             // (RectTransform)node.transform : transform을 UI용 RectTransform으로 바꿔서 쓰는 형변환
             RectTransform rect = (RectTransform)node.transform;
-            rect.anchoredPosition = GetPosition(company.definition.companyName, i, companies.Count);
+            rect.anchoredPosition = getPosition(company.definition.companyName, i, companies.Count);
         }
     }
 
     // 회사 이름으로 위치를 찾는다. 목록에 없으면 원 모양으로 자동 배치한다.
-    private Vector2 GetPosition(string companyName, int index, int count)
+    private Vector2 getPosition(string companyName, int index, int count)
     {
         foreach (NodePosition p in positions)
         {

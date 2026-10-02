@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 // 기업 브라우징 화면에서 "지도 보기 ↔ 리스트 보기"를 전환한다.
-// CompanyBrowserUI(맨 위 부모)에 붙이고, 전환 버튼의 OnClick에 Toggle()을 연결한다.
+// CompanyBrowserUI(맨 위 부모)에 붙이고, 전환 버튼의 OnClick에 toggle()을 연결한다.
 public class BrowserViewToggle : MonoBehaviour
 {
     [Tooltip("지도 모드에서만 보일 것들 (CompanyMap)")]
@@ -21,16 +21,16 @@ public class BrowserViewToggle : MonoBehaviour
 
     void Start()
     {
-        SetMode(startWithMap);
+        setMode(startWithMap);
     }
 
     // 전환 버튼 OnClick에 연결
-    public void Toggle()
+    public void toggle()
     {
-        SetMode(!showingMap);   // ! : true ↔ false 뒤집기
+        setMode(!showingMap);   // ! : true ↔ false 뒤집기
     }
 
-    private void SetMode(bool showMap)
+    private void setMode(bool showMap)
     {
         showingMap = showMap;
 
