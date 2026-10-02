@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: StockManipulation
+  m_EditorClassIdentifier: TakeOver.Events::TakeOver.Events.EventDefinition
+  eventId: stock_manipulation_01
+  title: "\uC740\uBC00\uD55C \uC8FC\uAC00\uC870\uC791 \uC81C\uC548"
+  image: {fileID: 1034014796780061455, guid: d1232dcee65db644d892ef7a67adee87, type: 2}
+  description: "M&A \uBE0C\uB85C\uCEE4 \uC724\uD558\uC9C4\uC774 \uCC3E\uC544\uC654\uB2E4.\n\uBCF4\uC720
+    \uC885\uBAA9\uC758 \uC8FC\uAC00\uB97C \uB04C\uC5B4\uC62C\uB9B4 \uC218 \uC788\uB2E4\uB294
+    \uC81C\uC548\uC774\uB2E4.\n\uADF8\uC758 \uC774\uC57C\uAE30\uB97C \uB4E3\uACE0
+    \uC218\uB77D\uD558\uAC70\uB098 \uAC70\uC808\uD560 \uC218 \uC788\uB2E4."
+  apCost: 1
+  startButtonText: "\uD611\uC0C1\uC744 \uC2DC\uC791\uD55C\uB2E4"
+  companyIds:
+  - dummy_company_01
+  speakerName: "\uC724\uD558\uC9C4"
+  speakerRole: "M&A \uBE0C\uB85C\uCEE4"
+  dialogue: "\uBCF4\uC720\uD558\uC2E0 \uC885\uBAA9 \uD558\uB098, \uC81C\uAC00 \uC8FC\uAC00\uB97C
+    \uB04C\uC5B4\uC62C\uB9B4 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n\uC704\uD5D8\uC740
+    \uB530\uB974\uACA0\uC9C0\uB9CC \uCC28\uC775\uC744 \uC5BB\uC744 \uAE30\uD68C\uC8E0.\n\uC81C\uC548\uC744
+    \uBC1B\uC544\uB4E4\uC774\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+  choices:
+  - choiceText: "\uC218\uB77D"
+    resultDialogue: "\uC88B\uC2B5\uB2C8\uB2E4. \uC900\uBE44\uAC00 \uB418\uBA74 \uB2E4\uC2DC
+      \uC5F0\uB77D\uB4DC\uB9AC\uC8E0."
+    resultValue: dummy_accept
+  - choiceText: "\uAC70\uC808"
+    resultDialogue: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uC624\uB298 \uB098\uB208 \uC774\uC57C\uAE30\uB294
+      \uC5C6\uB358 \uC77C\uB85C \uD558\uC8E0."
+    resultValue: dummy_reject
