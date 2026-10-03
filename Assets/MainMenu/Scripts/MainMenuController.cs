@@ -8,7 +8,7 @@ namespace TakeOver.MainMenu
 {
     public sealed class MainMenuController : MonoBehaviour
     {
-        [SerializeField] private string nextScenePath = "Assets/EventSystem/Scenes/EventWorkScene.unity";
+        [SerializeField] private string nextScenePath = "Assets/Scenes/Game.unity";
 
         public void startNewGame()
         {
