@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TakeOver.NPC;
 
 namespace TakeOver.Events
 {
@@ -10,10 +11,14 @@ namespace TakeOver.Events
         [SerializeField] private string choiceText;
         [SerializeField, TextArea(2, 5)] private string resultDialogue;
         [SerializeField] private string resultValue;
+        [SerializeField] private NpcEventPayload npcResult = new NpcEventPayload();
+        [SerializeField] private float cashDelta;
 
         public string getText() => choiceText;
         public string getResultDialogue() => resultDialogue;
         public string getResultValue() => resultValue;
+        public NpcEventPayload getNpcResult() => npcResult;
+        public float getCashDelta() => cashDelta;
     }
 
     [CreateAssetMenu(fileName = "Event", menuName = "TakeOver/Events/Event Definition")]

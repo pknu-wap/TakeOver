@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TakeOver.NPC;
 
 namespace TakeOver.Events
 {
@@ -14,6 +15,7 @@ namespace TakeOver.Events
         private readonly Dictionary<string, int> selectedChoices = new Dictionary<string, int>();
         private EventDefinition activeEvent;
         private int currentDay;
+        private GameTurnClock turnClock;
         private ScreenState screenState;
 
         private enum ScreenState { Closed, Detail, Negotiation, Result }
@@ -24,14 +26,27 @@ namespace TakeOver.Events
 
         private void Awake()
         {
+            turnClock = FindFirstObjectByType<GameTurnClock>();
             detailView.hide();
             negotiationView.hide();
+        }
+
+        private void OnEnable()
+        {
+            if (turnClock != null)
+                turnClock.TurnAdvanced += onDayStarted;
+        }
+
+        private void OnDisable()
+        {
+            if (turnClock != null)
+                turnClock.TurnAdvanced -= onDayStarted;
         }
 
         private void Start()
         {
             if (currentDay == 0)
-                onDayStarted(1);
+                onDayStarted(turnClock != null ? turnClock.CurrentTurn : 1);
         }
 
         public IReadOnlyList<EventDefinition> getTodayEvents() => todayEvents.AsReadOnly();
@@ -102,7 +117,8 @@ namespace TakeOver.Events
             screenState = ScreenState.Result;
             selectedChoices.Add(activeEvent.getId(), choiceIndex);
             todayEvents.Remove(activeEvent);
-            choiceConfirmed?.Invoke(new ChoiceConfirmedInfo(activeEvent.getId(), choiceIndex, choice.getResultValue()));
+            choiceConfirmed?.Invoke(new ChoiceConfirmedInfo(activeEvent.getId(), choiceIndex, choice.getResultValue(),
+                currentDay, choice.getNpcResult(), choice.getCashDelta()));
             todayEventsChanged?.Invoke();
             negotiationView.showResult(choice.getResultDialogue());
         }
