@@ -89,6 +89,9 @@ namespace TakeOver.NPC
                 }
 
                 // TryRecordMemory가 false면 동일 eventId의 기존 기록이므로 UI 알림도 다시 울리지 않는다.
+                // 프로필별 임시 성향 반응을 사건 기본/개별 반응에 더한다.
+                recordInput.relationDelta = registry.ApplyProfileEventBias(
+                    targetId, recordInput.memoryType, recordInput.relationDelta);
                 if (!memoryService.TryRecordMemory(state, recordInput, out var record)) continue;
                 MemoryRecorded?.Invoke(record);
                 onMemoryRecorded?.Invoke();

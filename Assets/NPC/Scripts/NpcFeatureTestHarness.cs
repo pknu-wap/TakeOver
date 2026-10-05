@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,6 +16,7 @@ namespace TakeOver.NPC
         public string companyId = "company";
         public string actorId = "player";
         public string targetNpcId = "npc";
+        public string actionId = "GoodFaith";
         // 기억 서비스로 넘길 사건 분류, 강도, 공개 범위와 지속 규칙.
         public NpcMemoryType memoryType = NpcMemoryType.GoodFaith;
         public int memoryStrength = 1;
@@ -40,7 +42,7 @@ namespace TakeOver.NPC
         [SerializeField] private NpcEventProcessor eventProcessor;
         [SerializeField] private NpcScreenNavigation screenNavigation;
         [SerializeField] private NpcSaveService saveService;
-        // 현재 테스트가 다루는 NPC, 회사, 게임 턴과 Inspector에서 편집할 기본 사건.
+        // 현재 선택된 NPC, 회사, 게임 턴과 Inspector에서 편집할 기본 사건.
         [SerializeField] private string npcId = "npc-ceo-01";
         [SerializeField] private string companyId = "portfolio-company-01";
         [SerializeField] private System.Collections.Generic.List<string> testTargetNpcIds = new System.Collections.Generic.List<string>();
@@ -73,6 +75,12 @@ namespace TakeOver.NPC
         public NpcRuntimeState RuntimeState { get; private set; }
         public NpcMemoryRecord LastRecordedMemory { get; private set; }
         public int CurrentTurn => turnClock == null ? 1 : turnClock.CurrentTurn;
+        public IReadOnlyList<NpcStateRegistry.NpcSeed> NpcProfiles => registry == null
+            ? Array.Empty<NpcStateRegistry.NpcSeed>()
+            : registry.Profiles;
+        public NpcStateRegistry.NpcSeed SelectedProfile => registry != null && registry.TryGetProfile(npcId, out var profile)
+            ? profile
+            : null;
         public event Action<NpcMemoryRecord> testEventRecorded;
 
         /// <summary>Awake 때 서비스를 찾거나 만들고, 이 브리지 전용 NPC 상태를 초기화한다.</summary>
@@ -80,6 +88,7 @@ namespace TakeOver.NPC
         {
             if (registry == null) registry = GetComponent<NpcStateRegistry>();
             if (registry == null) registry = gameObject.AddComponent<NpcStateRegistry>();
+            registry.EnsureInitialNpcsInitialized();
             if (memoryService == null) memoryService = GetComponent<NpcMemoryService>();
             if (memoryService == null) memoryService = gameObject.AddComponent<NpcMemoryService>();
             memoryService.ConfigureRegistry(registry);
@@ -96,10 +105,36 @@ namespace TakeOver.NPC
             if (saveService == null) saveService = gameObject.AddComponent<NpcSaveService>();
             saveService.Configure(registry, turnClock);
             if (testTargetNpcIds == null) testTargetNpcIds = new System.Collections.Generic.List<string>();
-            if (testTargetNpcIds.Count == 0) testTargetNpcIds.Add(npcId);
+            if (!registry.TryGetProfile(npcId, out var selectedProfile) && registry.Profiles.Count > 0)
+                npcId = registry.Profiles[0].npcId;
+            if (registry.TryGetProfile(npcId, out selectedProfile)) companyId = selectedProfile.companyId;
             RuntimeState = registry.GetOrCreate(npcId, companyId);
-            foreach (var targetId in testTargetNpcIds)
-                if (!string.IsNullOrWhiteSpace(targetId)) registry.GetOrCreate(targetId, companyId);
+            SetSelectedTarget(npcId);
+        }
+
+        /// <summary>테스트 화면에서 선택한 프로필의 관계·기억 상태를 이후 입력 대상으로 바꾼다.</summary>
+        public bool SelectNpcProfile(string selectedNpcId)
+        {
+            if (registry == null || !registry.TryGetProfile(selectedNpcId, out var profile)) return false;
+            npcId = profile.npcId;
+            companyId = profile.companyId;
+            RuntimeState = registry.GetOrCreate(npcId, companyId);
+            SetSelectedTarget(npcId);
+            LastRecordedMemory = RuntimeState.memories.Count == 0
+                ? null
+                : RuntimeState.memories[RuntimeState.memories.Count - 1];
+            return true;
+        }
+
+        /// <summary>기본 사건 버튼과 관계·기억 테스트가 현재 선택된 NPC 하나를 대상으로 하게 맞춘다.</summary>
+        private void SetSelectedTarget(string selectedNpcId)
+        {
+            if (testTargetNpcIds == null) testTargetNpcIds = new List<string>();
+            testTargetNpcIds.Clear();
+            testTargetNpcIds.Add(selectedNpcId);
+            if (testEvent == null) testEvent = new NpcTestEventData();
+            testEvent.companyId = companyId;
+            testEvent.targetNpcId = selectedNpcId;
         }
 
         private void OnEnable()
@@ -137,7 +172,8 @@ namespace TakeOver.NPC
             eventChannel.Publish(new NpcEventPayload
             {
                 eventId = Guid.NewGuid().ToString("N"), companyId = companyId,
-                actorId = testEvent.actorId, targetNpcIds = new System.Collections.Generic.List<string>(testTargetNpcIds),
+                actorId = testEvent.actorId, actionId = testEvent.actionId,
+                targetNpcIds = new System.Collections.Generic.List<string>(testTargetNpcIds),
                 memoryType = testEvent.memoryType, strength = testEvent.memoryStrength,
                 publicity = testEvent.publicity, permanent = testEvent.permanent,
                 durationTurns = testEvent.durationTurns, reliability = testEvent.reliability,
@@ -155,12 +191,21 @@ namespace TakeOver.NPC
         }
 
         /// <summary>관계·기억·턴을 초기 테스트 상태로 되돌린다.</summary>
-        public void ResetTestState()
+        public void ResetSelectedNpcState()
+        {
+            if (RuntimeState == null) return;
+            memoryService.ResetState(RuntimeState);
+            LastRecordedMemory = null;
+        }
+
+        public void ResetAllNpcStates()
         {
             foreach (var state in registry.States) memoryService.ResetState(state);
             LastRecordedMemory = null;
             turnClock.RestoreTurn(1);
         }
+
+        public void ResetTestState() => ResetAllNpcStates();
 
         /// <summary>기억과 별개로 단일 관계 변화량을 적용한다.</summary>
         public void ApplyTestRelationDelta(NpcRelationDelta delta)
@@ -185,6 +230,7 @@ namespace TakeOver.NPC
             var memory = testEvent;
             memory.eventId = Guid.NewGuid().ToString("N");
             memory.memoryType = memoryType;
+            memory.actionId = memoryType.ToString();
             memory.interpretation = $"테스트용 {memoryType} 기억";
             memory.relationDelta = GetTestMemoryDelta(memoryType);
             PublishConfiguredTestEvent(memory);
@@ -235,6 +281,7 @@ namespace TakeOver.NPC
                     string.IsNullOrWhiteSpace(testData.targetNpcId) || testData.targetNpcId == "npc"
                         ? npcId : testData.targetNpcId
                 },
+                actionId = testData.actionId,
                 memoryType = testData.memoryType, strength = testData.memoryStrength,
                 publicity = testData.publicity, permanent = testData.permanent,
                 durationTurns = testData.durationTurns, reliability = testData.reliability,

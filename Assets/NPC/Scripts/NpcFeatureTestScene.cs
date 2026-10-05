@@ -9,20 +9,12 @@ namespace TakeOver.NPC
     /// </summary>
     public sealed class NpcFeatureTestScene : MonoBehaviour
     {
-        private enum ConnectionScreen
-        {
-            Main,
-            EventPlaceholder,
-            PortfolioPlaceholder
-        }
-
         // 테스트 상태를 제공하는 브리지. Inspector 참조가 비어 있으면 씬에서 찾아 연결한다.
         [SerializeField] private NpcFeatureTestHarness bridge;
-        // 중앙 테스트 영역과 기억 목록의 스크롤 위치를 각각 유지한다.
+        // 관계·기억 테스트 영역과 기억 목록의 스크롤 위치를 각각 유지한다.
         private Vector2 memoryScrollPosition;
         private Vector2 bodyScrollPosition;
         private string saveStatus = "";
-        private ConnectionScreen connectionScreen;
 
         /// <summary>씬의 브리지를 찾아 테스트 화면에서 사용할 준비를 한다.</summary>
         private void Start()
@@ -30,10 +22,7 @@ namespace TakeOver.NPC
             if (bridge == null) bridge = FindFirstObjectByType<NpcFeatureTestHarness>();
         }
 
-        /// <summary>
-        /// 상단 요약, 스크롤 가능한 두 열 테스트 영역, 하단 고정 버튼을 그린다.
-        /// 하단 버튼을 고정 좌표로 두어 기억 목록이 길어져도 주요 입력을 계속 사용할 수 있다.
-        /// </summary>
+        /// <summary>인물 선택·프로필과 기존 관계·Memory 테스트 조작을 한 화면에 그린다.</summary>
         private void OnGUI()
         {
             if (bridge == null || bridge.RuntimeState == null) return;
@@ -41,35 +30,40 @@ namespace TakeOver.NPC
             var scale = Mathf.Min(Screen.width / 1280f, Screen.height / 720f);
             var offset = new Vector2((Screen.width - 1280f * scale) * 0.5f, (Screen.height - 720f * scale) * 0.5f);
             GUI.matrix = Matrix4x4.TRS(new Vector3(offset.x, offset.y, 0f), Quaternion.identity, new Vector3(scale, scale, 1f));
-            var titleStyle = new GUIStyle(GUI.skin.label) { fontSize = 30, fontStyle = FontStyle.Bold };
-            var labelStyle = new GUIStyle(GUI.skin.label) { fontSize = 24 };
-            var buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = 22 };
-            if (connectionScreen != ConnectionScreen.Main)
-            {
-                DrawConnectionPlaceholder(titleStyle, labelStyle, buttonStyle);
-                return;
-            }
+            var titleStyle = new GUIStyle(GUI.skin.label) { fontSize = 28, fontStyle = FontStyle.Bold };
+            var labelStyle = new GUIStyle(GUI.skin.label) { fontSize = 20 };
+            var profileTextStyle = new GUIStyle(GUI.skin.label) { fontSize = 16, wordWrap = true };
+            var buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = 20 };
+            var footerButtonStyle = new GUIStyle(GUI.skin.button) { fontSize = 16 };
             var relation = bridge.RuntimeState.relation;
+            var profile = bridge.SelectedProfile;
             GUI.BeginGroup(new Rect(40f, 20f, 1200f, 680f));
             GUI.Box(new Rect(0f, 0f, 1200f, 680f), GUIContent.none, GUI.skin.box);
-            GUI.Label(new Rect(20f, 10f, 1160f, 40f), "NPC / 포트폴리오 연결 테스트", titleStyle);
-            GUI.Label(new Rect(20f, 52f, 1160f, 30f), $"NPC: {bridge.RuntimeState.npcId}    회사: {bridge.RuntimeState.companyId}", labelStyle);
-            GUI.Label(new Rect(20f, 82f, 1160f, 30f), $"현재 날짜: {bridge.CurrentTurn}일    기록된 기억: {bridge.RuntimeState.memories.Count}개", labelStyle);
-            GUI.Label(new Rect(20f, 112f, 1160f, 30f), "관계 변화는 기록 시 1회 적용 · Memory 영향력은 감소값만 제공(행동/협상 소비부 미연결)", labelStyle);
-            GUI.Label(new Rect(20f, 142f, 1160f, 30f), $"신뢰 {relation.trust:0}   존중 {relation.respect:0}   두려움 {relation.fear:0}", labelStyle);
-            GUI.Label(new Rect(20f, 172f, 1160f, 30f), $"적대감 {relation.hostility:0}   의존도 {relation.dependency:0}   관심 {relation.interest:0}", labelStyle);
+            GUI.Label(new Rect(20f, 8f, 1160f, 38f), "NPC 프로필 / 관계 / Memory 테스트", titleStyle);
+            DrawNpcProfileSelector(profile);
+            if (profile != null && profile.profile != null)
+            {
+                GUI.Label(new Rect(20f, 126f, 1160f, 34f),
+                    $"{profile.profile.affiliation} · 성향: {profile.profile.personalitySummary}", profileTextStyle);
+                GUI.Label(new Rect(20f, 160f, 1160f, 40f),
+                    $"게임 역할: {profile.profile.gameplayRoleSummary}", profileTextStyle);
+            }
+            GUI.Label(new Rect(20f, 202f, 1160f, 26f),
+                $"현재 날짜: {bridge.CurrentTurn}일    기록된 기억: {bridge.RuntimeState.memories.Count}개", labelStyle);
+            GUI.Label(new Rect(20f, 228f, 1160f, 25f),
+                "관계 버튼은 직접 조작 · 사건 Memory에는 NPC별 임시 성향 보정이 더해짐 · 게임 규칙 확정 전 테스트용", profileTextStyle);
+            GUI.Label(new Rect(20f, 255f, 1160f, 27f),
+                $"신뢰 {relation.trust:0}   존중 {relation.respect:0}   두려움 {relation.fear:0}", labelStyle);
+            GUI.Label(new Rect(20f, 282f, 1160f, 27f),
+                $"적대감 {relation.hostility:0}   의존도 {relation.dependency:0}   관심 {relation.interest:0}", labelStyle);
 
             // 중앙의 관계/기억 조작 영역만 스크롤한다. 하단 동작은 별도 고정 영역에 둔다.
-            var bodyViewport = new Rect(10f, 210f, 1180f, 360f);
+            var bodyViewport = new Rect(10f, 314f, 1180f, 256f);
             bodyScrollPosition = GUI.BeginScrollView(
                 bodyViewport, bodyScrollPosition, new Rect(0f, 0f, 1160f, 620f), false, true);
             GUILayout.BeginArea(new Rect(0f, 0f, 1140f, 620f));
             GUILayout.BeginHorizontal();
             GUILayout.BeginVertical(GUILayout.Width(540f));
-            GUILayout.Label("다른 파트 화면 연결", titleStyle);
-            DrawActionButton("이벤트 파트 화면 열기", OpenEventScreen, buttonStyle);
-            DrawActionButton("포트폴리오/지분 화면 열기", OpenPortfolioScreen, buttonStyle);
-            GUILayout.Space(8f);
             GUILayout.Label("관계 스테이터스 테스트", titleStyle);
             DrawActionButton("신뢰 올리기", bridge.ApplyTrustTestDelta, buttonStyle);
             DrawActionButton("존중 올리기", bridge.ApplyRespectTestDelta, buttonStyle);
@@ -104,7 +98,7 @@ namespace TakeOver.NPC
                     var duration = memory.permanent
                         ? "영구 영향력 100%"
                         : $"협상 영향력 {memory.influence * 100f:0}% · 잔여 {memory.remainingTurns}턴";
-                    GUILayout.Label($"{memory.memoryId} | {GetMemoryLabel(memory.memoryType)} | 기록 턴 {memory.turn} | {duration}", labelStyle);
+                    GUILayout.Label($"{memory.memoryId} | {GetMemoryLabel(memory.memoryType)} | 행동 성향 {GetActionDispositionLabel(memory.actionDisposition)} | 기록 턴 {memory.turn} | {duration}", labelStyle);
                 }
             }
             GUILayout.EndScrollView();
@@ -120,44 +114,44 @@ namespace TakeOver.NPC
                     labelStyle);
             }
             GUI.Label(new Rect(400f, 580f, 780f, 25f), saveStatus, labelStyle);
-            if (GUI.Button(new Rect(10f, 614f, 300f, 52f), "테스트 사건 발행", buttonStyle)) bridge.PublishTestEvent();
-            if (GUI.Button(new Rect(315f, 614f, 205f, 52f), "턴 진행", buttonStyle)) bridge.AdvanceTurn();
-            if (GUI.Button(new Rect(525f, 614f, 205f, 52f), "저장", buttonStyle)) SaveState();
-            if (GUI.Button(new Rect(735f, 614f, 205f, 52f), "불러오기", buttonStyle)) LoadState();
-            if (GUI.Button(new Rect(945f, 614f, 245f, 52f), "초기화", buttonStyle)) bridge.ResetTestState();
+            if (GUI.Button(new Rect(10f, 614f, 220f, 52f), "테스트 사건 발행", footerButtonStyle)) bridge.PublishTestEvent();
+            if (GUI.Button(new Rect(236f, 614f, 135f, 52f), "턴 진행", footerButtonStyle)) bridge.AdvanceTurn();
+            if (GUI.Button(new Rect(377f, 614f, 125f, 52f), "저장", footerButtonStyle)) SaveState();
+            if (GUI.Button(new Rect(508f, 614f, 140f, 52f), "불러오기", footerButtonStyle)) LoadState();
+            if (GUI.Button(new Rect(654f, 614f, 240f, 52f), "선택 NPC 초기화", footerButtonStyle)) bridge.ResetSelectedNpcState();
+            if (GUI.Button(new Rect(900f, 614f, 290f, 52f), "전체 NPC 초기화", footerButtonStyle)) bridge.ResetAllNpcStates();
             GUI.EndGroup();
         }
 
-        /// <summary>대응 화면이 아직 연결되지 않은 상태도 버튼 동작으로 확인할 수 있게 안내 화면을 띄운다.</summary>
-        private void DrawConnectionPlaceholder(GUIStyle titleStyle, GUIStyle labelStyle, GUIStyle buttonStyle)
+        /// <summary>프리팹에 저장한 다섯 프로필을 탭처럼 보여주고 선택 NPC를 브리지에 전달한다.</summary>
+        private void DrawNpcProfileSelector(NpcStateRegistry.NpcSeed selectedProfile)
         {
-            var isEventScreen = connectionScreen == ConnectionScreen.EventPlaceholder;
-            var title = isEventScreen ? "이벤트 파트 연결" : "포트폴리오/지분 파트 연결";
-            var description = isEventScreen
-                ? "이벤트 파트 화면이 준비되면 Inspector의 이벤트 화면 UnityEvent에 연결해 주세요.\n선택 결과는 NPC 이벤트 채널을 통해 관계와 Memory에 반영할 수 있습니다."
-                : "포트폴리오/지분 파트 화면이 준비되면 Inspector의 포트폴리오 화면 UnityEvent에 연결해 주세요.\nNPC 파트 버튼 연결은 준비되어 있습니다.";
+            var profiles = bridge.NpcProfiles;
+            if (profiles == null || profiles.Count == 0) return;
 
-            GUI.BeginGroup(new Rect(40f, 20f, 1200f, 680f));
-            GUI.Box(new Rect(0f, 0f, 1200f, 680f), GUIContent.none, GUI.skin.box);
-            GUI.Label(new Rect(40f, 32f, 1120f, 50f), title, titleStyle);
-            GUI.Label(new Rect(40f, 120f, 1120f, 120f), description, labelStyle);
-            if (GUI.Button(new Rect(400f, 570f, 400f, 60f), "NPC 테스트 화면으로 돌아가기", buttonStyle))
-                connectionScreen = ConnectionScreen.Main;
-            GUI.EndGroup();
-        }
-
-        /// <summary>이벤트 파트 진입 버튼을 누르면 연결된 화면을 열고, 미연결이면 안내 화면을 보여준다.</summary>
-        private void OpenEventScreen()
-        {
-            connectionScreen = ConnectionScreen.EventPlaceholder;
-            bridge.OpenEventScreen();
-        }
-
-        /// <summary>포트폴리오 파트 진입 버튼을 누르면 연결된 화면을 열고, 미연결이면 안내 화면을 보여준다.</summary>
-        private void OpenPortfolioScreen()
-        {
-            connectionScreen = ConnectionScreen.PortfolioPlaceholder;
-            bridge.OpenPortfolioScreen();
+            const float startX = 20f;
+            const float totalWidth = 1160f;
+            const float top = 54f;
+            const float tabHeight = 54f;
+            var tabWidth = totalWidth / profiles.Count;
+            for (var index = 0; index < profiles.Count; index++)
+            {
+                var profile = profiles[index];
+                if (profile == null || profile.profile == null) continue;
+                var isSelected = selectedProfile != null && selectedProfile.npcId == profile.npcId;
+                var tabStyle = new GUIStyle(GUI.skin.button)
+                {
+                    fontSize = 16,
+                    fontStyle = isSelected ? FontStyle.Bold : FontStyle.Normal,
+                    wordWrap = true
+                };
+                var label = $"{profile.profile.displayName}\n{profile.profile.role}";
+                if (GUI.Button(new Rect(startX + index * tabWidth, top, tabWidth - 6f, tabHeight), label, tabStyle))
+                {
+                    if (!bridge.SelectNpcProfile(profile.npcId))
+                        Debug.LogWarning($"NPC 프로필 '{profile.npcId}'을 선택하지 못했습니다.", this);
+                }
+            }
         }
 
         private void SaveState()
@@ -184,6 +178,16 @@ namespace TakeOver.NPC
         }
 
         /// <summary>테스트 화면에서 enum 이름 대신 팀원이 읽기 쉬운 기억 이름을 보여준다.</summary>
+        private static string GetActionDispositionLabel(NpcActionDisposition disposition)
+        {
+            switch (disposition)
+            {
+                case NpcActionDisposition.Likes: return "선호";
+                case NpcActionDisposition.Dislikes: return "불호";
+                default: return "미지정";
+            }
+        }
+
         private static string GetMemoryLabel(NpcMemoryType memoryType)
         {
             switch (memoryType)
