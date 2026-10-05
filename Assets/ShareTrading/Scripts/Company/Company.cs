@@ -7,6 +7,7 @@ public class Company : MonoBehaviour
     public CompanyDefinition definition => companyDefinition;
 
     public CompanyState state { get; private set; }
+    public CompanyMarketState marketState { get; private set; }
     public CompanyHistory history { get; private set; }
     public CompanyStatCalculator calculator;
 
@@ -19,6 +20,7 @@ public class Company : MonoBehaviour
         }
 
         state = new CompanyState(companyDefinition);
+        marketState = new CompanyMarketState();
         history = new CompanyHistory(state);
         calculator = new CompanyStatCalculator();
 

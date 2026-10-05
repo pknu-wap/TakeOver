@@ -4,142 +4,156 @@ public class CompanyStatCalculator
 {
     public void calculateInitializeStat(Company company, TmpMarketData marketData)
     {
-        calculateMetrics(company);
-        calculateFactors(company);
-        calculateFundamentalValue(company);
-        calculateMarketValue(company, marketData);
-        calculateAboutShares(company);
+        recalculate(company, marketData);
     }
 
     public void calculateTurnend(Company company, TmpMarketData marketData)
     {
+        recalculate(company, marketData);
+    }
+
+    public void recalculate(Company company, TmpMarketData marketData)
+    {
+        calculateHistoryStat(company);
         calculateMetrics(company);
         calculateFactors(company);
         calculateFundamentalValue(company);
         calculateMarketValue(company, marketData);
         calculateAboutShares(company);
-        // calculateHistoryStat(company);
     }
 
     public void calculateMetrics(Company company)
     {
         CompanyState state = company.state;
-        // CompanyState 생성자에는 별도 예외처리가 없어 계산식을 그대로 가져옴.
+        float revenue = state.getStat(CompanyStat.REVENUE);
+        float cost = state.getStat(CompanyStat.COST);
 
-
-        // 주의: initialRevenue 가 0 이하면 오류가 생길 수 있음. 이외에도 0이 되거나 NaN이 되는 오류가 있음.
-        // NetProfit
         state.setDerivedStat(CompanyDerivedStat.NET_PROFIT,
-            state.getStat(CompanyStat.REVENUE) - state.getStat(CompanyStat.COST));
-        // NetMargin
+            CompanyCalculationMath.finite((double)revenue - cost));
         state.setDerivedStat(CompanyDerivedStat.NET_MARGIN,
-            state.getDerivedStat(CompanyDerivedStat.NET_PROFIT) / state.getStat(CompanyStat.REVENUE));
-        // RevenueGrowth
+            CompanyCalculationMath.safeDivide(state.getDerivedStat(CompanyDerivedStat.NET_PROFIT),
+                CompanyCalculationMath.safeDenominator(revenue, state.initialRevenue)));
         state.setDerivedStat(CompanyDerivedStat.REVENUE_GROWTH,
-            (state.getStat(CompanyStat.REVENUE) - state.beforeRevenue) /
-            (state.beforeRevenue == 0f ? state.initialRevenue : Mathf.Abs(state.beforeRevenue)));
-        // NetProfitGrowth
+            CompanyCalculationMath.safeDivide((double)revenue - state.beforeRevenue,
+                CompanyCalculationMath.safeDenominator(state.beforeRevenue, state.initialRevenue)));
         state.setDerivedStat(CompanyDerivedStat.NET_PROFIT_GROWTH,
-            (state.getDerivedStat(CompanyDerivedStat.NET_PROFIT) - state.beforeNetProfit) /
-            (state.beforeNetProfit == 0f ? state.initialRevenue : Mathf.Abs(state.beforeNetProfit)));
-        // NetmarginTrend
+            CompanyCalculationMath.safeDivide((double)state.getDerivedStat(CompanyDerivedStat.NET_PROFIT) - state.beforeNetProfit,
+                CompanyCalculationMath.safeDenominator(state.beforeNetProfit, state.initialRevenue)));
         state.setDerivedStat(CompanyDerivedStat.NET_MARGIN_TREND,
-            state.getDerivedStat(CompanyDerivedStat.NET_MARGIN) - state.beforeNetMargin);
-        // TotalAssets
+            CompanyCalculationMath.finite((double)state.getDerivedStat(CompanyDerivedStat.NET_MARGIN) - state.beforeNetMargin));
         state.setDerivedStat(CompanyDerivedStat.TOTAL_ASSETS,
-            state.getStat(CompanyStat.CASH) +
-            state.getStat(CompanyStat.TANGIBLE_ASSETS) +
-            state.getStat(CompanyStat.INTANGIBLE_ASSTES));
-        // DebtRatio
+            CompanyCalculationMath.finite((double)state.getStat(CompanyStat.CASH)
+                + state.getStat(CompanyStat.TANGIBLE_ASSETS) + state.getStat(CompanyStat.INTANGIBLE_ASSTES)));
+        state.setDerivedStat(CompanyDerivedStat.ASSET_VALUE,
+            CompanyCalculationMath.finite((double)state.getStat(CompanyStat.CASH)
+                + state.getStat(CompanyStat.TANGIBLE_ASSETS) * (double)state.tangibleCoefficient
+                + state.getStat(CompanyStat.INTANGIBLE_ASSTES) * (double)state.intangibleCoefficient
+                - state.getStat(CompanyStat.DEBT)));
         state.setDerivedStat(CompanyDerivedStat.DEBT_RATIO,
-            state.getStat(CompanyStat.DEBT) / state.getDerivedStat(CompanyDerivedStat.TOTAL_ASSETS));
-        // LiquidityStrength
+            CompanyCalculationMath.safeDivide(state.getStat(CompanyStat.DEBT),
+                CompanyCalculationMath.safeDenominator(state.getDerivedStat(CompanyDerivedStat.TOTAL_ASSETS), state.initialAssetValue)));
         state.setDerivedStat(CompanyDerivedStat.LIQUIDITY_STRENGTH,
-            state.getStat(CompanyStat.CASH) / state.getStat(CompanyStat.COST));
+            CompanyCalculationMath.safeDivide(state.getStat(CompanyStat.CASH),
+                CompanyCalculationMath.safeDenominator(cost, state.initialCost)));
     }
 
     public void calculateFactors(Company company)
     {
         CompanyState state = company.state;
-        state.setDerivedStat(CompanyDerivedStat.ASSET_VALUE,
-            state.getDerivedStat(CompanyDerivedStat.TOTAL_ASSETS)); // 임시로 ASSET_VALUE = TOTAL_ASSETS
+        float revenueFactor = CompanyCalculationMath.clampFactor(
+            (double)state.getStat(CompanyStat.REVENUE) / state.initialRevenue, 0.25f, 2f);
+        float profitScale = CompanyCalculationMath.safeDenominator(state.initialNetProfit, state.initialRevenue);
+        float profitFactor = CompanyCalculationMath.clampFactor(1d
+            + ((double)state.getDerivedStat(CompanyDerivedStat.NET_PROFIT) - state.initialNetProfit) / profitScale, 0.25f, 2f);
+        float marginScale = Mathf.Max(Mathf.Abs(state.initialNetMargin), 0.1f);
+        float marginFactor = CompanyCalculationMath.clampFactor(1d + 0.5d
+            * ((double)state.getDerivedStat(CompanyDerivedStat.NET_MARGIN) - state.initialNetMargin) / marginScale, 0.25f, 2f);
         state.setDerivedStat(CompanyDerivedStat.EARNINGS_POWER,
-            state.getStat(CompanyStat.REVENUE) / state.initialRevenue * 0.4f +
-                (1f + (state.getDerivedStat(CompanyDerivedStat.NET_PROFIT) - state.initialNetProfit)
-                    / state.initialRevenue) * 0.3f +
-                (1f + state.getDerivedStat(CompanyDerivedStat.NET_MARGIN)
-                    - state.initialNetMargin) * 0.3f);
+            CompanyCalculationMath.clampFactor(revenueFactor * 0.4f + profitFactor * 0.35f + marginFactor * 0.25f, 0.25f, 2f));
+
+        float revenueTrendFactor = 1f + CompanyCalculationMath.clamp(
+            state.getDerivedStat(CompanyDerivedStat.REVENUE_GROWTH), -0.5f, 0.5f);
+        float profitTrendFactor = 1f + 0.5f * CompanyCalculationMath.clamp(
+            state.getDerivedStat(CompanyDerivedStat.NET_PROFIT_GROWTH), -1f, 1f);
+        float marginTrendFactor = 1f + 0.5f * CompanyCalculationMath.clamp(
+            state.getDerivedStat(CompanyDerivedStat.NET_MARGIN_TREND) / 0.1d, -1f, 1f);
         state.setDerivedStat(CompanyDerivedStat.PERFORMANCE_TREND,
-            1f +
-            state.getDerivedStat(CompanyDerivedStat.REVENUE_GROWTH) * 0.2f +
-            state.getDerivedStat(CompanyDerivedStat.NET_PROFIT_GROWTH) * 0.5f +
-            state.getDerivedStat(CompanyDerivedStat.NET_MARGIN_TREND) * state.netMarginTrendCoefficient); // Clamp?
+            CompanyCalculationMath.clampFactor(
+                revenueTrendFactor * 0.3f + profitTrendFactor * 0.5f + marginTrendFactor * 0.2f, 0.5f, 1.5f));
+
+        float debtFactor = CompanyCalculationMath.clampFactor(CompanyCalculationMath.safeDivide(
+            1d + state.initialDebtRatio,
+            CompanyCalculationMath.positiveDenominator(1d + state.getDerivedStat(CompanyDerivedStat.DEBT_RATIO)), 1f), 0.5f, 1.5f);
+        float liquidityFactor = CompanyCalculationMath.clampFactor(CompanyCalculationMath.safeDivide(
+            1d + state.getDerivedStat(CompanyDerivedStat.LIQUIDITY_STRENGTH),
+            CompanyCalculationMath.positiveDenominator(1d + state.initialLiquidityStrength), 1f), 0.5f, 1.5f);
         state.setDerivedStat(CompanyDerivedStat.FINANCIAL_STRENGTH,
-            (1f + state.initialDebtRatio) /
-                (1f + state.getDerivedStat(CompanyDerivedStat.DEBT_RATIO)) * 0.5f +
-            state.getDerivedStat(CompanyDerivedStat.LIQUIDITY_STRENGTH) /
-                state.initialLiquidityStrength * 0.5f);
+            CompanyCalculationMath.clampFactor(debtFactor * 0.6f + liquidityFactor * 0.4f, 0.5f, 1.5f));
+
+        float assetScale = CompanyCalculationMath.safeDenominator(state.initialAssetValue, state.initialRevenue, 0.5f);
         state.setDerivedStat(CompanyDerivedStat.ASSET_FACTOR,
-            state.getDerivedStat(CompanyDerivedStat.ASSET_VALUE) / state.initialAssetValue);
+            CompanyCalculationMath.clampFactor(1d
+                + ((double)state.getDerivedStat(CompanyDerivedStat.ASSET_VALUE) - state.initialAssetValue) / assetScale, 0.25f, 2f));
     }
 
     public void calculateFundamentalValue(Company company)
     {
         CompanyState state = company.state;
-        float fundamentalRatio =
+        float fundamentalRatio = CompanyCalculationMath.clampFactor(
             state.getDerivedStat(CompanyDerivedStat.EARNINGS_POWER) * 0.4f +
             state.getDerivedStat(CompanyDerivedStat.PERFORMANCE_TREND) * 0.2f +
             state.getDerivedStat(CompanyDerivedStat.FINANCIAL_STRENGTH) * 0.2f +
-            state.getDerivedStat(CompanyDerivedStat.ASSET_FACTOR) * 0.2f;
+            state.getDerivedStat(CompanyDerivedStat.ASSET_FACTOR) * 0.2f);
         state.setDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE,
-            state.getStat(CompanyStat.BASE_COMPANY_VALUE) * fundamentalRatio);
+            CompanyCalculationMath.finite(state.getStat(CompanyStat.BASE_COMPANY_VALUE) * (double)fundamentalRatio));
     }
 
     public void calculateMarketValue(Company company, TmpMarketData marketData)
     {
         CompanyState state = company.state;
-        state.setDerivedStat(CompanyDerivedStat.MARKET_EVALUATION, 
-            marketData.getMarketEvaluation(company)); // 임시값. 직접 수정 필요
+        state.setDerivedStat(CompanyDerivedStat.MARKET_EVALUATION,
+            company.marketState.getMarketEvaluation(state, marketData.globalMarketScore));
+        float liquidityPriceFactor = 1f
+            + (company.marketState.getMarketLiquidity(state, marketData.globalMarketScore) - 1f) * 0.1f;
         state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE,
-            state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE) *
-            state.getDerivedStat(CompanyDerivedStat.MARKET_EVALUATION) *
-            marketData.marketLiquidity);
+            CompanyCalculationMath.finite((double)state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE)
+                * state.getDerivedStat(CompanyDerivedStat.MARKET_EVALUATION) * liquidityPriceFactor));
         state.setDerivedStat(CompanyDerivedStat.SHARE_PRICE,
-            state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE) / state.totalShares);
+            CompanyCalculationMath.safeDivide(state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE), state.totalShares));
     }
 
     public void calculateAboutShares(Company company)
     {
         CompanyState state = company.state;
         state.setDerivedStat(CompanyDerivedStat.REMAIN_SHARES,
-            state.totalShares - state.getStat(CompanyStat.PLAYER_SHARES));
+            CompanyCalculationMath.finite((double)state.totalShares - state.getStat(CompanyStat.PLAYER_SHARES)));
         state.setDerivedStat(CompanyDerivedStat.STAKE,
-            state.getStat(CompanyStat.PLAYER_SHARES) / state.totalShares * 100);
+            CompanyCalculationMath.safeDivide(state.getStat(CompanyStat.PLAYER_SHARES) * 100d, state.totalShares));
     }
 
     public void calculateHistoryStat(Company company)
     {
-        int historyCount = company.history.History.Count;
-        if (historyCount == 0) {historyCount = 1;}
-        float tmp = 0f;
-        foreach (CompanyHistoryEntry entry in company.history.History)
+        CompanyState state = company.state;
+        int count = company.history.History.Count;
+        if (count == 0)
         {
-            tmp += entry.revenue;
+            state.beforeRevenue = state.initialRevenue;
+            state.beforeNetProfit = state.initialNetProfit;
+            state.beforeNetMargin = state.initialNetMargin;
+            return;
         }
-        company.state.beforeRevenue = tmp / historyCount;
 
-        tmp = 0f;
+        double revenue = 0d;
+        double netProfit = 0d;
+        double netMargin = 0d;
         foreach (CompanyHistoryEntry entry in company.history.History)
         {
-            tmp += entry.netProfit;
+            revenue += entry.revenue;
+            netProfit += entry.netProfit;
+            netMargin += entry.netMargin;
         }
-        company.state.beforeNetProfit = tmp / historyCount;
-
-        tmp = 0f;
-        foreach (CompanyHistoryEntry entry in company.history.History)
-        {
-            tmp += entry.netMargin;
-        }
-        company.state.beforeNetMargin = tmp / historyCount;
+        state.beforeRevenue = CompanyCalculationMath.finite(revenue / count, state.initialRevenue);
+        state.beforeNetProfit = CompanyCalculationMath.finite(netProfit / count, state.initialNetProfit);
+        state.beforeNetMargin = CompanyCalculationMath.finite(netMargin / count, state.initialNetMargin);
     }
 }

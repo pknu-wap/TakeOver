@@ -99,11 +99,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2861563636828900442}
-  - component: {fileID: 3551093198360838554}
-  - component: {fileID: 1855018050064955431}
-  - component: {fileID: 7428086192204875296}
-  - component: {fileID: 6108743891755158155}
   - component: {fileID: 8237969287396869895}
+  - component: {fileID: 1855018050064955431}
+  - component: {fileID: 3551093198360838554}
+  - component: {fileID: 7428086192204875296}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -126,7 +125,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3210168565471856309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3551093198360838554
+--- !u!114 &8237969287396869895
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,10 +134,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5643717909320174764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dc553723b9554d40a716abe37c8719f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6dbe1ba9f2a84e5dacc01baec68cbff9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShareTradingSystem
-  player: {fileID: 5150549921634898239}
+  m_EditorClassIdentifier: Assembly-CSharp::Companies
+  companies:
+  - {fileID: 4843538842536291213}
+  - {fileID: 3766095109131795667}
 --- !u!114 &1855018050064955431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +155,19 @@ MonoBehaviour:
   companies: {fileID: 8237969287396869895}
   currentTurn: 1
   marketData: {fileID: 5191246152492245077}
+--- !u!114 &3551093198360838554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5643717909320174764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc553723b9554d40a716abe37c8719f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShareTradingSystem
+  player: {fileID: 5150549921634898239}
 --- !u!114 &7428086192204875296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,35 +198,6 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &6108743891755158155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5643717909320174764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c19062d854c4ac445b1e3483ebe23026, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::A
-  UIManager: {fileID: 0}
-  dashboardUI: {fileID: 0}
---- !u!114 &8237969287396869895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5643717909320174764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dbe1ba9f2a84e5dacc01baec68cbff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Companies
-  companies:
-  - {fileID: 4843538842536291213}
-  - {fileID: 3766095109131795667}
 --- !u!1 &6383464258228666377
 GameObject:
   m_ObjectHideFlags: 0

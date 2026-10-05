@@ -21,16 +21,18 @@ public class TmpGameturnSystem : MonoBehaviour
             company.calculator.calculateTurnend(company, marketData);
         }
 
+
         saveAllCompanyHistory();
 
-        foreach(Company company in companies.CompanyList)
-        {
-            company.calculator.calculateHistoryStat(company);
-        }
-    
         Debug.Log($"{currentTurn}턴 종료");
 
         currentTurn++;
+        marketData.updateTurn(currentTurn);
+
+        foreach (Company company in companies.CompanyList)
+        {
+            company.calculator.recalculate(company, marketData);
+        }
     }
 
     private void saveAllCompanyHistory()
