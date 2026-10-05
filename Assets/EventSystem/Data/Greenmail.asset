@@ -1,0 +1,233 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: Greenmail
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: greenmail_01
+  title: "\uADF8\uB9B0\uBA54\uC77C \uC81C\uC548"
+  image: {fileID: 1034014796780061455, guid: d1232dcee65db644d892ef7a67adee87, type: 2}
+  description: "{company} {speaker} \uB300\uD45C\uAC00 \uC6C3\uB3C8\uC744 \uC5B9\uC5B4
+    \uC9C0\uBD84\uC744 \uB418\uC0AC\uACA0\uB2E4\uACE0 \uC81C\uC548\uD588\uB2E4."
+  apCost: 1
+  startButtonText: "\uC81C\uC548\uC744 \uB4E3\uB294\uB2E4"
+  companyIds: []
+  speakerName: 
+  speakerRole: 
+  dialogue: "\uC2DC\uC138\uBCF4\uB2E4 \uB109\uB109\uD788 \uCCD0 \uB4DC\uB9AC\uC8E0.
+    \uC9C0\uBD84\uC744 \uB118\uAE30\uACE0 \uC6B0\uB9AC \uD68C\uC0AC\uC5D0\uC11C \uC190\uC744
+    \uB5BC \uC8FC\uC2ED\uC2DC\uC624."
+  choices:
+  - choiceText: "\uBC1B\uC544\uB4E4\uC778\uB2E4"
+    resultDialogue: "\uD604\uBA85\uD558\uC2DC\uAD70\uC694. \uB300\uAE08\uC740 \uBC14\uB85C
+      \uBCF4\uB0B4\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: accept
+    npcResult:
+      eventId: 
+      companyId: 
+      actorId: 
+      actionId: 
+      targetNpcIds:
+      - npc-kang-junhyuk
+      - npc-kim-harin
+      - npc-jo-minseok
+      - npc-kang-jaehyun
+      targetReactions:
+      - targetNpcId: npc-kang-junhyuk
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags:
+        - greenmail_accept
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: -10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-kim-harin
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags:
+        - greenmail_accept
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: -10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-jo-minseok
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags:
+        - greenmail_accept
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: -10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-kang-jaehyun
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags:
+        - greenmail_accept
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: -10
+          dependency: 0
+          interest: 0
+      memoryType: 8
+      strength: 2
+      publicity: 1
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: 
+      tags:
+      - greenmail_accept
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 300
+  - choiceText: "\uAC70\uC808\uD55C\uB2E4"
+    resultDialogue: "\uD6C4\uD68C\uD558\uC2E4 \uAC81\uB2C8\uB2E4."
+    resultValue: reject
+    npcResult:
+      eventId: 
+      companyId: 
+      actorId: 
+      actionId: 
+      targetNpcIds:
+      - npc-kang-junhyuk
+      - npc-kim-harin
+      - npc-jo-minseok
+      - npc-kang-jaehyun
+      targetReactions:
+      - targetNpcId: npc-kang-junhyuk
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 10
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-kim-harin
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 10
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-jo-minseok
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 10
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-kang-jaehyun
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 10
+          fear: 10
+          hostility: 10
+          dependency: 0
+          interest: 0
+      memoryType: 3
+      strength: 2
+      publicity: 1
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: 
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+  conditions:
+  - kind: 2
+    npcId: 
+    relationAxis: 0
+    comparison: 0
+    value: 25
+    relaxedByEventId: 
+    relaxedByChoiceIndex: 0
+    relaxedValue: 0
+  validDays: 2
+  speakerSource: 1

@@ -13,11 +13,12 @@ namespace TakeOver.Events
         [SerializeField] private Button backButton;
         [SerializeField] private Button startButton;
 
-        public void show(EventDefinition definition, EventSystemController controller)
+        public void show(TodayEventInfo info, EventSystemController controller)
         {
+            EventDefinition definition = info.definition;
             eventImage.sprite = definition.getImage();
-            titleText.text = definition.getTitle();
-            descriptionText.text = definition.getDescription();
+            titleText.text = info.title;
+            descriptionText.text = info.description;
             apCostText.text = $"소모 AP  {definition.getApCost()}";
             startButtonText.text = definition.getStartButtonText();
             backButton.onClick.RemoveAllListeners();

@@ -22,22 +22,26 @@ namespace TakeOver.Events
         public string resultValue { get; }
         public string occurrenceId { get; }
         public int currentDay { get; }
-        public NpcEventPayload npcResult { get; }
+        public NpcEventPayload npcResult { get; private set; }
+        public string companyId { get; }
+        internal void clearNpcResult() => npcResult = null;
         public float cashDelta { get; }
 
         public ChoiceConfirmedInfo(string eventId, int choiceIndex, string resultValue,
-            int currentDay, NpcEventPayload npcResult, float cashDelta)
+            int currentDay, NpcEventPayload npcResult, float cashDelta, string companyId = "")
         {
             this.eventId = eventId;
             this.choiceIndex = choiceIndex;
             this.resultValue = resultValue;
             this.currentDay = currentDay;
+            this.companyId = companyId;
             occurrenceId = $"day{currentDay}:{eventId}";
             this.cashDelta = cashDelta;
             if (npcResult != null && npcResult.targetNpcIds != null && npcResult.targetNpcIds.Count > 0)
             {
                 this.npcResult = JsonUtility.FromJson<NpcEventPayload>(JsonUtility.ToJson(npcResult));
                 this.npcResult.eventId = occurrenceId;
+                this.npcResult.companyId = companyId;
             }
         }
     }

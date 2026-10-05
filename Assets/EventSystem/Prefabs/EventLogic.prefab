@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6720167122843914350}
   - component: {fileID: 4045393930603725828}
+  - component: {fileID: 1400373833191185210}
   m_Layer: 0
   m_Name: EventLogic
   m_TagString: Untagged
@@ -46,5 +47,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: TakeOver.Events::TakeOver.Events.EventSystemController
   events:
   - {fileID: 11400000, guid: 159df46a23855c54ca7b6c0d2400fb2e, type: 2}
+  - {fileID: 11400000, guid: 22995f2b4d8a7c5439045e94e8072ca0, type: 2}
+  - {fileID: 11400000, guid: 4c0454a43492e204b998d5dbacfede7c, type: 2}
+  - {fileID: 11400000, guid: ad0b55219d0674c419f8f18850bb2fd6, type: 2}
+  - {fileID: 11400000, guid: ba748721572119a4198b543e7f3cc8a6, type: 2}
+  - {fileID: 11400000, guid: 5f7905cf21cc5f64698e39e699a09996, type: 2}
+  - {fileID: 11400000, guid: 7c6a1b69a5216c5438ede78cc0dce987, type: 2}
   detailView: {fileID: 0}
   negotiationView: {fileID: 0}
+--- !u!114 &1400373833191185210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3294166757185248621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e104f2cf6c3f6844ac0512a771ceec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventTempWorldData
+  companies:
+  - companyId: company-mirae-construction
+    companyName: "\uBBF8\uB798\uAC74\uC124"
+    stake: 0
+    consumerReaction: 50
+    ceoNpcId: npc-kang-junhyuk
+    ceoName: "\uAC15\uC900\uD601"
+    restructuringNpcId: npc-park-dosik
+    restructuringName: "\uBC15\uB3C4\uC2DD"
+    restructuringRole: "\uD604\uC7A5\uCD1D\uAD04"
+  - companyId: company-haneul-food
+    companyName: "\uD558\uB298\uC2DD\uD488"
+    stake: 0
+    consumerReaction: 50
+    ceoNpcId: npc-kim-harin
+    ceoName: "\uAE40\uD558\uB9B0"
+    restructuringNpcId: npc-oh-jaesung
+    restructuringName: "\uC624\uC7AC\uC131"
+    restructuringRole: CFO
+  - companyId: company-dongbang-logistics
+    companyName: "\uB3D9\uBC29\uBB3C\uC0B0"
+    stake: 0
+    consumerReaction: 50
+    ceoNpcId: npc-kang-jaehyun
+    ceoName: "\uAC15\uC7AC\uD604"
+    restructuringNpcId: npc-park-minwoo
+    restructuringName: "\uBC15\uBBFC\uC6B0"
+    restructuringRole: "\uC778\uC0AC\xB7\uB178\uBB34 \uCC45\uC784\uC790"
+  - companyId: company-hansung-industry
+    companyName: "\uD55C\uC131\uACF5\uC5C5"
+    stake: 0
+    consumerReaction: 50
+    ceoNpcId: npc-jo-minseok
+    ceoName: "\uC870\uBBFC\uC11D"
+    restructuringNpcId: npc-choi-mijeong
+    restructuringName: "\uCD5C\uBBF8\uC815"
+    restructuringRole: "\uB178\uBB34 \uCC45\uC784\uC790"

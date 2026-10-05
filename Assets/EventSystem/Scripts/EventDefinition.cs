@@ -5,6 +5,24 @@ using TakeOver.NPC;
 
 namespace TakeOver.Events
 {
+    public enum EventConditionKind { NpcRelation, CompanyConsumerReaction, CompanyStake }
+    public enum EventComparison { AtLeast, AtMost }
+    public enum EventRelationAxis { trust, respect, fear, hostility, dependency, interest }
+    public enum EventSpeakerSource { Fixed, CompanyCeo, CompanyRestructuring }
+
+    [Serializable]
+    public sealed class EventCondition
+    {
+        public EventConditionKind kind;
+        public string npcId;
+        public EventRelationAxis relationAxis;
+        public EventComparison comparison;
+        public float value;
+        public string relaxedByEventId;
+        public int relaxedByChoiceIndex;
+        public float relaxedValue;
+    }
+
     [Serializable]
     public sealed class EventChoice
     {
@@ -35,6 +53,14 @@ namespace TakeOver.Events
         [SerializeField] private string speakerRole;
         [SerializeField, TextArea(3, 8)] private string dialogue;
         [SerializeField] private List<EventChoice> choices = new List<EventChoice>();
+        [SerializeField] private List<EventCondition> conditions = new List<EventCondition>();
+        [SerializeField, Min(1)] private int validDays = 1;
+        [SerializeField] private EventSpeakerSource speakerSource;
+
+        public IReadOnlyList<EventCondition> getConditions() => conditions.AsReadOnly();
+        public int getValidDays() => Mathf.Max(1, validDays);
+        public EventSpeakerSource getSpeakerSource() => speakerSource;
+        public bool hasCompanyConditions() => conditions.Exists(condition => condition.kind != EventConditionKind.NpcRelation);
 
         public string getId() => eventId;
         public string getTitle() => title;
