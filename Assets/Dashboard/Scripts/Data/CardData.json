@@ -1,0 +1,28 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "ap": 1,
+      "title": "카드 1",
+      "description": "카드 1 설명"
+    },
+    {
+      "id": 2,
+      "ap": 2,
+      "title": "카드 2",
+      "description": "카드 2 설명"
+    },
+    {
+      "id": 3,
+      "ap": 3,
+      "title": "카드 3",
+      "description": "카드 3 설명"
+    },
+    {
+      "id": 4,
+      "ap": 1,
+      "title": "카드 4",
+      "description": "카드 4 설명"
+    }
+  ]
+}
