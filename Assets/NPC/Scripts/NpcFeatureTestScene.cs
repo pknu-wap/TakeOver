@@ -22,6 +22,10 @@ namespace TakeOver.NPC
         private string displayedProfileId;
         private string saveStatus = "";
         private Vector2 saveStatusScroll;
+        private int bodyTab;
+        private Vector2 preferenceScroll;
+        private Vector2 reactionScroll;
+        private NpcChoiceReactionDefinition selectedReaction;
 
         /// <summary>씬의 브리지를 찾아 테스트 화면에서 사용할 준비를 한다.</summary>
         private void Start()
@@ -59,54 +63,66 @@ namespace TakeOver.NPC
                 $"적대감 {relation.hostility:0}   의존도 {relation.dependency:0}   관심 {relation.interest:0}", labelStyle);
 
             // 중앙의 관계/기억 조작 영역만 스크롤한다. 하단 동작은 별도 고정 영역에 둔다.
-            var bodyViewport = new Rect(10f, 314f, 1180f, 220f);
-            bodyScrollPosition = GUI.BeginScrollView(
-                bodyViewport, bodyScrollPosition, new Rect(0f, 0f, 1160f, 620f), false, true);
-            GUILayout.BeginArea(new Rect(0f, 0f, 1140f, 620f));
-            GUILayout.BeginHorizontal();
-            GUILayout.BeginVertical(GUILayout.Width(540f));
-            GUILayout.Label("관계 스테이터스 테스트", titleStyle);
-            DrawActionButton("신뢰 올리기", bridge.ApplyTrustTestDelta, buttonStyle);
-            DrawActionButton("존중 올리기", bridge.ApplyRespectTestDelta, buttonStyle);
-            DrawActionButton("두려움 올리기", bridge.ApplyFearTestDelta, buttonStyle);
-            DrawActionButton("적대감 올리기", bridge.ApplyHostilityTestDelta, buttonStyle);
-            DrawActionButton("의존도 올리기", bridge.ApplyDependencyTestDelta, buttonStyle);
-            DrawActionButton("관심 올리기", bridge.ApplyInterestTestDelta, buttonStyle);
-            GUILayout.EndVertical();
-
-            GUILayout.Space(30f);
-            GUILayout.BeginVertical(GUILayout.Width(570f));
-            GUILayout.Label("임시 Memory 기록", titleStyle);
-            DrawMemoryButton("선의 / 약속 이행", NpcMemoryType.GoodFaith, buttonStyle);
-            DrawMemoryButton("계약 파기", NpcMemoryType.ContractBreach, buttonStyle);
-            DrawMemoryButton("대규모 구조조정", NpcMemoryType.MassLayoff, buttonStyle);
-            DrawMemoryButton("적대적 인수", NpcMemoryType.HostileTakeover, buttonStyle);
-            DrawMemoryButton("회사 구원", NpcMemoryType.SavedCompany, buttonStyle);
-            DrawMemoryButton("공개적 망신", NpcMemoryType.PublicHumiliation, buttonStyle);
-            DrawMemoryButton("정보 유출", NpcMemoryType.LeakedInfo, buttonStyle);
-            DrawMemoryButton("뇌물", NpcMemoryType.Bribery, buttonStyle);
-            GUILayout.Space(10f);
-            GUILayout.Label("현재 Memory 목록", titleStyle);
-            memoryScrollPosition = GUILayout.BeginScrollView(memoryScrollPosition, GUI.skin.box, GUILayout.Height(150f));
-            if (bridge.RuntimeState.memories.Count == 0)
+            bodyTab = GUI.Toolbar(new Rect(20f, 314f, 1160f, 30f), bodyTab,
+                new[] { "관계·Memory 조작", "선호·불호", "이벤트 미리보기" }, footerButtonStyle);
+            var bodyViewport = new Rect(10f, 350f, 1180f, 184f);
+            if (bodyTab == 0)
             {
-                GUILayout.Label("기록된 Memory가 없습니다.", labelStyle);
+                bodyScrollPosition = GUI.BeginScrollView(
+                    bodyViewport, bodyScrollPosition, new Rect(0f, 0f, 1160f, 620f), false, true);
+                GUILayout.BeginArea(new Rect(0f, 0f, 1140f, 620f));
+                GUILayout.BeginHorizontal();
+                GUILayout.BeginVertical(GUILayout.Width(540f));
+                GUILayout.Label("관계 스테이터스 테스트", titleStyle);
+                DrawActionButton("신뢰 올리기", bridge.ApplyTrustTestDelta, buttonStyle);
+                DrawActionButton("존중 올리기", bridge.ApplyRespectTestDelta, buttonStyle);
+                DrawActionButton("두려움 올리기", bridge.ApplyFearTestDelta, buttonStyle);
+                DrawActionButton("적대감 올리기", bridge.ApplyHostilityTestDelta, buttonStyle);
+                DrawActionButton("의존도 올리기", bridge.ApplyDependencyTestDelta, buttonStyle);
+                DrawActionButton("관심 올리기", bridge.ApplyInterestTestDelta, buttonStyle);
+                GUILayout.EndVertical();
+
+                GUILayout.Space(30f);
+                GUILayout.BeginVertical(GUILayout.Width(570f));
+                GUILayout.Label("임시 Memory 기록", titleStyle);
+                DrawMemoryButton("선의 / 약속 이행", NpcMemoryType.GoodFaith, buttonStyle);
+                DrawMemoryButton("계약 파기", NpcMemoryType.ContractBreach, buttonStyle);
+                DrawMemoryButton("대규모 구조조정", NpcMemoryType.MassLayoff, buttonStyle);
+                DrawMemoryButton("적대적 인수", NpcMemoryType.HostileTakeover, buttonStyle);
+                DrawMemoryButton("회사 구원", NpcMemoryType.SavedCompany, buttonStyle);
+                DrawMemoryButton("공개적 망신", NpcMemoryType.PublicHumiliation, buttonStyle);
+                DrawMemoryButton("정보 유출", NpcMemoryType.LeakedInfo, buttonStyle);
+                DrawMemoryButton("뇌물", NpcMemoryType.Bribery, buttonStyle);
+                GUILayout.Space(10f);
+                GUILayout.Label("현재 Memory 목록", titleStyle);
+                memoryScrollPosition = GUILayout.BeginScrollView(memoryScrollPosition, GUI.skin.box, GUILayout.Height(150f));
+                if (bridge.RuntimeState.memories.Count == 0)
+                {
+                    GUILayout.Label("기록된 Memory가 없습니다.", labelStyle);
+                }
+                else
+                {
+                    foreach (var memory in bridge.RuntimeState.memories)
+                    {
+                        var duration = memory.permanent
+                            ? "영구 영향력 100%"
+                            : $"협상 영향력 {memory.influence * 100f:0}% · 잔여 {memory.remainingTurns}턴";
+                        GUILayout.Label($"{memory.memoryId} | {GetMemoryLabel(memory.memoryType)} | 행동 성향 {GetActionDispositionLabel(memory.actionDisposition)} | 기록 턴 {memory.turn} | {duration}", labelStyle);
+                    }
+                }
+                GUILayout.EndScrollView();
+                GUILayout.EndVertical();
+                GUILayout.EndHorizontal();
+                GUILayout.EndArea();
+                GUI.EndScrollView();
             }
             else
             {
-                foreach (var memory in bridge.RuntimeState.memories)
-                {
-                    var duration = memory.permanent
-                        ? "영구 영향력 100%"
-                        : $"협상 영향력 {memory.influence * 100f:0}% · 잔여 {memory.remainingTurns}턴";
-                    GUILayout.Label($"{memory.memoryId} | {GetMemoryLabel(memory.memoryType)} | 행동 성향 {GetActionDispositionLabel(memory.actionDisposition)} | 기록 턴 {memory.turn} | {duration}", labelStyle);
-                }
+                GUILayout.BeginArea(bodyViewport);
+                if (bodyTab == 1) DrawPreferences(profile, profileTextStyle);
+                else DrawReactionPreview(profileTextStyle, footerButtonStyle);
+                GUILayout.EndArea();
             }
-            GUILayout.EndScrollView();
-            GUILayout.EndVertical();
-            GUILayout.EndHorizontal();
-            GUILayout.EndArea();
-            GUI.EndScrollView();
 
             if (bridge.LastRecordedMemory != null)
             {
@@ -136,6 +152,7 @@ namespace TakeOver.NPC
             {
                 displayedProfileId = profile.npcId;
                 profileScrollPosition = Vector2.zero;
+                preferenceScroll = Vector2.zero;
             }
             const float textWidth = 1135f;
             const float gap = 6f;
@@ -154,6 +171,50 @@ namespace TakeOver.NPC
             GUI.Label(new Rect(0f, 0f, textWidth, personalityHeight), personality, style);
             GUI.Label(new Rect(0f, personalityHeight + gap, textWidth, roleHeight), role, style);
             GUI.EndScrollView();
+        }
+
+        /// <summary>선택 NPC의 행동 ID와 선호 이유를 원본 데이터 그대로 읽어 표시한다.</summary>
+        private void DrawPreferences(NpcStateRegistry.NpcSeed profile, GUIStyle style)
+        {
+            preferenceScroll = GUILayout.BeginScrollView(preferenceScroll);
+            if (profile == null || profile.actionPreferences == null || profile.actionPreferences.Count == 0)
+                GUILayout.Label("등록된 행동 선호가 없습니다.", style);
+            else
+                foreach (var preference in profile.actionPreferences)
+                {
+                    if (preference == null) continue;
+                    GUILayout.Label($"[{GetActionDispositionLabel(preference.disposition)}] {preference.actionId}", style);
+                    GUILayout.Label($"이유: {preference.rationale}", style);
+                    GUILayout.Space(8f);
+                }
+            GUILayout.EndScrollView();
+        }
+
+        /// <summary>등록된 반응만 수동으로 발행한다. 대상은 선택 NPC가 아닌 반응 SO 설정을 따른다.</summary>
+        private void DrawReactionPreview(GUIStyle style, GUIStyle buttonStyle)
+        {
+            reactionScroll = GUILayout.BeginScrollView(reactionScroll);
+            var reactions = bridge.RegisteredReactions;
+            var selectionRegistered = false;
+            foreach (var reaction in reactions)
+                if (reaction != null && reaction == selectedReaction) selectionRegistered = true;
+            if (!selectionRegistered) selectedReaction = null;
+            GUILayout.Label("반응 SO의 대상에게 적용되며 런타임 관계·기억이 변경됩니다. 저장은 저장 버튼으로 합니다.", style);
+            if (reactions.Count == 0)
+                GUILayout.Label("NpcLogic의 NpcEventResultReceiver > Reactions에 반응 SO를 등록한 뒤 Play를 시작하세요.", style);
+            foreach (var reaction in reactions)
+            {
+                if (reaction == null) continue;
+                if (GUILayout.Button($"{(selectedReaction == reaction ? "● " : "")}{reaction.name} | {reaction.SourceEventId} | 선택 {reaction.ChoiceIndex} | 결과 {reaction.ResultValue}", buttonStyle))
+                    selectedReaction = reaction;
+            }
+            var previousEnabled = GUI.enabled;
+            GUI.enabled = previousEnabled && selectedReaction != null;
+            if (GUILayout.Button("선택 반응 수동 발행", buttonStyle, GUILayout.Height(36f)))
+                bridge.PreviewReaction(selectedReaction);
+            GUI.enabled = previousEnabled;
+            GUILayout.Label(bridge.ReactionPreviewReport, style);
+            GUILayout.EndScrollView();
         }
 
         /// <summary>등록된 전체 NPC를 일정 너비의 버튼으로 표시하고 가로 스크롤로 선택한다.</summary>

@@ -83,9 +83,68 @@ namespace TakeOver.NPC
             : null;
         public event Action<NpcMemoryRecord> testEventRecorded;
 
+        // 같은 NPC 오브젝트의 수신기만 사용한다. 실제 이벤트팀 연결은 만들지 않는다.
+        private NpcEventResultReceiver reactionReceiver;
+        public IReadOnlyList<NpcChoiceReactionDefinition> RegisteredReactions => reactionReceiver == null
+            ? Array.Empty<NpcChoiceReactionDefinition>() : reactionReceiver.RegisteredReactions;
+        public string ReactionPreviewReport { get; private set; } = "반응 SO를 선택해 수동 발행하면 결과가 표시됩니다.";
+
+        /// <summary>기존 수신 경로로 수동 발행하고, 전후 상태를 비교해 실제 적용 결과를 보여준다.</summary>
+        public void PreviewReaction(NpcChoiceReactionDefinition reaction)
+        {
+            if (reactionReceiver == null || reaction == null)
+            {
+                ReactionPreviewReport = "수신기 또는 반응 SO가 없습니다.";
+                return;
+            }
+            var occurrenceId = "npc-preview-" + Guid.NewGuid().ToString("N");
+            var before = new Dictionary<string, NpcRuntimeState>();
+            foreach (var state in registry.States) before[state.npcId] = state.Clone();
+            var published = reactionReceiver.TryPublishChoice(
+                reaction.SourceEventId, reaction.ChoiceIndex, reaction.ResultValue, occurrenceId);
+            var report = new System.Text.StringBuilder();
+            report.AppendLine(published ? "수동 발행 완료" : $"발행 실패: {reactionReceiver.LastError}");
+            report.AppendLine($"발생 ID: {occurrenceId}");
+            // 발행 실패 시에도 부분 반영이 있었는지 확인할 수 있도록 전후 결과를 수집한다.
+            NpcEventPayload payload;
+            try { payload = reaction.CreatePayload(occurrenceId); }
+            catch (InvalidOperationException error)
+            {
+                ReactionPreviewReport = report.AppendLine(error.Message).ToString();
+                return;
+            }
+            if (payload.targetNpcIds != null)
+                foreach (var target in payload.targetNpcIds)
+                {
+                    if (target == null || !before.TryGetValue(target, out var previous)
+                        || !registry.TryGet(target, out var current))
+                    {
+                        report.AppendLine($"대상 {target}: 등록된 상태 없음");
+                        continue;
+                    }
+                    var name = registry.TryGetProfile(target, out var profile) && profile.profile != null
+                        ? profile.profile.displayName : target;
+                    var a = previous.relation;
+                    var b = current.relation;
+                    report.AppendLine($"대상: {name} ({target})");
+                    report.AppendLine($"실제 변화: 신뢰 {b.trust - a.trust:+0.##;-0.##;0}, 존중 {b.respect - a.respect:+0.##;-0.##;0}, 두려움 {b.fear - a.fear:+0.##;-0.##;0}, 적대감 {b.hostility - a.hostility:+0.##;-0.##;0}, 의존도 {b.dependency - a.dependency:+0.##;-0.##;0}, 관심 {b.interest - a.interest:+0.##;-0.##;0}");
+                    var created = 0;
+                    foreach (var memory in current.memories)
+                    {
+                        if (memory == null || memory.sourceEventId != occurrenceId) continue;
+                        created++;
+                        report.AppendLine($"생성 Memory: {memory.memoryType} / {memory.actionDisposition} / {memory.memoryId}");
+                        report.AppendLine($"해석: {memory.interpretation}");
+                    }
+                    if (created == 0) report.AppendLine("새 Memory 없음. 발행 완료와 기억 반영은 별도입니다.");
+                }
+            ReactionPreviewReport = report.ToString();
+        }
+
         /// <summary>Awake 때 서비스를 찾거나 만들고, 이 브리지 전용 NPC 상태를 초기화한다.</summary>
         private void Awake()
         {
+            reactionReceiver = GetComponent<NpcEventResultReceiver>();
             if (registry == null) registry = GetComponent<NpcStateRegistry>();
             if (registry == null) registry = gameObject.AddComponent<NpcStateRegistry>();
             registry.EnsureInitialNpcsInitialized();

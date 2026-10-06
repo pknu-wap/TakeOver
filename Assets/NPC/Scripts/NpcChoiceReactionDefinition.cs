@@ -13,6 +13,11 @@ namespace TakeOver.NPC
         // 대상과 Memory 효과는 기존 사건 양식을 그대로 사용한다. 프로필 성향 보정도 기존 처리기를 거친다.
         [SerializeField] private NpcEventPayload npcEvent = new NpcEventPayload();
 
+        // 테스트 화면은 조건을 읽기만 하고 SO 원본을 수정하지 않는다.
+        public string SourceEventId => sourceEventId;
+        public int ChoiceIndex => choiceIndex;
+        public string ResultValue => resultValue;
+
         public bool Matches(string eventId, int index, string value) =>
             !string.IsNullOrWhiteSpace(sourceEventId)
             && string.Equals(sourceEventId, eventId, StringComparison.Ordinal)

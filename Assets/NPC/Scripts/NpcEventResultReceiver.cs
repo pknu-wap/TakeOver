@@ -18,6 +18,8 @@ namespace TakeOver.NPC
         [SerializeField, Min(0)] private int configuredChoiceIndex;
         [SerializeField] private string configuredResultValue;
         public string LastError { get; private set; } = "";
+        public IReadOnlyList<NpcChoiceReactionDefinition> RegisteredReactions => reactions == null
+            ? Array.Empty<NpcChoiceReactionDefinition>() : reactions.AsReadOnly();
 
         private void Awake()
         {
