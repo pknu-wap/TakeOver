@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8909477381549077842}
   - component: {fileID: 7300000000000000001}
   - component: {fileID: 7300000000000000002}
+  - component: {fileID: 7300000000000000003}
   m_Layer: 0
   m_Name: NpcLogic
   m_TagString: Untagged
@@ -52,156 +53,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19b14a9ce6240ddad965995c87ab208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcStateRegistry
-  initialNpcs:
-  - npcId: npc-broker-yoon-hajin
-    companyId: external-network
-    profile:
-      displayName: 윤하진
-      role: M&A 브로커
-      affiliation: 외부 거래망
-      personalitySummary: 거래 수수료와 협상 신뢰를 중시한다. 거래를 늘리는 상대를 선호하며, 약속을 깨면 정보 정확도를 낮춘다.
-      gameplayRoleSummary: 비공개 매물과 거래 상대를 연결한다. 주가조작 제안 사건의 발신자이기도 하다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      eventRelationBiases:
-      - memoryType: 0
-        relationDelta: {trust: 1, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      - memoryType: 1
-        relationDelta: {trust: -2, respect: 0, fear: 0, hostility: 1, dependency: 0, interest: 0}
-    actionPreferences:
-    - actionId: GoodFaith
-      disposition: 1
-      rationale: 약속과 거래 신뢰를 지킨 행동
-    - actionId: ContractBreach
-      disposition: 2
-      rationale: 협상 약속을 어긴 행동
-    - actionId: SavedCompany
-      disposition: 1
-      rationale: 거래 상대의 기업을 살린 행동
-  - npcId: npc-investigative-reporter-jung-sua
-    companyId: external-network
-    profile:
-      displayName: 정수아
-      role: 탐사보도 기자
-      affiliation: 외부 인물
-      personalitySummary: 공익 사건을 오래 추적한다. 한 번의 비위보다 정보 유출·뇌물·정치 결탁 같은 사건의 연결고리를 중시한다.
-      gameplayRoleSummary: 정치 거래나 뇌물 등 공개된 사건을 추적해 조사·폭로 분기로 이어질 수 있다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
-      eventRelationBiases:
-      - memoryType: 6
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
-      - memoryType: 7
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
-    actionPreferences:
-    - actionId: GoodFaith
-      disposition: 1
-      rationale: 공익을 위한 약속 이행
-    - actionId: ContractBreach
-      disposition: 2
-      rationale: 공익적 조사로 드러난 계약 위반
-    - actionId: MassLayoff
-      disposition: 2
-      rationale: 공익 영향이 큰 구조조정 사건
-    - actionId: HostileTakeover
-      disposition: 2
-      rationale: 공익 영향이 큰 적대적 인수 사건
-    - actionId: SavedCompany
-      disposition: 1
-      rationale: 기업과 이해관계자에 영향을 준 구제 사건
-    - actionId: PublicHumiliation
-      disposition: 2
-      rationale: 공개 검증이 필요한 사건
-    - actionId: LeakedInfo
-      disposition: 2
-      rationale: 정보 유출 사건의 추적 단서
-    - actionId: Bribery
-      disposition: 2
-      rationale: 뇌물 사건의 추적 단서
-  - npcId: npc-institutional-investor-kim-taeseong
-    companyId: external-network
-    profile:
-      displayName: 김태성
-      role: 기관투자자
-      affiliation: 외부 투자자
-      personalitySummary: 기업 성장률과 현금흐름을 따져본다. 단기 성과보다 장기 위험을 크게 본다.
-      gameplayRoleSummary: 예측 가능한 성장과 투명한 재무를 기준으로 투자금 배분을 판단하는 외부 자본 주체다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      eventRelationBiases:
-      - memoryType: 0
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
-      - memoryType: 2
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: -1}
-      - memoryType: 3
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 1, dependency: 0, interest: 0}
-      - memoryType: 4
-        relationDelta: {trust: 1, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
-    actionPreferences:
-    - actionId: GoodFaith
-      disposition: 1
-      rationale: 투명성과 신뢰를 보여준 행동
-    - actionId: SavedCompany
-      disposition: 1
-      rationale: 기업의 지속 가능성을 높인 행동
-    - actionId: HostileTakeover
-      disposition: 2
-      rationale: 불확실성을 키우는 적대적 인수
-    - actionId: MassLayoff
-      disposition: 2
-      rationale: 기업 안정성을 흔드는 대규모 구조조정
-  - npcId: npc-political-lobbyist-park-sanghyeon
-    companyId: external-network
-    profile:
-      displayName: 박상현
-      role: 정치 로비스트
-      affiliation: 외부 거래망
-      personalitySummary: 정책 자문과 위험한 정치 거래 사이에서 기회를 찾지만, 노골적인 위험이 커지면 거리를 둔다.
-      gameplayRoleSummary: 정부 계약과 규제 환경 관련 기회를 연결하며 정치 결탁 사건의 접점이 될 수 있다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      eventRelationBiases:
-      - memoryType: 0
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
-      - memoryType: 7
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 2, dependency: 0, interest: -1}
-    actionPreferences:
-    - actionId: GoodFaith
-      disposition: 1
-      rationale: 합법적 자문과 약속 이행
-    - actionId: Bribery
-      disposition: 2
-      rationale: 노골적인 불법 정치 거래
-  - npcId: npc-future-construction-ceo-kang-junhyeok
-    companyId: future-construction
-    profile:
-      displayName: 강준혁
-      role: CEO / 창업자
-      affiliation: 미래건설
-      personalitySummary: 신중하고 현실적이며 자존심이 강하다. 회사명·계약·현장 인력의 연속성과 문서화된 보장을 중시한다.
-      gameplayRoleSummary: 미래건설 인수 협상의 핵심 인물이다. 약속 이행은 신뢰를 쌓고, 계약·인력·회사 정체성의 해체는 강한 반발을 부른다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      eventRelationBiases:
-      - memoryType: 0
-        relationDelta: {trust: 2, respect: 1, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      - memoryType: 1
-        relationDelta: {trust: -2, respect: 0, fear: 0, hostility: 2, dependency: 0, interest: 0}
-      - memoryType: 2
-        relationDelta: {trust: 0, respect: -1, fear: 0, hostility: 2, dependency: 0, interest: 0}
-      - memoryType: 3
-        relationDelta: {trust: -1, respect: 0, fear: 0, hostility: 2, dependency: 0, interest: 0}
-    actionPreferences:
-    - actionId: GoodFaith
-      disposition: 1
-      rationale: 문서화된 약속을 이행한 행동
-    - actionId: SavedCompany
-      disposition: 1
-      rationale: 회사의 지속성을 지킨 행동
-    - actionId: ContractBreach
-      disposition: 2
-      rationale: 계약과 약속을 어긴 행동
-    - actionId: MassLayoff
-      disposition: 2
-      rationale: 현장 인력의 고용을 흔드는 구조조정
-    - actionId: HostileTakeover
-      disposition: 2
-      rationale: 회사의 자율성과 정체성을 위협하는 인수
+  initialNpcs: []
+  npcDefinitions:
+  - {fileID: 11400000, guid: 40e77a242cb74dbba335b6e23a86ad4d, type: 2}
+  - {fileID: 11400000, guid: 1ef4026ae8d9478c92bb87fc4d083907, type: 2}
+  - {fileID: 11400000, guid: 6a0e3bc821d64cac9d27590e75606c77, type: 2}
+  - {fileID: 11400000, guid: 27df07dc5dac41fe9d846451317edbf7, type: 2}
+  - {fileID: 11400000, guid: 9c882198bd454fa492e42b4e604d9cc2, type: 2}
+  - {fileID: 11400000, guid: cbbc6f59d4d748d58127642f2d071dfb, type: 2}
+  - {fileID: 11400000, guid: 8e9ac63340924adea8eeae0fc6196e06, type: 2}
 --- !u!114 &5069817366027939039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,3 +233,22 @@ MonoBehaviour:
   m_Name: ''
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcFeatureTestScene
   bridge: {fileID: 7300000000000000001}
+  showTestUI: 0
+--- !u!114 &7300000000000000003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8755569222526264623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e51cbad85c4259965d0e1c20594234, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcEventResultReceiver
+  eventChannel: {fileID: 4158906415785013732}
+  registry: {fileID: 2384012610848785350}
+  reactions: []
+  configuredEventId:
+  configuredChoiceIndex: 0
+  configuredResultValue:

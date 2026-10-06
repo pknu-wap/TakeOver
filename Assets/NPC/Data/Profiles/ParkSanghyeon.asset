@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
+  m_Name: ParkSanghyeon
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
+  seed:
+    npcId: npc-political-lobbyist-park-sanghyeon
+    companyId: external-network
+    profile:
+      displayName: 박상현
+      role: 정치 로비스트
+      affiliation: 외부 거래망
+      personalitySummary: 정책 자문과 위험한 정치 거래 사이에서 기회를 찾지만, 노골적인 위험이 커지면 거리를 둔다.
+      gameplayRoleSummary: 정부 계약과 규제 환경 관련 기회를 연결하며 정치 결탁 사건의 접점이 될 수 있다.
+      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      eventRelationBiases:
+      - memoryType: 0
+        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
+      - memoryType: 7
+        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 2, dependency: 0, interest: -1}
+    actionPreferences:
+    - actionId: GoodFaith
+      disposition: 1
+      rationale: 합법적 자문과 약속 이행
+    - actionId: Bribery
+      disposition: 2
+      rationale: 노골적인 불법 정치 거래

@@ -4,6 +4,28 @@ using UnityEngine;
 
 namespace TakeOver.NPC
 {
+    /// <summary>이벤트 입력을 상태에 반영하기 전에 검사하는 공통 경계다. 기존 유한값 보정 규칙은 유지한다.</summary>
+    internal static class NpcInputValidation
+    {
+        internal static void ValidateEvent(NpcMemoryType type, NpcPublicity publicity,
+            float reliability, NpcRelationDelta delta)
+        {
+            if (!Enum.IsDefined(typeof(NpcMemoryType), type) || !Enum.IsDefined(typeof(NpcPublicity), publicity))
+                throw new ArgumentException("기억 유형 또는 공개 범위가 올바르지 않습니다.");
+            if (!Finite(reliability)) throw new ArgumentException("기억 신뢰도에 NaN 또는 무한대가 포함돼 있습니다.");
+            ValidateDelta(delta);
+        }
+
+        internal static void ValidateDelta(NpcRelationDelta delta)
+        {
+            if (!Finite(delta.trust) || !Finite(delta.respect) || !Finite(delta.fear)
+                || !Finite(delta.hostility) || !Finite(delta.dependency) || !Finite(delta.interest))
+                throw new ArgumentException("관계 변화량에 NaN 또는 무한대가 포함돼 있습니다.");
+        }
+
+        private static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
+    }
+
     /// <summary>사건 기억의 공개 범위와 NPC가 기억할 사건 분류다.</summary>
     public enum NpcPublicity { Private, Company, Industry, Public }
     public enum NpcMemoryType { GoodFaith, ContractBreach, MassLayoff, HostileTakeover, SavedCompany, PublicHumiliation, LeakedInfo, Bribery, Custom }

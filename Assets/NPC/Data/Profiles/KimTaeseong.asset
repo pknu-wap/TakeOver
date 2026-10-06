@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
+  m_Name: KimTaeseong
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
+  seed:
+    npcId: npc-institutional-investor-kim-taeseong
+    companyId: external-network
+    profile:
+      displayName: 김태성
+      role: 기관투자자
+      affiliation: 외부 투자자
+      personalitySummary: 기업 성장률과 현금흐름을 따져본다. 단기 성과보다 장기 위험을 크게 본다.
+      gameplayRoleSummary: 예측 가능한 성장과 투명한 재무를 기준으로 투자금 배분을 판단하는 외부 자본 주체다.
+      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      eventRelationBiases:
+      - memoryType: 0
+        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
+      - memoryType: 2
+        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: -1}
+      - memoryType: 3
+        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 1, dependency: 0, interest: 0}
+      - memoryType: 4
+        relationDelta: {trust: 1, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
+    actionPreferences:
+    - actionId: GoodFaith
+      disposition: 1
+      rationale: 투명성과 신뢰를 보여준 행동
+    - actionId: SavedCompany
+      disposition: 1
+      rationale: 기업의 지속 가능성을 높인 행동
+    - actionId: HostileTakeover
+      disposition: 2
+      rationale: 불확실성을 키우는 적대적 인수
+    - actionId: MassLayoff
+      disposition: 2
+      rationale: 기업 안정성을 흔드는 대규모 구조조정

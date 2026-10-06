@@ -37,11 +37,16 @@ namespace TakeOver.NPC
         }
 
         [SerializeField] private List<NpcSeed> initialNpcs = new List<NpcSeed>();
+        [Tooltip("공유 NPC 정의. 같은 ID의 기존 인라인 데이터보다 우선하며 런타임에는 사본만 사용합니다.")]
+        [SerializeField] private List<NpcDefinition> npcDefinitions = new List<NpcDefinition>();
         private readonly Dictionary<string, NpcRuntimeState> states = new Dictionary<string, NpcRuntimeState>();
         // 선호/불호는 정적 프로필 데이터이므로 세이브되는 NPC 런타임 상태와 분리한다.
         private readonly Dictionary<string, List<NpcActionPreference>> actionPreferencesByNpc = new Dictionary<string, List<NpcActionPreference>>();
         private readonly List<NpcRuntimeState> orderedStates = new List<NpcRuntimeState>();
         private bool initialNpcsInitialized;
+        private bool initialNpcsInitializing;
+        // 초기화 알림은 기존 발생 순서를 유지하되 모든 상태·선호 등록이 끝난 뒤 전달한다.
+        private readonly List<NpcRuntimeState> pendingInitialNotifications = new List<NpcRuntimeState>();
 
         /// <summary>턴·저장 서비스가 모든 NPC 상태를 순서대로 읽을 때 사용하는 읽기 전용 뷰다.</summary>
         public IReadOnlyList<NpcRuntimeState> States => orderedStates;
@@ -64,17 +69,44 @@ namespace TakeOver.NPC
         /// </summary>
         public void EnsureInitialNpcsInitialized()
         {
-            if (initialNpcsInitialized) return;
-            if (initialNpcs == null) initialNpcs = new List<NpcSeed>();
-            if (initialNpcs.Count == 0) initialNpcs.AddRange(CreateDefaultNpcRoster());
-
-            foreach (var seed in initialNpcs)
+            if (initialNpcsInitialized || initialNpcsInitializing) return;
+            initialNpcsInitializing = true;
+            try
             {
-                if (seed == null) continue;
-                var state = GetOrCreate(seed.npcId, seed.companyId);
-                ConfigureActionPreferences(state.npcId, seed.actionPreferences);
+                if (initialNpcs == null) initialNpcs = new List<NpcSeed>();
+                // 이전 씬의 인라인 데이터는 호환용으로 유지하고, SO는 독립 사본으로 병합한다.
+                var seeds = new List<NpcSeed>(initialNpcs);
+                var definitionIds = new HashSet<string>(StringComparer.Ordinal);
+                if (npcDefinitions != null)
+                    foreach (var definition in npcDefinitions)
+                    {
+                        if (definition == null) continue;
+                        var seed = definition.CreateRuntimeSeed();
+                        if (seed == null || string.IsNullOrWhiteSpace(seed.npcId) || !definitionIds.Add(seed.npcId))
+                            throw new InvalidOperationException("NPC 정의의 ID가 비어 있거나 중복됐습니다.");
+                        seeds.RemoveAll(item => item != null && item.npcId == seed.npcId);
+                        seeds.Add(seed);
+                    }
+                initialNpcs = seeds;
+                if (initialNpcs.Count == 0) initialNpcs.AddRange(CreateDefaultNpcRoster());
+
+                foreach (var seed in initialNpcs)
+                {
+                    if (seed == null) continue;
+                    var state = GetOrCreate(seed.npcId, seed.companyId);
+                    ConfigureActionPreferences(state.npcId, seed.actionPreferences);
+                }
+                initialNpcsInitialized = true;
             }
-            initialNpcsInitialized = true;
+            finally
+            {
+                initialNpcsInitializing = false;
+                if (!initialNpcsInitialized) pendingInitialNotifications.Clear();
+            }
+            // 알림 콜백에서 Profiles를 조회해도 초기화가 재진입하지 않는다.
+            var notifications = pendingInitialNotifications.ToArray();
+            pendingInitialNotifications.Clear();
+            foreach (var state in notifications) NotifyStateChanged(state);
         }
 
         /// <summary>지정한 ID의 정적 인물 프로필을 찾는다.</summary>
@@ -259,7 +291,7 @@ namespace TakeOver.NPC
             var created = new NpcRuntimeState(npcId, companyId);
             states.Add(npcId, created);
             orderedStates.Add(created);
-            StateChanged?.Invoke(created);
+            NotifyStateChanged(created);
             return created;
         }
 
@@ -308,6 +340,7 @@ namespace TakeOver.NPC
         /// <summary>로드된 전체 NPC 상태를 복사해 교체하고 이후 변경 알림을 보낸다.</summary>
         public void ReplaceAll(IList<NpcRuntimeState> loadedStates)
         {
+            EnsureInitialNpcsInitialized();
             var previous = new Dictionary<string, NpcRuntimeState>(states);
             states.Clear();
             orderedStates.Clear();
@@ -320,6 +353,20 @@ namespace TakeOver.NPC
                     states.Add(copy.npcId, copy);
                     orderedStates.Add(copy);
                 }
+            // 이전 저장에 없는 현재 프로필도 이벤트 대상이 될 수 있도록 초기 상태로 보충한다.
+            // 로드 결과에 없는 과거 런타임 값은 이어받지 않는다.
+            foreach (var seed in initialNpcs)
+            {
+                if (seed == null || string.IsNullOrWhiteSpace(seed.npcId) || states.ContainsKey(seed.npcId)) continue;
+                var fresh = new NpcRuntimeState(seed.npcId, seed.companyId);
+                if (previous.TryGetValue(seed.npcId, out var existing))
+                {
+                    existing.CopyFrom(fresh);
+                    fresh = existing;
+                }
+                states.Add(fresh.npcId, fresh);
+                orderedStates.Add(fresh);
+            }
             foreach (var item in orderedStates) StateChanged?.Invoke(item);
         }
 
@@ -335,7 +382,10 @@ namespace TakeOver.NPC
         public void NotifyStateChanged(NpcRuntimeState state)
         {
             if (state != null && states.TryGetValue(state.npcId, out var registered) && registered == state)
-                StateChanged?.Invoke(state);
+            {
+                if (initialNpcsInitializing) pendingInitialNotifications.Add(state);
+                else StateChanged?.Invoke(state);
+            }
         }
     }
 }

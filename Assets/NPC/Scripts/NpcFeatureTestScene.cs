@@ -11,10 +11,17 @@ namespace TakeOver.NPC
     {
         // 테스트 상태를 제공하는 브리지. Inspector 참조가 비어 있으면 씬에서 찾아 연결한다.
         [SerializeField] private NpcFeatureTestHarness bridge;
+        // 통합 플레이에서는 기본적으로 숨기고 NPC 프리팹 Inspector에서 필요한 경우 켠다.
+        [SerializeField] private bool showTestUI;
+        public bool ShowTestUI { get => showTestUI; set => showTestUI = value; }
         // 관계·기억 테스트 영역과 기억 목록의 스크롤 위치를 각각 유지한다.
         private Vector2 memoryScrollPosition;
         private Vector2 bodyScrollPosition;
+        private Vector2 npcScrollPosition;
+        private Vector2 profileScrollPosition;
+        private string displayedProfileId;
         private string saveStatus = "";
+        private Vector2 saveStatusScroll;
 
         /// <summary>씬의 브리지를 찾아 테스트 화면에서 사용할 준비를 한다.</summary>
         private void Start()
@@ -25,7 +32,7 @@ namespace TakeOver.NPC
         /// <summary>인물 선택·프로필과 기존 관계·Memory 테스트 조작을 한 화면에 그린다.</summary>
         private void OnGUI()
         {
-            if (bridge == null || bridge.RuntimeState == null) return;
+            if (!showTestUI || bridge == null || bridge.RuntimeState == null) return;
 
             var scale = Mathf.Min(Screen.width / 1280f, Screen.height / 720f);
             var offset = new Vector2((Screen.width - 1280f * scale) * 0.5f, (Screen.height - 720f * scale) * 0.5f);
@@ -41,13 +48,7 @@ namespace TakeOver.NPC
             GUI.Box(new Rect(0f, 0f, 1200f, 680f), GUIContent.none, GUI.skin.box);
             GUI.Label(new Rect(20f, 8f, 1160f, 38f), "NPC 프로필 / 관계 / Memory 테스트", titleStyle);
             DrawNpcProfileSelector(profile);
-            if (profile != null && profile.profile != null)
-            {
-                GUI.Label(new Rect(20f, 126f, 1160f, 34f),
-                    $"{profile.profile.affiliation} · 성향: {profile.profile.personalitySummary}", profileTextStyle);
-                GUI.Label(new Rect(20f, 160f, 1160f, 40f),
-                    $"게임 역할: {profile.profile.gameplayRoleSummary}", profileTextStyle);
-            }
+            DrawProfileDescription(profile, profileTextStyle);
             GUI.Label(new Rect(20f, 202f, 1160f, 26f),
                 $"현재 날짜: {bridge.CurrentTurn}일    기록된 기억: {bridge.RuntimeState.memories.Count}개", labelStyle);
             GUI.Label(new Rect(20f, 228f, 1160f, 25f),
@@ -58,7 +59,7 @@ namespace TakeOver.NPC
                 $"적대감 {relation.hostility:0}   의존도 {relation.dependency:0}   관심 {relation.interest:0}", labelStyle);
 
             // 중앙의 관계/기억 조작 영역만 스크롤한다. 하단 동작은 별도 고정 영역에 둔다.
-            var bodyViewport = new Rect(10f, 314f, 1180f, 256f);
+            var bodyViewport = new Rect(10f, 314f, 1180f, 220f);
             bodyScrollPosition = GUI.BeginScrollView(
                 bodyViewport, bodyScrollPosition, new Rect(0f, 0f, 1160f, 620f), false, true);
             GUILayout.BeginArea(new Rect(0f, 0f, 1140f, 620f));
@@ -109,11 +110,15 @@ namespace TakeOver.NPC
 
             if (bridge.LastRecordedMemory != null)
             {
-                GUI.Label(new Rect(20f, 576f, 1160f, 28f),
+                GUI.Label(new Rect(20f, 538f, 1160f, 26f),
                     $"마지막 기록: {bridge.LastRecordedMemory.memoryId} / {bridge.LastRecordedMemory.memoryType} · 공개 범위: {bridge.LastRecordedMemory.publicity} · {bridge.LastRecordedMemory.turn}일",
-                    labelStyle);
+                    profileTextStyle);
             }
-            GUI.Label(new Rect(400f, 580f, 780f, 25f), saveStatus, labelStyle);
+            // 마지막 기록 아래의 별도 영역에서 긴 저장 오류도 스크롤하며 확인한다.
+            saveStatusScroll = GUI.BeginScrollView(new Rect(20f, 568f, 1160f, 40f), saveStatusScroll,
+                new Rect(0f, 0f, 1135f, Mathf.Max(36f, profileTextStyle.CalcHeight(new GUIContent(saveStatus), 1135f))));
+            GUI.Label(new Rect(0f, 0f, 1135f, profileTextStyle.CalcHeight(new GUIContent(saveStatus), 1135f)), saveStatus, profileTextStyle);
+            GUI.EndScrollView();
             if (GUI.Button(new Rect(10f, 614f, 220f, 52f), "테스트 사건 발행", footerButtonStyle)) bridge.PublishTestEvent();
             if (GUI.Button(new Rect(236f, 614f, 135f, 52f), "턴 진행", footerButtonStyle)) bridge.AdvanceTurn();
             if (GUI.Button(new Rect(377f, 614f, 125f, 52f), "저장", footerButtonStyle)) SaveState();
@@ -123,17 +128,59 @@ namespace TakeOver.NPC
             GUI.EndGroup();
         }
 
-        /// <summary>프리팹에 저장한 다섯 프로필을 탭처럼 보여주고 선택 NPC를 브리지에 전달한다.</summary>
+        /// <summary>길이에 맞춘 프로필을 고정 영역 안에서만 스크롤해 아래 상태 표시를 가리지 않는다.</summary>
+        private void DrawProfileDescription(NpcStateRegistry.NpcSeed profile, GUIStyle style)
+        {
+            if (profile == null || profile.profile == null) return;
+            if (displayedProfileId != profile.npcId)
+            {
+                displayedProfileId = profile.npcId;
+                profileScrollPosition = Vector2.zero;
+            }
+            const float textWidth = 1135f;
+            const float gap = 6f;
+            var personality = new GUIContent($"{profile.profile.affiliation} · 성향: {profile.profile.personalitySummary}");
+            var role = new GUIContent($"게임 역할: {profile.profile.gameplayRoleSummary}");
+            var personalityHeight = style.CalcHeight(personality, textWidth);
+            var roleHeight = style.CalcHeight(role, textWidth);
+            var contentHeight = personalityHeight + gap + roleHeight;
+            // NPC 버튼은 126에서 끝나고 날짜 표시는 202에서 시작한다. 사이 영역만 사용한다.
+            var viewport = new Rect(20f, 128f, 1160f, 70f);
+            profileScrollPosition.y = Mathf.Clamp(profileScrollPosition.y, 0f, Mathf.Max(0f, contentHeight - viewport.height));
+            profileScrollPosition.x = 0f;
+            profileScrollPosition = GUI.BeginScrollView(viewport, profileScrollPosition,
+                new Rect(0f, 0f, textWidth, contentHeight), false, true,
+                GUIStyle.none, GUI.skin.verticalScrollbar);
+            GUI.Label(new Rect(0f, 0f, textWidth, personalityHeight), personality, style);
+            GUI.Label(new Rect(0f, personalityHeight + gap, textWidth, roleHeight), role, style);
+            GUI.EndScrollView();
+        }
+
+        /// <summary>등록된 전체 NPC를 일정 너비의 버튼으로 표시하고 가로 스크롤로 선택한다.</summary>
         private void DrawNpcProfileSelector(NpcStateRegistry.NpcSeed selectedProfile)
         {
             var profiles = bridge.NpcProfiles;
             if (profiles == null || profiles.Count == 0) return;
 
-            const float startX = 20f;
-            const float totalWidth = 1160f;
-            const float top = 54f;
+            const float viewportWidth = 1160f;
+            const float tabWidth = 232f;
             const float tabHeight = 54f;
-            var tabWidth = totalWidth / profiles.Count;
+            var viewport = new Rect(20f, 54f, viewportWidth, 72f);
+            var contentWidth = Mathf.Max(viewportWidth, profiles.Count * tabWidth);
+            var maxScroll = contentWidth - viewportWidth;
+            npcScrollPosition.x = Mathf.Clamp(npcScrollPosition.x, 0f, maxScroll);
+            npcScrollPosition.y = 0f;
+            // NPC 영역 위의 휠은 좌우 이동으로 사용한다. 본문 스크롤과는 별개다.
+            var input = Event.current;
+            if (maxScroll > 0f && input.type == EventType.ScrollWheel && viewport.Contains(input.mousePosition))
+            {
+                var delta = Mathf.Abs(input.delta.x) > 0f ? input.delta.x : input.delta.y;
+                npcScrollPosition.x = Mathf.Clamp(npcScrollPosition.x + delta * 40f, 0f, maxScroll);
+                input.Use();
+            }
+            npcScrollPosition = GUI.BeginScrollView(viewport, npcScrollPosition,
+                new Rect(0f, 0f, contentWidth, tabHeight), true, false,
+                GUI.skin.horizontalScrollbar, GUIStyle.none);
             for (var index = 0; index < profiles.Count; index++)
             {
                 var profile = profiles[index];
@@ -146,23 +193,23 @@ namespace TakeOver.NPC
                     wordWrap = true
                 };
                 var label = $"{profile.profile.displayName}\n{profile.profile.role}";
-                if (GUI.Button(new Rect(startX + index * tabWidth, top, tabWidth - 6f, tabHeight), label, tabStyle))
+                if (GUI.Button(new Rect(index * tabWidth, 0f, tabWidth - 6f, tabHeight), label, tabStyle))
                 {
                     if (!bridge.SelectNpcProfile(profile.npcId))
                         Debug.LogWarning($"NPC 프로필 '{profile.npcId}'을 선택하지 못했습니다.", this);
                 }
             }
+            GUI.EndScrollView();
         }
 
         private void SaveState()
         {
-            bridge.SaveNpcState();
-            saveStatus = "NPC 상태 저장 완료";
+            saveStatus = bridge.TrySaveNpcState() ? "NPC 상태 저장 완료" : bridge.SaveError;
         }
 
         private void LoadState()
         {
-            saveStatus = bridge.LoadNpcState() ? "저장 상태 불러오기 완료" : "저장 파일이 없습니다";
+            saveStatus = bridge.LoadNpcState() ? "저장 상태 불러오기 완료" : bridge.SaveError;
         }
 
         /// <summary>관계 변화 테스트 버튼을 만들고 클릭 시 브리지의 해당 함수를 호출한다.</summary>

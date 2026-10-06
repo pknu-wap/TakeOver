@@ -45,6 +45,18 @@ namespace TakeOver.NPC
         private void HandleEvent(NpcEventPayload payload)
         {
             if (payload == null || payload.targetNpcIds == null || registry == null || memoryService == null) return;
+            // 프로필 보정까지 전 대상에 대해 먼저 검사해 뒤쪽 대상의 잘못된 값으로 일부만 반영되지 않게 한다.
+            foreach (var targetId in payload.targetNpcIds)
+            {
+                if (!registry.TryGet(targetId, out _)) continue;
+                var reaction = FindReaction(payload, targetId);
+                var type = reaction == null ? payload.memoryType : reaction.memoryType;
+                var delta = reaction == null ? payload.relationDelta : reaction.relationDelta;
+                NpcInputValidation.ValidateEvent(type,
+                    reaction == null ? payload.publicity : reaction.publicity,
+                    reaction == null ? payload.reliability : reaction.reliability,
+                    registry.ApplyProfileEventBias(targetId, type, delta));
+            }
             foreach (var targetId in payload.targetNpcIds)
             {
                 if (!registry.TryGet(targetId, out var state))

@@ -297,6 +297,8 @@ namespace TakeOver.NPC
         }
 
         public void SaveNpcState() => saveService.Save();
+        public bool TrySaveNpcState() => saveService.TrySave();
+        public string SaveError => saveService.LastError;
         public bool LoadNpcState()
         {
             if (!saveService.Load()) return false;

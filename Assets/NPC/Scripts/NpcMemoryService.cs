@@ -35,6 +35,11 @@ namespace TakeOver.NPC
         {
             if (state == null) throw new ArgumentNullException(nameof(state));
             if (memory == null) throw new ArgumentNullException(nameof(memory));
+            // 채널을 통하지 않는 직접 호출과 프로필 보정 결과도 상태 변경 전에 검사한다.
+            NpcInputValidation.ValidateEvent(memory.memoryType, memory.publicity, memory.reliability, memory.relationDelta);
+            if (!Enum.IsDefined(typeof(NpcActionDisposition), memory.actionDisposition)
+                || memory.turn < 1 || memory.targetId != state.npcId)
+                throw new ArgumentException("기억의 선호 분류, 턴 또는 대상 NPC가 올바르지 않습니다.", nameof(memory));
             stored = memory.Clone();
             // 저장 범위를 정리해 Inspector/이벤트 입력값이 예상 범위를 벗어나지 않게 한다.
             stored.strength = Mathf.Clamp(stored.strength, 1, 5);
@@ -67,6 +72,8 @@ namespace TakeOver.NPC
         public void ApplyRelationDelta(NpcRuntimeState state, NpcRelationDelta delta, int turn)
         {
             if (state == null) throw new ArgumentNullException(nameof(state));
+            NpcInputValidation.ValidateDelta(delta);
+            if (turn < 1) throw new ArgumentOutOfRangeException(nameof(turn));
             state.relation.Apply(delta, turn);
             relationChanged?.Invoke(state);
             registry?.NotifyStateChanged(state);

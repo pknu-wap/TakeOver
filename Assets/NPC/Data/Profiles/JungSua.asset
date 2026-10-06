@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
+  m_Name: JungSua
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
+  seed:
+    npcId: npc-investigative-reporter-jung-sua
+    companyId: external-network
+    profile:
+      displayName: 정수아
+      role: 탐사보도 기자
+      affiliation: 외부 인물
+      personalitySummary: 공익 사건을 오래 추적한다. 한 번의 비위보다 정보 유출·뇌물·정치 결탁 같은 사건의 연결고리를 중시한다.
+      gameplayRoleSummary: 정치 거래나 뇌물 등 공개된 사건을 추적해 조사·폭로 분기로 이어질 수 있다.
+      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
+      eventRelationBiases:
+      - memoryType: 6
+        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
+      - memoryType: 7
+        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
+    actionPreferences:
+    - actionId: GoodFaith
+      disposition: 1
+      rationale: 공익을 위한 약속 이행
+    - actionId: ContractBreach
+      disposition: 2
+      rationale: 공익적 조사로 드러난 계약 위반
+    - actionId: MassLayoff
+      disposition: 2
+      rationale: 공익 영향이 큰 구조조정 사건
+    - actionId: HostileTakeover
+      disposition: 2
+      rationale: 공익 영향이 큰 적대적 인수 사건
+    - actionId: SavedCompany
+      disposition: 1
+      rationale: 기업과 이해관계자에 영향을 준 구제 사건
+    - actionId: PublicHumiliation
+      disposition: 2
+      rationale: 공개 검증이 필요한 사건
+    - actionId: LeakedInfo
+      disposition: 2
+      rationale: 정보 유출 사건의 추적 단서
+    - actionId: Bribery
+      disposition: 2
+      rationale: 뇌물 사건의 추적 단서

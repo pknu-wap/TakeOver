@@ -69,6 +69,8 @@ namespace TakeOver.NPC
             if (payload.targetNpcIds == null || payload.targetNpcIds.Count == 0)
                 throw new ArgumentException("사건의 영향을 받는 NPC ID를 하나 이상 지정해야 합니다.", nameof(payload));
             var targets = new HashSet<string>(StringComparer.Ordinal);
+            // 어느 대상도 처리하기 전에 공통 결과와 모든 개별 결과를 검사한다.
+            NpcInputValidation.ValidateEvent(payload.memoryType, payload.publicity, payload.reliability, payload.relationDelta);
             foreach (var targetId in payload.targetNpcIds)
             {
                 if (string.IsNullOrWhiteSpace(targetId)) throw new ArgumentException("대상 NPC ID는 비어 있을 수 없습니다.", nameof(payload));
@@ -85,6 +87,7 @@ namespace TakeOver.NPC
                         throw new ArgumentException($"NPC별 반응 대상 '{reaction.targetNpcId}'가 targetNpcIds에 없습니다.", nameof(payload));
                     if (!reactionTargets.Add(reaction.targetNpcId))
                         throw new ArgumentException($"NPC별 반응 대상 '{reaction.targetNpcId}'가 중복 지정되었습니다.", nameof(payload));
+                    NpcInputValidation.ValidateEvent(reaction.memoryType, reaction.publicity, reaction.reliability, reaction.relationDelta);
                 }
             }
             Published?.Invoke(payload);

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
+  m_Name: KangJunhyeok
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
+  seed:
+    npcId: npc-future-construction-ceo-kang-junhyeok
+    companyId: future-construction
+    profile:
+      displayName: 강준혁
+      role: CEO / 창업자
+      affiliation: 미래건설
+      personalitySummary: 신중하고 현실적이며 자존심이 강하다. 회사명·계약·현장 인력의 연속성과 문서화된 보장을 중시한다.
+      gameplayRoleSummary: 미래건설 인수 협상의 핵심 인물이다. 약속 이행은 신뢰를 쌓고, 계약·인력·회사 정체성의 해체는 강한 반발을 부른다.
+      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      eventRelationBiases:
+      - memoryType: 0
+        relationDelta: {trust: 2, respect: 1, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      - memoryType: 1
+        relationDelta: {trust: -2, respect: 0, fear: 0, hostility: 2, dependency: 0, interest: 0}
+      - memoryType: 2
+        relationDelta: {trust: 0, respect: -1, fear: 0, hostility: 2, dependency: 0, interest: 0}
+      - memoryType: 3
+        relationDelta: {trust: -1, respect: 0, fear: 0, hostility: 2, dependency: 0, interest: 0}
+    actionPreferences:
+    - actionId: GoodFaith
+      disposition: 1
+      rationale: 문서화된 약속을 이행한 행동
+    - actionId: SavedCompany
+      disposition: 1
+      rationale: 회사의 지속성을 지킨 행동
+    - actionId: ContractBreach
+      disposition: 2
+      rationale: 계약과 약속을 어긴 행동
+    - actionId: MassLayoff
+      disposition: 2
+      rationale: 현장 인력의 고용을 흔드는 구조조정
+    - actionId: HostileTakeover
+      disposition: 2
+      rationale: 회사의 자율성과 정체성을 위협하는 인수
