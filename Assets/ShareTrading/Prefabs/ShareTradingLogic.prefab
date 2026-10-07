@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 2861563636828900442}
   - component: {fileID: 8237969287396869895}
   - component: {fileID: 1855018050064955431}
+  - component: {fileID: 9056152948097765713}
   - component: {fileID: 3551093198360838554}
   - component: {fileID: 7428086192204875296}
   m_Layer: 0
@@ -153,8 +154,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSystem
   companies: {fileID: 8237969287396869895}
-  currentTurn: 1
   marketData: {fileID: 5191246152492245077}
+--- !u!114 &9056152948097765713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5643717909320174764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22494f2c6a8e44528277d99efc57b301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventListener
+  marketData: {fileID: 5191246152492245077}
+  tmpTargetCompanyId: tmp-company-a
+  tmpAcceptMarketImpact:
+    evaluationImpact: 0.2
+    liquidityImpact: 0.1
+    durationTurns: 3
 --- !u!114 &3551093198360838554
 MonoBehaviour:
   m_ObjectHideFlags: 0
