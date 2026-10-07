@@ -1927,7 +1927,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3840, y: 2160}
+  m_SizeDelta: {x: 2560, y: 1440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7106676707316779718
 CanvasRenderer:
@@ -1950,14 +1950,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6285208, g: 1, b: 0.4198113, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2512,8 +2512,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -35}
-  m_SizeDelta: {x: -80, y: -150}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1853795407117554763
 CanvasRenderer:
@@ -2598,7 +2598,7 @@ MonoBehaviour:
   content: {fileID: 3628015765113062683}
   viewport: {fileID: 0}
   zoomText: {fileID: 0}
-  minZoom: 0.5
+  minZoom: 0.75
   maxZoom: 2
   zoomStep: 0.1
 --- !u!114 &4925127012043447213
@@ -2616,7 +2616,11 @@ MonoBehaviour:
   nodeParent: {fileID: 3628015765113062683}
   nodePrefab: {fileID: 8887161218069948666, guid: 63eb203316eea9b4fb8d617fb2097c7a, type: 3}
   detailPanel: {fileID: 5089123800732095633}
-  positions: []
+  positions:
+  - companyName: TmpCompanyA
+    position: {x: 807, y: 0}
+  - companyName: TmpCompanyB
+    position: {x: -116, y: 362}
   autoRadius: 600
 --- !u!1 &2636877699205057073
 GameObject:
@@ -7083,7 +7087,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5109436181179120825
 CanvasRenderer:
