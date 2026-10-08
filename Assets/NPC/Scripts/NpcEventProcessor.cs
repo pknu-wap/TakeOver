@@ -45,6 +45,18 @@ namespace TakeOver.NPC
         private void HandleEvent(NpcEventPayload payload)
         {
             if (payload == null || payload.targetNpcIds == null || registry == null || memoryService == null) return;
+            // 프로필 보정까지 전 대상에 대해 먼저 검사해 뒤쪽 대상의 잘못된 값으로 일부만 반영되지 않게 한다.
+            foreach (var targetId in payload.targetNpcIds)
+            {
+                if (!registry.TryGet(targetId, out _)) continue;
+                var reaction = FindReaction(payload, targetId);
+                var type = reaction == null ? payload.memoryType : reaction.memoryType;
+                var delta = reaction == null ? payload.relationDelta : reaction.relationDelta;
+                NpcInputValidation.ValidateEvent(type,
+                    reaction == null ? payload.publicity : reaction.publicity,
+                    reaction == null ? payload.reliability : reaction.reliability,
+                    registry.ApplyProfileEventBias(targetId, type, delta));
+            }
             foreach (var targetId in payload.targetNpcIds)
             {
                 if (!registry.TryGet(targetId, out var state))
@@ -89,6 +101,9 @@ namespace TakeOver.NPC
                 }
 
                 // TryRecordMemory가 false면 동일 eventId의 기존 기록이므로 UI 알림도 다시 울리지 않는다.
+                // 프로필별 임시 성향 반응을 사건 기본/개별 반응에 더한다.
+                recordInput.relationDelta = registry.ApplyProfileEventBias(
+                    targetId, recordInput.memoryType, recordInput.relationDelta);
                 if (!memoryService.TryRecordMemory(state, recordInput, out var record)) continue;
                 MemoryRecorded?.Invoke(record);
                 onMemoryRecorded?.Invoke();

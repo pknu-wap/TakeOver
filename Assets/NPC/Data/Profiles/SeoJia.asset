@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
+  m_Name: SeoJia
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
+  seed:
+    npcId: npc-future-construction-cfo-seo-jia
+    companyId: future-construction
+    profile:
+      displayName: 서지아
+      role: CFO
+      affiliation: 미래건설
+      personalitySummary: 냉정하고 숫자 중심이다. 감정보다 생존 가능성을 판단하며 부채 만기, 현금흐름, 프로젝트별 수익성을 비교해 손실이 가장 적은 선택을 찾는다. 거짓 숫자와 숨긴 재무 조건에는 방어적으로 반응한다.
+      gameplayRoleSummary: 위기일수록 매각을 적극 검토하며 플레이어의 재무 능력과 객관적 거래 조건을 평가한다. 숨겨진 부채와 수익성이 낮은 사업부를 알려주는 내부 정보 창구다.
+      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      eventRelationBiases: []
+    actionPreferences:
+    - actionId: GoodFaith
+      disposition: 1
+      rationale: 명확한 재무 조건과 계약을 실제로 지킨 행동으로 해석할 때 선호한다.
+    - actionId: SavedCompany
+      disposition: 1
+      rationale: 현금흐름과 생존 가능성을 개선한 기업 구제로 해석할 때 선호한다.
+    - actionId: ContractBreach
+      disposition: 2
+      rationale: 명시된 자금이나 부채 인수 합의를 어긴 사건으로 해석할 때 기피한다.
+    - actionId: ClearFundingPlan
+      disposition: 1
+      rationale: 명확한 자금 계획을 제시하는 거래를 선호한다.
+    - actionId: ExplicitDebtAssumption
+      disposition: 1
+      rationale: 부채 인수 여부가 명시된 거래를 선호한다.
+    - actionId: PerformanceBasedCompensation
+      disposition: 1
+      rationale: 성과보수 등 객관적인 조건을 선호한다.
+    - actionId: VaguePromises
+      disposition: 2
+      rationale: 모호한 장밋빛 약속을 기피한다.
+    - actionId: UnverifiedGrowth
+      disposition: 2
+      rationale: 검증되지 않은 성장률을 기피한다.
+    - actionId: VanityInvestment
+      disposition: 2
+      rationale: 현금흐름을 무시한 과시성 투자를 기피한다.
+    - actionId: FinancialMisrepresentation
+      disposition: 2
+      rationale: 거짓 숫자를 제시하면 즉시 방어적인 태도로 돌아선다.
+    - actionId: HiddenFinancialTerms
+      disposition: 2
+      rationale: 불리한 재무 조건을 숨기는 거래에 방어적으로 반응한다.

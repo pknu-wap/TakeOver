@@ -16,6 +16,9 @@ GameObject:
   - component: {fileID: 5246106580691168825}
   - component: {fileID: 6440314261592844075}
   - component: {fileID: 8909477381549077842}
+  - component: {fileID: 7300000000000000001}
+  - component: {fileID: 7300000000000000002}
+  - component: {fileID: 7300000000000000003}
   m_Layer: 0
   m_Name: NpcLogic
   m_TagString: Untagged
@@ -51,6 +54,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcStateRegistry
   initialNpcs: []
+  npcDefinitions:
+  - {fileID: 11400000, guid: 40e77a242cb74dbba335b6e23a86ad4d, type: 2}
+  - {fileID: 11400000, guid: 1ef4026ae8d9478c92bb87fc4d083907, type: 2}
+  - {fileID: 11400000, guid: 6a0e3bc821d64cac9d27590e75606c77, type: 2}
+  - {fileID: 11400000, guid: 27df07dc5dac41fe9d846451317edbf7, type: 2}
+  - {fileID: 11400000, guid: 9c882198bd454fa492e42b4e604d9cc2, type: 2}
+  - {fileID: 11400000, guid: cbbc6f59d4d748d58127642f2d071dfb, type: 2}
+  - {fileID: 11400000, guid: 8e9ac63340924adea8eeae0fc6196e06, type: 2}
 --- !u!114 &5069817366027939039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,3 +154,101 @@ MonoBehaviour:
   onPortfolioScreenRequested:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7300000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8755569222526264623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4db7bb7fc443f0a1d9f718f49f0d4d, type: 3}
+  m_Name: ''
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcFeatureTestHarness
+  memoryService: {fileID: 5069817366027939039}
+  registry: {fileID: 2384012610848785350}
+  turnClock: {fileID: 440253565984179455}
+  eventChannel: {fileID: 4158906415785013732}
+  eventProcessor: {fileID: 5246106580691168825}
+  screenNavigation: {fileID: 8909477381549077842}
+  saveService: {fileID: 6440314261592844075}
+  npcId: npc-broker-yoon-hajin
+  companyId: external-network
+  testTargetNpcIds:
+  - npc-broker-yoon-hajin
+  testEvent:
+    eventId: test-event
+    companyId: external-network
+    actorId: player
+    actionId: GoodFaith
+    targetNpcId: npc-broker-yoon-hajin
+    memoryType: 0
+    memoryStrength: 1
+    publicity: 1
+    permanent: 0
+    durationTurns: 3
+    reliability: 1
+    interpretation: Test event interpretation
+    relationDelta:
+      trust: 0
+      respect: 0
+      fear: 0
+      hostility: 0
+      dependency: 0
+      interest: 0
+  trustTestDelta: {trust: 10, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+  respectTestDelta: {trust: 0, respect: 10, fear: 0, hostility: 0, dependency: 0, interest: 0}
+  fearTestDelta: {trust: 0, respect: 0, fear: 10, hostility: 0, dependency: 0, interest: 0}
+  hostilityTestDelta: {trust: 0, respect: 0, fear: 0, hostility: 10, dependency: 0, interest: 0}
+  dependencyTestDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 10, interest: 0}
+  interestTestDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 10}
+  goodFaithMemoryDelta: {trust: 5, respect: 3, fear: 0, hostility: 0, dependency: 0, interest: 1}
+  contractBreachMemoryDelta: {trust: -10, respect: 0, fear: 0, hostility: 8, dependency: 0, interest: 0}
+  massLayoffMemoryDelta: {trust: 0, respect: 2, fear: 0, hostility: 10, dependency: 0, interest: 0}
+  hostileTakeoverMemoryDelta: {trust: 0, respect: -4, fear: 8, hostility: 4, dependency: 0, interest: 0}
+  savedCompanyMemoryDelta: {trust: 8, respect: 2, fear: 0, hostility: 0, dependency: 5, interest: 0}
+  publicHumiliationMemoryDelta: {trust: 0, respect: -6, fear: 0, hostility: 12, dependency: 0, interest: 0}
+  leakedInfoMemoryDelta: {trust: -7, respect: 0, fear: 0, hostility: 3, dependency: 0, interest: 4}
+  briberyMemoryDelta: {trust: -6, respect: 0, fear: 0, hostility: 5, dependency: 4, interest: 0}
+  onTestEventRecorded:
+    m_PersistentCalls:
+      m_Calls: []
+  onOpenEventScreen:
+    m_PersistentCalls:
+      m_Calls: []
+  onOpenPortfolioScreen:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &7300000000000000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8755569222526264623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f5b3c9cf9f34c2ba6c4aa1cbb9f5a11, type: 3}
+  m_Name: ''
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcFeatureTestScene
+  bridge: {fileID: 7300000000000000001}
+  showTestUI: 0
+--- !u!114 &7300000000000000003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8755569222526264623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e51cbad85c4259965d0e1c20594234, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcEventResultReceiver
+  eventChannel: {fileID: 4158906415785013732}
+  registry: {fileID: 2384012610848785350}
+  reactions: []
+  configuredEventId:
+  configuredChoiceIndex: 0
+  configuredResultValue:

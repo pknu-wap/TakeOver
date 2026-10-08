@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
+  m_Name: ParkDosik
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
+  seed:
+    npcId: npc-future-construction-field-director-park-dosik
+    companyId: future-construction
+    profile:
+      displayName: 박도식
+      role: 현장총괄
+      affiliation: 미래건설
+      personalitySummary: 말수가 적고 우직하며 현장 인력에 대한 책임감이 강하다. 공사 일정과 안전을 우선하고 현장을 망가뜨리는 대규모 인력 감축에 거세게 반대한다. 약속한 고용 조건을 실제로 지키는지 여러 턴 동안 지켜본다.
+      gameplayRoleSummary: 구조조정과 직원 평판에서 현장의 입장을 대변한다. 말보다 행동을 평가하며 작은 약속을 반복해 지키는 플레이어를 신뢰한다.
+      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      eventRelationBiases: []
+    actionPreferences:
+    - actionId: GoodFaith
+      disposition: 1
+      rationale: 약속한 고용 조건과 작은 현장 약속을 실제로 지키는 행동을 선호한다.
+    - actionId: SavedCompany
+      disposition: 1
+      rationale: 현장 고용과 공사 수행을 지켜낸 기업 구제로 해석할 때 선호한다.
+    - actionId: ContractBreach
+      disposition: 2
+      rationale: 약속한 고용 조건을 깨뜨리는 사건으로 해석할 때 기피한다.
+    - actionId: MassLayoff
+      disposition: 2
+      rationale: 현장을 망가뜨리는 대규모 인력 감축에 거세게 반대한다.
+    - actionId: MaintainFieldStaff
+      disposition: 1
+      rationale: 현장 인력 유지를 선호한다.
+    - actionId: SafetyInvestment
+      disposition: 1
+      rationale: 안전 투자를 선호한다.
+    - actionId: RetainSkilledWorkers
+      disposition: 1
+      rationale: 숙련공 승계를 선호한다.
+    - actionId: RealisticSchedule
+      disposition: 1
+      rationale: 현실적인 공사 일정 조정을 선호한다.
+    - actionId: BlanketStaffCuts
+      disposition: 2
+      rationale: 현장 실정과 무관한 일괄 감축에 강하게 반발한다.
+    - actionId: CutSafetyBudget
+      disposition: 2
+      rationale: 안전 예산 삭감에 강하게 반발한다.
+    - actionId: SuddenOutsourcing
+      disposition: 2
+      rationale: 갑작스러운 외주화에 강하게 반발한다.

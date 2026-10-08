@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
+  m_Name: YoonHajin
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
+  seed:
+    npcId: npc-broker-yoon-hajin
+    companyId: external-network
+    profile:
+      displayName: 윤하진
+      role: M&A 브로커
+      affiliation: 외부 거래망
+      personalitySummary: 거래 수수료와 협상 신뢰를 중시한다. 거래를 늘리는 상대를 선호하며, 약속을 깨면 정보 정확도를 낮춘다.
+      gameplayRoleSummary: 비공개 매물과 거래 상대를 연결한다. 주가조작 제안 사건의 발신자이기도 하다.
+      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      eventRelationBiases:
+      - memoryType: 0
+        relationDelta: {trust: 1, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      - memoryType: 1
+        relationDelta: {trust: -2, respect: 0, fear: 0, hostility: 1, dependency: 0, interest: 0}
+    actionPreferences:
+    - actionId: GoodFaith
+      disposition: 1
+      rationale: 약속과 거래 신뢰를 지킨 행동
+    - actionId: ContractBreach
+      disposition: 2
+      rationale: 협상 약속을 어긴 행동
+    - actionId: SavedCompany
+      disposition: 1
+      rationale: 거래 상대의 기업을 살린 행동
