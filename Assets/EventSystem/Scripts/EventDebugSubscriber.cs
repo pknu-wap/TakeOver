@@ -25,7 +25,8 @@ namespace TakeOver.Events
 
         private void onChoiceConfirmed(ChoiceConfirmedInfo info)
         {
-            Debug.Log($"[선택 확정] eventId={info.eventId}, choiceIndex={info.choiceIndex}, resultValue={info.resultValue}", this);
+            int targetCount = info.npcResult != null ? info.npcResult.targetNpcIds.Count : 0;
+            Debug.Log($"[선택 확정] eventId={info.eventId}, choiceIndex={info.choiceIndex}, resultValue={info.resultValue}, occurrenceId={info.occurrenceId}, companyId={info.companyId}, npcTargetCount={targetCount}, cashDelta={info.cashDelta}", this);
         }
     }
 }

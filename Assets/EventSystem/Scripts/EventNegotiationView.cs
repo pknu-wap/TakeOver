@@ -11,10 +11,11 @@ namespace TakeOver.Events
         [SerializeField] private Text[] choiceTexts;
         [SerializeField] private Button closeButton;
 
-        public void show(EventDefinition definition, EventSystemController controller)
+        public void show(TodayEventInfo info, EventSystemController controller)
         {
-            speakerText.text = $"{definition.getSpeakerName()} · {definition.getSpeakerRole()}";
-            dialogueText.text = definition.getDialogue();
+            EventDefinition definition = info.definition;
+            speakerText.text = $"{info.speakerName} · {info.speakerRole}";
+            dialogueText.text = info.dialogue;
             for (int i = 0; i < choiceButtons.Length; i++)
             {
                 int choiceIndex = i;

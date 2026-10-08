@@ -1,0 +1,212 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: ManagementDefense
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: management_defense_01
+  title: "\uACBD\uC601\uC9C4\uC758 \uBC29\uC5B4"
+  image: {fileID: 1034014796780061455, guid: d1232dcee65db644d892ef7a67adee87, type: 2}
+  description: "{company} {speaker} \uB300\uD45C. \uC9C0\uBD84 \uACF5\uC2DC\uB97C
+    \uBCF4\uACE0 \uBA74\uB2F4\uC744 \uC694\uCCAD\uD588\uB2E4."
+  apCost: 1
+  startButtonText: "\uB9CC\uB09C\uB2E4"
+  companyIds: []
+  speakerName: 
+  speakerRole: 
+  dialogue: "\uACF5\uC2DC\uB97C \uBD24\uC2B5\uB2C8\uB2E4. \uC6B0\uB9AC \uD68C\uC0AC
+    \uC9C0\uBD84\uC744 \uC65C \uC0AC\uB4E4\uC774\uB294 \uAC81\uB2C8\uAE4C? \uD22C\uC790\uC785\uB2C8\uAE4C,
+    \uACBD\uC601\uAD8C\uC785\uB2C8\uAE4C?"
+  choices:
+  - choiceText: "\uACBD\uC601\uC9C4\uACFC \uD68C\uC0AC \uC774\uB984\uC744 \uC9C0\uD0A4\uACA0\uB2E4\uACE0
+      \uC57D\uC18D\uD55C\uB2E4"
+    resultDialogue: "\uADF8 \uC57D\uC18D, \uC9C0\uCF1C\uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: promise
+    npcResult:
+      eventId: 
+      companyId: 
+      actorId: 
+      actionId: 
+      targetNpcIds:
+      - npc-kang-junhyuk
+      - npc-kim-harin
+      - npc-jo-minseok
+      targetReactions:
+      - targetNpcId: npc-kang-junhyuk
+        memoryType: 0
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 10
+          respect: 10
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-kim-harin
+        memoryType: 0
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 10
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-jo-minseok
+        memoryType: 0
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 10
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      memoryType: 0
+      strength: 2
+      publicity: 1
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: 
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+  - choiceText: "\uACBD\uC601\uAD8C\uC744 \uAC00\uC838\uAC00\uACA0\uB2E4\uACE0 \uB9D0\uD55C\uB2E4"
+    resultDialogue: "\uADF8\uB807\uB2E4\uBA74 \uC6B0\uB9AC\uB3C4 \uAC00\uB9CC\uC788\uC9C0
+      \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: takeover
+    npcResult:
+      eventId: 
+      companyId: 
+      actorId: 
+      actionId: 
+      targetNpcIds:
+      - npc-kang-junhyuk
+      - npc-kim-harin
+      - npc-jo-minseok
+      - npc-kang-jaehyun
+      targetReactions:
+      - targetNpcId: npc-kang-junhyuk
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-kim-harin
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-jo-minseok
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-kang-jaehyun
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: 
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 10
+          fear: 10
+          hostility: 0
+          dependency: 0
+          interest: 0
+      memoryType: 3
+      strength: 2
+      publicity: 1
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: 
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+  conditions:
+  - kind: 2
+    npcId: 
+    relationAxis: 0
+    comparison: 0
+    value: 10
+    relaxedByEventId: political_donation_01
+    relaxedByChoiceIndex: 0
+    relaxedValue: 20
+  validDays: 2
+  speakerSource: 1

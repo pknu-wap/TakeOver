@@ -40,23 +40,32 @@ namespace TakeOver.Events
                 Destroy(child.gameObject);
             }
 
-            foreach (EventDefinition definition in eventSystem.getTodayEvents())
+            foreach (TodayEventInfo info in eventSystem.getTodayEventInfos())
             {
+                EventDefinition definition = info.definition;
                 Button card = Instantiate(cardTemplate, cardContainer);
                 card.name = definition.getId();
-                card.GetComponentInChildren<Text>(true).text = $"{definition.getTitle()}    ·    AP {definition.getApCost()}";
+                Text cardText = card.GetComponentInChildren<Text>(true);
+                cardText.resizeTextForBestFit = true;
+                cardText.resizeTextMinSize = 12;
+                cardText.resizeTextMaxSize = 24;
+                cardText.text = $"{info.title} · {info.companyName} · 남은 {info.remainingDays}일 · AP {definition.getApCost()}";
                 card.onClick.AddListener(() => eventSystem.openEvent(definition.getId()));
                 card.gameObject.SetActive(true);
             }
 
             dayText.text = $"{eventSystem.getCurrentDay()}일차";
             emptyText.gameObject.SetActive(eventSystem.getTodayEvents().Count == 0);
+            resultText.fontSize = 12;
             resultText.text = "선택 기록";
             foreach (EventDefinition definition in observedEvents)
             {
                 bool selected = eventSystem.tryGetChoice(definition.getId(), out int choiceIndex);
                 resultText.text += $"\n{definition.getTitle()}: " +
-                    (selected ? $"선택지 {choiceIndex} ({definition.getChoices()[choiceIndex].getText()})" : "아직 안 골랐음");
+                    (selected ? $"최근 선택지 {choiceIndex}" : "아직 안 골랐음");
+                foreach (EventCompanyData company in eventSystem.GetComponent<EventTempWorldData>().getCompanies())
+                    if (eventSystem.tryGetChoice(definition.getId(), company.companyId, out int companyChoice))
+                        resultText.text += $" · {company.companyName}: {companyChoice}";
             }
         }
     }
