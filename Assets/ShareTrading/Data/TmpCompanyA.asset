@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: TmpCompanyA
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
   companyName: TmpCompanyA
-  totalShares: 100
+  companyID: tmp-company-a
+  totalShares: 1000
   initialBaseCompanyValue: 100
   initialRevenue: 300
   initialCost: 50
@@ -21,8 +22,10 @@ MonoBehaviour:
   initialDebt: 200
   initialTangibleAssets: 50
   initialIntangibleAssets: 25
-  initialReputationB2C: 0
-  initialReputationB2B: 0
+  initialReputationB2C: 50
+  initialReputationB2B: 50
   initialReputaionPlayer: 0
-  initialMarketPosition: 0
+  initialMarketPosition: 50
   initialPlayerShares: 0
+  initialTangibleCoefficient: 0.75
+  initialIntangibleCoefficient: 0.75
