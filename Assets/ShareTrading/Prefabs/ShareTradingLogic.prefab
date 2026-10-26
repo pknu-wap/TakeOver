@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4403044897630217452}
   - component: {fileID: 3766095109131795667}
   m_Layer: 0
-  m_Name: TmpCompanyB
+  m_Name: HaneulFood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,6 +141,8 @@ MonoBehaviour:
   companies:
   - {fileID: 4843538842536291213}
   - {fileID: 3766095109131795667}
+  - {fileID: 8100000000000000112}
+  - {fileID: 8100000000000000102}
 --- !u!114 &1855018050064955431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventListener
   marketData: {fileID: 5191246152492245077}
-  tmpTargetCompanyId: tmp-company-a
   tmpAcceptMarketImpact:
     evaluationImpact: 0.2
     liquidityImpact: 0.1
@@ -227,7 +228,7 @@ GameObject:
   - component: {fileID: 7787489770384000560}
   - component: {fileID: 4843538842536291213}
   m_Layer: 0
-  m_Name: TmpCompanyA
+  m_Name: MiraeConstruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,6 +296,8 @@ Transform:
   - {fileID: 1389620484276860936}
   - {fileID: 7787489770384000560}
   - {fileID: 4403044897630217452}
+  - {fileID: 8100000000000000111}
+  - {fileID: 8100000000000000101}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8433373715940242318
@@ -341,3 +344,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e5c5c549ad31b54e8f1d21559f33def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+--- !u!1 &8100000000000000100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8100000000000000101}
+  - component: {fileID: 8100000000000000102}
+  m_Layer: 0
+  m_Name: DongbangTrading
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8100000000000000101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100000000000000100}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3210168565471856309}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8100000000000000102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100000000000000100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efef8ab77bf68f045bb4e9a858b8f0fa, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Company
+  companyDefinition: {fileID: 11400000, guid: 1a37c93a4ba34ce588e5dc20348253a8, type: 2}
+--- !u!1 &8100000000000000110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8100000000000000111}
+  - component: {fileID: 8100000000000000112}
+  m_Layer: 0
+  m_Name: HansungIndustry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8100000000000000111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100000000000000110}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3210168565471856309}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8100000000000000112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100000000000000110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efef8ab77bf68f045bb4e9a858b8f0fa, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::Company
+  companyDefinition: {fileID: 11400000, guid: d6cf1dd9df5b45498a09405f725c1cc1, type: 2}

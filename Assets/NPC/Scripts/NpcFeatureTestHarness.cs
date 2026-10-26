@@ -43,8 +43,8 @@ namespace TakeOver.NPC
         [SerializeField] private NpcScreenNavigation screenNavigation;
         [SerializeField] private NpcSaveService saveService;
         // 현재 선택된 NPC, 회사, 게임 턴과 Inspector에서 편집할 기본 사건.
-        [SerializeField] private string npcId = "npc-ceo-01";
-        [SerializeField] private string companyId = "portfolio-company-01";
+        [SerializeField] private string npcId = "";
+        [SerializeField] private string companyId = "";
         [SerializeField] private System.Collections.Generic.List<string> testTargetNpcIds = new System.Collections.Generic.List<string>();
         [SerializeField] private NpcTestEventData testEvent = new NpcTestEventData();
         // 테스트용 관계 버튼별 변화량. 실제 게임 규칙의 확정 수치가 아니다.
@@ -88,6 +88,28 @@ namespace TakeOver.NPC
         public IReadOnlyList<NpcChoiceReactionDefinition> RegisteredReactions => reactionReceiver == null
             ? Array.Empty<NpcChoiceReactionDefinition>() : reactionReceiver.RegisteredReactions;
         public string ReactionPreviewReport { get; private set; } = "반응 SO를 선택해 수동 발행하면 결과가 표시됩니다.";
+        public string PreferencePreviewReport { get; private set; } = "선호·불호·중립 행동과 결과 Memory를 비교할 수 있습니다.";
+
+        /// <summary>기존 사건 입력을 바꾸지 않는 독립 데모다. 행동 중 반응도 고유 발생 ID로 같은 채널에 발행한다.</summary>
+        public void PreviewPreferenceAction(int kind)
+        {
+            if (kind < 0 || kind > 4) throw new ArgumentOutOfRangeException(nameof(kind));
+            var before = RuntimeState.relation;
+            var memoryOnly = kind >= 3;
+            var negative = kind == 1 || kind == 4;
+            eventChannel.Publish(new NpcEventPayload
+            {
+                eventId = "preference-demo-" + Guid.NewGuid().ToString("N"),
+                companyId = companyId, actorId = "player",
+                targetNpcIds = new List<string> { npcId },
+                actionId = memoryOnly ? null : kind == 0 ? "ClearFundingPlan" : kind == 1 ? "FinancialMisrepresentation" : "NeutralGreeting",
+                memoryType = memoryOnly ? negative ? NpcMemoryType.ContractBreach : NpcMemoryType.GoodFaith : NpcMemoryType.Custom,
+                interpretation = memoryOnly ? "테스트용 이벤트 결과" : "테스트용 이벤트 도중 행동",
+                relationDelta = new NpcRelationDelta { trust = negative ? -4 : 4, hostility = negative ? 4 : -4 }
+            });
+            var after = RuntimeState.relation;
+            PreferencePreviewReport = $"실제 변화: 신뢰 {after.trust - before.trust:+0.##;-0.##;0}, 적대감 {after.hostility - before.hostility:+0.##;-0.##;0} / {LastRecordedMemory?.actionDisposition} · 누적 한계에서는 적용량이 줄어듭니다.";
+        }
 
         /// <summary>기존 수신 경로로 수동 발행하고, 전후 상태를 비교해 실제 적용 결과를 보여준다.</summary>
         public void PreviewReaction(NpcChoiceReactionDefinition reaction)
@@ -182,6 +204,7 @@ namespace TakeOver.NPC
             LastRecordedMemory = RuntimeState.memories.Count == 0
                 ? null
                 : RuntimeState.memories[RuntimeState.memories.Count - 1];
+            PreferencePreviewReport = $"{profile.profile?.displayName}: 행동 또는 결과 Memory 버튼을 눌러 실제 변화를 확인하세요.";
             return true;
         }
 

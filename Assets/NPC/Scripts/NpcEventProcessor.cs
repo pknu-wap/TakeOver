@@ -55,7 +55,8 @@ namespace TakeOver.NPC
                 NpcInputValidation.ValidateEvent(type,
                     reaction == null ? payload.publicity : reaction.publicity,
                     reaction == null ? payload.reliability : reaction.reliability,
-                    registry.ApplyProfileEventBias(targetId, type, delta));
+                    registry.EvaluatePreference(targetId, payload.actionId, type,
+                        registry.ApplyProfileEventBias(targetId, type, delta), out _));
             }
             foreach (var targetId in payload.targetNpcIds)
             {
@@ -72,7 +73,7 @@ namespace TakeOver.NPC
                     companyId = payload.companyId, turn = CurrentTurn
                 };
                 // 사건 공급자가 actionId를 보내면 해당 NPC 프로필의 선호 방향을 기록에 함께 남긴다.
-                // 선호를 관계 수치나 기억 강도로 바꾸는 공식은 기획 결정 전까지 적용하지 않는다.
+                // 분류와 최종 배율은 아래 공통 평가 경계에서 결정한다.
                 if (registry.TryGetActionPreference(targetId, payload.actionId, out var disposition))
                     recordInput.actionDisposition = disposition;
                 if (reaction == null)
@@ -104,6 +105,20 @@ namespace TakeOver.NPC
                 // 프로필별 임시 성향 반응을 사건 기본/개별 반응에 더한다.
                 recordInput.relationDelta = registry.ApplyProfileEventBias(
                     targetId, recordInput.memoryType, recordInput.relationDelta);
+                var beforePreference = recordInput.relationDelta;
+                recordInput.relationDelta = registry.EvaluatePreference(targetId, payload.actionId,
+                    recordInput.memoryType, recordInput.relationDelta, out var preferenceDisposition);
+                recordInput.actionDisposition = preferenceDisposition;
+                registry.TryGetProfile(targetId, out var profile);
+                var response = profile?.preferenceResponse;
+                recordInput.effectLog = new NpcMemoryEffectLog
+                {
+                    preferenceEnabled = response != null && response.enabled,
+                    multiplier = response == null || !response.enabled || preferenceDisposition == NpcActionDisposition.Unspecified ? 1f
+                        : preferenceDisposition == NpcActionDisposition.Likes ? response.likedMultiplier : response.dislikedMultiplier,
+                    beforePreference = beforePreference,
+                    preferenceBonus = NpcRelationDelta.Subtract(recordInput.relationDelta, beforePreference)
+                };
                 if (!memoryService.TryRecordMemory(state, recordInput, out var record)) continue;
                 MemoryRecorded?.Invoke(record);
                 onMemoryRecorded?.Invoke();

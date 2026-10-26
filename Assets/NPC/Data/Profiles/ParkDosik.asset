@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ParkDosik
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-future-construction-field-director-park-dosik
-    companyId: future-construction
+    npcId: npc-mirae-construction-field-director-park-dosik
+    companyId: mirae-construction
+    position: 0
     profile:
       displayName: 박도식
       role: 현장총괄

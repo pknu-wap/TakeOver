@@ -21,6 +21,26 @@ namespace TakeOver.NPC.Editor
         {
             var errors = new List<string>();
             var seed = new SerializedObject(definition).FindProperty("seed");
+            if (!Enum.IsDefined(typeof(NpcPosition), seed.FindPropertyRelative("position").intValue))
+                errors.Add("Position이 올바르지 않습니다.");
+            var response = seed.FindPropertyRelative("preferenceResponse");
+            foreach (var field in new[] { "likedMultiplier", "dislikedMultiplier" })
+            {
+                var value = response.FindPropertyRelative(field).floatValue;
+                if (response.FindPropertyRelative("enabled").boolValue && (float.IsNaN(value) || float.IsInfinity(value) || value < 1))
+                    errors.Add("활성 선호 배율은 1 이상의 유한한 값이어야 합니다.");
+            }
+            var memories = seed.FindPropertyRelative("memoryPreferences");
+            var memoryTypes = new HashSet<int>();
+            for (var i = 0; i < memories.arraySize; i++)
+            {
+                var memory = memories.GetArrayElementAtIndex(i);
+                var type = memory.FindPropertyRelative("memoryType").intValue;
+                if (!Enum.IsDefined(typeof(NpcMemoryType), type) || !memoryTypes.Add(type))
+                    errors.Add("Memory 선호 유형이 올바르지 않거나 중복입니다.");
+                if (!Enum.IsDefined(typeof(NpcActionDisposition), memory.FindPropertyRelative("disposition").intValue))
+                    errors.Add("Memory 선호 분류가 올바르지 않습니다.");
+            }
             if (string.IsNullOrWhiteSpace(seed.FindPropertyRelative("npcId").stringValue))
                 errors.Add("Npc Id를 입력하세요. 빈 양식은 레지스트리에 등록하지 않습니다.");
             var profile = seed.FindPropertyRelative("profile");

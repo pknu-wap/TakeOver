@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 183636455}
   - component: {fileID: 183636454}
   m_Layer: 0
-  m_Name: TmpCompanyB
+  m_Name: 하늘식품
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -948,7 +948,7 @@ GameObject:
   - component: {fileID: 509240922}
   - component: {fileID: 509240921}
   m_Layer: 0
-  m_Name: TmpCompanyA
+  m_Name: 미래건설
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

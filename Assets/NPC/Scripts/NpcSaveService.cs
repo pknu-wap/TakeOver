@@ -83,6 +83,10 @@ namespace TakeOver.NPC
                 }
                 data = JsonUtility.FromJson<SaveData>(File.ReadAllText(SavePath));
                 Validate(data);
+                // 저장 데이터도 현재 SO의 ID를 그대로 사용해야 한다. 별칭이나 구 ID 변환은 하지 않는다.
+                foreach (var state in data.npcs)
+                    if (!registry.TryGetProfile(state.npcId, out var seed) || seed.companyId != state.companyId)
+                        throw new InvalidDataException($"현재 NPC 정의와 일치하지 않는 저장 ID입니다: {state.npcId}");
             }
             catch (Exception error) when (IsStorageError(error))
             {
@@ -95,7 +99,7 @@ namespace TakeOver.NPC
             return true;
         }
 
-        private static bool IsStorageError(Exception error) => error is IOException
+        private static bool IsStorageError(Exception error) => error is IOException || error is InvalidDataException
             || error is UnauthorizedAccessException || error is ArgumentException
             || error is InvalidOperationException || error is NotSupportedException
             || error is System.Security.SecurityException;
@@ -115,6 +119,7 @@ namespace TakeOver.NPC
                 var memoryIds = new HashSet<string>(StringComparer.Ordinal);
                 foreach (var memory in state.memories)
                 {
+                    NpcInputValidation.ValidateEffectLog(memory?.effectLog);
                     if (memory == null || string.IsNullOrWhiteSpace(memory.memoryId) || !memoryIds.Add(memory.memoryId)
                         || memory.targetId != state.npcId || memory.turn < 1 || memory.turn > data.currentTurn
                         || !Enum.IsDefined(typeof(NpcMemoryType), memory.memoryType)

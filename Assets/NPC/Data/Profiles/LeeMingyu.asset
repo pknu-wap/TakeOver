@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
+  m_Name: LeeMingyu
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
+  seed:
+    npcId: npc-economic-reporter-lee-mingyu
+    companyId: external-network
+    position: 0
+    profile:
+      displayName: 이민규
+      role: 경제지 기자
+      affiliation: 외부 인물
+      personalitySummary: 공식 자료와 기업 실적을 비교해 사실관계를 추적한다. 작은 실수보다 반복되는 패턴에 주목한다. 투명한 공개를 반기고 설명이 계속 바뀌면 의심한다.
+      gameplayRoleSummary: 언론 인터뷰와 공개 자료 검증의 접점이 되는 경제지 기자다.
+      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      eventRelationBiases: []
+    actionPreferences: []
+    memoryPreferences: []
+    preferenceResponse:
+      enabled: 0
+      likedMultiplier: 1.5
+      dislikedMultiplier: 1.5

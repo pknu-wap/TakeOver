@@ -39,9 +39,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-park-sanghyun
+      - npc-political-lobbyist-park-sanghyeon
       targetReactions:
-      - targetNpcId: npc-park-sanghyun
+      - targetNpcId: npc-political-lobbyist-park-sanghyeon
         memoryType: 7
         strength: 2
         publicity: 0
@@ -83,9 +83,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-park-sanghyun
+      - npc-political-lobbyist-park-sanghyeon
       targetReactions:
-      - targetNpcId: npc-park-sanghyun
+      - targetNpcId: npc-political-lobbyist-park-sanghyeon
         memoryType: 8
         strength: 2
         publicity: 3
