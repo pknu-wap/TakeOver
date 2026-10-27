@@ -5,20 +5,15 @@ using UnityEngine;
 public sealed class EventListener : MonoBehaviour
 {
     private EventSystemController eventSystem;
+    [SerializeField] private Player player;
     [SerializeField] private TmpMarketData marketData;
-
-    // 임시
-    [SerializeField] private string tmpTargetCompanyId = "tmp-company-a";
-
-    // 임시
-    [SerializeField] private MarketEventImpact tmpAcceptMarketImpact =
-        new MarketEventImpact(0.2f, 0.1f, 3);
 
     public event Action effectsAppliedToCompany;
 
     private void Awake()
     {
         eventSystem = FindFirstObjectByType<EventSystemController>();
+        player = FindFirstObjectByType<Player>();
     }
 
     private void OnEnable()
@@ -35,26 +30,16 @@ public sealed class EventListener : MonoBehaviour
 
     private void receiveEventNotification(ChoiceConfirmedInfo info)
     {
-        // 현재 통지에는 기업 ID가 없어 임시 대상 ID를 사용
-        receiveEventResult(tmpTargetCompanyId, info.resultValue);
+        receiveEventResult(info.companyId, info.cashDelta);
     }
 
-    public void receiveEventResult(string companyID, string resultValue)
+    public void receiveEventResult(string companyID, float cashDelta)
     {
-        switch (resultValue)
-        {
-            case "dummy_accept":
-                if (applyEventEffect(companyID, tmpAcceptMarketImpact))
-                    Debug.Log($"{companyID}-dummy_accept 실행", this);
-                break;
-
-            case "dummy_reject":
-                // applyEventEffect(companyID, tmpAcceptMarketImpact);
-                Debug.Log($"{companyID}-dummy_reject 실행", this);
-                break;
-        }
+        player.state.addCash(cashDelta);
+        Debug.Log($"이벤트 결과 반영: companyID={companyID}, cashDelta={cashDelta}, playerCash={player.state.cash}", this);
     }
 
+    // 시장 효과 전달 방식이 확정될 때까지 미호출
     private bool applyEventEffect(string companyID, MarketEventImpact marketImpact)
     {
         if (!marketData.addEventImpact(companyID, marketImpact))

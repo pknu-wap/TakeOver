@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
   m_Name: TmpCompanyA
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
-  companyName: TmpCompanyA
-  companyID: tmp-company-a
+  companyName: 동방물산
+  companyID: dongbang-trading
   totalShares: 1000
-  initialBaseCompanyValue: 100
-  initialRevenue: 300
-  initialCost: 50
-  initialCash: 500
-  initialDebt: 200
-  initialTangibleAssets: 50
-  initialIntangibleAssets: 25
-  initialReputationB2C: 50
-  initialReputationB2B: 50
+  initialBaseCompanyValue: 450
+  initialRevenue: 500
+  initialCost: 250
+  initialCash: 700
+  initialDebt: 50
+  initialTangibleAssets: 40
+  initialIntangibleAssets: 160
+  initialReputationB2C: 65
+  initialReputationB2B: 65
   initialReputaionPlayer: 0
-  initialMarketPosition: 50
+  initialMarketPosition: 60
   initialPlayerShares: 0
-  initialTangibleCoefficient: 0.75
-  initialIntangibleCoefficient: 0.75
+  initialTangibleCoefficient: 0.7
+  initialIntangibleCoefficient: 0.6
