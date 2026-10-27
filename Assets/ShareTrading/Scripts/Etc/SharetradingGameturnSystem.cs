@@ -1,7 +1,7 @@
 using UnityEngine;
 using TakeOver.NPC;
 
-public class TmpGameturnSystem : MonoBehaviour
+public class SharetradingGameturnSystem : MonoBehaviour
 {
     [SerializeField] private Companies companies;
     [SerializeField] private TmpMarketData marketData;

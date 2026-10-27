@@ -4,6 +4,7 @@ using TakeOver.NPC;
 
 public class CompanyNpcRelations : MonoBehaviour
 {
+    private Company company;
     private string companyID;
     private readonly Dictionary<string, float> npcOpinions = new Dictionary<string, float>();
     [SerializeField] private NpcStateReader reader;
@@ -17,6 +18,7 @@ public class CompanyNpcRelations : MonoBehaviour
 
     private void Start()
     {
+        company = GetComponent<Company>();
         reEvalutate();
     }
 
@@ -28,7 +30,7 @@ public class CompanyNpcRelations : MonoBehaviour
     // 신규 등록 또는 평가값 변경이 있을 때 true를 반환한다.
     public bool addNpc(NpcRuntimeState state)
     {
-        float opinion = CompanyNpcValuation.calculateOpinion(state.relation);
+        float opinion = CompanyNpcCalculation.calculateOpinion(state.relation);
         float previousOpinion;
         if (npcOpinions.TryGetValue(state.npcId, out previousOpinion) && previousOpinion == opinion)
             return false;
@@ -61,7 +63,7 @@ public class CompanyNpcRelations : MonoBehaviour
         if (npcOpinions.Count > 0) sentiment = (float)(totalOpinion / npcOpinions.Count);
 
         Company targetCompany = GetComponent<Company>();
-        targetCompany.marketState.setNpcSentiment(sentiment);
-        targetCompany.calculator.recalculate(targetCompany, marketData);
+        company.marketState.setNpcSentiment(sentiment);
+        company.calculator.recalculate(targetCompany, marketData);
     }
 }
