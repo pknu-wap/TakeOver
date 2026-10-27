@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: JoMinseok
+  m_Name: KIM HARIN
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-hansung-industry-ceo-jo-minseok
-    companyId: hansung-industry
+    npcId: npc-haneul-food-ceo-kimharin
+    companyId: haneul-food
     position: 1
     profile:
-      displayName: 조민석
+      displayName: 김하린
       role: CEO
-      affiliation: 한성공업
-      personalitySummary: 완고하고 자존심이 강하며 제조업의 명예를 중시한다. 설비투자·현장 자율성·장기 생산 계획을 존중하고 공장 폐쇄와 제조시설 매각에 반발한다.
-      gameplayRoleSummary: 생산 기반 보존 여부를 인수 조건으로 판단하는 한성공업 대표다.
+      affiliation: 하늘식품
+      personalitySummary: 온건하고 설득에 능하며 소비자 관점에서 생각한다. 품질과 브랜드 신뢰를 지키는 장기 계획을 중시하고 소비자 기만과 원산지 은폐를 경계한다.
+      gameplayRoleSummary: 브랜드 보호 조건을 중심으로 인수안을 검토한다. 경영진 방어와 그린메일 이벤트의 회사 대표다.
       anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
       eventRelationBiases: []
     actionPreferences: []

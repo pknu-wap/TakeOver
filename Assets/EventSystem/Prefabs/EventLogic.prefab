@@ -72,35 +72,35 @@ MonoBehaviour:
     companyName: "\uBBF8\uB798\uAC74\uC124"
     stake: 0
     consumerReaction: 50
-    ceoNpcId: npc-mirae-construction-ceo-kang-junhyeok
+    ceoNpcId: npc-mirae-construction-ceo-kangjunhyuk
     ceoName: "\uAC15\uC900\uD601"
-    restructuringNpcId: npc-mirae-construction-field-director-park-dosik
+    restructuringNpcId: npc-mirae-construction-field-director-parkdosik
     restructuringName: "\uBC15\uB3C4\uC2DD"
     restructuringRole: "\uD604\uC7A5\uCD1D\uAD04"
   - companyId: haneul-food
     companyName: "\uD558\uB298\uC2DD\uD488"
     stake: 0
     consumerReaction: 50
-    ceoNpcId: npc-haneul-food-ceo-kim-harin
+    ceoNpcId: npc-haneul-food-ceo-kimharin
     ceoName: "\uAE40\uD558\uB9B0"
-    restructuringNpcId: npc-haneul-food-cfo-oh-jaeseong
+    restructuringNpcId: npc-haneul-food-cfo-ohjaesung
     restructuringName: "\uC624\uC7AC\uC131"
     restructuringRole: CFO
   - companyId: dongbang-trading
     companyName: "\uB3D9\uBC29\uBB3C\uC0B0"
     stake: 0
     consumerReaction: 50
-    ceoNpcId: npc-dongbang-trading-ceo-kang-jaehyeon
+    ceoNpcId: npc-dongbang-trading-ceo-kangjaehyun
     ceoName: "\uAC15\uC7AC\uD604"
-    restructuringNpcId: npc-dongbang-trading-hr-director-park-minu
+    restructuringNpcId: npc-dongbang-trading-hr-director-parkminwoo
     restructuringName: "\uBC15\uBBFC\uC6B0"
     restructuringRole: "\uC778\uC0AC\xB7\uB178\uBB34 \uCC45\uC784\uC790"
   - companyId: hansung-industry
     companyName: "\uD55C\uC131\uACF5\uC5C5"
     stake: 0
     consumerReaction: 50
-    ceoNpcId: npc-hansung-industry-ceo-jo-minseok
+    ceoNpcId: npc-hansung-industry-ceo-chominseok
     ceoName: "\uC870\uBBFC\uC11D"
-    restructuringNpcId: npc-hansung-industry-labor-director-choi-mijeong
+    restructuringNpcId: npc-hansung-industry-labor-director-choimijung
     restructuringName: "\uCD5C\uBBF8\uC815"
     restructuringRole: "\uB178\uBB34 \uCC45\uC784\uC790"

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: ParkSanghyeon
+  m_Name: PARK SANGHYUN
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-political-lobbyist-park-sanghyeon
+    npcId: npc-political-lobbyist-parksanghyun
     companyId: external-network
     profile:
       displayName: 박상현

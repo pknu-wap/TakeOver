@@ -168,7 +168,7 @@ namespace TakeOver.NPC
             {
                 new NpcSeed
                 {
-                    npcId = "npc-broker-yoon-hajin", companyId = "external-network",
+                    npcId = "npc-broker-yoonhajin", companyId = "external-network",
                     profile = new NpcProfile
                     {
                         displayName = "윤하진", role = "M&A 브로커", affiliation = "외부 거래망",
@@ -187,7 +187,7 @@ namespace TakeOver.NPC
                 },
                 new NpcSeed
                 {
-                    npcId = "npc-investigative-reporter-jung-sua", companyId = "external-network",
+                    npcId = "npc-investigative-reporter-jungsooah", companyId = "external-network",
                     profile = new NpcProfile
                     {
                         displayName = "정수아", role = "탐사보도 기자", affiliation = "외부 인물",
@@ -212,7 +212,7 @@ namespace TakeOver.NPC
                 },
                 new NpcSeed
                 {
-                    npcId = "npc-institutional-investor-kim-taeseong", companyId = "external-network",
+                    npcId = "npc-institutional-investor-kimtaesung", companyId = "external-network",
                     profile = new NpcProfile
                     {
                         displayName = "김태성", role = "기관투자자", affiliation = "외부 투자자",
@@ -234,7 +234,7 @@ namespace TakeOver.NPC
                 },
                 new NpcSeed
                 {
-                    npcId = "npc-political-lobbyist-park-sanghyeon", companyId = "external-network",
+                    npcId = "npc-political-lobbyist-parksanghyun", companyId = "external-network",
                     profile = new NpcProfile
                     {
                         displayName = "박상현", role = "정치 로비스트", affiliation = "외부 거래망",
@@ -252,7 +252,7 @@ namespace TakeOver.NPC
                 },
                 new NpcSeed
                 {
-                    npcId = "npc-mirae-construction-ceo-kang-junhyeok", companyId = "mirae-construction", position = NpcPosition.CEO,
+                    npcId = "npc-mirae-construction-ceo-kangjunhyuk", companyId = "mirae-construction", position = NpcPosition.CEO,
                     profile = new NpcProfile
                     {
                         displayName = "강준혁", role = "CEO / 창업자", affiliation = "미래건설",

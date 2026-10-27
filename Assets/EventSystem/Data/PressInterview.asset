@@ -39,9 +39,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-economic-reporter-lee-mingyu
+      - npc-economic-reporter-leemingyu
       targetReactions:
-      - targetNpcId: npc-economic-reporter-lee-mingyu
+      - targetNpcId: npc-economic-reporter-leemingyu
         memoryType: 0
         strength: 2
         publicity: 3
@@ -84,9 +84,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-economic-reporter-lee-mingyu
+      - npc-economic-reporter-leemingyu
       targetReactions:
-      - targetNpcId: npc-economic-reporter-lee-mingyu
+      - targetNpcId: npc-economic-reporter-leemingyu
         memoryType: 8
         strength: 2
         publicity: 3

@@ -257,14 +257,16 @@ namespace TakeOver.NPC
             if (!System.Linq.Enumerable.Contains(actualEvents, selectedActualEvent)) selectedActualEvent = null;
             if (actualEvents.Count == 0) GUILayout.Label("이 NPC를 대상으로 하는 이벤트가 없습니다.", style);
             foreach (var definition in actualEvents)
-                if (GUILayout.Button((selectedActualEvent == definition ? "● " : "") + definition.getTitle(), buttonStyle))
+                if (GUILayout.Button((selectedActualEvent == definition ? "● " : "") + bridge.GetPreviewEventInfo(definition).title, buttonStyle))
                     selectedActualEvent = definition;
             if (selectedActualEvent != null)
             {
-                GUILayout.Label(selectedActualEvent.getDescription(), style);
+                var preview = bridge.GetPreviewEventInfo(selectedActualEvent);
+                GUILayout.Label(preview.description, style);
+                GUILayout.Label($"{preview.speakerName} · {preview.speakerRole}\n{preview.dialogue}", style);
                 var choices = selectedActualEvent.getChoices();
                 for (var i = 0; i < choices.Count; i++)
-                    if (GUILayout.Button("선택 결과 테스트: " + choices[i].getText(), buttonStyle))
+                    if (GUILayout.Button("선택 결과 테스트: " + preview.resolve(choices[i].getText()), buttonStyle))
                         bridge.PreviewActualEvent(selectedActualEvent, i);
                 if (GUILayout.Button("실제 이벤트 화면 열기 (등장 중일 때)", buttonStyle)
                     && bridge.OpenActualEvent(selectedActualEvent))

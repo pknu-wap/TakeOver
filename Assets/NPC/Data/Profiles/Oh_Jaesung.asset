@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: ParkMinu
+  m_Name: OH JAESUNG
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-dongbang-trading-hr-director-park-minu
-    companyId: dongbang-trading
+    npcId: npc-haneul-food-cfo-ohjaesung
+    companyId: haneul-food
     position: 0
     profile:
-      displayName: 박민우
-      role: 인사·노무 책임자
-      affiliation: 동방물산
-      personalitySummary: 현실적으로 사람을 이해하고 갈등을 중재한다. 조직이 감당할 전환 속도를 찾으며 재교육·전환배치를 선호하고 예고 없는 대량해고를 경계한다.
-      gameplayRoleSummary: 직원의 전환 가능성과 설명 절차를 중심으로 구조조정 협상에 참여한다.
+      displayName: 오재성
+      role: CFO
+      affiliation: 하늘식품
+      personalitySummary: 실용적이고 수익성에 민감하다. 숫자로 설명되는 원가·생산성·회수 계획을 중시하며 법적 위험이 큰 선택을 피한다.
+      gameplayRoleSummary: 소비자 가치와 수익성의 충돌을 드러내며 하늘식품 구조조정 사건의 상대가 된다.
       anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
       eventRelationBiases: []
     actionPreferences: []

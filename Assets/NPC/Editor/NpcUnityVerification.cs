@@ -124,7 +124,7 @@ namespace TakeOver.NPC.Editor
                 }
                 else if (phase == 2)
                 {
-                    harness.SelectNpcProfile("npc-haneul-food-ceo-kim-harin");
+                    harness.SelectNpcProfile("npc-haneul-food-ceo-kimharin");
                     Require(harness.SelectedProfile.profile.displayName == "김하린", "Info view switches to selected NPC");
                     ui.ShowNpcInfo = false;
                     phase = 3;
@@ -133,7 +133,7 @@ namespace TakeOver.NPC.Editor
                 else if (phase == 3)
                 {
                     ScreenCapture.CaptureScreenshot(Path.Combine(Output, "npc-test.png"));
-                    harness.SelectNpcProfile("npc-mirae-construction-cfo-seo-jia");
+                    harness.SelectNpcProfile("npc-mirae-construction-cfo-seojiah");
                     harness.ResetSelectedNpcState();
                     harness.PreviewPreferenceAction(0);
                     typeof(NpcFeatureTestScene).GetField("bodyTab", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(ui, 1);
@@ -171,8 +171,8 @@ namespace TakeOver.NPC.Editor
             foreach (var company in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" })
                 Require(registry.TryFindByPosition(company, NpcPosition.CEO, out var ceo) && ceo.position == NpcPosition.CEO,
                     "CEO lookup: " + company);
-            const string seo = "npc-mirae-construction-cfo-seo-jia";
-            Require(harness.SelectNpcProfile(seo), "Select Seo Jia");
+            const string seo = "npc-mirae-construction-cfo-seojiah";
+            Require(harness.SelectNpcProfile(seo), "Select SEO JIAH");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(0);
             Near(harness.RuntimeState.relation.trust, 6, "Liked action amplifies trust +4 to +6");
@@ -212,7 +212,7 @@ namespace TakeOver.NPC.Editor
             Require(harness.RuntimeState.memories.Count == 1, "Repeated action occurrence records Memory once");
             Near(harness.RuntimeState.relation.trust, 6, "Repeated occurrence applies amplified effect once");
             Near(payload.relationDelta.trust, 4, "Publisher payload is not mutated by preference processing");
-            harness.SelectNpcProfile("npc-haneul-food-ceo-kim-harin");
+            harness.SelectNpcProfile("npc-haneul-food-ceo-kimharin");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(0);
             Near(harness.RuntimeState.relation.trust, 4, "Other NPC keeps default effect with response disabled");
@@ -270,8 +270,17 @@ namespace TakeOver.NPC.Editor
             var npcs = new Dictionary<string, NpcStateRegistry.NpcSeed>();
             foreach (var guid in AssetDatabase.FindAssets("t:NpcDefinition", new[] { "Assets/NPC/Data/Profiles" }))
             {
-                var seed = AssetDatabase.LoadAssetAtPath<NpcDefinition>(AssetDatabase.GUIDToAssetPath(guid)).CreateRuntimeSeed();
-                if (!string.IsNullOrWhiteSpace(seed.npcId)) npcs.Add(seed.npcId, seed);
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                var definition = AssetDatabase.LoadAssetAtPath<NpcDefinition>(path);
+                var seed = definition.CreateRuntimeSeed();
+                if (!string.IsNullOrWhiteSpace(seed.npcId))
+                {
+                    npcs.Add(seed.npcId, seed);
+                    var file = Path.GetFileNameWithoutExtension(path);
+                    Require(definition.name == file.Replace('_', ' ').ToUpperInvariant(), "Passport asset/internal name matches: " + seed.profile.displayName);
+                    Require(seed.npcId.EndsWith(file.Replace("_", "").ToLowerInvariant(), StringComparison.Ordinal),
+                        "ID joins surname and given name without syllable hyphens: " + seed.profile.displayName);
+                }
             }
             var expected = new HashSet<string> { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" };
             var companies = AssetDatabase.FindAssets("t:CompanyDefinition", new[] { "Assets/ShareTrading/Data" })

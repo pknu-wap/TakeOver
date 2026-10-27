@@ -188,16 +188,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba748721572119a4198b543e7f3cc8a6, type: 2}
   - {fileID: 11400000, guid: 5f7905cf21cc5f64698e39e699a09996, type: 2}
   - {fileID: 11400000, guid: 7c6a1b69a5216c5438ede78cc0dce987, type: 2}
-  npcId: npc-broker-yoon-hajin
+  npcId: npc-broker-yoonhajin
   companyId: external-network
   testTargetNpcIds:
-  - npc-broker-yoon-hajin
+  - npc-broker-yoonhajin
   testEvent:
     eventId: test-event
     companyId: external-network
     actorId: player
     actionId: GoodFaith
-    targetNpcId: npc-broker-yoon-hajin
+    targetNpcId: npc-broker-yoonhajin
     memoryType: 0
     memoryStrength: 1
     publicity: 1

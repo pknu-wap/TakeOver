@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: LeeMingyu
+  m_Name: CHOI MIJUNG
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-economic-reporter-lee-mingyu
-    companyId: external-network
+    npcId: npc-hansung-industry-labor-director-choimijung
+    companyId: hansung-industry
     position: 0
     profile:
-      displayName: 이민규
-      role: 경제지 기자
-      affiliation: 외부 인물
-      personalitySummary: 공식 자료와 기업 실적을 비교해 사실관계를 추적한다. 작은 실수보다 반복되는 패턴에 주목한다. 투명한 공개를 반기고 설명이 계속 바뀌면 의심한다.
-      gameplayRoleSummary: 언론 인터뷰와 공개 자료 검증의 접점이 되는 경제지 기자다.
+      displayName: 최미정
+      role: 노무 책임자
+      affiliation: 한성공업
+      personalitySummary: 논리적이고 단호하며 사실을 쌓아 직원 권리를 주장한다. 투명한 협상과 보상·재교육·고용승계·안전을 중시하고 기습해고를 경계한다.
+      gameplayRoleSummary: 구조조정의 보상·전환·안전장치를 협상하는 노무 책임자다.
       anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
       eventRelationBiases: []
     actionPreferences: []

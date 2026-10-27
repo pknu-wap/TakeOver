@@ -17,14 +17,45 @@ namespace TakeOver.NPC
         public IReadOnlyList<EventDefinition> GetRelatedEvents() => previewEvents
             .Where(d => d != null && d.getChoices().Any(c => c.getNpcResult()?.targetNpcIds?.Contains(npcId) == true)).ToArray();
 
+        /// <summary>실제 이벤트와 같은 치환 규칙에 현재 NPC 회사/대표를 공급한다. SO 원문은 변경하지 않는다.</summary>
+        public TodayEventInfo GetPreviewEventInfo(EventDefinition definition)
+        {
+            if (definition == null) throw new ArgumentNullException(nameof(definition));
+            var eventCompany = definition.hasCompanyConditions() ? companyId
+                : definition.getCompanyIds().FirstOrDefault() ?? "";
+            if (definition.hasCompanyConditions() && eventCompany == "external-network")
+            {
+                // 외부 인물의 회사 사건은 현재 발생 회사, 없으면 테스트용 첫 실제 회사를 사용한다.
+                var controller = FindFirstObjectByType<EventSystemController>();
+                eventCompany = controller?.getTodayEventInfos().FirstOrDefault(i => i.definition == definition)?.companyId
+                    ?? FindFirstObjectByType<EventTempWorldData>()?.getCompanies().FirstOrDefault()?.companyId
+                    ?? registry.Profiles.FirstOrDefault(p => p.position == NpcPosition.CEO)?.companyId ?? "";
+            }
+            EventCompanyData company = null;
+            if (!string.IsNullOrEmpty(eventCompany))
+            {
+                registry.TryFindByPosition(eventCompany, NpcPosition.CEO, out var ceo);
+                var contact = SelectedProfile?.companyId == eventCompany ? SelectedProfile : ceo;
+                company = new EventCompanyData
+                {
+                    companyId = eventCompany,
+                    companyName = ceo?.profile?.affiliation ?? contact?.profile?.affiliation ?? eventCompany,
+                    ceoNpcId = ceo?.npcId, ceoName = ceo?.profile?.displayName,
+                    restructuringNpcId = contact?.npcId, restructuringName = contact?.profile?.displayName,
+                    restructuringRole = contact?.profile?.role
+                };
+            }
+            return new TodayEventInfo(definition, company, definition.getValidDays());
+        }
+
         /// <summary>등장 조건을 우회하는 NPC 결과 테스트다. 실제 SO의 선택을 공용 수신 경계에 전달한다.</summary>
         public bool PreviewActualEvent(EventDefinition definition, int choiceIndex)
         {
             if (definition == null || !GetRelatedEvents().Contains(definition) || choiceIndex < 0 || choiceIndex >= definition.getChoices().Count)
             { ActualEventPreviewReport = "현재 NPC에 해당하는 이벤트와 선택지를 지정하세요."; return false; }
             var choice = definition.getChoices()[choiceIndex];
-            var eventCompany = definition.hasCompanyConditions() ? companyId
-                : definition.getCompanyIds().FirstOrDefault() ?? "";
+            var preview = GetPreviewEventInfo(definition);
+            var eventCompany = preview.companyId;
             var info = new ChoiceConfirmedInfo(definition.getId(), choiceIndex, choice.getResultValue(),
                 CurrentTurn, choice.getNpcResult(), choice.getCashDelta(), eventCompany);
             // 실제 컨트롤러와 마찬가지로 회사별 사건은 해당 회사의 NPC만 남긴다.
@@ -42,9 +73,9 @@ namespace TakeOver.NPC
             var occurrence = "npc-event-preview-" + Guid.NewGuid().ToString("N");
             var success = reactionReceiver != null && reactionReceiver.TryPublishEventResult(info, occurrence);
             var report = new StringBuilder();
-            report.AppendLine($"{definition.getTitle()} / {choice.getText()}");
+            report.AppendLine($"{preview.title} / {preview.resolve(choice.getText())}");
             report.AppendLine(success ? "NPC 선택 결과 처리 완료" : "처리 실패: " + reactionReceiver?.LastError);
-            report.AppendLine("결과 대사: " + choice.getResultDialogue());
+            report.AppendLine("결과 대사: " + preview.resolve(choice.getResultDialogue()));
             var count = 0;
             foreach (var state in registry.States)
             {

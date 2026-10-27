@@ -36,12 +36,12 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-mirae-construction-field-director-park-dosik
-      - npc-dongbang-trading-hr-director-park-minu
-      - npc-hansung-industry-labor-director-choi-mijeong
-      - npc-haneul-food-cfo-oh-jaeseong
+      - npc-mirae-construction-field-director-parkdosik
+      - npc-dongbang-trading-hr-director-parkminwoo
+      - npc-hansung-industry-labor-director-choimijung
+      - npc-haneul-food-cfo-ohjaesung
       targetReactions:
-      - targetNpcId: npc-mirae-construction-field-director-park-dosik
+      - targetNpcId: npc-mirae-construction-field-director-parkdosik
         memoryType: 2
         strength: 2
         publicity: 3
@@ -57,7 +57,7 @@ MonoBehaviour:
           hostility: 20
           dependency: 0
           interest: 0
-      - targetNpcId: npc-dongbang-trading-hr-director-park-minu
+      - targetNpcId: npc-dongbang-trading-hr-director-parkminwoo
         memoryType: 2
         strength: 2
         publicity: 3
@@ -73,7 +73,7 @@ MonoBehaviour:
           hostility: 10
           dependency: 0
           interest: 0
-      - targetNpcId: npc-hansung-industry-labor-director-choi-mijeong
+      - targetNpcId: npc-hansung-industry-labor-director-choimijung
         memoryType: 2
         strength: 2
         publicity: 3
@@ -89,7 +89,7 @@ MonoBehaviour:
           hostility: 20
           dependency: 0
           interest: 0
-      - targetNpcId: npc-haneul-food-cfo-oh-jaeseong
+      - targetNpcId: npc-haneul-food-cfo-ohjaesung
         memoryType: 2
         strength: 2
         publicity: 3
@@ -131,11 +131,11 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-mirae-construction-field-director-park-dosik
-      - npc-dongbang-trading-hr-director-park-minu
-      - npc-hansung-industry-labor-director-choi-mijeong
+      - npc-mirae-construction-field-director-parkdosik
+      - npc-dongbang-trading-hr-director-parkminwoo
+      - npc-hansung-industry-labor-director-choimijung
       targetReactions:
-      - targetNpcId: npc-mirae-construction-field-director-park-dosik
+      - targetNpcId: npc-mirae-construction-field-director-parkdosik
         memoryType: 8
         strength: 2
         publicity: 1
@@ -152,7 +152,7 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
-      - targetNpcId: npc-dongbang-trading-hr-director-park-minu
+      - targetNpcId: npc-dongbang-trading-hr-director-parkminwoo
         memoryType: 8
         strength: 2
         publicity: 1
@@ -169,7 +169,7 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
-      - targetNpcId: npc-hansung-industry-labor-director-choi-mijeong
+      - targetNpcId: npc-hansung-industry-labor-director-choimijung
         memoryType: 8
         strength: 2
         publicity: 1
@@ -212,12 +212,12 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-mirae-construction-field-director-park-dosik
-      - npc-dongbang-trading-hr-director-park-minu
-      - npc-hansung-industry-labor-director-choi-mijeong
-      - npc-haneul-food-cfo-oh-jaeseong
+      - npc-mirae-construction-field-director-parkdosik
+      - npc-dongbang-trading-hr-director-parkminwoo
+      - npc-hansung-industry-labor-director-choimijung
+      - npc-haneul-food-cfo-ohjaesung
       targetReactions:
-      - targetNpcId: npc-mirae-construction-field-director-park-dosik
+      - targetNpcId: npc-mirae-construction-field-director-parkdosik
         memoryType: 0
         strength: 2
         publicity: 1
@@ -233,7 +233,7 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
-      - targetNpcId: npc-dongbang-trading-hr-director-park-minu
+      - targetNpcId: npc-dongbang-trading-hr-director-parkminwoo
         memoryType: 0
         strength: 2
         publicity: 1
@@ -249,7 +249,7 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
-      - targetNpcId: npc-hansung-industry-labor-director-choi-mijeong
+      - targetNpcId: npc-hansung-industry-labor-director-choimijung
         memoryType: 0
         strength: 2
         publicity: 1
@@ -265,7 +265,7 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
-      - targetNpcId: npc-haneul-food-cfo-oh-jaeseong
+      - targetNpcId: npc-haneul-food-cfo-ohjaesung
         memoryType: 0
         strength: 2
         publicity: 1

@@ -98,10 +98,10 @@ namespace TakeOver.NPC.Editor
                     Verify();
                     var ui = UnityEngine.Object.FindFirstObjectByType<NpcFeatureTestScene>();
                     var harness = UnityEngine.Object.FindFirstObjectByType<NpcFeatureTestHarness>();
-                    harness.SelectNpcProfile("npc-mirae-construction-cfo-seo-jia");
+                    harness.SelectNpcProfile("npc-mirae-construction-ceo-kangjunhyuk");
                     ui.ShowTestUI = true;
                     Set(ui, "bodyTab", 2);
-                    var preview = harness.GetRelatedEvents().First();
+                    var preview = harness.GetRelatedEvents().First(d => d.getSpeakerSource() == EventSpeakerSource.CompanyCeo);
                     Set(ui, "selectedActualEvent", preview);
                     harness.PreviewActualEvent(preview, 0);
                     capturePhase = 1;
@@ -133,7 +133,7 @@ namespace TakeOver.NPC.Editor
             Check(ui != null && harness != null, "Stat screen exists");
             if (capturePhase % 2 == 0)
             {
-                harness.SelectNpcProfile("npc-mirae-construction-cfo-seo-jia");
+                harness.SelectNpcProfile("npc-mirae-construction-cfo-seojiah");
                 harness.ResetAllNpcStates();
                 var amount = index == 0 || index == 4 ? 0 : index == 3 ? 100 : 65;
                 harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = values[index], respect = -values[index],
@@ -164,6 +164,19 @@ namespace TakeOver.NPC.Editor
                 foreach (var related in harness.GetRelatedEvents())
                 {
                     var source = EditorJsonUtility.ToJson(related);
+                    var previewInfo = harness.GetPreviewEventInfo(related);
+                    Check(!HasPlaceholder(previewInfo.title + previewInfo.description + previewInfo.dialogue),
+                        "Preview text resolves all company/speaker placeholders: " + profile.npcId + "/" + related.getId());
+                    if (related.hasCompanyConditions() && profile.companyId == "external-network")
+                        Check(previewInfo.companyId != "external-network" && !string.IsNullOrEmpty(previewInfo.companyName),
+                            "External speaker previews an actual company");
+                    if (related.getSpeakerSource() == EventSpeakerSource.CompanyCeo)
+                    {
+                        Check(registry.TryFindByPosition(profile.companyId, NpcPosition.CEO, out var ceo)
+                            && previewInfo.companyName == ceo.profile.affiliation && previewInfo.speakerName == ceo.profile.displayName
+                            && previewInfo.description.Contains(ceo.profile.affiliation) && previewInfo.description.Contains(ceo.profile.displayName),
+                            "CEO preview uses this company's representative: " + profile.companyId);
+                    }
                     for (var i = 0; i < related.getChoices().Count; i++)
                     {
                         harness.ResetAllNpcStates();
@@ -188,14 +201,16 @@ namespace TakeOver.NPC.Editor
                                 "Preview applies all six relation axes for " + target);
                         }
                         Check(harness.ActualEventPreviewReport.Contains("처리 완료"), "Preview reports processing result");
+                        Check(!HasPlaceholder(harness.ActualEventPreviewReport + previewInfo.resolve(related.getChoices()[i].getText())),
+                            "Preview choice and result text contain no unresolved placeholders");
                         Check(string.IsNullOrEmpty(receiver.LastError), "Preview receiver has no error");
                     }
                     Check(EditorJsonUtility.ToJson(related) == source, "Preview leaves event SO unchanged");
                 }
             }
             var definitions = (List<EventDefinition>)Get(controller, "events");
-            const string lee = "npc-economic-reporter-lee-mingyu";
-            const string seo = "npc-mirae-construction-cfo-seo-jia";
+            const string lee = "npc-economic-reporter-leemingyu";
+            const string seo = "npc-mirae-construction-cfo-seojiah";
             foreach (var id in new[] { "press_interview_01", "inside_info_01" })
             {
                 var definition = definitions.Single(d => d.getId() == id);
@@ -261,6 +276,7 @@ namespace TakeOver.NPC.Editor
             }
         }
         private static object Get(object obj, string name) => obj.GetType().GetField(name, Fields).GetValue(obj);
+        private static bool HasPlaceholder(string text) => text.Contains("{company}") || text.Contains("{speaker}") || text.Contains("{speakerRole}");
         private static void Set(object obj, string name, object value) => obj.GetType().GetField(name, Fields).SetValue(obj, value);
         private static void Check(bool condition, string label)
         {

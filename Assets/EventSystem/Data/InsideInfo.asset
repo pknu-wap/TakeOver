@@ -39,9 +39,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-mirae-construction-cfo-seo-jia
+      - npc-mirae-construction-cfo-seojiah
       targetReactions:
-      - targetNpcId: npc-mirae-construction-cfo-seo-jia
+      - targetNpcId: npc-mirae-construction-cfo-seojiah
         memoryType: 6
         strength: 2
         publicity: 0
@@ -83,9 +83,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-mirae-construction-cfo-seo-jia
+      - npc-mirae-construction-cfo-seojiah
       targetReactions:
-      - targetNpcId: npc-mirae-construction-cfo-seo-jia
+      - targetNpcId: npc-mirae-construction-cfo-seojiah
         memoryType: 8
         strength: 2
         publicity: 0
