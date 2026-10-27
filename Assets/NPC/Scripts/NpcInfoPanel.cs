@@ -6,6 +6,9 @@ namespace TakeOver.NPC
     internal static class NpcInfoPanel
     {
         private static Texture2D silhouette;
+        // 0~100 스탯은 긍정/부정 성격에 따라 채워지는 바의 색을 구분한다.
+        private static readonly Color PositiveBar = new Color(0.25f, 0.60f, 0.95f);
+        private static readonly Color NegativeBar = new Color(0.90f, 0.28f, 0.30f);
 
         internal static void Draw(NpcStateRegistry.NpcSeed seed, NpcRuntimeState state, GUIStyle text,
             ref Vector2 scroll)
@@ -47,10 +50,10 @@ namespace TakeOver.NPC
             var grid = GUILayoutUtility.GetRect(640, 138);
             Stat(new Rect(grid.x, grid.y, 300, 42), "신뢰", r.trust, -100, 100, text);
             Stat(new Rect(grid.x + 330, grid.y, 300, 42), "존중", r.respect, -100, 100, text);
-            Stat(new Rect(grid.x, grid.y + 46, 300, 42), "두려움", r.fear, 0, 100, text);
-            Stat(new Rect(grid.x + 330, grid.y + 46, 300, 42), "적대감", r.hostility, -100, 100, text);
-            Stat(new Rect(grid.x, grid.y + 92, 300, 42), "의존도", r.dependency, 0, 100, text);
-            Stat(new Rect(grid.x + 330, grid.y + 92, 300, 42), "관심", r.interest, -100, 100, text);
+            Stat(new Rect(grid.x, grid.y + 46, 300, 42), "두려움", r.fear, 0, 100, text, NegativeBar);
+            Stat(new Rect(grid.x + 330, grid.y + 46, 300, 42), "적대감", r.hostility, 0, 100, text, NegativeBar);
+            Stat(new Rect(grid.x, grid.y + 92, 300, 42), "의존도", r.dependency, 0, 100, text, PositiveBar);
+            Stat(new Rect(grid.x + 330, grid.y + 92, 300, 42), "관심", r.interest, 0, 100, text, PositiveBar);
             GUILayout.Space(18);
             GUILayout.Label("인물 소개", heading);
             GUILayout.Label(profile?.personalitySummary ?? "설정 미등록", text);
@@ -62,15 +65,29 @@ namespace TakeOver.NPC
             GUILayout.EndArea();
         }
 
-        private static void Stat(Rect area, string name, float value, float min, float max, GUIStyle text)
+        private static void Stat(Rect area, string name, float value, float min, float max, GUIStyle text, Color? barColor = null)
         {
             GUI.Label(new Rect(area.x, area.y, area.width, 26), $"{name}  {value:0.##}", text);
             var rect = new Rect(area.x, area.y + 30, area.width, 6);
             var old = GUI.color;
             GUI.color = new Color(0.2f, 0.25f, 0.32f);
             GUI.DrawTexture(rect, Texture2D.whiteTexture);
-            GUI.color = new Color(0.65f, 0.77f, 0.85f);
-            GUI.DrawTexture(new Rect(rect.x, rect.y, rect.width * Mathf.InverseLerp(min, max, value), rect.height), Texture2D.whiteTexture);
+            if (min < 0 && max > 0)
+            {
+                // 양방향 스탯은 0에서 출발해 음수는 왼쪽, 양수는 오른쪽으로 채운다.
+                var zeroX = rect.x + rect.width * Mathf.InverseLerp(min, max, 0);
+                var valueX = rect.x + rect.width * Mathf.InverseLerp(min, max, value);
+                GUI.color = value < 0 ? NegativeBar : PositiveBar;
+                GUI.DrawTexture(new Rect(Mathf.Min(zeroX, valueX), rect.y, Mathf.Abs(valueX - zeroX), rect.height), Texture2D.whiteTexture);
+                // 채움 위에 기준선을 그려 0일 때도 중심 위치가 보이게 한다.
+                GUI.color = new Color(0.90f, 0.93f, 0.97f);
+                GUI.DrawTexture(new Rect(zeroX - 1, rect.y - 3, 2, rect.height + 6), Texture2D.whiteTexture);
+            }
+            else
+            {
+                GUI.color = barColor ?? PositiveBar;
+                GUI.DrawTexture(new Rect(rect.x, rect.y, rect.width * Mathf.InverseLerp(min, max, value), rect.height), Texture2D.whiteTexture);
+            }
             GUI.color = old;
         }
 

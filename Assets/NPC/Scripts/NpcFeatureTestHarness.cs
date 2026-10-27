@@ -32,7 +32,7 @@ namespace TakeOver.NPC
     /// <summary>
     /// 테스트 씬의 값과 버튼을 공용 NPC 사건 처리 경로에 연결하는 도구다.
     /// </summary>
-    public sealed class NpcFeatureTestHarness : MonoBehaviour
+    public sealed partial class NpcFeatureTestHarness : MonoBehaviour
     {
         // 같은 오브젝트에 두거나 Inspector에서 지정할 기록/관계 서비스.
         [SerializeField] private NpcMemoryService memoryService;
@@ -205,6 +205,7 @@ namespace TakeOver.NPC
                 ? null
                 : RuntimeState.memories[RuntimeState.memories.Count - 1];
             PreferencePreviewReport = $"{profile.profile?.displayName}: 행동 또는 결과 Memory 버튼을 눌러 실제 변화를 확인하세요.";
+            ActualEventPreviewReport = $"{profile.profile?.displayName}: 이벤트 이름을 누르고 선택 결과를 테스트하세요.";
             return true;
         }
 

@@ -26,6 +26,8 @@ namespace TakeOver.NPC
         private Vector2 preferenceScroll;
         private Vector2 reactionScroll;
         private NpcChoiceReactionDefinition selectedReaction;
+        private TakeOver.Events.EventDefinition selectedActualEvent;
+        private bool actualEventScreenOpen;
         public bool ShowNpcInfo { get; set; }
         private Vector2 infoScroll;
         private string selectorProfileId;
@@ -41,6 +43,17 @@ namespace TakeOver.NPC
         /// <summary>인물 선택·프로필과 기존 관계·Memory 테스트 조작을 한 화면에 그린다.</summary>
         private void OnGUI()
         {
+            if (actualEventScreenOpen && !showTestUI)
+            {
+                if (GUI.Button(new Rect(12, 12, 240, 40), "NPC 테스트로 돌아가기"))
+                {
+                    var controller = FindFirstObjectByType<TakeOver.Events.EventSystemController>();
+                    if (controller != null) { controller.closeResult(); controller.closeDetail(); }
+                    actualEventScreenOpen = false;
+                    showTestUI = true;
+                }
+                return;
+            }
             if (!showTestUI || bridge == null || bridge.RuntimeState == null) return;
 
             var scale = Mathf.Min(Screen.width / 1280f, Screen.height / 720f);
@@ -239,14 +252,33 @@ namespace TakeOver.NPC
         private void DrawReactionPreview(GUIStyle style, GUIStyle buttonStyle)
         {
             reactionScroll = GUILayout.BeginScrollView(reactionScroll);
+            GUILayout.Label("현재 NPC 관련 실제 이벤트 · 선택 결과 테스트는 관계·기억을 변경합니다.", style);
+            var actualEvents = bridge.GetRelatedEvents();
+            if (!System.Linq.Enumerable.Contains(actualEvents, selectedActualEvent)) selectedActualEvent = null;
+            if (actualEvents.Count == 0) GUILayout.Label("이 NPC를 대상으로 하는 이벤트가 없습니다.", style);
+            foreach (var definition in actualEvents)
+                if (GUILayout.Button((selectedActualEvent == definition ? "● " : "") + definition.getTitle(), buttonStyle))
+                    selectedActualEvent = definition;
+            if (selectedActualEvent != null)
+            {
+                GUILayout.Label(selectedActualEvent.getDescription(), style);
+                var choices = selectedActualEvent.getChoices();
+                for (var i = 0; i < choices.Count; i++)
+                    if (GUILayout.Button("선택 결과 테스트: " + choices[i].getText(), buttonStyle))
+                        bridge.PreviewActualEvent(selectedActualEvent, i);
+                if (GUILayout.Button("실제 이벤트 화면 열기 (등장 중일 때)", buttonStyle)
+                    && bridge.OpenActualEvent(selectedActualEvent))
+                { actualEventScreenOpen = true; showTestUI = false; }
+            }
+            GUILayout.Label(bridge.ActualEventPreviewReport, style);
+            GUILayout.Space(14);
             var reactions = bridge.RegisteredReactions;
             var selectionRegistered = false;
             foreach (var reaction in reactions)
                 if (reaction != null && reaction == selectedReaction) selectionRegistered = true;
             if (!selectionRegistered) selectedReaction = null;
-            GUILayout.Label("반응 SO의 대상에게 적용되며 런타임 관계·기억이 변경됩니다. 저장은 저장 버튼으로 합니다.", style);
-            if (reactions.Count == 0)
-                GUILayout.Label("NpcLogic의 NpcEventResultReceiver > Reactions에 반응 SO를 등록한 뒤 Play를 시작하세요.", style);
+            if (reactions.Count > 0) GUILayout.Label("반응 SO의 대상에게 적용되며 런타임 관계·기억이 변경됩니다. 저장은 저장 버튼으로 합니다.", style);
+            if (reactions.Count > 0) GUILayout.Label("추가 수동 반응 SO", style);
             foreach (var reaction in reactions)
             {
                 if (reaction == null) continue;
@@ -255,10 +287,10 @@ namespace TakeOver.NPC
             }
             var previousEnabled = GUI.enabled;
             GUI.enabled = previousEnabled && selectedReaction != null;
-            if (GUILayout.Button("선택 반응 수동 발행", buttonStyle, GUILayout.Height(36f)))
+            if (reactions.Count > 0 && GUILayout.Button("선택 반응 수동 발행", buttonStyle, GUILayout.Height(36f)))
                 bridge.PreviewReaction(selectedReaction);
             GUI.enabled = previousEnabled;
-            GUILayout.Label(bridge.ReactionPreviewReport, style);
+            if (reactions.Count > 0) GUILayout.Label(bridge.ReactionPreviewReport, style);
             GUILayout.EndScrollView();
         }
 

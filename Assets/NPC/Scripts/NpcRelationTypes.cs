@@ -105,7 +105,7 @@ namespace TakeOver.NPC
     [Serializable]
     public struct NpcRelationDelta
     {
-        // 신뢰·존중·적대감·관심은 방향이 있는 값이고, 공포·의존도는 현재 구현에서 0 이상이다.
+        // 변화량은 모든 축에서 음수일 수 있다. 현재 상태의 하한/상한은 NpcRelationState.Apply가 적용한다.
         public float trust;
         public float respect;
         public float fear;
@@ -138,7 +138,7 @@ namespace TakeOver.NPC
     [Serializable]
     public struct NpcRelationState
     {
-        // 현재 관계값. 허용 범위는 Apply에서 제한하며, 기획 수치 확정 전까지는 프로토타입 기준이다.
+        // 신뢰·존중은 -100~100, 두려움·적대감·의존도·관심은 0~100이다.
         public float trust;
         public float respect;
         public float fear;
@@ -153,9 +153,9 @@ namespace TakeOver.NPC
             trust = Mathf.Clamp(trust + delta.trust, -100f, 100f);
             respect = Mathf.Clamp(respect + delta.respect, -100f, 100f);
             fear = Mathf.Clamp(fear + delta.fear, 0f, 100f);
-            hostility = Mathf.Clamp(hostility + delta.hostility, -100f, 100f);
+            hostility = Mathf.Clamp(hostility + delta.hostility, 0f, 100f);
             dependency = Mathf.Clamp(dependency + delta.dependency, 0f, 100f);
-            interest = Mathf.Clamp(interest + delta.interest, -100f, 100f);
+            interest = Mathf.Clamp(interest + delta.interest, 0f, 100f);
             lastUpdatedTurn = turn;
         }
     }

@@ -179,7 +179,7 @@ namespace TakeOver.NPC.Editor
             Near(harness.LastRecordedMemory.effectLog.beforePreference.trust, 4, "Last-event log keeps pre-preference base");
             Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 2, "Last-event log records liked bonus +2");
             Require(NpcFeatureTestScene.FormatLastMemoryLog(harness.LastRecordedMemory).Contains("선호 ×1.5"), "Footer log identifies applied preference multiplier");
-            Near(harness.RuntimeState.relation.hostility, -6, "Liked action amplifies hostility reduction");
+            Near(harness.RuntimeState.relation.hostility, 0, "Hostility reduction stops at zero");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(1);
             Near(harness.RuntimeState.relation.trust, -6, "Disliked action amplifies trust -4 to -6");
@@ -241,6 +241,25 @@ namespace TakeOver.NPC.Editor
             var cloned = harness.LastRecordedMemory.Clone();
             cloned.effectLog.preferenceBonus.trust = 999;
             Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 2, "Copied logs do not mutate original Memory details");
+            // 이번에 바뀐 스탯 하한/상한과 이전 저장의 음수 값 보정을 함께 확인한다.
+            harness.ResetSelectedNpcState();
+            harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = -200, respect = -200, fear = -200,
+                hostility = -200, dependency = -200, interest = -200 });
+            var ranges = harness.RuntimeState.relation;
+            Require(ranges.trust == -100 && ranges.respect == -100 && ranges.fear == 0
+                && ranges.hostility == 0 && ranges.dependency == 0 && ranges.interest == 0, "All six lower limits match current rules");
+            harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = 400, respect = 400, fear = 400,
+                hostility = 400, dependency = 400, interest = 400 });
+            ranges = harness.RuntimeState.relation;
+            Require(ranges.trust == 100 && ranges.respect == 100 && ranges.fear == 100
+                && ranges.hostility == 100 && ranges.dependency == 100 && ranges.interest == 100, "All six upper limits remain 100");
+            harness.RuntimeState.relation.hostility = -25;
+            harness.RuntimeState.relation.interest = -50;
+            Require(saver.TrySave(), "Write isolated legacy negative-stat fixture");
+            Require(saver.Load(), "Load legacy negative-stat save");
+            Require(registry.TryGet(seo, out var normalized) && normalized.relation.hostility == 0
+                && normalized.relation.interest == 0 && normalized.relation.trust == 100 && normalized.relation.respect == 100,
+                "Load normalizes hostility and interest without changing signed axes");
         }
 
         private static void Near(float actual, float expected, string label) => Require(Mathf.Abs(actual - expected) < 0.001f, label + $" ({actual} vs {expected})");

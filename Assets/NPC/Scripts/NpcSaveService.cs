@@ -85,8 +85,13 @@ namespace TakeOver.NPC
                 Validate(data);
                 // 저장 데이터도 현재 SO의 ID를 그대로 사용해야 한다. 별칭이나 구 ID 변환은 하지 않는다.
                 foreach (var state in data.npcs)
+                {
                     if (!registry.TryGetProfile(state.npcId, out var seed) || seed.companyId != state.companyId)
                         throw new InvalidDataException($"현재 NPC 정의와 일치하지 않는 저장 ID입니다: {state.npcId}");
+                    // 이전 저장의 적대감·관심도 새 범위로 맞춘다. 과거 Memory 계산 로그는 보존한다.
+                    state.relation.hostility = Mathf.Clamp(state.relation.hostility, 0f, 100f);
+                    state.relation.interest = Mathf.Clamp(state.relation.interest, 0f, 100f);
+                }
             }
             catch (Exception error) when (IsStorageError(error))
             {

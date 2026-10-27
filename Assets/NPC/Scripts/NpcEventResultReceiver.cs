@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TakeOver.Events;
 
 namespace TakeOver.NPC
 {
     /// <summary>
-    /// 이벤트팀 알림과 동일한 세 필드를 받는 수동 입력 경계다. 다른 팀 코드 참조·검색·구독은 하지 않는다.
-    /// 향후 NPC 소유 연결 코드가 choiceConfirmed 값을 넘기면 설정된 반응만 기존 채널로 전달한다.
+    /// 실제 선택 확정 알림의 NPC 결과를 공용 채널로 전달한다. 수동 반응 SO 입력도 별도로 지원한다.
     /// </summary>
     public sealed class NpcEventResultReceiver : MonoBehaviour
     {
@@ -18,6 +18,7 @@ namespace TakeOver.NPC
         [SerializeField, Min(0)] private int configuredChoiceIndex;
         [SerializeField] private string configuredResultValue;
         public string LastError { get; private set; } = "";
+        private EventSystemController eventSystem;
         public IReadOnlyList<NpcChoiceReactionDefinition> RegisteredReactions => reactions == null
             ? Array.Empty<NpcChoiceReactionDefinition>() : reactions.AsReadOnly();
 
@@ -25,6 +26,53 @@ namespace TakeOver.NPC
         {
             if (eventChannel == null) eventChannel = GetComponent<NpcEventChannel>();
             if (registry == null) registry = GetComponent<NpcStateRegistry>();
+        }
+
+        private void OnEnable() => TrySubscribe();
+        // 다른 프리팹의 Awake 순서와 무관하게 Start에서도 연결을 확인한다.
+        private void Start() => TrySubscribe();
+        private void Update()
+        {
+            // 늦게 생성되거나 교체된 이벤트 시스템만 다시 찾는다. 연결 중에는 검색하지 않는다.
+            if (eventSystem == null) TrySubscribe();
+        }
+        private void TrySubscribe()
+        {
+            if (eventSystem != null) return;
+            eventSystem = FindFirstObjectByType<EventSystemController>();
+            if (eventSystem != null) eventSystem.choiceConfirmed += OnChoiceConfirmed;
+        }
+        private void OnDisable()
+        {
+            if (eventSystem != null) eventSystem.choiceConfirmed -= OnChoiceConfirmed;
+            eventSystem = null;
+        }
+        private void OnChoiceConfirmed(ChoiceConfirmedInfo info) => TryPublishEventResult(info);
+
+        /// <summary>실제 알림과 NPC 미리보기가 공유하는 입력 경계다. 미리보기만 별도 발생 ID를 공급한다.</summary>
+        public bool TryPublishEventResult(ChoiceConfirmedInfo info, string previewOccurrenceId = null)
+        {
+            LastError = "";
+            // 거절처럼 NPC 효과가 없는 정상 선택은 조용히 건너뛴다.
+            if (info == null) return Fail("선택 결과가 없습니다.");
+            if (info.npcResult == null) return true;
+            try
+            {
+                if (eventChannel == null || registry == null)
+                    throw new InvalidOperationException("NPC 채널 또는 레지스트리가 연결되지 않았습니다.");
+                // 이벤트 SO와 다른 알림 구독자의 데이터를 변경하지 않는다. 수치는 이벤트 설정을 그대로 사용한다.
+                var payload = JsonUtility.FromJson<NpcEventPayload>(JsonUtility.ToJson(info.npcResult));
+                payload.eventId = previewOccurrenceId ?? info.occurrenceId;
+                payload.companyId = info.companyId;
+                registry.EnsureInitialNpcsInitialized();
+                if (payload.targetNpcIds != null)
+                    foreach (var id in payload.targetNpcIds)
+                        if (!registry.TryGet(id, out _)) throw new ArgumentException($"등록되지 않은 대상 NPC: {id}");
+                eventChannel.Publish(payload);
+                return true;
+            }
+            catch (ArgumentException error) { return Fail(error.Message); }
+            catch (InvalidOperationException error) { return Fail(error.Message); }
         }
 
         // 현재 실제 이벤트는 eventId마다 1회 선택이므로 기본 발생 ID로 eventId를 사용한다.
