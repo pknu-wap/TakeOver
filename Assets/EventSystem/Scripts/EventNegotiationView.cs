@@ -20,6 +20,9 @@ namespace TakeOver.Events
         [SerializeField] private Image npcIllustration;
         [SerializeField] private Image playerIllustration;
         [SerializeField] private Sprite playerStandingIllustration;
+        [SerializeField] private Sprite playerReplyIllustration;
+        [SerializeField] private RectTransform playerInitialFrame;
+        [SerializeField] private RectTransform playerReplyFrame;
         [SerializeField] private Button closeButton;
         private readonly List<Button> choices = new List<Button>();
         private Vector2 questionPosition;
@@ -42,6 +45,7 @@ namespace TakeOver.Events
             npcIllustration.sprite = speakerIllustration;
             npcIllustration.gameObject.SetActive(speakerIllustration != null);
             playerIllustration.sprite = playerStandingIllustration;
+            setPlayerFrame(playerInitialFrame);
             playerIllustration.gameObject.SetActive(playerStandingIllustration != null);
             playerIllustration.color = new Color(0.65f, 0.65f, 0.65f, 1);
             clearChoices();
@@ -107,6 +111,8 @@ namespace TakeOver.Events
                 yield return null;
             }
             setBlock(questionBlock, false);
+            playerIllustration.sprite = playerReplyIllustration;
+            setPlayerFrame(playerReplyFrame);
             playerIllustration.color = Color.white;
             npcIllustration.color = new Color(0.65f, 0.65f, 0.65f, 1);
             if (hasPlayerLine) yield return fadeIn(playerBlock);
@@ -125,6 +131,15 @@ namespace TakeOver.Events
                 yield return null;
             }
             block.alpha = 1;
+        }
+
+        private void setPlayerFrame(RectTransform frame)
+        {
+            playerIllustration.transform.SetParent(frame, false);
+            playerIllustration.rectTransform.anchorMin = Vector2.zero;
+            playerIllustration.rectTransform.anchorMax = Vector2.one;
+            playerIllustration.rectTransform.offsetMin = Vector2.zero;
+            playerIllustration.rectTransform.offsetMax = Vector2.zero;
         }
 
         private void setBlock(CanvasGroup block, bool visible)

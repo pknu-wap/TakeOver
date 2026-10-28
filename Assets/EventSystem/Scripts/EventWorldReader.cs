@@ -24,7 +24,7 @@ namespace TakeOver.Events
         }
         public float getStake(string companyId) => getCompany(companyId)?.stake ?? 0;
         public float getConsumerReaction(string companyId) => getCompany(companyId)?.consumerReaction ?? 0;
-        public Sprite getSpeakerIllustration(TodayEventInfo info) => null;
+        public Sprite getSpeakerIllustration(TodayEventInfo info) => worldData.getSpeakerIllustration(info.speakerName);
         public NpcRelationState getNpcRelation(string npcId) =>
             registry != null && registry.TryGet(npcId, out NpcRuntimeState state) ? state.relation : default;
 
