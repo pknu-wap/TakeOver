@@ -39,10 +39,12 @@ public class CompanyListView : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        sortDropdown.ClearOptions();
-        sortDropdown.AddOptions(SortOptions.ToList());
-
-        sortDropdown.onValueChanged.AddListener(_ => refresh());
+        if (sortDropdown != null)
+        {
+            sortDropdown.ClearOptions();
+            sortDropdown.AddOptions(SortOptions.ToList());
+            sortDropdown.onValueChanged.AddListener(_ => refresh());
+        }
 
         // [추가] "상세 패널에서 거래되면 내 Refresh도 불러줘"라고 알림 명단에 등록
         detailPanel.OnTraded += refresh;
@@ -109,7 +111,8 @@ public class CompanyListView : MonoBehaviour
     // 드롭다운에서 고른 기준으로 내림차순(큰 값이 위) 정렬한 결과를 돌려준다
     private IEnumerable<Company> sort(IEnumerable<Company> list)
     {
-        switch (sortDropdown.value)
+        int sortIndex = sortDropdown != null ? sortDropdown.value : 0;
+        switch (sortIndex)
         {
             case 0: return list.OrderByDescending(c => CompanyUIUtil.getDerived(c, CompanyDerivedStat.SHARE_PRICE));
             case 1: return list.OrderByDescending(c => CompanyUIUtil.getStat(c, CompanyStat.REVENUE));
@@ -119,4 +122,4 @@ public class CompanyListView : MonoBehaviour
             default: return list;
         }
     }
-}
+}
