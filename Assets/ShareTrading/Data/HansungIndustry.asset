@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
-  m_Name: TmpCompanyC
+  m_Name: HansungIndustry
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
-  companyName: 미래건설
-  companyID: mirae-construction
+  companyName: 한성공업
+  companyID: hansung-industry
   totalShares: 1000
-  initialBaseCompanyValue: 600
-  initialRevenue: 1200
-  initialCost: 1020
-  initialCash: 600
-  initialDebt: 200
-  initialTangibleAssets: 1400
-  initialIntangibleAssets: 100
-  initialReputationB2C: 55
-  initialReputationB2B: 85
+  initialBaseCompanyValue: 400
+  initialRevenue: 600
+  initialCost: 570
+  initialCash: 80
+  initialDebt: 350
+  initialTangibleAssets: 50
+  initialIntangibleAssets: 500
+  initialReputationB2C: 85
+  initialReputationB2B: 35
   initialReputaionPlayer: 0
-  initialMarketPosition: 75
+  initialMarketPosition: 40
   initialPlayerShares: 0
-  initialTangibleCoefficient: 0.8
-  initialIntangibleCoefficient: 0.5
+  initialTangibleCoefficient: 0.7
+  initialIntangibleCoefficient: 0.6

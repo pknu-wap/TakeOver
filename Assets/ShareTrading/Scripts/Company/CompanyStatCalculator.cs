@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class CompanyStatCalculator
 {
-    public void calculateInitializeStat(Company company, TmpMarketData marketData)
+    public void calculateInitializeStat(Company company, Marketdata marketData)
     {
         recalculate(company, marketData);
     }
 
-    public void calculateTurnend(Company company, TmpMarketData marketData)
+    public void calculateTurnend(Company company, Marketdata marketData)
     {
         recalculate(company, marketData);
     }
 
-    public void recalculate(Company company, TmpMarketData marketData)
+    public void recalculate(Company company, Marketdata marketData)
     {
         calculateHistoryStat(company);
         calculateMetrics(company);
@@ -108,7 +108,7 @@ public class CompanyStatCalculator
             CompanyCalculationMath.finite(state.getStat(CompanyStat.BASE_COMPANY_VALUE) * (double)fundamentalRatio));
     }
 
-    public void calculateMarketValue(Company company, TmpMarketData marketData)
+    public void calculateMarketValue(Company company, Marketdata marketData)
     {
         CompanyState state = company.state;
         state.setDerivedStat(CompanyDerivedStat.MARKET_EVALUATION,
@@ -117,7 +117,8 @@ public class CompanyStatCalculator
             + (company.marketState.getMarketLiquidity(state, marketData.globalMarketScore) - 1f) * 0.1f;
         state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE,
             CompanyCalculationMath.finite((double)state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE)
-                * state.getDerivedStat(CompanyDerivedStat.MARKET_EVALUATION) * liquidityPriceFactor));
+                * state.getDerivedStat(CompanyDerivedStat.MARKET_EVALUATION) * liquidityPriceFactor
+                * company.marketState.eventPriceMultiplier));
         state.setDerivedStat(CompanyDerivedStat.SHARE_PRICE,
             CompanyCalculationMath.safeDivide(state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE), state.totalShares));
     }

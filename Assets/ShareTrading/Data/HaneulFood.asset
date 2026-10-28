@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
-  m_Name: TmpCompanyB
+  m_Name: HaneulFood
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
   companyName: 하늘식품
   companyID: haneul-food

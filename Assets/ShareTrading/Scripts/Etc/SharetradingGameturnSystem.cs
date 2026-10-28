@@ -4,7 +4,7 @@ using TakeOver.NPC;
 public class SharetradingGameturnSystem : MonoBehaviour
 {
     [SerializeField] private Companies companies;
-    [SerializeField] private TmpMarketData marketData;
+    [SerializeField] private Marketdata marketData;
     private GameTurnClock turnClock;
 
     private void Awake()

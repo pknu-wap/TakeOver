@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TakeOver.Events;
 using UnityEngine;
 
@@ -6,7 +7,11 @@ public sealed class EventListener : MonoBehaviour
 {
     private EventSystemController eventSystem;
     [SerializeField] private Player player;
-    [SerializeField] private TmpMarketData marketData;
+    [SerializeField] private Marketdata marketData;
+    [SerializeField] private EventStockmanipulationAccept eventStockmanipulationAccept;
+    [SerializeField] private EventGreenmailAccept eventGreenmailAccept;
+
+    private readonly Dictionary<string, Action<string>> eventEffects = new Dictionary<string, Action<string>>();
 
     public event Action effectsAppliedToCompany;
 
@@ -14,6 +19,8 @@ public sealed class EventListener : MonoBehaviour
     {
         eventSystem = FindFirstObjectByType<EventSystemController>();
         player = FindFirstObjectByType<Player>();
+        eventEffects.Add("greenmail_01", companyID => eventStockmanipulationAccept.applyEventEffect(companyID, 0));
+        eventEffects.Add("stock_manipulation_01", companyID => eventGreenmailAccept.applyEventEffect(companyID, 1));
     }
 
     private void OnEnable()
@@ -30,17 +37,25 @@ public sealed class EventListener : MonoBehaviour
 
     private void receiveEventNotification(ChoiceConfirmedInfo info)
     {
-        receiveEventResult(info.companyId, info.cashDelta);
+        Action<string> effect;
+        if (info.resultValue == "accept")
+            if (eventEffects.TryGetValue(info.eventId, out effect))
+            {
+                effect(info.companyId);
+                return;
+            }
+
+            applyEventAcceptEffect(info.companyId, info.cashDelta);
     }
 
-    public void receiveEventResult(string companyID, float cashDelta)
+    public void applyEventAcceptEffect(string companyID, float cashDelta)
     {
         player.state.addCash(cashDelta);
         Debug.Log($"이벤트 결과 반영: companyID={companyID}, cashDelta={cashDelta}, playerCash={player.state.cash}", this);
     }
 
     // 시장 효과 전달 방식이 확정될 때까지 미호출
-    private bool applyEventEffect(string companyID, MarketEventImpact marketImpact)
+    private bool applyEventDelayeffect(string companyID, MarketEventImpact marketImpact)
     {
         if (!marketData.addEventImpact(companyID, marketImpact))
         {

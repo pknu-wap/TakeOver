@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2087561556653465130}
   - component: {fileID: 7092001182385536399}
   m_Layer: 0
-  m_Name: TmpCompanyC
+  m_Name: MiraeConstruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3210168565471856309}
+  m_Father: {fileID: 4035102305759103213}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2087561556653465130
 MonoBehaviour:
@@ -61,6 +61,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompanyNpcRelations
   reader: {fileID: 1180946999928390598}
   marketData: {fileID: 5191246152492245077}
+--- !u!1 &1893753399841470960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3259474515632575891}
+  - component: {fileID: 1202409009278984762}
+  - component: {fileID: 5638386516184208778}
+  m_Layer: 0
+  m_Name: EventList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3259474515632575891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893753399841470960}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -368.77188, y: -352.77408, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2861563636828900442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1202409009278984762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893753399841470960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e3a59b2cea24a33947ca1a618857a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventGreenmailAccept
+  companies: {fileID: 8237969287396869895}
+  marketData: {fileID: 5191246152492245077}
+--- !u!114 &5638386516184208778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893753399841470960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4db590e443747568ea996809a7e6ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventStockmanipulationAccept
+  companies: {fileID: 8237969287396869895}
+  tradingSystem: {fileID: 3551093198360838554}
+  player: {fileID: 5150549921634898239}
 --- !u!1 &3802925045144649158
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +166,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b34a81cc951794f439b3afd38006fe4a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TmpMarketData
+  m_EditorClassIdentifier: Assembly-CSharp::Marketdata
   companies: {fileID: 8237969287396869895}
 --- !u!1 &4359682657462042209
 GameObject:
@@ -118,7 +180,7 @@ GameObject:
   - component: {fileID: 3766095109131795667}
   - component: {fileID: 3366849696365259452}
   m_Layer: 0
-  m_Name: TmpCompanyB
+  m_Name: HaneulFood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,7 +199,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3210168565471856309}
+  m_Father: {fileID: 4035102305759103213}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3766095109131795667
 MonoBehaviour:
@@ -179,7 +241,7 @@ GameObject:
   - component: {fileID: 181620853499729559}
   - component: {fileID: 5784636983388711157}
   m_Layer: 0
-  m_Name: TmpCompanyD
+  m_Name: HansungIndustry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +260,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3210168565471856309}
+  m_Father: {fileID: 4035102305759103213}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &181620853499729559
 MonoBehaviour:
@@ -260,7 +322,8 @@ Transform:
   m_LocalPosition: {x: 368.77188, y: 352.77408, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3259474515632575891}
   m_Father: {fileID: 3210168565471856309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8237969287396869895
@@ -308,6 +371,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventListener
   player: {fileID: 5150549921634898239}
   marketData: {fileID: 5191246152492245077}
+  eventStockmanipulationAccept: {fileID: 1202409009278984762}
+  eventGreenmailAccept: {fileID: 5638386516184208778}
 --- !u!114 &3551093198360838554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +442,7 @@ GameObject:
   - component: {fileID: 4843538842536291213}
   - component: {fileID: 489654761842081812}
   m_Layer: 0
-  m_Name: TmpCompanyA
+  m_Name: DongbangTrading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -396,7 +461,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3210168565471856309}
+  m_Father: {fileID: 4035102305759103213}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4843538842536291213
 MonoBehaviour:
@@ -426,6 +491,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompanyNpcRelations
   reader: {fileID: 1180946999928390598}
   marketData: {fileID: 5191246152492245077}
+--- !u!1 &7061625110058085077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4035102305759103213}
+  m_Layer: 0
+  m_Name: Companies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4035102305759103213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7061625110058085077}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7787489770384000560}
+  - {fileID: 4403044897630217452}
+  - {fileID: 6332612052485705296}
+  - {fileID: 8722806411381680597}
+  m_Father: {fileID: 3210168565471856309}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7669162770907266306
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,10 +559,7 @@ Transform:
   - {fileID: 2245317161724244626}
   - {fileID: 1389620484276860936}
   - {fileID: 9197498863255584357}
-  - {fileID: 7787489770384000560}
-  - {fileID: 4403044897630217452}
-  - {fileID: 6332612052485705296}
-  - {fileID: 8722806411381680597}
+  - {fileID: 4035102305759103213}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8433373715940242318

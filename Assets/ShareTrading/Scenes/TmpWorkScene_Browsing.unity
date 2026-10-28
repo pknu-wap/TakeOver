@@ -3174,7 +3174,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b34a81cc951794f439b3afd38006fe4a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TmpMarketData
+  m_EditorClassIdentifier: Assembly-CSharp::Marketdata
   companyList:
   - {fileID: 509240921}
   - {fileID: 183636454}

@@ -8,17 +8,17 @@ public class CompanyNpcRelations : MonoBehaviour
     private string companyID;
     private readonly Dictionary<string, float> npcOpinions = new Dictionary<string, float>();
     [SerializeField] private NpcStateReader reader;
-    [SerializeField] private TmpMarketData marketData;
+    [SerializeField] private Marketdata marketData;
 
     public void initialize(string companyID)
     {
         this.companyID = companyID;
+        company = GetComponent<Company>();
         reader.registerCompany(companyID, this);
     }
 
     private void Start()
     {
-        company = GetComponent<Company>();
         reEvalutate();
     }
 
@@ -50,7 +50,6 @@ public class CompanyNpcRelations : MonoBehaviour
 
     public void reEvalutate()
     {
-        // Reader가 Start 이전에 분배한 값은 이 컴포넌트의 Start에서 반영한다.
         if (marketData == null) return;
 
         double totalOpinion = 0d;
@@ -62,8 +61,7 @@ public class CompanyNpcRelations : MonoBehaviour
         float sentiment = 0f;
         if (npcOpinions.Count > 0) sentiment = (float)(totalOpinion / npcOpinions.Count);
 
-        Company targetCompany = GetComponent<Company>();
         company.marketState.setNpcSentiment(sentiment);
-        company.calculator.recalculate(targetCompany, marketData);
+        company.calculator.recalculate(company, marketData);
     }
 }
