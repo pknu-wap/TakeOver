@@ -63,6 +63,7 @@ namespace TakeOver.Events
         public int getCurrentDay() => currentDay;
         public int getNegotiationChoiceCount() => negotiationChoices.Count;
         public string getNegotiationChoiceText(int choiceIndex) => negotiationChoices[choiceIndex].choice.getText();
+        public string getNegotiationChoiceDescription(int choiceIndex) => negotiationChoices[choiceIndex].choice.getDescription();
         public bool tryGetChoice(string eventId, out int choiceIndex)
         {
             choiceIndex = -1;
@@ -187,7 +188,7 @@ namespace TakeOver.Events
             screenState = ScreenState.Negotiation;
             detailView.hide();
             negotiationStarted?.Invoke(new NegotiationStartedInfo(activeInfo.definition.getId(), activeInfo.definition.getApCost()));
-            negotiationView.show(activeInfo, this);
+            negotiationView.show(activeInfo, this, worldReader.getSpeakerIllustration(activeInfo));
         }
         private void buildNegotiationChoices()
         {
@@ -225,7 +226,7 @@ namespace TakeOver.Events
             }
             choiceConfirmed?.Invoke(result);
             todayEventsChanged?.Invoke();
-            negotiationView.showResult(activeInfo.resolve(choice.getResultDialogue()));
+            negotiationView.showResult(activeInfo.resolve(choice.getResultDialogue()), activeInfo.resolve(choice.getPlayerLine()));
         }
         public void closeResult()
         {

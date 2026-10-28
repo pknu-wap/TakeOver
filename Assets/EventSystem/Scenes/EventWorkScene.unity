@@ -589,8 +589,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 16, y: -4}
-  m_SizeDelta: {x: -32, y: -8}
+  m_AnchoredPosition: {x: 16, y: 0}
+  m_SizeDelta: {x: -32, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &548937934
 MonoBehaviour:
@@ -1601,6 +1601,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1400373833191185210, guid: 82f392524695daa41b58b03e270dc833, type: 3}
+      propertyPath: companies.Array.data[0].stake
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400373833191185210, guid: 82f392524695daa41b58b03e270dc833, type: 3}
+      propertyPath: companies.Array.data[1].stake
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400373833191185210, guid: 82f392524695daa41b58b03e270dc833, type: 3}
+      propertyPath: companies.Array.data[2].stake
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400373833191185210, guid: 82f392524695daa41b58b03e270dc833, type: 3}
+      propertyPath: companies.Array.data[3].stake
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400373833191185210, guid: 82f392524695daa41b58b03e270dc833, type: 3}
+      propertyPath: companies.Array.data[0].consumerReaction
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400373833191185210, guid: 82f392524695daa41b58b03e270dc833, type: 3}
+      propertyPath: companies.Array.data[1].consumerReaction
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400373833191185210, guid: 82f392524695daa41b58b03e270dc833, type: 3}
+      propertyPath: companies.Array.data[2].consumerReaction
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400373833191185210, guid: 82f392524695daa41b58b03e270dc833, type: 3}
+      propertyPath: companies.Array.data[3].consumerReaction
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3294166757185248621, guid: 82f392524695daa41b58b03e270dc833, type: 3}
       propertyPath: m_Name
       value: EventSystemController

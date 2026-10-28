@@ -35,6 +35,8 @@ namespace TakeOver.Events
     public sealed class EventChoice
     {
         [SerializeField] private string choiceText;
+        [SerializeField] private string choiceDescription;
+        [SerializeField, TextArea(2, 4)] private string playerLine;
         [SerializeField, TextArea(2, 5)] private string resultDialogue;
         [SerializeField] private string resultValue;
         [SerializeField] private NpcEventPayload npcResult = new NpcEventPayload();
@@ -44,6 +46,8 @@ namespace TakeOver.Events
         [SerializeField] private float buybackPremiumRatio;
 
         public string getText() => choiceText;
+        public string getDescription() => choiceDescription;
+        public string getPlayerLine() => playerLine;
         public string getResultDialogue() => resultDialogue;
         public string getResultValue() => resultValue;
         public NpcEventPayload getNpcResult() => npcResult;
@@ -55,6 +59,8 @@ namespace TakeOver.Events
         {
             EventChoice choice = JsonUtility.FromJson<EventChoice>(JsonUtility.ToJson(this));
             choice.choiceText = (choiceText ?? "").Replace("{company}", companyName);
+            choice.choiceDescription = (choiceDescription ?? "").Replace("{company}", companyName);
+            choice.playerLine = (playerLine ?? "").Replace("{company}", companyName);
             choice.resultDialogue = (resultDialogue ?? "").Replace("{company}", companyName);
             return choice;
         }
