@@ -12,7 +12,6 @@ namespace TakeOver.Events
         [SerializeField] private Text dialogueText;
         [SerializeField] private CanvasGroup questionBlock;
         [SerializeField] private RectTransform choicesRoot;
-        [SerializeField] private RectTransform companyChoicesRoot;
         [SerializeField] private Button choiceTemplate;
         [SerializeField] private CanvasGroup playerBlock;
         [SerializeField] private Text playerLineText;
@@ -60,7 +59,7 @@ namespace TakeOver.Events
             setPlayerFrame(playerInitialFrame);
             playerIllustration.gameObject.SetActive(playerStandingIllustration != null);
             highlightPlayer(false);
-            showChoices(info, controller, false);
+            showChoices(info, controller);
             closeButton.onClick.RemoveAllListeners();
             closeButton.onClick.AddListener(controller.closeResult);
             closeButton.gameObject.SetActive(false);
@@ -68,20 +67,18 @@ namespace TakeOver.Events
             transform.SetAsLastSibling();
         }
 
-        public void showCompanyChoices(TodayEventInfo info, EventSystemController controller) => showChoices(info, controller, true);
+        public void showCompanyChoices(TodayEventInfo info, EventSystemController controller) => showChoices(info, controller);
 
-        private void showChoices(TodayEventInfo info, EventSystemController controller, bool companies)
+        private void showChoices(TodayEventInfo info, EventSystemController controller)
         {
             choiceSubmitted = false;
             clearChoices();
-            choicesRoot.gameObject.SetActive(!companies);
-            companyChoicesRoot.gameObject.SetActive(companies);
-            RectTransform container = companies ? companyChoicesRoot : choicesRoot;
+            choicesRoot.gameObject.SetActive(true);
             choiceTemplate.gameObject.SetActive(false);
             for (int i = 0; i < controller.getNegotiationChoiceCount(); i++)
             {
                 int choiceIndex = i;
-                Button button = Instantiate(choiceTemplate, container);
+                Button button = Instantiate(choiceTemplate, choicesRoot);
                 button.name = $"Choice{choiceIndex}";
                 Text title = button.transform.Find("Title").GetComponent<Text>();
                 Text description = button.transform.Find("Description").GetComponent<Text>();
@@ -111,20 +108,22 @@ namespace TakeOver.Events
         }
 
         public void showResult(string dialogue, string playerLine = "") =>
-            showExchange(dialogue, playerLine, () => closeButton.gameObject.SetActive(true));
+            beginExchange(dialogue, playerLine, () => closeButton.gameObject.SetActive(true), false);
 
-        public void showExchange(string dialogue, string playerLine, Action completed)
+        public void showExchange(string dialogue, string playerLine, Action completed) =>
+            beginExchange(dialogue, playerLine, completed, true);
+
+        private void beginExchange(string dialogue, string playerLine, Action completed, bool companyQuestion)
         {
             stopResultRoutine();
             choiceSubmitted = true;
             foreach (Button button in choices) button.interactable = false;
             choicesRoot.gameObject.SetActive(false);
-            companyChoicesRoot.gameObject.SetActive(false);
             closeButton.gameObject.SetActive(false);
-            resultRoutine = StartCoroutine(animateExchange(dialogue, playerLine, completed));
+            resultRoutine = StartCoroutine(animateExchange(dialogue, playerLine, completed, companyQuestion));
         }
 
-        private IEnumerator animateExchange(string dialogue, string playerLine, Action completed)
+        private IEnumerator animateExchange(string dialogue, string playerLine, Action completed, bool companyQuestion)
         {
             Vector2 previousResponsePosition = ((RectTransform)responseBlock.transform).anchoredPosition;
             for (float elapsed = 0; elapsed < 0.3f; elapsed += Time.unscaledDeltaTime)
@@ -152,8 +151,27 @@ namespace TakeOver.Events
                 yield return fadeIn(playerBlock);
                 yield return new WaitForSecondsRealtime(responseDelay);
             }
-            highlightPlayer(false);
-            yield return fadeIn(responseBlock);
+            if (companyQuestion)
+            {
+                if (hasPlayerLine)
+                {
+                    for (float elapsed = 0; elapsed < 0.3f; elapsed += Time.unscaledDeltaTime)
+                    {
+                        fadeUp(playerBlock, playerPosition, Mathf.SmoothStep(0, 1, elapsed / 0.3f));
+                        yield return null;
+                    }
+                    setBlock(playerBlock, false);
+                }
+                ((RectTransform)questionBlock.transform).anchoredPosition = questionPosition;
+                dialogueText.text = dialogue;
+                highlightPlayer(false);
+                yield return fadeIn(questionBlock);
+            }
+            else
+            {
+                highlightPlayer(false);
+                yield return fadeIn(responseBlock);
+            }
             resultRoutine = null;
             completed?.Invoke();
         }
