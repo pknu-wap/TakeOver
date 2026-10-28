@@ -79,6 +79,8 @@ namespace TakeOver.Events
         [SerializeField] private string speakerName;
         [SerializeField] private string speakerRole;
         [SerializeField, TextArea(3, 8)] private string dialogue;
+        [SerializeField, TextArea(2, 4)] private string companyQuestion;
+        [SerializeField, TextArea(2, 4)] private string companyPlayerLine;
         [SerializeField] private List<EventChoice> choices = new List<EventChoice>();
         [SerializeField] private List<EventCondition> conditions = new List<EventCondition>();
         [SerializeField, Min(1)] private int validDays = 1;
@@ -108,6 +110,8 @@ namespace TakeOver.Events
         public string getSpeakerName() => speakerName;
         public string getSpeakerRole() => speakerRole;
         public string getDialogue() => dialogue;
+        public string getCompanyQuestion() => companyQuestion;
+        public string getCompanyPlayerLine() => companyPlayerLine;
         public IReadOnlyList<EventChoice> getChoices() => choices.AsReadOnly();
     }
 }
