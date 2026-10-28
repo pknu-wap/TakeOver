@@ -26,9 +26,14 @@ namespace TakeOver.Events
         public string companyId { get; }
         internal void clearNpcResult() => npcResult = null;
         public float cashDelta { get; }
+        public string stockSurgeCompanyId { get; }
+        public float stockSurgeMinRatio { get; }
+        public float stockSurgeMaxRatio { get; }
+        public float buybackPremiumRatio { get; }
 
         public ChoiceConfirmedInfo(string eventId, int choiceIndex, string resultValue,
-            int currentDay, NpcEventPayload npcResult, float cashDelta, string companyId = "")
+            int currentDay, NpcEventPayload npcResult, float cashDelta, string companyId = "",
+            string stockSurgeCompanyId = "", float stockSurgeMinRatio = 0, float stockSurgeMaxRatio = 0, float buybackPremiumRatio = 0)
         {
             this.eventId = eventId;
             this.choiceIndex = choiceIndex;
@@ -37,6 +42,10 @@ namespace TakeOver.Events
             this.companyId = companyId;
             occurrenceId = $"day{currentDay}:{eventId}";
             this.cashDelta = cashDelta;
+            this.stockSurgeCompanyId = stockSurgeCompanyId;
+            this.stockSurgeMinRatio = stockSurgeMinRatio;
+            this.stockSurgeMaxRatio = stockSurgeMaxRatio;
+            this.buybackPremiumRatio = buybackPremiumRatio;
             if (npcResult != null && npcResult.targetNpcIds != null && npcResult.targetNpcIds.Count > 0)
             {
                 this.npcResult = JsonUtility.FromJson<NpcEventPayload>(JsonUtility.ToJson(npcResult));

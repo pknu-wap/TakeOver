@@ -9,6 +9,14 @@ namespace TakeOver.Events
     public enum EventComparison { AtLeast, AtMost }
     public enum EventRelationAxis { trust, respect, fear, hostility, dependency, interest }
     public enum EventSpeakerSource { Fixed, CompanyCeo, CompanyRestructuring }
+    public enum EventChoiceGeneration { Fixed, OwnedCompanies }
+
+    [Serializable]
+    public sealed class EventRestructuringSpeaker
+    {
+        public string companyId;
+        public string npcId;
+    }
 
     [Serializable]
     public sealed class EventCondition
@@ -31,12 +39,25 @@ namespace TakeOver.Events
         [SerializeField] private string resultValue;
         [SerializeField] private NpcEventPayload npcResult = new NpcEventPayload();
         [SerializeField] private float cashDelta;
+        [SerializeField] private float stockSurgeMinRatio;
+        [SerializeField] private float stockSurgeMaxRatio;
+        [SerializeField] private float buybackPremiumRatio;
 
         public string getText() => choiceText;
         public string getResultDialogue() => resultDialogue;
         public string getResultValue() => resultValue;
         public NpcEventPayload getNpcResult() => npcResult;
         public float getCashDelta() => cashDelta;
+        public float getStockSurgeMinRatio() => stockSurgeMinRatio;
+        public float getStockSurgeMaxRatio() => stockSurgeMaxRatio;
+        public float getBuybackPremiumRatio() => buybackPremiumRatio;
+        public EventChoice createForCompany(string companyName)
+        {
+            EventChoice choice = JsonUtility.FromJson<EventChoice>(JsonUtility.ToJson(this));
+            choice.choiceText = (choiceText ?? "").Replace("{company}", companyName);
+            choice.resultDialogue = (resultDialogue ?? "").Replace("{company}", companyName);
+            return choice;
+        }
     }
 
     [CreateAssetMenu(fileName = "Event", menuName = "TakeOver/Events/Event Definition")]
@@ -56,10 +77,19 @@ namespace TakeOver.Events
         [SerializeField] private List<EventCondition> conditions = new List<EventCondition>();
         [SerializeField, Min(1)] private int validDays = 1;
         [SerializeField] private EventSpeakerSource speakerSource;
+        [SerializeField] private EventChoiceGeneration choiceGeneration;
+        [SerializeField] private List<EventRestructuringSpeaker> restructuringSpeakers = new List<EventRestructuringSpeaker>();
 
         public IReadOnlyList<EventCondition> getConditions() => conditions.AsReadOnly();
         public int getValidDays() => Mathf.Max(1, validDays);
         public EventSpeakerSource getSpeakerSource() => speakerSource;
+        public EventChoiceGeneration getChoiceGeneration() => choiceGeneration;
+        public bool tryGetRestructuringNpcId(string companyId, out string npcId)
+        {
+            EventRestructuringSpeaker speaker = restructuringSpeakers.Find(item => item.companyId == companyId);
+            npcId = speaker?.npcId ?? "";
+            return speaker != null;
+        }
         public bool hasCompanyConditions() => conditions.Exists(condition => condition.kind != EventConditionKind.NpcRelation);
 
         public string getId() => eventId;

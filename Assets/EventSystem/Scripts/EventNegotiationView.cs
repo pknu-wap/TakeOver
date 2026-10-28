@@ -13,19 +13,21 @@ namespace TakeOver.Events
 
         public void show(TodayEventInfo info, EventSystemController controller)
         {
-            EventDefinition definition = info.definition;
+            int choiceCount = controller.getNegotiationChoiceCount();
             speakerText.text = $"{info.speakerName} · {info.speakerRole}";
             dialogueText.text = info.dialogue;
+            if (choiceCount > choiceButtons.Length)
+                Debug.LogWarning($"Event {info.definition.getId()} has {choiceCount} choices but only {choiceButtons.Length} choice buttons.");
             for (int i = 0; i < choiceButtons.Length; i++)
             {
                 int choiceIndex = i;
-                bool hasChoice = i < definition.getChoices().Count;
+                bool hasChoice = i < choiceCount;
                 choiceButtons[i].onClick.RemoveAllListeners();
                 choiceButtons[i].gameObject.SetActive(hasChoice);
                 if (!hasChoice)
                     continue;
 
-                choiceTexts[i].text = definition.getChoices()[i].getText();
+                choiceTexts[i].text = controller.getNegotiationChoiceText(i);
                 choiceButtons[i].onClick.AddListener(() => controller.confirmChoice(choiceIndex));
             }
             closeButton.onClick.RemoveAllListeners();
