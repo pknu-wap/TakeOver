@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
+  m_Name: CHOI MIJEONG
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
+  seed:
+    npcId: npc-hansung-industry-labor-director-choi-mijeong
+    companyId: hansung-industry
+    position: 0
+    profile:
+      displayName: 최미정
+      role: 노무 책임자
+      affiliation: 한성공업
+      personalitySummary: 논리적이고 단호하며 사실을 쌓아 직원 권리를 주장한다. 투명한 협상과 보상·재교육·고용승계·안전을 중시하고 기습해고를 경계한다.
+      gameplayRoleSummary: 구조조정의 보상·전환·안전장치를 협상하는 노무 책임자다.
+      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      eventRelationBiases: []
+    actionPreferences: []
+    memoryPreferences: []
+    preferenceResponse:
+      enabled: 0
+      likedMultiplier: 1.5
+      dislikedMultiplier: 1.5

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: SeoJia
+  m_Name: SEO JIA
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-future-construction-cfo-seo-jia
-    companyId: future-construction
+    npcId: npc-mirae-construction-cfo-seo-jia
+    companyId: mirae-construction
+    position: 0
     profile:
       displayName: 서지아
       role: CFO
@@ -57,3 +58,17 @@ MonoBehaviour:
     - actionId: HiddenFinancialTerms
       disposition: 2
       rationale: 불리한 재무 조건을 숨기는 거래에 방어적으로 반응한다.
+    preferenceResponse:
+      enabled: 1
+      likedMultiplier: 1.5
+      dislikedMultiplier: 1.5
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: 테스트용 - 약속 이행 결과를 신뢰한다.
+    - memoryType: 4
+      disposition: 1
+      rationale: 테스트용 - 기업 생존에 기여한 결과를 긍정적으로 본다.
+    - memoryType: 1
+      disposition: 2
+      rationale: 테스트용 - 자금 및 부채 합의 위반에 반발한다.

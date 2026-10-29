@@ -2617,9 +2617,9 @@ MonoBehaviour:
   nodePrefab: {fileID: 8887161218069948666, guid: 63eb203316eea9b4fb8d617fb2097c7a, type: 3}
   detailPanel: {fileID: 5089123800732095633}
   positions:
-  - companyName: TmpCompanyA
+  - companyName: 미래건설
     position: {x: 807, y: 0}
-  - companyName: TmpCompanyB
+  - companyName: 하늘식품
     position: {x: -116, y: 362}
   autoRadius: 600
 --- !u!1 &2636877699205057073

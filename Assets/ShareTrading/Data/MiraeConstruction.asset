@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
-  m_Name: TmpCompanyA
+  m_Name: MiraeConstruction
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
-  companyName: TmpCompanyA
-  companyID: tmp-company-a
+  companyName: 미래건설
+  companyID: mirae-construction
   totalShares: 1000
   initialBaseCompanyValue: 100
   initialRevenue: 300

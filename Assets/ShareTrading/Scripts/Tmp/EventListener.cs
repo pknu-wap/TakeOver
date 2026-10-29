@@ -8,9 +8,6 @@ public sealed class EventListener : MonoBehaviour
     [SerializeField] private TmpMarketData marketData;
 
     // 임시
-    [SerializeField] private string tmpTargetCompanyId = "tmp-company-a";
-
-    // 임시
     [SerializeField] private MarketEventImpact tmpAcceptMarketImpact =
         new MarketEventImpact(0.2f, 0.1f, 3);
 
@@ -35,8 +32,8 @@ public sealed class EventListener : MonoBehaviour
 
     private void receiveEventNotification(ChoiceConfirmedInfo info)
     {
-        // 현재 통지에는 기업 ID가 없어 임시 대상 ID를 사용
-        receiveEventResult(tmpTargetCompanyId, info.resultValue);
+        // 이벤트 알림의 정식 회사 ID를 그대로 사용해 다른 회사에 효과가 적용되지 않게 한다.
+        receiveEventResult(info.companyId, info.resultValue);
     }
 
     public void receiveEventResult(string companyID, string resultValue)

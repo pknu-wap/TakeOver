@@ -117,7 +117,7 @@ namespace TakeOver.Events.Editor
             data.FindProperty("dialogue").stringValue = "보유하신 종목 하나, 제가 주가를 끌어올릴 수 있습니다.\n위험은 따르겠지만 차익을 얻을 기회죠.\n제안을 받아들이시겠습니까?";
             SerializedProperty companyIds = data.FindProperty("companyIds");
             companyIds.arraySize = 1;
-            companyIds.GetArrayElementAtIndex(0).stringValue = "dummy_company_01";
+            companyIds.GetArrayElementAtIndex(0).stringValue = "mirae-construction";
             SerializedProperty choices = data.FindProperty("choices");
             choices.arraySize = 2;
             setChoice(choices.GetArrayElementAtIndex(0), "수락", "좋습니다. 준비가 되면 다시 연락드리죠.", "dummy_accept");

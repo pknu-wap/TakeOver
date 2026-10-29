@@ -21,7 +21,7 @@ MonoBehaviour:
   apCost: 1
   startButtonText: "\uB9CC\uB098 \uBCF8\uB2E4"
   companyIds:
-  - company-mirae-construction
+  - mirae-construction
   speakerName: "\uC11C\uC9C0\uC544"
   speakerRole: "\uBBF8\uB798\uAC74\uC124 CFO"
   dialogue: "\uC7A5\uBD80\uC5D0 \uC548 \uC7A1\uD78C \uBD80\uCC44\uAC00 \uC788\uC2B5\uB2C8\uB2E4.
@@ -39,9 +39,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-seo-jia
+      - npc-mirae-construction-cfo-seo-jia
       targetReactions:
-      - targetNpcId: npc-seo-jia
+      - targetNpcId: npc-mirae-construction-cfo-seo-jia
         memoryType: 6
         strength: 2
         publicity: 0
@@ -83,9 +83,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-seo-jia
+      - npc-mirae-construction-cfo-seo-jia
       targetReactions:
-      - targetNpcId: npc-seo-jia
+      - targetNpcId: npc-mirae-construction-cfo-seo-jia
         memoryType: 8
         strength: 2
         publicity: 0
