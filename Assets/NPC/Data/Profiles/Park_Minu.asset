@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: KANG JAEHYUN
+  m_Name: PARK MINU
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-dongbang-trading-ceo-kang-jaehyeon
+    npcId: npc-dongbang-trading-hr-director-park-minu
     companyId: dongbang-trading
-    position: 1
+    position: 0
     profile:
-      displayName: 강재현
-      role: CEO
+      displayName: 박민우
+      role: 인사·노무 책임자
       affiliation: 동방물산
-      personalitySummary: 공격적이고 경쟁심이 강하며 빠른 성과를 좋아한다. 명확한 자동화 성과와 시장 확대에 관심이 높고 느린 결정과 지연을 싫어한다.
-      gameplayRoleSummary: 공격적 경쟁과 가격 전쟁을 보여주는 대표다. 작업표의 회사 배정에 따라 동방물산 CEO로 등록한다.
+      personalitySummary: 현실적으로 사람을 이해하고 갈등을 중재한다. 조직이 감당할 전환 속도를 찾으며 재교육·전환배치를 선호하고 예고 없는 대량해고를 경계한다.
+      gameplayRoleSummary: 직원의 전환 가능성과 설명 절차를 중심으로 구조조정 협상에 참여한다.
       anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
       eventRelationBiases: []
     actionPreferences: []

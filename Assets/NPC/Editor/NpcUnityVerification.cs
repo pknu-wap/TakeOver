@@ -172,7 +172,7 @@ namespace TakeOver.NPC.Editor
                 Require(registry.TryFindByPosition(company, NpcPosition.CEO, out var ceo) && ceo.position == NpcPosition.CEO,
                     "CEO lookup: " + company);
             const string seo = "npc-mirae-construction-cfo-seo-jia";
-            Require(harness.SelectNpcProfile(seo), "Select SEO JIAH");
+            Require(harness.SelectNpcProfile(seo), "Select SEO JIA");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(0);
             Near(harness.RuntimeState.relation.trust, 6, "Liked action amplifies trust +4 to +6");
@@ -269,20 +269,20 @@ namespace TakeOver.NPC.Editor
         {
             var expectedNpcIds = new Dictionary<string, string>
             {
-                { "Jung_Sooah", "npc-investigative-reporter-jung-sua" },
-                { "Kim_Taesung", "npc-institutional-investor-kim-taeseong" },
+                { "Jung_Sua", "npc-investigative-reporter-jung-sua" },
+                { "Kim_Taeseong", "npc-institutional-investor-kim-taeseong" },
                 { "Yoon_Hajin", "npc-broker-yoon-hajin" },
-                { "Park_Sanghyun", "npc-political-lobbyist-park-sanghyeon" },
-                { "Kang_Junhyuk", "npc-mirae-construction-ceo-kang-junhyeok" },
-                { "Seo_Jiah", "npc-mirae-construction-cfo-seo-jia" },
+                { "Park_Sanghyeon", "npc-political-lobbyist-park-sanghyeon" },
+                { "Kang_Junhyeok", "npc-mirae-construction-ceo-kang-junhyeok" },
+                { "Seo_Jia", "npc-mirae-construction-cfo-seo-jia" },
                 { "Park_Dosik", "npc-mirae-construction-field-director-park-dosik" },
                 { "Lee_Mingyu", "npc-economic-reporter-lee-mingyu" },
                 { "Kim_Harin", "npc-haneul-food-ceo-kim-harin" },
-                { "Oh_Jaesung", "npc-haneul-food-cfo-oh-jaeseong" },
-                { "Kang_Jaehyun", "npc-dongbang-trading-ceo-kang-jaehyeon" },
-                { "Park_Minwoo", "npc-dongbang-trading-hr-director-park-minu" },
-                { "Cho_Minseok", "npc-hansung-industry-ceo-jo-minseok" },
-                { "Choi_Mijung", "npc-hansung-industry-labor-director-choi-mijeong" }
+                { "Oh_Jaeseong", "npc-haneul-food-cfo-oh-jaeseong" },
+                { "Kang_Jaehyeon", "npc-dongbang-trading-ceo-kang-jaehyeon" },
+                { "Park_Minu", "npc-dongbang-trading-hr-director-park-minu" },
+                { "Jo_Minseok", "npc-hansung-industry-ceo-jo-minseok" },
+                { "Choi_Mijeong", "npc-hansung-industry-labor-director-choi-mijeong" }
             };
             var npcs = new Dictionary<string, NpcStateRegistry.NpcSeed>();
             foreach (var guid in AssetDatabase.FindAssets("t:NpcDefinition", new[] { "Assets/NPC/Data/Profiles" }))

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: CHO MINSEOK
+  m_Name: CHOI MIJEONG
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-hansung-industry-ceo-jo-minseok
+    npcId: npc-hansung-industry-labor-director-choi-mijeong
     companyId: hansung-industry
-    position: 1
+    position: 0
     profile:
-      displayName: 조민석
-      role: CEO
+      displayName: 최미정
+      role: 노무 책임자
       affiliation: 한성공업
-      personalitySummary: 완고하고 자존심이 강하며 제조업의 명예를 중시한다. 설비투자·현장 자율성·장기 생산 계획을 존중하고 공장 폐쇄와 제조시설 매각에 반발한다.
-      gameplayRoleSummary: 생산 기반 보존 여부를 인수 조건으로 판단하는 한성공업 대표다.
+      personalitySummary: 논리적이고 단호하며 사실을 쌓아 직원 권리를 주장한다. 투명한 협상과 보상·재교육·고용승계·안전을 중시하고 기습해고를 경계한다.
+      gameplayRoleSummary: 구조조정의 보상·전환·안전장치를 협상하는 노무 책임자다.
       anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
       eventRelationBiases: []
     actionPreferences: []
