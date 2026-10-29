@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PARK DOSIK
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-mirae-construction-field-director-parkdosik
+    npcId: npc-mirae-construction-field-director-park-dosik
     companyId: mirae-construction
     position: 0
     profile:

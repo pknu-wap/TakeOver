@@ -124,7 +124,7 @@ namespace TakeOver.NPC.Editor
                 }
                 else if (phase == 2)
                 {
-                    harness.SelectNpcProfile("npc-haneul-food-ceo-kimharin");
+                    harness.SelectNpcProfile("npc-haneul-food-ceo-kim-harin");
                     Require(harness.SelectedProfile.profile.displayName == "김하린", "Info view switches to selected NPC");
                     ui.ShowNpcInfo = false;
                     phase = 3;
@@ -133,7 +133,7 @@ namespace TakeOver.NPC.Editor
                 else if (phase == 3)
                 {
                     ScreenCapture.CaptureScreenshot(Path.Combine(Output, "npc-test.png"));
-                    harness.SelectNpcProfile("npc-mirae-construction-cfo-seojiah");
+                    harness.SelectNpcProfile("npc-mirae-construction-cfo-seo-jia");
                     harness.ResetSelectedNpcState();
                     harness.PreviewPreferenceAction(0);
                     typeof(NpcFeatureTestScene).GetField("bodyTab", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).SetValue(ui, 1);
@@ -171,7 +171,7 @@ namespace TakeOver.NPC.Editor
             foreach (var company in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" })
                 Require(registry.TryFindByPosition(company, NpcPosition.CEO, out var ceo) && ceo.position == NpcPosition.CEO,
                     "CEO lookup: " + company);
-            const string seo = "npc-mirae-construction-cfo-seojiah";
+            const string seo = "npc-mirae-construction-cfo-seo-jia";
             Require(harness.SelectNpcProfile(seo), "Select SEO JIAH");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(0);
@@ -212,7 +212,7 @@ namespace TakeOver.NPC.Editor
             Require(harness.RuntimeState.memories.Count == 1, "Repeated action occurrence records Memory once");
             Near(harness.RuntimeState.relation.trust, 6, "Repeated occurrence applies amplified effect once");
             Near(payload.relationDelta.trust, 4, "Publisher payload is not mutated by preference processing");
-            harness.SelectNpcProfile("npc-haneul-food-ceo-kimharin");
+            harness.SelectNpcProfile("npc-haneul-food-ceo-kim-harin");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(0);
             Near(harness.RuntimeState.relation.trust, 4, "Other NPC keeps default effect with response disabled");
@@ -267,6 +267,23 @@ namespace TakeOver.NPC.Editor
         /// <summary>이벤트·NPC·회사 데이터의 문자열 참조가 실제 SO와 프리팹에 모두 연결되는지 검사한다.</summary>
         private static void VerifyProjectIdReferences()
         {
+            var expectedNpcIds = new Dictionary<string, string>
+            {
+                { "Jung_Sooah", "npc-investigative-reporter-jung-sua" },
+                { "Kim_Taesung", "npc-institutional-investor-kim-taeseong" },
+                { "Yoon_Hajin", "npc-broker-yoon-hajin" },
+                { "Park_Sanghyun", "npc-political-lobbyist-park-sanghyeon" },
+                { "Kang_Junhyuk", "npc-mirae-construction-ceo-kang-junhyeok" },
+                { "Seo_Jiah", "npc-mirae-construction-cfo-seo-jia" },
+                { "Park_Dosik", "npc-mirae-construction-field-director-park-dosik" },
+                { "Lee_Mingyu", "npc-economic-reporter-lee-mingyu" },
+                { "Kim_Harin", "npc-haneul-food-ceo-kim-harin" },
+                { "Oh_Jaesung", "npc-haneul-food-cfo-oh-jaeseong" },
+                { "Kang_Jaehyun", "npc-dongbang-trading-ceo-kang-jaehyeon" },
+                { "Park_Minwoo", "npc-dongbang-trading-hr-director-park-minu" },
+                { "Cho_Minseok", "npc-hansung-industry-ceo-jo-minseok" },
+                { "Choi_Mijung", "npc-hansung-industry-labor-director-choi-mijeong" }
+            };
             var npcs = new Dictionary<string, NpcStateRegistry.NpcSeed>();
             foreach (var guid in AssetDatabase.FindAssets("t:NpcDefinition", new[] { "Assets/NPC/Data/Profiles" }))
             {
@@ -278,10 +295,12 @@ namespace TakeOver.NPC.Editor
                     npcs.Add(seed.npcId, seed);
                     var file = Path.GetFileNameWithoutExtension(path);
                     Require(definition.name == file.Replace('_', ' ').ToUpperInvariant(), "Passport asset/internal name matches: " + seed.profile.displayName);
-                    Require(seed.npcId.EndsWith(file.Replace("_", "").ToLowerInvariant(), StringComparison.Ordinal),
-                        "ID joins surname and given name without syllable hyphens: " + seed.profile.displayName);
+                    Require(expectedNpcIds.TryGetValue(file, out var expectedId) && seed.npcId == expectedId,
+                        "NPC ID matches explicit approved roster: " + seed.profile.displayName);
                 }
             }
+            Require(npcs.Count == expectedNpcIds.Count && expectedNpcIds.Values.All(npcs.ContainsKey),
+                "All approved NPC IDs are present without inferred name formats");
             var expected = new HashSet<string> { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" };
             var companies = AssetDatabase.FindAssets("t:CompanyDefinition", new[] { "Assets/ShareTrading/Data" })
                 .Select(guid => AssetDatabase.LoadAssetAtPath<CompanyDefinition>(AssetDatabase.GUIDToAssetPath(guid))).ToArray();

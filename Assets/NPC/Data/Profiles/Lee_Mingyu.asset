@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LEE MINGYU
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-economic-reporter-leemingyu
+    npcId: npc-economic-reporter-lee-mingyu
     companyId: external-network
     position: 0
     profile:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PARK MINWOO
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-dongbang-trading-hr-director-parkminwoo
+    npcId: npc-dongbang-trading-hr-director-park-minu
     companyId: dongbang-trading
     position: 0
     profile:

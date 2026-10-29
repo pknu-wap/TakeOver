@@ -38,9 +38,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-broker-yoonhajin
+      - npc-broker-yoon-hajin
       targetReactions:
-      - targetNpcId: npc-broker-yoonhajin
+      - targetNpcId: npc-broker-yoon-hajin
         memoryType: 8
         strength: 2
         publicity: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
     relaxedByChoiceIndex: 0
     relaxedValue: 0
   - kind: 0
-    npcId: npc-broker-yoonhajin
+    npcId: npc-broker-yoon-hajin
     relationAxis: 3
     comparison: 1
     value: 10

@@ -178,14 +178,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   memoryService: {fileID: 1002}
-  npcId: npc-mirae-construction-ceo-kangjunhyuk
+  npcId: npc-mirae-construction-ceo-kang-junhyeok
   companyId: mirae-construction
   currentTurn: 1
   testEvent:
     eventId: portfolio-support-demo
     companyId: mirae-construction
     actorId: player
-    targetNpcId: npc-mirae-construction-ceo-kangjunhyuk
+    targetNpcId: npc-mirae-construction-ceo-kang-junhyeok
     memoryType: 0
     memoryStrength: 2
     publicity: 1

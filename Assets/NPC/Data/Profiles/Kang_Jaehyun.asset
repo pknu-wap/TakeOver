@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KANG JAEHYUN
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-dongbang-trading-ceo-kangjaehyun
+    npcId: npc-dongbang-trading-ceo-kang-jaehyeon
     companyId: dongbang-trading
     position: 1
     profile:

@@ -36,11 +36,11 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-mirae-construction-ceo-kangjunhyuk
-      - npc-haneul-food-ceo-kimharin
-      - npc-hansung-industry-ceo-chominseok
+      - npc-mirae-construction-ceo-kang-junhyeok
+      - npc-haneul-food-ceo-kim-harin
+      - npc-hansung-industry-ceo-jo-minseok
       targetReactions:
-      - targetNpcId: npc-mirae-construction-ceo-kangjunhyuk
+      - targetNpcId: npc-mirae-construction-ceo-kang-junhyeok
         memoryType: 0
         strength: 2
         publicity: 1
@@ -56,7 +56,7 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
-      - targetNpcId: npc-haneul-food-ceo-kimharin
+      - targetNpcId: npc-haneul-food-ceo-kim-harin
         memoryType: 0
         strength: 2
         publicity: 1
@@ -72,7 +72,7 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
-      - targetNpcId: npc-hansung-industry-ceo-chominseok
+      - targetNpcId: npc-hansung-industry-ceo-jo-minseok
         memoryType: 0
         strength: 2
         publicity: 1
@@ -114,12 +114,12 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-mirae-construction-ceo-kangjunhyuk
-      - npc-haneul-food-ceo-kimharin
-      - npc-hansung-industry-ceo-chominseok
-      - npc-dongbang-trading-ceo-kangjaehyun
+      - npc-mirae-construction-ceo-kang-junhyeok
+      - npc-haneul-food-ceo-kim-harin
+      - npc-hansung-industry-ceo-jo-minseok
+      - npc-dongbang-trading-ceo-kang-jaehyeon
       targetReactions:
-      - targetNpcId: npc-mirae-construction-ceo-kangjunhyuk
+      - targetNpcId: npc-mirae-construction-ceo-kang-junhyeok
         memoryType: 3
         strength: 2
         publicity: 1
@@ -135,7 +135,7 @@ MonoBehaviour:
           hostility: 10
           dependency: 0
           interest: 0
-      - targetNpcId: npc-haneul-food-ceo-kimharin
+      - targetNpcId: npc-haneul-food-ceo-kim-harin
         memoryType: 3
         strength: 2
         publicity: 1
@@ -151,7 +151,7 @@ MonoBehaviour:
           hostility: 10
           dependency: 0
           interest: 0
-      - targetNpcId: npc-hansung-industry-ceo-chominseok
+      - targetNpcId: npc-hansung-industry-ceo-jo-minseok
         memoryType: 3
         strength: 2
         publicity: 1
@@ -167,7 +167,7 @@ MonoBehaviour:
           hostility: 10
           dependency: 0
           interest: 0
-      - targetNpcId: npc-dongbang-trading-ceo-kangjaehyun
+      - targetNpcId: npc-dongbang-trading-ceo-kang-jaehyeon
         memoryType: 3
         strength: 2
         publicity: 1

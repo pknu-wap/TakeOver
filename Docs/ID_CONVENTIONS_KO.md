@@ -11,8 +11,8 @@
 
 외부 NPC의 소속은 `external-network`를 유지한다. 회사 SO와 이벤트 회사 목록, NPC SO에서 동일한 문자열을 사용하며 별칭 변환은 하지 않는다.
 
-- 회사 소속 NPC: `npc-{companyID}-{직책}-{성이름}`
-- 외부 인물: `npc-{직책}-{성이름}`
+- 회사 소속 NPC: `npc-{companyID}-{직책}-{성}-{이름}`
+- 외부 인물: `npc-{직책}-{성}-{이름}`
 - 실제 ID는 `Assets/NPC/Data/Profiles`의 각 SO를 기준으로 대조한다. 직책 검색용 CEO는 회사별 1명이다.
 
 이벤트 SO 7개의 선택 결과·NPC별 반응·조건, 이벤트 프리팹의 CEO/구조조정 상대 및 회사 목록을 통일했다. 테스트 씬과 이벤트 생성 도구의 식별자도 같은 규약을 사용한다.
@@ -25,29 +25,29 @@ Unity 6000.3.6f1에서 93개 항목을 검증했다. 이벤트의 모든 NPC 대
 
 결과: workspace `psm/unity-verification/results.txt`, 로그: `psm/unity-verification-project-ids.log`.
 
-과거 진행 기록·백업·원자료는 당시 상태를 설명하는 기록으로 보존한다. 현재 실행 데이터의 정본으로 사용하지 않는다.
+과거 진행 기록·백업·원자료는 현재 실행 데이터의 정본으로 사용하지 않는다. 2026-10-30 요청에 따라 작업 폴더의 텍스트 자료에 남아 있던 이벤트 NPC 12명의 이전 ID도 현재 표기로 정리했다. Git 이력과 자동 생성 캐시는 정리 범위에서 제외한다.
 
-## NPC 여권식 표기 — 2026-10-27 수정
+## 이벤트 NPC 표기 — 2026-10-30 수정
 
-사용자 요청으로 통용 여권식 인명 철자를 아래 표로 고정했다. 성과 이름 모두 붙인 소문자를 ID의 인명 부분으로 사용한다. 인명 안에는 하이픈을 넣지 않는다. 파일명은 `성_이름.asset`, SO 내부 이름은 `성 이름` 대문자다. 한글 표시명과 기존 .meta GUID는 보존한다. 이 표는 가상 인물의 프로젝트 표기 선택이며 여권의 유일한 철자라는 의미가 아니다.
+등록 NPC 14명의 npcId는 NPC팀 형식을 따른다. 성은 흔히 쓰는 로마자 표기(park, kim 등), 이름은 국어 로마자 표기법(junhyeok, sanghyeon 등)을 사용하고 성과 이름 사이를 하이픈으로 구분한다. 아래 SO 파일명과 내부 이름은 기존 에셋 식별용 표기로 유지하며 npcId 철자의 기준으로 사용하지 않는다. 한글 표시명과 .meta GUID는 유지한다.
 
-외교부 기본 안내: https://www.passport.go.kr/home/kor/contents.do?menuPos=37
+정수아·김태성도 동일한 형식을 적용한다. 이름은 각각 `sua`, `taeseong`으로 표기한다. 등록 NPC 14명 모두 성·이름을 하이픈으로 구분한다.
 
 | 한글 | SO 파일 | 내부 이름 | npcId |
 |---|---|---|---|
-| 윤하진 | Yoon_Hajin.asset | YOON HAJIN | `npc-broker-yoonhajin` |
-| 정수아 | Jung_Sooah.asset | JUNG SOOAH | `npc-investigative-reporter-jungsooah` |
-| 김태성 | Kim_Taesung.asset | KIM TAESUNG | `npc-institutional-investor-kimtaesung` |
-| 박상현 | Park_Sanghyun.asset | PARK SANGHYUN | `npc-political-lobbyist-parksanghyun` |
-| 강준혁 | Kang_Junhyuk.asset | KANG JUNHYUK | `npc-mirae-construction-ceo-kangjunhyuk` |
-| 서지아 | Seo_Jiah.asset | SEO JIAH | `npc-mirae-construction-cfo-seojiah` |
-| 박도식 | Park_Dosik.asset | PARK DOSIK | `npc-mirae-construction-field-director-parkdosik` |
-| 이민규 | Lee_Mingyu.asset | LEE MINGYU | `npc-economic-reporter-leemingyu` |
-| 김하린 | Kim_Harin.asset | KIM HARIN | `npc-haneul-food-ceo-kimharin` |
-| 오재성 | Oh_Jaesung.asset | OH JAESUNG | `npc-haneul-food-cfo-ohjaesung` |
-| 강재현 | Kang_Jaehyun.asset | KANG JAEHYUN | `npc-dongbang-trading-ceo-kangjaehyun` |
-| 박민우 | Park_Minwoo.asset | PARK MINWOO | `npc-dongbang-trading-hr-director-parkminwoo` |
-| 조민석 | Cho_Minseok.asset | CHO MINSEOK | `npc-hansung-industry-ceo-chominseok` |
-| 최미정 | Choi_Mijung.asset | CHOI MIJUNG | `npc-hansung-industry-labor-director-choimijung` |
+| 윤하진 | Yoon_Hajin.asset | YOON HAJIN | `npc-broker-yoon-hajin` |
+| 정수아 | Jung_Sooah.asset | JUNG SOOAH | `npc-investigative-reporter-jung-sua` |
+| 김태성 | Kim_Taesung.asset | KIM TAESUNG | `npc-institutional-investor-kim-taeseong` |
+| 박상현 | Park_Sanghyun.asset | PARK SANGHYUN | `npc-political-lobbyist-park-sanghyeon` |
+| 강준혁 | Kang_Junhyuk.asset | KANG JUNHYUK | `npc-mirae-construction-ceo-kang-junhyeok` |
+| 서지아 | Seo_Jiah.asset | SEO JIAH | `npc-mirae-construction-cfo-seo-jia` |
+| 박도식 | Park_Dosik.asset | PARK DOSIK | `npc-mirae-construction-field-director-park-dosik` |
+| 이민규 | Lee_Mingyu.asset | LEE MINGYU | `npc-economic-reporter-lee-mingyu` |
+| 김하린 | Kim_Harin.asset | KIM HARIN | `npc-haneul-food-ceo-kim-harin` |
+| 오재성 | Oh_Jaesung.asset | OH JAESUNG | `npc-haneul-food-cfo-oh-jaeseong` |
+| 강재현 | Kang_Jaehyun.asset | KANG JAEHYUN | `npc-dongbang-trading-ceo-kang-jaehyeon` |
+| 박민우 | Park_Minwoo.asset | PARK MINWOO | `npc-dongbang-trading-hr-director-park-minu` |
+| 조민석 | Cho_Minseok.asset | CHO MINSEOK | `npc-hansung-industry-ceo-jo-minseok` |
+| 최미정 | Choi_Mijung.asset | CHOI MIJUNG | `npc-hansung-industry-labor-director-choi-mijeong` |
 
 이번 변경에서는 이벤트 SO/프리팹, NPC 기본 명단, 테스트 씬과 검증 코드의 참조를 함께 변경했다. 구 인명 ID의 별칭/자동 변환은 추가하지 않았다. 새 ID와 다른 저장은 기존 ID 검증 규칙에 따라 거부한다.

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CHOI MIJUNG
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-hansung-industry-labor-director-choimijung
+    npcId: npc-hansung-industry-labor-director-choi-mijeong
     companyId: hansung-industry
     position: 0
     profile:

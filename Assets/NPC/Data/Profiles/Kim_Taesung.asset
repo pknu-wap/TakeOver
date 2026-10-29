@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KIM TAESUNG
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-institutional-investor-kimtaesung
+    npcId: npc-institutional-investor-kim-taeseong
     companyId: external-network
     profile:
       displayName: 김태성

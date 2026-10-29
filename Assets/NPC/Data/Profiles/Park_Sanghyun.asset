@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PARK SANGHYUN
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-political-lobbyist-parksanghyun
+    npcId: npc-political-lobbyist-park-sanghyeon
     companyId: external-network
     profile:
       displayName: 박상현

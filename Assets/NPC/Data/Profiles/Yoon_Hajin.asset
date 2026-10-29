@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: YOON HAJIN
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-broker-yoonhajin
+    npcId: npc-broker-yoon-hajin
     companyId: external-network
     profile:
       displayName: 윤하진

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KANG JUNHYUK
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-mirae-construction-ceo-kangjunhyuk
+    npcId: npc-mirae-construction-ceo-kang-junhyeok
     companyId: mirae-construction
     position: 1
     profile:

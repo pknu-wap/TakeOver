@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: JUNG SOOAH
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-investigative-reporter-jungsooah
+    npcId: npc-investigative-reporter-jung-sua
     companyId: external-network
     profile:
       displayName: 정수아

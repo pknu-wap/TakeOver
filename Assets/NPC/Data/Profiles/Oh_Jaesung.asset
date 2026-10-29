@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OH JAESUNG
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-haneul-food-cfo-ohjaesung
+    npcId: npc-haneul-food-cfo-oh-jaeseong
     companyId: haneul-food
     position: 0
     profile:

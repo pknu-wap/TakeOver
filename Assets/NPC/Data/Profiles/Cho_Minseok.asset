@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CHO MINSEOK
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-hansung-industry-ceo-chominseok
+    npcId: npc-hansung-industry-ceo-jo-minseok
     companyId: hansung-industry
     position: 1
     profile:

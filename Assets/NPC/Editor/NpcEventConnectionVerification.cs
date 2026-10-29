@@ -98,7 +98,7 @@ namespace TakeOver.NPC.Editor
                     Verify();
                     var ui = UnityEngine.Object.FindFirstObjectByType<NpcFeatureTestScene>();
                     var harness = UnityEngine.Object.FindFirstObjectByType<NpcFeatureTestHarness>();
-                    harness.SelectNpcProfile("npc-mirae-construction-ceo-kangjunhyuk");
+                    harness.SelectNpcProfile("npc-mirae-construction-ceo-kang-junhyeok");
                     ui.ShowTestUI = true;
                     Set(ui, "bodyTab", 2);
                     var preview = harness.GetRelatedEvents().First(d => d.getSpeakerSource() == EventSpeakerSource.CompanyCeo);
@@ -133,7 +133,7 @@ namespace TakeOver.NPC.Editor
             Check(ui != null && harness != null, "Stat screen exists");
             if (capturePhase % 2 == 0)
             {
-                harness.SelectNpcProfile("npc-mirae-construction-cfo-seojiah");
+                harness.SelectNpcProfile("npc-mirae-construction-cfo-seo-jia");
                 harness.ResetAllNpcStates();
                 var amount = index == 0 || index == 4 ? 0 : index == 3 ? 100 : 65;
                 harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = values[index], respect = -values[index],
@@ -209,8 +209,8 @@ namespace TakeOver.NPC.Editor
                 }
             }
             var definitions = (List<EventDefinition>)Get(controller, "events");
-            const string lee = "npc-economic-reporter-leemingyu";
-            const string seo = "npc-mirae-construction-cfo-seojiah";
+            const string lee = "npc-economic-reporter-lee-mingyu";
+            const string seo = "npc-mirae-construction-cfo-seo-jia";
             foreach (var id in new[] { "press_interview_01", "inside_info_01" })
             {
                 var definition = definitions.Single(d => d.getId() == id);

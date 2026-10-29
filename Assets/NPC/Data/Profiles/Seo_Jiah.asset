@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SEO JIAH
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-mirae-construction-cfo-seojiah
+    npcId: npc-mirae-construction-cfo-seo-jia
     companyId: mirae-construction
     position: 0
     profile:
