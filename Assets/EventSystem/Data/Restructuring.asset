@@ -27,6 +27,10 @@ MonoBehaviour:
     \uAC81\uB2C8\uAE4C?"
   choices:
   - choiceText: "\uB300\uADDC\uBAA8\uB85C \uAC10\uCD95\uD55C\uB2E4"
+    choiceDescription: "\uBE44\uC6A9\uC740 \uD06C\uAC8C \uC904\uC9C0\uB9CC \uBC18\uBC1C\uC774
+      \uAC70\uC138\uB2E4"
+    playerLine: "\uD06C\uAC8C \uC904\uC774\uACA0\uC2B5\uB2C8\uB2E4. \uBC84\uD2F0\uB824\uBA74
+      \uC5B4\uCA54 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."
     resultDialogue: "\u2026\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uACB0\uACFC\uB294 \uCC45\uC784\uC9C0\uC154\uC57C
       \uD560 \uAC81\uB2C8\uB2E4."
     resultValue: mass_layoff
@@ -122,6 +126,9 @@ MonoBehaviour:
         interest: 0
     cashDelta: 0
   - choiceText: "\uB2E8\uACC4\uC801\uC73C\uB85C \uAC10\uCD95\uD55C\uB2E4"
+    choiceDescription: "\uC2DC\uAC04\uC744 \uB4E4\uC5EC \uCDA9\uACA9\uC744 \uC904\uC778\uB2E4"
+    playerLine: "\uD55C \uBC88\uC5D0 \uC790\uB974\uC9C4 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB2E8\uACC4\uC801\uC73C\uB85C \uC904\uC774\uC8E0."
     resultDialogue: "\uC2DC\uAC04\uC744 \uB450\uACE0 \uC904\uC778\uB2E4\uBA74 \uBC84\uD2F8
       \uC218 \uC788\uACA0\uC8E0."
     resultValue: gradual
@@ -204,6 +211,10 @@ MonoBehaviour:
         interest: 0
     cashDelta: 0
   - choiceText: "\uAC10\uCD95\uD558\uC9C0 \uC54A\uB294\uB2E4"
+    choiceDescription: "\uC0AC\uB78C\uC744 \uC9C0\uD0A4\uACE0 \uB2E4\uB978 \uAE38\uC744
+      \uCC3E\uB294\uB2E4"
+    playerLine: "\uC0AC\uB78C\uC740 \uC904\uC774\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB2E4\uB978 \uAE38\uC744 \uCC3E\uACA0\uC2B5\uB2C8\uB2E4."
     resultDialogue: "\uADF8 \uACB0\uC815, \uAE30\uC5B5\uD574 \uB450\uACA0\uC2B5\uB2C8\uB2E4."
     resultValue: retain
     npcResult:

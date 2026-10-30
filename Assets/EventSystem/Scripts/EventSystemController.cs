@@ -16,6 +16,14 @@ namespace TakeOver.Events
             public string companyId;
             public int firstDay;
         }
+        private sealed class NegotiationChoice
+        {
+            public EventChoice choice;
+            public int originalIndex;
+            public string companyId = "";
+            public string companyName = "";
+        }
+        private readonly List<NegotiationChoice> negotiationChoices = new List<NegotiationChoice>();
         private readonly List<Occurrence> occurrences = new List<Occurrence>();
         private readonly List<EventDefinition> todayEvents = new List<EventDefinition>();
         private readonly List<TodayEventInfo> todayInfos = new List<TodayEventInfo>();
@@ -27,7 +35,7 @@ namespace TakeOver.Events
         private GameTurnClock turnClock;
         private EventWorldReader worldReader;
         private ScreenState screenState;
-        private enum ScreenState { Closed, Detail, Negotiation, Result }
+        private enum ScreenState { Closed, Detail, Negotiation, CompanyExchange, CompanyChoice, Result }
         public event Action<NegotiationStartedInfo> negotiationStarted;
         public event Action<ChoiceConfirmedInfo> choiceConfirmed;
         public event Action todayEventsChanged;
@@ -54,6 +62,11 @@ namespace TakeOver.Events
         public IReadOnlyList<EventDefinition> getTodayEvents() => todayEvents.AsReadOnly();
         public IReadOnlyList<TodayEventInfo> getTodayEventInfos() => todayInfos.AsReadOnly();
         public int getCurrentDay() => currentDay;
+        public int getNegotiationChoiceCount() => negotiationChoices.Count;
+        public string getNegotiationChoiceText(int choiceIndex) => screenState == ScreenState.CompanyChoice ?
+            negotiationChoices[choiceIndex].companyName : negotiationChoices[choiceIndex].choice.getText();
+        public string getNegotiationChoiceDescription(int choiceIndex) => screenState == ScreenState.CompanyChoice ?
+            "" : negotiationChoices[choiceIndex].choice.getDescription();
         public bool tryGetChoice(string eventId, out int choiceIndex)
         {
             choiceIndex = -1;
@@ -62,6 +75,15 @@ namespace TakeOver.Events
         public bool tryGetChoice(string eventId, string companyId, out int choiceIndex) =>
             companyChoices.TryGetValue((eventId, companyId ?? ""), out choiceIndex);
         private string getKeyCompany(EventDefinition definition, string companyId) => definition.hasCompanyConditions() ? companyId : "";
+        private List<EventCompanyData> getOwnedCompanies()
+        {
+            var companies = new List<EventCompanyData>();
+            foreach (EventCompanyData company in worldReader.getCompanies())
+                if (worldReader.getStake(company.companyId) > 0) companies.Add(company);
+            return companies;
+        }
+        private bool hasRequiredHoldings(EventDefinition definition) =>
+            definition.getChoiceGeneration() != EventChoiceGeneration.OwnedCompanies || getOwnedCompanies().Count > 0;
         private bool canAppear(EventDefinition definition, string companyId)
         {
             var key = (definition.getId(), getKeyCompany(definition, companyId));
@@ -106,7 +128,8 @@ namespace TakeOver.Events
             {
                 Occurrence occurrence = occurrences[i];
                 int expiry = occurrence.firstDay + occurrence.definition.getValidDays();
-                if (currentDay >= expiry)
+                if (!hasRequiredHoldings(occurrence.definition)) occurrences.RemoveAt(i);
+                else if (currentDay >= expiry)
                 {
                     availableDays[(occurrence.definition.getId(), getKeyCompany(occurrence.definition, occurrence.companyId))] = expiry + 7;
                     occurrences.RemoveAt(i);
@@ -115,7 +138,7 @@ namespace TakeOver.Events
             }
             foreach (EventDefinition definition in events)
             {
-                if (occurrences.Exists(item => item.definition == definition)) continue;
+                if (!hasRequiredHoldings(definition) || occurrences.Exists(item => item.definition == definition)) continue;
                 string companyId = "";
                 if (definition.hasCompanyConditions())
                 {
@@ -164,32 +187,67 @@ namespace TakeOver.Events
         public void startNegotiation()
         {
             if (screenState != ScreenState.Detail) return;
+            buildNegotiationChoices();
             screenState = ScreenState.Negotiation;
             detailView.hide();
             negotiationStarted?.Invoke(new NegotiationStartedInfo(activeInfo.definition.getId(), activeInfo.definition.getApCost()));
-            negotiationView.show(activeInfo, this);
+            negotiationView.show(activeInfo, this, worldReader.getSpeakerIllustration(activeInfo));
+        }
+        private void buildNegotiationChoices(bool companies = false)
+        {
+            negotiationChoices.Clear();
+            IReadOnlyList<EventChoice> choices = activeInfo.definition.getChoices();
+            if (companies && choices.Count > 0)
+            {
+                List<EventCompanyData> ownedCompanies = getOwnedCompanies();
+                while (ownedCompanies.Count > 3) ownedCompanies.RemoveAt(UnityEngine.Random.Range(0, ownedCompanies.Count));
+                foreach (EventCompanyData company in ownedCompanies)
+                    negotiationChoices.Add(new NegotiationChoice { choice = choices[0].createForCompany(company.companyName), originalIndex = 0, companyId = company.companyId, companyName = company.companyName });
+                return;
+            }
+            for (int i = 0; i < choices.Count; i++)
+                negotiationChoices.Add(new NegotiationChoice { choice = choices[i], originalIndex = i });
+        }
+        private void showCompanyChoices()
+        {
+            if (screenState != ScreenState.CompanyExchange) return;
+            buildNegotiationChoices(true);
+            screenState = ScreenState.CompanyChoice;
+            negotiationView.showCompanyChoices(activeInfo, this);
         }
         public void confirmChoice(int choiceIndex)
         {
-            if (screenState != ScreenState.Negotiation || choiceIndex < 0 || choiceIndex >= activeInfo.definition.getChoices().Count) return;
+            if ((screenState != ScreenState.Negotiation && screenState != ScreenState.CompanyChoice) || choiceIndex < 0 || choiceIndex >= negotiationChoices.Count) return;
             EventDefinition definition = activeInfo.definition;
-            EventChoice choice = definition.getChoices()[choiceIndex];
+            NegotiationChoice selected = negotiationChoices[choiceIndex];
+            EventChoice choice = selected.choice;
+            bool companyChoice = screenState == ScreenState.CompanyChoice;
+            if (!companyChoice && definition.getChoiceGeneration() == EventChoiceGeneration.OwnedCompanies && selected.originalIndex == 0)
+            {
+                screenState = ScreenState.CompanyExchange;
+                negotiationView.showExchange(activeInfo.resolve(definition.getCompanyQuestion()),
+                    activeInfo.resolve(choice.getPlayerLine()), showCompanyChoices);
+                return;
+            }
+            string playerLine = companyChoice ? (definition.getCompanyPlayerLine() ?? "").Replace("{company}", selected.companyName) : choice.getPlayerLine();
+            string companyId = activeInfo.companyId;
             screenState = ScreenState.Result;
-            selectedChoices[definition.getId()] = choiceIndex;
-            companyChoices[(definition.getId(), activeInfo.companyId)] = choiceIndex;
+            selectedChoices[definition.getId()] = selected.originalIndex;
+            companyChoices[(definition.getId(), companyId)] = selected.originalIndex;
             occurrences.RemoveAll(item => item.definition == definition);
             rebuildToday();
-            var result = new ChoiceConfirmedInfo(definition.getId(), choiceIndex, choice.getResultValue(),
-                currentDay, choice.getNpcResult(), choice.getCashDelta(), activeInfo.companyId);
+            var result = new ChoiceConfirmedInfo(definition.getId(), selected.originalIndex, choice.getResultValue(),
+                currentDay, choice.getNpcResult(), choice.getCashDelta(), companyId,
+                selected.companyId, choice.getStockSurgeMinRatio(), choice.getStockSurgeMaxRatio(), choice.getBuybackPremiumRatio());
             if (definition.hasCompanyConditions() && result.npcResult != null)
             {
-                result.npcResult.targetNpcIds.RemoveAll(id => worldReader.belongsToOtherCompany(id, activeInfo.companyId));
-                result.npcResult.targetReactions.RemoveAll(reaction => worldReader.belongsToOtherCompany(reaction.targetNpcId, activeInfo.companyId));
+                result.npcResult.targetNpcIds.RemoveAll(id => worldReader.belongsToOtherCompany(id, companyId));
+                result.npcResult.targetReactions.RemoveAll(reaction => worldReader.belongsToOtherCompany(reaction.targetNpcId, companyId));
                 if (result.npcResult.targetNpcIds.Count == 0) result.clearNpcResult();
             }
             choiceConfirmed?.Invoke(result);
             todayEventsChanged?.Invoke();
-            negotiationView.showResult(activeInfo.resolve(choice.getResultDialogue()));
+            negotiationView.showResult(activeInfo.resolve(choice.getResultDialogue()), activeInfo.resolve(playerLine));
         }
         public void closeResult()
         {
