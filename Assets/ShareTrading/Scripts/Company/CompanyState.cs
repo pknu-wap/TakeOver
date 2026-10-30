@@ -69,6 +69,20 @@ public class CompanyState
     }
     
     public float getStat(CompanyStat stat) { return stats[stat]; }
+    public bool tryGetStat(string statName, out float returnStat)
+    {
+        CompanyStat stat;
+        if (System.Enum.TryParse(statName, out stat))
+            return stats.TryGetValue(stat, out returnStat);
+
+        CompanyDerivedStat derivedStat;
+        if (System.Enum.TryParse(statName, out derivedStat))
+            return derivedStats.TryGetValue(derivedStat, out returnStat);
+
+        returnStat = 0f;
+        return false;
+    }
+
     public void setStat(CompanyStat stat, float value) { stats[stat] = value; }
     public void addStat(CompanyStat stat, float value)
     {

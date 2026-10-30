@@ -9,6 +9,7 @@ public class Company : MonoBehaviour
     public CompanyState state { get; private set; }
     public CompanyMarketState marketState { get; private set; }
     public CompanyHistory history { get; private set; }
+    [field: SerializeField] public CompanyNpcRelations npcRelations { get; private set; }
     public CompanyStatCalculator calculator;
 
     private void Awake()
@@ -24,9 +25,11 @@ public class Company : MonoBehaviour
         history = new CompanyHistory(state);
         calculator = new CompanyStatCalculator();
 
+        npcRelations.initialize(companyDefinition.companyID);
+
         printLog();
     }
-    
+
     public void printLog()
     {
         if (companyDefinition == null)

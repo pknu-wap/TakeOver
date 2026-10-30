@@ -30,6 +30,9 @@ MonoBehaviour:
     \uC870\uAE08 \uD574 \uC8FC\uC2DC\uBA74\uC694."
   choices:
   - choiceText: "\uD6C4\uC6D0\uD55C\uB2E4"
+    choiceDescription: "\uACF5\uC2DC \uBD80\uB2F4\uC774 \uC904\uC9C0\uB9CC \uC57D\uC810\uC774
+      \uC0DD\uAE34\uB2E4"
+    playerLine: "\uC758\uC6D0\uB2D8\uAED8 \uC798 \uC804\uD574 \uC8FC\uC2ED\uC2DC\uC624."
     resultDialogue: "\uD604\uBA85\uD55C \uD310\uB2E8\uC785\uB2C8\uB2E4. \uACE7 \uC88B\uC740
       \uC18C\uC2DD \uB4E4\uC73C\uC2E4 \uAC81\uB2C8\uB2E4."
     resultValue: sponsor
@@ -39,9 +42,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-park-sanghyun
+      - npc-political-lobbyist-park-sanghyeon
       targetReactions:
-      - targetNpcId: npc-park-sanghyun
+      - targetNpcId: npc-political-lobbyist-park-sanghyeon
         memoryType: 7
         strength: 2
         publicity: 0
@@ -74,6 +77,9 @@ MonoBehaviour:
         interest: 0
     cashDelta: -100
   - choiceText: "\uACF5\uAC1C \uAE30\uBD80\uB85C \uB3CC\uB9B0\uB2E4"
+    choiceDescription: "\uAE68\uB057\uD558\uC9C0\uB9CC \uC5BB\uB294 \uAC74 \uC5C6\uB2E4"
+    playerLine: "\uD6C4\uC6D0\uC740 \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB2E4\uB9CC
+      \uACF5\uAC1C \uAE30\uBD80\uB85C \uD558\uC8E0."
     resultDialogue: "\uACF5\uAC1C \uAE30\uBD80\uB77C\u2026 \uAE54\uB054\uD558\uAE34
       \uD55C\uB370, \uC81C\uAC00 \uD574 \uB4DC\uB9B4 \uAC74 \uC5C6\uACA0\uAD70\uC694."
     resultValue: public_donation
@@ -83,9 +89,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-park-sanghyun
+      - npc-political-lobbyist-park-sanghyeon
       targetReactions:
-      - targetNpcId: npc-park-sanghyun
+      - targetNpcId: npc-political-lobbyist-park-sanghyeon
         memoryType: 8
         strength: 2
         publicity: 3
@@ -120,6 +126,8 @@ MonoBehaviour:
         interest: 0
     cashDelta: -50
   - choiceText: "\uAC70\uC808\uD55C\uB2E4"
+    choiceDescription: "\uC815\uCE58\uC640\uB294 \uAC70\uB9AC\uB97C \uB454\uB2E4"
+    playerLine: "\uADF8\uB7F0 \uAC70\uB798\uB294 \uD558\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
     resultDialogue: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uC0DD\uAC01\uC774 \uBC14\uB00C\uBA74
       \uC5F0\uB77D \uC8FC\uC2DC\uC8E0."
     resultValue: reject

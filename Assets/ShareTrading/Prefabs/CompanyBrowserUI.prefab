@@ -2542,6 +2542,12 @@ MonoBehaviour:
   rowParent: {fileID: 0}
   sortDropdown: {fileID: 0}
   detailPanel: {fileID: 5089123800732095633}
+  positions:
+  - companyName: 미래건설
+    position: {x: 807, y: 0}
+  - companyName: 하늘식품
+    position: {x: -116, y: 362}
+  autoRadius: 600
 --- !u!114 &67548033927892405
 MonoBehaviour:
   m_ObjectHideFlags: 0

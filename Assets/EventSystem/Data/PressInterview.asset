@@ -29,6 +29,10 @@ MonoBehaviour:
   choices:
   - choiceText: "\uC790\uAE08 \uAD6C\uC870\uB97C \uC22B\uC790\uB85C \uC194\uC9C1\uD788
       \uBC1D\uD78C\uB2E4"
+    choiceDescription: "\uC57D\uC810\uC774 \uB4DC\uB7EC\uB098\uB3C4 \uC2E0\uB8B0\uB97C
+      \uC5BB\uB294\uB2E4"
+    playerLine: "\uCC28\uC785\uC73C\uB85C \uC2DC\uC791\uD588\uC2B5\uB2C8\uB2E4. \uC22B\uC790\uB294
+      \uADF8\uB300\uB85C \uC801\uC73C\uC154\uB3C4 \uB429\uB2C8\uB2E4."
     resultDialogue: "\uBE5A\uC73C\uB85C \uC2DC\uC791\uD588\uB2E4\uB294 \uAC83\uAE4C\uC9C0
       \uBC1D\uD788\uC2DC\uB2E4\uB2C8 \uC758\uC678\uAD70\uC694. \uAE30\uC0AC\uB294
       \uC788\uB294 \uADF8\uB300\uB85C \uB098\uAC08 \uAC81\uB2C8\uB2E4."
@@ -39,9 +43,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-lee-mingyu
+      - npc-economic-reporter-lee-mingyu
       targetReactions:
-      - targetNpcId: npc-lee-mingyu
+      - targetNpcId: npc-economic-reporter-lee-mingyu
         memoryType: 0
         strength: 2
         publicity: 3
@@ -75,6 +79,10 @@ MonoBehaviour:
     cashDelta: 0
   - choiceText: "\uC790\uAE08 \uCD9C\uCC98\uB294 \uD750\uB9AC\uACE0 \uC131\uACFC\uB9CC
       \uAC15\uC870\uD55C\uB2E4"
+    choiceDescription: "\uB2F9\uC7A5\uC740 \uC88B\uC544 \uBCF4\uC774\uC9C0\uB9CC
+      \uC758\uC2EC\uC744 \uC0B0\uB2E4"
+    playerLine: "\uCD9C\uCC98\uBCF4\uB2E4 \uACB0\uACFC\uB97C \uBD10 \uC8FC\uC2DC\uC8E0.
+      \uC218\uC775\uB960\uC774 \uB2F5\uC785\uB2C8\uB2E4."
     resultDialogue: "\uC22B\uC790\uAC00 \uC55E\uB4A4\uAC00 \uC548 \uB9DE\uB294\uAD70\uC694.
       \uAE30\uC0AC\uB294 \uB098\uAC00\uACA0\uC9C0\uB9CC, \uACC4\uC18D \uC9C0\uCF1C\uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
     resultValue: evade
@@ -84,9 +92,9 @@ MonoBehaviour:
       actorId: 
       actionId: 
       targetNpcIds:
-      - npc-lee-mingyu
+      - npc-economic-reporter-lee-mingyu
       targetReactions:
-      - targetNpcId: npc-lee-mingyu
+      - targetNpcId: npc-economic-reporter-lee-mingyu
         memoryType: 8
         strength: 2
         publicity: 3

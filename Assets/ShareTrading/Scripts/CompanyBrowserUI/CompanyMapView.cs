@@ -12,7 +12,7 @@ public class CompanyMapView : MonoBehaviour
     [System.Serializable]
     public class NodePosition
     {
-        public string companyName;   // CompanyDefinition의 회사 이름과 똑같이 입력 (예: TmpCompanyA)
+        public string companyName;   // CompanyDefinition의 회사 이름과 똑같이 입력 (예: 미래건설)
         public Vector2 position;     // 지도 중앙을 (0,0)으로 한 위치
     }
 
