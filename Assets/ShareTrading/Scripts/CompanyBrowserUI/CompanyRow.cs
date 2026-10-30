@@ -1,33 +1,48 @@
-using System;           
-using TMPro;            
+using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;   
+using UnityEngine.UI;
 
 
 public class CompanyRow : MonoBehaviour
 {
-    [SerializeField] private TMP_Text nameText;       
-    [SerializeField] private TMP_Text priceText;      
-    [SerializeField] private TMP_Text revenueText;   
-    [SerializeField] private TMP_Text netProfitText;  
-    [SerializeField] private TMP_Text stakeText;      
-    [SerializeField] private Button button;           
+    [Header("공통")]
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private Button button;
 
-    
+    [Header("있으면 채우는 칸")]
+    [SerializeField] private TMP_Text letterText;
+    [SerializeField] private TMP_Text priceText;
+    [SerializeField] private TMP_Text revenueText;
+    [SerializeField] private TMP_Text netProfitText;
+    [SerializeField] private TMP_Text stakeText;
+    [SerializeField] private TMP_Text summaryText;
+
+
     public void setup(Company company, Action<Company> onClick)
     {
-        
-        nameText.text = company.definition.companyName;
+        string companyName = company.definition.companyName;
+        float price = CompanyUIUtil.getDerived(company, CompanyDerivedStat.SHARE_PRICE);
+        float stake = CompanyUIUtil.getDerived(company, CompanyDerivedStat.STAKE);
 
-        
-        priceText.text = $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.SHARE_PRICE):N2}";
-        
-        revenueText.text = $"{CompanyUIUtil.getStat(company, CompanyStat.REVENUE):N0}";
-        netProfitText.text = $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.NET_PROFIT):N0}";
-        
-        stakeText.text = $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.STAKE):0.#}%";
+        nameText.text = companyName;
 
-        button.onClick.RemoveAllListeners();              
-        button.onClick.AddListener(() => onClick(company)); 
+        setText(letterText, companyName.Length > 0 ? companyName.Substring(0, 1) : "");
+        setText(priceText, $"{price:N2}");
+        setText(revenueText, $"{CompanyUIUtil.getStat(company, CompanyStat.REVENUE):N0}");
+        setText(netProfitText, $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.NET_PROFIT):N0}");
+        setText(stakeText, $"{stake:0.#}%");
+        setText(summaryText, $"지분 {stake:0.#}%  |  {price:N0}");
+
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => onClick(company));
+    }
+
+    private static void setText(TMP_Text target, string value)
+    {
+        if (target != null)
+        {
+            target.text = value;
+        }
     }
 }
