@@ -10,6 +10,8 @@ namespace TakeOver.NPC
         [Serializable]
         public sealed class NpcProfile
         {
+            // 스탠딩은 원본 SO에서 참조한다. JsonUtility 사본에 Unity 객체 참조를 직렬화해 옮기지 않는다.
+            public Sprite standingIllustration;
             public string displayName;
             public string role;
             public string affiliation;
@@ -30,8 +32,11 @@ namespace TakeOver.NPC
         [Serializable]
         public sealed class NpcSeed
         {
-            public string npcId = "npc-ceo-01";
-            public string companyId = "portfolio-company-01";
+            public NpcPosition position;
+            public NpcPreferenceResponse preferenceResponse = new NpcPreferenceResponse();
+            public List<NpcMemoryPreference> memoryPreferences = new List<NpcMemoryPreference>();
+            public string npcId = "";
+            public string companyId = "";
             public NpcProfile profile = new NpcProfile();
             public List<NpcActionPreference> actionPreferences = new List<NpcActionPreference>();
         }
@@ -60,6 +65,36 @@ namespace TakeOver.NPC
             }
         }
         public event Action<NpcRuntimeState> StateChanged;
+
+        /// <summary>회사 ID와 직책으로 이벤트 화자의 정적 프로필을 찾는다. 같은 조건이 여러 명이면 실패한다.</summary>
+        public bool TryFindByPosition(string companyId, NpcPosition position, out NpcSeed result)
+        {
+            result = null;
+            if (position == NpcPosition.None) return false;
+            foreach (var seed in Profiles)
+            {
+                if (seed == null || seed.companyId != companyId || seed.position != position) continue;
+                if (result != null) { result = null; return false; }
+                result = seed;
+            }
+            return result != null;
+        }
+
+        /// <summary>행동의 명시 선호가 우선이며, 없으면 결과 Memory의 선호를 조회한다. 두 배율을 중복 적용하지 않는다.</summary>
+        public NpcRelationDelta EvaluatePreference(string npcId, string actionId, NpcMemoryType memoryType,
+            NpcRelationDelta delta, out NpcActionDisposition disposition)
+        {
+            disposition = NpcActionDisposition.Unspecified;
+            if (!TryGetProfile(npcId, out var seed)) return delta;
+            var matched = TryGetActionPreference(npcId, actionId, out disposition);
+            if (!matched && seed.memoryPreferences != null)
+                foreach (var preference in seed.memoryPreferences)
+                    if (preference != null && preference.memoryType == memoryType)
+                    { disposition = preference.disposition; break; }
+            var result = seed.preferenceResponse == null ? delta : seed.preferenceResponse.Apply(delta, disposition);
+            NpcInputValidation.ValidateDelta(result);
+            return result;
+        }
 
         private void Awake() => EnsureInitialNpcsInitialized();
 
@@ -217,7 +252,7 @@ namespace TakeOver.NPC
                 },
                 new NpcSeed
                 {
-                    npcId = "npc-future-construction-ceo-kang-junhyeok", companyId = "future-construction",
+                    npcId = "npc-mirae-construction-ceo-kang-junhyeok", companyId = "mirae-construction", position = NpcPosition.CEO,
                     profile = new NpcProfile
                     {
                         displayName = "강준혁", role = "CEO / 창업자", affiliation = "미래건설",
@@ -300,7 +335,7 @@ namespace TakeOver.NPC
 
         /// <summary>
         /// NPC별 선호/불호 행동 프로필을 복사해 등록한다. actionId가 겹치면 첫 항목만 유지한다.
-        /// 선호는 현재 데이터 기반만 제공하며 관계 변화나 행동 판단 점수로 환산하지 않는다.
+        /// 등록된 방향은 EvaluatePreference에서 인물별 활성 설정에 따라 관계 배율에 사용한다.
         /// </summary>
         public void ConfigureActionPreferences(string npcId, IList<NpcActionPreference> preferences)
         {

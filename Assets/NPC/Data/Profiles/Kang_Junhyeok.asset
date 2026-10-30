@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: KangJunhyeok
+  m_Name: KANG JUNHYEOK
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-future-construction-ceo-kang-junhyeok
-    companyId: future-construction
+    npcId: npc-mirae-construction-ceo-kang-junhyeok
+    companyId: mirae-construction
+    position: 1
     profile:
       displayName: 강준혁
       role: CEO / 창업자

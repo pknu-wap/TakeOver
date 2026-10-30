@@ -23,6 +23,16 @@ namespace TakeOver.NPC
                 throw new ArgumentException("관계 변화량에 NaN 또는 무한대가 포함돼 있습니다.");
         }
 
+        internal static void ValidateEffectLog(NpcMemoryEffectLog log)
+        {
+            if (log == null) return;
+            if (!Finite(log.multiplier) || log.multiplier < 1)
+                throw new ArgumentException("사건 로그의 선호 배율이 올바르지 않습니다.");
+            ValidateDelta(log.beforePreference);
+            ValidateDelta(log.preferenceBonus);
+            ValidateDelta(log.actuallyApplied);
+        }
+
         private static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
     }
 
@@ -30,8 +40,47 @@ namespace TakeOver.NPC
     public enum NpcPublicity { Private, Company, Industry, Public }
     public enum NpcMemoryType { GoodFaith, ContractBreach, MassLayoff, HostileTakeover, SavedCompany, PublicHumiliation, LeakedInfo, Bribery, Custom }
 
-    /// <summary>NPC가 특정 플레이어 행동을 선호하는지 나타낸다. 효과 수치는 기획 회의 전까지 두지 않는다.</summary>
+    /// <summary>이벤트가 회사와 직책으로 화자를 찾는 검색용 값이다. 표시용 role과 분리한다.</summary>
+    public enum NpcPosition { None, CEO }
+
+    /// <summary>NPC가 특정 플레이어 행동을 선호하는지 나타낸다.</summary>
     public enum NpcActionDisposition { Unspecified, Likes, Dislikes }
+
+    /// <summary>결과 Memory의 선호. 구체 actionId가 지정되면 행동 선호를 우선한다.</summary>
+    [Serializable]
+    public sealed class NpcMemoryPreference
+    {
+        public NpcMemoryType memoryType;
+        public NpcActionDisposition disposition;
+        [TextArea] public string rationale;
+    }
+
+    /// <summary>기획 미확정인 선택적 배율. 기본은 꺼 두어 기존 인물의 효과를 유지한다.</summary>
+    [Serializable]
+    public sealed class NpcPreferenceResponse
+    {
+        public bool enabled;
+        [Min(1f)] public float likedMultiplier = 1.5f;
+        [Min(1f)] public float dislikedMultiplier = 1.5f;
+
+        public NpcRelationDelta Apply(NpcRelationDelta delta, NpcActionDisposition disposition)
+        {
+            if (!enabled || disposition == NpcActionDisposition.Unspecified) return delta;
+            var multiplier = disposition == NpcActionDisposition.Likes ? likedMultiplier : dislikedMultiplier;
+            if (float.IsNaN(multiplier) || float.IsInfinity(multiplier) || multiplier < 1f)
+                throw new ArgumentException("선호 반응 배율은 1 이상의 유한한 값이어야 합니다.");
+            // 신뢰·존중·관심 증가와 적대감 감소를 호의로 본다. 공포·의존도는 호불호와 동치가 아니므로 유지한다.
+            var likes = disposition == NpcActionDisposition.Likes;
+            delta.trust = Scale(delta.trust, likes, multiplier);
+            delta.respect = Scale(delta.respect, likes, multiplier);
+            delta.interest = Scale(delta.interest, likes, multiplier);
+            delta.hostility = -Scale(-delta.hostility, likes, multiplier);
+            return delta;
+        }
+
+        private static float Scale(float value, bool likes, float multiplier) =>
+            (likes && value > 0f) || (!likes && value < 0f) ? value * multiplier : value;
+    }
 
     /// <summary>행동 ID와 NPC의 선호 방향을 연결하는 프로필 데이터다.</summary>
     [Serializable]
@@ -56,7 +105,7 @@ namespace TakeOver.NPC
     [Serializable]
     public struct NpcRelationDelta
     {
-        // 신뢰·존중·적대감·관심은 방향이 있는 값이고, 공포·의존도는 현재 구현에서 0 이상이다.
+        // 변화량은 모든 축에서 음수일 수 있다. 현재 상태의 하한/상한은 NpcRelationState.Apply가 적용한다.
         public float trust;
         public float respect;
         public float fear;
@@ -65,6 +114,21 @@ namespace TakeOver.NPC
         public float interest;
 
         public static NpcRelationDelta Zero => default;
+
+        /// <summary>선호 보정의 추가분과 실제 적용량을 기록하기 위한 축별 차이다.</summary>
+        public static NpcRelationDelta Subtract(NpcRelationDelta after, NpcRelationDelta before) => new NpcRelationDelta
+        {
+            trust = after.trust - before.trust, respect = after.respect - before.respect,
+            fear = after.fear - before.fear, hostility = after.hostility - before.hostility,
+            dependency = after.dependency - before.dependency, interest = after.interest - before.interest
+        };
+
+        public static NpcRelationDelta Between(NpcRelationState after, NpcRelationState before) => new NpcRelationDelta
+        {
+            trust = after.trust - before.trust, respect = after.respect - before.respect,
+            fear = after.fear - before.fear, hostility = after.hostility - before.hostility,
+            dependency = after.dependency - before.dependency, interest = after.interest - before.interest
+        };
     }
 
     /// <summary>
@@ -74,7 +138,7 @@ namespace TakeOver.NPC
     [Serializable]
     public struct NpcRelationState
     {
-        // 현재 관계값. 허용 범위는 Apply에서 제한하며, 기획 수치 확정 전까지는 프로토타입 기준이다.
+        // 신뢰·존중은 -100~100, 두려움·적대감·의존도·관심은 0~100이다.
         public float trust;
         public float respect;
         public float fear;
@@ -89,11 +153,28 @@ namespace TakeOver.NPC
             trust = Mathf.Clamp(trust + delta.trust, -100f, 100f);
             respect = Mathf.Clamp(respect + delta.respect, -100f, 100f);
             fear = Mathf.Clamp(fear + delta.fear, 0f, 100f);
-            hostility = Mathf.Clamp(hostility + delta.hostility, -100f, 100f);
+            hostility = Mathf.Clamp(hostility + delta.hostility, 0f, 100f);
             dependency = Mathf.Clamp(dependency + delta.dependency, 0f, 100f);
-            interest = Mathf.Clamp(interest + delta.interest, -100f, 100f);
+            interest = Mathf.Clamp(interest + delta.interest, 0f, 100f);
             lastUpdatedTurn = turn;
         }
+    }
+
+    /// <summary>사건 발생 당시의 선호 계산 근거다. 나중에 SO가 바뀌어도 당시 결과를 그대로 보여준다.</summary>
+    [Serializable]
+    public sealed class NpcMemoryEffectLog
+    {
+        public bool preferenceEnabled;
+        public float multiplier = 1f;
+        public NpcRelationDelta beforePreference;
+        public NpcRelationDelta preferenceBonus;
+        public NpcRelationDelta actuallyApplied;
+
+        public NpcMemoryEffectLog Clone() => new NpcMemoryEffectLog
+        {
+            preferenceEnabled = preferenceEnabled, multiplier = multiplier,
+            beforePreference = beforePreference, preferenceBonus = preferenceBonus, actuallyApplied = actuallyApplied
+        };
     }
 
     /// <summary>
@@ -111,7 +192,7 @@ namespace TakeOver.NPC
         public string targetId;
         // 플레이어 행동 선호 프로필과 사건 기억을 연결할 선택적 규칙 ID다.
         public string actionId;
-        // 기록 당시 NPC 프로필에서 조회한 선호 방향. 수치 효과나 자동 관계 변화는 아직 결정하지 않는다.
+        // 기록 당시 조회한 행동 또는 결과 Memory의 선호 방향. 선택적 임시 배율의 적용 근거를 보존한다.
         public NpcActionDisposition actionDisposition;
         public string companyId;
         public string sourceEventId;
@@ -131,6 +212,7 @@ namespace TakeOver.NPC
         [TextArea] public string interpretation;
         public List<string> tags = new List<string>();
         public NpcRelationDelta relationDelta;
+        public NpcMemoryEffectLog effectLog;
 
         /// <summary>서비스가 원본 입력을 바꾸지 않도록 태그 목록까지 복사한 새 기록을 만든다.</summary>
         public NpcMemoryRecord Clone()
@@ -144,7 +226,8 @@ namespace TakeOver.NPC
                 durationTurns = durationTurns, remainingTurns = remainingTurns,
                 influence = influence,
                 reliability = reliability, interpretation = interpretation,
-                tags = tags == null ? new List<string>() : new List<string>(tags), relationDelta = relationDelta
+                tags = tags == null ? new List<string>() : new List<string>(tags), relationDelta = relationDelta,
+                effectLog = effectLog?.Clone()
             };
         }
     }

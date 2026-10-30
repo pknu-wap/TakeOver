@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: be9f97e931892d146aa3303c7d14c671
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6787178703517923711
+    second: Park_Sanghyeon_Temp_0
+  - first:
+      213: -4935797298765984650
+    second: Park_Sanghyeon_Temp_1
+  - first:
+      213: -6899004985779950191
+    second: Park_Sanghyeon_Temp_2
+  - first:
+      213: -5726774425226582859
+    second: Park_Sanghyeon_Temp_3
+  - first:
+      213: -8223521917131533349
+    second: Park_Sanghyeon_Temp_4
+  - first:
+      213: -4996248624473743198
+    second: Park_Sanghyeon_Temp_5
+  - first:
+      213: -6037171432230089065
+    second: Park_Sanghyeon_Temp_6
+  - first:
+      213: -3595262398841040071
+    second: Park_Sanghyeon_Temp_7
+  - first:
+      213: -4588791305501443567
+    second: Park_Sanghyeon_Temp_8
+  - first:
+      213: -1706941051115061166
+    second: Park_Sanghyeon_Temp_9
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Park_Sanghyeon_Temp_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 45
+        width: 67
+        height: 1491
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 186c7bddde81fc1a0800000000000000
+      internalID: -6787178703517923711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Park_Sanghyeon_Temp_1
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 0
+        width: 734
+        height: 1536
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67c88bbf186808bb0800000000000000
+      internalID: -4935797298765984650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Park_Sanghyeon_Temp_2
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 1503
+        width: 224
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19defe6948fc140a0800000000000000
+      internalID: -6899004985779950191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Park_Sanghyeon_Temp_3
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 26
+        width: 16
+        height: 1468
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b4e39380096680b0800000000000000
+      internalID: -5726774425226582859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Park_Sanghyeon_Temp_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd35cbee26e20ed80800000000000000
+      internalID: -8223521917131533349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Park_Sanghyeon_Temp_5
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 8
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a065b8e852c9aab0800000000000000
+      internalID: -4996248624473743198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Park_Sanghyeon_Temp_6
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 2
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79e0ac59198a73ca0800000000000000
+      internalID: -6037171432230089065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Park_Sanghyeon_Temp_7
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 3
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 933d2c295ef0b1ec0800000000000000
+      internalID: -3595262398841040071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Park_Sanghyeon_Temp_8
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 2
+        width: 62
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11a7f2fbe965150c0800000000000000
+      internalID: -4588791305501443567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Park_Sanghyeon_Temp_9
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 0
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25041c3682abf48e0800000000000000
+      internalID: -1706941051115061166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Park_Sanghyeon_Temp_0: -6787178703517923711
+      Park_Sanghyeon_Temp_1: -4935797298765984650
+      Park_Sanghyeon_Temp_2: -6899004985779950191
+      Park_Sanghyeon_Temp_3: -5726774425226582859
+      Park_Sanghyeon_Temp_4: -8223521917131533349
+      Park_Sanghyeon_Temp_5: -4996248624473743198
+      Park_Sanghyeon_Temp_6: -6037171432230089065
+      Park_Sanghyeon_Temp_7: -3595262398841040071
+      Park_Sanghyeon_Temp_8: -4588791305501443567
+      Park_Sanghyeon_Temp_9: -1706941051115061166
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
