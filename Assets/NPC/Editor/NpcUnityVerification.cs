@@ -163,7 +163,7 @@ namespace TakeOver.NPC.Editor
             Require(registry.Profiles.Count == 14 && registry.States.Count == 14, "All 14 NPCs initialized in Play mode");
             // 타 팀은 비활성 상태로 유지하고 초기화된 정식 ID 인덱스만 조회한다.
             var trading = UnityEngine.Object.FindFirstObjectByType<Companies>(FindObjectsInactive.Include);
-            var market = UnityEngine.Object.FindFirstObjectByType<TmpMarketData>(FindObjectsInactive.Include);
+            var market = UnityEngine.Object.FindFirstObjectByType<Marketdata>(FindObjectsInactive.Include);
             Require(trading != null && market != null, "Trading ID index exists for reference verification");
             foreach (var id in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" })
                 Require(trading.getCompany(id) != null && market.tryGetCompany(id, out var company)

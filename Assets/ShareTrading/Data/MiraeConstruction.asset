@@ -15,17 +15,17 @@ MonoBehaviour:
   companyName: 미래건설
   companyID: mirae-construction
   totalShares: 1000
-  initialBaseCompanyValue: 100
-  initialRevenue: 300
-  initialCost: 50
-  initialCash: 500
+  initialBaseCompanyValue: 600
+  initialRevenue: 1200
+  initialCost: 1020
+  initialCash: 600
   initialDebt: 200
-  initialTangibleAssets: 50
-  initialIntangibleAssets: 25
-  initialReputationB2C: 50
-  initialReputationB2B: 50
+  initialTangibleAssets: 1400
+  initialIntangibleAssets: 100
+  initialReputationB2C: 55
+  initialReputationB2B: 85
   initialReputaionPlayer: 0
-  initialMarketPosition: 50
+  initialMarketPosition: 75
   initialPlayerShares: 0
-  initialTangibleCoefficient: 0.75
-  initialIntangibleCoefficient: 0.75
+  initialTangibleCoefficient: 0.8
+  initialIntangibleCoefficient: 0.5

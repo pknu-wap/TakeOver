@@ -15,17 +15,17 @@ MonoBehaviour:
   companyName: 한성공업
   companyID: hansung-industry
   totalShares: 1000
-  initialBaseCompanyValue: 100
-  initialRevenue: 300
-  initialCost: 50
-  initialCash: 500
-  initialDebt: 200
+  initialBaseCompanyValue: 400
+  initialRevenue: 600
+  initialCost: 570
+  initialCash: 80
+  initialDebt: 350
   initialTangibleAssets: 50
-  initialIntangibleAssets: 25
-  initialReputationB2C: 50
-  initialReputationB2B: 50
+  initialIntangibleAssets: 500
+  initialReputationB2C: 85
+  initialReputationB2B: 35
   initialReputaionPlayer: 0
-  initialMarketPosition: 50
+  initialMarketPosition: 40
   initialPlayerShares: 0
-  initialTangibleCoefficient: 0.75
-  initialIntangibleCoefficient: 0.75
+  initialTangibleCoefficient: 0.7
+  initialIntangibleCoefficient: 0.6

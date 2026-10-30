@@ -13,12 +13,18 @@ public class CompanyMarketState
     public float npcSentiment { get; private set; }
     public float eventEvaluationScore { get; private set; }
     public float eventLiquidityScore { get; private set; }
+    public float eventPriceMultiplier { get; private set; } = 1f;
     public float marketNoise { get; private set; }
     public int activeEventCount => activeEvents.Count;
 
     internal void setNpcSentiment(float value)
     {
         npcSentiment = CompanyCalculationMath.clamp(value, -1f, 1f);
+    }
+
+    internal void applyPriceRise(float rate)
+    {
+        eventPriceMultiplier *= 1f + rate;
     }
 
     internal void setNpcOpinions(IReadOnlyList<NpcMarketOpinion> opinions)

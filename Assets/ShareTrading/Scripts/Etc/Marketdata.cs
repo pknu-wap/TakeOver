@@ -1,26 +1,17 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class TmpMarketData : MonoBehaviour
+public class Marketdata : MonoBehaviour
 {
     [SerializeField] private Companies companies;
-    private readonly Dictionary<string, Company> companiesByID = new Dictionary<string, Company>();
     private System.Random random = new System.Random();
     private int lastUpdatedTurn;
 
     public float globalMarketScore { get; private set; }
 
-    private void Awake()
-    {
-        foreach (Company company in companies.CompanyList)
-        {
-            companiesByID.Add(company.definition.companyID, company);
-        }
-    }
-
     public bool tryGetCompany(string companyID, out Company company)
     {
-        return companiesByID.TryGetValue(companyID ?? string.Empty, out company);
+        return companies.tryGetCompany(companyID, out company);
     }
 
     public bool setNpcSentiment(string companyID, float sentiment)

@@ -24,9 +24,9 @@ public enum CompanyDerivedStat
     // Values
     FUNDAMENTAL_VALUE,
     MARKET_VALUE,
-    SHARE_PRICE,
+    SHARE_PRICE,            // 최종 주당 주가
 
     // OwnerShip
-    REMAIN_SHARES,
-    STAKE
+    REMAIN_SHARES,          // int 플레이어가 보유한 주식 수
+    STAKE                   // float 지분율
 }

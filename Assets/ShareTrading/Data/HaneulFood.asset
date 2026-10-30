@@ -15,17 +15,17 @@ MonoBehaviour:
   companyName: 하늘식품
   companyID: haneul-food
   totalShares: 1000
-  initialBaseCompanyValue: 350
-  initialRevenue: 800
-  initialCost: 400
-  initialCash: 100
-  initialDebt: 300
-  initialTangibleAssets: 25
-  initialIntangibleAssets: 50
-  initialReputationB2C: 50
-  initialReputationB2B: 50
+  initialBaseCompanyValue: 250
+  initialRevenue: 1800
+  initialCost: 1760
+  initialCash: 60
+  initialDebt: 500
+  initialTangibleAssets: 450
+  initialIntangibleAssets: 80
+  initialReputationB2C: 25
+  initialReputationB2B: 30
   initialReputaionPlayer: 0
-  initialMarketPosition: 50
+  initialMarketPosition: 55
   initialPlayerShares: 0
-  initialTangibleCoefficient: 0.75
-  initialIntangibleCoefficient: 0.75
+  initialTangibleCoefficient: 0.6
+  initialIntangibleCoefficient: 0.4
