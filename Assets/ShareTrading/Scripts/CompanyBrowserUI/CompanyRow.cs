@@ -11,6 +11,7 @@ public class CompanyRow : MonoBehaviour
     [SerializeField] private Button button;
 
     [Header("있으면 채우는 칸")]
+    [SerializeField] private Image logoImage;      // 회사 로고. 비워 둬도 동작한다.
     [SerializeField] private TMP_Text letterText;
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private TMP_Text revenueText;
@@ -27,6 +28,7 @@ public class CompanyRow : MonoBehaviour
 
         nameText.text = companyName;
 
+        setLogo(logoImage, company.definition.logo);
         setText(letterText, companyName.Length > 0 ? companyName.Substring(0, 1) : "");
         setText(priceText, $"{price:N2}");
         setText(revenueText, $"{CompanyUIUtil.getStat(company, CompanyStat.REVENUE):N0}");
@@ -43,6 +45,16 @@ public class CompanyRow : MonoBehaviour
         if (target != null)
         {
             target.text = value;
+        }
+    }
+
+    // 로고 칸이 연결돼 있으면 로고를 넣고, 로고가 없으면 Image를 꺼서 빈 흰 사각형이 안 보이게 한다.
+    private static void setLogo(Image target, Sprite logo)
+    {
+        if (target != null)
+        {
+            target.sprite = logo;
+            target.enabled = logo != null;
         }
     }
 }

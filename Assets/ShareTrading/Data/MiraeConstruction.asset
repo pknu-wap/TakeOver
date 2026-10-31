@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
   m_Name: MiraeConstruction
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
-  companyName: 미래건설
+  companyName: "\uBBF8\uB798\uAC74\uC124"
   companyID: mirae-construction
+  logo: {fileID: 21300000, guid: 89efdf121a81ea049ab37f04990a0ec6, type: 3}
   totalShares: 1000
   initialBaseCompanyValue: 600
   initialRevenue: 1200

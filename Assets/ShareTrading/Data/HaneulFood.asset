@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
   m_Name: HaneulFood
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
-  companyName: 하늘식품
+  companyName: "\uD558\uB298\uC2DD\uD488"
   companyID: haneul-food
+  logo: {fileID: 21300000, guid: 3659c5473100d1b4abe496aaac794461, type: 3}
   totalShares: 1000
   initialBaseCompanyValue: 250
   initialRevenue: 1800
