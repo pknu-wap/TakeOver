@@ -220,7 +220,7 @@ public class DashboardCardSlide : MonoBehaviour
                     cardUI.speakerText.text = $"{eventInfo.speakerRole} {eventInfo.speakerName}";
 
                 if (cardUI.apCostText != null)
-                    cardUI.apCostText.text = eventInfo.definition.getApCost().ToString();
+                    cardUI.apCostText.text = $"소모 에너지 {eventInfo.definition.getApCost()}";
             }
         }
     }
