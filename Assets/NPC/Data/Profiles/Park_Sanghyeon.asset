@@ -10,27 +10,57 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: PARK SANGHYEON
+  m_Name: Park_Sanghyeon
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
+    position: 0
+    preferenceResponse:
+      enabled: 0
+      likedMultiplier: 1.5
+      dislikedMultiplier: 1.5
+    memoryPreferences: []
     npcId: npc-political-lobbyist-park-sanghyeon
     companyId: external-network
     profile:
-      displayName: 박상현
-      role: 정치 로비스트
-      affiliation: 외부 거래망
-      personalitySummary: 정책 자문과 위험한 정치 거래 사이에서 기회를 찾지만, 노골적인 위험이 커지면 거리를 둔다.
-      gameplayRoleSummary: 정부 계약과 규제 환경 관련 기회를 연결하며 정치 결탁 사건의 접점이 될 수 있다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      standingIllustration: {fileID: 0}
+      displayName: "\uBC15\uC0C1\uD604"
+      role: "\uC815\uCE58 \uB85C\uBE44\uC2A4\uD2B8"
+      affiliation: "\uC678\uBD80 \uAC70\uB798\uB9DD"
+      personalitySummary: "\uC815\uCC45 \uC790\uBB38\uACFC \uC704\uD5D8\uD55C \uC815\uCE58
+        \uAC70\uB798 \uC0AC\uC774\uC5D0\uC11C \uAE30\uD68C\uB97C \uCC3E\uC9C0\uB9CC,
+        \uB178\uACE8\uC801\uC778 \uC704\uD5D8\uC774 \uCEE4\uC9C0\uBA74 \uAC70\uB9AC\uB97C
+        \uB454\uB2E4."
+      gameplayRoleSummary: "\uC815\uBD80 \uACC4\uC57D\uACFC \uADDC\uC81C \uD658\uACBD
+        \uAD00\uB828 \uAE30\uD68C\uB97C \uC5F0\uACB0\uD558\uBA70 \uC815\uCE58 \uACB0\uD0C1
+        \uC0AC\uAC74\uC758 \uC811\uC810\uC774 \uB420 \uC218 \uC788\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
       eventRelationBiases:
       - memoryType: 0
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 1
       - memoryType: 7
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 2, dependency: 0, interest: -1}
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 2
+          dependency: 0
+          interest: -1
     actionPreferences:
     - actionId: GoodFaith
       disposition: 1
-      rationale: 합법적 자문과 약속 이행
+      rationale: "\uD569\uBC95\uC801 \uC790\uBB38\uACFC \uC57D\uC18D \uC774\uD589"
     - actionId: Bribery
       disposition: 2
-      rationale: 노골적인 불법 정치 거래
+      rationale: "\uB178\uACE8\uC801\uC778 \uBD88\uBC95 \uC815\uCE58 \uAC70\uB798"
