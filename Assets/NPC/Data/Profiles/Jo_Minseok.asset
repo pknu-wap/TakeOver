@@ -10,23 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: JO MINSEOK
+  m_Name: Jo_Minseok
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-hansung-industry-ceo-jo-minseok
-    companyId: hansung-industry
     position: 1
-    profile:
-      displayName: 조민석
-      role: CEO
-      affiliation: 한성공업
-      personalitySummary: 완고하고 자존심이 강하며 제조업의 명예를 중시한다. 설비투자·현장 자율성·장기 생산 계획을 존중하고 공장 폐쇄와 제조시설 매각에 반발한다.
-      gameplayRoleSummary: 생산 기반 보존 여부를 인수 조건으로 판단하는 한성공업 대표다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      eventRelationBiases: []
-    actionPreferences: []
-    memoryPreferences: []
     preferenceResponse:
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
+    memoryPreferences: []
+    npcId: npc-hansung-industry-ceo-jo-minseok
+    companyId: hansung-industry
+    profile:
+      standingIllustration: {fileID: 0}
+      displayName: "\uC870\uBBFC\uC11D"
+      role: CEO
+      affiliation: "\uD55C\uC131\uACF5\uC5C5"
+      personalitySummary: "\uC644\uACE0\uD558\uACE0 \uC790\uC874\uC2EC\uC774 \uAC15\uD558\uBA70
+        \uC81C\uC870\uC5C5\uC758 \uBA85\uC608\uB97C \uC911\uC2DC\uD55C\uB2E4. \uC124\uBE44\uD22C\uC790\xB7\uD604\uC7A5
+        \uC790\uC728\uC131\xB7\uC7A5\uAE30 \uC0DD\uC0B0 \uACC4\uD68D\uC744 \uC874\uC911\uD558\uACE0
+        \uACF5\uC7A5 \uD3D0\uC1C4\uC640 \uC81C\uC870\uC2DC\uC124 \uB9E4\uAC01\uC5D0
+        \uBC18\uBC1C\uD55C\uB2E4."
+      gameplayRoleSummary: "\uC0DD\uC0B0 \uAE30\uBC18 \uBCF4\uC874 \uC5EC\uBD80\uB97C
+        \uC778\uC218 \uC870\uAC74\uC73C\uB85C \uD310\uB2E8\uD558\uB294 \uD55C\uC131\uACF5\uC5C5
+        \uB300\uD45C\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+      eventRelationBiases: []
+    actionPreferences: []

@@ -10,41 +10,86 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: KANG JUNHYEOK
+  m_Name: Kang_Junhyeok
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
+    position: 1
+    preferenceResponse:
+      enabled: 0
+      likedMultiplier: 1.5
+      dislikedMultiplier: 1.5
+    memoryPreferences: []
     npcId: npc-mirae-construction-ceo-kang-junhyeok
     companyId: mirae-construction
-    position: 1
     profile:
-      displayName: 강준혁
-      role: CEO / 창업자
-      affiliation: 미래건설
-      personalitySummary: 신중하고 현실적이며 자존심이 강하다. 회사명·계약·현장 인력의 연속성과 문서화된 보장을 중시한다.
-      gameplayRoleSummary: 미래건설 인수 협상의 핵심 인물이다. 약속 이행은 신뢰를 쌓고, 계약·인력·회사 정체성의 해체는 강한 반발을 부른다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      standingIllustration: {fileID: 0}
+      displayName: "\uAC15\uC900\uD601"
+      role: "CEO / \uCC3D\uC5C5\uC790"
+      affiliation: "\uBBF8\uB798\uAC74\uC124"
+      personalitySummary: "\uC2E0\uC911\uD558\uACE0 \uD604\uC2E4\uC801\uC774\uBA70
+        \uC790\uC874\uC2EC\uC774 \uAC15\uD558\uB2E4. \uD68C\uC0AC\uBA85\xB7\uACC4\uC57D\xB7\uD604\uC7A5
+        \uC778\uB825\uC758 \uC5F0\uC18D\uC131\uACFC \uBB38\uC11C\uD654\uB41C \uBCF4\uC7A5\uC744
+        \uC911\uC2DC\uD55C\uB2E4."
+      gameplayRoleSummary: "\uBBF8\uB798\uAC74\uC124 \uC778\uC218 \uD611\uC0C1\uC758
+        \uD575\uC2EC \uC778\uBB3C\uC774\uB2E4. \uC57D\uC18D \uC774\uD589\uC740 \uC2E0\uB8B0\uB97C
+        \uC313\uACE0, \uACC4\uC57D\xB7\uC778\uB825\xB7\uD68C\uC0AC \uC815\uCCB4\uC131\uC758
+        \uD574\uCCB4\uB294 \uAC15\uD55C \uBC18\uBC1C\uC744 \uBD80\uB978\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
       eventRelationBiases:
       - memoryType: 0
-        relationDelta: {trust: 2, respect: 1, fear: 0, hostility: 0, dependency: 0, interest: 0}
+        relationDelta:
+          trust: 2
+          respect: 1
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
       - memoryType: 1
-        relationDelta: {trust: -2, respect: 0, fear: 0, hostility: 2, dependency: 0, interest: 0}
+        relationDelta:
+          trust: -2
+          respect: 0
+          fear: 0
+          hostility: 2
+          dependency: 0
+          interest: 0
       - memoryType: 2
-        relationDelta: {trust: 0, respect: -1, fear: 0, hostility: 2, dependency: 0, interest: 0}
+        relationDelta:
+          trust: 0
+          respect: -1
+          fear: 0
+          hostility: 2
+          dependency: 0
+          interest: 0
       - memoryType: 3
-        relationDelta: {trust: -1, respect: 0, fear: 0, hostility: 2, dependency: 0, interest: 0}
+        relationDelta:
+          trust: -1
+          respect: 0
+          fear: 0
+          hostility: 2
+          dependency: 0
+          interest: 0
     actionPreferences:
     - actionId: GoodFaith
       disposition: 1
-      rationale: 문서화된 약속을 이행한 행동
+      rationale: "\uBB38\uC11C\uD654\uB41C \uC57D\uC18D\uC744 \uC774\uD589\uD55C
+        \uD589\uB3D9"
     - actionId: SavedCompany
       disposition: 1
-      rationale: 회사의 지속성을 지킨 행동
+      rationale: "\uD68C\uC0AC\uC758 \uC9C0\uC18D\uC131\uC744 \uC9C0\uD0A8 \uD589\uB3D9"
     - actionId: ContractBreach
       disposition: 2
-      rationale: 계약과 약속을 어긴 행동
+      rationale: "\uACC4\uC57D\uACFC \uC57D\uC18D\uC744 \uC5B4\uAE34 \uD589\uB3D9"
     - actionId: MassLayoff
       disposition: 2
-      rationale: 현장 인력의 고용을 흔드는 구조조정
+      rationale: "\uD604\uC7A5 \uC778\uB825\uC758 \uACE0\uC6A9\uC744 \uD754\uB4DC\uB294
+        \uAD6C\uC870\uC870\uC815"
     - actionId: HostileTakeover
       disposition: 2
-      rationale: 회사의 자율성과 정체성을 위협하는 인수
+      rationale: "\uD68C\uC0AC\uC758 \uC790\uC728\uC131\uACFC \uC815\uCCB4\uC131\uC744
+        \uC704\uD611\uD558\uB294 \uC778\uC218"

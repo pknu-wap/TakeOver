@@ -10,23 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: CHOI MIJEONG
+  m_Name: Choi_Mijeong
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-hansung-industry-labor-director-choi-mijeong
-    companyId: hansung-industry
     position: 0
-    profile:
-      displayName: 최미정
-      role: 노무 책임자
-      affiliation: 한성공업
-      personalitySummary: 논리적이고 단호하며 사실을 쌓아 직원 권리를 주장한다. 투명한 협상과 보상·재교육·고용승계·안전을 중시하고 기습해고를 경계한다.
-      gameplayRoleSummary: 구조조정의 보상·전환·안전장치를 협상하는 노무 책임자다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      eventRelationBiases: []
-    actionPreferences: []
-    memoryPreferences: []
     preferenceResponse:
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
+    memoryPreferences: []
+    npcId: npc-hansung-industry-labor-director-choi-mijeong
+    companyId: hansung-industry
+    profile:
+      standingIllustration: {fileID: 0}
+      displayName: "\uCD5C\uBBF8\uC815"
+      role: "\uB178\uBB34 \uCC45\uC784\uC790"
+      affiliation: "\uD55C\uC131\uACF5\uC5C5"
+      personalitySummary: "\uB17C\uB9AC\uC801\uC774\uACE0 \uB2E8\uD638\uD558\uBA70
+        \uC0AC\uC2E4\uC744 \uC313\uC544 \uC9C1\uC6D0 \uAD8C\uB9AC\uB97C \uC8FC\uC7A5\uD55C\uB2E4.
+        \uD22C\uBA85\uD55C \uD611\uC0C1\uACFC \uBCF4\uC0C1\xB7\uC7AC\uAD50\uC721\xB7\uACE0\uC6A9\uC2B9\uACC4\xB7\uC548\uC804\uC744
+        \uC911\uC2DC\uD558\uACE0 \uAE30\uC2B5\uD574\uACE0\uB97C \uACBD\uACC4\uD55C\uB2E4."
+      gameplayRoleSummary: "\uAD6C\uC870\uC870\uC815\uC758 \uBCF4\uC0C1\xB7\uC804\uD658\xB7\uC548\uC804\uC7A5\uCE58\uB97C
+        \uD611\uC0C1\uD558\uB294 \uB178\uBB34 \uCC45\uC784\uC790\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+      eventRelationBiases: []
+    actionPreferences: []

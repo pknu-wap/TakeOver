@@ -10,30 +10,62 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: YOON HAJIN
+  m_Name: Yoon_Hajin
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
+    position: 0
+    preferenceResponse:
+      enabled: 0
+      likedMultiplier: 1.5
+      dislikedMultiplier: 1.5
+    memoryPreferences: []
     npcId: npc-broker-yoon-hajin
     companyId: external-network
     profile:
-      displayName: 윤하진
-      role: M&A 브로커
-      affiliation: 외부 거래망
-      personalitySummary: 거래 수수료와 협상 신뢰를 중시한다. 거래를 늘리는 상대를 선호하며, 약속을 깨면 정보 정확도를 낮춘다.
-      gameplayRoleSummary: 비공개 매물과 거래 상대를 연결한다. 주가조작 제안 사건의 발신자이기도 하다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      standingIllustration: {fileID: 0}
+      displayName: "\uC724\uD558\uC9C4"
+      role: "M&A \uBE0C\uB85C\uCEE4"
+      affiliation: "\uC678\uBD80 \uAC70\uB798\uB9DD"
+      personalitySummary: "\uAC70\uB798 \uC218\uC218\uB8CC\uC640 \uD611\uC0C1 \uC2E0\uB8B0\uB97C
+        \uC911\uC2DC\uD55C\uB2E4. \uAC70\uB798\uB97C \uB298\uB9AC\uB294 \uC0C1\uB300\uB97C
+        \uC120\uD638\uD558\uBA70, \uC57D\uC18D\uC744 \uAE68\uBA74 \uC815\uBCF4 \uC815\uD655\uB3C4\uB97C
+        \uB0AE\uCD98\uB2E4."
+      gameplayRoleSummary: "\uBE44\uACF5\uAC1C \uB9E4\uBB3C\uACFC \uAC70\uB798 \uC0C1\uB300\uB97C
+        \uC5F0\uACB0\uD55C\uB2E4. \uC8FC\uAC00\uC870\uC791 \uC81C\uC548 \uC0AC\uAC74\uC758
+        \uBC1C\uC2E0\uC790\uC774\uAE30\uB3C4 \uD558\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
       eventRelationBiases:
       - memoryType: 0
-        relationDelta: {trust: 1, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+        relationDelta:
+          trust: 1
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
       - memoryType: 1
-        relationDelta: {trust: -2, respect: 0, fear: 0, hostility: 1, dependency: 0, interest: 0}
+        relationDelta:
+          trust: -2
+          respect: 0
+          fear: 0
+          hostility: 1
+          dependency: 0
+          interest: 0
     actionPreferences:
     - actionId: GoodFaith
       disposition: 1
-      rationale: 약속과 거래 신뢰를 지킨 행동
+      rationale: "\uC57D\uC18D\uACFC \uAC70\uB798 \uC2E0\uB8B0\uB97C \uC9C0\uD0A8
+        \uD589\uB3D9"
     - actionId: ContractBreach
       disposition: 2
-      rationale: 협상 약속을 어긴 행동
+      rationale: "\uD611\uC0C1 \uC57D\uC18D\uC744 \uC5B4\uAE34 \uD589\uB3D9"
     - actionId: SavedCompany
       disposition: 1
-      rationale: 거래 상대의 기업을 살린 행동
+      rationale: "\uAC70\uB798 \uC0C1\uB300\uC758 \uAE30\uC5C5\uC744 \uC0B4\uB9B0
+        \uD589\uB3D9"

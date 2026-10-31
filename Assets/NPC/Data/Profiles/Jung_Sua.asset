@@ -10,45 +10,79 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: JUNG SUA
+  m_Name: Jung_Sua
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
+    position: 0
+    preferenceResponse:
+      enabled: 0
+      likedMultiplier: 1.5
+      dislikedMultiplier: 1.5
+    memoryPreferences: []
     npcId: npc-investigative-reporter-jung-sua
     companyId: external-network
     profile:
-      displayName: 정수아
-      role: 탐사보도 기자
-      affiliation: 외부 인물
-      personalitySummary: 공익 사건을 오래 추적한다. 한 번의 비위보다 정보 유출·뇌물·정치 결탁 같은 사건의 연결고리를 중시한다.
-      gameplayRoleSummary: 정치 거래나 뇌물 등 공개된 사건을 추적해 조사·폭로 분기로 이어질 수 있다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
+      standingIllustration: {fileID: 0}
+      displayName: "\uC815\uC218\uC544"
+      role: "\uD0D0\uC0AC\uBCF4\uB3C4 \uAE30\uC790"
+      affiliation: "\uC678\uBD80 \uC778\uBB3C"
+      personalitySummary: "\uACF5\uC775 \uC0AC\uAC74\uC744 \uC624\uB798 \uCD94\uC801\uD55C\uB2E4.
+        \uD55C \uBC88\uC758 \uBE44\uC704\uBCF4\uB2E4 \uC815\uBCF4 \uC720\uCD9C\xB7\uB1CC\uBB3C\xB7\uC815\uCE58
+        \uACB0\uD0C1 \uAC19\uC740 \uC0AC\uAC74\uC758 \uC5F0\uACB0\uACE0\uB9AC\uB97C
+        \uC911\uC2DC\uD55C\uB2E4."
+      gameplayRoleSummary: "\uC815\uCE58 \uAC70\uB798\uB098 \uB1CC\uBB3C \uB4F1 \uACF5\uAC1C\uB41C
+        \uC0AC\uAC74\uC744 \uCD94\uC801\uD574 \uC870\uC0AC\xB7\uD3ED\uB85C \uBD84\uAE30\uB85C
+        \uC774\uC5B4\uC9C8 \uC218 \uC788\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 1
       eventRelationBiases:
       - memoryType: 6
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 1
       - memoryType: 7
-        relationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 1}
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 1
     actionPreferences:
     - actionId: GoodFaith
       disposition: 1
-      rationale: 공익을 위한 약속 이행
+      rationale: "\uACF5\uC775\uC744 \uC704\uD55C \uC57D\uC18D \uC774\uD589"
     - actionId: ContractBreach
       disposition: 2
-      rationale: 공익적 조사로 드러난 계약 위반
+      rationale: "\uACF5\uC775\uC801 \uC870\uC0AC\uB85C \uB4DC\uB7EC\uB09C \uACC4\uC57D
+        \uC704\uBC18"
     - actionId: MassLayoff
       disposition: 2
-      rationale: 공익 영향이 큰 구조조정 사건
+      rationale: "\uACF5\uC775 \uC601\uD5A5\uC774 \uD070 \uAD6C\uC870\uC870\uC815
+        \uC0AC\uAC74"
     - actionId: HostileTakeover
       disposition: 2
-      rationale: 공익 영향이 큰 적대적 인수 사건
+      rationale: "\uACF5\uC775 \uC601\uD5A5\uC774 \uD070 \uC801\uB300\uC801 \uC778\uC218
+        \uC0AC\uAC74"
     - actionId: SavedCompany
       disposition: 1
-      rationale: 기업과 이해관계자에 영향을 준 구제 사건
+      rationale: "\uAE30\uC5C5\uACFC \uC774\uD574\uAD00\uACC4\uC790\uC5D0 \uC601\uD5A5\uC744
+        \uC900 \uAD6C\uC81C \uC0AC\uAC74"
     - actionId: PublicHumiliation
       disposition: 2
-      rationale: 공개 검증이 필요한 사건
+      rationale: "\uACF5\uAC1C \uAC80\uC99D\uC774 \uD544\uC694\uD55C \uC0AC\uAC74"
     - actionId: LeakedInfo
       disposition: 2
-      rationale: 정보 유출 사건의 추적 단서
+      rationale: "\uC815\uBCF4 \uC720\uCD9C \uC0AC\uAC74\uC758 \uCD94\uC801 \uB2E8\uC11C"
     - actionId: Bribery
       disposition: 2
-      rationale: 뇌물 사건의 추적 단서
+      rationale: "\uB1CC\uBB3C \uC0AC\uAC74\uC758 \uCD94\uC801 \uB2E8\uC11C"

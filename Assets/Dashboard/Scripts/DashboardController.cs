@@ -10,68 +10,38 @@ using TakeOver.Events;
 
 public class DashboardController : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI apCostText;
-    [SerializeField] private TextMeshProUGUI speakerText;
+    [Header("Top Bar - Currency & Asset")]
+    [SerializeField] private TextMeshProUGUI cashText;
+    [SerializeField] private TextMeshProUGUI totalAssetText;
+    [SerializeField] private int currentCash = 0;
+    [SerializeField] private int totalAsset = 0;
 
-    [Header("랜덤 추출 범위 설정")]
-    [SerializeField] private int minDisplayCount = 1;
-    [SerializeField] private int maxDisplayCount = 5;
+    [Header("Top Bar - AP Cost")]
+    [SerializeField] private TextMeshProUGUI apText;
+    [SerializeField] private Slider apSlider;
+    [SerializeField] private int currentAp = 50;
+    [SerializeField] private int maxAp = 50;
 
-    public void SetEvent(TodayEventInfo eventInfo)
+    private void Start()
     {
-        if (eventInfo == null)
-            return;
-
-        Debug.Log($"SetEvent 호출됨: {eventInfo.speakerName}");
-
-        speakerText.text = $"{eventInfo.speakerRole} {eventInfo.speakerName}";
-        apCostText.text = eventInfo.definition.getApCost().ToString();
+        UpdateTopBarUI();
     }
 
-    private IEnumerator Start()
+    private void UpdateTopBarUI()
     {
-        yield return new WaitForSeconds(1f);
+        if (cashText != null)
+            cashText.text = $"{currentCash}";
 
-        EventSystemController eventController = FindFirstObjectByType<EventSystemController>();
+        if (totalAssetText != null)
+            totalAssetText.text = $"{totalAsset}";
 
-        if (eventController == null)
+        if (apText != null)
+            apText.text = $"{currentAp}/{maxAp}";
+
+        if (apSlider != null)
         {
-            Debug.LogError("EventSystemController 없음");
-            yield break;
+            apSlider.maxValue = maxAp;
+            apSlider.value = currentAp;
         }
-
-        var infos = eventController.getTodayEventInfos();
-
-        Debug.Log($"TodayEvent Total Count : {infos.Count}");
-
-        if (infos != null && infos.Count > 0)
-        {
-            List<TodayEventInfo> shuffledInfos = ShuffleList(infos);
-
-            int maxCount = Mathf.Min(maxDisplayCount, shuffledInfos.Count);
-            int randomCount = Random.Range(minDisplayCount, maxCount + 1);
-
-            List<TodayEventInfo> selectedEvents = shuffledInfos.GetRange(0, randomCount);
-
-            Debug.Log($"이번에 뽑힌 랜덤 개수 : {selectedEvents.Count}개");
-
-            SetEvent(selectedEvents[0]);
-        }
-    }
-
-    private List<T> ShuffleList<T>(IReadOnlyList<T> list)
-    {
-        List<T> result = new List<T>(list);
-
-        for (int i = result.Count - 1; i > 0; i--)
-        {
-            int randomIndex = Random.Range(0, i + 1);
-
-            T temp = result[i];
-            result[i] = result[randomIndex];
-            result[randomIndex] = temp;
-        }
-
-        return result;
     }
 }
