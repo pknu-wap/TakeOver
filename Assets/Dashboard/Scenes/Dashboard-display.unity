@@ -492,6 +492,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 322112226343967627, guid: 371de0df6cc96d045a4bdf44eb5d5fb5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1466079532445695270, guid: 371de0df6cc96d045a4bdf44eb5d5fb5, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -551,6 +555,10 @@ PrefabInstance:
     - target: {fileID: 7510644935076024243, guid: 371de0df6cc96d045a4bdf44eb5d5fb5, type: 3}
       propertyPath: m_Name
       value: DashboardRoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250756771365463438, guid: 371de0df6cc96d045a4bdf44eb5d5fb5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
