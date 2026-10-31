@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TakeOver.NPC;
+using TakeOver.Events;
+
 
 namespace TakeOver.Events
 {
