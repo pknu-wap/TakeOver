@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
   eventId: inside_info_01
   title: "\uB0B4\uBD80 \uC815\uBCF4 \uC81C\uBCF4"
-  image: {fileID: 1034014796780061455, guid: d1232dcee65db644d892ef7a67adee87, type: 2}
+  image: {fileID: 21300000, guid: 8599c9553061aeb43825a5890555ccfa, type: 3}
+  highlightImage: {fileID: 21300000, guid: 8348b3813dd8f2447b2145b80a176ab2, type: 3}
   description: "\uBBF8\uB798\uAC74\uC124 CFO \uC11C\uC9C0\uC544\uAC00 \uC740\uBC00\uD788
     \uC5F0\uB77D\uD574 \uC654\uB2E4. \uC7A5\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
     \uC54A\uC740 \uBD80\uCC44 \uC815\uBCF4\uB97C \uB118\uAE30\uACA0\uB2E4\uACE0 \uD55C\uB2E4."

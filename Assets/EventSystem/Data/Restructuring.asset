@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
   eventId: restructuring_01
   title: "\uAD6C\uC870\uC870\uC815 \uC555\uBC15"
-  image: {fileID: 1034014796780061455, guid: d1232dcee65db644d892ef7a67adee87, type: 2}
+  image: {fileID: 21300000, guid: 8599c9553061aeb43825a5890555ccfa, type: 3}
+  highlightImage: {fileID: 21300000, guid: 8348b3813dd8f2447b2145b80a176ab2, type: 3}
   description: "{company} {speakerRole} {speaker}. \uC778\uB825 \uAC10\uCD95 \uACC4\uD68D\uC744
     \uB450\uACE0 \uBA74\uB2F4\uC744 \uC694\uCCAD\uD588\uB2E4."
   apCost: 2
