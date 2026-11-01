@@ -67,40 +67,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e104f2cf6c3f6844ac0512a771ceec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventTempWorldData
-  companies:
-  - companyId: mirae-construction
-    companyName: "\uBBF8\uB798\uAC74\uC124"
-    stake: 0
-    consumerReaction: 50
-    ceoNpcId: npc-mirae-construction-ceo-kang-junhyeok
-    ceoName: "\uAC15\uC900\uD601"
-    restructuringNpcId: npc-mirae-construction-field-director-park-dosik
-    restructuringName: "\uBC15\uB3C4\uC2DD"
-    restructuringRole: "\uD604\uC7A5\uCD1D\uAD04"
-  - companyId: haneul-food
-    companyName: "\uD558\uB298\uC2DD\uD488"
-    stake: 0
-    consumerReaction: 50
-    ceoNpcId: npc-haneul-food-ceo-kim-harin
-    ceoName: "\uAE40\uD558\uB9B0"
-    restructuringNpcId: npc-haneul-food-cfo-oh-jaeseong
-    restructuringName: "\uC624\uC7AC\uC131"
-    restructuringRole: CFO
-  - companyId: dongbang-trading
-    companyName: "\uB3D9\uBC29\uBB3C\uC0B0"
-    stake: 0
-    consumerReaction: 50
-    ceoNpcId: npc-dongbang-trading-ceo-kang-jaehyeon
-    ceoName: "\uAC15\uC7AC\uD604"
-    restructuringNpcId: npc-dongbang-trading-hr-director-park-minu
-    restructuringName: "\uBC15\uBBFC\uC6B0"
-    restructuringRole: "\uC778\uC0AC\xB7\uB178\uBB34 \uCC45\uC784\uC790"
-  - companyId: hansung-industry
-    companyName: "\uD55C\uC131\uACF5\uC5C5"
-    stake: 0
-    consumerReaction: 50
-    ceoNpcId: npc-hansung-industry-ceo-jo-minseok
-    ceoName: "\uC870\uBBFC\uC11D"
-    restructuringNpcId: npc-hansung-industry-labor-director-choi-mijeong
-    restructuringName: "\uCD5C\uBBF8\uC815"
-    restructuringRole: "\uB178\uBB34 \uCC45\uC784\uC790"
+  speakerIllustrations: []

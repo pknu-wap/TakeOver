@@ -309,15 +309,15 @@ namespace TakeOver.NPC.Editor
             var referenced = tradingPrefab.GetComponentInChildren<Companies>(true).CompanyList;
             Require(referenced.Count == 4 && referenced.All(c => c != null && c.definition != null)
                 && new HashSet<string>(referenced.Select(c => c.definition.companyID)).SetEquals(expected), "Trading prefab references all four companies without missing assets");
-            var eventPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/EventSystem/Prefabs/EventLogic.prefab");
-            var world = eventPrefab.GetComponent<TakeOver.Events.EventTempWorldData>().getCompanies();
-            Require(world.Count == 4 && new HashSet<string>(world.Select(c => c.companyId)).SetEquals(expected), "Event company table matches trading IDs");
-            foreach (var company in world)
+            var restructuring = AssetDatabase.LoadAssetAtPath<TakeOver.Events.EventDefinition>("Assets/EventSystem/Data/Restructuring.asset");
+            foreach (var company in referenced)
             {
-                Require(npcs.TryGetValue(company.ceoNpcId, out var ceo) && ceo.companyId == company.companyId && ceo.position == NpcPosition.CEO,
-                    "Event CEO resolves: " + company.companyId);
-                Require(npcs.TryGetValue(company.restructuringNpcId, out var contact) && contact.companyId == company.companyId,
-                    "Event restructuring contact resolves: " + company.companyId);
+                var companyId = company.definition.companyID;
+                Require(npcs.Values.Count(npc => npc.companyId == companyId && npc.position == NpcPosition.CEO) == 1,
+                    "Event CEO resolves: " + companyId);
+                Require(restructuring.tryGetRestructuringNpcId(companyId, out var contactId)
+                    && npcs.TryGetValue(contactId, out var contact) && contact.companyId == companyId,
+                    "Event restructuring contact resolves: " + companyId);
             }
             foreach (var guid in AssetDatabase.FindAssets("t:EventDefinition", new[] { "Assets/EventSystem/Data" }))
             {

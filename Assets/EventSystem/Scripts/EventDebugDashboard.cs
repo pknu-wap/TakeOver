@@ -63,7 +63,7 @@ namespace TakeOver.Events
                 bool selected = eventSystem.tryGetChoice(definition.getId(), out int choiceIndex);
                 resultText.text += $"\n{definition.getTitle()}: " +
                     (selected ? $"최근 선택지 {choiceIndex}" : "아직 안 골랐음");
-                foreach (EventCompanyData company in eventSystem.GetComponent<EventTempWorldData>().getCompanies())
+                foreach (EventCompanyData company in new EventWorldReader(FindFirstObjectByType<Companies>(), FindFirstObjectByType<TakeOver.NPC.NpcStateRegistry>()).getCompanies())
                     if (eventSystem.tryGetChoice(definition.getId(), company.companyId, out int companyChoice))
                         resultText.text += $" · {company.companyName}: {companyChoice}";
             }

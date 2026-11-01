@@ -76,6 +76,7 @@ namespace TakeOver.Events
         [SerializeField, Min(0)] private int apCost;
         [SerializeField] private string startButtonText;
         [SerializeField] private List<string> companyIds = new List<string>();
+        [SerializeField] private string speakerNpcId;
         [SerializeField] private string speakerName;
         [SerializeField] private string speakerRole;
         [SerializeField, TextArea(3, 8)] private string dialogue;
@@ -107,6 +108,7 @@ namespace TakeOver.Events
         public int getApCost() => apCost;
         public string getStartButtonText() => startButtonText;
         public IReadOnlyList<string> getCompanyIds() => companyIds.AsReadOnly();
+        public string getSpeakerNpcId() => speakerNpcId;
         public string getSpeakerName() => speakerName;
         public string getSpeakerRole() => speakerRole;
         public string getDialogue() => dialogue;

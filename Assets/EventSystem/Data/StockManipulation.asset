@@ -21,6 +21,7 @@ MonoBehaviour:
   apCost: 1
   startButtonText: "\uC774\uC57C\uAE30\uB97C \uB4E3\uB294\uB2E4"
   companyIds: []
+  speakerNpcId: npc-broker-yoon-hajin
   speakerName: "\uC724\uD558\uC9C4"
   speakerRole: "M&A \uBE0C\uB85C\uCEE4"
   dialogue: "{company}, \uC694\uC998 \uD3C9\uD310\uC774 \uB9D0\uC774 \uC544\uB2C8\uB354\uAD70\uC694.
@@ -81,6 +82,7 @@ MonoBehaviour:
     cashDelta: 0
     stockSurgeMinRatio: 0.3
     stockSurgeMaxRatio: 0.4
+    buybackPremiumRatio: 0
   - choiceText: "\uAC70\uC808\uD55C\uB2E4"
     choiceDescription: "\uC9C0\uAE08\uC740 \uC704\uD5D8\uD560 \uAC83 \uAC19\uB2E4"
     playerLine: "\uADF8\uB7F0 \uC77C\uC5D4 \uC190\uB300\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
@@ -110,6 +112,9 @@ MonoBehaviour:
         dependency: 0
         interest: 0
     cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
   conditions:
   - kind: 1
     npcId: 
@@ -130,3 +135,4 @@ MonoBehaviour:
   validDays: 2
   speakerSource: 0
   choiceGeneration: 1
+  restructuringSpeakers: []

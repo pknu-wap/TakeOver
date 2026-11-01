@@ -5,6 +5,7 @@ namespace TakeOver.Events
         public EventDefinition definition { get; }
         public string companyId { get; }
         public string companyName { get; }
+        public string speakerNpcId { get; }
         public string speakerName { get; }
         public string speakerRole { get; }
         public string title => resolve(definition.getTitle());
@@ -18,15 +19,18 @@ namespace TakeOver.Events
             this.remainingDays = remainingDays;
             companyId = company?.companyId ?? "";
             companyName = company?.companyName ?? "";
+            speakerNpcId = definition.getSpeakerNpcId();
             speakerName = definition.getSpeakerName();
             speakerRole = definition.getSpeakerRole();
             if (definition.getSpeakerSource() == EventSpeakerSource.CompanyCeo)
             {
+                speakerNpcId = company?.ceoNpcId ?? "";
                 speakerName = company?.ceoName ?? "";
                 speakerRole = "대표";
             }
             else if (definition.getSpeakerSource() == EventSpeakerSource.CompanyRestructuring)
             {
+                speakerNpcId = company?.restructuringNpcId ?? "";
                 speakerName = company?.restructuringName ?? "";
                 speakerRole = company?.restructuringRole ?? "";
             }
