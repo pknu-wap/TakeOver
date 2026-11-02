@@ -34,19 +34,30 @@ public class BrowserViewToggle : MonoBehaviour
     {
         showingMap = showMap;
 
-        foreach (GameObject obj in mapObjects)
-        {
-            obj.SetActive(showMap);
-        }
-        foreach (GameObject obj in listObjects)
-        {
-            obj.SetActive(!showMap);
-        }
+        setActiveAll(mapObjects, showMap);
+        setActiveAll(listObjects, !showMap);
 
         // 버튼에는 "지금 누르면 어디로 가는지"를 보여준다
         if (buttonLabel != null)
         {
             buttonLabel.text = showMap ? "리스트 보기" : "지도 보기";
+        }
+    }
+
+    // 목록 안의 오브젝트를 한꺼번에 켜고 끈다.
+    // 프리팹에서 오브젝트를 지워 칸이 비어(Missing) 있어도 에러 없이 건너뛴다.
+    private static void setActiveAll(GameObject[] targets, bool active)
+    {
+        if (targets == null)
+        {
+            return;
+        }
+        foreach (GameObject obj in targets)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(active);
+            }
         }
     }
 }
