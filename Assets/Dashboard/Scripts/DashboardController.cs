@@ -1,9 +1,6 @@
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using Unity.XR.GoogleVr;
 using UnityEngine;
 using UnityEngine.UI;
 using TakeOver.Events;
@@ -22,8 +19,48 @@ public class DashboardController : MonoBehaviour
     [SerializeField] private int currentAp = 50;
     [SerializeField] private int maxAp = 50;
 
+    private EventSystemController eventSystemController;
+
+    private void Awake()
+    {
+        eventSystemController = FindFirstObjectByType<EventSystemController>();
+    }
+
+    private void OnEnable()
+    {
+        if (eventSystemController != null)
+        {
+            eventSystemController.negotiationStarted += OnNegotiationStarted;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (eventSystemController != null)
+        {
+            eventSystemController.negotiationStarted -= OnNegotiationStarted;
+        }
+    }
+
     private void Start()
     {
+        UpdateTopBarUI();
+    }
+
+    private void OnNegotiationStarted(NegotiationStartedInfo info)
+    {
+        ConsumeAP(info.apCost);
+    }
+
+    public void ConsumeAP(int amount)
+    {
+        currentAp = Mathf.Max(0, currentAp - amount);
+        UpdateTopBarUI();
+    }
+
+    public void ResetAP()
+    {
+        currentAp = maxAp;
         UpdateTopBarUI();
     }
 

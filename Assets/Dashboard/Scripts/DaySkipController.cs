@@ -1,12 +1,13 @@
+using TakeOver.Events;
+using TakeOver.NPC;
 using UnityEngine;
 using UnityEngine.UI;
-using TakeOver.Events;
 
 public class DaySkipController : MonoBehaviour
 {
     [Header("Controller References")]
     [SerializeField] private CalendarController calendarController;
-    [SerializeField] private EventSystemController eventSystemController;
+    [SerializeField] private DashboardController dashboardController;
 
     [Header("UI Reference")]
     [SerializeField] private Button daySkipButton;
@@ -18,39 +19,28 @@ public class DaySkipController : MonoBehaviour
             daySkipButton.onClick.AddListener(OnClickNextDay);
         }
 
-        if (eventSystemController == null)
+        if (dashboardController == null)
         {
-            eventSystemController = FindFirstObjectByType<EventSystemController>();
+            dashboardController = FindFirstObjectByType<DashboardController>();
         }
     }
 
     public void OnClickNextDay()
     {
-        ResetAP();
+        if (dashboardController != null)
+        {
+            dashboardController.ResetAP();
+        }
 
         if (calendarController != null)
         {
             calendarController.AddDays(1);
         }
 
-        if (eventSystemController != null)
+        GameTurnClock turnClock = FindFirstObjectByType<GameTurnClock>();
+        if (turnClock != null)
         {
-            int nextDay = eventSystemController.getCurrentDay() + 1;
-            Debug.Log($"[DaySkip] 다음 날로 전환 시도: {nextDay}일차");
-
-            eventSystemController.onDayStarted(nextDay);
+            turnClock.AdvanceTurn();
         }
-
-        RefreshDashboard();
-    }
-
-    private void ResetAP()
-    {
-        Debug.Log("AP가 리셋되었습니다.");
-    }
-
-    private void RefreshDashboard()
-    {
-        Debug.Log("다음 날 대시보드 UI를 갱신합니다.");
     }
 }
