@@ -28,23 +28,10 @@ namespace TakeOver.NPC
                 // 외부 인물의 회사 사건은 현재 발생 회사, 없으면 테스트용 첫 실제 회사를 사용한다.
                 var controller = FindFirstObjectByType<EventSystemController>();
                 eventCompany = controller?.getTodayEventInfos().FirstOrDefault(i => i.definition == definition)?.companyId
-                    ?? FindFirstObjectByType<EventTempWorldData>()?.getCompanies().FirstOrDefault()?.companyId
+                    ?? FindFirstObjectByType<Companies>()?.CompanyList.FirstOrDefault()?.definition.companyID
                     ?? registry.Profiles.FirstOrDefault(p => p.position == NpcPosition.CEO)?.companyId ?? "";
             }
-            EventCompanyData company = null;
-            if (!string.IsNullOrEmpty(eventCompany))
-            {
-                registry.TryFindByPosition(eventCompany, NpcPosition.CEO, out var ceo);
-                var contact = SelectedProfile?.companyId == eventCompany ? SelectedProfile : ceo;
-                company = new EventCompanyData
-                {
-                    companyId = eventCompany,
-                    companyName = ceo?.profile?.affiliation ?? contact?.profile?.affiliation ?? eventCompany,
-                    ceoNpcId = ceo?.npcId, ceoName = ceo?.profile?.displayName,
-                    restructuringNpcId = contact?.npcId, restructuringName = contact?.profile?.displayName,
-                    restructuringRole = contact?.profile?.role
-                };
-            }
+            var company = new EventWorldReader(FindFirstObjectByType<Companies>(), registry).getCompany(eventCompany, definition);
             return new TodayEventInfo(definition, company, definition.getValidDays());
         }
 

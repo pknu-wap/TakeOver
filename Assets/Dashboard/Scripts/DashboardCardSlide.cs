@@ -39,6 +39,13 @@ public class DashboardCardSlide : MonoBehaviour
     {
         eventController = FindFirstObjectByType<EventSystemController>();
 
+        if (cardUIList.Count > 2 && cardUIList[2].cardRect != null)
+        {
+            var mainCard = cardUIList[2].cardRect.gameObject;
+            if (!mainCard.TryGetComponent(out UnityEngine.UI.Button button)) button = mainCard.AddComponent<UnityEngine.UI.Button>();
+            button.onClick.AddListener(OnClickMain);
+        }
+
         foreach (var cardUI in cardUIList)
         {
             if (cardUI.cardRect != null)
@@ -105,6 +112,13 @@ public class DashboardCardSlide : MonoBehaviour
 
         currentIndex = (currentIndex + 1) % displayEventList.Count;
         StartCoroutine(AnimateRotation(true));
+    }
+
+    private void OnClickMain()
+    {
+        if (eventController == null || isAnimating || displayEventList.Count == 0) return;
+        var info = displayEventList[(currentIndex + 2) % displayEventList.Count];
+        eventController.openEvent(info.definition.getId());
     }
 
     public void OnClickPrev()

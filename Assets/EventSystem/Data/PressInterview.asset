@@ -14,18 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
   eventId: press_interview_01
   title: "\uACBD\uC81C\uC9C0 \uC778\uD130\uBDF0 \uC694\uCCAD"
-  image: {fileID: 1034014796780061455, guid: d1232dcee65db644d892ef7a67adee87, type: 2}
+  image: {fileID: 21300000, guid: 8599c9553061aeb43825a5890555ccfa, type: 3}
+  highlightImage: {fileID: 21300000, guid: 8348b3813dd8f2447b2145b80a176ab2, type: 3}
   description: "\uACBD\uC81C\uC9C0 \uAE30\uC790 \uC774\uBBFC\uADDC\uAC00 \uC2E0\uC0DD
     \uD22C\uC790\uD68C\uC0AC \uB300\uD45C\uC778 \uB2F9\uC2E0\uC744 \uC778\uD130\uBDF0\uD558\uACE0
     \uC2F6\uC5B4 \uD55C\uB2E4."
   apCost: 1
   startButtonText: "\uC778\uD130\uBDF0\uC5D0 \uC751\uD55C\uB2E4"
   companyIds: []
+  speakerNpcId: npc-economic-reporter-lee-mingyu
   speakerName: "\uC774\uBBFC\uADDC"
   speakerRole: "\uACBD\uC81C\uC9C0 \uAE30\uC790"
   dialogue: "\uAC11\uC790\uAE30 \uC2DC\uC7A5\uC5D0 \uB098\uD0C0\uB09C \uD22C\uC790\uD68C\uC0AC\uB77C
     \uB2E4\uB4E4 \uAD81\uAE08\uD574\uD569\uB2C8\uB2E4. \uD22C\uC790 \uCCA0\uD559\uC740
     \uBB61\uB2C8\uAE4C? \uC790\uAE08\uC740 \uC5B4\uB514\uC11C \uB098\uC654\uACE0\uC694?"
+  companyQuestion: 
+  companyPlayerLine: 
   choices:
   - choiceText: "\uC790\uAE08 \uAD6C\uC870\uB97C \uC22B\uC790\uB85C \uC194\uC9C1\uD788
       \uBC1D\uD78C\uB2E4"
@@ -77,6 +81,9 @@ MonoBehaviour:
         dependency: 0
         interest: 0
     cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
   - choiceText: "\uC790\uAE08 \uCD9C\uCC98\uB294 \uD750\uB9AC\uACE0 \uC131\uACFC\uB9CC
       \uAC15\uC870\uD55C\uB2E4"
     choiceDescription: "\uB2F9\uC7A5\uC740 \uC88B\uC544 \uBCF4\uC774\uC9C0\uB9CC
@@ -128,6 +135,11 @@ MonoBehaviour:
         dependency: 0
         interest: 0
     cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
   conditions: []
   validDays: 3
   speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []

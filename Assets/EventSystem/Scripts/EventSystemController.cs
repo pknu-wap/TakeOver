@@ -45,7 +45,7 @@ namespace TakeOver.Events
         private void Awake()
         {
             turnClock = FindFirstObjectByType<GameTurnClock>();
-            worldReader = new EventWorldReader(GetComponent<EventTempWorldData>(), FindFirstObjectByType<NpcStateRegistry>());
+            worldReader = new EventWorldReader(FindFirstObjectByType<Companies>(), FindFirstObjectByType<NpcStateRegistry>(), GetComponent<EventTempWorldData>());
             detailView.hide();
             negotiationView.hide();
         }
@@ -57,8 +57,10 @@ namespace TakeOver.Events
         {
             if (turnClock != null) turnClock.TurnAdvanced -= onDayStarted;
         }
-        private void Start()
+        private System.Collections.IEnumerator Start()
         {
+            // 지분매입팀 Start의 첫 STAKE 계산이 끝난 뒤 첫날을 판정한다.
+            yield return null;
             if (currentDay == 0) onDayStarted(turnClock != null ? turnClock.CurrentTurn : 1);
         }
         public IReadOnlyList<EventDefinition> getTodayEvents() => todayEvents.AsReadOnly();
@@ -167,7 +169,7 @@ namespace TakeOver.Events
             foreach (Occurrence occurrence in occurrences)
             {
                 todayEvents.Add(occurrence.definition);
-                todayInfos.Add(new TodayEventInfo(occurrence.definition, worldReader.getCompany(occurrence.companyId),
+                todayInfos.Add(new TodayEventInfo(occurrence.definition, worldReader.getCompany(occurrence.companyId, occurrence.definition),
                     occurrence.firstDay + occurrence.definition.getValidDays() - currentDay));
             }
         }

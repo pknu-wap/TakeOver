@@ -14,17 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
   eventId: restructuring_01
   title: "\uAD6C\uC870\uC870\uC815 \uC555\uBC15"
-  image: {fileID: 1034014796780061455, guid: d1232dcee65db644d892ef7a67adee87, type: 2}
+  image: {fileID: 21300000, guid: 8599c9553061aeb43825a5890555ccfa, type: 3}
+  highlightImage: {fileID: 21300000, guid: 8348b3813dd8f2447b2145b80a176ab2, type: 3}
   description: "{company} {speakerRole} {speaker}. \uC778\uB825 \uAC10\uCD95 \uACC4\uD68D\uC744
     \uB450\uACE0 \uBA74\uB2F4\uC744 \uC694\uCCAD\uD588\uB2E4."
   apCost: 2
   startButtonText: "\uB17C\uC758\uD55C\uB2E4"
   companyIds: []
+  speakerNpcId: 
   speakerName: 
   speakerRole: 
   dialogue: "\uD68C\uC0AC\uB97C \uB9E1\uC73C\uC168\uC73C\uB2C8 \uC778\uB825 \uBB38\uC81C\uB97C
     \uC815\uD558\uC154\uC57C \uD569\uB2C8\uB2E4. \uC5BC\uB9C8\uB098 \uC904\uC774\uC2E4
     \uAC81\uB2C8\uAE4C?"
+  companyQuestion: 
+  companyPlayerLine: 
   choices:
   - choiceText: "\uB300\uADDC\uBAA8\uB85C \uAC10\uCD95\uD55C\uB2E4"
     choiceDescription: "\uBE44\uC6A9\uC740 \uD06C\uAC8C \uC904\uC9C0\uB9CC \uBC18\uBC1C\uC774
@@ -125,6 +129,9 @@ MonoBehaviour:
         dependency: 0
         interest: 0
     cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
   - choiceText: "\uB2E8\uACC4\uC801\uC73C\uB85C \uAC10\uCD95\uD55C\uB2E4"
     choiceDescription: "\uC2DC\uAC04\uC744 \uB4E4\uC5EC \uCDA9\uACA9\uC744 \uC904\uC778\uB2E4"
     playerLine: "\uD55C \uBC88\uC5D0 \uC790\uB974\uC9C4 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
@@ -210,6 +217,9 @@ MonoBehaviour:
         dependency: 0
         interest: 0
     cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
   - choiceText: "\uAC10\uCD95\uD558\uC9C0 \uC54A\uB294\uB2E4"
     choiceDescription: "\uC0AC\uB78C\uC744 \uC9C0\uD0A4\uACE0 \uB2E4\uB978 \uAE38\uC744
       \uCC3E\uB294\uB2E4"
@@ -308,6 +318,9 @@ MonoBehaviour:
         dependency: 0
         interest: 0
     cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
   conditions:
   - kind: 2
     npcId: 
@@ -319,3 +332,13 @@ MonoBehaviour:
     relaxedValue: 0
   validDays: 3
   speakerSource: 2
+  choiceGeneration: 0
+  restructuringSpeakers:
+  - companyId: mirae-construction
+    npcId: npc-mirae-construction-field-director-park-dosik
+  - companyId: haneul-food
+    npcId: npc-haneul-food-cfo-oh-jaeseong
+  - companyId: dongbang-trading
+    npcId: npc-dongbang-trading-hr-director-park-minu
+  - companyId: hansung-industry
+    npcId: npc-hansung-industry-labor-director-choi-mijeong
