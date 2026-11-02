@@ -6602,7 +6602,18 @@ MonoBehaviour:
     apCostText: {fileID: 4099468417539197083}
   targetDisplayCount: 5
   slideDuration: 0.25
-  slideDistance: 80
+  cardScales:
+  - 0.7
+  - 0.85
+  - 1
+  - 0.85
+  - 0.7
+  cardRotations:
+  - 12
+  - 6
+  - 0
+  - -6
+  - -12
 --- !u!1 &3941997369425022806
 GameObject:
   m_ObjectHideFlags: 0
@@ -8991,7 +9002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaySkipController
   calendarController: {fileID: 4527972160195586314}
-  eventSystemController: {fileID: 0}
+  dashboardController: {fileID: 0}
   daySkipButton: {fileID: 2571049024344370799}
 --- !u!1 &5323748145209920513
 GameObject:
