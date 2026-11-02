@@ -10,51 +10,82 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: PARK DOSIK
+  m_Name: Park_Dosik
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
+    position: 0
+    preferenceResponse:
+      enabled: 0
+      likedMultiplier: 1.5
+      dislikedMultiplier: 1.5
+    memoryPreferences: []
     npcId: npc-mirae-construction-field-director-park-dosik
     companyId: mirae-construction
-    position: 0
     profile:
-      displayName: 박도식
-      role: 현장총괄
-      affiliation: 미래건설
-      personalitySummary: 말수가 적고 우직하며 현장 인력에 대한 책임감이 강하다. 공사 일정과 안전을 우선하고 현장을 망가뜨리는 대규모 인력 감축에 거세게 반대한다. 약속한 고용 조건을 실제로 지키는지 여러 턴 동안 지켜본다.
-      gameplayRoleSummary: 구조조정과 직원 평판에서 현장의 입장을 대변한다. 말보다 행동을 평가하며 작은 약속을 반복해 지키는 플레이어를 신뢰한다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+      standingIllustration: {fileID: 0}
+      displayName: "\uBC15\uB3C4\uC2DD"
+      role: "\uD604\uC7A5\uCD1D\uAD04"
+      affiliation: "\uBBF8\uB798\uAC74\uC124"
+      personalitySummary: "\uB9D0\uC218\uAC00 \uC801\uACE0 \uC6B0\uC9C1\uD558\uBA70
+        \uD604\uC7A5 \uC778\uB825\uC5D0 \uB300\uD55C \uCC45\uC784\uAC10\uC774 \uAC15\uD558\uB2E4.
+        \uACF5\uC0AC \uC77C\uC815\uACFC \uC548\uC804\uC744 \uC6B0\uC120\uD558\uACE0
+        \uD604\uC7A5\uC744 \uB9DD\uAC00\uB728\uB9AC\uB294 \uB300\uADDC\uBAA8 \uC778\uB825
+        \uAC10\uCD95\uC5D0 \uAC70\uC138\uAC8C \uBC18\uB300\uD55C\uB2E4. \uC57D\uC18D\uD55C
+        \uACE0\uC6A9 \uC870\uAC74\uC744 \uC2E4\uC81C\uB85C \uC9C0\uD0A4\uB294\uC9C0
+        \uC5EC\uB7EC \uD134 \uB3D9\uC548 \uC9C0\uCF1C\uBCF8\uB2E4."
+      gameplayRoleSummary: "\uAD6C\uC870\uC870\uC815\uACFC \uC9C1\uC6D0 \uD3C9\uD310\uC5D0\uC11C
+        \uD604\uC7A5\uC758 \uC785\uC7A5\uC744 \uB300\uBCC0\uD55C\uB2E4. \uB9D0\uBCF4\uB2E4
+        \uD589\uB3D9\uC744 \uD3C9\uAC00\uD558\uBA70 \uC791\uC740 \uC57D\uC18D\uC744
+        \uBC18\uBCF5\uD574 \uC9C0\uD0A4\uB294 \uD50C\uB808\uC774\uC5B4\uB97C \uC2E0\uB8B0\uD55C\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
       eventRelationBiases: []
     actionPreferences:
     - actionId: GoodFaith
       disposition: 1
-      rationale: 약속한 고용 조건과 작은 현장 약속을 실제로 지키는 행동을 선호한다.
+      rationale: "\uC57D\uC18D\uD55C \uACE0\uC6A9 \uC870\uAC74\uACFC \uC791\uC740
+        \uD604\uC7A5 \uC57D\uC18D\uC744 \uC2E4\uC81C\uB85C \uC9C0\uD0A4\uB294 \uD589\uB3D9\uC744
+        \uC120\uD638\uD55C\uB2E4."
     - actionId: SavedCompany
       disposition: 1
-      rationale: 현장 고용과 공사 수행을 지켜낸 기업 구제로 해석할 때 선호한다.
+      rationale: "\uD604\uC7A5 \uACE0\uC6A9\uACFC \uACF5\uC0AC \uC218\uD589\uC744
+        \uC9C0\uCF1C\uB0B8 \uAE30\uC5C5 \uAD6C\uC81C\uB85C \uD574\uC11D\uD560 \uB54C
+        \uC120\uD638\uD55C\uB2E4."
     - actionId: ContractBreach
       disposition: 2
-      rationale: 약속한 고용 조건을 깨뜨리는 사건으로 해석할 때 기피한다.
+      rationale: "\uC57D\uC18D\uD55C \uACE0\uC6A9 \uC870\uAC74\uC744 \uAE68\uB728\uB9AC\uB294
+        \uC0AC\uAC74\uC73C\uB85C \uD574\uC11D\uD560 \uB54C \uAE30\uD53C\uD55C\uB2E4."
     - actionId: MassLayoff
       disposition: 2
-      rationale: 현장을 망가뜨리는 대규모 인력 감축에 거세게 반대한다.
+      rationale: "\uD604\uC7A5\uC744 \uB9DD\uAC00\uB728\uB9AC\uB294 \uB300\uADDC\uBAA8
+        \uC778\uB825 \uAC10\uCD95\uC5D0 \uAC70\uC138\uAC8C \uBC18\uB300\uD55C\uB2E4."
     - actionId: MaintainFieldStaff
       disposition: 1
-      rationale: 현장 인력 유지를 선호한다.
+      rationale: "\uD604\uC7A5 \uC778\uB825 \uC720\uC9C0\uB97C \uC120\uD638\uD55C\uB2E4."
     - actionId: SafetyInvestment
       disposition: 1
-      rationale: 안전 투자를 선호한다.
+      rationale: "\uC548\uC804 \uD22C\uC790\uB97C \uC120\uD638\uD55C\uB2E4."
     - actionId: RetainSkilledWorkers
       disposition: 1
-      rationale: 숙련공 승계를 선호한다.
+      rationale: "\uC219\uB828\uACF5 \uC2B9\uACC4\uB97C \uC120\uD638\uD55C\uB2E4."
     - actionId: RealisticSchedule
       disposition: 1
-      rationale: 현실적인 공사 일정 조정을 선호한다.
+      rationale: "\uD604\uC2E4\uC801\uC778 \uACF5\uC0AC \uC77C\uC815 \uC870\uC815\uC744
+        \uC120\uD638\uD55C\uB2E4."
     - actionId: BlanketStaffCuts
       disposition: 2
-      rationale: 현장 실정과 무관한 일괄 감축에 강하게 반발한다.
+      rationale: "\uD604\uC7A5 \uC2E4\uC815\uACFC \uBB34\uAD00\uD55C \uC77C\uAD04
+        \uAC10\uCD95\uC5D0 \uAC15\uD558\uAC8C \uBC18\uBC1C\uD55C\uB2E4."
     - actionId: CutSafetyBudget
       disposition: 2
-      rationale: 안전 예산 삭감에 강하게 반발한다.
+      rationale: "\uC548\uC804 \uC608\uC0B0 \uC0AD\uAC10\uC5D0 \uAC15\uD558\uAC8C
+        \uBC18\uBC1C\uD55C\uB2E4."
     - actionId: SuddenOutsourcing
       disposition: 2
-      rationale: 갑작스러운 외주화에 강하게 반발한다.
+      rationale: "\uAC11\uC791\uC2A4\uB7EC\uC6B4 \uC678\uC8FC\uD654\uC5D0 \uAC15\uD558\uAC8C
+        \uBC18\uBC1C\uD55C\uB2E4."

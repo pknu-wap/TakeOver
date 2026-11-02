@@ -10,23 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: OH JAESEONG
+  m_Name: Oh_Jaeseong
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-haneul-food-cfo-oh-jaeseong
-    companyId: haneul-food
     position: 0
-    profile:
-      displayName: 오재성
-      role: CFO
-      affiliation: 하늘식품
-      personalitySummary: 실용적이고 수익성에 민감하다. 숫자로 설명되는 원가·생산성·회수 계획을 중시하며 법적 위험이 큰 선택을 피한다.
-      gameplayRoleSummary: 소비자 가치와 수익성의 충돌을 드러내며 하늘식품 구조조정 사건의 상대가 된다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      eventRelationBiases: []
-    actionPreferences: []
-    memoryPreferences: []
     preferenceResponse:
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
+    memoryPreferences: []
+    npcId: npc-haneul-food-cfo-oh-jaeseong
+    companyId: haneul-food
+    profile:
+      standingIllustration: {fileID: 0}
+      displayName: "\uC624\uC7AC\uC131"
+      role: CFO
+      affiliation: "\uD558\uB298\uC2DD\uD488"
+      personalitySummary: "\uC2E4\uC6A9\uC801\uC774\uACE0 \uC218\uC775\uC131\uC5D0
+        \uBBFC\uAC10\uD558\uB2E4. \uC22B\uC790\uB85C \uC124\uBA85\uB418\uB294 \uC6D0\uAC00\xB7\uC0DD\uC0B0\uC131\xB7\uD68C\uC218
+        \uACC4\uD68D\uC744 \uC911\uC2DC\uD558\uBA70 \uBC95\uC801 \uC704\uD5D8\uC774
+        \uD070 \uC120\uD0DD\uC744 \uD53C\uD55C\uB2E4."
+      gameplayRoleSummary: "\uC18C\uBE44\uC790 \uAC00\uCE58\uC640 \uC218\uC775\uC131\uC758
+        \uCDA9\uB3CC\uC744 \uB4DC\uB7EC\uB0B4\uBA70 \uD558\uB298\uC2DD\uD488 \uAD6C\uC870\uC870\uC815
+        \uC0AC\uAC74\uC758 \uC0C1\uB300\uAC00 \uB41C\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+      eventRelationBiases: []
+    actionPreferences: []

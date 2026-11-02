@@ -10,23 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: LEE MINGYU
+  m_Name: Lee_Mingyu
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-economic-reporter-lee-mingyu
-    companyId: external-network
     position: 0
-    profile:
-      displayName: 이민규
-      role: 경제지 기자
-      affiliation: 외부 인물
-      personalitySummary: 공식 자료와 기업 실적을 비교해 사실관계를 추적한다. 작은 실수보다 반복되는 패턴에 주목한다. 투명한 공개를 반기고 설명이 계속 바뀌면 의심한다.
-      gameplayRoleSummary: 언론 인터뷰와 공개 자료 검증의 접점이 되는 경제지 기자다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      eventRelationBiases: []
-    actionPreferences: []
-    memoryPreferences: []
     preferenceResponse:
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
+    memoryPreferences: []
+    npcId: npc-economic-reporter-lee-mingyu
+    companyId: external-network
+    profile:
+      standingIllustration: {fileID: 0}
+      displayName: "\uC774\uBBFC\uADDC"
+      role: "\uACBD\uC81C\uC9C0 \uAE30\uC790"
+      affiliation: "\uC678\uBD80 \uC778\uBB3C"
+      personalitySummary: "\uACF5\uC2DD \uC790\uB8CC\uC640 \uAE30\uC5C5 \uC2E4\uC801\uC744
+        \uBE44\uAD50\uD574 \uC0AC\uC2E4\uAD00\uACC4\uB97C \uCD94\uC801\uD55C\uB2E4.
+        \uC791\uC740 \uC2E4\uC218\uBCF4\uB2E4 \uBC18\uBCF5\uB418\uB294 \uD328\uD134\uC5D0
+        \uC8FC\uBAA9\uD55C\uB2E4. \uD22C\uBA85\uD55C \uACF5\uAC1C\uB97C \uBC18\uAE30\uACE0
+        \uC124\uBA85\uC774 \uACC4\uC18D \uBC14\uB00C\uBA74 \uC758\uC2EC\uD55C\uB2E4."
+      gameplayRoleSummary: "\uC5B8\uB860 \uC778\uD130\uBDF0\uC640 \uACF5\uAC1C \uC790\uB8CC
+        \uAC80\uC99D\uC758 \uC811\uC810\uC774 \uB418\uB294 \uACBD\uC81C\uC9C0 \uAE30\uC790\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+      eventRelationBiases: []
+    actionPreferences: []

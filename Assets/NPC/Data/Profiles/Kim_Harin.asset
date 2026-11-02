@@ -10,23 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: KIM HARIN
+  m_Name: Kim_Harin
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-haneul-food-ceo-kim-harin
-    companyId: haneul-food
     position: 1
-    profile:
-      displayName: 김하린
-      role: CEO
-      affiliation: 하늘식품
-      personalitySummary: 온건하고 설득에 능하며 소비자 관점에서 생각한다. 품질과 브랜드 신뢰를 지키는 장기 계획을 중시하고 소비자 기만과 원산지 은폐를 경계한다.
-      gameplayRoleSummary: 브랜드 보호 조건을 중심으로 인수안을 검토한다. 경영진 방어와 그린메일 이벤트의 회사 대표다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      eventRelationBiases: []
-    actionPreferences: []
-    memoryPreferences: []
     preferenceResponse:
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
+    memoryPreferences: []
+    npcId: npc-haneul-food-ceo-kim-harin
+    companyId: haneul-food
+    profile:
+      standingIllustration: {fileID: 0}
+      displayName: "\uAE40\uD558\uB9B0"
+      role: CEO
+      affiliation: "\uD558\uB298\uC2DD\uD488"
+      personalitySummary: "\uC628\uAC74\uD558\uACE0 \uC124\uB4DD\uC5D0 \uB2A5\uD558\uBA70
+        \uC18C\uBE44\uC790 \uAD00\uC810\uC5D0\uC11C \uC0DD\uAC01\uD55C\uB2E4. \uD488\uC9C8\uACFC
+        \uBE0C\uB79C\uB4DC \uC2E0\uB8B0\uB97C \uC9C0\uD0A4\uB294 \uC7A5\uAE30 \uACC4\uD68D\uC744
+        \uC911\uC2DC\uD558\uACE0 \uC18C\uBE44\uC790 \uAE30\uB9CC\uACFC \uC6D0\uC0B0\uC9C0
+        \uC740\uD3D0\uB97C \uACBD\uACC4\uD55C\uB2E4."
+      gameplayRoleSummary: "\uBE0C\uB79C\uB4DC \uBCF4\uD638 \uC870\uAC74\uC744 \uC911\uC2EC\uC73C\uB85C
+        \uC778\uC218\uC548\uC744 \uAC80\uD1A0\uD55C\uB2E4. \uACBD\uC601\uC9C4 \uBC29\uC5B4\uC640
+        \uADF8\uB9B0\uBA54\uC77C \uC774\uBCA4\uD2B8\uC758 \uD68C\uC0AC \uB300\uD45C\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+      eventRelationBiases: []
+    actionPreferences: []

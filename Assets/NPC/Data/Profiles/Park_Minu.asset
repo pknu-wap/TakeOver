@@ -10,23 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
-  m_Name: PARK MINU
+  m_Name: Park_Minu
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    npcId: npc-dongbang-trading-hr-director-park-minu
-    companyId: dongbang-trading
     position: 0
-    profile:
-      displayName: 박민우
-      role: 인사·노무 책임자
-      affiliation: 동방물산
-      personalitySummary: 현실적으로 사람을 이해하고 갈등을 중재한다. 조직이 감당할 전환 속도를 찾으며 재교육·전환배치를 선호하고 예고 없는 대량해고를 경계한다.
-      gameplayRoleSummary: 직원의 전환 가능성과 설명 절차를 중심으로 구조조정 협상에 참여한다.
-      anyEventRelationDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-      eventRelationBiases: []
-    actionPreferences: []
-    memoryPreferences: []
     preferenceResponse:
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
+    memoryPreferences: []
+    npcId: npc-dongbang-trading-hr-director-park-minu
+    companyId: dongbang-trading
+    profile:
+      standingIllustration: {fileID: 0}
+      displayName: "\uBC15\uBBFC\uC6B0"
+      role: "\uC778\uC0AC\xB7\uB178\uBB34 \uCC45\uC784\uC790"
+      affiliation: "\uB3D9\uBC29\uBB3C\uC0B0"
+      personalitySummary: "\uD604\uC2E4\uC801\uC73C\uB85C \uC0AC\uB78C\uC744 \uC774\uD574\uD558\uACE0
+        \uAC08\uB4F1\uC744 \uC911\uC7AC\uD55C\uB2E4. \uC870\uC9C1\uC774 \uAC10\uB2F9\uD560
+        \uC804\uD658 \uC18D\uB3C4\uB97C \uCC3E\uC73C\uBA70 \uC7AC\uAD50\uC721\xB7\uC804\uD658\uBC30\uCE58\uB97C
+        \uC120\uD638\uD558\uACE0 \uC608\uACE0 \uC5C6\uB294 \uB300\uB7C9\uD574\uACE0\uB97C
+        \uACBD\uACC4\uD55C\uB2E4."
+      gameplayRoleSummary: "\uC9C1\uC6D0\uC758 \uC804\uD658 \uAC00\uB2A5\uC131\uACFC
+        \uC124\uBA85 \uC808\uCC28\uB97C \uC911\uC2EC\uC73C\uB85C \uAD6C\uC870\uC870\uC815
+        \uD611\uC0C1\uC5D0 \uCC38\uC5EC\uD55C\uB2E4."
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+      eventRelationBiases: []
+    actionPreferences: []
