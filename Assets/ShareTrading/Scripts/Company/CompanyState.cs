@@ -6,24 +6,24 @@ public class CompanyState
     private Dictionary<CompanyStat, float> stats;
     private Dictionary<CompanyDerivedStat, float> derivedStats;
 
-    public int totalShares { get; private set; }
+    public int totalShares { get; internal set; }
 
     // 첫 턴 기록이 저장되기 전에 초기값을 과거 평균으로 사용
     public float beforeRevenue { get; set; }
     public float beforeNetProfit { get; set; }
     public float beforeNetMargin { get; set; }
 
-    // 초기 재무 기준값은 생성 이후 미변경
-    public float initialRevenue { get; private set; }
-    public float initialCost { get; private set; }
-    public float initialNetProfit { get; private set; }
-    public float initialNetMargin { get; private set; }
-    public float initialDebtRatio { get; private set; }
-    public float initialLiquidityStrength { get; private set; }
-    public float initialAssetValue { get; private set; }
+    // 초기 재무 기준값은 일반 턴 계산에서 변경하지 않음
+    public float initialRevenue { get; internal set; }
+    public float initialCost { get; internal set; }
+    public float initialNetProfit { get; internal set; }
+    public float initialNetMargin { get; internal set; }
+    public float initialDebtRatio { get; internal set; }
+    public float initialLiquidityStrength { get; internal set; }
+    public float initialAssetValue { get; internal set; }
 
-    public float tangibleCoefficient { get; private set; }
-    public float intangibleCoefficient { get; private set; }
+    public float tangibleCoefficient { get; internal set; }
+    public float intangibleCoefficient { get; internal set; }
 
     public CompanyState(CompanyDefinition definition)
     {
@@ -91,6 +91,4 @@ public class CompanyState
 
     public float getDerivedStat(CompanyDerivedStat derivedStat) { return derivedStats[derivedStat]; }
     public void setDerivedStat(CompanyDerivedStat derivedStat, float value) { derivedStats[derivedStat] = value; }
-
-    
-}   
+}

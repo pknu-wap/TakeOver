@@ -23,8 +23,8 @@ public sealed class EventGreenmailAccept : MonoBehaviour
         if (turnClock != null) turnClock.TurnAdvanced -= executeScheduledEffects;
     }
 
-    // 0은 즉발, 1은 내일. 임시 웃돈 20%
-    public bool applyEventEffect(string companyID, int daysLater, float value = 0.2f)
+    // 0은 즉발, 1은 내일.
+    public bool applyEventEffect(string companyID, int daysLater, float value)
     {
         Company company = companies.getCompany(companyID);
         if (company == null) return false;
@@ -61,5 +61,14 @@ public sealed class EventGreenmailAccept : MonoBehaviour
 
         player.state.addCash(premium);
         return true;
+    }
+
+    internal List<(Company company, int executionDay, float value)> ScheduledEffects => scheduledEffects;
+
+    // 예약 목록 교체 후 실행 알림 중복 없이 연결
+    internal void RefreshScheduleSubscription()
+    {
+        turnClock.TurnAdvanced -= executeScheduledEffects;
+        if (scheduledEffects.Count > 0) turnClock.TurnAdvanced += executeScheduledEffects;
     }
 }

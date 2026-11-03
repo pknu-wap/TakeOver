@@ -1,13 +1,14 @@
 using UnityEngine;
+using TakeOver.SaveSystem;
 using System.Collections.Generic;
 
 public class Marketdata : MonoBehaviour
 {
     [SerializeField] private Companies companies;
-    private System.Random random = new System.Random();
     private int lastUpdatedTurn;
 
-    public float globalMarketScore { get; private set; }
+    public float globalMarketScore { get; internal set; }
+    internal int LastUpdatedTurn { get => lastUpdatedTurn; set => lastUpdatedTurn = value; }
 
     public bool tryGetCompany(string companyID, out Company company)
     {
@@ -37,22 +38,16 @@ public class Marketdata : MonoBehaviour
         return true;
     }
 
-    public void setRandomSeed(int seed) { random = new System.Random(seed); }
-
     public void updateTurn(int turn)
     {
         if (turn <= lastUpdatedTurn) return;
-        lastUpdatedTurn = turn;
+
         globalMarketScore = CompanyCalculationMath.clamp(
-            globalMarketScore * 0.85d + randomRange(-0.15f, 0.15f), -1f, 1f);
+            globalMarketScore * 0.85d + FixedDaySeed.Range(FixedDaySeed.Seed, -0.15f, 0.15f), -1f, 1f);
         foreach (Company company in companies.CompanyList)
         {
-            company.marketState.updateTurn(randomRange(-0.02f, 0.02f));
+            company.marketState.updateTurn(FixedDaySeed.Range(FixedDaySeed.Seed, -0.02f, 0.02f));
         }
-    }
-
-    private float randomRange(float min, float max)
-    {
-        return (float)(min + random.NextDouble() * (max - min));
+        lastUpdatedTurn = turn;
     }
 }
