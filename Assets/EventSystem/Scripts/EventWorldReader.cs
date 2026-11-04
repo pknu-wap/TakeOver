@@ -40,29 +40,33 @@ namespace TakeOver.Events
         }
         public EventCompanyData getCompany(string companyId, EventDefinition definition = null)
         {
-            if (companies == null) return null;
-            foreach (Company company in companies.CompanyList)
-            {
-                if (company.definition.companyID != companyId) continue;
-                var data = new EventCompanyData { companyId = companyId, companyName = company.definition.companyName };
-                if (registry != null)
+            string companyName = null;
+            if (companies != null)
+                foreach (Company company in companies.CompanyList)
                 {
-                    if (registry.TryFindByPosition(companyId, NpcPosition.CEO, out var ceo))
-                    {
-                        data.ceoNpcId = ceo.npcId;
-                        data.ceoName = ceo.profile.displayName;
-                    }
-                    if (definition != null && definition.tryGetRestructuringNpcId(companyId, out string npcId)
-                        && registry.TryGetProfile(npcId, out var contact))
-                    {
-                        data.restructuringNpcId = contact.npcId;
-                        data.restructuringName = contact.profile.displayName;
-                        data.restructuringRole = contact.profile.role;
-                    }
+                    if (company.definition.companyID != companyId) continue;
+                    companyName = company.definition.companyName;
+                    break;
                 }
-                return data;
+            NpcStateRegistry.NpcSeed ceo = null;
+            if (registry != null) registry.TryFindByPosition(companyId, NpcPosition.CEO, out ceo);
+            // NPC 미리보기에는 거래 월드가 없을 수 있다. 같은 회사 ID의 등록 대표만 조회한다.
+            if (string.IsNullOrWhiteSpace(companyName)) companyName = ceo?.profile?.affiliation;
+            if (string.IsNullOrWhiteSpace(companyName)) return null;
+            var data = new EventCompanyData { companyId = companyId, companyName = companyName };
+            if (ceo?.profile != null)
+            {
+                data.ceoNpcId = ceo.npcId;
+                data.ceoName = ceo.profile.displayName;
             }
-            return null;
+            if (registry != null && definition != null && definition.tryGetRestructuringNpcId(companyId, out string npcId)
+                && registry.TryGetProfile(npcId, out var contact) && contact.companyId == companyId && contact.profile != null)
+            {
+                data.restructuringNpcId = contact.npcId;
+                data.restructuringName = contact.profile.displayName;
+                data.restructuringRole = contact.profile.role;
+            }
+            return data;
         }
         public float getStake(string companyId) =>
             companies != null && companies.tryGetCompanyStake(companyId, out float stake) ? stake : 0;

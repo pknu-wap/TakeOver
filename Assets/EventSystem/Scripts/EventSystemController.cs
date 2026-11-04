@@ -201,6 +201,9 @@ namespace TakeOver.Events
                 return;
             }
             buildNegotiationChoices();
+            if (negotiationChoices.Count == 0) return;
+            DashboardController dashboard = FindFirstObjectByType<DashboardController>();
+            if (dashboard != null && !dashboard.CanConsumeAP(activeInfo.definition.getApCost())) return;
             screenState = ScreenState.Negotiation;
             detailView.hide();
             negotiationStarted?.Invoke(new NegotiationStartedInfo(activeInfo.definition.getId(), activeInfo.definition.getApCost()));

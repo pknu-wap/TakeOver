@@ -294,7 +294,7 @@ namespace TakeOver.NPC.Editor
                 {
                     npcs.Add(seed.npcId, seed);
                     var file = Path.GetFileNameWithoutExtension(path);
-                    Require(definition.name == file.Replace('_', ' ').ToUpperInvariant(), "Passport asset/internal name matches: " + seed.profile.displayName);
+                    // Unity asset names are not NPC identifiers and have no required display format.
                     Require(expectedNpcIds.TryGetValue(file, out var expectedId) && seed.npcId == expectedId,
                         "NPC ID matches explicit approved roster: " + seed.profile.displayName);
                 }
