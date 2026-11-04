@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,15 +14,15 @@ namespace TakeOver.Events
         [SerializeField] private Text descriptionText;
         [SerializeField] private Text apCostText;
         [SerializeField] private Text startButtonText;
-        [SerializeField] private CanvasGroup energyNotice;
+        [SerializeField] private FloatingMessage floatingMessage;
         [SerializeField] private Button backButton;
         [SerializeField] private Button startButton;
         [SerializeField] private Button closeButton;
-        private Coroutine energyNoticeRoutine;
+        private bool warnedMissingMessage;
 
         public void show(TodayEventInfo info, EventSystemController controller)
         {
-            hideEnergyNotice();
+            if (hasFloatingMessage()) floatingMessage.Hide();
             EventDefinition definition = info.definition;
             eventImage.sprite = info.popupImage;
             bool hasArt = eventImage.sprite != null;
@@ -58,35 +57,24 @@ namespace TakeOver.Events
 
         public void showInsufficientEnergy()
         {
-            if (energyNoticeRoutine != null) StopCoroutine(energyNoticeRoutine);
-            energyNotice.transform.SetAsLastSibling();
-            energyNoticeRoutine = StartCoroutine(playEnergyNotice());
+            if (hasFloatingMessage()) floatingMessage.Show("행동포인트가 부족합니다");
         }
 
-        private IEnumerator playEnergyNotice()
+        private bool hasFloatingMessage()
         {
-            while (energyNotice.alpha < 1f)
+            if (floatingMessage != null) return true;
+            if (!warnedMissingMessage)
             {
-                energyNotice.alpha = Mathf.MoveTowards(energyNotice.alpha, 1f, Time.unscaledDeltaTime / 0.15f);
-                yield return null;
+                warnedMissingMessage = true;
+                Debug.LogWarning("Event detail FloatingMessage is not assigned.", this);
             }
-            yield return new WaitForSecondsRealtime(1.5f);
-            while (energyNotice.alpha > 0f)
-            {
-                energyNotice.alpha = Mathf.MoveTowards(energyNotice.alpha, 0f, Time.unscaledDeltaTime / 0.3f);
-                yield return null;
-            }
-            energyNoticeRoutine = null;
+            return false;
         }
 
-        private void hideEnergyNotice()
+        private void OnDisable()
         {
-            if (energyNoticeRoutine != null) StopCoroutine(energyNoticeRoutine);
-            energyNoticeRoutine = null;
-            energyNotice.alpha = 0f;
+            if (hasFloatingMessage()) floatingMessage.Hide();
         }
-
-        private void OnDisable() => hideEnergyNotice();
 
         public void hide() => gameObject.SetActive(false);
     }

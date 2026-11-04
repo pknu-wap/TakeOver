@@ -10,6 +10,7 @@ public sealed class FloatingMessage : MonoBehaviour
 
     public void Show(string text)
     {
+        transform.SetAsLastSibling();
         if (routine != null) StopCoroutine(routine);
         label.text = text;
         routine = StartCoroutine(play());
@@ -31,10 +32,12 @@ public sealed class FloatingMessage : MonoBehaviour
         routine = null;
     }
 
-    private void OnDisable()
+    public void Hide()
     {
         if (routine != null) StopCoroutine(routine);
         routine = null;
         canvasGroup.alpha = 0f;
     }
+
+    private void OnDisable() => Hide();
 }
