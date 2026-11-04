@@ -20,7 +20,7 @@ public class TradingEventEffects : MonoBehaviour
                 break;
 
             case "stock_manipulation_01":
-                float value = FixedDaySeed.Range(FixedDaySeed.Seed, info.stockSurgeMinRatio, info.stockSurgeMaxRatio);
+                float value = FixedDaySeed.range(FixedDaySeed.seed, info.stockSurgeMinRatio, info.stockSurgeMaxRatio);
                 stockManipulationAccept.applyEventEffect(info.stockSurgeCompanyId, 1, value);
                 break;
 

@@ -43,10 +43,10 @@ public class Marketdata : MonoBehaviour
         if (turn <= lastUpdatedTurn) return;
 
         globalMarketScore = CompanyCalculationMath.clamp(
-            globalMarketScore * 0.85d + FixedDaySeed.Range(FixedDaySeed.Seed, -0.15f, 0.15f), -1f, 1f);
+            globalMarketScore * 0.85d + FixedDaySeed.range(FixedDaySeed.seed, -0.15f, 0.15f), -1f, 1f);
         foreach (Company company in companies.CompanyList)
         {
-            company.marketState.updateTurn(FixedDaySeed.Range(FixedDaySeed.Seed, -0.02f, 0.02f));
+            company.marketState.updateTurn(FixedDaySeed.range(FixedDaySeed.seed, -0.02f, 0.02f));
         }
         lastUpdatedTurn = turn;
     }

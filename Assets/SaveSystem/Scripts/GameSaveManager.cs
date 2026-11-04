@@ -14,39 +14,39 @@ namespace TakeOver.SaveSystem
 
         private void Awake()
         {
-            FixedDaySeed.GenerateSeed();
+            FixedDaySeed.generateSeed();
         }
 
-        private SaveFileStorage Storage
+        private SaveFileStorage storage
         {
             get { return new SaveFileStorage(Application.persistentDataPath); }
         }
 
-        public bool IsBusy { get; private set; }
-        public bool HasPendingSave
+        public bool isBusy { get; private set; }
+        public bool hasPendingSave
         {
             get { return pendingSave != null; }
         }
-        public string LastError { get; private set; } = "";
-        public string SavePath
+        public string lastError { get; private set; } = "";
+        public string savePath
         {
-            get { return Storage.SavePath; }
+            get { return storage.savePath; }
         }
 
-        public bool HasSave()
+        public bool hasSave()
         {
-            return Storage.Exists();
+            return storage.exists();
         }
 
         /// <summary>게임 상태 복원 없이 저장된 날짜와 시드 읽기</summary>
-        public bool TryReadDayStart(out DayStartData dayStart)
+        public bool tryReadDayStart(out DayStartData dayStart)
         {
             dayStart = default;
-            LastError = "";
+            lastError = "";
             try
             {
-                SaveFileData data = JsonUtility.FromJson<SaveFileData>(Storage.Read());
-                if (data == null || data.formatVersion != SaveFileData.CurrentFormatVersion
+                SaveFileData data = JsonUtility.FromJson<SaveFileData>(storage.read());
+                if (data == null || data.formatVersion != SaveFileData.currentFormatVersion
                     || data.dayStart.day < 1)
                     throw new InvalidDataException("저장 파일의 형식 버전·날짜가 올바르지 않습니다.");
                 dayStart = data.dayStart;
@@ -54,25 +54,25 @@ namespace TakeOver.SaveSystem
             }
             catch (Exception error)
             {
-                return Fail(error.Message);
+                return fail(error.Message);
             }
         }
 
         /// <summary>하루 마감 완료 후, 다음 날짜 시작 전에 호출. 게임 종료 시 호출 제외</summary>
-        public bool TrySaveDayEnd(DayStartData nextDay)
+        public bool trySaveDayEnd(DayStartData nextDay)
         {
-            if (IsBusy || HasPendingSave)
+            if (isBusy || hasPendingSave)
             {
-                return Fail("처리 중이거나 재시도할 저장이 남아 있습니다.");
+                return fail("처리 중이거나 재시도할 저장이 남아 있습니다.");
             }
-            IsBusy = true;
-            LastError = "";
+            isBusy = true;
+            lastError = "";
             try
             {
-                ISaveParticipant[] modules = GetParticipants();
+                ISaveParticipant[] modules = getParticipants();
                 SaveFileData data = new SaveFileData
                 {
-                    formatVersion = SaveFileData.CurrentFormatVersion,
+                    formatVersion = SaveFileData.currentFormatVersion,
                     dayStart = nextDay,
                     sections = new List<SaveSectionData>()
                 };
@@ -80,106 +80,106 @@ namespace TakeOver.SaveSystem
                 {
                     SaveSectionData section = new SaveSectionData
                     {
-                        id = module.SaveId,
-                        version = module.SaveVersion,
-                        json = module.CaptureJson()
+                        id = module.saveId,
+                        version = module.saveVersion,
+                        json = module.captureJson()
                     };
                     data.sections.Add(section);
                 }
-                ValidateFile(data, modules);
+                validateFile(data, modules);
                 pendingSave = data;
-                WritePending();
+                writePending();
                 return true;
             }
             catch (Exception error)
             {
-                return Fail(error.Message);
+                return fail(error.Message);
             }
             finally
             {
-                IsBusy = false;
+                isBusy = false;
             }
         }
 
         /// <summary>실패 당시 저장 사본만 재기록. 하루 마감 재실행 제외</summary>
-        public bool TryRetrySave(out DayStartData dayStart)
+        public bool tryRetrySave(out DayStartData dayStart)
         {
             dayStart = new DayStartData();
-            if (IsBusy || !HasPendingSave)
+            if (isBusy || !hasPendingSave)
             {
-                return Fail("재시도할 저장이 없거나 처리 중입니다.");
+                return fail("재시도할 저장이 없거나 처리 중입니다.");
             }
-            IsBusy = true;
-            LastError = "";
+            isBusy = true;
+            lastError = "";
             try
             {
                 DayStartData context = pendingSave.dayStart;
-                WritePending();
+                writePending();
                 dayStart = context;
                 return true;
             }
             catch (Exception error)
             {
-                return Fail(error.Message);
+                return fail(error.Message);
             }
             finally
             {
-                IsBusy = false;
+                isBusy = false;
             }
         }
 
         /// <summary>각 파트와 저장 시드 복원 후 날짜 정보 반환</summary>
-        public bool TryLoad(out DayStartData dayStart)
+        public bool tryLoad(out DayStartData dayStart)
         {
             dayStart = new DayStartData();
-            if (IsBusy || HasPendingSave)
+            if (isBusy || hasPendingSave)
             {
-                return Fail("처리 중이거나 아직 기록하지 못한 마감 상태가 있습니다.");
+                return fail("처리 중이거나 아직 기록하지 못한 마감 상태가 있습니다.");
             }
-            IsBusy = true;
-            LastError = "";
+            isBusy = true;
+            lastError = "";
             try
             {
-                ISaveParticipant[] modules = GetParticipants();
-                string json = Storage.Read();
+                ISaveParticipant[] modules = getParticipants();
+                string json = storage.read();
                 SaveFileData data = JsonUtility.FromJson<SaveFileData>(json);
-                ValidateFile(data, modules);
+                validateFile(data, modules);
 
                 // 모든 파트의 검증 완료 후 실제 상태 적용
                 foreach (ISaveParticipant module in modules)
                 {
                     foreach (SaveSectionData section in data.sections)
                     {
-                        if (section.id == module.SaveId)
+                        if (section.id == module.saveId)
                         {
-                            module.PrepareLoad(section.json, section.version, data.dayStart);
+                            module.prepareLoad(section.json, section.version, data.dayStart);
                             break;
                         }
                     }
                 }
                 foreach (ISaveParticipant module in modules)
                 {
-                    module.ApplyLoad();
+                    module.applyLoad();
                 }
                 foreach (ISaveParticipant module in modules)
                 {
-                    module.RebuildAfterLoad();
+                    module.rebuildAfterLoad();
                 }
-                FixedDaySeed.ChangeSeed(data.dayStart.seed);
+                FixedDaySeed.changeSeed(data.dayStart.seed);
                 dayStart = data.dayStart;
                 return true;
             }
             catch (Exception error)
             {
-                return Fail(error.Message);
+                return fail(error.Message);
             }
             finally
             {
-                IsBusy = false;
+                isBusy = false;
             }
         }
 
-        private ISaveParticipant[] GetParticipants()
+        private ISaveParticipant[] getParticipants()
         {
             if (participants.Length == 0)
             {
@@ -194,27 +194,27 @@ namespace TakeOver.SaveSystem
                 {
                     throw new InvalidOperationException("저장 파트의 계약·ID·버전을 확인하세요.");
                 }
-                if (string.IsNullOrWhiteSpace(module.SaveId) || module.SaveVersion < 1)
+                if (string.IsNullOrWhiteSpace(module.saveId) || module.saveVersion < 1)
                 {
                     throw new InvalidOperationException("저장 파트의 계약·ID·버전을 확인하세요.");
                 }
-                if (ids.Contains(module.SaveId))
+                if (ids.Contains(module.saveId))
                 {
                     throw new InvalidOperationException("저장 파트의 계약·ID·버전을 확인하세요.");
                 }
-                ids.Add(module.SaveId);
+                ids.Add(module.saveId);
                 modules[i] = module;
             }
             return modules;
         }
 
-        private void ValidateFile(SaveFileData data, ISaveParticipant[] modules)
+        private void validateFile(SaveFileData data, ISaveParticipant[] modules)
         {
             if (data == null)
             {
                 throw new InvalidDataException("저장 파일의 형식 버전·날짜·등록 파트가 일치하지 않습니다.");
             }
-            if (data.formatVersion != SaveFileData.CurrentFormatVersion)
+            if (data.formatVersion != SaveFileData.currentFormatVersion)
             {
                 throw new InvalidDataException("저장 파일의 형식 버전·날짜·등록 파트가 일치하지 않습니다.");
             }
@@ -226,7 +226,7 @@ namespace TakeOver.SaveSystem
             HashSet<string> registeredIds = new HashSet<string>(StringComparer.Ordinal);
             foreach (ISaveParticipant module in modules)
             {
-                registeredIds.Add(module.SaveId);
+                registeredIds.Add(module.saveId);
             }
 
             HashSet<string> savedIds = new HashSet<string>(StringComparer.Ordinal);
@@ -248,35 +248,35 @@ namespace TakeOver.SaveSystem
             }
         }
 
-        private void WritePending()
+        private void writePending()
         {
-            Storage.Write(JsonUtility.ToJson(pendingSave));
-            FixedDaySeed.ChangeSeed(pendingSave.dayStart.seed);
+            storage.write(JsonUtility.ToJson(pendingSave));
+            FixedDaySeed.changeSeed(pendingSave.dayStart.seed);
             pendingSave = null;
         }
 
-        private bool Fail(string message)
+        private bool fail(string message)
         {
-            LastError = message;
+            lastError = message;
             return false;
         }
 
         [ContextMenu("테스트 저장")]
-        private void TestSave()
+        private void testSave()
         {
             TakeOver.NPC.GameTurnClock clock =
                 FindFirstObjectByType<TakeOver.NPC.GameTurnClock>();
 
             DayStartData data =
-                new DayStartData(clock.CurrentTurn, FixedDaySeed.Seed);
+                new DayStartData(clock.CurrentTurn, FixedDaySeed.seed);
 
-            if (TrySaveDayEnd(data))
+            if (trySaveDayEnd(data))
             {
-                Debug.Log("저장 완료: " + SavePath);
+                Debug.Log("저장 완료: " + savePath);
             }
             else
             {
-                Debug.LogError("저장 실패: " + LastError);
+                Debug.LogError("저장 실패: " + lastError);
             }
         }
     }

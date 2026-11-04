@@ -20,7 +20,7 @@ namespace TakeOver.SaveSystem
     [Serializable]
     public sealed class SaveFileData
     {
-        public const int CurrentFormatVersion = 2;
+        public const int currentFormatVersion = 2;
         public int formatVersion;
         public DayStartData dayStart;
         public List<SaveSectionData> sections;

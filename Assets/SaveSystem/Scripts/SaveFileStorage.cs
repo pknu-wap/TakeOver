@@ -7,26 +7,26 @@ namespace TakeOver.SaveSystem
     /// <summary>저장 파일 읽기·쓰기 담당. 오류는 호출자에게 전달</summary>
     public class SaveFileStorage
     {
-        private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
+        private static readonly JsonSerializerSettings jsonSettings = new JsonSerializerSettings
         {
             DateParseHandling = DateParseHandling.None
         };
 
-        public string SavePath { get; }
+        public string savePath { get; }
 
         public SaveFileStorage(string directoryPath)
         {
-            SavePath = Path.Combine(directoryPath, "progress.json");
+            savePath = Path.Combine(directoryPath, "progress.json");
         }
 
-        public bool Exists()
+        public bool exists()
         {
-            return File.Exists(SavePath);
+            return File.Exists(savePath);
         }
 
-        public string Read()
+        public string read()
         {
-            JObject data = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(SavePath), JsonSettings);
+            JObject data = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(savePath), jsonSettings);
             foreach (JObject section in data["sections"])
             {
                 // 파일의 데이터를 파트에 전달할 JSON 문자열로 변환
@@ -40,27 +40,27 @@ namespace TakeOver.SaveSystem
             return data.ToString(Formatting.None);
         }
 
-        public void Write(string json)
+        public void write(string json)
         {
-            JObject data = JsonConvert.DeserializeObject<JObject>(json, JsonSettings);
+            JObject data = JsonConvert.DeserializeObject<JObject>(json, jsonSettings);
             foreach (JObject section in data["sections"])
             {
                 // 파트의 JSON 문자열을 파일의 실제 데이터로 변환
                 string payload = section["json"].Value<string>();
-                section["data"] = JsonConvert.DeserializeObject<JToken>(payload, JsonSettings);
+                section["data"] = JsonConvert.DeserializeObject<JToken>(payload, jsonSettings);
                 section.Remove("json");
             }
 
-            Directory.CreateDirectory(Path.GetDirectoryName(SavePath));
-            string temporaryPath = SavePath + ".tmp";
+            Directory.CreateDirectory(Path.GetDirectoryName(savePath));
+            string temporaryPath = savePath + ".tmp";
             File.WriteAllText(temporaryPath, data.ToString(Formatting.Indented));
-            if (File.Exists(SavePath))
+            if (File.Exists(savePath))
             {
-                File.Replace(temporaryPath, SavePath, null);
+                File.Replace(temporaryPath, savePath, null);
             }
             else
             {
-                File.Move(temporaryPath, SavePath);
+                File.Move(temporaryPath, savePath);
             }
         }
     }

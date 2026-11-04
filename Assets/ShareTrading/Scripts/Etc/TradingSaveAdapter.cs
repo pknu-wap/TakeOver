@@ -13,19 +13,19 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
     [SerializeField] private TradingEventEffects eventEffects;
     private TradingSaveData prepared;
 
-    public string SaveId
+    public string saveId
     {
         get { return "trading"; }
     }
 
-    public int SaveVersion
+    public int saveVersion
     {
         get { return 1; }
     }
 
-    public string CaptureJson()
+    public string captureJson()
     {
-        ResolveReferences();
+        resolveReferences();
         TradingSaveData data = new TradingSaveData
         {
             player = new TradingSaveData.PlayerData
@@ -38,17 +38,17 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
                 globalMarketScore = marketData.globalMarketScore, lastUpdatedTurn = marketData.LastUpdatedTurn
             },
             companies = new List<TradingSaveData.CompanyData>(),
-            greenmail = CaptureEffects(eventEffects.GreenmailAccept.ScheduledEffects),
-            stockManipulation = CaptureEffects(eventEffects.StockManipulationAccept.ScheduledEffects)
+            greenmail = captureEffects(eventEffects.GreenmailAccept.ScheduledEffects),
+            stockManipulation = captureEffects(eventEffects.StockManipulationAccept.ScheduledEffects)
         };
         foreach (Company company in companies.CompanyList)
         {
-            data.companies.Add(CaptureCompany(company));
+            data.companies.Add(captureCompany(company));
         }
         return JsonUtility.ToJson(data);
     }
 
-    private static TradingSaveData.CompanyData CaptureCompany(Company company)
+    private static TradingSaveData.CompanyData captureCompany(Company company)
     {
         CompanyState state = company.state;
         CompanyMarketState market = company.marketState;
@@ -82,7 +82,7 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         return data;
     }
 
-    private static List<TradingSaveData.ScheduledEffectData> CaptureEffects(List<(Company company, int executionDay, float value)> effects)
+    private static List<TradingSaveData.ScheduledEffectData> captureEffects(List<(Company company, int executionDay, float value)> effects)
     {
         List<TradingSaveData.ScheduledEffectData> data = new List<TradingSaveData.ScheduledEffectData>();
         foreach (var effect in effects)
@@ -95,11 +95,11 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         return data;
     }
 
-    public void PrepareLoad(string json, int savedVersion, DayStartData dayStart)
+    public void prepareLoad(string json, int savedVersion, DayStartData dayStart)
     {
         prepared = null;
-        ResolveReferences();
-        if (savedVersion != SaveVersion)
+        resolveReferences();
+        if (savedVersion != saveVersion)
         {
             throw new InvalidDataException("지원하지 않는 거래 저장 버전입니다.");
         }
@@ -132,25 +132,25 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
                 throw new InvalidDataException("회사 ID·원본 수치·시장 효과·이력을 확인하세요.");
             }
             ids.Add(entry.companyId);
-            ValidateCompany(entry, dayStart.day, statCount);
+            validateCompany(entry, dayStart.day, statCount);
         }
-        if (!Finite(data.player.money) || !Finite(data.player.manPower) || !Finite(data.player.information)
-            || !Finite(data.player.reputation) || !Finite(data.market.globalMarketScore))
+        if (!finite(data.player.money) || !finite(data.player.manPower) || !finite(data.player.information)
+            || !finite(data.player.reputation) || !finite(data.market.globalMarketScore))
         {
             throw new InvalidDataException("플레이어 또는 시장 수치가 올바르지 않습니다.");
         }
         foreach (TradingSaveData.ScheduledEffectData effect in data.greenmail)
         {
-            ValidateScheduledEffect(effect, dayStart.day);
+            validateScheduledEffect(effect, dayStart.day);
         }
         foreach (TradingSaveData.ScheduledEffectData effect in data.stockManipulation)
         {
-            ValidateScheduledEffect(effect, dayStart.day);
+            validateScheduledEffect(effect, dayStart.day);
         }
         prepared = data;
     }
 
-    private void ValidateCompany(TradingSaveData.CompanyData entry, int day, int statCount)
+    private void validateCompany(TradingSaveData.CompanyData entry, int day, int statCount)
     {
         Company company;
         if (!companies.tryGetCompany(entry.companyId, out company))
@@ -184,7 +184,7 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
             {
                 throw new InvalidDataException("회사 수치의 ID 또는 값이 올바르지 않습니다.");
             }
-            if (statIds.Contains(statType) || !Finite(stat.value))
+            if (statIds.Contains(statType) || !finite(stat.value))
             {
                 throw new InvalidDataException("회사 수치의 ID 또는 값이 올바르지 않습니다.");
             }
@@ -210,11 +210,11 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         }
     }
 
-    public void ApplyLoad()
+    public void applyLoad()
     {
         if (prepared == null)
         {
-            throw new InvalidOperationException("PrepareLoad를 먼저 완료해야 합니다.");
+            throw new InvalidOperationException("prepareLoad를 먼저 완료해야 합니다.");
         }
         TradingSaveData data = prepared;
         player.state.cash = data.player.money;
@@ -225,16 +225,16 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         marketData.LastUpdatedTurn = data.market.lastUpdatedTurn;
         foreach (TradingSaveData.CompanyData entry in data.companies)
         {
-            ApplyCompany(entry);
+            applyCompany(entry);
         }
-        ApplyEffects(data.greenmail, eventEffects.GreenmailAccept.ScheduledEffects);
-        ApplyEffects(data.stockManipulation, eventEffects.StockManipulationAccept.ScheduledEffects);
+        applyEffects(data.greenmail, eventEffects.GreenmailAccept.ScheduledEffects);
+        applyEffects(data.stockManipulation, eventEffects.StockManipulationAccept.ScheduledEffects);
         eventEffects.GreenmailAccept.RefreshScheduleSubscription();
         eventEffects.StockManipulationAccept.RefreshScheduleSubscription();
         prepared = null;
     }
 
-    private void ApplyCompany(TradingSaveData.CompanyData entry)
+    private void applyCompany(TradingSaveData.CompanyData entry)
     {
         Company company = companies.getCompany(entry.companyId);
         CompanyState state = company.state;
@@ -269,7 +269,7 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         company.history.Entries.AddRange(entry.history);
     }
 
-    private void ApplyEffects(List<TradingSaveData.ScheduledEffectData> data, List<(Company company, int executionDay, float value)> effects)
+    private void applyEffects(List<TradingSaveData.ScheduledEffectData> data, List<(Company company, int executionDay, float value)> effects)
     {
         effects.Clear();
         foreach (TradingSaveData.ScheduledEffectData effect in data)
@@ -278,7 +278,7 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         }
     }
 
-    public void RebuildAfterLoad()
+    public void rebuildAfterLoad()
     {
         foreach (Company company in companies.CompanyList)
         {
@@ -287,7 +287,7 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         }
     }
 
-    private void ResolveReferences()
+    private void resolveReferences()
     {
         if (player == null)
         {
@@ -312,7 +312,7 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         }
     }
 
-    private void ValidateScheduledEffect(TradingSaveData.ScheduledEffectData effect, int day)
+    private void validateScheduledEffect(TradingSaveData.ScheduledEffectData effect, int day)
     {
         if (effect == null)
         {
@@ -320,13 +320,13 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         }
         Company company;
         bool companyExists = companies.tryGetCompany(effect.companyId, out company);
-        if (!companyExists || effect.executionDay < day || !Finite(effect.value))
+        if (!companyExists || effect.executionDay < day || !finite(effect.value))
         {
             throw new InvalidDataException("예약 효과의 회사·실행 날짜·수치가 올바르지 않습니다.");
         }
     }
 
-    private static bool Finite(float value)
+    private static bool finite(float value)
     {
         return !float.IsNaN(value) && !float.IsInfinity(value);
     }
