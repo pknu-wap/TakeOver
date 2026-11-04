@@ -5,24 +5,14 @@ using UnityEngine.UI;
 
 public class TopBarIndicatorController : MonoBehaviour
 {
-    [System.Serializable]
-    public struct TopBarButton
-    {
-        public Button button;
-        public RectTransform targetTransform;
-    }
+    [Header("UI Elements")]
+    [SerializeField] private List<Button> tabButtons = new List<Button>();
+    [SerializeField] private RectTransform markCurrentTap;
 
-    [Header("Top Bar Settings")]
-    [SerializeField] private List<TopBarButton> topBarButtons = new List<TopBarButton>(6);
-    [SerializeField] private UnityEngine.Object markCurrentTap;
-    [SerializeField] private int defaultIndex = 0;
-
-    [Header("Indicator Position Offset Settings")]
-    [Tooltip("인디케이터 위치 미세 조정 (음수: 왼쪽, 양수: 오른쪽)")]
-    [SerializeField] private float xOffset = -5f;
-
-    [Header("Animation Settings")]
-    [SerializeField] private float moveDuration = 0.2f;
+    [Header("Settings")]
+    [SerializeField] private float moveDuration = 0.15f;
+    [Tooltip("미세 오프셋 조절 (음수: 왼쪽, 양수: 오른쪽)")]
+    [SerializeField] private float manualOffsetX = -1f;
 
     private Coroutine moveCoroutine;
     private RectTransform indicatorRect;
@@ -31,115 +21,93 @@ public class TopBarIndicatorController : MonoBehaviour
     {
         if (markCurrentTap != null)
         {
-            if (markCurrentTap is GameObject go)
-            {
-                indicatorRect = go.GetComponent<RectTransform>();
-            }
-            else if (markCurrentTap is Component comp)
-            {
-                indicatorRect = comp.GetComponent<RectTransform>();
-            }
+            indicatorRect = markCurrentTap;
 
-            if (indicatorRect != null)
-            {
-                LayoutElement layoutElement = indicatorRect.GetComponent<LayoutElement>();
-                if (layoutElement == null)
-                {
-                    layoutElement = indicatorRect.gameObject.AddComponent<LayoutElement>();
-                }
-                layoutElement.ignoreLayout = true;
-            }
+            LayoutElement layout = markCurrentTap.GetComponent<LayoutElement>();
+            if (layout == null) layout = markCurrentTap.gameObject.AddComponent<LayoutElement>();
+            layout.ignoreLayout = true;
         }
     }
 
     private void Start()
     {
-        for (int i = 0; i < topBarButtons.Count; i++)
+        for (int i = 0; i < tabButtons.Count; i++)
         {
             int index = i;
-            if (topBarButtons[i].button != null)
+            if (tabButtons[i] != null)
             {
-                topBarButtons[i].button.onClick.AddListener(() => MoveIndicatorTo(index));
+                tabButtons[i].onClick.RemoveAllListeners();
+                tabButtons[i].onClick.AddListener(() => OnTabClicked(index));
             }
         }
 
-        if (topBarButtons.Count > defaultIndex && indicatorRect != null)
+        if (tabButtons.Count > 0 && tabButtons[0] != null && markCurrentTap != null)
         {
-            SetIndicatorPositionDirect(defaultIndex);
+            SetIndicatorDirect(0);
         }
     }
 
-    public void MoveIndicatorTo(int index)
+    public void OnTabClicked(int index)
     {
-        if (index < 0 || index >= topBarButtons.Count || indicatorRect == null) return;
+        if (markCurrentTap == null) return;
+        if (index < 0 || index >= tabButtons.Count || tabButtons[index] == null) return;
 
-        indicatorRect.SetAsLastSibling();
-
-        RectTransform target = topBarButtons[index].targetTransform != null
-            ? topBarButtons[index].targetTransform
-            : topBarButtons[index].button.GetComponent<RectTransform>();
-
-        if (target == null) return;
-
-        if (moveCoroutine != null)
+        if (!markCurrentTap.gameObject.activeSelf)
         {
-            StopCoroutine(moveCoroutine);
+            markCurrentTap.gameObject.SetActive(true);
         }
 
-        float targetLocalX = GetTargetLocalX(target);
-        moveCoroutine = StartCoroutine(AnimateMove(targetLocalX));
+        markCurrentTap.SetAsLastSibling();
+
+        if (moveCoroutine != null) StopCoroutine(moveCoroutine);
+        moveCoroutine = StartCoroutine(AnimateToTarget(tabButtons[index]));
     }
 
-    private float GetTargetLocalX(RectTransform target)
+    private float GetTextCenterWorldX(Button button)
     {
-        float calculatedX = 0f;
+        Graphic textGraphic = button.GetComponent<Graphic>();
+        RectTransform targetRect = textGraphic != null ? textGraphic.rectTransform : button.GetComponent<RectTransform>();
 
-        if (indicatorRect.parent != null)
-        {
-            Vector3 worldPos = target.position;
-            Vector3 localPos = indicatorRect.parent.InverseTransformPoint(worldPos);
-            calculatedX = localPos.x;
-        }
-        else
-        {
-            calculatedX = target.anchoredPosition.x;
-        }
+        Vector3[] corners = new Vector3[4];
+        targetRect.GetWorldCorners(corners);
 
-        return calculatedX + xOffset;
+        float textCenterX = (corners[0].x + corners[2].x) * 0.5f;
+
+        float pivotOffset = (0.5f - indicatorRect.pivot.x) * (indicatorRect.rect.width * indicatorRect.lossyScale.x);
+
+        // 캔버스 스케일을 반영한 미세 픽셀 오프셋 보정
+        float offsetWorldX = manualOffsetX * indicatorRect.lossyScale.x;
+
+        return textCenterX + pivotOffset + offsetWorldX;
     }
 
-    private IEnumerator AnimateMove(float targetLocalX)
+    private void SetIndicatorDirect(int index)
     {
-        Vector2 startPos = indicatorRect.anchoredPosition;
-        float elapsedTime = 0f;
+        markCurrentTap.gameObject.SetActive(true);
+        markCurrentTap.SetAsLastSibling();
 
-        while (elapsedTime < moveDuration)
+        float targetX = GetTextCenterWorldX(tabButtons[index]);
+        markCurrentTap.position = new Vector3(targetX, markCurrentTap.position.y, markCurrentTap.position.z);
+    }
+
+    private IEnumerator AnimateToTarget(Button targetButton)
+    {
+        Vector3 startPos = markCurrentTap.position;
+        float elapsed = 0f;
+
+        while (elapsed < moveDuration)
         {
-            elapsedTime += Time.deltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, elapsedTime / moveDuration);
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / moveDuration);
 
-            float currentX = Mathf.Lerp(startPos.x, targetLocalX, t);
-            indicatorRect.anchoredPosition = new Vector2(currentX, indicatorRect.anchoredPosition.y);
+            float targetX = GetTextCenterWorldX(targetButton);
+            float currentX = Mathf.Lerp(startPos.x, targetX, t);
+
+            markCurrentTap.position = new Vector3(currentX, markCurrentTap.position.y, markCurrentTap.position.z);
             yield return null;
         }
 
-        indicatorRect.anchoredPosition = new Vector2(targetLocalX, indicatorRect.anchoredPosition.y);
-    }
-
-    private void SetIndicatorPositionDirect(int index)
-    {
-        if (indicatorRect == null) return;
-
-        indicatorRect.SetAsLastSibling();
-
-        RectTransform target = topBarButtons[index].targetTransform != null
-            ? topBarButtons[index].targetTransform
-            : topBarButtons[index].button.GetComponent<RectTransform>();
-
-        if (target != null)
-        {
-            float targetLocalX = GetTargetLocalX(target);
-            indicatorRect.anchoredPosition = new Vector2(targetLocalX, indicatorRect.anchoredPosition.y);
-        }
+        float finalX = GetTextCenterWorldX(targetButton);
+        markCurrentTap.position = new Vector3(finalX, markCurrentTap.position.y, markCurrentTap.position.z);
     }
 }
