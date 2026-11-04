@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-mirae-construction-field-director-park-dosik
     companyId: mirae-construction
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 25338d5afcc75e14bac3d24afb5ea544, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: ebc60401740ecca46a62b8a7aeccadc5, type: 3}
       displayName: "\uBC15\uB3C4\uC2DD"
       role: "\uD604\uC7A5\uCD1D\uAD04"
       affiliation: "\uBBF8\uB798\uAC74\uC124"

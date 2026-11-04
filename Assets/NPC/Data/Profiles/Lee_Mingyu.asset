@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-economic-reporter-lee-mingyu
     companyId: external-network
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 3d012b8fc14f0b34d8210473f3b16567, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: fe291ab741eb8b94297055d55a24d36b, type: 3}
       displayName: "\uC774\uBBFC\uADDC"
       role: "\uACBD\uC81C\uC9C0 \uAE30\uC790"
       affiliation: "\uC678\uBD80 \uC778\uBB3C"

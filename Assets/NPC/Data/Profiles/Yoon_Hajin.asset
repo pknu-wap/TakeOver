@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-broker-yoon-hajin
     companyId: external-network
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 7924ed62abf368541b0b2394a4a9d55a, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 422793b121c24244e99fefb94f88ed17, type: 3}
       displayName: "\uC724\uD558\uC9C4"
       role: "M&A \uBE0C\uB85C\uCEE4"
       affiliation: "\uC678\uBD80 \uAC70\uB798\uB9DD"

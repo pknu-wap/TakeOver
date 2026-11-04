@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
   eventId: press_interview_01
   title: "\uACBD\uC81C\uC9C0 \uC778\uD130\uBDF0 \uC694\uCCAD"
-  image: {fileID: 21300000, guid: 8599c9553061aeb43825a5890555ccfa, type: 3}
+  image: {fileID: 21300000, guid: 5e4f9d2677ff7d14485fc7b35103459b, type: 3}
+  cardImage: {fileID: 21300000, guid: 50c03d92d4dbc3141a37c95c1ddcd7c6, type: 3}
   highlightImage: {fileID: 21300000, guid: 8348b3813dd8f2447b2145b80a176ab2, type: 3}
   description: "\uACBD\uC81C\uC9C0 \uAE30\uC790 \uC774\uBBFC\uADDC\uAC00 \uC2E0\uC0DD
     \uD22C\uC790\uD68C\uC0AC \uB300\uD45C\uC778 \uB2F9\uC2E0\uC744 \uC778\uD130\uBDF0\uD558\uACE0

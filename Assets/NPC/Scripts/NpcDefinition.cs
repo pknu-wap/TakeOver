@@ -13,7 +13,10 @@ namespace TakeOver.NPC
         {
             var copy = JsonUtility.FromJson<NpcStateRegistry.NpcSeed>(JsonUtility.ToJson(seed));
             if (copy.profile != null && seed.profile != null)
+            {
                 copy.profile.standingIllustration = seed.profile.standingIllustration;
+                copy.profile.dimmedStandingIllustration = seed.profile.dimmedStandingIllustration;
+            }
             return copy;
         }
     }

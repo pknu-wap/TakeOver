@@ -22,6 +22,7 @@ namespace TakeOver.Events
         [SerializeField] private Image playerIllustration;
         [SerializeField] private Sprite playerStandingIllustration;
         [SerializeField] private Sprite playerReplyIllustration;
+        [SerializeField] private Sprite playerDimmedIllustration;
         [SerializeField] private RectTransform playerInitialFrame;
         [SerializeField] private RectTransform playerReplyFrame;
         [SerializeField] private Button closeButton;
@@ -32,6 +33,9 @@ namespace TakeOver.Events
         private Vector2 playerPosition;
         private bool choiceSubmitted;
         private Coroutine resultRoutine;
+        private Sprite npcStandingIllustration;
+        private Sprite npcDimmedIllustration;
+        private Sprite currentPlayerIllustration;
 
         private void Awake()
         {
@@ -40,7 +44,8 @@ namespace TakeOver.Events
             playerPosition = ((RectTransform)playerBlock.transform).anchoredPosition;
         }
 
-        public void show(TodayEventInfo info, EventSystemController controller, Sprite speakerIllustration = null)
+        public void show(TodayEventInfo info, EventSystemController controller, Sprite speakerIllustration = null,
+            Sprite speakerDimmedIllustration = null)
         {
             stopResultRoutine();
             choiceSubmitted = false;
@@ -54,8 +59,11 @@ namespace TakeOver.Events
             responseSpeakerText.text = speakerText.text;
             dialogueText.text = info.dialogue;
             npcIllustration.sprite = speakerIllustration;
+            npcStandingIllustration = speakerIllustration;
+            npcDimmedIllustration = speakerDimmedIllustration;
             npcIllustration.gameObject.SetActive(speakerIllustration != null);
             playerIllustration.sprite = playerStandingIllustration;
+            currentPlayerIllustration = playerStandingIllustration;
             setPlayerFrame(playerInitialFrame);
             playerIllustration.gameObject.SetActive(playerStandingIllustration != null);
             highlightPlayer(false);
@@ -144,6 +152,7 @@ namespace TakeOver.Events
             ((RectTransform)responseBlock.transform).anchoredPosition = responsePosition + (hasPlayerLine ? Vector2.zero :
                 Vector2.up * (speakerText.rectTransform.localPosition.y - responseSpeakerText.rectTransform.localPosition.y));
             playerIllustration.sprite = playerReplyIllustration;
+            currentPlayerIllustration = playerReplyIllustration;
             setPlayerFrame(playerReplyFrame);
             if (hasPlayerLine)
             {
@@ -186,8 +195,12 @@ namespace TakeOver.Events
         private void highlightPlayer(bool highlighted)
         {
             Color dimmed = new Color(0.65f, 0.65f, 0.65f, 1);
-            playerIllustration.color = highlighted ? Color.white : dimmed;
-            npcIllustration.color = highlighted ? dimmed : Color.white;
+            playerIllustration.sprite = !highlighted && playerDimmedIllustration != null ?
+                playerDimmedIllustration : currentPlayerIllustration;
+            playerIllustration.color = highlighted || playerDimmedIllustration != null ? Color.white : dimmed;
+            npcIllustration.sprite = highlighted && npcDimmedIllustration != null ?
+                npcDimmedIllustration : npcStandingIllustration;
+            npcIllustration.color = !highlighted || npcDimmedIllustration != null ? Color.white : dimmed;
         }
 
         private IEnumerator fadeIn(CanvasGroup block)

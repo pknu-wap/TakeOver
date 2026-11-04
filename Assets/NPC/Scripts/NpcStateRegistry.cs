@@ -12,6 +12,7 @@ namespace TakeOver.NPC
         {
             // 스탠딩은 원본 SO에서 참조한다. JsonUtility 사본에 Unity 객체 참조를 직렬화해 옮기지 않는다.
             public Sprite standingIllustration;
+            public Sprite dimmedStandingIllustration;
             public string displayName;
             public string role;
             public string affiliation;

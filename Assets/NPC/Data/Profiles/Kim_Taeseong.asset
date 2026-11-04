@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-institutional-investor-kim-taeseong
     companyId: external-network
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 19c4990f7686f4d49b8c0ca95d675ea4, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 0cae5acf2b8cfdc47b0a90ceb867182d, type: 3}
       displayName: "\uAE40\uD0DC\uC131"
       role: "\uAE30\uAD00\uD22C\uC790\uC790"
       affiliation: "\uC678\uBD80 \uD22C\uC790\uC790"

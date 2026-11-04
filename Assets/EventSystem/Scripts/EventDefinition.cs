@@ -72,6 +72,7 @@ namespace TakeOver.Events
         [SerializeField] private string eventId;
         [SerializeField] private string title;
         [SerializeField] private Sprite image;
+        [SerializeField] private Sprite cardImage;
         [SerializeField] private Sprite highlightImage;
         [SerializeField, TextArea(3, 8)] private string description;
         [SerializeField, Min(0)] private int apCost;
@@ -105,6 +106,7 @@ namespace TakeOver.Events
         public string getId() => eventId;
         public string getTitle() => title;
         public Sprite getImage() => image;
+        public Sprite getCardImage() => cardImage;
         public Sprite getHighlightImage() => highlightImage;
         public string getDescription() => description;
         public int getApCost() => apCost;

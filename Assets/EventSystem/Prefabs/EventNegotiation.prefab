@@ -261,8 +261,9 @@ MonoBehaviour:
   responseText: {fileID: 5414412525543171321}
   npcIllustration: {fileID: 3371826395228997445}
   playerIllustration: {fileID: 8582841913948749253}
-  playerStandingIllustration: {fileID: 21300000, guid: 4b8770406f9b70549ade371b79eeb836, type: 3}
-  playerReplyIllustration: {fileID: 21300000, guid: 4501e572460216d43b620ef32a236882, type: 3}
+  playerStandingIllustration: {fileID: 21300000, guid: 2e26f4928160a7d429af82e49f52d353, type: 3}
+  playerReplyIllustration: {fileID: 21300000, guid: 2e26f4928160a7d429af82e49f52d353, type: 3}
+  playerDimmedIllustration: {fileID: 21300000, guid: 64ed30aa8e3c5f04eb485ec5fd247f50, type: 3}
   playerInitialFrame: {fileID: 3555026105652586826}
   playerReplyFrame: {fileID: 6731719845167484566}
   closeButton: {fileID: 8322524135283561771}
