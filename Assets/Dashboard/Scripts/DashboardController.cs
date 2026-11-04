@@ -44,11 +44,6 @@ public class DashboardController : MonoBehaviour
         UpdateTopBarUI();
     }
 
-    public void ResetAP()
-    {
-        if (actionPointService != null) actionPointService.Restore();
-    }
-
     private void UpdateTopBarUI()
     {
         if (cashText != null)
