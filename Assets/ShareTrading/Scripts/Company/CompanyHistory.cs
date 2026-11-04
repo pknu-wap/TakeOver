@@ -10,6 +10,7 @@ public class CompanyHistory
         = new List<CompanyHistoryEntry>();
 
     public IReadOnlyList<CompanyHistoryEntry> History => history;
+    internal List<CompanyHistoryEntry> Entries => history;
 
     public CompanyHistory(CompanyState state)
     {
