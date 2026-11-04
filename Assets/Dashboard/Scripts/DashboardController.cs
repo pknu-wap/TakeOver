@@ -44,25 +44,6 @@ public class DashboardController : MonoBehaviour
         UpdateTopBarUI();
     }
 
-    private void OnNegotiationStarted(NegotiationStartedInfo info)
-    {
-        ConsumeAP(info.apCost);
-    }
-
-    public void ConsumeAP(int amount)
-    {
-        currentAp = Mathf.Max(0, currentAp - amount);
-        UpdateTopBarUI();
-    }
-
-    public bool CanConsumeAP(int amount) => amount >= 0 && currentAp >= amount;
-
-    public void ResetAP()
-    {
-        currentAp = maxAp;
-        UpdateTopBarUI();
-    }
-
     private void UpdateTopBarUI()
     {
         if (cashText != null)

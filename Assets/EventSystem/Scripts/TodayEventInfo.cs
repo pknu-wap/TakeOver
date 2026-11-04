@@ -11,6 +11,8 @@ namespace TakeOver.Events
         public string speakerLabel => definition.getSpeakerSource() == EventSpeakerSource.Fixed
             ? $"{speakerRole} {speakerName}".Trim()
             : $"{companyName} {speakerRole} {speakerName}".Trim();
+        public UnityEngine.Sprite cardImage => definition.getCardImageFor(speakerNpcId);
+        public UnityEngine.Sprite popupImage => definition.getImageFor(speakerNpcId);
         public string title => resolve(definition.getTitle());
         public string description => resolve(definition.getDescription());
         public string dialogue => resolve(definition.getDialogue());
