@@ -25,7 +25,7 @@ namespace TakeOver.Events
         {
             hideEnergyNotice();
             EventDefinition definition = info.definition;
-            eventImage.sprite = definition.getImage();
+            eventImage.sprite = info.popupImage;
             bool hasArt = eventImage.sprite != null;
             eventImage.gameObject.SetActive(hasArt);
             fallbackPanel.SetActive(!hasArt);

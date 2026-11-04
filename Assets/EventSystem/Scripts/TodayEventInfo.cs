@@ -8,6 +8,8 @@ namespace TakeOver.Events
         public string speakerNpcId { get; }
         public string speakerName { get; }
         public string speakerRole { get; }
+        public UnityEngine.Sprite cardImage => definition.getCardImageFor(speakerNpcId);
+        public UnityEngine.Sprite popupImage => definition.getImageFor(speakerNpcId);
         public string title => resolve(definition.getTitle());
         public string description => resolve(definition.getDescription());
         public string dialogue => resolve(definition.getDialogue());
