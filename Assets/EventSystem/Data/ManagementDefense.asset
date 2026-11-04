@@ -16,6 +16,10 @@ MonoBehaviour:
   title: "\uACBD\uC601\uC9C4\uC758 \uBC29\uC5B4"
   image: {fileID: 21300000, guid: b2020d12458451d4c92855da7260657a, type: 3}
   cardImage: {fileID: 21300000, guid: 176d2ca1796791e43b3058ce38a3b370, type: 3}
+  npcArts:
+  - npcId: npc-mirae-construction-ceo-kang-junhyeok
+    cardImage: {fileID: 21300000, guid: 92502223829c12044a7e948ad4c7a44a, type: 3}
+    popupImage: {fileID: 21300000, guid: e4c7fba1a221735409f619bd3ea46484, type: 3}
   highlightImage: {fileID: 0}
   negotiationBackground: {fileID: 21300000, guid: f1ded8a9014741346bd4239f25c97159, type: 3}
   description: "{company} {speaker} \uB300\uD45C. \uC9C0\uBD84 \uACF5\uC2DC\uB97C
@@ -23,14 +27,14 @@ MonoBehaviour:
   apCost: 1
   startButtonText: "\uB9CC\uB09C\uB2E4"
   companyIds: []
-  speakerNpcId:
+  speakerNpcId: 
   speakerName: 
   speakerRole: 
   dialogue: "\uACF5\uC2DC\uB97C \uBD24\uC2B5\uB2C8\uB2E4. \uC6B0\uB9AC \uD68C\uC0AC
     \uC9C0\uBD84\uC744 \uC65C \uC0AC\uB4E4\uC774\uB294 \uAC81\uB2C8\uAE4C? \uD22C\uC790\uC785\uB2C8\uAE4C,
     \uACBD\uC601\uAD8C\uC785\uB2C8\uAE4C?"
-  companyQuestion:
-  companyPlayerLine:
+  companyQuestion: 
+  companyPlayerLine: 
   choices:
   - choiceText: "\uACBD\uC601\uC9C4\uACFC \uD68C\uC0AC \uC774\uB984\uC744 \uC9C0\uD0A4\uACA0\uB2E4\uACE0
       \uC57D\uC18D\uD55C\uB2E4"

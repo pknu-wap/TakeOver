@@ -7,6 +7,8 @@ namespace TakeOver.Events
     public sealed class EventDetailView : MonoBehaviour
     {
         [SerializeField] private RectTransform layoutRoot;
+        [SerializeField] private GameObject fallbackPanel;
+        [SerializeField] private GameObject artMask;
         [SerializeField] private Image eventImage;
         [SerializeField] private Image highlightImage;
         [SerializeField] private Text titleText;
@@ -23,8 +25,11 @@ namespace TakeOver.Events
         {
             hideEnergyNotice();
             EventDefinition definition = info.definition;
-            eventImage.sprite = definition.getImage();
-            eventImage.gameObject.SetActive(eventImage.sprite != null);
+            eventImage.sprite = info.popupImage;
+            bool hasArt = eventImage.sprite != null;
+            eventImage.gameObject.SetActive(hasArt);
+            fallbackPanel.SetActive(!hasArt);
+            artMask.SetActive(!hasArt);
             highlightImage.sprite = definition.getHighlightImage();
             highlightImage.gameObject.SetActive(highlightImage.sprite != null);
             titleText.text = info.title;

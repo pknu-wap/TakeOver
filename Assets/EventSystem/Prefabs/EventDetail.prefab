@@ -151,7 +151,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5579683352675603705}
   - {fileID: 2584686709178065177}
   - {fileID: 3774894849559321306}
   m_Father: {fileID: 1937111450029824723}
@@ -381,6 +380,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TakeOver.Events::TakeOver.Events.EventDetailView
   layoutRoot: {fileID: 1937111450029824723}
+  fallbackPanel: {fileID: 6660125725802079056}
+  artMask: {fileID: 621183441798495955}
   eventImage: {fileID: 871183720754629021}
   highlightImage: {fileID: 3238545936313390736}
   titleText: {fileID: 9192737623116859986}
@@ -982,12 +983,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9222667507860628274}
+  m_Father: {fileID: 1937111450029824723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 945, y: 504}
+  m_AnchoredPosition: {x: 468, y: -286}
+  m_SizeDelta: {x: 982, y: 541}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4669437987898969905
 CanvasRenderer:
@@ -1548,7 +1549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
+  m_Color: {r: 0.06666667, g: 0.06666667, b: 0.06666667, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1558,7 +1559,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: e921fcde249fb4244bcfbf3bb484830a, type: 3}
     m_FontSize: 16
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -1678,6 +1679,7 @@ RectTransform:
   m_Children:
   - {fileID: 518930708227557005}
   - {fileID: 9222667507860628274}
+  - {fileID: 5579683352675603705}
   - {fileID: 2875877167756817271}
   - {fileID: 7194209452184166765}
   - {fileID: 8012039650859607966}

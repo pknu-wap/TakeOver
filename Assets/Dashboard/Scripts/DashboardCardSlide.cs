@@ -232,7 +232,7 @@ public class DashboardCardSlide : MonoBehaviour
             if (eventInfo != null)
             {
                 if (cardUI.cardImage != null)
-                    cardUI.cardImage.sprite = eventInfo.definition.getCardImage();
+                    cardUI.cardImage.sprite = eventInfo.cardImage;
 
                 if (cardUI.speakerText != null)
                     cardUI.speakerText.text = $"{eventInfo.speakerRole} {eventInfo.speakerName}";
