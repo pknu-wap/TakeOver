@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-investigative-reporter-jung-sua
     companyId: external-network
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: d8d3f113a14a1de47b97d1e11657d5d6, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 3f12e5f3fc91f2547853193dd02860ed, type: 3}
       displayName: "\uC815\uC218\uC544"
       role: "\uD0D0\uC0AC\uBCF4\uB3C4 \uAE30\uC790"
       affiliation: "\uC678\uBD80 \uC778\uBB3C"

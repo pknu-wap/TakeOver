@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: TakeOver.Events::TakeOver.Events.EventDefinition
   eventId: stock_manipulation_01
   title: "\uC740\uBC00\uD55C \uC8FC\uAC00\uC870\uC791 \uC81C\uC548"
-  image: {fileID: 21300000, guid: 8599c9553061aeb43825a5890555ccfa, type: 3}
-  highlightImage: {fileID: 21300000, guid: 8348b3813dd8f2447b2145b80a176ab2, type: 3}
+  image: {fileID: 21300000, guid: 772f91635ffa1ce469c73aef837352ca, type: 3}
+  cardImage: {fileID: 21300000, guid: 37f92c92828a0e74cb16eef0599c2990, type: 3}
+  highlightImage: {fileID: 0}
   description: "M&A \uBE0C\uB85C\uCEE4 \uC724\uD558\uC9C4\uC774 \uCC3E\uC544\uC654\uB2E4.
     \uC18C\uBE44\uC790 \uBC18\uC751\uC774 \uBC14\uB2E5\uC778 {company} \uAC74\uC73C\uB85C
     \uC8FC\uAC00\uB97C \uB744\uC6CC \uC8FC\uACA0\uB2E4\uB294 \uC81C\uC548\uC774\uB2E4."

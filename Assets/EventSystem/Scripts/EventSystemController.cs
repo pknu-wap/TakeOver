@@ -195,7 +195,8 @@ namespace TakeOver.Events
             screenState = ScreenState.Negotiation;
             detailView.hide();
             negotiationStarted?.Invoke(new NegotiationStartedInfo(activeInfo.definition.getId(), activeInfo.definition.getApCost()));
-            negotiationView.show(activeInfo, this, worldReader.getSpeakerIllustration(activeInfo));
+            negotiationView.show(activeInfo, this, worldReader.getSpeakerIllustration(activeInfo),
+                worldReader.getSpeakerDimmedIllustration(activeInfo));
         }
         private void buildNegotiationChoices(bool companies = false)
         {

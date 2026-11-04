@@ -6586,18 +6586,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardSlider
   cardUIList:
   - cardRect: {fileID: 4258133233194636428}
+    cardImage: {fileID: 777866985000859213}
     speakerText: {fileID: 7067937488505773489}
     apCostText: {fileID: 3169373918080666032}
   - cardRect: {fileID: 725748706887456502}
+    cardImage: {fileID: 7930571748997419586}
     speakerText: {fileID: 1814096586301809214}
     apCostText: {fileID: 2291704757207486881}
   - cardRect: {fileID: 8815425612751714753}
+    cardImage: {fileID: 5571606164250474050}
     speakerText: {fileID: 1183368302474226904}
     apCostText: {fileID: 4057501867276792148}
   - cardRect: {fileID: 1945327021837092419}
+    cardImage: {fileID: 334714564528407866}
     speakerText: {fileID: 8084209540725241276}
     apCostText: {fileID: 3178560872531473276}
   - cardRect: {fileID: 4073875406068059824}
+    cardImage: {fileID: 8779461721862820187}
     speakerText: {fileID: 917386827054027623}
     apCostText: {fileID: 4099468417539197083}
   targetDisplayCount: 5

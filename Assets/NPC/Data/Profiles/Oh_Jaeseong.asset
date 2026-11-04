@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-haneul-food-cfo-oh-jaeseong
     companyId: haneul-food
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 7c3d63bbfa82cce408e7bd709624fe68, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 264d662f967d5c347b2e1bad273c2cac, type: 3}
       displayName: "\uC624\uC7AC\uC131"
       role: CFO
       affiliation: "\uD558\uB298\uC2DD\uD488"
