@@ -31,16 +31,6 @@ public class TopBarIndicatorController : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < tabButtons.Count; i++)
-        {
-            int index = i;
-            if (tabButtons[i] != null)
-            {
-                tabButtons[i].onClick.RemoveAllListeners();
-                tabButtons[i].onClick.AddListener(() => OnTabClicked(index));
-            }
-        }
-
         if (tabButtons.Count > 0 && tabButtons[0] != null && markCurrentTap != null)
         {
             SetIndicatorDirect(0);
