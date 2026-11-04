@@ -10367,8 +10367,6 @@ MonoBehaviour:
   totalAsset: 0
   apText: {fileID: 7076724683237799935}
   apSlider: {fileID: 5518561259382165300}
-  currentAp: 50
-  maxAp: 50
 --- !u!1 &6431113669549517870
 GameObject:
   m_ObjectHideFlags: 0

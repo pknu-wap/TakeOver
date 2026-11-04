@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,12 +13,15 @@ namespace TakeOver.Events
         [SerializeField] private Text descriptionText;
         [SerializeField] private Text apCostText;
         [SerializeField] private Text startButtonText;
+        [SerializeField] private CanvasGroup energyNotice;
         [SerializeField] private Button backButton;
         [SerializeField] private Button startButton;
         [SerializeField] private Button closeButton;
+        private Coroutine energyNoticeRoutine;
 
         public void show(TodayEventInfo info, EventSystemController controller)
         {
+            hideEnergyNotice();
             EventDefinition definition = info.definition;
             eventImage.sprite = definition.getImage();
             eventImage.gameObject.SetActive(eventImage.sprite != null);
@@ -46,6 +50,38 @@ namespace TakeOver.Events
             Rect rect = ((RectTransform)transform).rect;
             layoutRoot.localScale = Vector3.one * Mathf.Min(rect.width / 1920f, rect.height / 1080f);
         }
+
+        public void showInsufficientEnergy()
+        {
+            if (energyNoticeRoutine != null) StopCoroutine(energyNoticeRoutine);
+            energyNotice.transform.SetAsLastSibling();
+            energyNoticeRoutine = StartCoroutine(playEnergyNotice());
+        }
+
+        private IEnumerator playEnergyNotice()
+        {
+            while (energyNotice.alpha < 1f)
+            {
+                energyNotice.alpha = Mathf.MoveTowards(energyNotice.alpha, 1f, Time.unscaledDeltaTime / 0.15f);
+                yield return null;
+            }
+            yield return new WaitForSecondsRealtime(1.5f);
+            while (energyNotice.alpha > 0f)
+            {
+                energyNotice.alpha = Mathf.MoveTowards(energyNotice.alpha, 0f, Time.unscaledDeltaTime / 0.3f);
+                yield return null;
+            }
+            energyNoticeRoutine = null;
+        }
+
+        private void hideEnergyNotice()
+        {
+            if (energyNoticeRoutine != null) StopCoroutine(energyNoticeRoutine);
+            energyNoticeRoutine = null;
+            energyNotice.alpha = 0f;
+        }
+
+        private void OnDisable() => hideEnergyNotice();
 
         public void hide() => gameObject.SetActive(false);
     }
