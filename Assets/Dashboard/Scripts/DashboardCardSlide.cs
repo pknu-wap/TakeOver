@@ -12,6 +12,7 @@ public class DashboardCardSlide : MonoBehaviour
     public struct CardUI
     {
         public RectTransform cardRect;
+        public UnityEngine.UI.Image cardImage;
         public TextMeshProUGUI speakerText;
         public TextMeshProUGUI apCostText;
     }
@@ -397,6 +398,9 @@ public class DashboardCardSlide : MonoBehaviour
 
             if (eventInfo != null)
             {
+                if (cardUI.cardImage != null)
+                    cardUI.cardImage.sprite = eventInfo.cardImage;
+
                 if (cardUI.speakerText != null)
                     cardUI.speakerText.text = eventInfo.speakerLabel;
 

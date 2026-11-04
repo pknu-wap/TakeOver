@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-hansung-industry-ceo-jo-minseok
     companyId: hansung-industry
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 8298786505bf66c4194b3f550818e3d4, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: bd92c50a36ea06d419038ba34c374c35, type: 3}
       displayName: "\uC870\uBBFC\uC11D"
       role: CEO
       affiliation: "\uD55C\uC131\uACF5\uC5C5"

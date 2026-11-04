@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-mirae-construction-ceo-kang-junhyeok
     companyId: mirae-construction
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 1ee2409856f7f1e44bfd7c21245a1f7a, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 38f31400d7dcf6c48b2fa61f93ac7e79, type: 3}
       displayName: "\uAC15\uC900\uD601"
       role: "CEO / \uCC3D\uC5C5\uC790"
       affiliation: "\uBBF8\uB798\uAC74\uC124"

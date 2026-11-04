@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PlayerState
 {
-    public float cash { get; private set; }
-    public float manPower { get; private set; }
-    public float information { get; private set; }
-    public float reputation { get; private set; }
+    public float cash { get; internal set; }
+    public float manPower { get; internal set; }
+    public float information { get; internal set; }
+    public float reputation { get; internal set; }
 
     public PlayerState(
         float initialCash, 

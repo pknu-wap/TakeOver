@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class CompanyMarketState
 {
-    private sealed class ActiveEventImpact
+    internal sealed class ActiveEventImpact
     {
         public MarketEventImpact impact;
         public int remainingTurns;
@@ -10,12 +10,13 @@ public class CompanyMarketState
 
     private readonly List<ActiveEventImpact> activeEvents = new List<ActiveEventImpact>();
 
-    public float npcSentiment { get; private set; }
+    public float npcSentiment { get; internal set; }
     public float eventEvaluationScore { get; private set; }
     public float eventLiquidityScore { get; private set; }
-    public float eventPriceMultiplier { get; private set; } = 1f;
-    public float marketNoise { get; private set; }
+    public float eventPriceMultiplier { get; internal set; } = 1f;
+    public float marketNoise { get; internal set; }
     public int activeEventCount => activeEvents.Count;
+    internal List<ActiveEventImpact> ActiveEvents => activeEvents;
 
     internal void setNpcSentiment(float value)
     {
@@ -61,7 +62,7 @@ public class CompanyMarketState
         marketNoise = CompanyCalculationMath.clamp(noise, -0.02f, 0.02f);
     }
 
-    private void updateEventScores()
+    internal void updateEventScores()
     {
         double evaluation = 0d;
         double liquidity = 0d;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TakeOver.Events;
 
 public class DashboardController : MonoBehaviour
 {
@@ -16,29 +15,27 @@ public class DashboardController : MonoBehaviour
     [Header("Top Bar - AP Cost")]
     [SerializeField] private TextMeshProUGUI apText;
     [SerializeField] private Slider apSlider;
-    [SerializeField] private int currentAp = 50;
-    [SerializeField] private int maxAp = 50;
-
-    private EventSystemController eventSystemController;
+    private ActionPointService actionPointService;
 
     private void Awake()
     {
-        eventSystemController = FindFirstObjectByType<EventSystemController>();
+        actionPointService = FindFirstObjectByType<ActionPointService>();
     }
 
     private void OnEnable()
     {
-        if (eventSystemController != null)
+        if (actionPointService != null)
         {
-            eventSystemController.negotiationStarted += OnNegotiationStarted;
+            actionPointService.Changed += UpdateTopBarUI;
         }
+        UpdateTopBarUI();
     }
 
     private void OnDisable()
     {
-        if (eventSystemController != null)
+        if (actionPointService != null)
         {
-            eventSystemController.negotiationStarted -= OnNegotiationStarted;
+            actionPointService.Changed -= UpdateTopBarUI;
         }
     }
 
@@ -74,13 +71,15 @@ public class DashboardController : MonoBehaviour
         if (totalAssetText != null)
             totalAssetText.text = $"{totalAsset}";
 
+        if (actionPointService == null) return;
+
         if (apText != null)
-            apText.text = $"{currentAp}/{maxAp}";
+            apText.text = $"{actionPointService.Current}/{actionPointService.Max}";
 
         if (apSlider != null)
         {
-            apSlider.maxValue = maxAp;
-            apSlider.value = currentAp;
+            apSlider.maxValue = actionPointService.Max;
+            apSlider.value = actionPointService.Current;
         }
     }
 }

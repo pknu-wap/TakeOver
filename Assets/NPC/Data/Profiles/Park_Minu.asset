@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-dongbang-trading-hr-director-park-minu
     companyId: dongbang-trading
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: c14fff8faf593184c926460e35759051, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 826b7de828dd2584a99df63278c54824, type: 3}
       displayName: "\uBC15\uBBFC\uC6B0"
       role: "\uC778\uC0AC\xB7\uB178\uBB34 \uCC45\uC784\uC790"
       affiliation: "\uB3D9\uBC29\uBB3C\uC0B0"

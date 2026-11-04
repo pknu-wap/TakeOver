@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TakeOver.NPC;
 using TMPro;
 using UnityEngine;
 
@@ -18,11 +19,41 @@ public class CalendarController : MonoBehaviour
     [SerializeField] private Color sundayColor = new Color(0.9f, 0.3f, 0.3f);
     [SerializeField] private Color saturdayColor = new Color(0.4f, 0.6f, 1f);
 
-    private DateTime currentDate = new DateTime(2026, 1, 1);
+    [Header("Start Date (DayPanel과 같은 값)")]
+    [SerializeField] private int startYear = 2026;
+    [SerializeField] private int startMonth = 1;
+    [SerializeField] private int startDay = 1;
 
-    private void Start()
+    private DateTime currentDate = new DateTime(2026, 1, 1);
+    private GameTurnClock turnClock;
+
+    private void OnEnable()
     {
-        UpdateCalendarUI(currentDate);
+        turnClock = FindFirstObjectByType<GameTurnClock>();
+        if (turnClock != null)
+        {
+            turnClock.TurnAdvanced += HandleTurnAdvanced;
+        }
+        RefreshFromTurn();
+    }
+
+    private void OnDisable()
+    {
+        if (turnClock != null)
+        {
+            turnClock.TurnAdvanced -= HandleTurnAdvanced;
+        }
+    }
+
+    private void HandleTurnAdvanced(int newTurn)
+    {
+        RefreshFromTurn();
+    }
+
+    private void RefreshFromTurn()
+    {
+        int turn = turnClock != null ? turnClock.CurrentTurn : 1;
+        UpdateCalendarUI(new DateTime(startYear, startMonth, startDay).AddDays(turn - 1));
     }
 
     public void UpdateCalendarUI(DateTime targetDate)
@@ -86,10 +117,5 @@ public class CalendarController : MonoBehaviour
             DayOfWeek.Saturday => "토",
             _ => ""
         };
-    }
-
-    public void AddDays(int days)
-    {
-        UpdateCalendarUI(currentDate.AddDays(days));
     }
 }

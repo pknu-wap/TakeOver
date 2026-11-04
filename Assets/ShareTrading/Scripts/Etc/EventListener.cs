@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using TakeOver.Events;
 using UnityEngine;
 
 public sealed class EventListener : MonoBehaviour
 {
     private EventSystemController eventSystem;
-    [SerializeField] private Player player;
     [SerializeField] private Marketdata marketData;
     [SerializeField] private EventStockmanipulationAccept eventStockmanipulationAccept;
     [SerializeField] private EventGreenmailAccept eventGreenmailAccept;
@@ -50,10 +48,9 @@ public sealed class EventListener : MonoBehaviour
         }
     }
 
-    public void applyEventAcceptEffect(string companyID, float cashDelta)
+    public void applyEventAcceptEffect(string companyID)
     {
-        player.state.addCash(cashDelta);
-        Debug.Log($"이벤트 결과 반영: companyID={companyID}, cashDelta={cashDelta}, playerCash={player.state.cash}", this);
+        eventEffects.applyEventAcceptEffect(companyID);
     }
 
     // 시장 효과 전달 방식이 확정될 때까지 미호출

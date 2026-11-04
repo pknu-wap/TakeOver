@@ -78,6 +78,12 @@ namespace TakeOver.Events
                 && seed.profile.standingIllustration != null) return seed.profile.standingIllustration;
             return worldData != null ? worldData.getSpeakerIllustration(info.speakerName) : null;
         }
+        public Sprite getSpeakerDimmedIllustration(TodayEventInfo info)
+        {
+            if (registry != null && registry.TryGetProfile(info.speakerNpcId, out var seed)
+                && seed.profile.dimmedStandingIllustration != null) return seed.profile.dimmedStandingIllustration;
+            return worldData != null ? worldData.getSpeakerDimmedIllustration(info.speakerName) : null;
+        }
         public NpcRelationState getNpcRelation(string npcId) =>
             registry != null && registry.TryGet(npcId, out NpcRuntimeState state) ? state.relation : default;
 

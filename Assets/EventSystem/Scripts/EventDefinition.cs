@@ -12,6 +12,14 @@ namespace TakeOver.Events
     public enum EventChoiceGeneration { Fixed, OwnedCompanies }
 
     [Serializable]
+    public sealed class EventNpcArt
+    {
+        public string npcId;
+        public Sprite cardImage;
+        public Sprite popupImage;
+    }
+
+    [Serializable]
     public sealed class EventRestructuringSpeaker
     {
         public string companyId;
@@ -72,7 +80,10 @@ namespace TakeOver.Events
         [SerializeField] private string eventId;
         [SerializeField] private string title;
         [SerializeField] private Sprite image;
+        [SerializeField] private Sprite cardImage;
+        [SerializeField] private List<EventNpcArt> npcArts = new List<EventNpcArt>();
         [SerializeField] private Sprite highlightImage;
+        [SerializeField] private Sprite negotiationBackground;
         [SerializeField, TextArea(3, 8)] private string description;
         [SerializeField, Min(0)] private int apCost;
         [SerializeField] private string startButtonText;
@@ -105,7 +116,19 @@ namespace TakeOver.Events
         public string getId() => eventId;
         public string getTitle() => title;
         public Sprite getImage() => image;
+        public Sprite getCardImage() => cardImage;
+        public Sprite getCardImageFor(string npcId)
+        {
+            EventNpcArt art = npcArts.Find(item => item.npcId == npcId);
+            return art != null && art.cardImage != null ? art.cardImage : getCardImage();
+        }
+        public Sprite getImageFor(string npcId)
+        {
+            EventNpcArt art = npcArts.Find(item => item.npcId == npcId);
+            return art != null && art.popupImage != null ? art.popupImage : getImage();
+        }
         public Sprite getHighlightImage() => highlightImage;
+        public Sprite getNegotiationBackground() => negotiationBackground;
         public string getDescription() => description;
         public int getApCost() => apCost;
         public string getStartButtonText() => startButtonText;
