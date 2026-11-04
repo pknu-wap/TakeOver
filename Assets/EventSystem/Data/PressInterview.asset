@@ -17,6 +17,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 5e4f9d2677ff7d14485fc7b35103459b, type: 3}
   cardImage: {fileID: 21300000, guid: 50c03d92d4dbc3141a37c95c1ddcd7c6, type: 3}
   highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 21300000, guid: 1b2b6649c93fce445b9d1a65eb733ffb, type: 3}
   description: "\uACBD\uC81C\uC9C0 \uAE30\uC790 \uC774\uBBFC\uADDC\uAC00 \uC2E0\uC0DD
     \uD22C\uC790\uD68C\uC0AC \uB300\uD45C\uC778 \uB2F9\uC2E0\uC744 \uC778\uD130\uBDF0\uD558\uACE0
     \uC2F6\uC5B4 \uD55C\uB2E4."

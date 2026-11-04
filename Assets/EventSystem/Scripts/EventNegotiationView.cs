@@ -20,6 +20,7 @@ namespace TakeOver.Events
         [SerializeField] private Text responseText;
         [SerializeField] private Image npcIllustration;
         [SerializeField] private Image playerIllustration;
+        [SerializeField] private Image roomBackground;
         [SerializeField] private Sprite playerStandingIllustration;
         [SerializeField] private Sprite playerReplyIllustration;
         [SerializeField] private Sprite playerDimmedIllustration;
@@ -36,9 +37,11 @@ namespace TakeOver.Events
         private Sprite npcStandingIllustration;
         private Sprite npcDimmedIllustration;
         private Sprite currentPlayerIllustration;
+        private Sprite defaultBackground;
 
         private void Awake()
         {
+            if (defaultBackground == null) defaultBackground = roomBackground.sprite;
             questionPosition = ((RectTransform)questionBlock.transform).anchoredPosition;
             responsePosition = ((RectTransform)responseBlock.transform).anchoredPosition;
             playerPosition = ((RectTransform)playerBlock.transform).anchoredPosition;
@@ -49,6 +52,9 @@ namespace TakeOver.Events
         {
             stopResultRoutine();
             choiceSubmitted = false;
+            if (defaultBackground == null) defaultBackground = roomBackground.sprite;
+            Sprite background = info.definition.getNegotiationBackground();
+            roomBackground.sprite = background != null ? background : defaultBackground;
             ((RectTransform)questionBlock.transform).anchoredPosition = questionPosition;
             ((RectTransform)playerBlock.transform).anchoredPosition = playerPosition;
             ((RectTransform)responseBlock.transform).anchoredPosition = responsePosition;

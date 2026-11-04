@@ -17,6 +17,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 7d714964754218147960c156ac4cf78f, type: 3}
   cardImage: {fileID: 21300000, guid: c540404617b92194591ff62394967d14, type: 3}
   highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 21300000, guid: 0c3948cb5bd127242a3ec8551eec1e98, type: 3}
   description: "{company} {speakerRole} {speaker}. \uC778\uB825 \uAC10\uCD95 \uACC4\uD68D\uC744
     \uB450\uACE0 \uBA74\uB2F4\uC744 \uC694\uCCAD\uD588\uB2E4."
   apCost: 2
