@@ -6586,18 +6586,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardSlider
   cardUIList:
   - cardRect: {fileID: 4258133233194636428}
+    cardImage: {fileID: 777866985000859213}
     speakerText: {fileID: 7067937488505773489}
     apCostText: {fileID: 3169373918080666032}
   - cardRect: {fileID: 725748706887456502}
+    cardImage: {fileID: 7930571748997419586}
     speakerText: {fileID: 1814096586301809214}
     apCostText: {fileID: 2291704757207486881}
   - cardRect: {fileID: 8815425612751714753}
+    cardImage: {fileID: 5571606164250474050}
     speakerText: {fileID: 1183368302474226904}
     apCostText: {fileID: 4057501867276792148}
   - cardRect: {fileID: 1945327021837092419}
+    cardImage: {fileID: 334714564528407866}
     speakerText: {fileID: 8084209540725241276}
     apCostText: {fileID: 3178560872531473276}
   - cardRect: {fileID: 4073875406068059824}
+    cardImage: {fileID: 8779461721862820187}
     speakerText: {fileID: 917386827054027623}
     apCostText: {fileID: 4099468417539197083}
   targetDisplayCount: 5
@@ -9001,8 +9006,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06b137b8340fe6488d3d05d920941fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaySkipController
-  calendarController: {fileID: 4527972160195586314}
-  dashboardController: {fileID: 0}
   daySkipButton: {fileID: 2571049024344370799}
 --- !u!1 &5323748145209920513
 GameObject:
@@ -10362,8 +10365,6 @@ MonoBehaviour:
   totalAsset: 0
   apText: {fileID: 7076724683237799935}
   apSlider: {fileID: 5518561259382165300}
-  currentAp: 50
-  maxAp: 50
 --- !u!1 &6431113669549517870
 GameObject:
   m_ObjectHideFlags: 0
@@ -11062,6 +11063,9 @@ MonoBehaviour:
   selectedTextColor: {r: 0, g: 0, b: 0, a: 1}
   sundayColor: {r: 0.9, g: 0.3, b: 0.3, a: 1}
   saturdayColor: {r: 0.4, g: 0.6, b: 1, a: 1}
+  startYear: 2026
+  startMonth: 1
+  startDay: 1
 --- !u!1 &6804730142182935614
 GameObject:
   m_ObjectHideFlags: 0

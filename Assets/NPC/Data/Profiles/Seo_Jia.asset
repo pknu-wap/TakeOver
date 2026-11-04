@@ -34,7 +34,8 @@ MonoBehaviour:
     npcId: npc-mirae-construction-cfo-seo-jia
     companyId: mirae-construction
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 452a5a10a14dcaa40af28f5ccb302b71, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: e6c86315a1fd5a54c9ec5155d11a7b9e, type: 3}
       displayName: "\uC11C\uC9C0\uC544"
       role: CFO
       affiliation: "\uBBF8\uB798\uAC74\uC124"

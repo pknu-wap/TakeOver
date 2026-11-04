@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
   eventId: political_donation_01
   title: "\uC815\uCE58 \uD6C4\uC6D0 \uC694\uCCAD"
-  image: {fileID: 21300000, guid: 8599c9553061aeb43825a5890555ccfa, type: 3}
-  highlightImage: {fileID: 21300000, guid: 8348b3813dd8f2447b2145b80a176ab2, type: 3}
+  image: {fileID: 21300000, guid: c47b5105ac02af849ba7b3c27458f879, type: 3}
+  cardImage: {fileID: 21300000, guid: be66ed14b8db54e428ffc2b17aa1dd37, type: 3}
+  highlightImage: {fileID: 0}
   description: "\uC815\uCE58 \uB85C\uBE44\uC2A4\uD2B8 \uBC15\uC0C1\uD604\uC774 \uD6C4\uC6D0\uC744
     \uC694\uCCAD\uD574 \uC654\uB2E4. \uB300\uAC00\uB85C \uC9C0\uBD84 \uACF5\uC2DC
     \uADDC\uC815\uC744 \uB290\uC2A8\uD558\uAC8C \uB9CC\uB4E4\uC5B4 \uC8FC\uACA0\uB2E4\uACE0

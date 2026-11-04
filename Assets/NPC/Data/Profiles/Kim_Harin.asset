@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-haneul-food-ceo-kim-harin
     companyId: haneul-food
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 78c838ba73b33d84589843d32505324c, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 96b1c3f49270bff4bba7ead9ad86f2b8, type: 3}
       displayName: "\uAE40\uD558\uB9B0"
       role: CEO
       affiliation: "\uD558\uB298\uC2DD\uD488"

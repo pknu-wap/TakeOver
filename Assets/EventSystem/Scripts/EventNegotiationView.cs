@@ -20,8 +20,10 @@ namespace TakeOver.Events
         [SerializeField] private Text responseText;
         [SerializeField] private Image npcIllustration;
         [SerializeField] private Image playerIllustration;
+        [SerializeField] private Image roomBackground;
         [SerializeField] private Sprite playerStandingIllustration;
         [SerializeField] private Sprite playerReplyIllustration;
+        [SerializeField] private Sprite playerDimmedIllustration;
         [SerializeField] private RectTransform playerInitialFrame;
         [SerializeField] private RectTransform playerReplyFrame;
         [SerializeField] private Button closeButton;
@@ -32,18 +34,27 @@ namespace TakeOver.Events
         private Vector2 playerPosition;
         private bool choiceSubmitted;
         private Coroutine resultRoutine;
+        private Sprite npcStandingIllustration;
+        private Sprite npcDimmedIllustration;
+        private Sprite currentPlayerIllustration;
+        private Sprite defaultBackground;
 
         private void Awake()
         {
+            if (defaultBackground == null) defaultBackground = roomBackground.sprite;
             questionPosition = ((RectTransform)questionBlock.transform).anchoredPosition;
             responsePosition = ((RectTransform)responseBlock.transform).anchoredPosition;
             playerPosition = ((RectTransform)playerBlock.transform).anchoredPosition;
         }
 
-        public void show(TodayEventInfo info, EventSystemController controller, Sprite speakerIllustration = null)
+        public void show(TodayEventInfo info, EventSystemController controller, Sprite speakerIllustration = null,
+            Sprite speakerDimmedIllustration = null)
         {
             stopResultRoutine();
             choiceSubmitted = false;
+            if (defaultBackground == null) defaultBackground = roomBackground.sprite;
+            Sprite background = info.definition.getNegotiationBackground();
+            roomBackground.sprite = background != null ? background : defaultBackground;
             ((RectTransform)questionBlock.transform).anchoredPosition = questionPosition;
             ((RectTransform)playerBlock.transform).anchoredPosition = playerPosition;
             ((RectTransform)responseBlock.transform).anchoredPosition = responsePosition;
@@ -54,8 +65,11 @@ namespace TakeOver.Events
             responseSpeakerText.text = speakerText.text;
             dialogueText.text = info.dialogue;
             npcIllustration.sprite = speakerIllustration;
+            npcStandingIllustration = speakerIllustration;
+            npcDimmedIllustration = speakerDimmedIllustration;
             npcIllustration.gameObject.SetActive(speakerIllustration != null);
             playerIllustration.sprite = playerStandingIllustration;
+            currentPlayerIllustration = playerStandingIllustration;
             setPlayerFrame(playerInitialFrame);
             playerIllustration.gameObject.SetActive(playerStandingIllustration != null);
             highlightPlayer(false);
@@ -75,20 +89,27 @@ namespace TakeOver.Events
             clearChoices();
             choicesRoot.gameObject.SetActive(true);
             choiceTemplate.gameObject.SetActive(false);
-            for (int i = 0; i < controller.getNegotiationChoiceCount(); i++)
+            int choiceCount = controller.getNegotiationChoiceCount();
+            for (int i = 0; i < choiceCount; i++)
             {
                 int choiceIndex = i;
                 Button button = Instantiate(choiceTemplate, choicesRoot);
                 button.name = $"Choice{choiceIndex}";
+                RectTransform buttonRect = (RectTransform)button.transform;
+                buttonRect.anchorMin = buttonRect.anchorMax = new Vector2(0, 1);
+                buttonRect.pivot = new Vector2(0, 1);
+                buttonRect.anchoredPosition = new Vector2(1249, -(628 - (choiceCount - 1 - i) * 88)) * (2f / 3f);
+                buttonRect.sizeDelta = new Vector2(454, 70) * (2f / 3f);
                 Text title = button.transform.Find("Title").GetComponent<Text>();
                 Text description = button.transform.Find("Description").GetComponent<Text>();
                 string detail = info.resolve(controller.getNegotiationChoiceDescription(i));
                 bool hasDescription = !string.IsNullOrWhiteSpace(detail);
                 title.text = info.resolve(controller.getNegotiationChoiceText(i));
-                title.rectTransform.anchorMin = new Vector2(0, hasDescription ? 0.44f : 0);
+                title.rectTransform.anchorMin = new Vector2(0, 1);
                 title.rectTransform.anchorMax = Vector2.one;
-                title.rectTransform.offsetMin = new Vector2(12, hasDescription ? 0 : 12);
-                title.rectTransform.offsetMax = new Vector2(-12, -12);
+                title.rectTransform.pivot = new Vector2(0, 1);
+                title.rectTransform.anchoredPosition = new Vector2(41, -9) * (2f / 3f);
+                title.rectTransform.sizeDelta = new Vector2(-41, 25) * (2f / 3f);
                 description.text = detail;
                 description.gameObject.SetActive(hasDescription);
                 button.onClick.RemoveAllListeners();
@@ -144,6 +165,7 @@ namespace TakeOver.Events
             ((RectTransform)responseBlock.transform).anchoredPosition = responsePosition + (hasPlayerLine ? Vector2.zero :
                 Vector2.up * (speakerText.rectTransform.localPosition.y - responseSpeakerText.rectTransform.localPosition.y));
             playerIllustration.sprite = playerReplyIllustration;
+            currentPlayerIllustration = playerReplyIllustration;
             setPlayerFrame(playerReplyFrame);
             if (hasPlayerLine)
             {
@@ -186,8 +208,12 @@ namespace TakeOver.Events
         private void highlightPlayer(bool highlighted)
         {
             Color dimmed = new Color(0.65f, 0.65f, 0.65f, 1);
-            playerIllustration.color = highlighted ? Color.white : dimmed;
-            npcIllustration.color = highlighted ? dimmed : Color.white;
+            playerIllustration.sprite = !highlighted && playerDimmedIllustration != null ?
+                playerDimmedIllustration : currentPlayerIllustration;
+            playerIllustration.color = highlighted || playerDimmedIllustration != null ? Color.white : dimmed;
+            npcIllustration.sprite = highlighted && npcDimmedIllustration != null ?
+                npcDimmedIllustration : npcStandingIllustration;
+            npcIllustration.color = !highlighted || npcDimmedIllustration != null ? Color.white : dimmed;
         }
 
         private IEnumerator fadeIn(CanvasGroup block)

@@ -22,7 +22,8 @@ MonoBehaviour:
     npcId: npc-dongbang-trading-ceo-kang-jaehyeon
     companyId: dongbang-trading
     profile:
-      standingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 1888bf53b7e9aac4e88f7363a0da552b, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 8973fed999183404c831143f5fe84b28, type: 3}
       displayName: "\uAC15\uC7AC\uD604"
       role: CEO
       affiliation: "\uB3D9\uBC29\uBB3C\uC0B0"

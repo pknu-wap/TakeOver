@@ -35,6 +35,7 @@ namespace TakeOver.Events
         private TodayEventInfo activeInfo;
         private int currentDay;
         private GameTurnClock turnClock;
+        private ActionPointService actionPointService;
         private EventWorldReader worldReader;
         private ScreenState screenState;
         private enum ScreenState { Closed, Detail, Negotiation, CompanyExchange, CompanyChoice, Result }
@@ -45,6 +46,7 @@ namespace TakeOver.Events
         private void Awake()
         {
             turnClock = FindFirstObjectByType<GameTurnClock>();
+            actionPointService = FindFirstObjectByType<ActionPointService>();
             worldReader = new EventWorldReader(FindFirstObjectByType<Companies>(), FindFirstObjectByType<NpcStateRegistry>(), GetComponent<EventTempWorldData>());
             detailView.hide();
             negotiationView.hide();
@@ -191,11 +193,19 @@ namespace TakeOver.Events
         public void startNegotiation()
         {
             if (screenState != ScreenState.Detail) return;
+            if (actionPointService == null)
+                Debug.LogWarning("ActionPointService was not found; starting negotiation without an AP check.");
+            else if (!actionPointService.TryConsume(activeInfo.definition.getApCost()))
+            {
+                detailView.showInsufficientEnergy();
+                return;
+            }
             buildNegotiationChoices();
             screenState = ScreenState.Negotiation;
             detailView.hide();
             negotiationStarted?.Invoke(new NegotiationStartedInfo(activeInfo.definition.getId(), activeInfo.definition.getApCost()));
-            negotiationView.show(activeInfo, this, worldReader.getSpeakerIllustration(activeInfo));
+            negotiationView.show(activeInfo, this, worldReader.getSpeakerIllustration(activeInfo),
+                worldReader.getSpeakerDimmedIllustration(activeInfo));
         }
         private void buildNegotiationChoices(bool companies = false)
         {
