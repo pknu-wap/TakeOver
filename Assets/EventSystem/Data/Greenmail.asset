@@ -16,7 +16,7 @@ MonoBehaviour:
   title: "\uADF8\uB9B0\uBA54\uC77C \uC81C\uC548"
   image: {fileID: 21300000, guid: 882da01850b2e1740968eed1fada016d, type: 3}
   cardImage: {fileID: 21300000, guid: c587f566e59824f4c83b1bd47e865b60, type: 3}
-  highlightImage: {fileID: 21300000, guid: 8348b3813dd8f2447b2145b80a176ab2, type: 3}
+  highlightImage: {fileID: 0}
   description: "{company} {speaker} \uB300\uD45C\uAC00 \uC6C3\uB3C8\uC744 \uC5B9\uC5B4
     \uC9C0\uBD84\uC744 \uB418\uC0AC\uACA0\uB2E4\uACE0 \uC81C\uC548\uD588\uB2E4."
   apCost: 1
