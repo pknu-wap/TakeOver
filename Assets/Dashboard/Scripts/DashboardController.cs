@@ -9,8 +9,10 @@ public class DashboardController : MonoBehaviour
     [Header("Top Bar - Currency & Asset")]
     [SerializeField] private TextMeshProUGUI cashText;
     [SerializeField] private TextMeshProUGUI totalAssetText;
-    [SerializeField] private int currentCash = 0;
-    [SerializeField] private int totalAsset = 0;
+    private Player player;
+    private Companies companies;
+    private float lastCash = float.NaN;
+    private float lastTotalAsset = float.NaN;
 
     [Header("Top Bar - AP Cost")]
     [SerializeField] private TextMeshProUGUI apText;
@@ -20,6 +22,10 @@ public class DashboardController : MonoBehaviour
     private void Awake()
     {
         actionPointService = FindFirstObjectByType<ActionPointService>();
+        player = FindFirstObjectByType<Player>();
+        companies = FindFirstObjectByType<Companies>();
+        if (player == null || companies == null)
+            Debug.LogWarning("Dashboard could not find Player or Companies; financial values will display zero.", this);
     }
 
     private void OnEnable()
@@ -46,11 +52,7 @@ public class DashboardController : MonoBehaviour
 
     private void UpdateTopBarUI()
     {
-        if (cashText != null)
-            cashText.text = $"{currentCash}";
-
-        if (totalAssetText != null)
-            totalAssetText.text = $"{totalAsset}";
+        updateMoney();
 
         if (actionPointService == null) return;
 
@@ -61,6 +63,28 @@ public class DashboardController : MonoBehaviour
         {
             apSlider.maxValue = actionPointService.Max;
             apSlider.value = actionPointService.Current;
+        }
+    }
+
+    private void Update() => updateMoney();
+
+    private void updateMoney()
+    {
+        float cash = player != null && companies != null && player.state != null ? player.state.cash : 0f;
+        float assets = cash;
+        if (player != null && companies != null)
+            foreach (Company company in companies.CompanyList)
+                assets += CompanyUIUtil.getStat(company, CompanyStat.PLAYER_SHARES)
+                    * CompanyUIUtil.getDerived(company, CompanyDerivedStat.SHARE_PRICE);
+        if (lastCash != cash)
+        {
+            lastCash = cash;
+            if (cashText != null) cashText.text = $"{cash:N0}";
+        }
+        if (lastTotalAsset != assets)
+        {
+            lastTotalAsset = assets;
+            if (totalAssetText != null) totalAssetText.text = $"{assets:N0}";
         }
     }
 }

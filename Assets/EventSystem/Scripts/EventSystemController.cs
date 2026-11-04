@@ -164,20 +164,37 @@ namespace TakeOver.Events
             rebuildToday();
             todayEventsChanged?.Invoke();
         }
-        private void rebuildToday()
+        public void refreshAvailability()
         {
+            if (rebuildToday()) todayEventsChanged?.Invoke();
+        }
+        private bool rebuildToday()
+        {
+            var previous = new List<TodayEventInfo>(todayInfos);
             todayEvents.Clear();
             todayInfos.Clear();
             foreach (Occurrence occurrence in occurrences)
             {
+                if (!hasRequiredHoldings(occurrence.definition) || !meetsConditions(occurrence.definition, occurrence.companyId)) continue;
                 todayEvents.Add(occurrence.definition);
                 todayInfos.Add(new TodayEventInfo(occurrence.definition, worldReader.getCompany(occurrence.companyId, occurrence.definition),
                     occurrence.firstDay + occurrence.definition.getValidDays() - currentDay));
             }
+            if (previous.Count != todayInfos.Count) return true;
+            for (int i = 0; i < previous.Count; i++)
+                if (previous[i].definition != todayInfos[i].definition || previous[i].companyId != todayInfos[i].companyId
+                    || previous[i].remainingDays != todayInfos[i].remainingDays) return true;
+            return false;
         }
         public void openEvent(string eventId)
         {
             if (screenState != ScreenState.Closed) return;
+            Occurrence occurrence = occurrences.Find(item => item.definition.getId() == eventId);
+            if (occurrence != null && (!hasRequiredHoldings(occurrence.definition) || !meetsConditions(occurrence.definition, occurrence.companyId)))
+            {
+                refreshAvailability();
+                return;
+            }
             activeInfo = todayInfos.Find(info => info.definition.getId() == eventId);
             if (activeInfo == null) return;
             screenState = ScreenState.Detail;
@@ -227,6 +244,12 @@ namespace TakeOver.Events
         {
             if (screenState != ScreenState.CompanyExchange) return;
             buildNegotiationChoices(true);
+            if (negotiationChoices.Count == 0)
+            {
+                screenState = ScreenState.Result;
+                closeResult();
+                return;
+            }
             screenState = ScreenState.CompanyChoice;
             negotiationView.showCompanyChoices(activeInfo, this);
         }

@@ -388,7 +388,7 @@ MonoBehaviour:
   descriptionText: {fileID: 256991001568270990}
   apCostText: {fileID: 2568910080579735837}
   startButtonText: {fileID: 3508817581671816302}
-  energyNotice: {fileID: 7652171055764114310}
+  floatingMessage: {fileID: 7322099911658526264}
   backButton: {fileID: 3771473747675148819}
   startButton: {fileID: 6635521226139270644}
   closeButton: {fileID: 6316588351320672398}
@@ -800,6 +800,7 @@ GameObject:
   - component: {fileID: 5773730542348113767}
   - component: {fileID: 7298797274086788534}
   - component: {fileID: 7652171055764114310}
+  - component: {fileID: 7322099911658526264}
   m_Layer: 5
   m_Name: InsufficientEnergyPill
   m_TagString: Untagged
@@ -877,6 +878,20 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &7322099911658526264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4484983649416995375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f801b13b8e23940936144afa55c4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FloatingMessage
+  canvasGroup: {fileID: 7652171055764114310}
+  label: {fileID: 6502153486841432978}
 --- !u!1 &4660927232325949653
 GameObject:
   m_ObjectHideFlags: 0
