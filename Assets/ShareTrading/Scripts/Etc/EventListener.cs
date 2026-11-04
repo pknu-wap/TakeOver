@@ -12,6 +12,7 @@ public sealed class EventListener : MonoBehaviour
     [SerializeField] private EventGreenmailAccept eventGreenmailAccept;
 
     private readonly Dictionary<string, Action<string>> eventEffects = new Dictionary<string, Action<string>>();
+    private ChoiceConfirmedInfo activeChoiceInfo;
 
     public event Action effectsAppliedToCompany;
 
@@ -19,8 +20,8 @@ public sealed class EventListener : MonoBehaviour
     {
         eventSystem = FindFirstObjectByType<EventSystemController>();
         player = FindFirstObjectByType<Player>();
-        eventEffects.Add("greenmail_01", companyID => eventGreenmailAccept.applyEventEffect(companyID, 0));
-        eventEffects.Add("stock_manipulation_01", companyID => eventStockmanipulationAccept.applyEventEffect(companyID, 1));
+        eventEffects.Add("greenmail_01", companyID => eventGreenmailAccept.applyEventEffect(companyID, 0, activeChoiceInfo.buybackPremiumRatio));
+        eventEffects.Add("stock_manipulation_01", companyID => eventStockmanipulationAccept.applyEventEffect(companyID, 1, UnityEngine.Random.Range(activeChoiceInfo.stockSurgeMinRatio, activeChoiceInfo.stockSurgeMaxRatio)));
     }
 
     private void OnEnable()
@@ -37,15 +38,15 @@ public sealed class EventListener : MonoBehaviour
 
     private void receiveEventNotification(ChoiceConfirmedInfo info)
     {
-        Action<string> effect;
-        if (info.resultValue == "accept") {
-            if (eventEffects.TryGetValue(info.eventId, out effect))
-            {
-                effect(info.companyId);
-                return;
-            }
-
-            applyEventAcceptEffect(info.companyId, info.cashDelta);
+        if (info.resultValue != "accept" && info.cashDelta == 0) return;
+        if (info.cashDelta != 0) applyEventAcceptEffect(info.companyId, info.cashDelta);
+        if (info.resultValue == "accept" && eventEffects.TryGetValue(info.eventId, out Action<string> effect))
+        {
+            activeChoiceInfo = info;
+            string companyID = info.eventId == "stock_manipulation_01" && !string.IsNullOrEmpty(info.stockSurgeCompanyId)
+                ? info.stockSurgeCompanyId : info.companyId;
+            try { effect(companyID); }
+            finally { activeChoiceInfo = null; }
         }
     }
 

@@ -58,6 +58,8 @@ public class DashboardController : MonoBehaviour
         UpdateTopBarUI();
     }
 
+    public bool CanConsumeAP(int amount) => amount >= 0 && currentAp >= amount;
+
     public void ResetAP()
     {
         currentAp = maxAp;

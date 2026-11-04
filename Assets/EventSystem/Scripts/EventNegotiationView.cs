@@ -50,7 +50,7 @@ namespace TakeOver.Events
             setBlock(questionBlock, true);
             setBlock(playerBlock, false);
             setBlock(responseBlock, false);
-            speakerText.text = $"{info.speakerRole} {info.speakerName}".Trim();
+            speakerText.text = info.speakerLabel;
             responseSpeakerText.text = speakerText.text;
             dialogueText.text = info.dialogue;
             npcIllustration.sprite = speakerIllustration;

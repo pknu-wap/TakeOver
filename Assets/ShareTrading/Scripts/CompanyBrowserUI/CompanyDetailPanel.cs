@@ -3,6 +3,7 @@ using System.Collections;   // IEnumerator (코루틴)
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TakeOver.NPC;
 
 // 회사를 누르면 화면 가운데에 뜨는 "기업 상세 정보" 팝업.
 // 뒤 배경은 ScreenBlurBackground로 어둡고 흐리게 만든다.
@@ -44,6 +45,7 @@ public class CompanyDetailPanel : MonoBehaviour
     private Player player;
     private CanvasGroup canvasGroup;
     private bool isOpen;
+    private GameTurnClock turnClock;
 
     // 지도 노드·목록 줄을 누르면 불린다.
     public void show(Company company)
@@ -64,6 +66,8 @@ public class CompanyDetailPanel : MonoBehaviour
         }
 
         isOpen = true;
+        turnClock = FindFirstObjectByType<GameTurnClock>();
+        if (turnClock != null) turnClock.TurnAdvanced += handleTurnAdvanced;
         gameObject.SetActive(true);
 
         if (blurBackground != null)
@@ -79,8 +83,21 @@ public class CompanyDetailPanel : MonoBehaviour
     public void hide()
     {
         isOpen = false;
+        if (turnClock != null) turnClock.TurnAdvanced -= handleTurnAdvanced;
+        turnClock = null;
         StopAllCoroutines();
         gameObject.SetActive(false);
+    }
+
+    private void handleTurnAdvanced(int newTurn)
+    {
+        if (isOpen) StartCoroutine(refreshNextFrame());
+    }
+
+    private IEnumerator refreshNextFrame()
+    {
+        yield return null;
+        if (isOpen) refresh();
     }
 
     // 팝업을 한 프레임 동안 투명하게 둔 채 화면을 찍고, 그다음 보이게 한다.

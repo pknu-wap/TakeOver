@@ -8,6 +8,9 @@ namespace TakeOver.Events
         public string speakerNpcId { get; }
         public string speakerName { get; }
         public string speakerRole { get; }
+        public string speakerLabel => definition.getSpeakerSource() == EventSpeakerSource.Fixed
+            ? $"{speakerRole} {speakerName}".Trim()
+            : $"{companyName} {speakerRole} {speakerName}".Trim();
         public string title => resolve(definition.getTitle());
         public string description => resolve(definition.getDescription());
         public string dialogue => resolve(definition.getDialogue());
