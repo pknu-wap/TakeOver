@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class DaySkipController : MonoBehaviour
 {
-    [Header("Controller References")]
-    [SerializeField] private CalendarController calendarController;
-    [SerializeField] private DashboardController dashboardController;
-
     [Header("UI Reference")]
     [SerializeField] private Button daySkipButton;
 
@@ -18,25 +14,10 @@ public class DaySkipController : MonoBehaviour
         {
             daySkipButton.onClick.AddListener(OnClickNextDay);
         }
-
-        if (dashboardController == null)
-        {
-            dashboardController = FindFirstObjectByType<DashboardController>();
-        }
     }
 
     public void OnClickNextDay()
     {
-        if (dashboardController != null)
-        {
-            dashboardController.ResetAP();
-        }
-
-        if (calendarController != null)
-        {
-            calendarController.AddDays(1);
-        }
-
         GameTurnClock turnClock = FindFirstObjectByType<GameTurnClock>();
         if (turnClock != null)
         {
