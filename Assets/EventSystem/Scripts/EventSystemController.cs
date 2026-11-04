@@ -193,6 +193,8 @@ namespace TakeOver.Events
         public void startNegotiation()
         {
             if (screenState != ScreenState.Detail) return;
+            buildNegotiationChoices();
+            if (negotiationChoices.Count == 0) return;
             if (actionPointService == null)
                 Debug.LogWarning("ActionPointService was not found; starting negotiation without an AP check.");
             else if (!actionPointService.TryConsume(activeInfo.definition.getApCost()))
@@ -200,10 +202,6 @@ namespace TakeOver.Events
                 detailView.showInsufficientEnergy();
                 return;
             }
-            buildNegotiationChoices();
-            if (negotiationChoices.Count == 0) return;
-            DashboardController dashboard = FindFirstObjectByType<DashboardController>();
-            if (dashboard != null && !dashboard.CanConsumeAP(activeInfo.definition.getApCost())) return;
             screenState = ScreenState.Negotiation;
             detailView.hide();
             negotiationStarted?.Invoke(new NegotiationStartedInfo(activeInfo.definition.getId(), activeInfo.definition.getApCost()));
