@@ -1,7 +1,7 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
 #endif
 
 namespace TakeOver.MainMenu
@@ -14,6 +14,8 @@ namespace TakeOver.MainMenu
         {
 #if UNITY_EDITOR
             EditorSceneManager.LoadSceneInPlayMode(nextScenePath, new LoadSceneParameters(LoadSceneMode.Single));
+#else
+            SceneManager.LoadScene(System.IO.Path.ChangeExtension(nextScenePath, null), LoadSceneMode.Single);
 #endif
         }
     }
