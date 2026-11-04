@@ -27,7 +27,10 @@ public class CompanyItemUI : MonoBehaviour
             changeRateText.text = $"{prefix}{Mathf.Abs(changeRate):F1}%";
         }
 
-        if (companyIcon != null && icon != null)
+        if (companyIcon != null)
+        {
             companyIcon.sprite = icon;
+            companyIcon.enabled = icon != null;
+        }
     }
 }

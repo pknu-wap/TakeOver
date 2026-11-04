@@ -820,6 +820,7 @@ MonoBehaviour:
   browser: {fileID: 0}
   viewToggle: {fileID: 0}
   message: {fileID: 3697412180263100446}
+  statusScreen: {fileID: 0}
 --- !u!1 &220194833141807023
 GameObject:
   m_ObjectHideFlags: 0
@@ -10859,8 +10860,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   cashText: {fileID: 5598203184410108566}
   totalAssetText: {fileID: 5659078706808124505}
-  currentCash: 0
-  totalAsset: 0
   apText: {fileID: 7076724683237799935}
   apSlider: {fileID: 5518561259382165300}
 --- !u!1 &6431113669549517870
@@ -12184,6 +12183,7 @@ GameObject:
   - component: {fileID: 626425455477440064}
   - component: {fileID: 1400829731896426092}
   - component: {fileID: 2620483966827459133}
+  - component: {fileID: 6021315558002633972}
   m_Layer: 5
   m_Name: InformationBar
   m_TagString: Untagged
@@ -12255,6 +12255,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6021315558002633972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7332181779858609623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6531ac34d4170874586b3a3823f89136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DashboardCompanyPanel
+  rows:
+  - {fileID: 290305662742023037}
+  - {fileID: 9157933662258479643}
+  - {fileID: 6436535766009937205}
+  - {fileID: 7206080807011097344}
 --- !u!1 &7361698350258046304
 GameObject:
   m_ObjectHideFlags: 0
