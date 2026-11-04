@@ -16,12 +16,16 @@ public class TradingEventEffects : MonoBehaviour
         switch (info.eventId)
         {
             case "greenmail_01":
-                greenmailAccept.applyEventEffect(info.companyId, 0, info.buybackPremiumRatio);
+                if (info.resultValue == "accept") {
+                    greenmailAccept.applyEventEffect(info.companyId, 0, info.buybackPremiumRatio);
+                }
                 break;
 
             case "stock_manipulation_01":
-                float value = FixedDaySeed.range(FixedDaySeed.seed, info.stockSurgeMinRatio, info.stockSurgeMaxRatio);
-                stockManipulationAccept.applyEventEffect(info.stockSurgeCompanyId, 1, value);
+                if (info.resultValue == "accept") {
+                    float value = FixedDaySeed.range(FixedDaySeed.seed, info.stockSurgeMinRatio, info.stockSurgeMaxRatio);
+                    stockManipulationAccept.applyEventEffect(info.stockSurgeCompanyId, 1, value);
+                }
                 break;
 
             default:
