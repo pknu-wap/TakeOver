@@ -83,20 +83,27 @@ namespace TakeOver.Events
             clearChoices();
             choicesRoot.gameObject.SetActive(true);
             choiceTemplate.gameObject.SetActive(false);
-            for (int i = 0; i < controller.getNegotiationChoiceCount(); i++)
+            int choiceCount = controller.getNegotiationChoiceCount();
+            for (int i = 0; i < choiceCount; i++)
             {
                 int choiceIndex = i;
                 Button button = Instantiate(choiceTemplate, choicesRoot);
                 button.name = $"Choice{choiceIndex}";
+                RectTransform buttonRect = (RectTransform)button.transform;
+                buttonRect.anchorMin = buttonRect.anchorMax = new Vector2(0, 1);
+                buttonRect.pivot = new Vector2(0, 1);
+                buttonRect.anchoredPosition = new Vector2(1249, -(628 - (choiceCount - 1 - i) * 88)) * (2f / 3f);
+                buttonRect.sizeDelta = new Vector2(454, 70) * (2f / 3f);
                 Text title = button.transform.Find("Title").GetComponent<Text>();
                 Text description = button.transform.Find("Description").GetComponent<Text>();
                 string detail = info.resolve(controller.getNegotiationChoiceDescription(i));
                 bool hasDescription = !string.IsNullOrWhiteSpace(detail);
                 title.text = info.resolve(controller.getNegotiationChoiceText(i));
-                title.rectTransform.anchorMin = new Vector2(0, hasDescription ? 0.44f : 0);
+                title.rectTransform.anchorMin = new Vector2(0, 1);
                 title.rectTransform.anchorMax = Vector2.one;
-                title.rectTransform.offsetMin = new Vector2(12, hasDescription ? 0 : 12);
-                title.rectTransform.offsetMax = new Vector2(-12, -12);
+                title.rectTransform.pivot = new Vector2(0, 1);
+                title.rectTransform.anchoredPosition = new Vector2(41, -9) * (2f / 3f);
+                title.rectTransform.sizeDelta = new Vector2(-41, 25) * (2f / 3f);
                 description.text = detail;
                 description.gameObject.SetActive(hasDescription);
                 button.onClick.RemoveAllListeners();
