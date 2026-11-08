@@ -15,22 +15,7 @@ public class Marketdata : MonoBehaviour
         return companies.tryGetCompany(companyID, out company);
     }
 
-    public bool setNpcSentiment(string companyID, float sentiment)
-    {
-        if (!tryGetCompany(companyID, out Company company)) return false;
-        company.marketState.setNpcSentiment(sentiment);
-        company.calculator.recalculate(company, this);
-        return true;
-    }
-
-    public bool setNpcOpinions(string companyID, IReadOnlyList<NpcMarketOpinion> opinions)
-    {
-        if (!tryGetCompany(companyID, out Company company)) return false;
-        company.marketState.setNpcOpinions(opinions);
-        company.calculator.recalculate(company, this);
-        return true;
-    }
-
+    // 미사용중
     public bool addEventImpact(string companyID, MarketEventImpact impact)
     {
         if (!tryGetCompany(companyID, out Company company) || !company.marketState.addEventImpact(impact)) return false;

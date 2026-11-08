@@ -149,6 +149,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1389620484276860936}
   - component: {fileID: 5191246152492245077}
+  - component: {fileID: 6796503007911539905}
+  - component: {fileID: 2536491832353267345}
   m_Layer: 0
   m_Name: Market
   m_TagString: Untagged
@@ -183,6 +185,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34a81cc951794f439b3afd38006fe4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Marketdata
+  companies: {fileID: 8237969287396869895}
+--- !u!114 &6796503007911539905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3802925045144649158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04308aeafec545b4d8a73f5a4b1c8595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarketEventManager
+  allEvents:
+  - {fileID: 11400000, guid: 4646e006210868b4f93d200bef353fc3, type: 2}
+  availableEventIDs: 
+  EffectControl: {fileID: 2536491832353267345}
+--- !u!114 &2536491832353267345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3802925045144649158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57d1691868e3694d8e23893d528c6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarketEventEffectControl
   companies: {fileID: 8237969287396869895}
 --- !u!1 &4359682657462042209
 GameObject:
@@ -386,6 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22494f2c6a8e44528277d99efc57b301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventListener
+  player: {fileID: 0}
   marketData: {fileID: 5191246152492245077}
   eventEffects: {fileID: 6437409518126791032}
 --- !u!114 &3551093198360838554
