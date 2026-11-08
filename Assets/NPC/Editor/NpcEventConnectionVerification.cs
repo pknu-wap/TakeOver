@@ -238,10 +238,10 @@ namespace TakeOver.NPC.Editor
                     Check(string.IsNullOrEmpty(receiver.LastError), "Receiver reports no error");
                     var npcId = id == "press_interview_01" ? lee : seo;
                     Check(registry.TryGet(npcId, out var state), "Target registered");
-                    var expectedTrust = index == 0 ? 10 : index == 1 ? -10 : 0;
+                    var expectedTrust = index == 0 ? id == "press_interview_01" ? 13 : 12 : index == 1 ? -10 : 0;
                     Check(Mathf.Approximately(state.relation.trust, expectedTrust), "Actual trust = " + expectedTrust);
-                    Check(Mathf.Approximately(state.relation.respect, id == "press_interview_01" && index == 0 ? 10 : 0), "Actual respect matches event");
-                    Check(Mathf.Approximately(state.relation.interest, id == "inside_info_01" && index == 0 ? 10 : 0), "Actual interest matches event");
+                    Check(Mathf.Approximately(state.relation.respect, id == "press_interview_01" && index == 0 ? 13 : 0), "Actual respect matches Memory-balanced event");
+                    Check(Mathf.Approximately(state.relation.interest, id == "inside_info_01" && index == 0 ? 12 : 0), "Actual interest matches Memory-balanced event");
                     Check(state.memories.Count == (index == 2 ? 0 : 1), "Memory count matches effect/no-effect choice");
                     Check(registry.States.Where(s => s.npcId != npcId).All(s => s.memories.Count == 0), "Other NPCs receive no memory");
                     if (observed.npcResult != null)

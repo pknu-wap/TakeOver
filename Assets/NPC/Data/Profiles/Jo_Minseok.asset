@@ -15,10 +15,51 @@ MonoBehaviour:
   seed:
     position: 1
     preferenceResponse:
+      source: 1
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
-    memoryPreferences: []
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: "제조업의 명예와 장기 생산 계획을 존중한 약속 이행에 존중으로 응답한다."
+      effect:
+        mode: 1
+        multiplier: 1.3
+        affectedAxes: 2
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 1
+      disposition: 2
+      rationale: "설비·현장 자율성·생산 계획의 합의를 깨는 결과에 존중이 줄고 적대감이 커진다."
+      effect:
+        mode: 1
+        multiplier: 1.3
+        affectedAxes: 10
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 3
+      disposition: 2
+      rationale: "공장과 제조 기반의 통제권을 위협하는 인수에 강하게 반발한다."
+      effect:
+        mode: 1
+        multiplier: 1.35
+        affectedAxes: 8
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 4
+      disposition: 1
+      rationale: "제조 기반을 이어 갈 수 있는 기업 구제 결과를 존중한다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 2
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 5
+      disposition: 2
+      rationale: "제조업의 명예와 자존심을 손상시키는 공개적 망신에 반발한다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 10
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-hansung-industry-ceo-jo-minseok
     companyId: hansung-industry
     profile:

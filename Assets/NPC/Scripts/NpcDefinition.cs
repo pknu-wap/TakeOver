@@ -19,5 +19,14 @@ namespace TakeOver.NPC
             }
             return copy;
         }
+
+        /// <summary>SO나 실제 관계·기억을 바꾸지 않고 등록 시와 같은 독립 사본으로 선호 효과를 계산한다.</summary>
+        public NpcPreferenceEvaluation PreviewPreference(string actionId, NpcMemoryType memoryType, NpcRelationDelta delta)
+        {
+            var copy = CreateRuntimeSeed();
+            var evaluator = new NpcPreferenceEvaluator();
+            evaluator.Configure(copy.npcId, copy.actionPreferences);
+            return evaluator.Evaluate(copy, copy.npcId, actionId, memoryType, delta);
+        }
     }
 }

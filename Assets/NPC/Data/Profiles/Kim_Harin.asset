@@ -15,10 +15,43 @@ MonoBehaviour:
   seed:
     position: 1
     preferenceResponse:
+      source: 1
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
-    memoryPreferences: []
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: "품질과 브랜드 신뢰를 지키겠다는 약속의 이행을 신뢰한다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 1
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 1
+      disposition: 2
+      rationale: "소비자 기만이나 합의 위반으로 브랜드 신뢰를 해치는 기억에 경계한다."
+      effect:
+        mode: 1
+        multiplier: 1.35
+        affectedAxes: 9
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 3
+      disposition: 2
+      rationale: "브랜드 보호와 장기 계획을 위협하는 인수에 대한 기존 적대감을 강화한다."
+      effect:
+        mode: 1
+        multiplier: 1.2
+        affectedAxes: 8
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 4
+      disposition: 1
+      rationale: "브랜드와 기업의 장기 존속을 보전한 결과에 신뢰와 관심을 보인다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 33
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-haneul-food-ceo-kim-harin
     companyId: haneul-food
     profile:

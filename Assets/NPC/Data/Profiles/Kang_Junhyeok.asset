@@ -15,10 +15,51 @@ MonoBehaviour:
   seed:
     position: 1
     preferenceResponse:
+      source: 1
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
-    memoryPreferences: []
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: "문서화된 약속과 회사·계약의 연속성을 중시하므로 신뢰·존중의 긍정 반응을 강화한다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 3
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 1
+      disposition: 2
+      rationale: "합의한 계약과 고용 보장을 깨는 기억은 신뢰 하락과 적대감 증가를 강하게 남긴다."
+      effect:
+        mode: 1
+        multiplier: 1.35
+        affectedAxes: 9
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 2
+      disposition: 2
+      rationale: "현장 인력의 연속성을 위협하는 대규모 감축에 대한 존중 하락·적대감을 강화한다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 10
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 3
+      disposition: 2
+      rationale: "회사 이름과 경영 자율성이 위협받는 인수에 대한 신뢰 하락·적대감을 강화한다."
+      effect:
+        mode: 1
+        multiplier: 1.3
+        affectedAxes: 9
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 4
+      disposition: 1
+      rationale: "회사의 지속성을 보전한 결과에 신뢰와 존중을 더한다."
+      effect:
+        mode: 1
+        multiplier: 1.2
+        affectedAxes: 3
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-mirae-construction-ceo-kang-junhyeok
     companyId: mirae-construction
     profile:
