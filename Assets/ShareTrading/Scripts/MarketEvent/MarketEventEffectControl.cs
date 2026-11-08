@@ -21,6 +21,7 @@ public class MarketEventEffectControl : MonoBehaviour
         inApplyList.RemoveAll(entry => entry.orderID == eventOrderID);
     }
 
+    // 보정값 전달 뒤 호출측에서 회사 수치 재계산
     public void applyMarketEventEffects(int currentTurn)
     {
         appliedEffects.Clear();
@@ -34,7 +35,30 @@ public class MarketEventEffectControl : MonoBehaviour
             applyEffects(entry.definition, progress);
         }
 
-        // 회사에 appliedEffects 전달은 미구현
+        foreach (Company company in companies.CompanyList)
+        {
+            company.state.resetMarketEventEffects();
+            company.marketState.resetMarketEventEffects();
+        }
+
+        foreach (var entry in appliedEffects)
+        {
+            Company company = companies.getCompany(entry.Key.companyID);
+            if (entry.Key.type == MarketEventTargetType.Stat)
+            {
+                company.state.setMarketEventEffect((CompanyStat)entry.Key.stat,
+                    entry.Value.multiplier, entry.Value.normalValue);
+            }
+            else if (entry.Key.type == MarketEventTargetType.DerivedStat)
+            {
+                company.state.setMarketEventEffect((CompanyDerivedStat)entry.Key.stat,
+                    entry.Value.multiplier, entry.Value.normalValue);
+            }
+            else
+            {
+                company.marketState.setMarketLiquidityEffect(entry.Value.multiplier, entry.Value.normalValue);
+            }
+        }
     }
 
     private void applyEffects(MarketEventDefinition definition, float progress)

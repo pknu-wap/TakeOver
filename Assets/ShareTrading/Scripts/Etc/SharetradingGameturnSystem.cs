@@ -5,6 +5,7 @@ public class SharetradingGameturnSystem : MonoBehaviour
 {
     [SerializeField] private Companies companies;
     [SerializeField] private Marketdata marketData;
+    [SerializeField] private MarketEventManager marketEventManager;
     private GameTurnClock turnClock;
 
     private void Awake()
@@ -51,6 +52,7 @@ public class SharetradingGameturnSystem : MonoBehaviour
         Debug.Log($"{endedTurn}턴 종료");
 
         marketData.updateTurn(newTurn);
+        marketEventManager.processTurn(newTurn);
 
         foreach (Company company in companies.CompanyList)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 /// <summary>지분매입팀의 저장 전용 데이터 형식</summary>
 [Serializable]
-public sealed class TradingSaveData
+public class TradingSaveData
 {
     public PlayerData player;
     public MarketData market;
@@ -12,20 +12,20 @@ public sealed class TradingSaveData
     public List<ScheduledEffectData> stockManipulation;
 
     [Serializable]
-    public sealed class PlayerData
+    public class PlayerData
     {
         public float money, manPower, information, reputation;
     }
 
     [Serializable]
-    public sealed class MarketData
+    public class MarketData
     {
         public float globalMarketScore;
         public int lastUpdatedTurn;
     }
 
     [Serializable]
-    public sealed class CompanyData
+    public class CompanyData
     {
         public string companyId;
         public CompanyStateData state;
@@ -34,7 +34,7 @@ public sealed class TradingSaveData
     }
 
     [Serializable]
-    public sealed class CompanyStateData
+    public class CompanyStateData
     {
         public List<StatData> stats;
         public int totalShares;
@@ -44,28 +44,20 @@ public sealed class TradingSaveData
     }
 
     [Serializable]
-    public sealed class StatData
+    public class StatData
     {
         public string id;
         public float value;
     }
 
     [Serializable]
-    public sealed class CompanyMarketData
+    public class CompanyMarketData
     {
         public float npcSentiment, eventPriceMultiplier, marketNoise;
-        public List<MarketEffectData> activeEvents;
     }
 
     [Serializable]
-    public sealed class MarketEffectData
-    {
-        public MarketEventImpact impact;
-        public int remainingTurns;
-    }
-
-    [Serializable]
-    public sealed class ScheduledEffectData
+    public class ScheduledEffectData
     {
         public string companyId;
         public int executionDay;

@@ -1,6 +1,5 @@
 using UnityEngine;
 using TakeOver.SaveSystem;
-using System.Collections.Generic;
 
 public class Marketdata : MonoBehaviour
 {
@@ -13,14 +12,6 @@ public class Marketdata : MonoBehaviour
     public bool tryGetCompany(string companyID, out Company company)
     {
         return companies.tryGetCompany(companyID, out company);
-    }
-
-    // 미사용중
-    public bool addEventImpact(string companyID, MarketEventImpact impact)
-    {
-        if (!tryGetCompany(companyID, out Company company) || !company.marketState.addEventImpact(impact)) return false;
-        company.calculator.recalculate(company, this);
-        return true;
     }
 
     public void updateTurn(int turn)

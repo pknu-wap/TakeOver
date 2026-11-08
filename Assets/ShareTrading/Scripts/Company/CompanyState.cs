@@ -1,10 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class CompanyState
 {
     private Dictionary<CompanyStat, float> stats;
     private Dictionary<CompanyDerivedStat, float> derivedStats;
+    private readonly Dictionary<CompanyStat, (float multiplier, float normalValue)> statEventModifiers
+        = new Dictionary<CompanyStat, (float, float)>();
+    private readonly Dictionary<CompanyDerivedStat, (float multiplier, float normalValue)> derivedStatEventModifiers
+        = new Dictionary<CompanyDerivedStat, (float, float)>();
 
     public int totalShares { get; internal set; }
 
@@ -68,16 +73,33 @@ public class CompanyState
         beforeNetMargin = initialNetMargin;
     }
     
-    public float getStat(CompanyStat stat) { return stats[stat]; }
+    public float getBaseStat(CompanyStat stat) { return stats[stat]; }
+
+    public float getStat(CompanyStat stat)
+    {
+        float value = stats[stat];
+        if (statEventModifiers.TryGetValue(stat, out var modifier))
+            return value * modifier.multiplier + modifier.normalValue;
+        return value;
+    }
+
     public bool tryGetStat(string statName, out float returnStat)
     {
         CompanyStat stat;
-        if (System.Enum.TryParse(statName, out stat))
-            return stats.TryGetValue(stat, out returnStat);
+        if (Enum.TryParse(statName, out stat))
+        {
+            if (!stats.TryGetValue(stat, out returnStat)) return false;
+            returnStat = getStat(stat);
+            return true;
+        }
 
         CompanyDerivedStat derivedStat;
-        if (System.Enum.TryParse(statName, out derivedStat))
-            return derivedStats.TryGetValue(derivedStat, out returnStat);
+        if (Enum.TryParse(statName, out derivedStat))
+        {
+            if (!derivedStats.TryGetValue(derivedStat, out returnStat)) return false;
+            returnStat = getDerivedStat(derivedStat);
+            return true;
+        }
 
         returnStat = 0f;
         return false;
@@ -89,6 +111,30 @@ public class CompanyState
         stats[stat] += value;
     }
 
-    public float getDerivedStat(CompanyDerivedStat derivedStat) { return derivedStats[derivedStat]; }
+    public float getDerivedStat(CompanyDerivedStat derivedStat)
+    {
+        float value = derivedStats[derivedStat];
+        if (derivedStatEventModifiers.TryGetValue(derivedStat, out var modifier))
+            return value * modifier.multiplier + modifier.normalValue;
+        return value;
+    }
+
     public void setDerivedStat(CompanyDerivedStat derivedStat, float value) { derivedStats[derivedStat] = value; }
+
+    public void setMarketEventEffect(CompanyStat stat, float multiplier, float normalValue)
+    {
+        statEventModifiers[stat] = (multiplier, normalValue);
+    }
+
+    public void setMarketEventEffect(CompanyDerivedStat stat, float multiplier, float normalValue)
+    {
+        derivedStatEventModifiers[stat] = (multiplier, normalValue);
+    }
+
+    // 원본값은 유지하고 이벤트 보정만 초기화
+    public void resetMarketEventEffects()
+    {
+        statEventModifiers.Clear();
+        derivedStatEventModifiers.Clear();
+    }
 }
