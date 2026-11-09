@@ -62,6 +62,11 @@ namespace TakeOver.NPC
             ResolveRegistry();
             var scale = Mathf.Min(Screen.width / 1280f, Screen.height / 720f);
             var offset = new Vector2((Screen.width - 1280f * scale) * .5f, (Screen.height - 720f * scale) * .5f);
+            if (TakeOver.Story.StoryDirector.IsRunning)
+            {
+                scale *= .84f;
+                offset = new Vector2((Screen.width - 1280f * scale) * .5f, 0);
+            }
             var previousMatrix = GUI.matrix;
             var previousColor = GUI.color;
             int previousDepth = GUI.depth;

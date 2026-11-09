@@ -188,6 +188,7 @@ namespace TakeOver.Events
         }
         public void openEvent(string eventId)
         {
+            if (TakeOver.Story.StoryDirector.IsRunning) return;
             if (screenState != ScreenState.Closed) return;
             Occurrence occurrence = occurrences.Find(item => item.definition.getId() == eventId);
             if (occurrence != null && (!hasRequiredHoldings(occurrence.definition) || !meetsConditions(occurrence.definition, occurrence.companyId)))

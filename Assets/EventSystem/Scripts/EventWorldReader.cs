@@ -76,7 +76,9 @@ namespace TakeOver.Events
         {
             if (registry != null && registry.TryGetProfile(info.speakerNpcId, out var seed)
                 && seed.profile.standingIllustration != null) return seed.profile.standingIllustration;
-            return worldData != null ? worldData.getSpeakerIllustration(info.speakerName) : null;
+            var art = worldData != null ? worldData.getSpeakerIllustration(info.speakerName) : null;
+            if (art != null) return art;
+            return registry != null && registry.TryGetProfile(info.speakerNpcId, out _) ? NpcInfoPanel.FallbackStanding : null;
         }
         public Sprite getSpeakerDimmedIllustration(TodayEventInfo info)
         {

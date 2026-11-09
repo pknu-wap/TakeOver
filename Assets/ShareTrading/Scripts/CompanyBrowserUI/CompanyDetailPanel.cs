@@ -50,6 +50,7 @@ public class CompanyDetailPanel : MonoBehaviour
     // 지도 노드·목록 줄을 누르면 불린다.
     public void show(Company company)
     {
+        if (!TakeOver.Story.StoryDirector.CanSelectCompany(company)) return;
         current = company;
         findReferences();
         refresh();

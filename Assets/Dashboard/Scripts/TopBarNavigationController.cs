@@ -28,6 +28,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
 
     private void onTabClicked(int index)
     {
+        if (!TakeOver.Story.StoryDirector.CanNavigate(index)) return;
         if (index >= 4)
         {
             message.Show("준비 중입니다");

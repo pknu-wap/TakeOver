@@ -7,6 +7,11 @@ namespace TakeOver.NPC
     public sealed class NpcDefinition : ScriptableObject
     {
         [SerializeField] private NpcStateRegistry.NpcSeed seed = new NpcStateRegistry.NpcSeed();
+        [SerializeField] private NpcStoryDesign storyDesign = new NpcStoryDesign();
+
+        /// <summary>메인 스토리 제작용 독립 사본. 런타임 레지스트리의 공개 프로필에 합치지 않는다.</summary>
+        public NpcStoryDesign CreateStoryDesignSnapshot()
+            => storyDesign == null ? new NpcStoryDesign() : JsonUtility.FromJson<NpcStoryDesign>(JsonUtility.ToJson(storyDesign));
 
         /// <summary>프로필과 선호 목록까지 독립 사본으로 복사해 런타임 변경이 원본에 전파되지 않게 한다.</summary>
         public NpcStateRegistry.NpcSeed CreateRuntimeSeed()

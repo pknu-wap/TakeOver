@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da74c4ef110445c0b10cdd6f4eb3fdfa, type: 3}
+  m_Name: Kim_Dongseok
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
+  seed:
+    position: 0
+    preferenceResponse:
+      source: 1
+      enabled: 0
+      likedMultiplier: 1.2
+      dislikedMultiplier: 1.2
+      useCustomAxes: 0
+      affectedAxes: 43
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: "\uAD50\uB300\xB7\uAD50\uC721 \uC57D\uC18D\uC744 \uC2E4\uC81C\uB85C
+        \uC9C0\uD0A8 \uACB0\uACFC\uB97C \uC2E0\uB8B0\uD55C\uB2E4."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 3
+        relationBonus:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+    - memoryType: 1
+      disposition: 2
+      rationale: "\uD604\uC7A5 \uC870\uAC74\uC744 \uC77C\uBC29\uC801\uC73C\uB85C
+        \uBC14\uAFB8\uBA74 \uC11C\uBE44\uC2A4\uC640 \uC2E0\uB8B0\uAC00 \uBB34\uB108\uC9C4\uB2E4."
+      effect:
+        mode: 1
+        multiplier: 1.3
+        affectedAxes: 9
+        relationBonus:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+    - memoryType: 2
+      disposition: 2
+      rationale: "\uC778\uB825 \uBD80\uC871\uC744 \uAC10\uC218\uD55C \uC77C\uAD04
+        \uAC10\uCD95\uC740 \uC9C1\uC6D0\uACFC \uC11C\uBE44\uC2A4\uC758 \uC9C0\uC18D\uC131\uC744
+        \uD574\uCE5C\uB2E4."
+      effect:
+        mode: 1
+        multiplier: 1.4
+        affectedAxes: 10
+        relationBonus:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+    - memoryType: 4
+      disposition: 1
+      rationale: "\uD604\uC7A5\uC758 \uC9C0\uC18D\uC131\uC744 \uBCF4\uC874\uD55C
+        \uD68C\uC0DD\uC744 \uC778\uC815\uD55C\uB2E4."
+      effect:
+        mode: 1
+        multiplier: 1.2
+        affectedAxes: 3
+        relationBonus:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+    npcId: npc-blueharbor-retail-operations-director-kim-dongseok
+    companyId: blueharbor-retail
+    profile:
+      standingIllustration: {fileID: 0}
+      dimmedStandingIllustration: {fileID: 0}
+      displayName: "\uAE40\uB3D9\uC11D"
+      role: "\uB9E4\uC7A5\uC6B4\uC601\xB7\uB178\uBB34\uCC45\uC784\uC790"
+      affiliation: "\uBE14\uB8E8\uD558\uBC84\uB9AC\uD14C\uC77C"
+      personalitySummary: "\uC9C1\uC6D0 \uC774\uC9C1\uB960\uACFC \uACE0\uAC1D \uBD88\uB9CC\uC744
+        \uD568\uAED8 \uBCF4\uB294 \uD604\uC2E4\uC801\uC778 \uC6B4\uC601\uC790\uB2E4.
+        \uBAA8\uB450\uB97C \uC9C0\uD0A4\uB824\uBA74 \uB9E4\uCD9C\uB3C4 \uD544\uC694\uD558\uB2E4\uB294
+        \uC0DD\uAC01 \uB54C\uBB38\uC5D0 \uACFC\uAC70\uC5D0\uB294 \uBB34\uB9AC\uD55C
+        \uC778\uB825 \uAE30\uC900\uC744 \uD604\uC7A5\uC5D0 \uB5A0\uB118\uAE30\uAE30\uB3C4
+        \uD588\uB2E4.\n\uD589\uB3D9 \uC591\uC2DD: \uAD50\uB300\xB7\uAD50\uC721\xB7\uC11C\uBE44\uC2A4
+        \uBE44\uC6A9\uC744 \uC2E4\uC81C \uADFC\uBB34\uD45C\uC640 \uBE44\uAD50\uD55C\uB2E4.
+        \uB9D0\uB85C\uB9CC \uD604\uC7A5\uC744 \uC704\uD55C\uB2E4\uB294 \uD22C\uC790\uC790\uC5D0\uAC8C\uB294
+        \uC6B4\uC601 \uC7AC\uC6D0\uACFC \uC2E4\uD589 \uC77C\uC815\uC744 \uBA3C\uC800
+        \uBB3B\uB294\uB2E4."
+      gameplayRoleSummary: "\uC5ED\uD560: \uC720\uD1B5\uB9DD \uACBD\uC7C1\uC774 \uB9E4\uC7A5\uACFC
+        \uC0AC\uB78C\uC5D0\uAC8C \uC804\uAC00\uD558\uB294 \uBE44\uC6A9\uC744 \uB4DC\uB7EC\uB0B4\uB294
+        \uC6B4\uC601 \uB2F4\uB2F9\uC790. \uACE0\uAC1D \uC11C\uBE44\uC2A4\uC640 \uC9C1\uC6D0\uC758
+        \uC0DD\uACC4\uB97C \uD568\uAED8 \uD611\uC0C1\uD55C\uB2E4.\n\uC120\uD638:
+        \uC9C0\uC18D \uAC00\uB2A5\uD55C \uAD50\uB300, \uAD50\uC721\uC758 \uC2E4\uC81C
+        \uC9D1\uD589, \uC11C\uBE44\uC2A4 \uC218\uC900\uC744 \uC9C0\uD0A8 \uBE44\uC6A9
+        \uAC1C\uC120, \uD604\uC7A5 \uC758\uACAC\uC758 \uAE30\uB85D\n\uAE30\uD53C:
+        \uBE48 \uC778\uC6D0\uC744 \uC11C\uB958\uB85C \uCC44\uC6B0\uB294 \uAC10\uCD95,
+        \uD604\uC7A5 \uCC45\uC784\uC790\uC5D0\uAC8C \uC190\uC2E4 \uC804\uAC00, \uC9C1\uC6D0
+        \uBA85\uBD80 \uAC70\uB798, \uC7AC\uC6D0 \uC5C6\uB294 \uACE0\uC6A9 \uC57D\uC18D"
+      anyEventRelationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+      eventRelationBiases: []
+    actionPreferences: []
+  storyDesign:
+    stance: 4
+    personalGoal: "\uD604\uC7A5\uC774 \uC815\uC0C1 \uADFC\uBB34\uC640 \uAD50\uC721\uB9CC\uC73C\uB85C
+      \uC57D\uC18D\uD55C \uC11C\uBE44\uC2A4\uB97C \uC81C\uACF5\uD560 \uC218 \uC788\uB294
+      \uC6B4\uC601 \uAE30\uC900\uC744 \uB9CC\uB4E0\uB2E4."
+    loyaltyReason: "\uD68C\uC0AC\uC640 \uB9E4\uC7A5\uC758 \uC9C1\uC6D0\uB4E4\uC5D0\uAC8C
+      \uCC45\uC784\uC744 \uB290\uB07C\uBA70 \uADF8\uB8F9\uC758 \uC548\uC815\uC801
+      \uACF5\uAE09\uC774 \uC0DD\uACC4\uB97C \uC9C0\uD0F1\uD55C\uB2E4\uACE0 \uC0DD\uAC01\uD55C\uB2E4."
+    innerConflict: "\uACFC\uAC70\uC5D0 \uB192\uC740 \uBAA9\uD45C\uB97C \uB9DE\uCD94\uB824\uACE0
+      \uBD80\uC871\uD55C \uC778\uC6D0\uC744 \uBB35\uC778\uD588\uB2E4. \uC790\uC2E0\uC744
+      \uD56D\uC0C1 \uD604\uC7A5 \uD3B8\uC774\uC5C8\uB2E4\uACE0 \uD3EC\uC7A5\uD560
+      \uC218 \uC5C6\uB2E4."
+    pressureTactics: "\uB0A9\uD488\xB7\uD310\uCD09 \uC81C\uC548\uC5D0 \uD544\uC694\uD55C
+      \uB9E4\uC7A5 \uC778\uB825\uACFC \uAD50\uC721 \uBE44\uC6A9\uC744 \uBC18\uC601\uD574
+      \uC8FC\uC778\uACF5\uC758 \uC800\uAC00 \uACF5\uC138\uB97C \uC5B4\uB835\uAC8C
+      \uB9CC\uB4E0\uB2E4."
+    cooperationTrigger: "\uADF8\uB8F9\uC774 \uBB34\uB9AC\uD55C \uD310\uCD09 \uC190\uC2E4\uC744
+      \uD604\uC7A5\uC5D0 \uC804\uAC00\uD55C \uADFC\uAC70\uAC00 \uC788\uACE0, \uC8FC\uC778\uACF5\uC774
+      \uC2E4\uD589 \uAC00\uB2A5\uD55C \uC6B4\uC601 \uB300\uC548\uC744 \uC57D\uC18D\uD574\uC57C
+      \uD55C\uB2E4."
+    requestedTerms: "\uB2F9\uC0AC\uC790 \uB3D9\uC758, \uAD50\uB300\xB7\uAD50\uC721
+      \uC608\uC0B0, \uC11C\uBE44\uC2A4 \uAE30\uC900, \uC774\uC804 \uC6B4\uC601 \uC190\uC2E4\uC758
+      \uC815\uC0B0\uACFC \uAC1C\uC120 \uC5EC\uBD80 \uD655\uC778."
+    cooperationLimit: "\uD604\uC7A5 \uD53C\uD574\uC640 \uC6B4\uC601 \uADFC\uAC70\uB97C
+      \uC81C\uACF5\uD558\uB294 \uD611\uC870\uB2E4. \uB9E4\uC7A5\uC744 \uC8FC\uC778\uACF5
+      \uC18C\uC18D\uC73C\uB85C \uBC14\uAFB8\uAC70\uB098 \uD310\uB9E4\uB9DD \uC791\uC804\uC744
+      \uC804\uBD80 \uB118\uAE30\uC9C0 \uC54A\uB294\uB2E4."
+    informationScope: "\uB3D9\uC758\uB41C \uBE44\uC2DD\uBCC4 \uADFC\uBB34\xB7\uC11C\uBE44\uC2A4
+      \uAE30\uB85D, \uBBF8\uC9D1\uD589 \uAD50\uC721\xB7\uD310\uCD09 \uBE44\uC6A9\uC758
+      \uC815\uC0B0 \uC790\uB8CC. \uAC1C\uC778 \uC2E0\uC0C1\uACFC \uAC74\uAC15\xB7\uC9D5\uACC4
+      \uAE30\uB85D\uC740 \uC81C\uC678\uD55C\uB2E4."
+    refusalConditions: "\uC9C1\uC6D0\uC744 \uC5EC\uB860\uC804\uC758 \uC99D\uC5B8
+      \uB3C4\uAD6C\uB85C\uB9CC \uC4F0\uB294 \uC694\uAD6C, \uB2F9\uC0AC\uC790 \uB3D9\uC758
+      \uC5C6\uB294 \uC2E0\uC0C1 \uACF5\uAC1C, \uBB34\uC870\uAC74\uC801\uC778 \uAC10\uCD95
+      \uC2E4\uC801."
+    renewedConflict: "\uC8FC\uC778\uACF5\uB3C4 \uC778\uB825 \uBD80\uC871\uACFC \uBE44\uC6A9
+      \uC804\uAC00\uB97C \uBC18\uBCF5\uD558\uBA74 \uD611\uC870\uB97C \uAC70\uB450\uACE0
+      \uB9E4\uC7A5\xB7\uC9C1\uC6D0 \uCE21\uC5D0\uC11C \uB9DE\uC120\uB2E4."
+    storyArc: "\uCD08\uAE30: \uD604\uC7A5 \uBE44\uC6A9\uC744 \uADFC\uAC70\uB85C \uC8FC\uC778\uACF5\uC758
+      \uC785\uC810\xB7\uD310\uCD09 \uC870\uAC74\uC744 \uAC70\uC808\uD55C\uB2E4.\n\uC911\uBC18:
+      \uACFC\uAC70\uC5D0 \uC790\uC2E0\uC774 \uBB35\uC778\uD55C \uC778\uB825 \uAE30\uC900\uC744
+      \uC778\uC815\uD55C\uB2E4.\n\uCD5C\uC885: \uADF8\uB8F9\uC758 \uBE44\uC6A9 \uC804\uAC00
+      \uC790\uB8CC\uB85C \uD611\uC870\uD560 \uC218 \uC788\uC73C\uB098 \uB2E4\uC74C
+      \uB9E4\uC7A5 \uC6B4\uC601 \uD611\uC0C1\uC5D0\uC11C\uB3C4 \uAC19\uC740 \uAE30\uC900\uC744
+      \uC694\uAD6C\uD55C\uB2E4."

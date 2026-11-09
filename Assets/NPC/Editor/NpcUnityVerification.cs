@@ -51,17 +51,17 @@ namespace TakeOver.NPC.Editor
                 var errors = new List<string>();
                 var ids = NpcConfigurationDiagnostics.RegistryIds(registry, errors);
                 Require(errors.Count == 0, "Inspector diagnostics: " + string.Join("; ", errors));
-                Require(ids.Count == 14, "Prefab has 14 unique NPC definitions");
+                Require(ids.Count == 30, "Prefab has 30 unique NPC definitions");
                 var definitions = new SerializedObject(registry).FindProperty("npcDefinitions");
                 var ceos = 0;
                 for (var i = 0; i < definitions.arraySize; i++)
                 {
                     var seed = ((NpcDefinition)definitions.GetArrayElementAtIndex(i).objectReferenceValue).CreateRuntimeSeed();
-                    Require(new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry", "external-network" }.Contains(seed.companyId)
+                    Require(new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry", "polaris-finance", "daeseong-industry", "sinseong-development", "blueharbor-retail", "aurora-foodtech", "external-network" }.Contains(seed.companyId)
                         && (seed.companyId == "external-network" || seed.npcId.StartsWith("npc-" + seed.companyId + "-", StringComparison.Ordinal)), "Canonical ID: " + seed.npcId);
                     if (seed.position == NpcPosition.CEO) ceos++;
                 }
-                Require(ceos == 4, "Exactly four CEO definitions");
+                Require(ceos == 9, "Exactly nine CEO definitions");
                 VerifyProjectIdReferences();
                 EditorSceneManager.OpenScene("Assets/Scenes/Game.unity", OpenSceneMode.Single);
                 var gameView = EditorWindow.GetWindow(Type.GetType("UnityEditor.GameView,UnityEditor"));
@@ -160,17 +160,17 @@ namespace TakeOver.NPC.Editor
             ui = UnityEngine.Object.FindFirstObjectByType<NpcFeatureTestScene>();
             Require(harness != null && ui != null, "NPC runtime exists in Game scene");
             var registry = harness.GetComponent<NpcStateRegistry>();
-            Require(registry.Profiles.Count == 14 && registry.States.Count == 14, "All 14 NPCs initialized in Play mode");
+            Require(registry.Profiles.Count == 30 && registry.States.Count == 30, "All 30 NPCs initialized in Play mode");
             NpcMemoryBalanceVerification.Verify(registry);
             VerifyPreferenceRegistration(registry);
             // 타 팀은 비활성 상태로 유지하고 초기화된 정식 ID 인덱스만 조회한다.
             var trading = UnityEngine.Object.FindFirstObjectByType<Companies>(FindObjectsInactive.Include);
             var market = UnityEngine.Object.FindFirstObjectByType<Marketdata>(FindObjectsInactive.Include);
             Require(trading != null && market != null, "Trading ID index exists for reference verification");
-            foreach (var id in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" })
+            foreach (var id in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry", "polaris-finance", "daeseong-industry", "sinseong-development", "blueharbor-retail", "aurora-foodtech" })
                 Require(trading.getCompany(id) != null && market.tryGetCompany(id, out var company)
                     && company.definition.companyID == id, "Runtime company lookup: " + id);
-            foreach (var company in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" })
+            foreach (var company in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry", "polaris-finance", "daeseong-industry", "sinseong-development", "blueharbor-retail", "aurora-foodtech" })
                 Require(registry.TryFindByPosition(company, NpcPosition.CEO, out var ceo) && ceo.position == NpcPosition.CEO,
                     "CEO lookup: " + company);
             const string seo = "npc-mirae-construction-cfo-seo-jia";
@@ -224,7 +224,7 @@ namespace TakeOver.NPC.Editor
             serialized.ApplyModifiedPropertiesWithoutUndo();
             Require(saver.TrySave(), "Save NPC runtime to isolated test file: " + saver.LastError);
             Require(saver.Load(), "Load canonical ID save: " + saver.LastError);
-            Require(registry.States.Count == 14 && registry.States.All(s => registry.TryGetProfile(s.npcId, out var seed) && seed.companyId == s.companyId), "Saved states match canonical profile IDs");
+            Require(registry.States.Count == 30 && registry.States.All(s => registry.TryGetProfile(s.npcId, out var seed) && seed.companyId == s.companyId), "Saved states match canonical profile IDs");
             Require(registry.TryGet(seo, out var restored) && restored.memories.Count == 1
                 && restored.memories[0].targetId == seo && restored.memories[0].memoryId.EndsWith(seo, StringComparison.Ordinal), "Memory target and deduplication key use canonical IDs");
             Near(restored.relation.trust, 4, "Saved relation restored without reapplying a preference");
@@ -329,7 +329,23 @@ namespace TakeOver.NPC.Editor
                 { "Kang_Jaehyeon", "npc-dongbang-trading-ceo-kang-jaehyeon" },
                 { "Park_Minu", "npc-dongbang-trading-hr-director-park-minu" },
                 { "Jo_Minseok", "npc-hansung-industry-ceo-jo-minseok" },
-                { "Choi_Mijeong", "npc-hansung-industry-labor-director-choi-mijeong" }
+                { "Choi_Mijeong", "npc-hansung-industry-labor-director-choi-mijeong" },
+                { "Lim_Dohyeon", "npc-polaris-finance-ceo-lim-dohyeon" },
+                { "Song_Hyeonseok", "npc-polaris-finance-risk-director-song-hyeonseok" },
+                { "Jung_Yura", "npc-polaris-finance-ma-director-jung-yura" },
+                { "Kim_Seongho", "npc-daeseong-industry-ceo-kim-seongho" },
+                { "Noh_Hyeonjeong", "npc-daeseong-industry-cfo-noh-hyeonjeong" },
+                { "Oh_Jinu", "npc-daeseong-industry-business-development-director-oh-jinu" },
+                { "Choi_Eunsu", "npc-daeseong-industry-hr-director-choi-eunsu" },
+                { "Jung_Dohyeon", "npc-sinseong-development-ceo-jung-dohyeon" },
+                { "Yoo_Jeongmin", "npc-sinseong-development-planning-director-yoo-jeongmin" },
+                { "Kang_Minji", "npc-sinseong-development-community-director-kang-minji" },
+                { "Seo_Yujin", "npc-blueharbor-retail-ceo-seo-yujin" },
+                { "Han_Dogyeong", "npc-blueharbor-retail-data-director-han-dogyeong" },
+                { "Kim_Dongseok", "npc-blueharbor-retail-operations-director-kim-dongseok" },
+                { "Kim_Seohu", "npc-aurora-foodtech-ceo-kim-seohu" },
+                { "Jung_Harin", "npc-aurora-foodtech-chief-scientist-jung-harin" },
+                { "Han_Yuna", "npc-aurora-foodtech-business-development-director-han-yuna" }
             };
             var npcs = new Dictionary<string, NpcStateRegistry.NpcSeed>();
             foreach (var guid in AssetDatabase.FindAssets("t:NpcDefinition", new[] { "Assets/NPC/Data/Profiles" }))
@@ -348,14 +364,14 @@ namespace TakeOver.NPC.Editor
             }
             Require(npcs.Count == expectedNpcIds.Count && expectedNpcIds.Values.All(npcs.ContainsKey),
                 "All approved NPC IDs are present without inferred name formats");
-            var expected = new HashSet<string> { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" };
+            var expected = new HashSet<string> { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry", "polaris-finance", "daeseong-industry", "sinseong-development", "blueharbor-retail", "aurora-foodtech" };
             var companies = AssetDatabase.FindAssets("t:CompanyDefinition", new[] { "Assets/ShareTrading/Data" })
                 .Select(guid => AssetDatabase.LoadAssetAtPath<CompanyDefinition>(AssetDatabase.GUIDToAssetPath(guid))).ToArray();
-            Require(companies.Length == 4 && new HashSet<string>(companies.Select(c => c.companyID)).SetEquals(expected), "Trading has exactly four canonical company SOs");
+            Require(companies.Length == 9 && new HashSet<string>(companies.Select(c => c.companyID)).SetEquals(expected), "Trading has exactly nine canonical company SOs");
             var tradingPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/ShareTrading/Prefabs/ShareTradingLogic.prefab");
             var referenced = tradingPrefab.GetComponentInChildren<Companies>(true).CompanyList;
-            Require(referenced.Count == 4 && referenced.All(c => c != null && c.definition != null)
-                && new HashSet<string>(referenced.Select(c => c.definition.companyID)).SetEquals(expected), "Trading prefab references all four companies without missing assets");
+            Require(referenced.Count == 9 && referenced.All(c => c != null && c.definition != null)
+                && new HashSet<string>(referenced.Select(c => c.definition.companyID)).SetEquals(expected), "Trading prefab references all nine companies without missing assets");
             var restructuring = AssetDatabase.LoadAssetAtPath<TakeOver.Events.EventDefinition>("Assets/EventSystem/Data/Restructuring.asset");
             foreach (var company in referenced)
             {

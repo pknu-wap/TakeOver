@@ -38,6 +38,13 @@ namespace TakeOver.Events
         private Sprite npcDimmedIllustration;
         private Sprite currentPlayerIllustration;
         private Sprite defaultBackground;
+        private EventSystemController controller;
+        private Button skipButton;
+        private Image skipCurtain;
+        private Canvas skipCanvas;
+        private Coroutine skipRoutine;
+        private Action skipTarget;
+        private bool skipping, completingSkip;
 
         private void Awake()
         {
@@ -45,11 +52,16 @@ namespace TakeOver.Events
             questionPosition = ((RectTransform)questionBlock.transform).anchoredPosition;
             responsePosition = ((RectTransform)responseBlock.transform).anchoredPosition;
             playerPosition = ((RectTransform)playerBlock.transform).anchoredPosition;
+            ensureSkipButton();
         }
 
         public void show(TodayEventInfo info, EventSystemController controller, Sprite speakerIllustration = null,
             Sprite speakerDimmedIllustration = null)
         {
+            cancelSkip();
+            this.controller = controller;
+            skipTarget = null;
+            ensureSkipButton();
             stopResultRoutine();
             choiceSubmitted = false;
             if (defaultBackground == null) defaultBackground = roomBackground.sprite;
@@ -79,12 +91,14 @@ namespace TakeOver.Events
             closeButton.gameObject.SetActive(false);
             gameObject.SetActive(true);
             transform.SetAsLastSibling();
+            refreshSkipButton();
         }
 
         public void showCompanyChoices(TodayEventInfo info, EventSystemController controller) => showChoices(info, controller);
 
         private void showChoices(TodayEventInfo info, EventSystemController controller)
         {
+            skipTarget = null;
             choiceSubmitted = false;
             clearChoices();
             choicesRoot.gameObject.SetActive(true);
@@ -118,6 +132,7 @@ namespace TakeOver.Events
                 button.gameObject.SetActive(true);
                 choices.Add(button);
             }
+            refreshSkipButton();
         }
 
         private void submitChoice(EventSystemController controller, int choiceIndex)
@@ -137,11 +152,18 @@ namespace TakeOver.Events
         private void beginExchange(string dialogue, string playerLine, Action completed, bool companyQuestion)
         {
             stopResultRoutine();
+            // Only presentation is skipped. The controller still owns every choice and effect.
+            skipTarget = companyQuestion ? (Action)(() =>
+            {
+                showCompanyQuestionImmediately(dialogue);
+                completed?.Invoke();
+            }) : controller.closeResult;
             choiceSubmitted = true;
             foreach (Button button in choices) button.interactable = false;
             choicesRoot.gameObject.SetActive(false);
             closeButton.gameObject.SetActive(false);
             resultRoutine = StartCoroutine(animateExchange(dialogue, playerLine, completed, companyQuestion));
+            refreshSkipButton();
         }
 
         private IEnumerator animateExchange(string dialogue, string playerLine, Action completed, bool companyQuestion)
@@ -195,7 +217,115 @@ namespace TakeOver.Events
                 yield return fadeIn(responseBlock);
             }
             resultRoutine = null;
+            if (companyQuestion) skipTarget = null;
             completed?.Invoke();
+            refreshSkipButton();
+        }
+
+        private void ensureSkipButton()
+        {
+            if (skipButton != null) return;
+            var go = new GameObject("Skip to choice", typeof(RectTransform), typeof(Image), typeof(Button));
+            go.transform.SetParent(transform, false);
+            var rect = (RectTransform)go.transform;
+            rect.anchorMin = rect.anchorMax = Vector2.zero; rect.pivot = Vector2.zero;
+            rect.anchoredPosition = new Vector2(56, 248); rect.sizeDelta = new Vector2(164, 42);
+            go.GetComponent<Image>().color = new Color(.08f, .12f, .2f, .97f);
+            skipButton = go.GetComponent<Button>();
+            skipButton.navigation = new Navigation { mode = Navigation.Mode.None };
+            skipButton.onClick.AddListener(SkipToNextChoice);
+            var label = new GameObject("Label", typeof(RectTransform), typeof(Text));
+            label.transform.SetParent(go.transform, false);
+            var text = label.GetComponent<Text>();
+            text.rectTransform.anchorMin = Vector2.zero; text.rectTransform.anchorMax = Vector2.one;
+            text.rectTransform.offsetMin = text.rectTransform.offsetMax = Vector2.zero;
+            text.font = dialogueText.font; text.fontSize = 17; text.alignment = TextAnchor.MiddleCenter;
+            text.text = "스킵  ▸▸"; text.color = new Color(.95f, .82f, .54f); text.raycastTarget = false;
+            refreshSkipButton();
+        }
+
+        private void refreshSkipButton()
+        {
+            if (skipButton != null) skipButton.interactable = !skipping && skipTarget != null;
+        }
+
+        public void SkipToNextChoice()
+        {
+            if (!isActiveAndEnabled || skipping || skipTarget == null || controller == null) return;
+            var target = skipTarget;
+            skipTarget = null; skipping = true;
+            refreshSkipButton();
+            stopResultRoutine();
+            closeButton.interactable = false;
+            // The controller keeps the fade alive when the final target closes this view.
+            skipRoutine = controller.StartCoroutine(skipToTarget(target));
+        }
+
+        private IEnumerator skipToTarget(Action target)
+        {
+            if (skipCurtain == null)
+            {
+                var canvasObject = new GameObject("Event skip blackout", typeof(Canvas), typeof(GraphicRaycaster));
+                skipCanvas = canvasObject.GetComponent<Canvas>();
+                skipCanvas.renderMode = RenderMode.ScreenSpaceOverlay; skipCanvas.sortingOrder = 32760;
+                var image = new GameObject("Black", typeof(RectTransform), typeof(Image));
+                image.transform.SetParent(canvasObject.transform, false);
+                skipCurtain = image.GetComponent<Image>();
+                skipCurtain.rectTransform.anchorMin = Vector2.zero; skipCurtain.rectTransform.anchorMax = Vector2.one;
+                skipCurtain.rectTransform.offsetMin = skipCurtain.rectTransform.offsetMax = Vector2.zero;
+            }
+            skipCanvas.gameObject.SetActive(true);
+            yield return fadeSkipCurtain(0, 1);
+            completingSkip = true;
+            try { target(); }
+            finally { completingSkip = false; }
+            yield return fadeSkipCurtain(1, 0);
+            skipCanvas.gameObject.SetActive(false);
+            skipRoutine = null; skipping = false;
+            if (closeButton != null) closeButton.interactable = true;
+            refreshSkipButton();
+        }
+
+        private IEnumerator fadeSkipCurtain(float from, float to)
+        {
+            const float seconds = .35f;
+            for (float elapsed = 0; elapsed < seconds; elapsed += Time.unscaledDeltaTime)
+            {
+                skipCurtain.color = new Color(0, 0, 0, Mathf.Lerp(from, to, Mathf.SmoothStep(0, 1, elapsed / seconds)));
+                yield return null;
+            }
+            skipCurtain.color = new Color(0, 0, 0, to);
+        }
+
+        private void showCompanyQuestionImmediately(string dialogue)
+        {
+            setBlock(playerBlock, false); setBlock(responseBlock, false);
+            ((RectTransform)questionBlock.transform).anchoredPosition = questionPosition;
+            dialogueText.text = dialogue;
+            currentPlayerIllustration = playerReplyIllustration;
+            setPlayerFrame(playerReplyFrame); highlightPlayer(false);
+            setBlock(questionBlock, true);
+        }
+
+        private void cancelSkip()
+        {
+            if (skipRoutine != null && controller != null) controller.StopCoroutine(skipRoutine);
+            skipRoutine = null; skipping = false; skipTarget = null;
+            if (skipCanvas != null) skipCanvas.gameObject.SetActive(false);
+            if (closeButton != null) closeButton.interactable = true;
+            refreshSkipButton();
+        }
+
+        private void OnDisable()
+        {
+            stopResultRoutine();
+            if (!completingSkip) cancelSkip();
+        }
+
+        private void OnDestroy()
+        {
+            cancelSkip();
+            if (skipCanvas != null) Destroy(skipCanvas.gameObject);
         }
 
         private void fadeUp(CanvasGroup block, Vector2 position, float progress)

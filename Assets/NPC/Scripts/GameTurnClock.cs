@@ -31,6 +31,7 @@ namespace TakeOver.NPC
         /// <summary>게임의 턴 종료 경로에서 호출한다. 등록된 각 NPC에 경과 처리를 적용한다.</summary>
         public void AdvanceTurn()
         {
+            if (!TakeOver.Story.StoryDirector.CanAdvanceTurn) return;
             currentTurn++;
             if (registry != null)
                 foreach (var state in registry.States) memoryService.AdvanceTurn(state, currentTurn);

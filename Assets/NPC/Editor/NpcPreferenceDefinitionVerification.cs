@@ -114,7 +114,7 @@ namespace TakeOver.NPC.Editor
                 Check(!seed.preferenceResponse.useCustomAxes, "Existing SO retains default axes: " + seed.npcId);
                 registered++;
             }
-            Check(registered == 14, "All 14 registered SOs retained");
+            Check(registered == 30, "All 30 registered SOs valid");
             var a = Definition(Seed("npc-broker-yoon-hajin", 2, 1));
             var b = Definition(Seed("npc-investigative-reporter-jung-sua", 1.25f, -1));
             try

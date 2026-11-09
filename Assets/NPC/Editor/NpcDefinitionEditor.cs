@@ -12,6 +12,7 @@ namespace TakeOver.NPC.Editor
         private ReorderableList memories;
         private bool showProfile = true, showBiases, showActions = true, showMemories = true, showPreview;
         private string previewAction = "GoodFaith";
+        private bool showStory;
         private NpcMemoryType previewMemory;
         private NpcRelationDelta previewDelta = new NpcRelationDelta { trust = 4, hostility = -4 };
 
@@ -44,6 +45,19 @@ namespace TakeOver.NPC.Editor
                 Field(profile, "dimmedStandingIllustration", "어두운 스탠딩");
                 Field(profile, "personalitySummary", "성격 · 가치관");
                 Field(profile, "gameplayRoleSummary", "게임 내 역할");
+            }
+            showStory = EditorGUILayout.Foldout(showStory, "메인 스토리 설계 · 제작자 전용", true);
+            if (showStory)
+            {
+                EditorGUILayout.HelpBox("협조·적대의 서사 조건입니다. 신뢰/보수 수치만으로 자동 전향하지 않으며 인물 정보창에 이 조건을 공개하지 않습니다.", MessageType.Info);
+                var story = serializedObject.FindProperty("storyDesign");
+                Field(story, "stance", "기본 서사 입장");
+                Field(story, "personalGoal", "개인 목표"); Field(story, "loyaltyReason", "그룹/회사에 남는 이유");
+                Field(story, "innerConflict", "내적 모순"); Field(story, "pressureTactics", "주인공 견제 방식");
+                Field(story, "cooperationTrigger", "협조 검토 계기"); Field(story, "requestedTerms", "요구 조건과 대가");
+                Field(story, "cooperationLimit", "협조의 한계"); Field(story, "informationScope", "제공 가능한 정보");
+                Field(story, "refusalConditions", "거절선"); Field(story, "renewedConflict", "재대립 조건");
+                Field(story, "storyArc", "초기·중반·최종 등장 흐름");
             }
             EditorGUILayout.Space();
             Field(seed, "preferenceResponse", "이 NPC의 기본 호불호 보너스");

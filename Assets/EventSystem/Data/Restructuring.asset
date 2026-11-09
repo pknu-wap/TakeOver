@@ -16,6 +16,7 @@ MonoBehaviour:
   title: "\uAD6C\uC870\uC870\uC815 \uC555\uBC15"
   image: {fileID: 21300000, guid: 7d714964754218147960c156ac4cf78f, type: 3}
   cardImage: {fileID: 21300000, guid: c540404617b92194591ff62394967d14, type: 3}
+  npcArts: []
   highlightImage: {fileID: 0}
   negotiationBackground: {fileID: 21300000, guid: 0c3948cb5bd127242a3ec8551eec1e98, type: 3}
   description: "{company} {speakerRole} {speaker}. \uC778\uB825 \uAC10\uCD95 \uACC4\uD68D\uC744
@@ -50,6 +51,11 @@ MonoBehaviour:
       - npc-dongbang-trading-hr-director-park-minu
       - npc-hansung-industry-labor-director-choi-mijeong
       - npc-haneul-food-cfo-oh-jaeseong
+      - npc-polaris-finance-risk-director-song-hyeonseok
+      - npc-daeseong-industry-hr-director-choi-eunsu
+      - npc-sinseong-development-community-director-kang-minji
+      - npc-blueharbor-retail-operations-director-kim-dongseok
+      - npc-aurora-foodtech-chief-scientist-jung-harin
       targetReactions:
       - targetNpcId: npc-mirae-construction-field-director-park-dosik
         memoryType: 2
@@ -115,6 +121,91 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
+      - targetNpcId: npc-polaris-finance-risk-director-song-hyeonseok
+        memoryType: 2
+        strength: 2
+        publicity: 3
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC1A1\uD604\uC11D\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 20
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-daeseong-industry-hr-director-choi-eunsu
+        memoryType: 2
+        strength: 2
+        publicity: 3
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uCD5C\uC740\uC218\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 20
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-sinseong-development-community-director-kang-minji
+        memoryType: 2
+        strength: 2
+        publicity: 3
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uAC15\uBBFC\uC9C0\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 20
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-blueharbor-retail-operations-director-kim-dongseok
+        memoryType: 2
+        strength: 2
+        publicity: 3
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uAE40\uB3D9\uC11D\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 20
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-aurora-foodtech-chief-scientist-jung-harin
+        memoryType: 2
+        strength: 2
+        publicity: 3
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC815\uD558\uB9B0\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 20
+          dependency: 0
+          interest: 0
       memoryType: 2
       strength: 2
       publicity: 3
@@ -150,6 +241,11 @@ MonoBehaviour:
       - npc-mirae-construction-field-director-park-dosik
       - npc-dongbang-trading-hr-director-park-minu
       - npc-hansung-industry-labor-director-choi-mijeong
+      - npc-polaris-finance-risk-director-song-hyeonseok
+      - npc-daeseong-industry-hr-director-choi-eunsu
+      - npc-sinseong-development-community-director-kang-minji
+      - npc-blueharbor-retail-operations-director-kim-dongseok
+      - npc-aurora-foodtech-chief-scientist-jung-harin
       targetReactions:
       - targetNpcId: npc-mirae-construction-field-director-park-dosik
         memoryType: 8
@@ -202,6 +298,96 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
+      - targetNpcId: npc-polaris-finance-risk-director-song-hyeonseok
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC1A1\uD604\uC11D\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags:
+        - gradual_restructuring
+        relationDelta:
+          trust: 10
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-daeseong-industry-hr-director-choi-eunsu
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uCD5C\uC740\uC218\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags:
+        - gradual_restructuring
+        relationDelta:
+          trust: 10
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-sinseong-development-community-director-kang-minji
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uAC15\uBBFC\uC9C0\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags:
+        - gradual_restructuring
+        relationDelta:
+          trust: 10
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-blueharbor-retail-operations-director-kim-dongseok
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uAE40\uB3D9\uC11D\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags:
+        - gradual_restructuring
+        relationDelta:
+          trust: 10
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-aurora-foodtech-chief-scientist-jung-harin
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC815\uD558\uB9B0\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags:
+        - gradual_restructuring
+        relationDelta:
+          trust: 10
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
       memoryType: 8
       strength: 2
       publicity: 1
@@ -239,6 +425,11 @@ MonoBehaviour:
       - npc-dongbang-trading-hr-director-park-minu
       - npc-hansung-industry-labor-director-choi-mijeong
       - npc-haneul-food-cfo-oh-jaeseong
+      - npc-polaris-finance-risk-director-song-hyeonseok
+      - npc-daeseong-industry-hr-director-choi-eunsu
+      - npc-sinseong-development-community-director-kang-minji
+      - npc-blueharbor-retail-operations-director-kim-dongseok
+      - npc-aurora-foodtech-chief-scientist-jung-harin
       targetReactions:
       - targetNpcId: npc-mirae-construction-field-director-park-dosik
         memoryType: 0
@@ -304,6 +495,91 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
+      - targetNpcId: npc-polaris-finance-risk-director-song-hyeonseok
+        memoryType: 0
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC1A1\uD604\uC11D\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 20
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-daeseong-industry-hr-director-choi-eunsu
+        memoryType: 0
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uCD5C\uC740\uC218\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 20
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-sinseong-development-community-director-kang-minji
+        memoryType: 0
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uAC15\uBBFC\uC9C0\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 20
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-blueharbor-retail-operations-director-kim-dongseok
+        memoryType: 0
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uAE40\uB3D9\uC11D\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 20
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-aurora-foodtech-chief-scientist-jung-harin
+        memoryType: 0
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC815\uD558\uB9B0\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 20
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
       memoryType: 0
       strength: 2
       publicity: 1
@@ -344,3 +620,13 @@ MonoBehaviour:
     npcId: npc-dongbang-trading-hr-director-park-minu
   - companyId: hansung-industry
     npcId: npc-hansung-industry-labor-director-choi-mijeong
+  - companyId: polaris-finance
+    npcId: npc-polaris-finance-risk-director-song-hyeonseok
+  - companyId: daeseong-industry
+    npcId: npc-daeseong-industry-hr-director-choi-eunsu
+  - companyId: sinseong-development
+    npcId: npc-sinseong-development-community-director-kang-minji
+  - companyId: blueharbor-retail
+    npcId: npc-blueharbor-retail-operations-director-kim-dongseok
+  - companyId: aurora-foodtech
+    npcId: npc-aurora-foodtech-chief-scientist-jung-harin

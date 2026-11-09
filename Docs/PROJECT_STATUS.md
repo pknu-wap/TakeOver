@@ -1,3 +1,19 @@
+# 일반 이벤트 대화 스킵 — 2026-11-10
+
+일반 이벤트에도 선택지까지 넘기는 페이드 스킵을 적용했다. 기존 7개 이벤트의 17개 선택지를 정상/스킵으로 비교해 전체 게임 상태가 일치했고, 기존 이벤트/NPC 회귀 검증도 통과했다. 최신 검증 및 실행 파일은 workspace `QA_EventDialogueSkip/RESULT_KO.md`, `QA_EventDialogueSkip/Build/TakeOver.exe`다. 빌드 오류0/경고0. 아래 종합 점검에서 기록했던 일반 이벤트 스킵 누락은 해결됐다.
+
+# 인물 서사 후속 확장 — 2026-11-10
+
+대립기업 신규 16명의 공개 프로필과 제작용 서사 조건을 개편했다. 끝까지 대립·조건부 거래·직업적 경계·내부 갈등을 구분했으며 상세 설정은 `Assets/Story/RIVAL_CHARACTER_DESIGN_KO.md`다. 기존 관계·Memory 수치와 기업 재무는 유지한다. 최신 검증·실행 파일은 workspace `QA_RivalDepth/RESULT_KO.md`, `QA_RivalDepth/Build/TakeOver.exe`. 실제 신규 메인 스토리 이벤트와 자동 전향 엔진은 별도 구현 범위다.
+
+# 도입부 후속 수정 — 2026-11-10
+
+빌드 경고 2건을 해결해 최종 오류·경고 0건이다. 가족 피해 장면의 성인 스탠딩을 숨기고, 타이틀의 전체 스킵 체크란과 대화창의 선택지 단위 페이드 스킵을 추가했다. 최신 검증·실행 파일은 workspace `QA_StorySkip/RESULT_KO.md`, `QA_StorySkip/Build/TakeOver.exe`다. 전체 스킵은 기본 첫 선택 3개를 적용한 정상 완료 상태와 일치한다. 상세 정책은 `Assets/Story/STORY_AUTHORING_KO.md`를 따른다.
+
+# 최신 상태 — 2026-11-10
+
+프롤로그·튜토리얼 93개 진행 항목과 대립기업 5곳/NPC 16명을 구현했다. 현재 총 회사 9곳, NPC 30명이다. 실행·제작 안내는 `Assets/Story/STORY_AUTHORING_KO.md`, 정본 ID는 `Docs/ID_CONVENTIONS_KO.md`, 최신 검증은 workspace `QA_Story/RESULT_KO.md`를 따른다. 아래 본문은 초기 인계 당시의 과거 기록이다.
+
 # TakeOver 진행 상황 이전 기록
 
 이 문서는 현재 저장소에서 확인한 기획과 구현 상태를 이어받기 위한 요약이다. 저장소의 기준 커밋은 `2f811ce` (`Unity 프로젝트 초기 세팅`)이며, 아래 구현 상태는 커밋 이후 작업 트리에 존재하는 파일을 기준으로 기록했다. 별도 브랜치나 외부 저장소의 이력은 이 환경에서 확인하지 못했다.
