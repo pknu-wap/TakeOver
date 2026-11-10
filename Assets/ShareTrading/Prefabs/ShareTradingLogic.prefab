@@ -319,6 +319,7 @@ GameObject:
   - component: {fileID: 1855018050064955431}
   - component: {fileID: 9056152948097765713}
   - component: {fileID: 3551093198360838554}
+  - component: {fileID: 317006268609881434}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -374,6 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameSystem
   companies: {fileID: 8237969287396869895}
   marketData: {fileID: 5191246152492245077}
+  ruleRunner: {fileID: 317006268609881434}
 --- !u!114 &9056152948097765713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22494f2c6a8e44528277d99efc57b301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventListener
+  player: {fileID: 0}
   marketData: {fileID: 5191246152492245077}
   eventEffects: {fileID: 6437409518126791032}
 --- !u!114 &3551093198360838554
@@ -401,6 +404,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShareTradingSystem
   player: {fileID: 5150549921634898239}
+--- !u!114 &317006268609881434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5643717909320174764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac046788f869dbb4bba2629afdd3ae17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.CompanyRules.CompanyRuleRunner
+  companies: {fileID: 0}
+  player: {fileID: 0}
+  marketData: {fileID: 0}
+  settings: {fileID: 11400000, guid: efe5805ed8c08d84494d86804d7af4b4, type: 2}
 --- !u!1 &6316138442216068506
 GameObject:
   m_ObjectHideFlags: 0
