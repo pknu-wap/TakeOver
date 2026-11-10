@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TakeOver.NPC;
 using TakeOver.Events;
@@ -7,7 +8,7 @@ using TakeOver.Events;
 
 namespace TakeOver.Events
 {
-    public sealed class EventSystemController : MonoBehaviour
+    public sealed partial class EventSystemController : MonoBehaviour, TakeOver.SaveSystem.ISaveParticipant
     {
         [SerializeField] private List<EventDefinition> events = new List<EventDefinition>();
         [SerializeField] private EventDetailView detailView;
@@ -48,6 +49,8 @@ namespace TakeOver.Events
 
         private void Awake()
         {
+            var lesson = Resources.Load<EventDefinition>("Story/TutorialVisit");
+            if (lesson != null && !events.Contains(lesson)) events.Add(lesson);
             turnClock = FindFirstObjectByType<GameTurnClock>();
             actionPointService = FindFirstObjectByType<ActionPointService>();
             worldReader = new EventWorldReader(FindFirstObjectByType<Companies>(), FindFirstObjectByType<NpcStateRegistry>(), GetComponent<EventTempWorldData>());
@@ -100,6 +103,8 @@ namespace TakeOver.Events
         }
         private bool meetsConditions(EventDefinition definition, string companyId)
         {
+            if (definition.IsTutorialOnly && !TakeOver.Story.StoryDirector.IsRunning) return false;
+            if (definition.hasCompanyConditions() && definition.getCompanyIds().Count > 0 && !definition.getCompanyIds().Contains(companyId)) return false;
             foreach (EventCondition condition in definition.getConditions())
             {
                 float threshold = condition.value;
@@ -112,9 +117,12 @@ namespace TakeOver.Events
                 float actual;
                 if (condition.kind == EventConditionKind.CompanyStake) actual = worldReader.getStake(companyId);
                 else if (condition.kind == EventConditionKind.CompanyConsumerReaction) actual = worldReader.getConsumerReaction(companyId);
+                else if (condition.kind == EventConditionKind.CompanyProfitDeteriorating) actual = worldReader.isProfitDeteriorating(companyId) ? 1 : 0;
                 else
                 {
-                    NpcRelationState relation = worldReader.getNpcRelation(condition.npcId);
+                    string npcId=string.IsNullOrEmpty(condition.npcId) ? worldReader.getCompany(companyId)?.ceoNpcId : condition.npcId;
+                    if(string.IsNullOrEmpty(npcId))return false;
+                    NpcRelationState relation = worldReader.getNpcRelation(npcId);
                     switch (condition.relationAxis)
                     {
                         case EventRelationAxis.trust: actual = relation.trust; break;
@@ -215,6 +223,8 @@ namespace TakeOver.Events
         {
             if (!TakeOver.Story.StoryDirector.CanNegotiate(ActiveEventId)) return;
             if (screenState != ScreenState.Detail) return;
+            if(activeInfo==null || !hasRequiredHoldings(activeInfo.definition) || !meetsConditions(activeInfo.definition,activeInfo.companyId))
+            {closeDetail();refreshAvailability();return;}
             buildNegotiationChoices();
             if (negotiationChoices.Count == 0) return;
             if (actionPointService == null)
@@ -272,6 +282,12 @@ namespace TakeOver.Events
                     activeInfo.resolve(choice.getPlayerLine()), showCompanyChoices);
                 return;
             }
+            // 선택 완료·관계·기억·현금 변경 전에 검사한다. 실패한 답변은 다시 고를 수 있다.
+            if (!canAfford(choice))
+            {
+                negotiationView.showChoiceFailure("보유자금이 부족합니다. 다른 답변을 선택해 주십시오.");
+                return;
+            }
             string playerLine = companyChoice ? (definition.getCompanyPlayerLine() ?? "").Replace("{company}", selected.companyName) : choice.getPlayerLine();
             string companyId = activeInfo.companyId;
             screenState = ScreenState.Result;
@@ -298,6 +314,16 @@ namespace TakeOver.Events
             negotiationView.hide();
             activeInfo = null;
             screenState = ScreenState.Closed;
+        }
+
+        private bool canAfford(EventChoice choice)
+        {
+            float delta = choice.getCashDelta();
+            if (float.IsNaN(delta) || float.IsInfinity(delta)) return false;
+            if (delta == 0) return true;
+            var player = FindFirstObjectByType<Player>();
+            return player != null && player.state != null && !float.IsNaN(player.state.cash)
+                && !float.IsInfinity(player.state.cash) && (delta >= 0 || player.state.cash >= -delta);
         }
     }
 }

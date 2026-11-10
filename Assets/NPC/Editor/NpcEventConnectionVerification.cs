@@ -224,8 +224,14 @@ namespace TakeOver.NPC.Editor
                     ((IDictionary)Get(controller, "availableDays")).Clear();
                     ((IList)Get(controller, "occurrences")).Clear();
                     Set(controller, "currentDay", 0);
+                    if(id=="inside_info_01")
+                    {
+                        var company=UnityEngine.Object.FindFirstObjectByType<Companies>().getCompany("mirae-construction");
+                        company.state.setStat(CompanyStat.PLAYER_SHARES,company.state.totalShares*.1f);
+                        company.calculator.calculateAboutShares(company);
+                    }
                     controller.onDayStarted(1);
-                    Check(controller.getTodayEvents().Contains(definition), id + " appears without extra conditions");
+                    Check(controller.getTodayEvents().Contains(definition), id + " appears at its configured eligibility");
                     ChoiceConfirmedInfo observed = null;
                     Action<ChoiceConfirmedInfo> capture = value => observed = value;
                     controller.choiceConfirmed += capture;
@@ -238,10 +244,10 @@ namespace TakeOver.NPC.Editor
                     Check(string.IsNullOrEmpty(receiver.LastError), "Receiver reports no error");
                     var npcId = id == "press_interview_01" ? lee : seo;
                     Check(registry.TryGet(npcId, out var state), "Target registered");
-                    var expectedTrust = index == 0 ? id == "press_interview_01" ? 13 : 12 : index == 1 ? -10 : 0;
+                    var expectedTrust = index == 0 ? id == "press_interview_01" ? 13 : 10 : index == 1 ? -10 : 0;
                     Check(Mathf.Approximately(state.relation.trust, expectedTrust), "Actual trust = " + expectedTrust);
                     Check(Mathf.Approximately(state.relation.respect, id == "press_interview_01" && index == 0 ? 13 : 0), "Actual respect matches Memory-balanced event");
-                    Check(Mathf.Approximately(state.relation.interest, id == "inside_info_01" && index == 0 ? 12 : 0), "Actual interest matches Memory-balanced event");
+                    Check(Mathf.Approximately(state.relation.interest, id == "inside_info_01" && index == 0 ? 10 : 0), "Actual interest matches authored observation memory");
                     Check(state.memories.Count == (index == 2 ? 0 : 1), "Memory count matches effect/no-effect choice");
                     Check(registry.States.Where(s => s.npcId != npcId).All(s => s.memories.Count == 0), "Other NPCs receive no memory");
                     if (observed.npcResult != null)

@@ -82,8 +82,7 @@ namespace TakeOver.Story
             confirm = template.CreateActionButton(objectives.transform,"Confirm profile","확인",()=>director.Continue());
             reopen = template.CreateActionButton(objectives.transform,"Reopen profile","인물 정보",()=>director.OpenProfile());
             skip = template.CreateActionButton(root,"Skip to choice","스킵",()=>director.SkipToNextChoice());
-            Place(skip.GetComponent<RectTransform>(),new Rect(24,24,164,42));
-            EventNegotiationView.ApplySkipButtonStyle(skip);
+            PlaceSkip();
             fade = Image("Fade curtain", transform, Color.black); Stretch(fade.rectTransform); fade.raycastTarget = true;
             objectives.SetActive(false); SetMasks(false); stage.SetActive(false);
         }
@@ -99,7 +98,7 @@ namespace TakeOver.Story
                 fade.gameObject.SetActive(false);
                 return;
             }
-            Place(skip.GetComponent<RectTransform>(),new Rect(24,24,164,42));
+            PlaceSkip();
             gated = beat.goal != StoryGoal.None;
             stage.SetActive(!gated); objectives.SetActive(false); skip.gameObject.SetActive(gated || informationOnly);
             transform.GetChild(0).gameObject.SetActive(!gated);
@@ -249,6 +248,13 @@ namespace TakeOver.Story
             fade.color=Color.clear;fade.raycastTarget=false;
         }
         private void SetMasks(bool visible) { foreach(var mask in masks)mask.gameObject.SetActive(visible);outline.gameObject.SetActive(false); }
+        private void PlaceSkip()
+        {
+            var rect=(RectTransform)skip.transform;
+            rect.localRotation=Quaternion.identity;
+            Place(rect,new Rect(24,24,164,42));
+            EventNegotiationView.ApplySkipButtonStyle(skip);
+        }
         private static Image Image(string name, Transform parent, Color color)
         { var obj=new GameObject(name,typeof(RectTransform),typeof(Image)); obj.transform.SetParent(parent,false); var result=obj.GetComponent<Image>(); result.color=color; return result; }
         private static RectTransform Rect(string name, Transform parent, Rect rect)

@@ -21,7 +21,7 @@ namespace TakeOver.Story.Editor
     public static class StorySkipVerification
     {
         private const string Key="TakeOver.StorySkip.Verify";
-        internal static string Output=>Path.GetFullPath("../QA_ContextUI");
+        internal static string Output=>Path.GetFullPath("../QA_NarrativeRevision");
         static StorySkipVerification(){EditorApplication.playModeStateChanged+=Changed;}
         [MenuItem("TakeOver/Story/Verify Intro Skip Options")]
         public static void Run()

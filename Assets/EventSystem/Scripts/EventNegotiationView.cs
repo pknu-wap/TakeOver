@@ -403,6 +403,15 @@ namespace TakeOver.Events
             controller.confirmChoice(choiceIndex);
         }
 
+        public void showChoiceFailure(string message)
+        {
+            choiceSubmitted = false;
+            foreach (Button button in choices) button.interactable = true;
+            var notice = FindFirstObjectByType<FloatingMessage>();
+            if (notice != null) notice.Show(message);
+            else dialogueText.text = message;
+        }
+
         public void showResult(string dialogue, string playerLine = "") =>
             beginExchange(dialogue, playerLine, () => closeButton.gameObject.SetActive(true), false);
 
