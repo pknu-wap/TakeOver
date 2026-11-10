@@ -17,7 +17,10 @@ public enum CompanyStat
     MARKET_POSITION,    // 시장 경쟁력 [0~100 기준]
 
     PLAYER_SHARES,
-    BASE_COMPANY_VALUE  // 기초값
+    BASE_COMPANY_VALUE, // 기초값
+    EMPLOYEE_COUNT,     // 회사 직원 수 (플레이어 직원과 별개)
+    WATCHLIST_REVIEWS_REMAINING, // 관리종목 유예 판정 횟수
+    LIQUIDATION_TURNS_REMAINING  // 정리매매 남은 턴
     // 복잡성을 위한 상호작용 등에서 영향을 주고받을 rawdata를 데이터를 추가할 수 있음.
     // ex) Liquidity, CashFlowStability, OperationalRisk, ManagementStability 등
 }

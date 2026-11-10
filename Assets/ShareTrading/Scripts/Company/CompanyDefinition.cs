@@ -38,4 +38,8 @@ public class CompanyDefinition : ScriptableObject
 
     public float initialTangibleCoefficient = 0.75f;
     public float initialIntangibleCoefficient = 0.75f;
+
+    public float growthRate;
+    public int initialEmployeeCount;
+    public float dividendRatio;
 }
