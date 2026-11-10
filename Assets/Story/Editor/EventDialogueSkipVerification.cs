@@ -19,7 +19,7 @@ namespace TakeOver.Story.Editor
     public static class EventDialogueSkipVerification
     {
         private const string Key = "TakeOver.EventDialogueSkip";
-        internal static string Output => Path.GetFullPath("../QA_ContextUI/EventRegression");
+        internal static string Output => Path.GetFullPath("../QA_NarrativeRevision/EventRegression");
         static EventDialogueSkipVerification() { EditorApplication.playModeStateChanged += Changed; }
         public static void Run()
         {
@@ -116,6 +116,7 @@ namespace TakeOver.Story.Editor
             {
                 company.state.setStat(CompanyStat.PLAYER_SHARES, company.state.totalShares * .6f);
                 company.state.setStat(CompanyStat.REPUTATION_B2C, 10);
+                if(definition.getId()=="restructuring_01")company.state.setStat(CompanyStat.COST,company.state.getStat(CompanyStat.REVENUE)+100);
                 company.calculator.calculateAboutShares(company);
             }
             var controller = Object.FindFirstObjectByType<EventSystemController>();

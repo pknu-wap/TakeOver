@@ -207,7 +207,7 @@ namespace TakeOver.NPC
             => preferences.TryGet(npcId, actionId, out disposition);
 
         /// <summary>로드된 전체 NPC 상태를 복사해 교체하고 이후 변경 알림을 보낸다.</summary>
-        public void ReplaceAll(IList<NpcRuntimeState> loadedStates)
+        public void ReplaceAll(IList<NpcRuntimeState> loadedStates, bool notify = true)
         {
             EnsureInitialNpcsInitialized();
             var previous = new Dictionary<string, NpcRuntimeState>(states);
@@ -236,6 +236,11 @@ namespace TakeOver.NPC
                 states.Add(fresh.npcId, fresh);
                 orderedStates.Add(fresh);
             }
+            if (notify) NotifyAllStatesChanged();
+        }
+
+        public void NotifyAllStatesChanged()
+        {
             foreach (var item in orderedStates) StateChanged?.Invoke(item);
         }
 

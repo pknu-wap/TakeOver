@@ -16,7 +16,7 @@ namespace TakeOver.Story.Editor
         private static string outputOverride;
         public static void RunExpandedBuild()
         {
-            outputOverride="../QA_ContextUI";
+            outputOverride="../QA_NarrativeRevision";
             Directory.CreateDirectory(Path.GetFullPath(outputOverride));
             Run();
         }
@@ -85,7 +85,7 @@ namespace TakeOver.Story.Editor
                         Check(seed.profile.gameplayRoleSummary.Contains("선호:") && seed.profile.gameplayRoleSummary.Contains("기피:"),"Behavior preferences visible in NPC info: "+seed.npcId);
                     }
                 }
-                foreach(var guid in AssetDatabase.FindAssets("t:EventDefinition",new[]{"Assets/EventSystem/Data"}))
+                foreach(var guid in AssetDatabase.FindAssets("t:EventDefinition",new[]{"Assets/EventSystem/Data","Assets/Resources/Story"}))
                 {
                     var definition=AssetDatabase.LoadAssetAtPath<EventDefinition>(AssetDatabase.GUIDToAssetPath(guid));
                     foreach(var choice in definition.getChoices())
