@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83909597d462f0a4aa1e0e89b4bff479, type: 3}
+  m_Name: TmpMarketEvent1_Definition1
+  m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
+  MarketEventName: "\uC784\uC2DC \uC2DC\uC7A5 \uC774\uBCA4\uD2B8 1"
+  MarketEventID: 1
+  applyType: 2
+  duration: 3
+  delayTurns: 1
+  effects:
+  - companyID: dongbang-trading
+    targetType: 1
+    stat: 0
+    derivedStat: 16
+    changeNormalValue: 10
+    changePercentValue: 0
+  - companyID: haneul-food
+    targetType: 1
+    stat: 0
+    derivedStat: 16
+    changeNormalValue: 0
+    changePercentValue: 25

@@ -17,12 +17,21 @@ public enum MarketEventTargetType
     MarketLiquidity
 }
 
+public enum MarketEventCompanyTargetType
+{
+    SpecificCompany,
+    AllCompanies,
+    RandomCompany
+}
+
 [CreateAssetMenu(fileName = "MarketEventDefinition", menuName = "ShareTrading/MarketEvent Definition")]
 public class MarketEventDefinition : ScriptableObject
 {
     [Serializable]
     public struct EventEffect
     {
+        public MarketEventCompanyTargetType companyTargetType;
+        // SpecificCompany일 때만 사용
         public string companyID;
         public MarketEventTargetType targetType;
         public CompanyStat stat;
@@ -33,6 +42,7 @@ public class MarketEventDefinition : ScriptableObject
     }
 
     public string MarketEventName;
+    [TextArea(3, 6)] public string description;
     public int MarketEventID;
     public MarketEventApplyType applyType;
     [Min(1)] public int duration = 1;

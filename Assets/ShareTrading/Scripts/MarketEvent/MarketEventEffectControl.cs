@@ -32,7 +32,7 @@ public class MarketEventEffectControl : MonoBehaviour
             float progress = entry.definition.isLinear
                 ? Mathf.Min((float)(currentTurn - entry.startTurn + 1) / entry.definition.duration, 1f)
                 : 1f;
-            applyEffects(entry.definition, progress);
+            applyEffects(entry, progress);
         }
 
         foreach (Company company in companies.CompanyList)
@@ -61,34 +61,51 @@ public class MarketEventEffectControl : MonoBehaviour
         }
     }
 
-    private void applyEffects(MarketEventDefinition definition, float progress)
+    private void applyEffects(MarketEventManager.ActiveMarketEvent entry, float progress)
     {
-        foreach (MarketEventDefinition.EventEffect effect in definition.effects)
+        foreach (MarketEventDefinition.EventEffect effect in entry.definition.effects)
         {
-            int stat;
-            if (effect.targetType == MarketEventTargetType.Stat)
+            if (effect.companyTargetType == MarketEventCompanyTargetType.AllCompanies)
             {
-                stat = (int)effect.stat;
+                foreach (Company company in companies.CompanyList)
+                    applyEffect(company.definition.companyID, effect, progress);
             }
-            else if (effect.targetType == MarketEventTargetType.DerivedStat)
+            else if (effect.companyTargetType == MarketEventCompanyTargetType.RandomCompany)
             {
-                stat = (int)effect.derivedStat;
+                applyEffect(entry.selectedCompanyID, effect, progress);
             }
             else
             {
-                stat = 0;
+                applyEffect(effect.companyID, effect, progress);
             }
-            
-            var key = (effect.companyID, effect.targetType, stat);
-            float multiplier = 1f + effect.changePercentValue * 0.01f * progress;
-            float normalValue = effect.changeNormalValue * progress;
-
-            // 기본값 * multiplier + normalValue 형태로 적용 순서 보존
-            if (appliedEffects.TryGetValue(key, out var previous))
-                appliedEffects[key] = (previous.multiplier * multiplier,
-                    previous.normalValue * multiplier + normalValue);
-            else
-                appliedEffects.Add(key, (multiplier, normalValue));
         }
+    }
+
+    private void applyEffect(string companyID, MarketEventDefinition.EventEffect effect, float progress)
+    {
+        int stat;
+        if (effect.targetType == MarketEventTargetType.Stat)
+        {
+            stat = (int)effect.stat;
+        }
+        else if (effect.targetType == MarketEventTargetType.DerivedStat)
+        {
+            stat = (int)effect.derivedStat;
+        }
+        else
+        {
+            stat = 0;
+        }
+
+        var key = (companyID, effect.targetType, stat);
+        float multiplier = 1f + effect.changePercentValue * 0.01f * progress;
+        float normalValue = effect.changeNormalValue * progress;
+
+        // 기본값 * multiplier + normalValue 형태로 적용 순서 보존
+        if (appliedEffects.TryGetValue(key, out var previous))
+            appliedEffects[key] = (previous.multiplier * multiplier,
+                previous.normalValue * multiplier + normalValue);
+        else
+            appliedEffects.Add(key, (multiplier, normalValue));
     }
 }

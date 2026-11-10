@@ -8,6 +8,7 @@ public class MarketEventManager : MonoBehaviour
         public int orderID;
         public MarketEventDefinition definition;
         public int startTurn;
+        public string selectedCompanyID;
     }
 
     // 전체 이벤트 목록
@@ -17,10 +18,12 @@ public class MarketEventManager : MonoBehaviour
     private readonly Dictionary<int, MarketEventDefinition> eventsByID = new Dictionary<int, MarketEventDefinition>();
     private readonly List<ActiveMarketEvent> activeEvents = new List<ActiveMarketEvent>();
     [SerializeField] private MarketEventEffectControl EffectControl;
+    private MarketEventCompanySelector companySelector;
     private int nextEventOrderID;
 
     private void Awake()
     {
+        companySelector = new MarketEventCompanySelector(FindFirstObjectByType<Companies>());
         foreach (MarketEventDefinition definition in allEvents)
             eventsByID.Add(definition.MarketEventID, definition);
     }
@@ -67,6 +70,14 @@ public class MarketEventManager : MonoBehaviour
             definition = definition,
             startTurn = currentTurn + definition.delayTurns
         };
+        foreach (MarketEventDefinition.EventEffect effect in definition.effects)
+        {
+            if (effect.companyTargetType != MarketEventCompanyTargetType.RandomCompany) continue;
+
+            // 같은 이벤트의 랜덤 대상 효과들은 선정 시 확정한 회사 하나를 공유
+            entry.selectedCompanyID = companySelector.selectCompanyID();
+            break;
+        }
         activeEvents.Add(entry);
         EffectControl.addEffects(entry);
     }

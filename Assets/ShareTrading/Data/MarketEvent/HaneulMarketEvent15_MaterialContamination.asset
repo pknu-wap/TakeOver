@@ -10,23 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83909597d462f0a4aa1e0e89b4bff479, type: 3}
-  m_Name: TmpMarketEventDefinition1
+  m_Name: HaneulMarketEvent15_MaterialContamination
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
-  MarketEventName: "\uC784\uC2DC \uC2DC\uC7A5 \uC774\uBCA4\uD2B8 1"
-  MarketEventID: 1
+  MarketEventName: "원재료 오염사고"
+  description: "{targetCompany}의 원재료에서 오염이 확인되었습니다."
+  MarketEventID: 15
   applyType: 2
   duration: 3
-  delayTurns: 1
+  delayTurns: 0
   effects:
-  - companyID: dongbang-trading
-    targetType: 1
-    stat: 0
-    derivedStat: 16
-    changeNormalValue: 10
-    changePercentValue: 0
-  - companyID: haneul-food
-    targetType: 1
-    stat: 0
-    derivedStat: 16
+  - companyTargetType: 0
+    companyID: haneul-food
+    targetType: 0
+    stat: 1
+    derivedStat: 0
     changeNormalValue: 0
-    changePercentValue: 25
+    changePercentValue: 5
