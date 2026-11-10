@@ -5,7 +5,7 @@ using TakeOver.NPC;
 
 namespace TakeOver.Events
 {
-    public enum EventConditionKind { NpcRelation, CompanyConsumerReaction, CompanyStake, CompanyProfitDeteriorating }
+    public enum EventConditionKind { NpcRelation, CompanyConsumerReaction, CompanyStake }
     public enum EventComparison { AtLeast, AtMost }
     public enum EventRelationAxis { trust, respect, fear, hostility, dependency, interest }
     public enum EventSpeakerSource { Fixed, CompanyCeo, CompanyRestructuring }
@@ -78,8 +78,6 @@ namespace TakeOver.Events
     public sealed class EventDefinition : ScriptableObject
     {
         [SerializeField] private string eventId;
-        [SerializeField] private bool tutorialOnly;
-        public bool IsTutorialOnly => tutorialOnly;
         [SerializeField] private string title;
         [SerializeField] private Sprite image;
         [SerializeField] private Sprite cardImage;
@@ -113,7 +111,7 @@ namespace TakeOver.Events
             npcId = speaker?.npcId ?? "";
             return speaker != null;
         }
-        public bool hasCompanyConditions() => conditions.Exists(condition => condition.kind != EventConditionKind.NpcRelation || string.IsNullOrEmpty(condition.npcId));
+        public bool hasCompanyConditions() => conditions.Exists(condition => condition.kind != EventConditionKind.NpcRelation);
 
         public string getId() => eventId;
         public string getTitle() => title;

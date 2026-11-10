@@ -38,7 +38,6 @@ public sealed class TradingSaveData
     {
         public List<StatData> stats;
         public int totalShares;
-        public bool greenmailBuyBlocked;
         public float initialRevenue, initialCost, initialNetProfit, initialNetMargin;
         public float initialDebtRatio, initialLiquidityStrength, initialAssetValue;
         public float tangibleCoefficient, intangibleCoefficient;

@@ -21,8 +21,7 @@ namespace TakeOver.Story
         public const string CompanyId = "mirae-construction";
         public const string Representative = "npc-mirae-construction-ceo-kang-junhyeok";
         public const string FieldDirector = "npc-mirae-construction-field-director-park-dosik";
-        public const string TutorialEventId = "tutorial_materials_01";
-        public const string TutorialContact = "npc-mirae-construction-cfo-seo-jia";
+        public const string TutorialEventId = "inside_info_01";
         public const string FinancialDirector = "npc-mirae-construction-cfo-seo-jia";
         [SerializeField] private StorySequence sequence;
         public static StoryDirector Active { get; private set; }
@@ -47,10 +46,9 @@ namespace TakeOver.Story
         public static bool CanSelectCompany(Company company) => !IsRunning ||
             (Active.Goal == StoryGoal.SelectCompany || Active.IsTrading || Active.IsCompanyReading) && (!Active.busy || Active.preparing) &&
             company != null && company == Active.GoalCompany;
-        public static bool CanNavigate(int tab) => CanNavigate((DashboardTab)tab);
-        public static bool CanNavigate(DashboardTab tab) => !IsRunning || !Active.busy &&
-            ((Active.Goal == StoryGoal.SelectCompany || Active.IsCompanyReading) && (tab == DashboardTab.Map || tab == DashboardTab.Companies) ||
-             (Active.Goal == StoryGoal.EndDay || IsGuidingEvent) && tab == DashboardTab.Home || Active.IsProfile && tab == DashboardTab.Npcs);
+        public static bool CanNavigate(int tab) => !IsRunning || !Active.busy &&
+            ((Active.Goal == StoryGoal.SelectCompany || Active.IsCompanyReading) && (tab == 1 || tab == 2) ||
+             (Active.Goal == StoryGoal.EndDay || IsGuidingEvent) && tab == 0 || Active.IsProfile && tab == 3);
         public bool Completed { get; private set; }
         public bool Busy => busy;
         public bool SkipEntireIntroOnStart { get; set; }
@@ -250,7 +248,6 @@ namespace TakeOver.Story
             FindFirstObjectByType<DashboardCardSlide>()?.RefreshCards();
             view.HideContent();
             yield return view.FadeTo(0, sequence.fadeSeconds);
-            TakeOver.Help.HelpScreen.ShowIntroduction();
             Destroy(gameObject);
         }
 
@@ -320,7 +317,7 @@ namespace TakeOver.Story
         {
             beforeEventAp = actionPoints.Current;
             beforeEventCash = player.state.cash;
-            if (registry.TryGet(TutorialContact, out var state))
+            if (registry.TryGet(FinancialDirector, out var state))
             {
                 beforeEventRelation = state.relation;
                 hasEventSnapshot = true;
@@ -330,7 +327,7 @@ namespace TakeOver.Story
         public void OpenProfile()
         {
             if (!IsProfile) return;
-            status.Open(); status.SelectNpc(Goal == StoryGoal.ViewRepresentative ? Representative : Goal == StoryGoal.ViewMemory ? FieldDirector : TutorialContact);
+            status.Open(); status.SelectNpc(Goal == StoryGoal.ViewRepresentative ? Representative : Goal == StoryGoal.ViewMemory ? FieldDirector : FinancialDirector);
         }
 
         private void Update()
@@ -378,7 +375,7 @@ namespace TakeOver.Story
                 case StoryGoal.ViewMemory:
                 case StoryGoal.ViewEventMemory:
                     view.Spotlight(null);
-                    string target = Goal == StoryGoal.ViewRepresentative ? Representative : Goal == StoryGoal.ViewMemory ? FieldDirector : TutorialContact;
+                    string target = Goal == StoryGoal.ViewRepresentative ? Representative : Goal == StoryGoal.ViewMemory ? FieldDirector : FinancialDirector;
                     goalObserved |= status.gameObject.activeInHierarchy && status.SelectedNpcId == target;
                     view.SetGoalReady(goalObserved);
                     if (Goal != StoryGoal.ViewRepresentative && registry.TryGet(target, out var state) && state.memories.Count > 0)
@@ -429,7 +426,7 @@ namespace TakeOver.Story
 
         private string EventResultSummary()
         {
-            if (!hasEventSnapshot || !registry.TryGet(TutorialContact, out var state)) return "";
+            if (!hasEventSnapshot || !registry.TryGet(FinancialDirector, out var state)) return "";
             var a = beforeEventRelation; var b = state.relation;
             return $"면담 결과를 반영하였습니다.\n행동 포인트 {beforeEventAp} → {actionPoints.Current} · 자금 {beforeEventCash:N0} → {player.state.cash:N0}\n" +
                 $"신뢰 {a.trust:0.#} → {b.trust:0.#} · 존중 {a.respect:0.#} → {b.respect:0.#} · 두려움 {a.fear:0.#} → {b.fear:0.#}\n" +

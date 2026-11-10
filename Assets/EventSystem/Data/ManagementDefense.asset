@@ -36,11 +36,14 @@ MonoBehaviour:
   companyQuestion: 
   companyPlayerLine: 
   choices:
-  - choiceText: "\ub2f9\uc7a5\uc740 \ud22c\uc790 \uac80\ud1a0 \ubaa9\uc801\uc774\ub77c\uace0 \ub2f5\ud55c\ub2e4"
-    choiceDescription: "\ud604\uc7ac \uc758\ud5a5\uc744 \uc124\uba85\ud569\ub2c8\ub2e4. \uacbd\uc601\uc9c4 \uc720\uc9c0 \uacc4\uc57d\uc774\ub098 \uc758\uacb0\uad8c \uc704\uc784\uc740 \ubc1c\uc0dd\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
-    playerLine: "\uc624\ub298\uc740 \ud22c\uc790\ud560 \ub9cc\ud55c \uacf3\uc778\uc9c0 \uc54c\uc544\ubcf4\ub7ec \uc654\uc2b5\ub2c8\ub2e4. \uacbd\uc601\uc9c4\uc744 \ubc14\uafb8\uaca0\ub2e4\uace0 \uacb0\uc815\ud560 \ub2e8\uacc4\ub294 \uc544\ub2d9\ub2c8\ub2e4."
-    resultDialogue: "\uadf8\ub807\ub2e4\uba74 \ud68c\uc0ac \uc0ac\uc815\ubd80\ud130 \ubcf4\uc2ed\uc2dc\uc624. \ub098\uc911\uc5d0 \uacc4\ud68d\uc774 \uad6c\uccb4\uc801\uc73c\ub85c \uc7a1\ud788\uba74 \ub2e4\uc2dc \ub4e3\uaca0\uc2b5\ub2c8\ub2e4."
-    resultValue: "investment_review"
+  - choiceText: "\uACBD\uC601\uC9C4\uACFC \uD68C\uC0AC \uC774\uB984\uC744 \uC9C0\uD0A4\uACA0\uB2E4\uACE0
+      \uC57D\uC18D\uD55C\uB2E4"
+    choiceDescription: "\uBC18\uBC1C\uC740 \uC904\uC9C0\uB9CC \uC57D\uC18D\uC5D0
+      \uBB36\uC778\uB2E4"
+    playerLine: "\uACBD\uC601\uC9C4\uACFC \uD68C\uC0AC \uC774\uB984\uC740 \uADF8\uB300\uB85C
+      \uB450\uACA0\uC2B5\uB2C8\uB2E4. \uD22C\uC790\uC77C \uBFD0\uC785\uB2C8\uB2E4."
+    resultDialogue: "\uADF8 \uC57D\uC18D, \uC9C0\uCF1C\uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: promise
     npcResult:
       eventId: 
       companyId: 
@@ -57,13 +60,13 @@ MonoBehaviour:
       - npc-aurora-foodtech-ceo-kim-seohu
       targetReactions:
       - targetNpcId: npc-mirae-construction-ceo-kang-junhyeok
-        memoryType: 8
+        memoryType: 0
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \ud604\uc7ac\ub294 \ud22c\uc790 \uac80\ud1a0 \ubaa9\uc801\uc774\ub77c\uace0 \uc124\uba85\ud588\ub2e4. \uacbd\uc601\uc9c4 \uc720\uc9c0 \uc57d\uc18d\uc744 \uc774\ud589\ud55c \uc0ac\uac74\uc774 \uc544\ub2c8\ub2e4."
+        interpretation: 
         tags: []
         relationDelta:
           trust: 10
@@ -73,13 +76,13 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-haneul-food-ceo-kim-harin
-        memoryType: 8
+        memoryType: 0
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \ud604\uc7ac\ub294 \ud22c\uc790 \uac80\ud1a0 \ubaa9\uc801\uc774\ub77c\uace0 \uc124\uba85\ud588\ub2e4. \uacbd\uc601\uc9c4 \uc720\uc9c0 \uc57d\uc18d\uc744 \uc774\ud589\ud55c \uc0ac\uac74\uc774 \uc544\ub2c8\ub2e4."
+        interpretation: 
         tags: []
         relationDelta:
           trust: 10
@@ -89,13 +92,13 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-hansung-industry-ceo-jo-minseok
-        memoryType: 8
+        memoryType: 0
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \ud604\uc7ac\ub294 \ud22c\uc790 \uac80\ud1a0 \ubaa9\uc801\uc774\ub77c\uace0 \uc124\uba85\ud588\ub2e4. \uacbd\uc601\uc9c4 \uc720\uc9c0 \uc57d\uc18d\uc744 \uc774\ud589\ud55c \uc0ac\uac74\uc774 \uc544\ub2c8\ub2e4."
+        interpretation: 
         tags: []
         relationDelta:
           trust: 0
@@ -105,13 +108,14 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-polaris-finance-ceo-lim-dohyeon
-        memoryType: 8
+        memoryType: 0
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \ud604\uc7ac\ub294 \ud22c\uc790 \uac80\ud1a0 \ubaa9\uc801\uc774\ub77c\uace0 \uc124\uba85\ud588\ub2e4. \uacbd\uc601\uc9c4 \uc720\uc9c0 \uc57d\uc18d\uc744 \uc774\ud589\ud55c \uc0ac\uac74\uc774 \uc544\ub2c8\ub2e4."
+        interpretation: "\uC784\uB3C4\uD604\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
           trust: 10
@@ -121,13 +125,14 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-daeseong-industry-ceo-kim-seongho
-        memoryType: 8
+        memoryType: 0
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \ud604\uc7ac\ub294 \ud22c\uc790 \uac80\ud1a0 \ubaa9\uc801\uc774\ub77c\uace0 \uc124\uba85\ud588\ub2e4. \uacbd\uc601\uc9c4 \uc720\uc9c0 \uc57d\uc18d\uc744 \uc774\ud589\ud55c \uc0ac\uac74\uc774 \uc544\ub2c8\ub2e4."
+        interpretation: "\uAE40\uC131\uD638\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
           trust: 10
@@ -137,13 +142,14 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-sinseong-development-ceo-jung-dohyeon
-        memoryType: 8
+        memoryType: 0
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \ud604\uc7ac\ub294 \ud22c\uc790 \uac80\ud1a0 \ubaa9\uc801\uc774\ub77c\uace0 \uc124\uba85\ud588\ub2e4. \uacbd\uc601\uc9c4 \uc720\uc9c0 \uc57d\uc18d\uc744 \uc774\ud589\ud55c \uc0ac\uac74\uc774 \uc544\ub2c8\ub2e4."
+        interpretation: "\uC815\uB3C4\uD604\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
           trust: 10
@@ -153,13 +159,14 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-blueharbor-retail-ceo-seo-yujin
-        memoryType: 8
+        memoryType: 0
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \ud604\uc7ac\ub294 \ud22c\uc790 \uac80\ud1a0 \ubaa9\uc801\uc774\ub77c\uace0 \uc124\uba85\ud588\ub2e4. \uacbd\uc601\uc9c4 \uc720\uc9c0 \uc57d\uc18d\uc744 \uc774\ud589\ud55c \uc0ac\uac74\uc774 \uc544\ub2c8\ub2e4."
+        interpretation: "\uC11C\uC720\uC9C4\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
           trust: 10
@@ -169,13 +176,14 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-aurora-foodtech-ceo-kim-seohu
-        memoryType: 8
+        memoryType: 0
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \ud604\uc7ac\ub294 \ud22c\uc790 \uac80\ud1a0 \ubaa9\uc801\uc774\ub77c\uace0 \uc124\uba85\ud588\ub2e4. \uacbd\uc601\uc9c4 \uc720\uc9c0 \uc57d\uc18d\uc744 \uc774\ud589\ud55c \uc0ac\uac74\uc774 \uc544\ub2c8\ub2e4."
+        interpretation: "\uAE40\uC11C\uD6C4\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
           trust: 10
@@ -184,13 +192,13 @@ MonoBehaviour:
           hostility: 0
           dependency: 0
           interest: 0
-      memoryType: 8
+      memoryType: 0
       strength: 2
       publicity: 1
       permanent: 0
       durationTurns: 3
       reliability: 1
-      interpretation: "\ud22c\uc790\uc790\uac00 \ud604\uc7ac\ub294 \ud22c\uc790 \uac80\ud1a0 \ubaa9\uc801\uc774\ub77c\uace0 \uc124\uba85\ud588\ub2e4. \uacbd\uc601\uc9c4 \uc720\uc9c0 \uc57d\uc18d\uc744 \uc774\ud589\ud55c \uc0ac\uac74\uc774 \uc544\ub2c8\ub2e4."
+      interpretation: 
       tags: []
       relationDelta:
         trust: 0
@@ -203,8 +211,9 @@ MonoBehaviour:
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
     buybackPremiumRatio: 0
-  - choiceText: "\uc7a5\ucc28 \uc778\uc218\ub97c \uac80\ud1a0\ud55c\ub2e4\uace0 \ub9d0\ud55c\ub2e4"
-    choiceDescription: "\uc778\uc218\uc5d0 \uad00\uc2ec\uc774 \uc788\uc74c\uc744 \ubc1d\ud799\ub2c8\ub2e4. \uc774 \ub2f5\ubcc0\ub9cc\uc73c\ub85c \uacbd\uc601\uad8c\uc744 \uc5bb\uc9c0\ub294 \uc54a\uc2b5\ub2c8\ub2e4."
+  - choiceText: "\uACBD\uC601\uAD8C\uC744 \uAC00\uC838\uAC00\uACA0\uB2E4\uACE0 \uB9D0\uD55C\uB2E4"
+    choiceDescription: "\uC758\uB3C4\uB97C \uB4DC\uB7EC\uB0B4\uACE0 \uC815\uBA74\uC73C\uB85C
+      \uB9DE\uC120\uB2E4"
     playerLine: "\uACBD\uC601\uAD8C\uC785\uB2C8\uB2E4. \uC228\uAE38 \uC0DD\uAC01\uC740
       \uC5C6\uC2B5\uB2C8\uB2E4."
     resultDialogue: "\uADF8\uB807\uB2E4\uBA74 \uC6B0\uB9AC\uB3C4 \uAC00\uB9CC\uC788\uC9C0
@@ -227,13 +236,13 @@ MonoBehaviour:
       - npc-aurora-foodtech-ceo-kim-seohu
       targetReactions:
       - targetNpcId: npc-mirae-construction-ceo-kang-junhyeok
-        memoryType: 8
+        memoryType: 3
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc7a5\ub798 \uc778\uc218 \uc758\ud5a5\uc744 \ubc1d\ud614\ub2e4. \uc2e4\uc81c \uc778\uc218\ub098 \uacbd\uc601\uad8c \ucde8\ub4dd\uc774 \uc644\ub8cc\ub41c \uac83\uc740 \uc544\ub2c8\ub2e4."
+        interpretation: 
         tags: []
         relationDelta:
           trust: 0
@@ -243,13 +252,13 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-haneul-food-ceo-kim-harin
-        memoryType: 8
+        memoryType: 3
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc7a5\ub798 \uc778\uc218 \uc758\ud5a5\uc744 \ubc1d\ud614\ub2e4. \uc2e4\uc81c \uc778\uc218\ub098 \uacbd\uc601\uad8c \ucde8\ub4dd\uc774 \uc644\ub8cc\ub41c \uac83\uc740 \uc544\ub2c8\ub2e4."
+        interpretation: 
         tags: []
         relationDelta:
           trust: 0
@@ -259,13 +268,13 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-hansung-industry-ceo-jo-minseok
-        memoryType: 8
+        memoryType: 3
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc7a5\ub798 \uc778\uc218 \uc758\ud5a5\uc744 \ubc1d\ud614\ub2e4. \uc2e4\uc81c \uc778\uc218\ub098 \uacbd\uc601\uad8c \ucde8\ub4dd\uc774 \uc644\ub8cc\ub41c \uac83\uc740 \uc544\ub2c8\ub2e4."
+        interpretation: 
         tags: []
         relationDelta:
           trust: 0
@@ -275,13 +284,13 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-dongbang-trading-ceo-kang-jaehyeon
-        memoryType: 8
+        memoryType: 3
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc7a5\ub798 \uc778\uc218 \uc758\ud5a5\uc744 \ubc1d\ud614\ub2e4. \uc2e4\uc81c \uc778\uc218\ub098 \uacbd\uc601\uad8c \ucde8\ub4dd\uc774 \uc644\ub8cc\ub41c \uac83\uc740 \uc544\ub2c8\ub2e4."
+        interpretation: 
         tags: []
         relationDelta:
           trust: 0
@@ -291,13 +300,14 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-polaris-finance-ceo-lim-dohyeon
-        memoryType: 8
+        memoryType: 3
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc7a5\ub798 \uc778\uc218 \uc758\ud5a5\uc744 \ubc1d\ud614\ub2e4. \uc2e4\uc81c \uc778\uc218\ub098 \uacbd\uc601\uad8c \ucde8\ub4dd\uc774 \uc644\ub8cc\ub41c \uac83\uc740 \uc544\ub2c8\ub2e4."
+        interpretation: "\uC784\uB3C4\uD604\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
           trust: 0
@@ -307,13 +317,14 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-daeseong-industry-ceo-kim-seongho
-        memoryType: 8
+        memoryType: 3
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc7a5\ub798 \uc778\uc218 \uc758\ud5a5\uc744 \ubc1d\ud614\ub2e4. \uc2e4\uc81c \uc778\uc218\ub098 \uacbd\uc601\uad8c \ucde8\ub4dd\uc774 \uc644\ub8cc\ub41c \uac83\uc740 \uc544\ub2c8\ub2e4."
+        interpretation: "\uAE40\uC131\uD638\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
           trust: 0
@@ -323,13 +334,14 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-sinseong-development-ceo-jung-dohyeon
-        memoryType: 8
+        memoryType: 3
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc7a5\ub798 \uc778\uc218 \uc758\ud5a5\uc744 \ubc1d\ud614\ub2e4. \uc2e4\uc81c \uc778\uc218\ub098 \uacbd\uc601\uad8c \ucde8\ub4dd\uc774 \uc644\ub8cc\ub41c \uac83\uc740 \uc544\ub2c8\ub2e4."
+        interpretation: "\uC815\uB3C4\uD604\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
           trust: 0
@@ -339,13 +351,14 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-blueharbor-retail-ceo-seo-yujin
-        memoryType: 8
+        memoryType: 3
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc7a5\ub798 \uc778\uc218 \uc758\ud5a5\uc744 \ubc1d\ud614\ub2e4. \uc2e4\uc81c \uc778\uc218\ub098 \uacbd\uc601\uad8c \ucde8\ub4dd\uc774 \uc644\ub8cc\ub41c \uac83\uc740 \uc544\ub2c8\ub2e4."
+        interpretation: "\uC11C\uC720\uC9C4\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
           trust: 0
@@ -355,13 +368,14 @@ MonoBehaviour:
           dependency: 0
           interest: 0
       - targetNpcId: npc-aurora-foodtech-ceo-kim-seohu
-        memoryType: 8
+        memoryType: 3
         strength: 2
         publicity: 1
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc7a5\ub798 \uc778\uc218 \uc758\ud5a5\uc744 \ubc1d\ud614\ub2e4. \uc2e4\uc81c \uc778\uc218\ub098 \uacbd\uc601\uad8c \ucde8\ub4dd\uc774 \uc644\ub8cc\ub41c \uac83\uc740 \uc544\ub2c8\ub2e4."
+        interpretation: "\uAE40\uC11C\uD6C4\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
           trust: 0
@@ -370,13 +384,13 @@ MonoBehaviour:
           hostility: 10
           dependency: 0
           interest: 0
-      memoryType: 8
+      memoryType: 3
       strength: 2
       publicity: 1
       permanent: 0
       durationTurns: 3
       reliability: 1
-      interpretation: "\ud22c\uc790\uc790\uac00 \uc7a5\ub798 \uc778\uc218 \uc758\ud5a5\uc744 \ubc1d\ud614\ub2e4. \uc2e4\uc81c \uc778\uc218\ub098 \uacbd\uc601\uad8c \ucde8\ub4dd\uc774 \uc644\ub8cc\ub41c \uac83\uc740 \uc544\ub2c8\ub2e4."
+      interpretation: 
       tags: []
       relationDelta:
         trust: 0

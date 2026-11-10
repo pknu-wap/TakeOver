@@ -60,7 +60,6 @@ public sealed class EventGreenmailAccept : MonoBehaviour
         if (!tradingSystem.sellShares(company, amount)) return false;
 
         player.state.addCash(premium);
-        company.state.greenmailBuyBlocked = true;
         return true;
     }
 

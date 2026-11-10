@@ -5,7 +5,6 @@ public class ShareTradingSystem : MonoBehaviour
     [SerializeField] private Player player;
     public bool buyShares(Company company, int buyAmount)
     {
-        if(company != null && company.state.greenmailBuyBlocked) return false;
         if (!TakeOver.Story.StoryDirector.CanTradeAmount(company, true, buyAmount)) return false;
         float sharePrice = company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
         float remainShares = company.state.getDerivedStat(CompanyDerivedStat.REMAIN_SHARES);

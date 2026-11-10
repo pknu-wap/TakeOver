@@ -70,14 +70,6 @@ namespace TakeOver.Events
         }
         public float getStake(string companyId) =>
             companies != null && companies.tryGetCompanyStake(companyId, out float stake) ? stake : 0;
-        public bool isProfitDeteriorating(string companyId)
-        {
-            var company=companies != null ? companies.getCompany(companyId) : null;
-            if(company==null)return false;
-            // Eligibility must not depend on which TurnAdvanced subscriber recalculates derived stats first.
-            float profit=CompanyCalculationMath.finite((double)company.state.getStat(CompanyStat.REVENUE)-company.state.getStat(CompanyStat.COST));
-            return profit < 0 || profit < company.state.beforeNetProfit;
-        }
         public float getConsumerReaction(string companyId) =>
             companies != null && companies.tryGetCompanyStat(companyId, CompanyStat.REPUTATION_B2C.ToString(), out float reaction) ? reaction : 0;
         public Sprite getSpeakerIllustration(TodayEventInfo info)
@@ -95,7 +87,7 @@ namespace TakeOver.Events
             return worldData != null ? worldData.getSpeakerDimmedIllustration(info.speakerName) : null;
         }
         public NpcRelationState getNpcRelation(string npcId) =>
-            registry != null && !string.IsNullOrEmpty(npcId) && registry.TryGet(npcId, out NpcRuntimeState state) ? state.relation : default;
+            registry != null && registry.TryGet(npcId, out NpcRuntimeState state) ? state.relation : default;
 
         public bool belongsToOtherCompany(string npcId, string companyId) =>
             registry != null && registry.TryGetProfile(npcId, out var seed)

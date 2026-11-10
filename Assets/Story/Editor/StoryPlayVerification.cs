@@ -21,7 +21,7 @@ namespace TakeOver.Story.Editor
     {
         private const string Key = "TakeOver.Story.Verify";
         public static bool SkipRegression => SessionState.GetBool("TakeOver.StorySkip.Normal", false);
-        public static string Output => Path.GetFullPath(SkipRegression ? "../QA_NarrativeRevision/Normal" : "../QA_NarrativeRevision");
+        public static string Output => Path.GetFullPath(SkipRegression ? "../QA_ContextUI/Normal" : "../QA_ContextUI");
         public static void RunSkipRegression()
         {
             SessionState.SetBool("TakeOver.StorySkip.Normal", true);
@@ -369,11 +369,10 @@ namespace TakeOver.Story.Editor
             Check(choices==3,"All three conversations completed");
             Check(clock.CurrentTurn==startTurn+1,"Only one real turn consumed");
             Check(StoryDirector.CanTrade(company,false) && StoryDirector.CanNavigate(3),"Normal controls restored");
-            Check(GameObject.Find("Help introduction")!=null,"Normal tutorial completion shows help location notice");
             events.refreshAvailability(); Check(events.getTodayEventInfos().Count>0,"Normal events available after intro");
             if(StoryPlayVerification.SkipRegression)
             {
-                File.WriteAllText(Path.GetFullPath("../QA_NarrativeRevision/normal-completed-state.json"),StorySkipState.Capture());
+                File.WriteAllText(Path.GetFullPath("../QA_ContextUI/normal-completed-state.json"),StorySkipState.Capture());
                 UnityEngine.SceneManagement.SceneManager.sceneLoaded -= StorySkipState.Seed;
             }
             // Existing direct Game scene entry never requests the intro.

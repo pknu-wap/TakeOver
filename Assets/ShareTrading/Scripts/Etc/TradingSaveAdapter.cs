@@ -58,7 +58,6 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
             state = new TradingSaveData.CompanyStateData
             {
                 stats = new List<TradingSaveData.StatData>(), totalShares = state.totalShares,
-                greenmailBuyBlocked = state.greenmailBuyBlocked,
                 initialRevenue = state.initialRevenue, initialCost = state.initialCost,
                 initialNetProfit = state.initialNetProfit, initialNetMargin = state.initialNetMargin,
                 initialDebtRatio = state.initialDebtRatio, initialLiquidityStrength = state.initialLiquidityStrength,
@@ -246,7 +245,6 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
             state.setStat(statType, stat.value);
         }
         state.totalShares = entry.state.totalShares;
-        state.greenmailBuyBlocked = entry.state.greenmailBuyBlocked;
         state.initialRevenue = entry.state.initialRevenue;
         state.initialCost = entry.state.initialCost;
         state.initialNetProfit = entry.state.initialNetProfit;

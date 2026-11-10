@@ -16,7 +16,7 @@ public class TradingEventEffects : MonoBehaviour
         switch (info.eventId)
         {
             case "greenmail_01":
-                if(info.resultValue=="accept")greenmailAccept.applyEventEffect(info.companyId, 0, info.buybackPremiumRatio);
+                greenmailAccept.applyEventEffect(info.companyId, 0, info.buybackPremiumRatio);
                 break;
 
             case "stock_manipulation_01":

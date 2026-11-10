@@ -1,10 +1,5 @@
 namespace TakeOver.SaveSystem
 {
-    /// <summary>기본 파트의 파생 수치가 완성된 뒤 화면을 재구성할 때 사용</summary>
-    public interface ISaveRebuildOrder
-    {
-        int rebuildOrder { get; }
-    }
     /// <summary>각 파트의 데이터 형식과 복원 방법을 연결하는 저장 계약</summary>
     public interface ISaveParticipant
     {

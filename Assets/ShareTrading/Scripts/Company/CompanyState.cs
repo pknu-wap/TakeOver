@@ -7,7 +7,6 @@ public class CompanyState
     private Dictionary<CompanyDerivedStat, float> derivedStats;
 
     public int totalShares { get; internal set; }
-    public bool greenmailBuyBlocked { get; internal set; }
 
     // 첫 턴 기록이 저장되기 전에 초기값을 과거 평균으로 사용
     public float beforeRevenue { get; set; }
