@@ -83,6 +83,7 @@ namespace TakeOver.Story
             reopen = template.CreateActionButton(objectives.transform,"Reopen profile","인물 정보",()=>director.OpenProfile());
             skip = template.CreateActionButton(root,"Skip to choice","스킵",()=>director.SkipToNextChoice());
             Place(skip.GetComponent<RectTransform>(),new Rect(24,24,164,42));
+            EventNegotiationView.ApplySkipButtonStyle(skip);
             fade = Image("Fade curtain", transform, Color.black); Stretch(fade.rectTransform); fade.raycastTarget = true;
             objectives.SetActive(false); SetMasks(false); stage.SetActive(false);
         }

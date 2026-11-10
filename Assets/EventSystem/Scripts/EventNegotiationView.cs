@@ -85,10 +85,9 @@ namespace TakeOver.Events
             questionPosition = ((RectTransform)questionBlock.transform).anchoredPosition;
             responsePosition = ((RectTransform)responseBlock.transform).anchoredPosition;
             playerPosition = ((RectTransform)playerBlock.transform).anchoredPosition;
-            var continueRect = (RectTransform)closeButton.transform;
-            continueRect.anchoredPosition += Vector2.down * 42;
             configureBodyLayout(false);
             ensureSkipButton();
+            AlignButtonCenters(closeButton, skipButton);
         }
 
         private void configureBodyLayout(bool narration)
@@ -130,6 +129,31 @@ namespace TakeOver.Events
             button.interactable = true;
             button.gameObject.SetActive(true);
             return button;
+        }
+
+        public static void ApplySkipButtonStyle(Button button)
+        {
+            if (button == null) return;
+            var rect = (RectTransform)button.transform;
+            Vector3 center = rect.TransformPoint(rect.rect.center);
+            rect.pivot = new Vector2(.5f, .5f);
+            rect.localRotation = Quaternion.Euler(0, 0, 180);
+            rect.position = center;
+            var label = button.GetComponentInChildren<Text>(true);
+            if (label != null) label.rectTransform.localRotation = Quaternion.Euler(0, 0, 180);
+        }
+
+        private static void AlignButtonCenters(Button button, Button target)
+        {
+            var rect = (RectTransform)button.transform;
+            var parent = (RectTransform)rect.parent;
+            Vector3 targetCenter = target.transform.TransformPoint(((RectTransform)target.transform).rect.center);
+            Vector3 targetPivot = parent.InverseTransformPoint(targetCenter) +
+                Vector3.Scale(rect.rect.size, rect.pivot - new Vector2(.5f, .5f));
+            Vector2 anchor = parent.rect.min + Vector2.Scale(parent.rect.size, rect.anchorMin);
+            Vector2 position = rect.anchoredPosition;
+            position.y = targetPivot.y - anchor.y;
+            rect.anchoredPosition = position;
         }
 
         public GameObject CreateInformationPanel(Transform parent, out Text heading, out Text body)
@@ -463,12 +487,9 @@ namespace TakeOver.Events
             if (skipButton != null) return;
             skipButton = CreateActionButton(transform, "Skip to choice", "스킵", SkipToNextChoice);
             var rect = (RectTransform)skipButton.transform;
-            rect.anchorMin = rect.anchorMax = Vector2.zero; rect.pivot = new Vector2(.5f, .5f);
-            // Keep skip aligned with the dialogue's close/continue control row.
-            rect.anchoredPosition = new Vector2(138, 269); rect.sizeDelta = new Vector2(164, 42);
-            rect.localRotation = Quaternion.Euler(0, 0, 180);
-            var labelRect = skipButton.GetComponentInChildren<Text>(true).rectTransform;
-            labelRect.localRotation = Quaternion.Euler(0, 0, 180);
+            rect.anchorMin = rect.anchorMax = Vector2.zero; rect.pivot = Vector2.zero;
+            rect.anchoredPosition = new Vector2(56, 248); rect.sizeDelta = new Vector2(164, 42);
+            ApplySkipButtonStyle(skipButton);
             refreshSkipButton();
         }
 
