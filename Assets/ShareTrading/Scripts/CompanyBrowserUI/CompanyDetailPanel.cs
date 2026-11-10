@@ -40,11 +40,14 @@ public class CompanyDetailPanel : MonoBehaviour
     public event Action OnTraded;
 
     public Company current { get; private set; }
+    public int EnteredQuantity => amountInput != null && int.TryParse(amountInput.text, out int quantity) ? quantity : 0;
 
     private ShareTradingSystem tradingSystem;
     private Player player;
     private CanvasGroup canvasGroup;
     private bool isOpen;
+    private Vector2 originalWindowPosition;
+    private bool tutorialWindowMoved;
     private GameTurnClock turnClock;
 
     // 지도 노드·목록 줄을 누르면 불린다.
@@ -83,11 +86,21 @@ public class CompanyDetailPanel : MonoBehaviour
 
     public void hide()
     {
+        SetTutorialLayout(false);
         isOpen = false;
         if (turnClock != null) turnClock.TurnAdvanced -= handleTurnAdvanced;
         turnClock = null;
         StopAllCoroutines();
         gameObject.SetActive(false);
+    }
+
+    public void SetTutorialLayout(bool enabled)
+    {
+        var window=transform.Find("Window") as RectTransform;
+        if(window==null || enabled==tutorialWindowMoved)return;
+        if(enabled){originalWindowPosition=window.anchoredPosition;window.anchoredPosition+=new Vector2(280,0);}
+        else window.anchoredPosition=originalWindowPosition;
+        tutorialWindowMoved=enabled;
     }
 
     private void handleTurnAdvanced(int newTurn)
@@ -161,14 +174,14 @@ public class CompanyDetailPanel : MonoBehaviour
         float myShares = CompanyUIUtil.getStat(current, CompanyStat.PLAYER_SHARES);
 
         // 제목과 값을 한 곳에서 정해 두면, 순서를 바꾸거나 지표를 교체할 때 여기만 고치면 된다.
-        setMetric(0, "주가", $"{price:N2}");
+        setMetric(0, "주가", $"{price:N0}");
         setMetric(1, "매출", $"{CompanyUIUtil.getStat(current, CompanyStat.REVENUE):N0}");
         setMetric(2, "순이익", $"{CompanyUIUtil.getDerived(current, CompanyDerivedStat.NET_PROFIT):N0}");
         setMetric(3, "현금", $"{CompanyUIUtil.getStat(current, CompanyStat.CASH):N0}");
         setMetric(4, "부채비율", $"{CompanyUIUtil.getDerived(current, CompanyDerivedStat.DEBT_RATIO):P1}");
         setMetric(5, "보유 지분", $"{stake:0.#}%");
 
-        setText(holdingText, $"보유 주식  {myShares:N0}주\n평가 금액  {myShares * price:N2}");
+        setText(holdingText, $"보유 주식  {myShares:N0}주\n평가 금액  {myShares * price:N0}");
 
         // 내 잔액. Unity 오브젝트에는 ?.가 제대로 동작하지 않는 경우가 있어서 != null로 직접 확인한다.
         float myCash = 0f;
@@ -215,14 +228,14 @@ public class CompanyDetailPanel : MonoBehaviour
         findReferences();
         if (tradingSystem == null)
         {
-            setText(messageText, "거래 시스템을 찾을 수 없어요");
+            setText(messageText, "거래 시스템을 찾을 수 없습니다.");
             return;
         }
 
         // 입력칸 글자를 정수로 바꾼다. 숫자가 아니면 TryParse가 false를 돌려준다.
         if (amountInput == null || !int.TryParse(amountInput.text, out int amount) || amount <= 0)
         {
-            setText(messageText, "수량을 1 이상의 숫자로 입력하세요");
+            setText(messageText, "수량을 1 이상의 숫자로 입력해 주십시오.");
             return;
         }
 
@@ -234,14 +247,14 @@ public class CompanyDetailPanel : MonoBehaviour
         if (success)
         {
             refresh();   // 팝업은 그대로 두고 숫자만 새로 고침
-            setText(messageText, $"{amount}주 {action} 완료");
+            setText(messageText, $"주식 {amount}주를 {action}하였습니다.");
             OnTraded?.Invoke();
         }
         else
         {
             setText(messageText, isBuy
-                ? $"{action} 실패 (잔액이나 남은 주식을 확인하세요)"
-                : $"{action} 실패 (보유 주식을 확인하세요)");
+                ? $"{action}하지 못하였습니다. 잔액과 매수 가능 수량을 확인해 주십시오."
+                : $"{action}하지 못하였습니다. 보유 주식을 확인해 주십시오.");
         }
     }
 

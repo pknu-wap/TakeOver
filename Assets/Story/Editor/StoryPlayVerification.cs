@@ -21,7 +21,7 @@ namespace TakeOver.Story.Editor
     {
         private const string Key = "TakeOver.Story.Verify";
         public static bool SkipRegression => SessionState.GetBool("TakeOver.StorySkip.Normal", false);
-        public static string Output => Path.GetFullPath(SkipRegression ? "../QA_StorySkip/Normal" : "../QA_Story");
+        public static string Output => Path.GetFullPath(SkipRegression ? "../QA_ContextUI/Normal" : "../QA_ContextUI");
         public static void RunSkipRegression()
         {
             SessionState.SetBool("TakeOver.StorySkip.Normal", true);
@@ -68,7 +68,7 @@ namespace TakeOver.Story.Editor
         private void Start()
         {
             Application.logMessageReceived+=OnLog;
-            deadline=Time.realtimeSinceStartup+240;
+            deadline=Time.realtimeSinceStartup+600;
             test=Run();
         }
         private void Update()
@@ -110,7 +110,7 @@ namespace TakeOver.Story.Editor
             ScreenCapture.CaptureScreenshot(Path.Combine(StoryPlayVerification.Output,name+".png"));
             yield return null;
         }
-        private static Button Named(Transform root,string name) => root.GetComponentsInChildren<Button>(true).First(b=>b.name==name);
+        private static Button Named(Transform root,string name) => root.GetComponentsInChildren<Button>(true).First(b=>b.name==name && b.gameObject.activeInHierarchy);
         private static void Click(Button button)
         {
             if(!button.gameObject.activeInHierarchy || !button.interactable) throw new Exception("Button not available: "+button.name);
@@ -179,16 +179,44 @@ namespace TakeOver.Story.Editor
                     if(beat.speaker==StorySpeaker.Narration && beat.goal==StoryGoal.None)
                         Check(!director.View.Speaker.gameObject.activeSelf && director.View.Dialogue.alignment==TextAnchor.MiddleCenter &&
                             !director.View.PlayerImage.gameObject.activeSelf && !director.View.NpcImage.gameObject.activeSelf,"Narration centered without name or portraits: "+beat.id);
+                    if(beat.goal==StoryGoal.None && beat.speaker==StorySpeaker.Narration)
+                    {
+                        Check(!director.View.SharedDialogue.NarrationUnderlineVisible,"Narration/system notice hides speaker underline: "+beat.id);
+                        var body=director.View.Dialogue.rectTransform;
+                        var ui=director.View.SharedDialogue.GetComponent<RectTransform>();
+                        Check(Mathf.Abs(body.TransformPoint(body.rect.center).x-ui.TransformPoint(ui.rect.center).x)<1,"Narration/system body is centered across full shared band: "+beat.id);
+                    }
                     if(beat.goal==StoryGoal.None && beat.speaker==StorySpeaker.Npc)
                         Check(director.View.Speaker.text.Contains(registry.Profiles.First(p=>p.npcId==beat.npcId).profile.displayName),"NPC label matches profile: "+beat.id);
                     if(StoryPlayVerification.SkipRegression)
                     {
-                        Check(Named(director.transform,"Skip to choice").gameObject.activeInHierarchy,"Skip control stays visible: "+beat.id);
+                        if (beat.goal != StoryGoal.CompleteEvent && beat.goal != StoryGoal.OpenEvent)
+                            Check(Named(director.transform,"Skip to choice").gameObject.activeInHierarchy,"Skip control stays visible: "+beat.id);
                         bool childhood=beat.sceneTitle.EndsWith("마지막 납품")||beat.sceneTitle.EndsWith("제안서")||beat.sceneTitle.EndsWith("빈자리");
                         if(childhood)Check(!director.View.PlayerImage.gameObject.activeSelf,"Childhood victim scene hides adult standing: "+beat.id);
                         else if(beat.speaker==StorySpeaker.Player && beat.goal==StoryGoal.None)Check(director.View.PlayerImage.gameObject.activeSelf,"Adult player standing retained: "+beat.id);
                     }
                 }
+                if (beat.goal==StoryGoal.None && beat.speaker!=StorySpeaker.System)
+                {
+                    Check(director.View.SharedDialogue!=null,"Story uses shared EventNegotiationView component: "+beat.id);
+                    Check(director.View.SharedDialogue.DialoguePageCount==1,"Authored line fits one readable page without excessive wrapping: "+beat.id);
+                    Check(director.View.Dialogue.preferredHeight <= director.View.Dialogue.rectTransform.rect.height + .5f,"Shared dialogue page fits original text area: "+beat.id);
+                    if (beat.choices.Count>0 && director.View.HasMoreDialoguePages)
+                    { Click(director.View.ContinueButton); yield return null; continue; }
+                }
+                if(beat.speaker==StorySpeaker.System && beat.goal==StoryGoal.None)
+                {
+                    Check(director.View.InformationBody.gameObject.activeInHierarchy,"System explanation uses event-style information panel: "+beat.id);
+                    Check(director.View.InformationBody.preferredHeight<=director.View.InformationBody.rectTransform.rect.height+.5f,"Information content fits panel: "+beat.id);
+                    Check(director.View.ContinueButton.GetComponentInChildren<Text>().text=="확인","Information action uses concise confirm label");
+                }
+                if(beat.goal!=StoryGoal.None && beat.goal!=StoryGoal.OpenEvent && beat.goal!=StoryGoal.CompleteEvent)
+                {
+                    Check(director.View.InformationBody.preferredHeight<=director.View.InformationBody.rectTransform.rect.height+.5f,"Contextual explanation fits beside target: "+beat.id);
+                }
+                if(beat.id=="lesson-026" || beat.id=="lesson-041" || beat.id=="intro-026" || beat.id=="intro-070")
+                { var cap=Await(Capture("polish-"+beat.id)); while(cap.MoveNext())yield return null; }
                 if(beat.id==sequence.beats[0].id) { var cap=Await(Capture("01-narration")); while(cap.MoveNext()) yield return null; }
                 if(beat.background!=null && beat.background.name=="HotelLounge" && beat.speaker==StorySpeaker.Npc)
                 { var cap=Await(Capture("02-hotel-npc")); while(cap.MoveNext()) yield return null; }
@@ -200,23 +228,85 @@ namespace TakeOver.Story.Editor
                     var cap=Await(Capture("03-map-target")); while(cap.MoveNext()) yield return null;
                     Click(node.GetComponentInChildren<Button>());
                 }
-                else if(beat.goal==StoryGoal.BuyShares)
+                else if(beat.goal==StoryGoal.BuyShares || beat.goal==StoryGoal.BuyMore || beat.goal==StoryGoal.SellShares)
                 {
+                    Canvas.ForceUpdateCanvases();
+                    var panelCorners=new Vector3[4]; var windowCorners=new Vector3[4];
+                    director.View.InformationRect.GetWorldCorners(panelCorners);
+                    ((RectTransform)detail.transform.Find("Window")).GetWorldCorners(windowCorners);
+                    Check(windowCorners[0].x>=panelCorners[2].x+8,"Company window stays beside tutorial explanation: "+beat.id);
+                    Check(windowCorners[2].x<=Screen.width,"Company window remains on screen: "+beat.id);
                     var input=(TMPro.TMP_InputField)typeof(CompanyDetailPanel).GetField("amountInput",Fields).GetValue(detail);
                     float cash=player.state.cash; float shares=company.state.getStat(CompanyStat.PLAYER_SHARES);
-                    Check(!trading.sellShares(company,1),"Selling blocked during buy tutorial");
-                    input.text=int.MaxValue.ToString(); Click(Persistent(detail.transform,"buy"));
+                    bool buying = beat.goal != StoryGoal.SellShares;
+                    Check(!director.CanSkipToChoice,"Required transaction cannot be skipped: "+beat.id);
+                    Check(buying ? !trading.sellShares(company,1) : !trading.buyShares(company,1),"Opposite transaction blocked: "+beat.id);
+                    string method=buying?"buy":"sell";
+                    input.text=int.MaxValue.ToString(); Click(Persistent(detail.transform,method));
                     Check(player.state.cash==cash && company.state.getStat(CompanyStat.PLAYER_SHARES)==shares,"Failed buy preserves state and does not advance");
                     input.text="1";
-                    var cap=Await(Capture("04-buy-shares")); while(cap.MoveNext()) yield return null;
+                    detail.show(company);
+                    var cap=Await(Capture(buying ? beat.goal==StoryGoal.BuyMore?"15-buy-more":"04-buy-shares" : "16-sell-shares")); while(cap.MoveNext()) yield return null;
                     float price=company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
-                    Click(Persistent(detail.transform,"buy"));
-                    Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==shares+1 && Mathf.Abs(player.state.cash-(cash-price))<.01f,"Actual UI buy updates holdings and cash");
-                    Check(!trading.buyShares(company,1),"Repeated same-frame purchase rejected");
+                    Click(Persistent(detail.transform,method));
+                    Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==shares+(buying?1:-1) && Mathf.Abs(player.state.cash-(cash+(buying?-price:price)))<.01f,"Actual UI transaction updates holdings and cash: "+beat.id);
+                    Check(buying ? !trading.buyShares(company,1) : !trading.sellShares(company,1),"Repeated same-frame transaction rejected");
                 }
-                else if(beat.goal==StoryGoal.ViewRepresentative || beat.goal==StoryGoal.ViewMemory)
+                else if(beat.goal==StoryGoal.OpenEvent)
                 {
-                    var cap=Await(Capture(beat.goal==StoryGoal.ViewMemory?"07-memory":"06-profile")); while(cap.MoveNext()) yield return null;
+                    Check(!director.CanSkipToChoice,"Required event-card discovery cannot be skipped");
+                    Check(!director.View.HasEventOverlay && !director.GetComponent<GraphicRaycaster>().enabled,"Event discovery has no tutorial graphics or raycast blocker");
+                    int ap=Object.FindFirstObjectByType<ActionPointService>().Current;
+                    var card=Object.FindFirstObjectByType<DashboardCardSlide>();
+                    Click(card.MainCard.GetComponent<Button>());
+                    yield return null; yield return null;
+                    Check(events.IsDetailOpen && events.ActiveEventId==StoryDirector.TutorialEventId,"Native event detail remains open across tutorial handoff");
+                    Check(Object.FindFirstObjectByType<ActionPointService>().Current==ap,"Reading native detail does not consume AP");
+                    var cap=Await(Capture("12-event-detail")); while(cap.MoveNext()) yield return null;
+                    var eventDetail=Object.FindFirstObjectByType<EventDetailView>();
+                    Click((Button)typeof(EventDetailView).GetField("backButton",Fields).GetValue(eventDetail));
+                    yield return null; yield return null;
+                    Check(events.IsClosed && director.Goal==StoryGoal.CompleteEvent,"Native back action closes detail without tutorial forcing it open");
+                    Click(card.MainCard.GetComponent<Button>());
+                    yield return null;
+
+                }
+                else if(beat.goal==StoryGoal.CompleteEvent)
+                {
+                    Check(!director.View.HasEventOverlay && !director.GetComponent<GraphicRaycaster>().enabled,"Native event has no guide strip, highlight, story skip or input mask");
+                    var eventDetail=Object.FindFirstObjectByType<EventDetailView>();
+                    int ap=Object.FindFirstObjectByType<ActionPointService>().Current;
+                    float cash=player.state.cash;
+                    int cost=events.getTodayEventInfos().First(e=>e.definition.getId()==StoryDirector.TutorialEventId).definition.getApCost();
+                    var button=(Button)typeof(EventDetailView).GetField("startButton",Fields).GetValue(eventDetail);
+                    var service=Object.FindFirstObjectByType<ActionPointService>();
+                    typeof(ActionPointService).GetField("currentAp",Fields).SetValue(service,0);
+                    Click(button);
+                    Check(events.IsDetailOpen && service.Current==0 && !events.tryGetChoice(StoryDirector.TutorialEventId,out _),"Insufficient AP cannot start or commit event");
+                    typeof(ActionPointService).GetField("currentAp",Fields).SetValue(service,ap);
+                    Click(button); events.startNegotiation();
+                    Check(Object.FindFirstObjectByType<ActionPointService>().Current==ap-cost,"Negotiation consumes actual AP once");
+                    var negotiation=Object.FindFirstObjectByType<EventNegotiationView>();
+                    var cap=Await(Capture("13-event-choice")); while(cap.MoveNext()) yield return null;
+                    var buttons=(List<Button>)typeof(EventNegotiationView).GetField("choices",Fields).GetValue(negotiation);
+                    int chosen=StoryPlayVerification.SkipRegression?0:2;
+                    Click(buttons[chosen]); events.confirmChoice((chosen+1)%3);
+                    Check(events.tryGetChoice(StoryDirector.TutorialEventId,out int answer) && answer==chosen,"Player-selected event answer committed once");
+                    Check(player.state.cash==cash && Object.FindFirstObjectByType<ActionPointService>().Current==ap-cost,"Event answer has actual financial effects and no second AP charge");
+                    var close=(Button)typeof(EventNegotiationView).GetField("closeButton",Fields).GetValue(negotiation);
+                    while(!close.gameObject.activeInHierarchy)yield return null;
+                    Click(close);
+                }
+                else if(beat.goal==StoryGoal.ViewCompany || beat.goal==StoryGoal.CompareCompany || beat.goal==StoryGoal.ViewStake)
+                {
+                    Check(detail.gameObject.activeInHierarchy && detail.current.definition.companyID==(string.IsNullOrEmpty(beat.companyId)?StoryDirector.CompanyId:beat.companyId),"Mandatory company comparison/holdings view uses target company: "+beat.id);
+                    Check(!trading.buyShares(detail.current,1) && !trading.sellShares(detail.current,1),"Information review cannot accidentally trade");
+                    var cap=Await(Capture(beat.goal==StoryGoal.CompareCompany?"14-company-comparison":"14-company-metrics"));while(cap.MoveNext())yield return null;
+                    Click(Named(director.transform,"Confirm profile"));
+                }
+                else if(beat.goal==StoryGoal.ViewRepresentative || beat.goal==StoryGoal.ViewMemory || beat.goal==StoryGoal.ViewEventMemory)
+                {
+                    var cap=Await(Capture(beat.goal==StoryGoal.ViewEventMemory?"14-event-memory":beat.goal==StoryGoal.ViewMemory?"07-memory":"06-profile")); while(cap.MoveNext()) yield return null;
                     if(beat.goal==StoryGoal.ViewMemory)
                     {
                         registry.TryGet(StoryDirector.FieldDirector,out var state);
@@ -244,10 +334,26 @@ namespace TakeOver.Story.Editor
                     Click(Named(director.transform,"Choice"+chosen));
                     director.Choose((chosen+1)%3);
                     Check(director.Decisions.Count==before+1,"Choice double submission rejected: "+beat.id);
-                    Check(director.View.Dialogue.alignment==TextAnchor.UpperRight,"Player reply aligned to player");
+                    Check(director.View.Dialogue.alignment==TextAnchor.UpperRight,"Player reply uses shared player dialogue block");
+                    Check(director.View.SharedDialogue.DialoguePageCount==1 && director.View.Dialogue.rectTransform.rect.width>=600,"Player reply has a readable single-page body");
+                    var rule=director.View.SharedDialogue.PlayerImage.transform.parent.parent;
+                    var playerBlock=(CanvasGroup)typeof(EventNegotiationView).GetField("playerBlock",Fields).GetValue(director.View.SharedDialogue);
+                    var line=(RectTransform)playerBlock.transform.Find("Underline");
+                    var lineCorners=new Vector3[4];var textCorners=new Vector3[4];
+                    line.GetWorldCorners(lineCorners);director.View.Dialogue.rectTransform.GetWorldCorners(textCorners);
+                    Check(Mathf.Abs(lineCorners[2].x-textCorners[2].x)<1,"Player reply right edge follows speaker underline");
+                    yield return null;
+                    yield return null;
+                    while(director.View.HasMoreDialoguePages)
+                    { Click(director.View.ContinueButton); until=Time.unscaledTime+.22f; while(Time.unscaledTime<until)yield return null; }
                     until=Time.unscaledTime+.22f; while(Time.unscaledTime<until) yield return null;
                     Click(Named(director.transform,"Continue"));
-                    Check(director.View.Dialogue.alignment==TextAnchor.UpperLeft,"NPC reply aligned to NPC");
+                    Check(director.View.Dialogue.alignment==TextAnchor.UpperLeft,"NPC reply uses shared response dialogue block");
+                    Check(director.View.SharedDialogue.DialoguePageCount==1,"NPC response fits one readable page");
+                    yield return null;
+                    yield return null;
+                    while(director.View.HasMoreDialoguePages)
+                    { Click(director.View.ContinueButton); until=Time.unscaledTime+.22f; while(Time.unscaledTime<until)yield return null; }
                     until=Time.unscaledTime+.22f; while(Time.unscaledTime<until) yield return null;
                     Click(Named(director.transform,"Continue"));
                 }
@@ -266,7 +372,7 @@ namespace TakeOver.Story.Editor
             events.refreshAvailability(); Check(events.getTodayEventInfos().Count>0,"Normal events available after intro");
             if(StoryPlayVerification.SkipRegression)
             {
-                File.WriteAllText(Path.GetFullPath("../QA_StorySkip/normal-completed-state.json"),StorySkipState.Capture());
+                File.WriteAllText(Path.GetFullPath("../QA_ContextUI/normal-completed-state.json"),StorySkipState.Capture());
                 UnityEngine.SceneManagement.SceneManager.sceneLoaded -= StorySkipState.Seed;
             }
             // Existing direct Game scene entry never requests the intro.

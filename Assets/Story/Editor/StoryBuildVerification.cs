@@ -14,6 +14,12 @@ namespace TakeOver.Story.Editor
     {
         private static readonly List<string> results=new List<string>();
         private static string outputOverride;
+        public static void RunExpandedBuild()
+        {
+            outputOverride="../QA_ContextUI";
+            Directory.CreateDirectory(Path.GetFullPath(outputOverride));
+            Run();
+        }
         public static void RunEventSkipBuild()
         {
             outputOverride="../QA_EventDialogueSkip";
@@ -47,7 +53,7 @@ namespace TakeOver.Story.Editor
                 Check(ids.Count==30 && profiles.Length==30,"No duplicate or empty registered NPC IDs");
                 var sequence=AssetDatabase.LoadAssetAtPath<StorySequence>("Assets/Story/Data/IntroSequence.asset");
                 Check(sequence!=null && sequence.font!=null && sequence.playerStanding!=null,"Intro visual dependencies available in build");
-                Check(sequence.beats.Count==93 && sequence.beats.Select(b=>b.id).Distinct().Count()==93,"All 93 beat IDs unique");
+                Check(sequence.beats.Count==136 && sequence.beats.Select(b=>b.id).Distinct().Count()==136,"All 136 beat IDs unique");
                 int choiceCount=0;
                 foreach(var beat in sequence.beats)
                 {
@@ -63,7 +69,8 @@ namespace TakeOver.Story.Editor
                     }
                 }
                 Check(choiceCount==9,"All nine conversation branches authored");
-                Check(sequence.beats.Where(b=>b.goal!=StoryGoal.None).Select(b=>b.goal).SequenceEqual(new[]{StoryGoal.SelectCompany,StoryGoal.BuyShares,StoryGoal.ViewRepresentative,StoryGoal.ViewMemory,StoryGoal.EndDay}),"Tutorial goals in approved order");
+                Check(sequence.beats.Where(b=>b.goal!=StoryGoal.None).Select(b=>b.goal).SequenceEqual(new[]{StoryGoal.SelectCompany,StoryGoal.BuyShares,StoryGoal.ViewRepresentative,StoryGoal.ViewMemory,StoryGoal.EndDay,
+                    StoryGoal.OpenEvent,StoryGoal.CompleteEvent,StoryGoal.ViewEventMemory,StoryGoal.ViewCompany,StoryGoal.CompareCompany,StoryGoal.ViewStake,StoryGoal.BuyMore,StoryGoal.SellShares,StoryGoal.ViewStake}),"All mandatory tutorial goals in approved order");
                 foreach(var id in StoryContentBuilder.RivalIds)
                 {
                     var rival=AssetDatabase.LoadAssetAtPath<RivalCompanyDefinition>("Assets/Story/Data/Rivals/"+id+".asset");

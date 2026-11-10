@@ -5,8 +5,12 @@ using UnityEngine;
 
 namespace TakeOver.Story
 {
-    public enum StorySpeaker { Narration, Player, Npc, UnregisteredVoice }
-    public enum StoryGoal { None, SelectCompany, BuyShares, ViewRepresentative, ViewMemory, EndDay }
+    public enum StorySpeaker { Narration, Player, Npc, UnregisteredVoice, System }
+    public enum StoryGoal
+    {
+        None, SelectCompany, BuyShares, ViewRepresentative, ViewMemory, EndDay,
+        OpenEvent, CompleteEvent, ViewEventMemory, ViewCompany, CompareCompany, BuyMore, SellShares, ViewStake
+    }
 
     [Serializable]
     public sealed class StoryChoice
@@ -33,6 +37,9 @@ namespace TakeOver.Story
         [TextArea(2, 8)] public string text;
         public bool showPlayer = true;
         public StoryGoal goal;
+        public string companyId;
+        public string tutorialTitle;
+        [TextArea(3, 12)] public string tutorialText;
         public List<StoryChoice> choices = new List<StoryChoice>();
         [Tooltip("타이틀에서 도입부 전체를 생략할 때 적용할 선택지. 대화창 스킵에는 적용하지 않습니다.")]
         [Min(0)] public int skipDefaultChoice;

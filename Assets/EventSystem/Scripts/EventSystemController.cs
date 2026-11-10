@@ -42,6 +42,9 @@ namespace TakeOver.Events
         public event Action<NegotiationStartedInfo> negotiationStarted;
         public event Action<ChoiceConfirmedInfo> choiceConfirmed;
         public event Action todayEventsChanged;
+        public bool IsClosed => screenState == ScreenState.Closed;
+        public bool IsDetailOpen => screenState == ScreenState.Detail;
+        public string ActiveEventId => activeInfo?.definition.getId();
 
         private void Awake()
         {
@@ -188,7 +191,7 @@ namespace TakeOver.Events
         }
         public void openEvent(string eventId)
         {
-            if (TakeOver.Story.StoryDirector.IsRunning) return;
+            if (!TakeOver.Story.StoryDirector.CanOpenEvent(eventId)) return;
             if (screenState != ScreenState.Closed) return;
             Occurrence occurrence = occurrences.Find(item => item.definition.getId() == eventId);
             if (occurrence != null && (!hasRequiredHoldings(occurrence.definition) || !meetsConditions(occurrence.definition, occurrence.companyId)))
@@ -210,6 +213,7 @@ namespace TakeOver.Events
         }
         public void startNegotiation()
         {
+            if (!TakeOver.Story.StoryDirector.CanNegotiate(ActiveEventId)) return;
             if (screenState != ScreenState.Detail) return;
             buildNegotiationChoices();
             if (negotiationChoices.Count == 0) return;

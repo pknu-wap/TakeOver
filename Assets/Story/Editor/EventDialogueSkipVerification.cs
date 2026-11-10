@@ -19,7 +19,7 @@ namespace TakeOver.Story.Editor
     public static class EventDialogueSkipVerification
     {
         private const string Key = "TakeOver.EventDialogueSkip";
-        internal static string Output => Path.GetFullPath("../QA_EventDialogueSkip");
+        internal static string Output => Path.GetFullPath("../QA_ContextUI/EventRegression");
         static EventDialogueSkipVerification() { EditorApplication.playModeStateChanged += Changed; }
         public static void Run()
         {
@@ -133,6 +133,9 @@ namespace TakeOver.Story.Editor
             controller.openEvent(definition.getId()); controller.startNegotiation();
             yield return null; Canvas.ForceUpdateCanvases();
             Check(State(controller) == "Negotiation" && ap.Current == apBefore - definition.getApCost(), "Negotiation consumes AP once " + definition.getId());
+            var question = Get<Text>(view, "dialogueText");
+            Check(question.rectTransform.rect.width >= 800 && question.preferredHeight <= question.rectTransform.rect.height + .5f,
+                "Native event question uses readable shared width without clipping " + definition.getId());
             Check(Skip(view).gameObject.activeInHierarchy && !Skip(view).interactable, "Skip visible and disabled at unanswered choice");
             string waiting = StorySkipState.Capture(); view.SkipToNextChoice();
             Check(State(controller) == "Negotiation" && StorySkipState.Capture() == waiting && notifications == 0, "Skip cannot answer or alter an unanswered choice");
@@ -174,6 +177,28 @@ namespace TakeOver.Story.Editor
             {
                 while (!Get<Button>(view, "closeButton").gameObject.activeSelf) yield return null;
                 yield return null; Canvas.ForceUpdateCanvases();
+                var response = Get<Text>(view, "responseText");
+                var playerLine = Get<Text>(view, "playerLineText");
+                Check(response.preferredHeight <= response.rectTransform.rect.height + .5f,
+                    "Native NPC response is not clipped " + definition.getId()+"/"+choice);
+                if (Get<CanvasGroup>(view,"playerBlock").gameObject.activeInHierarchy)
+                {
+                    Check(playerLine.rectTransform.rect.width >= 600 && playerLine.preferredHeight <= playerLine.rectTransform.rect.height + .5f,
+                        "Native player reply no longer wraps in a narrow column " + definition.getId()+"/"+choice);
+                    var line=(RectTransform)Get<CanvasGroup>(view,"playerBlock").transform.Find("Underline");
+                    var ruleCorners=new Vector3[4];var bodyCorners=new Vector3[4];
+                    line.GetWorldCorners(ruleCorners);playerLine.rectTransform.GetWorldCorners(bodyCorners);
+                    Check(Mathf.Abs(ruleCorners[2].x-bodyCorners[2].x)<1,"Native player reply ends at speaker underline");
+                    var upper = new Vector3[4]; var lower = new Vector3[4];
+                    response.rectTransform.GetWorldCorners(upper); playerLine.rectTransform.GetWorldCorners(lower);
+                    Check(upper[0].y >= lower[1].y, "Native NPC/player text rows do not overlap " + definition.getId()+"/"+choice);
+                }
+                if(definition.getId()=="inside_info_01" && choice==0)
+                {
+                    yield return new WaitForEndOfFrame();
+                    ScreenCapture.CaptureScreenshot(Path.Combine(EventDialogueSkipVerification.Output,"native-response-readable.png"));
+                    yield return null;
+                }
                 Click(Get<Button>(view, "closeButton"));
                 Check(State(controller) == "Closed", "Normal result close remains functional");
             }

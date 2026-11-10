@@ -21,7 +21,7 @@ namespace TakeOver.Story.Editor
     public static class StorySkipVerification
     {
         private const string Key="TakeOver.StorySkip.Verify";
-        internal static string Output=>Path.GetFullPath("../QA_StorySkip");
+        internal static string Output=>Path.GetFullPath("../QA_ContextUI");
         static StorySkipVerification(){EditorApplication.playModeStateChanged+=Changed;}
         [MenuItem("TakeOver/Story/Verify Intro Skip Options")]
         public static void Run()
@@ -71,7 +71,7 @@ namespace TakeOver.Story.Editor
             }
             deadline=0;EditorApplication.isPlaying=false;
         }
-        private static Button Button(Transform parent,string name)=>parent.GetComponentsInChildren<Button>(true).Single(b=>b.name==name);
+        private static Button Button(Transform parent,string name)=>parent.GetComponentsInChildren<Button>(true).Single(b=>b.name==name && b.gameObject.activeInHierarchy);
         private static void Click(Selectable selectable)
         {
             if(!selectable.IsInteractable() || !selectable.gameObject.activeInHierarchy)throw new Exception("Unavailable control: "+selectable.name);
@@ -114,8 +114,9 @@ namespace TakeOver.Story.Editor
             Check(fullState==normalState,"Whole skip matches normal completed tutorial: cash, all company data/history, NPC relations/Memory, date, AP");
             Check(Object.FindFirstObjectByType<GameTurnClock>().CurrentTurn==2,"Whole skip advances exactly one real day");
             var company=Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId);
-            Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==1,"Whole skip makes one real share purchase");
+            Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==1,"Whole skip completes two purchases and one sale, leaving one share");
             Check(StoryDirector.CanNavigate(3) && StoryDirector.CanTrade(company,false),"Whole skip releases normal gameplay controls");
+            Check(Object.FindFirstObjectByType<DashboardCardSlide>().MainCard.gameObject.activeInHierarchy,"Whole skip restores remaining real event cards");
             yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(StorySkipVerification.Output,"03-whole-skip-complete.png"));yield return null;
 
             SceneManager.LoadScene("MainMenu");yield return null;yield return null;
@@ -124,43 +125,101 @@ namespace TakeOver.Story.Editor
             NewGame();while(StoryDirector.Active==null || StoryDirector.Active.Current==null || StoryDirector.Active.Busy)yield return null;
             var director=StoryDirector.Active;
             var sequence=AssetDatabase.LoadAssetAtPath<StorySequence>("Assets/Story/Data/IntroSequence.asset");
-            var stops=sequence.beats.Select((b,i)=>new{b,i}).Where(x=>x.b.choices.Count>0).Select(x=>x.i).ToArray();
-            Click(Button(director.transform,"Skip to choice"));
-            Check(director.Busy,"Dialogue skip starts a locked transition");
-            int before=director.BeatIndex;director.SkipToNextChoice();director.Continue();
-            float until=Time.unscaledTime+.2f;while(Time.unscaledTime<until)yield return null;
-            Check(director.View.FadeAlpha>0,"Dialogue skip fades toward black");
-            while(director.Busy)yield return null;
-            Check(director.BeatIndex==stops[0] && director.Decisions.Count==0,"First skip stops at first unanswered choice");
-            Check(director.View.FadeAlpha==0,"Choice appears after fade-in completes");
-            var skip=Button(director.transform,"Skip to choice");
-            Check(skip.gameObject.activeInHierarchy && !skip.interactable,"Skip remains visible but cannot bypass unanswered choice");
-            director.SkipToNextChoice();Check(director.BeatIndex==stops[0] && director.Decisions.Count==0,"No automatic answer at a choice");
-            yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(StorySkipVerification.Output,"04-skip-first-choice.png"));yield return null;
-            int[] answers={2,1,0};
-            for(int c=0;c<3;c++)
+            int choices = 0;
+            var goals = new System.Collections.Generic.HashSet<string>();
+            while (StoryDirector.IsRunning)
             {
-                Click(Button(director.transform,"Choice"+answers[c]));
-                until=Time.unscaledTime+.22f;while(Time.unscaledTime<until)yield return null;
-                Check(director.Decisions.Count==c+1,"Only user choice committed: "+c);
-                Click(Button(director.transform,"Skip to choice"));
-                director.SkipToNextChoice();
-                if(c<2)
+                director = StoryDirector.Active;
+                if (director.Busy || director.Current == null) { yield return null; continue; }
+                yield return new WaitForSeconds(.24f);
+                var beat = director.Current;
+                if (beat.goal != StoryGoal.None)
                 {
-                    while(director.Busy)yield return null;
-                    Check(director.BeatIndex==stops[c+1] && director.Decisions.Count==c+1,"Next skip stops exactly at next choice: "+c);
-                    Check(Object.FindFirstObjectByType<GameTurnClock>().CurrentTurn==1,"No early day end during script skip: "+c);
-                    company=Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId);
-                    Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==1,"Skipped buy goal performs purchase once: "+c);
+                    goals.Add(beat.id);
+                    Check(!director.CanSkipToChoice, "Dialogue skip cannot bypass required goal: " + beat.id);
+                    int index = director.BeatIndex;
+                    director.SkipToNextChoice();
+                    Check(director.BeatIndex == index && !director.Busy, "Required goal stays active after skip attempt: " + beat.id);
+                    var companies = Object.FindFirstObjectByType<Companies>();
+                    var detail = Object.FindFirstObjectByType<CompanyDetailPanel>(FindObjectsInactive.Include);
+                    var events = Object.FindFirstObjectByType<TakeOver.Events.EventSystemController>();
+                    switch (beat.goal)
+                    {
+                        case StoryGoal.SelectCompany:
+                            var node = Object.FindObjectsByType<CompanyMapNode>(FindObjectsSortMode.None).First(n=>n.company.definition.companyID==StoryDirector.CompanyId);
+                            Click(node.GetComponentInChildren<Button>());
+                            break;
+                        case StoryGoal.BuyShares:
+                        case StoryGoal.BuyMore:
+                        case StoryGoal.SellShares:
+                            var input = (TMP_InputField)typeof(CompanyDetailPanel).GetField("amountInput",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(detail);
+                            input.text = "1";
+                            string method = beat.goal == StoryGoal.SellShares ? "sell" : "buy";
+                            var transaction = detail.GetComponentsInChildren<Button>().First(b=>Enumerable.Range(0,b.onClick.GetPersistentEventCount()).Any(i=>b.onClick.GetPersistentMethodName(i)==method));
+                            yield return new WaitForEndOfFrame();
+                            ScreenCapture.CaptureScreenshot(Path.Combine(StorySkipVerification.Output,"guided-"+beat.goal+".png"));
+                            yield return null;
+                            Click(transaction);
+                            break;
+                        case StoryGoal.EndDay:
+                            Click(Object.FindFirstObjectByType<DaySkipController>().DaySkipButton);
+                            break;
+                        case StoryGoal.OpenEvent:
+                            if (!events.IsDetailOpen)
+                            {
+                                Click(Object.FindFirstObjectByType<DashboardCardSlide>().MainCard.GetComponent<Button>());
+                                yield return null;
+                            }
+                            Check(!director.View.HasEventOverlay,"Native detail is shown without tutorial overlay");
+                            break;
+                        case StoryGoal.CompleteEvent:
+                            Check(!director.View.HasEventOverlay && !director.GetComponent<GraphicRaycaster>().enabled,"Native event retains sole control of its presentation and input");
+                            var eventDetail = Object.FindFirstObjectByType<TakeOver.Events.EventDetailView>();
+                            Click((Button)typeof(TakeOver.Events.EventDetailView).GetField("startButton",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(eventDetail));
+                            yield return null;
+                            yield return null;
+                            var negotiation = Object.FindFirstObjectByType<TakeOver.Events.EventNegotiationView>();
+                            var buttons = (System.Collections.Generic.List<Button>)typeof(TakeOver.Events.EventNegotiationView).GetField("choices",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(negotiation);
+                            Click(buttons[0]);
+                            var close = (Button)typeof(TakeOver.Events.EventNegotiationView).GetField("closeButton",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(negotiation);
+                            while (!close.gameObject.activeInHierarchy) yield return null;
+                            yield return null;
+                            yield return null;
+                            Click(close);
+                            break;
+                        default:
+                            Click(Button(director.transform,"Confirm profile"));
+                            break;
+                    }
                 }
-                else while(StoryDirector.Active!=null)yield return null;
+                else if (beat.choices.Count > 0)
+                {
+                    Check(!director.CanSkipToChoice,"Unanswered dialogue choice cannot be skipped: "+beat.id);
+                    if(director.View.HasMoreDialoguePages)
+                    { Click(director.View.ContinueButton); yield return null; continue; }
+                    int[] answers = {2,1,0};
+                    Click(Button(director.transform,"Choice"+answers[choices++]));
+                    yield return new WaitForSeconds(.24f);
+                    Click(Button(director.transform,"Skip to choice"));
+                    director.SkipToNextChoice();
+                }
+                else
+                {
+                    Click(Button(director.transform,"Skip to choice"));
+                    director.SkipToNextChoice();
+                }
+                yield return null;
             }
+            while (StoryDirector.Active != null) yield return null;
+            Check(goals.Count == 14,"Dialogue skipping still requires all 14 learning objectives");
+            Check(choices == 3,"No introductory choice was auto-selected");
             var clock=Object.FindFirstObjectByType<GameTurnClock>();
-            Check(clock.CurrentTurn==2,"Final script skip completes the remaining tutorial once");
+            Check(clock.CurrentTurn==2,"Dialogue skipping advances the actual day once");
             var registry=Object.FindFirstObjectByType<NpcStateRegistry>();
-            Check(registry.States.Sum(s=>s.memories.Count)==3,"Skipping exchanges does not duplicate choice memories");
-            registry.TryGetProfile(StoryDirector.Representative,out var representative);
-            Check(registry.States.Single(s=>s.npcId==representative.npcId).memories.Single().interpretation.Contains("수익"),"Chosen answer survives later skips");
+            Check(registry.States.Sum(s=>s.memories.Count)==4,"Three conversations and one event record memories without duplicates");
+            Check(Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId).state.getStat(CompanyStat.PLAYER_SHARES)==1,"Initial buy, additional buy and first sale all complete");
+            Check(Object.FindFirstObjectByType<TakeOver.Events.EventSystemController>().tryGetChoice(StoryDirector.TutorialEventId,out int selected) && selected==0,"General event choice committed during guided playback");
+            Check(Object.FindFirstObjectByType<DashboardCardSlide>().MainCard.gameObject.activeInHierarchy,"Guided completion restores remaining real event cards");
 
             var font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/ShareTrading/Fonts/NotoSansKR-Regular SDF.asset");
             Check(font.atlasPopulationMode==AtlasPopulationMode.Dynamic && font.isMultiAtlasTexturesEnabled,"Dynamic Korean font and multi-atlas retained");

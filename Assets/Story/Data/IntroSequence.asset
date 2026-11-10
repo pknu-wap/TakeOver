@@ -23,11 +23,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uACFC\uAC70, \uAC00\uC871 \uD68C\uC0AC\uC758 \uC0AC\uBB34\uC2E4. \uBB38
-      \uB108\uBA38\uC5D0\uC11C\uB294 \uB9C8\uC9C0\uB9C9 \uB0A9\uD488\uC744 \uC900\uBE44\uD558\uB294
-      \uC18C\uB9AC\uAC00 \uB4E4\uB9B0\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uacfc\uac70, \uac00\uc871 \ud68c\uc0ac\uc758 \uc0ac\ubb34\uc2e4. \ubb38 \ub108\uba38\uc5d0\uc11c\ub294 \ub9c8\uc9c0\ub9c9 \ub0a9\ud488\uc744 \uc900\ube44\ud558\ub294 \uc18c\ub9ac\uac00 \ub4e4\ub9b0\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -37,10 +35,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uAC00\uC871"
-    text: "\uC774\uBC88 \uBB3C\uB7C9\uAE4C\uC9C0 \uB9C8\uCE58\uBA74 \uD55C\uC228
-      \uB3CC\uB9AC\uACA0\uB124. \uBC00\uB9B0 \uC815\uBE44\uB3C4 \uD558\uACE0."
+    text: "\uc774\ubc88 \ubb3c\ub7c9\uae4c\uc9c0 \ub9c8\uce58\uba74 \ud55c\uc228 \ub3cc\ub9ac\uaca0\ub124. \ubc00\ub9b0 \uc815\ube44\ub3c4 \ud558\uace0."
     showPlayer: 0
     goal: 0
     choices: []
@@ -50,9 +47,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
-    npcId: 
-    voiceLabel: 
-    text: "\uC785\uAE08\uC740 \uC608\uC815\uB300\uB85C \uB41C\uB300\uC694?"
+    npcId:
+    voiceLabel:
+    text: "\uc785\uae08\uc740 \uc608\uc815\ub300\ub85c \ub41c\ub300\uc694?"
     showPlayer: 0
     goal: 0
     choices: []
@@ -62,10 +59,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uAC00\uC871"
-    text: "\uACC4\uC57D\uC11C\uC5D0 \uC801\uD600 \uC788\uC796\uC544. \uC6B0\uB9B0
-      \uB0A0\uC9DC \uB9DE\uCDB0 \uBCF4\uB0C8\uC73C\uB2C8, \uC800\uCABD\uB3C4 \uC9C0\uD0A4\uACA0\uC9C0."
+    text: "\uacc4\uc57d\uc11c\uc5d0 \uc801\ud600 \uc788\uc796\uc544. \uc6b0\ub9b0 \ub0a0\uc9dc \ub9de\ucdb0 \ubcf4\ub0c8\uc73c\ub2c8, \uc800\ucabd\ub3c4 \uc9c0\ud0a4\uaca0\uc9c0."
     showPlayer: 0
     goal: 0
     choices: []
@@ -75,10 +71,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC804\uD654\uAC00 \uC6B8\uB9B0\uB2E4. \uAC00\uC871\uC758 \uD45C\uC815\uC774
-      \uAD73\uB294\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uc804\ud654\uac00 \uc6b8\ub9b0\ub2e4. \uac00\uc871\uc758 \ud45c\uc815\uc774 \uad73\ub294\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -88,10 +83,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uADF8\uB8F9 \uB2F4\uB2F9\uC790 \xB7 \uC804\uD654"
-    text: "\uAC80\uC218\uAC00 \uCD94\uAC00\uB85C \uD544\uC694\uD569\uB2C8\uB2E4.
-      \uC9C0\uAE09 \uC77C\uC815\uC740 \uB2E4\uC2DC \uC548\uB0B4\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
+    text: "\uac80\uc218\uac00 \ucd94\uac00\ub85c \ud544\uc694\ud569\ub2c8\ub2e4. \uc9c0\uae09 \uc77c\uc815\uc740 \ub2e4\uc2dc \uc548\ub0b4\ub4dc\ub9ac\uaca0\uc2b5\ub2c8\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -101,10 +95,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uAC00\uC871"
-    text: "\uCD94\uAC00 \uAC80\uC218\uC694? \uC9C0\uB09C\uC8FC\uC5D0 \uD655\uC778\uAE4C\uC9C0
-      \uB05D\uB0AC\uB294\uB370\uC694. \uC774\uBC88 \uC8FC\uAC00 \uAE09\uC5EC\uC77C\uC785\uB2C8\uB2E4."
+    text: "\ucd94\uac00 \uac80\uc218\uc694? \uc9c0\ub09c\uc8fc\uc5d0 \ud655\uc778\uae4c\uc9c0 \ub05d\ub0ac\ub294\ub370\uc694. \uc774\ubc88 \uc8fc\uac00 \uae09\uc5ec\uc77c\uc785\ub2c8\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -114,11 +107,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uADF8\uB8F9 \uB2F4\uB2F9\uC790 \xB7 \uC804\uD654"
-    text: "\uB0B4\uBD80 \uAE30\uC900\uC774 \uBCC0\uACBD\uB410\uC2B5\uB2C8\uB2E4.
-      \uC800\uD76C \uCABD\uC5D0\uC11C\uB3C4 \uC2B9\uC778 \uC5C6\uC774\uB294 \uC9C4\uD589\uD560
-      \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."
+    text: "\ub0b4\ubd80 \uae30\uc900\uc774 \ubcc0\uacbd\ub410\uc2b5\ub2c8\ub2e4. \uc800\ud76c \ucabd\uc5d0\uc11c\ub3c4 \uc2b9\uc778 \uc5c6\uc774\ub294 \uc9c4\ud589\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -128,11 +119,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uD1B5\uD654\uAC00 \uB05D\uB0AC\uB2E4. \uAC00\uC871\uC740 \uB2EC\uB825\uC5D0
-      \uADF8\uB824 \uB454 \uC9C0\uAE09\uC77C\uC758 \uB3D9\uADF8\uB77C\uBBF8\uB97C
-      \uC9C0\uC6B0\uC9C0 \uBABB\uD588\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\ud1b5\ud654\uac00 \ub05d\ub0ac\ub2e4. \uac00\uc871\uc740 \ub2ec\ub825\uc5d0 \uadf8\ub824 \ub454 \uc9c0\uae09\uc77c\uc758 \ub3d9\uadf8\ub77c\ubbf8\ub97c \uc9c0\uc6b0\uc9c0 \ubabb\ud588\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -142,11 +131,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uADF8\uB0A0 \uCC98\uC74C \uC54C\uC558\uB2E4. \uACC4\uC57D\uC11C\uC5D0
-      \uC801\uD78C \uB0A0\uC9DC\uB3C4, \uB204\uAD70\uAC00\uC5D0\uAC8C\uB294 \uBBF8\uB8F0
-      \uC218 \uC788\uB294 \uC22B\uC790\uB77C\uB294 \uAC78."
+    npcId:
+    voiceLabel:
+    text: "\uadf8\ub0a0 \ucc98\uc74c \uc54c\uc558\ub2e4. \uacc4\uc57d\uc11c\uc5d0 \uc801\ud78c \ub0a0\uc9dc\ub3c4, \ub204\uad70\uac00\uc5d0\uac8c\ub294 \ubbf8\ub8f0 \uc218 \uc788\ub294 \uc22b\uc790\ub77c\ub294 \uac78."
     showPlayer: 0
     goal: 0
     choices: []
@@ -156,11 +143,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 0.65, g: 0.68, b: 0.75, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uB3C5\uCD09 \uBB38\uC11C\uC640 \uC9C0\uAE09 \uBCF4\uB958 \uD1B5\uC9C0\uAC00
-      \uCC45\uC0C1 \uC704\uC5D0 \uC313\uC600\uB2E4. \uADF8 \uC704\uB85C \uC0C8\uB85C\uC6B4
-      \uBB38\uC11C\uAC00 \uB193\uC600\uB2E4.\n\u300C\uC790\uC0B0 \uC591\uC218 \uC81C\uC548\u300D"
+    npcId:
+    voiceLabel:
+    text: "\ub3c5\ucd09 \ubb38\uc11c\uc640 \uc9c0\uae09 \ubcf4\ub958 \ud1b5\uc9c0\uac00 \ucc45\uc0c1 \uc704\uc5d0 \uc313\uc600\ub2e4. \uadf8 \uc704\ub85c \uc0c8\ub85c\uc6b4 \ubb38\uc11c\uac00 \ub193\uc600\ub2e4. \u300c\uc790\uc0b0 \uc591\uc218 \uc81c\uc548\u300d"
     showPlayer: 0
     goal: 0
     choices: []
@@ -170,11 +155,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uADF8\uB8F9 \uB2F4\uB2F9\uC790"
-    text: "\uC124\uBE44\uC640 \uBD80\uC9C0\uB97C \uB118\uAE30\uC2DC\uB294 \uBC29\uD5A5\uC785\uB2C8\uB2E4.
-      \uC774 \uC870\uAC74\uC774\uBA74 \uB0A8\uC740 \uBD80\uB2F4\uC744 \uC77C\uBD80
-      \uC815\uB9AC\uD558\uC2E4 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    text: "\uc124\ube44\uc640 \ubd80\uc9c0\ub97c \ub118\uae30\uc2dc\ub294 \ubc29\ud5a5\uc785\ub2c8\ub2e4. \uc774 \uc870\uac74\uc774\uba74 \ub0a8\uc740 \ubd80\ub2f4\uc744 \uc77c\ubd80 \uc815\ub9ac\ud558\uc2e4 \uc218 \uc788\uc2b5\ub2c8\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -184,11 +167,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uAC00\uC871"
-    text: "\uBC1B\uC544\uC57C \uD560 \uB3C8\uC774 \uB4E4\uC5B4\uC624\uBA74 \uC815\uB9AC\uD560
-      \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uADF8\uAC74 \uC65C \uC774\uC57C\uAE30\uD558\uC9C0
-      \uC54A\uC2B5\uB2C8\uAE4C?"
+    text: "\ubc1b\uc544\uc57c \ud560 \ub3c8\uc774 \ub4e4\uc5b4\uc624\uba74 \uc815\ub9ac\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uadf8\uac74 \uc65c \uc774\uc57c\uae30\ud558\uc9c0 \uc54a\uc2b5\ub2c8\uae4c?"
     showPlayer: 0
     goal: 0
     choices: []
@@ -198,12 +179,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uADF8\uB8F9 \uB2F4\uB2F9\uC790"
-    text: "\uB300\uAE08 \uAD00\uB828 \uAC74\uACFC \uC774\uBC88 \uC81C\uC548\uC740
-      \uBCC4\uAC1C\uC785\uB2C8\uB2E4. \uD310\uB2E8\uC740 \uB300\uD45C\uB2D8\uAED8\uC11C
-      \uD558\uC2DC\uB294 \uAC81\uB2C8\uB2E4. \uC81C\uC548 \uAE30\uD55C\uC740 \uC774\uBC88
-      \uC8FC\uAE4C\uC9C0\uC785\uB2C8\uB2E4."
+    text: "\ub300\uae08 \uad00\ub828 \uac74\uacfc \uc774\ubc88 \uc81c\uc548\uc740 \ubcc4\uac1c\uc785\ub2c8\ub2e4. \ud310\ub2e8\uc740 \ub300\ud45c\ub2d8\uaed8\uc11c \ud558\uc2dc\ub294 \uac81\ub2c8\ub2e4. \uc81c\uc548 \uae30\ud55c\uc740 \uc774\ubc88 \uc8fc\uae4c\uc9c0\uc785\ub2c8\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -213,11 +191,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uB2F4\uB2F9\uC790\uB294 \uBB38\uC11C\uB97C \uB0A8\uAE30\uACE0 \uB5A0\uB0AC\uB2E4.
-      \uAC00\uC871\uC740 \uC624\uB798\uB3C4\uB85D \uADF8 \uC790\uB9AC\uC5D0 \uC549\uC544
-      \uC788\uC5C8\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\ub2f4\ub2f9\uc790\ub294 \ubb38\uc11c\ub97c \ub0a8\uae30\uace0 \ub5a0\ub0ac\ub2e4. \uac00\uc871\uc740 \uc624\ub798\ub3c4\ub85d \uadf8 \uc790\ub9ac\uc5d0 \uc549\uc544 \uc788\uc5c8\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -227,9 +203,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uAC00\uC871"
-    text: "\uC9C1\uC6D0\uB4E4\uD55C\uD14C\uB294 \uB0B4\uAC00 \uC774\uC57C\uAE30\uD560\uAC8C."
+    text: "\uc9c1\uc6d0\ub4e4\ud55c\ud14c\ub294 \ub0b4\uac00 \uc774\uc57c\uae30\ud560\uac8c."
     showPlayer: 0
     goal: 0
     choices: []
@@ -239,9 +215,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
-    npcId: 
-    voiceLabel: 
-    text: "\uC544\uC9C1 \uB2E4\uB978 \uBC29\uBC95\uC774 \uC788\uC744 \uAC70\uC608\uC694."
+    npcId:
+    voiceLabel:
+    text: "\uc544\uc9c1 \ub2e4\ub978 \ubc29\ubc95\uc774 \uc788\uc744 \uac70\uc608\uc694."
     showPlayer: 0
     goal: 0
     choices: []
@@ -251,9 +227,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uAC00\uC871"
-    text: "\u2026\uC788\uC73C\uBA74 \uC88B\uACA0\uB2E4."
+    text: "\u2026\uc788\uc73c\uba74 \uc88b\uaca0\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -263,12 +239,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 0.42, g: 0.48, b: 0.57, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uACF5\uAD6C\uD568\uC774 \uB2EB\uD614\uB2E4. \uC774\uB984\uD45C\uAC00
-      \uB5BC\uC5B4\uC84C\uB2E4. \uAC04\uD310\uC774 \uB0B4\uB824\uC624\uACE0, \uB9E4\uC77C
-      \uBCF4\uB358 \uC0AC\uB78C\uB4E4\uC740 \uAC01\uC790\uC758 \uC0B4\uAE38\uC744
-      \uCC3E\uC544 \uB5A0\uB0AC\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uacf5\uad6c\ud568\uc774 \ub2eb\ud614\ub2e4. \uc774\ub984\ud45c\uac00 \ub5bc\uc5b4\uc84c\ub2e4. \uac04\ud310\uc774 \ub0b4\ub824\uc624\uace0, \ub9e4\uc77c \ubcf4\ub358 \uc0ac\ub78c\ub4e4\uc740 \uac01\uc790\uc758 \uc0b4\uae38\uc744 \ucc3e\uc544 \ub5a0\ub0ac\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -278,9 +251,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uC9C1\uC6D0"
-    text: "\uC5F0\uB77D \uC8FC\uC138\uC694. \uB098\uC911\uC5D0 \uB2E4\uC2DC \uC2DC\uC791\uD558\uC2DC\uBA74\uC694."
+    text: "\uc5f0\ub77d \uc8fc\uc138\uc694. \ub098\uc911\uc5d0 \ub2e4\uc2dc \uc2dc\uc791\ud558\uc2dc\uba74\uc694."
     showPlayer: 0
     goal: 0
     choices: []
@@ -290,10 +263,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uD68C\uC0AC\uB294 \uBB38\uC744 \uB2EB\uC558\uB2E4. \uC9D1\uB3C4 \uC815\uB9AC\uD588\uB2E4.
-      \uC6B0\uB9AC\uC5D0\uAC8C\uB294 \uBAA8\uB4E0 \uAC83\uC774 \uB05D\uB09C \uB0A0\uC774\uC5C8\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\ud68c\uc0ac\ub294 \ubb38\uc744 \ub2eb\uc558\ub2e4. \uc9d1\ub3c4 \uc815\ub9ac\ud588\ub2e4. \uc6b0\ub9ac\uc5d0\uac8c\ub294 \ubaa8\ub4e0 \uac83\uc774 \ub05d\ub09c \ub0a0\uc774\uc5c8\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -303,11 +275,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uBC16\uC5D0\uC11C\uB294 \uC791\uC740 \uD68C\uC0AC \uD558\uB098\uAC00
-      \uBB34\uB9AC\uD558\uAC8C \uC0AC\uC5C5\uC744 \uBC8C\uC600\uB2E4\uAC00 \uC2E4\uD328\uD588\uB2E4\uACE0
-      \uD588\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\ubc16\uc5d0\uc11c\ub294 \uc791\uc740 \ud68c\uc0ac \ud558\ub098\uac00 \ubb34\ub9ac\ud558\uac8c \uc0ac\uc5c5\uc744 \ubc8c\uc600\ub2e4\uac00 \uc2e4\ud328\ud588\ub2e4\uace0 \ud588\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -317,10 +287,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 3
-    npcId: 
+    npcId:
     voiceLabel: "\uADF8\uB8F9 \uD68C\uC7A5 \xB7 \uB274\uC2A4"
-    text: "\uAE30\uC5C5\uC758 \uCC45\uC784\uC740 \uC9C0\uC18D \uAC00\uB2A5\uD55C
-      \uC131\uC7A5\uC744 \uB9CC\uB4DC\uB294 \uB370 \uC788\uC2B5\uB2C8\uB2E4."
+    text: "\uae30\uc5c5\uc758 \ucc45\uc784\uc740 \uc9c0\uc18d \uac00\ub2a5\ud55c \uc131\uc7a5\uc744 \ub9cc\ub4dc\ub294 \ub370 \uc788\uc2b5\ub2c8\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -330,12 +299,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uADF8 \uC0AC\uB78C\uC5D0\uAC8C \uC6B0\uB9AC \uD68C\uC0AC\uB294 \uBCF4\uACE0\uC11C
-      \uD55C \uC904\uC774\uC5C8\uC744 \uAC83\uC774\uB2E4.\n\uB098\uB294 \uADF8 \uD55C
-      \uC904\uC774 \uC5B4\uB5BB\uAC8C \uB9CC\uB4E4\uC5B4\uC84C\uB294\uC9C0 \uC54C\uACE0
-      \uC2F6\uC5C8\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uadf8 \uc0ac\ub78c\uc5d0\uac8c \uc6b0\ub9ac \ud68c\uc0ac\ub294 \ubcf4\uace0\uc11c \ud55c \uc904\uc774\uc5c8\uc744 \uac83\uc774\ub2e4. \ub098\ub294 \uadf8 \ud55c \uc904\uc774 \uc5b4\ub5bb\uac8c \ub9cc\ub4e4\uc5b4\uc84c\ub294\uc9c0 \uc54c\uace0 \uc2f6\uc5c8\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -346,11 +312,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uBA87 \uB144 \uD6C4.\n\uC77C\uD55C \uD754\uC801\uC774 \uB0A8\uC740 \uCC45\uC0C1
-      \uC704\uC5D0 \uD68C\uACC4 \uCC45\uACFC \uAE30\uC5C5 \uBD84\uC11D \uBA54\uBAA8\uAC00
-      \uB193\uC600\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uba87 \ub144 \ud6c4. \uc77c\ud55c \ud754\uc801\uc774 \ub0a8\uc740 \ucc45\uc0c1 \uc704\uc5d0 \ud68c\uacc4 \ucc45\uacfc \uae30\uc5c5 \ubd84\uc11d \uba54\ubaa8\uac00 \ub193\uc600\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -361,12 +325,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uB2F9\uC7A5 \uB418\uAC1A\uC744 \uD798\uC740 \uC5C6\uC5C8\uB2E4. \uBA3C\uC800
-      \uC0B4\uC544\uC57C \uD588\uB2E4.\n\uC77C\uD588\uACE0, \uB3C8\uC744 \uBAA8\uC558\uB2E4.
-      \uD68C\uC0AC\uAC00 \uBB34\uB108\uC9C0\uB294 \uC774\uC720\uC640, \uB204\uAD70\uAC00
-      \uADF8 \uD68C\uC0AC\uB97C \uC0AC\uB4E4\uC774\uB294 \uC774\uC720\uB97C \uBC30\uC6E0\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\ub2f9\uc7a5 \ub418\uac1a\uc744 \ud798\uc740 \uc5c6\uc5c8\ub2e4. \uba3c\uc800 \uc0b4\uc544\uc57c \ud588\ub2e4. \uc77c\ud588\uace0, \ub3c8\uc744 \ubaa8\uc558\ub2e4. \ud68c\uc0ac\uac00 \ubb34\ub108\uc9c0\ub294 \uc774\uc720\uc640, \ub204\uad70\uac00 \uadf8 \ud68c\uc0ac\ub97c \uc0ac\ub4e4\uc774\ub294 \uc774\uc720\ub97c \ubc30\uc6e0\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -377,10 +338,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uBAA8\uB4E0 \uD68C\uC0AC\uB97C \uC0B4 \uC218\uB294 \uC5C6\uB2E4. \uD558\uC9C0\uB9CC
-      \uCCAB \uAC70\uB798\uB97C \uC2DC\uC791\uD560 \uB9CC\uD07C\uC740 \uB9C8\uB828\uD588\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\ubaa8\ub4e0 \ud68c\uc0ac\ub97c \uc0b4 \uc218\ub294 \uc5c6\ub2e4. \ud558\uc9c0\ub9cc \uccab \uac70\ub798\ub97c \uc2dc\uc791\ud560 \ub9cc\ud07c\uc740 \ub9c8\ub828\ud588\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -391,12 +351,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC791\uC740 \uD22C\uC790\uD68C\uC0AC\uC758 \uB4F1\uB85D \uC11C\uB958\uB97C
-      \uB0B4\uB824\uB193\uC558\uB2E4.\n\uC11C\uB78D\uC5D0\uB294 \uC61B \uD68C\uC0AC\uC758
-      \uC0AC\uC9C4\uC744, \uBCBD\uC5D0\uB294 \uADF8\uB8F9\uC758 \uAE30\uC5C5 \uC790\uB8CC\uB97C
-      \uB450\uC5C8\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uc791\uc740 \ud22c\uc790\ud68c\uc0ac\uc758 \ub4f1\ub85d \uc11c\ub958\ub97c \ub0b4\ub824\ub193\uc558\ub2e4. \uc11c\ub78d\uc5d0\ub294 \uc61b \ud68c\uc0ac\uc758 \uc0ac\uc9c4\uc744, \ubcbd\uc5d0\ub294 \uadf8\ub8f9\uc758 \uae30\uc5c5 \uc790\ub8cc\ub97c \ub450\uc5c8\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -407,11 +364,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC5B8\uC820\uAC00 \uC800 \uD68C\uC0AC\uB97C \uC778\uC218\uD55C\uB2E4.\n\uC6B0\uB9AC\uC5D0\uAC8C
-      \uB0A8\uACA8\uC9C4 \uC120\uD0DD\uC9C0\uB97C \uC138\uB358 \uC0AC\uB78C\uB4E4\uC774,
-      \uB0B4 \uACB0\uC815\uC744 \uAE30\uB2E4\uB9AC\uAC8C \uB420 \uB54C\uAE4C\uC9C0."
+    npcId:
+    voiceLabel:
+    text: "\uc5b8\uc820\uac00 \uc800 \ud68c\uc0ac\ub97c \uc778\uc218\ud55c\ub2e4. \uc6b0\ub9ac\uc5d0\uac8c \ub0a8\uaca8\uc9c4 \uc120\ud0dd\uc9c0\ub97c \uc138\ub358 \uc0ac\ub78c\ub4e4\uc774, \ub0b4 \uacb0\uc815\uc744 \uae30\ub2e4\ub9ac\uac8c \ub420 \ub54c\uae4c\uc9c0."
     showPlayer: 0
     goal: 0
     choices: []
@@ -421,12 +376,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 974e87b52bad3034dbc93184f2f6b396, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC774\uB984 \uC5C6\uB294 \uBD09\uD22C\uC5D0\uB294 \uBBF8\uB798\uAC74\uC124\uC758
-      \uACF5\uAC1C \uC790\uB8CC\uC640 \uBA54\uBAA8\uAC00 \uC788\uC5C8\uB2E4.\n\u300C\uD68C\uC0AC\uB97C
-      \uC0B4 \uC0DD\uAC01\uC774\uB77C\uBA74, \uACF5\uAC1C \uC790\uB8CC\uB9CC\uC73C\uB85C
-      \uD310\uB2E8\uD558\uC9C0 \uB9C8\uC2ED\uC2DC\uC624. \uC724\uD558\uC9C4.\u300D"
+    npcId:
+    voiceLabel:
+    text: "\uc774\ub984 \uc5c6\ub294 \ubd09\ud22c\uc5d0\ub294 \ubbf8\ub798\uac74\uc124\uc758 \uacf5\uac1c \uc790\ub8cc\uc640 \uba54\ubaa8\uac00 \uc788\uc5c8\ub2e4. \u300c\ud68c\uc0ac\ub97c \uc0b4 \uc0dd\uac01\uc774\ub77c\uba74, \uacf5\uac1c \uc790\ub8cc\ub9cc\uc73c\ub85c \ud310\ub2e8\ud558\uc9c0 \ub9c8\uc2ed\uc2dc\uc624. \uc724\ud558\uc9c4.\u300d"
     showPlayer: 0
     goal: 0
     choices: []
@@ -436,10 +388,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 974e87b52bad3034dbc93184f2f6b396, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC2E0\uC6D0\uC744 \uD655\uC778\uD55C \uB4A4, \uC0AC\uB78C\uC774 \uBD90\uBE44\uC9C0
-      \uC54A\uB294 \uD638\uD154 \uB77C\uC6B4\uC9C0\uC5D0\uC11C \uADF8\uB97C \uB9CC\uB0AC\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uc2e0\uc6d0\uc744 \ud655\uc778\ud55c \ub4a4, \uc0ac\ub78c\uc774 \ubd90\ube44\uc9c0 \uc54a\ub294 \ud638\ud154 \ub77c\uc6b4\uc9c0\uc5d0\uc11c \uadf8\ub97c \ub9cc\ub0ac\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -450,10 +401,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uD734\uB300\uC804\uD654\uB294 \uC7A0\uAE50 \uAEBC\uB450\uC2DC\uC8E0.
-      \uC5EC\uAE30\uC120 \uB179\uC74C\uD558\uB294 \uC0AC\uB78C\uB3C4, \uB4E3\uB294
-      \uC0AC\uB78C\uB3C4 \uB9CE\uC73C\uB2C8\uAE4C."
+    voiceLabel:
+    text: "\ud734\ub300\uc804\ud654\ub294 \uc7a0\uae50 \uaebc\ub450\uc2dc\uc8e0. \uc5ec\uae30\uc120 \ub179\uc74c\ud558\ub294 \uc0ac\ub78c\ub3c4, \ub4e3\ub294 \uc0ac\ub78c\ub3c4 \ub9ce\uc73c\ub2c8\uae4c."
     showPlayer: 1
     goal: 0
     choices: []
@@ -464,9 +413,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uBA3C\uC800 \uC5F0\uB77D\uD558\uC2E0 \uC774\uC720\uBD80\uD130 \uB4E3\uACE0
-      \uC2F6\uC2B5\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uba3c\uc800 \uc5f0\ub77d\ud558\uc2e0 \uc774\uc720\ubd80\ud130 \ub4e3\uace0 \uc2f6\uc2b5\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -477,10 +425,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC0C8 \uD22C\uC790\uD68C\uC0AC\uB97C \uC138\uC6B0\uC168\uB354\uAD70\uC694.
-      \uAC00\uC9C4 \uB3C8\uC740 \uB9CE\uC9C0 \uC54A\uC740\uB370 \uCD5C\uC885 \uBAA9\uD45C\uB294
-      \uAF64 \uD06C\uACE0\uC694."
+    voiceLabel:
+    text: "\uc0c8 \ud22c\uc790\ud68c\uc0ac\ub97c \uc138\uc6b0\uc168\ub354\uad70\uc694. \uac00\uc9c4 \ub3c8\uc740 \ub9ce\uc9c0 \uc54a\uc740\ub370 \ucd5c\uc885 \ubaa9\ud45c\ub294 \uaf64 \ud06c\uace0\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -491,8 +437,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC81C \uC790\uB8CC\uB97C \uC5B4\uB514\uC11C \uC5BB\uC5C8\uC8E0?"
+    voiceLabel:
+    text: "\uc81c \uc790\ub8cc\ub97c \uc5b4\ub514\uc11c \uc5bb\uc5c8\uc8e0?"
     showPlayer: 1
     goal: 0
     choices: []
@@ -503,11 +449,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC5C5\uACC4\uC5D0\uC120 \uC0C8 \uD68C\uC0AC\uAC00 \uC0DD\uAE30\uBA74
-      \uC18C\uBB38\uC774 \uB0A9\uB2C8\uB2E4. \uADF8 \uADF8\uB8F9\uC744 \uC778\uC218\uD558\uACE0
-      \uC2F6\uB2E4\uACE0\uC694? \uC9C0\uAE08 \uC790\uAE08\uC73C\uB85C\uB294 \uD611\uC0C1
-      \uD14C\uC774\uBE14\uC5D0 \uC549\uAE30\uB3C4 \uC5B4\uB835\uC2B5\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uc5c5\uacc4\uc5d0\uc120 \uc0c8 \ud68c\uc0ac\uac00 \uc0dd\uae30\uba74 \uc18c\ubb38\uc774 \ub0a9\ub2c8\ub2e4. \uadf8 \uadf8\ub8f9\uc744 \uc778\uc218\ud558\uace0 \uc2f6\ub2e4\uace0\uc694? \uc9c0\uae08 \uc790\uae08\uc73c\ub85c\ub294 \ud611\uc0c1 \ud14c\uc774\ube14\uc5d0 \uc549\uae30\ub3c4 \uc5b4\ub835\uc2b5\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -518,9 +461,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uADF8\uB798\uC11C \uCCAB \uAC70\uB798\uBD80\uD130 \uC2DC\uC791\uD558\uB824\uB294
-      \uAC81\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uadf8\ub798\uc11c \uccab \uac70\ub798\ubd80\ud130 \uc2dc\uc791\ud558\ub824\ub294 \uac81\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -531,10 +473,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uD070 \uBAA9\uD45C\uB97C \uAC00\uC9C4 \uACE0\uAC1D\uC740 \uBC18\uAC11\uC8E0.
-      \uAC70\uB798\uAC00 \uC131\uC0AC\uB418\uBA74 \uC81C \uC218\uC218\uB8CC\uB3C4
-      \uC0DD\uAE30\uB2C8\uAE4C\uC694."
+    voiceLabel:
+    text: "\ud070 \ubaa9\ud45c\ub97c \uac00\uc9c4 \uace0\uac1d\uc740 \ubc18\uac11\uc8e0. \uac70\ub798\uac00 \uc131\uc0ac\ub418\uba74 \uc81c \uc218\uc218\ub8cc\ub3c4 \uc0dd\uae30\ub2c8\uae4c\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -545,8 +485,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC65C \uC800\uB97C \uB3D5\uC2B5\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\uc65c \uc800\ub97c \ub3d5\uc2b5\ub2c8\uae4c?"
     showPlayer: 1
     goal: 0
     choices: []
@@ -557,11 +497,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC608\uC804\uC5D4 \uC800\uB3C4 \uC791\uC740 \uB0A9\uD488\uC5C5\uCCB4\uC640
-      \uC77C\uD588\uC2B5\uB2C8\uB2E4. \uADF8\uB8F9 \uACC4\uC5F4\uC0AC\uC5D0 \uBC1B\uC744
-      \uB3C8\uC774 \uC788\uC5C8\uC8E0. \uB300\uAE08\uC740 \uBBF8\uB904\uC84C\uACE0,
-      \uC81C \uAC70\uB798\uCC98\uB294 \uBC84\uD2F0\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uc608\uc804\uc5d4 \uc800\ub3c4 \uc791\uc740 \ub0a9\ud488\uc5c5\uccb4\uc640 \uc77c\ud588\uc2b5\ub2c8\ub2e4. \uadf8\ub8f9 \uacc4\uc5f4\uc0ac\uc5d0 \ubc1b\uc744 \ub3c8\uc774 \uc788\uc5c8\uc8e0. \ub300\uae08\uc740 \ubbf8\ub904\uc84c\uace0, \uc81c \uac70\ub798\ucc98\ub294 \ubc84\ud2f0\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -572,9 +509,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uB2F9\uC2E0\uB3C4 \uADF8 \uADF8\uB8F9 \uB54C\uBB38\uC5D0 \uD53C\uD574\uB97C
-      \uBD24\uB2E4\uB294 \uAC81\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\ub2f9\uc2e0\ub3c4 \uadf8 \uadf8\ub8f9 \ub54c\ubb38\uc5d0 \ud53c\ud574\ub97c \ubd24\ub2e4\ub294 \uac81\ub2c8\uae4c?"
     showPlayer: 1
     goal: 0
     choices: []
@@ -585,9 +521,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uD53C\uD574\uB97C \uBCF8 \uAC74 \uB9DE\uC2B5\uB2C8\uB2E4. \uADF8\uB807\uB2E4\uACE0
-      \uC81C\uAC00 \uAE68\uB057\uD588\uB2E4\uB294 \uB73B\uC740 \uC544\uB2C8\uC5D0\uC694."
+    voiceLabel:
+    text: "\ud53c\ud574\ub97c \ubcf8 \uac74 \ub9de\uc2b5\ub2c8\ub2e4. \uadf8\ub807\ub2e4\uace0 \uc81c\uac00 \uae68\ub057\ud588\ub2e4\ub294 \ub73b\uc740 \uc544\ub2c8\uc5d0\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -598,11 +533,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uAC70\uB798\uCC98\uB97C \uC9C0\uD0A4\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4.
-      \uB300\uC2E0 \uB0B4\uBD80\uC5D0\uC11C \uC0C8\uC5B4\uB098\uC628 \uACB0\uC81C
-      \uC77C\uC815\uC744 \uB2E4\uB978 \uB9E4\uC218\uC790\uC5D0\uAC8C \uB118\uACA8
-      \uC218\uC218\uB8CC\uB97C \uCC59\uACBC\uC8E0. \uADF8 \uB3C8\uC73C\uB85C \uBC84\uD17C\uC2B5\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uac70\ub798\ucc98\ub97c \uc9c0\ud0a4\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4. \ub300\uc2e0 \ub0b4\ubd80\uc5d0\uc11c \uc0c8\uc5b4\ub098\uc628 \uacb0\uc81c \uc77c\uc815\uc744 \ub2e4\ub978 \ub9e4\uc218\uc790\uc5d0\uac8c \ub118\uaca8 \uc218\uc218\ub8cc\ub97c \ucc59\uacbc\uc8e0. \uadf8 \ub3c8\uc73c\ub85c \ubc84\ud17c\uc2b5\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -613,9 +545,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uADF8 \uC815\uBCF4\uB294 \uD569\uBC95\uC801\uC73C\uB85C \uC5BB\uC740
-      \uAC81\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\uadf8 \uc815\ubcf4\ub294 \ud569\ubc95\uc801\uc73c\ub85c \uc5bb\uc740 \uac81\ub2c8\uae4c?"
     showPlayer: 1
     goal: 0
     choices: []
@@ -626,9 +557,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uADF8 \uC9C8\uBB38\uC744 \uAF2D \uAE30\uB85D\uC73C\uB85C \uB0A8\uAE30\uACE0
-      \uC2F6\uC73C\uC2ED\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\uadf8 \uc9c8\ubb38\uc744 \uaf2d \uae30\ub85d\uc73c\ub85c \ub0a8\uae30\uace0 \uc2f6\uc73c\uc2ed\ub2c8\uae4c?"
     showPlayer: 1
     goal: 0
     choices: []
@@ -638,11 +568,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 974e87b52bad3034dbc93184f2f6b396, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC724\uD558\uC9C4\uC740 \uD68C\uC0AC \uC774\uB984\uB3C4 \uC791\uC131\uC790\uB3C4
-      \uC5C6\uB294 \uC11C\uB958\uCCA0\uC744 \uBC00\uC5C8\uB2E4. \uADF8\uB7EC\uB098
-      \uC544\uC9C1 \uC190\uC744 \uB193\uC9C0\uB294 \uC54A\uC558\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uc724\ud558\uc9c4\uc740 \ud68c\uc0ac \uc774\ub984\ub3c4 \uc791\uc131\uc790\ub3c4 \uc5c6\ub294 \uc11c\ub958\ucca0\uc744 \ubc00\uc5c8\ub2e4. \uadf8\ub7ec\ub098 \uc544\uc9c1 \uc190\uc744 \ub193\uc9c0\ub294 \uc54a\uc558\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -653,10 +581,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC815\uC758\uB97C \uC704\uD574 \uB3D5\uB294\uB2E4\uACE0 \uBBFF\uC9C0\uB294
-      \uB9C8\uC138\uC694. \uB2F9\uC2E0\uC740 \uC790\uBCF8\uACFC \uBAA9\uD45C\uAC00
-      \uC788\uACE0, \uC800\uB294 \uAC70\uB798\uB9DD\uACFC \uC815\uBCF4\uAC00 \uC788\uC2B5\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uc815\uc758\ub97c \uc704\ud574 \ub3d5\ub294\ub2e4\uace0 \ubbff\uc9c0\ub294 \ub9c8\uc138\uc694. \ub2f9\uc2e0\uc740 \uc790\ubcf8\uacfc \ubaa9\ud45c\uac00 \uc788\uace0, \uc800\ub294 \uac70\ub798\ub9dd\uacfc \uc815\ubcf4\uac00 \uc788\uc2b5\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -667,10 +593,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uAC70\uB798\uAC00 \uC131\uC0AC\uB418\uBA74 \uB3C8\uC744 \uBC95\uB2C8\uB2E4.
-      \uADF8 \uADF8\uB8F9\uC774 \uD754\uB4E4\uB9AC\uBA74 \uAC1C\uC778\uC801\uC778
-      \uBE5A\uB3C4 \uC870\uAE08 \uAC1A\uB294 \uC148\uC774\uACE0\uC694."
+    voiceLabel:
+    text: "\uac70\ub798\uac00 \uc131\uc0ac\ub418\uba74 \ub3c8\uc744 \ubc95\ub2c8\ub2e4. \uadf8 \uadf8\ub8f9\uc774 \ud754\ub4e4\ub9ac\uba74 \uac1c\uc778\uc801\uc778 \ube5a\ub3c4 \uc870\uae08 \uac1a\ub294 \uc148\uc774\uace0\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -681,8 +605,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC774\uAC74 \uACF5\uAC1C \uC790\uB8CC\uAC00 \uC544\uB2C8\uAD70\uC694."
+    voiceLabel:
+    text: "\uc774\uac74 \uacf5\uac1c \uc790\ub8cc\uac00 \uc544\ub2c8\uad70\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -693,10 +617,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC5B4\uB514\uC11C \uC5BB\uC5C8\uB294\uC9C0\uB294 \uBB3B\uC9C0 \uC54A\uB294
-      \uAC8C \uC88B\uC2B5\uB2C8\uB2E4. \uC9C4\uC704\uB97C \uD655\uC778\uD558\uB294
-      \uAC74 \uB2F9\uC2E0 \uBAAB\uC785\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uc5b4\ub514\uc11c \uc5bb\uc5c8\ub294\uc9c0\ub294 \ubb3b\uc9c0 \uc54a\ub294 \uac8c \uc88b\uc2b5\ub2c8\ub2e4. \uc9c4\uc704\ub97c \ud655\uc778\ud558\ub294 \uac74 \ub2f9\uc2e0 \ubaab\uc785\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -707,9 +629,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uD655\uC778 \uC804\uC5D0\uB294 \uC544\uBB34 \uAC70\uB798\uB3C4 \uD558\uC9C0
-      \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\ud655\uc778 \uc804\uc5d0\ub294 \uc544\ubb34 \uac70\ub798\ub3c4 \ud558\uc9c0 \uc54a\uaca0\uc2b5\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -720,11 +641,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC88B\uC2B5\uB2C8\uB2E4. \uBBF8\uB798\uAC74\uC124\uC740 \uB2F9\uC2E0\uC5D0\uAC8C
-      \uCCAB\uAC78\uC74C\uC774\uACE0, \uC81C\uAC90 \uC218\uC218\uB8CC\uAC00 \uAC78\uB9B0
-      \uAE30\uD68C\uC785\uB2C8\uB2E4. \uC11C\uB85C \uC6D0\uD558\uB294 \uAC8C \uB9DE\uC73C\uBA74
-      \uB2E4\uC2DC \uC5F0\uB77D\uD558\uC8E0."
+    voiceLabel:
+    text: "\uc88b\uc2b5\ub2c8\ub2e4. \ubbf8\ub798\uac74\uc124\uc740 \ub2f9\uc2e0\uc5d0\uac8c \uccab\uac78\uc74c\uc774\uace0, \uc81c\uac90 \uc218\uc218\ub8cc\uac00 \uac78\ub9b0 \uae30\ud68c\uc785\ub2c8\ub2e4. \uc11c\ub85c \uc6d0\ud558\ub294 \uac8c \ub9de\uc73c\uba74 \ub2e4\uc2dc \uc5f0\ub77d\ud558\uc8e0."
     showPlayer: 1
     goal: 0
     choices: []
@@ -734,11 +652,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uB0B4\uAC00 \uC0AC\uB824\uB294 \uAC83\uC740 \uC8FC\uC2DD\uC774\uB2E4.\n\uD558\uC9C0\uB9CC
-      \uADF8 \uC22B\uC790 \uB4A4\uC5D0\uB294, \uB204\uAD70\uAC00\uAC00 \uC9C0\uCF1C
-      \uC628 \uD68C\uC0AC\uAC00 \uC788\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\ub0b4\uac00 \uc0ac\ub824\ub294 \uac83\uc740 \uc8fc\uc2dd\uc774\ub2e4. \ud558\uc9c0\ub9cc \uadf8 \uc22b\uc790 \ub4a4\uc5d0\ub294, \ub204\uad70\uac00\uac00 \uc9c0\ucf1c \uc628 \ud68c\uc0ac\uac00 \uc788\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -749,10 +665,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC0AC\uBB34\uC2E4\uC740 \uAD6C\uD558\uC168\uB124\uC694. \uC774\uC81C
-      \uC5EC\uAE30\uC11C \uBB34\uC2A8 \uAC70\uB798\uAC00 \uB098\uC624\uB294\uC9C0
-      \uBCF4\uC5EC\uC904 \uCC28\uB840\uAD70\uC694."
+    voiceLabel:
+    text: "\uc0ac\ubb34\uc2e4\uc740 \uad6c\ud558\uc168\ub124\uc694. \uc774\uc81c \uc5ec\uae30\uc11c \ubb34\uc2a8 \uac70\ub798\uac00 \ub098\uc624\ub294\uc9c0 \ubcf4\uc5ec\uc904 \ucc28\ub840\uad70\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -763,8 +677,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC18C\uAC1C\uD560 \uD68C\uC0AC\uAC00 \uC788\uB2E4\uACE0 \uD588\uC8E0."
+    voiceLabel:
+    text: "\uc18c\uac1c\ud560 \ud68c\uc0ac\uac00 \uc788\ub2e4\uace0 \ud588\uc8e0."
     showPlayer: 1
     goal: 0
     choices: []
@@ -775,10 +689,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uBBF8\uB798\uAC74\uC124\uC785\uB2C8\uB2E4. \uACF5\uC0AC\uB294 \uB3CC\uC544\uAC00\uB294\uB370
-      \uB3C8\uC774 \uC81C\uB54C \uB3CC\uC9C0 \uC54A\uC544\uC694. \uC774\uB7F0 \uD68C\uC0AC\uB294
-      \uD22C\uC790\uC790\uB97C \uCC3E\uC2B5\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\ubbf8\ub798\uac74\uc124\uc785\ub2c8\ub2e4. \uacf5\uc0ac\ub294 \ub3cc\uc544\uac00\ub294\ub370 \ub3c8\uc774 \uc81c\ub54c \ub3cc\uc9c0 \uc54a\uc544\uc694. \uc774\ub7f0 \ud68c\uc0ac\ub294 \ud22c\uc790\uc790\ub97c \ucc3e\uc2b5\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -789,8 +701,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uB300\uD45C\uAC00 \uD68C\uC0AC\uB97C \uD314\uACA0\uB2F5\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\ub300\ud45c\uac00 \ud68c\uc0ac\ub97c \ud314\uaca0\ub2f5\ub2c8\uae4c?"
     showPlayer: 1
     goal: 0
     choices: []
@@ -801,10 +713,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC544\uC9C1 \uADF8\uB7F0 \uB9D0\uC740 \uC548 \uD588\uC2B5\uB2C8\uB2E4.
-      \uC7AC\uBB34 \uB2F4\uB2F9\uC790\uB294 \uC774\uC57C\uAE30\uAC00 \uD1B5\uD560
-      \uAC70\uC608\uC694."
+    voiceLabel:
+    text: "\uc544\uc9c1 \uadf8\ub7f0 \ub9d0\uc740 \uc548 \ud588\uc2b5\ub2c8\ub2e4. \uc7ac\ubb34 \ub2f4\ub2f9\uc790\ub294 \uc774\uc57c\uae30\uac00 \ud1b5\ud560 \uac70\uc608\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -814,11 +724,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC775\uC219\uD55C \uB9D0\uC774\uB2E4. \uADF8\uB807\uB2E4\uACE0 \uAC19\uC740
-      \uD68C\uC0AC\uB294 \uC544\uB2C8\uB2E4. \uC774\uBC88\uC5D0\uB294 \uC790\uB8CC\uBD80\uD130
-      \uBCF4\uC790."
+    npcId:
+    voiceLabel:
+    text: "\uc775\uc219\ud55c \ub9d0\uc774\ub2e4. \uadf8\ub807\ub2e4\uace0 \uac19\uc740 \ud68c\uc0ac\ub294 \uc544\ub2c8\ub2e4. \uc774\ubc88\uc5d0\ub294 \uc790\ub8cc\ubd80\ud130 \ubcf4\uc790."
     showPlayer: 0
     goal: 0
     choices: []
@@ -827,13 +735,14 @@ MonoBehaviour:
     sceneTitle: "\uCCAB \uBC88\uC9F8 \uC8FC\uC8FC  /  \uCC98\uC74C \uBCF4\uB294 \uB3C4\uC2DC"
     background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
-    speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uB3C4\uC2DC\uB9F5\uC5D0\uC11C \uAE08\uC0C9\uC73C\uB85C \uAC15\uC870\uB41C
-      \uBBF8\uB798\uAC74\uC124\uC744 \uC120\uD0DD\uD558\uC138\uC694."
+    speaker: 4
+    npcId:
+    voiceLabel:
+    text: "\ub3c4\uc2dc\ub9f5\uc5d0\uc11c \uae08\uc0c9\uc73c\ub85c \uac15\uc870\ub41c \ubbf8\ub798\uac74\uc124\uc744 \uc120\ud0dd\ud558\uc138\uc694."
     showPlayer: 0
     goal: 1
+    tutorialTitle: "\ud68c\uc0ac \uc0b4\ud3b4\ubcf4\uae30"
+    tutorialText: "\ub3c4\uc2dc\ub9f5\uc5d0\uc11c \ud68c\uc0ac\ub97c \uc120\ud0dd\ud558\uba74 \uc0ac\uc5c5 \ub0b4\uc6a9\uacfc \uc7ac\ubb34 \uc815\ubcf4, \uc8fc\uc2dd \uac70\ub798 \ud654\uba74\uc744 \ud655\uc778\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4."
     choices: []
     skipDefaultChoice: 0
   - id: intro-061
@@ -842,10 +751,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-mirae-construction-cfo-seo-jia
-    voiceLabel: 
-    text: "\uD22C\uC790\uB97C \uAC80\uD1A0\uD558\uC2E0\uB2E4\uACE0 \uB4E4\uC5C8\uC2B5\uB2C8\uB2E4.
-      \uC218\uC775\uC131\uACFC \uD604\uAE08 \uC0AC\uC815\uBD80\uD130 \uAD6C\uBD84\uD574\uC11C
-      \uBCF4\uC168\uC73C\uBA74 \uD569\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\ud22c\uc790\ub97c \uc0dd\uac01\ud558\uace0 \uacc4\uc2dc\ub2e4\uace0\uc694. \uc7a5\ubd80\ub294 \uac00\uc838\uc654\uc5b4\uc694. \ub3c8\uc744 \ubc84\ub294 \uac83\ud558\uace0, \ub2f9\uc7a5 \uc4f8 \ub3c8\uc774 \uc788\ub294 \uac74 \uc880 \ub2e4\ub974\ub2c8 \uac19\uc774 \ubcf4\uc2dc\uc8e0."
     showPlayer: 1
     goal: 0
     choices: []
@@ -856,9 +763,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-mirae-construction-cfo-seo-jia
-    voiceLabel: 
-    text: "\uACF5\uC0AC\uAC00 \uC9C4\uD589 \uC911\uC778\uB370 \uC790\uAE08\uC774
-      \uBD80\uC871\uD55C \uAC81\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\uacf5\uc0ac\uac00 \uc9c4\ud589 \uc911\uc778\ub370 \uc790\uae08\uc774 \ubd80\uc871\ud55c \uac81\ub2c8\uae4c?"
     showPlayer: 1
     goal: 0
     choices: []
@@ -869,27 +775,9 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-mirae-construction-cfo-seo-jia
-    voiceLabel: 
-    text: "\uBC1B\uC744 \uB3C8\uACFC \uC624\uB298 \uC9C0\uAE09\uD560 \uB3C8\uC740
-      \uB2E4\uB974\uB2C8\uAE4C\uC694. \uC77C\uC815\uC774 \uBC00\uB9AC\uBA74 \uBE44\uC6A9\uC740
-      \uACC4\uC18D \uB098\uAC11\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\ubc1b\uc744 \ub3c8\uc774 \uc788\uc5b4\ub3c4 \uc624\ub298 \uc904 \ub3c8\uc774 \uc5c6\uc744 \uc218 \uc788\uac70\ub4e0\uc694. \uacf5\uc0ac\uac00 \ub2a6\uc5b4\uc9c0\uba74 \uadf8\ub3d9\uc548 \ub098\uac08 \ub3c8\uc740 \uacc4\uc18d \uc313\uc774\uace0\uc694."
     showPlayer: 1
-    goal: 0
-    choices: []
-    skipDefaultChoice: 0
-  - id: intro-064
-    sceneTitle: "\uCCAB \uBC88\uC9F8 \uC8FC\uC8FC  /  \uC11C\uC9C0\uC544\uC758 \uC22B\uC790"
-    background: {fileID: 21300000, guid: 3da8335e8f928b04ea9542177aaee968, type: 3}
-    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
-    speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uACF5\uAC1C \uC790\uB8CC \uD655\uC778\n\uBBF8\uB798\uAC74\uC124 \uD604\uC7AC
-      \uC8FC\uAC00 {price} \xB7 \uBCF4\uC720 \uC790\uAE08 {cash}\n\uB9E4\uC218 \uB300\uAE08\uC740
-      \uAE30\uC874 \uC8FC\uC2DD\uC758 \uB9E4\uB3C4\uC790\uC5D0\uAC8C \uC9C0\uAE09\uB418\uBA70
-      \uD68C\uC0AC \uC6B4\uC601\uC790\uAE08\uC5D0 \uBC14\uB85C \uB4E4\uC5B4\uAC00\uB294
-      \uB3C8\uC774 \uC544\uB2C8\uB2E4."
-    showPlayer: 0
     goal: 0
     choices: []
     skipDefaultChoice: 0
@@ -899,18 +787,14 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-mirae-construction-cfo-seo-jia
-    voiceLabel: 
-    text: "\uC790\uB8CC\uB97C \uBCF4\uC2DC\uACE0 \uC5B4\uB5A4 \uC810\uC744 \uBA3C\uC800
-      \uD655\uC778\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\uc5b4\ub514\ubd80\ud130 \ubcfc\uae4c\uc694? \uad81\uae08\ud558\uc2e0 \uac83\ubd80\ud130 \ub9d0\uc500\ud558\uc138\uc694."
     showPlayer: 1
     goal: 0
     choices:
     - title: "\uC790\uAE08 \uC0C1\uD669\uC744 \uBB3B\uB294\uB2E4"
-      playerLine: "\uAC00\uC7A5 \uBA3C\uC800 \uC9C0\uAE09\uD574\uC57C \uD560 \uBE44\uC6A9\uACFC,
-        \uD68C\uC218\uD560 \uB3C8\uC758 \uC2DC\uC810\uC744 \uD655\uC778\uD558\uACE0
-        \uC2F6\uC2B5\uB2C8\uB2E4."
-      response: "\uC88B\uC2B5\uB2C8\uB2E4. \uADF8 \uB458\uC744 \uAC19\uC740 \uD45C\uC5D0
-        \uB193\uACE0 \uBCF4\uC8E0."
+      playerLine: "\ub2f9\uc7a5 \uac1a\uc544\uc57c \ud560 \ub3c8\uc774 \uc5bc\ub9c8\ub098 \ub418\uc8e0? \uc9c0\uae08 \uac00\uc9c4 \ub3c8\uc73c\ub85c \ubc84\ud2f8 \uc218 \uc788\ub294\uc9c0\ub3c4 \uad81\uae08\ud569\ub2c8\ub2e4."
+      response: "\uace7 \ub098\uac08 \ub3c8\ubd80\ud130 \ubcfc\uae4c\uc694? \uc774 \ud45c\uc5d0 \ub0a0\uc9dc\ubcc4\ub85c \uc801\uc5b4\ub480\uc5b4\uc694."
       targetNpcId: npc-mirae-construction-cfo-seo-jia
       memoryType: 8
       interpretation: "\uCCAB \uBA74\uB2F4\uC5D0\uC11C \uC790\uAE08 \uC9C0\uAE09\uACFC
@@ -923,11 +807,8 @@ MonoBehaviour:
         dependency: 0
         interest: 1
     - title: "\uC131\uC7A5 \uAC00\uB2A5\uC131\uC744 \uBB3B\uB294\uB2E4"
-      playerLine: "\uC9C4\uD589 \uC911\uC778 \uC0AC\uC5C5\uC774 \uC815\uC0C1\uD654\uB418\uBA74
-        \uC5B4\uB290 \uC815\uB3C4\uAE4C\uC9C0 \uD68C\uBCF5\uD560 \uC218 \uC788\uC2B5\uB2C8\uAE4C?"
-      response: "\uAC00\uB2A5\uC131\uC740 \uC788\uC2B5\uB2C8\uB2E4. \uB2E4\uB9CC
-        \uC815\uC0C1\uD654\uC5D0 \uD544\uC694\uD55C \uC790\uAE08\uBD80\uD130 \uACC4\uC0B0\uD574\uC57C
-        \uD569\uB2C8\uB2E4."
+      playerLine: "\ubc00\ub9b0 \ub300\uae08\uc774 \ub4e4\uc5b4\uc624\uba74 \ub2e4\uc2dc \ubc84\ud2f8 \uc218 \uc788\uaca0\uc2b5\ub2c8\uae4c?"
+      response: "\uac00\ub2a5\uc740 \ud574\uc694. \ub2e4\ub9cc \uadf8\ub54c\uae4c\uc9c0 \ubc84\ud2f8 \ub3c8\ub3c4 \uc788\uc5b4\uc57c\uaca0\uc8e0."
       targetNpcId: npc-mirae-construction-cfo-seo-jia
       memoryType: 8
       interpretation: "\uCCAB \uBA74\uB2F4\uC5D0\uC11C \uC815\uC0C1\uD654\uC640 \uC131\uC7A5\uC758
@@ -940,11 +821,8 @@ MonoBehaviour:
         dependency: 0
         interest: 2
     - title: "\uAC00\uACA9\uACFC \uBD80\uB2F4\uC744 \uBB3B\uB294\uB2E4"
-      playerLine: "\uC9C0\uAE08 \uC0C1\uD669\uC774\uB77C\uBA74 \uB0AE\uC740 \uAC00\uACA9\uB3C4
-        \uAC80\uD1A0\uD558\uC2DC\uACA0\uAD70\uC694."
-      response: "\uAC80\uD1A0\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uB300\uC2E0
-        \uC5B4\uB5A4 \uBD80\uB2F4\uAE4C\uC9C0 \uB9E1\uC73C\uC2E4\uC9C0\uB3C4 \uD568\uAED8
-        \uB9D0\uC500\uD574 \uC8FC\uC138\uC694."
+      playerLine: "\uc0ac\uc815\uc774 \uc774\ub7ec\uba74 \uac00\uaca9\ub3c4 \uc880 \uc598\uae30\ud574\ubcfc \uc218 \uc788\uaca0\ub124\uc694."
+      response: "\uc598\uae30\ub294 \ud574\ubcfc \uc218 \uc788\uc8e0. \ub300\uc2e0 \uc5b4\ub5a4 \ubd80\ub2f4\uae4c\uc9c0 \ub9e1\uc73c\uc2e4 \uac74\uc9c0\ub3c4 \uac19\uc774 \ubd10\uc8fc\uc138\uc694."
       targetNpcId: npc-mirae-construction-cfo-seo-jia
       memoryType: 8
       interpretation: "\uCCAB \uBA74\uB2F4\uC5D0\uC11C \uAC00\uACA9\uACFC \uD568\uAED8
@@ -962,11 +840,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 3da8335e8f928b04ea9542177aaee968, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC608\uC804\uC5D0\uB294 \uC800 \uC885\uC774\uB4E4 \uC55E\uC5D0\uC11C
-      \uD560 \uC218 \uC788\uB294 \uB9D0\uC774 \uC5C6\uC5C8\uB2E4.\n\uC9C0\uAE08\uC740
-      \uBB3B\uACE0, \uB530\uC838\uBCFC \uC218 \uC788\uB2E4. \uD310\uB2E8\uC740 \uADF8\uB2E4\uC74C\uC774\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uc608\uc804\uc5d0\ub294 \uc800 \uc885\uc774\ub4e4 \uc55e\uc5d0\uc11c \ud560 \uc218 \uc788\ub294 \ub9d0\uc774 \uc5c6\uc5c8\ub2e4. \uc9c0\uae08\uc740 \ubb3b\uace0, \ub530\uc838\ubcfc \uc218 \uc788\ub2e4. \ud310\ub2e8\uc740 \uadf8\ub2e4\uc74c\uc774\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -977,9 +853,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC6B0\uC120 \uC18C\uB7C9\uB9CC \uC0AC\uACA0\uC2B5\uB2C8\uB2E4. \uB354
-      \uC54C\uC544\uBCFC \uD544\uC694\uAC00 \uC788\uC5B4\uC694."
+    voiceLabel:
+    text: "\uc6b0\uc120 \uc18c\ub7c9\ub9cc \uc0ac\uaca0\uc2b5\ub2c8\ub2e4. \ub354 \uc54c\uc544\ubcfc \ud544\uc694\uac00 \uc788\uc5b4\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -990,10 +865,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC88B\uC2B5\uB2C8\uB2E4. \uC218\uB7C9\uACFC \uB9E4\uC218 \uD6C4 \uB0A8\uB294
-      \uC790\uAE08\uC744 \uD655\uC778\uD558\uC138\uC694. \uCC98\uC74C\uC5D0\uB294
-      1\uC8FC\uB85C \uC2DC\uC791\uD574\uB3C4 \uB429\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uadf8\ub7fc \ud55c \uc8fc\ub9cc \uc0ac\ubcf4\uc2dc\uc8e0. \uc0ac\uace0 \ub098\uc11c\ub3c4 \uc4f8 \ub3c8\uc774 \ub0a8\ub294\uc9c0 \ubcf4\uace0\uc694. \ucc98\uc74c\ubd80\ud130 \uc11c\ub450\ub97c \uac74 \uc5c6\uc73c\ub2c8\uae4c\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -1002,27 +875,27 @@ MonoBehaviour:
     sceneTitle: "\uCCAB \uBC88\uC9F8 \uC8FC\uC8FC  /  \uCCAB \uC9C0\uBD84"
     background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
-    speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC218\uB7C9\xB7\uBCF4\uC720 \uC790\uAE08\uC744 \uD655\uC778\uD55C \uB4A4
-      \uBBF8\uB798\uAC74\uC124 \uC8FC\uC2DD\uC744 \uB9E4\uC218\uD558\uC138\uC694."
+    speaker: 4
+    npcId:
+    voiceLabel:
+    text: "\uc218\ub7c9\uc5d0 1\uc744 \uc785\ub825\ud558\uace0 \ubbf8\ub798\uac74\uc124 \uc8fc\uc2dd 1\uc8fc\ub97c \ub9e4\uc218\ud558\uc138\uc694."
     showPlayer: 0
     goal: 2
+    tutorialTitle: "\uc8fc\uc2dd \ub9e4\uc218"
+    tutorialText: "\uc218\ub7c9\uc5d0 1\uc744 \uc785\ub825\ud55c \ub4a4 \ub9e4\uc218\ud558\uae30\ub97c \uc120\ud0dd\ud574 \uc8fc\uc2ed\uc2dc\uc624. \ub9e4\uc218 \ub300\uae08\uacfc \ub0a8\ub294 \uc790\uae08\uc744 \ud568\uaed8 \ud655\uc778\ud558\uc2e4 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc8fc\uc2dd \ub9e4\uc218 \ub300\uae08\uc740 \uae30\uc874 \uc8fc\uc8fc\uc5d0\uac8c \uc9c0\uae09\ub418\uba70 \ud68c\uc0ac \uc6b4\uc601\uc790\uae08\uc5d0 \uc9c1\uc811 \ub4e4\uc5b4\uac00\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
     choices: []
     skipDefaultChoice: 0
   - id: intro-070
     sceneTitle: "\uCCAB \uBC88\uC9F8 \uC8FC\uC8FC  /  \uCCAB \uC9C0\uBD84"
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
-    speaker: 2
-    npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC774\uC81C \uBBF8\uB798\uAC74\uC124 \uC8FC\uC8FC\uAD70\uC694. \uC2E4\uC81C
-      \uBCF4\uC720 \uC8FC\uC2DD\uC740 {shares}\uC8FC, \uB0A8\uC740 \uC790\uAE08\uC740
-      {cash}\uC785\uB2C8\uB2E4."
-    showPlayer: 1
+    speaker: 4
+    npcId:
+    voiceLabel:
+    text: "{tradeResult}"
+    showPlayer: 0
     goal: 0
+    tutorialTitle: "\uac70\ub798 \uacb0\uacfc"
     choices: []
     skipDefaultChoice: 0
   - id: intro-071
@@ -1031,8 +904,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uC774 \uC815\uB3C4\uB85C \uB2EC\uB77C\uC9C0\uB294 \uAC8C \uC788\uC2B5\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\uc774 \uc815\ub3c4\ub85c \ub2ec\ub77c\uc9c0\ub294 \uac8c \uc788\uc2b5\ub2c8\uae4c?"
     showPlayer: 1
     goal: 0
     choices: []
@@ -1043,10 +916,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uB2F9\uC2E0\uC5D0\uAC8C\uB294 \uC788\uC8E0. \uB0B4\uC77C\uBD80\uD130
-      \uC800 \uD68C\uC0AC \uC18C\uC2DD\uC744 \uC870\uAE08 \uB354 \uC2E0\uACBD \uC4F0\uAC8C
-      \uB420 \uAC81\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uc774\uc81c \uc8fc\uc8fc\uac00 \ub41c \uac70\uc8e0. \ud68c\uc0ac\ub97c \ub9c8\uc74c\ub300\ub85c \uc6c0\uc9c1\uc77c \uc218 \uc788\ub294 \uac74 \uc544\ub2c8\uace0\uc694. \uadf8\ub798\ub3c4 \ub0b4 \ub3c8\uc774 \ub4e4\uc5b4\uac14\uc73c\ub2c8, \ub0b4\uc77c\ubd80\ud130\ub294 \uc774 \ud68c\uc0ac \uc18c\uc2dd\uc774 \ub2e4\ub974\uac8c \ub4e4\ub9b4 \uac81\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -1056,12 +927,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC800\uAE30\uAE4C\uC9C0 \uAC00\uB824\uBA74 \uC544\uC9C1 \uBA40\uC5C8\uB2E4.
-      \uADF8\uB798\uB3C4 \uC624\uB298\uC740 \uCCAB \uC9C0\uBD84\uC774 \uC0DD\uACBC\uB2E4.\n\uCCAB
-      \uC9C0\uBD84 \uB9E4\uC218\uB294 \uACBD\uC601\uAD8C \uC778\uC218 \uC644\uB8CC\uC640
-      \uB2E4\uB974\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uc800\uae30\uae4c\uc9c0 \uac00\ub824\uba74 \uc544\uc9c1 \uba40\uc5c8\ub2e4. \uadf8\ub798\ub3c4 \uc624\ub298\uc740 \uccab \uc9c0\ubd84\uc774 \uc0dd\uacbc\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -1071,12 +939,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 3da8335e8f928b04ea9542177aaee968, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uB300\uD45C \uBA74\uB2F4\uC740 \uC8FC\uC2DD\uC744 \uC0C0\uB2E4\uB294
-      \uC774\uC720\uB85C \uC790\uB3D9 \uBCF4\uC7A5\uB418\uB294 \uC790\uB9AC\uAC00
-      \uC544\uB2C8\uB2E4.\n\uC774\uBC88 \uBA74\uB2F4\uC740 \uC724\uD558\uC9C4\uC758
-      \uC18C\uAC1C\uB85C \uB9C8\uB828\uB418\uC5C8\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\uc724\ud558\uc9c4\uc774 \uc57d\uc18d\uc744 \uc7a1\uc544\ub454 \ub355\ubd84\uc5d0 \ub300\ud45c\uc640 \uc9c1\uc811 \ub9c8\uc8fc \uc549\uc558\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -1087,9 +952,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-mirae-construction-ceo-kang-junhyeok
-    voiceLabel: 
-    text: "\uC8FC\uC2DD\uC744 \uC0AC\uC168\uB2E4\uACE0 \uB4E4\uC5C8\uC2B5\uB2C8\uB2E4.
-      \uC6B0\uB9AC \uD68C\uC0AC\uC5D0\uC11C \uBB34\uC5C7\uC744 \uBCF4\uC168\uC2B5\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\uc8fc\uc2dd\uc744 \uc0ac\uc168\ub2e4\uace0 \ub4e4\uc5c8\uc2b5\ub2c8\ub2e4. \uc6b0\ub9ac \ud68c\uc0ac\uc5d0\uc11c \ubb34\uc5c7\uc744 \ubcf4\uc168\uc2b5\ub2c8\uae4c?"
     showPlayer: 1
     goal: 0
     choices: []
@@ -1100,8 +964,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-mirae-construction-ceo-kang-junhyeok
-    voiceLabel: 
-    text: "\uC9C1\uC811 \uD655\uC778\uD558\uACE0 \uC2F6\uC5B4\uC11C \uC654\uC2B5\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uc9c1\uc811 \ud655\uc778\ud558\uace0 \uc2f6\uc5b4\uc11c \uc654\uc2b5\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -1112,20 +976,14 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-mirae-construction-ceo-kang-junhyeok
-    voiceLabel: 
-    text: "\uADF8\uB7FC \uC800\uB3C4 \uD655\uC778\uD558\uC8E0. \uC774 \uD68C\uC0AC\uC5D0
-      \uC5BC\uB9C8\uB098 \uC624\uB798 \uACC4\uC2E4 \uC0DD\uAC01\uC785\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\uadf8\ub7fc \uc800\ub3c4 \ud655\uc778\ud558\uc8e0. \uc774 \ud68c\uc0ac\uc5d0 \uc5bc\ub9c8\ub098 \uc624\ub798 \uacc4\uc2e4 \uc0dd\uac01\uc785\ub2c8\uae4c?"
     showPlayer: 1
     goal: 0
     choices:
     - title: "\uC7A5\uAE30\uC801\uC778 \uACBD\uC601 \uCC38\uC5EC"
-      playerLine: "\uC131\uC7A5\uC2DC\uD0AC \uC218 \uC788\uB2E4\uB294 \uD310\uB2E8\uC774
-        \uC11C\uBA74 \uC624\uB798 \uCC38\uC5EC\uD560 \uC0DD\uAC01\uC785\uB2C8\uB2E4.
-        \uC9C0\uAE08\uC740 \uADF8 \uD310\uB2E8\uC5D0 \uD544\uC694\uD55C \uAC83\uC744
-        \uD655\uC778\uD558\uACE0 \uC788\uC2B5\uB2C8\uB2E4."
-      response: "\uADF8 \uC815\uB3C4 \uB2F5\uC774\uBA74 \uB410\uC2B5\uB2C8\uB2E4.
-        \uC624\uB298 \uCC98\uC74C \uBCF8 \uC0AC\uB78C\uC5D0\uAC8C \uD3C9\uC0DD \uD568\uAED8\uD558\uACA0\uB2E4\uB294
-        \uB9D0\uAE4C\uC9C0 \uB4E3\uACE0 \uC2F6\uC9C4 \uC54A\uC73C\uB2C8\uAE4C\uC694."
+      playerLine: "\ud0a4\uc6cc\ubcfc \ub9cc\ud55c \ud68c\uc0ac\ub77c\uba74 \uc624\ub798 \ud568\uaed8\ud560 \uc0dd\uac01\uc785\ub2c8\ub2e4. \uadf8\ub798\uc11c \uc9c1\uc811 \ubcf4\ub7ec \uc628 \uac70\uace0\uc694."
+      response: "\uadf8 \uc815\ub3c4\uba74 \ub410\uc2b5\ub2c8\ub2e4. \uc624\ub298 \ucc98\uc74c \ubcf8 \ubd84\ud55c\ud14c \ud3c9\uc0dd \ud568\uaed8\ud558\uaca0\ub2e4\ub294 \ub9d0\uae4c\uc9c0 \ub4e3\uace0 \uc2f6\uc9c4 \uc54a\uc73c\ub2c8\uae4c\uc694."
       targetNpcId: npc-mirae-construction-ceo-kang-junhyeok
       memoryType: 8
       interpretation: "\uC7A5\uAE30 \uCC38\uC5EC\uB97C \uAC80\uD1A0\uD558\uB418 \uC544\uC9C1
@@ -1138,12 +996,8 @@ MonoBehaviour:
         dependency: 0
         interest: 2
     - title: "\uC218\uC775 \uC911\uC2EC\uC758 \uD22C\uC790"
-      playerLine: "\uBAA9\uD45C\uD55C \uC218\uC775\uC774 \uB098\uBA74 \uB9E4\uAC01\uD560
-        \uC218\uB3C4 \uC788\uC2B5\uB2C8\uB2E4. \uADF8 \uC810\uC740 \uBBF8\uB9AC \uB9D0\uC500\uB4DC\uB9AC\uB294
-        \uAC8C \uB9DE\uACA0\uC8E0."
-      response: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8\uB7FC \uC6B0\uB9AC\uAC00
-        \uD568\uAED8\uD560 \uC218 \uC788\uB294 \uAE30\uAC04\uACFC \uC870\uAC74\uC744
-        \uBD84\uBA85\uD788 \uD574\uC57C\uACA0\uAD70\uC694."
+      playerLine: "\uc6d0\ud558\ub294 \ub9cc\ud07c \uc218\uc775\uc774 \ub098\uba74 \ud314 \uc218\ub3c4 \uc788\uc2b5\ub2c8\ub2e4. \uadf8\uac74 \ubbf8\ub9ac \ub9d0\uc500\ub4dc\ub9ac\ub294 \uac8c \ub9de\uaca0\uc8e0."
+      response: "\uc54c\uaca0\uc2b5\ub2c8\ub2e4. \uadf8\ub7fc \uc5b8\uc81c\uae4c\uc9c0, \uc5b4\ub5a4 \uc870\uac74\uc73c\ub85c \ud568\uaed8\ud560 \uc218 \uc788\uc744\uc9c0 \ubd84\uba85\ud788 \ud574\uc57c\uaca0\uad70\uc694."
       targetNpcId: npc-mirae-construction-ceo-kang-junhyeok
       memoryType: 8
       interpretation: "\uC218\uC775 \uBAA9\uD45C\uC640 \uB9E4\uAC01 \uAC00\uB2A5\uC131\uC744
@@ -1156,11 +1010,8 @@ MonoBehaviour:
         dependency: 0
         interest: 0
     - title: "\uACBD\uC601\uAD8C \uD655\uBCF4 \uAC80\uD1A0"
-      playerLine: "\uC5EC\uAC74\uC774 \uB9DE\uC73C\uBA74 \uACBD\uC601\uAD8C \uD655\uBCF4\uAE4C\uC9C0
-        \uAC80\uD1A0\uD558\uACE0 \uC788\uC2B5\uB2C8\uB2E4."
-      response: "\u2026\uADF8\uB807\uB2E4\uBA74 \uC81C\uAC00 \uB9CC\uB4E0 \uD68C\uC0AC\uB97C
-        \uC5B4\uB5BB\uAC8C \uC6B4\uC601\uD560 \uC0DD\uAC01\uC778\uC9C0, \uB2E4\uC74C\uC5D0\uB294
-        \uC900\uBE44\uD574 \uC624\uC2ED\uC2DC\uC624."
+      playerLine: "\uc5ec\uac74\uc774 \ub9de\uc73c\uba74 \uacbd\uc601\uad8c\uae4c\uc9c0 \uc0dd\uac01\ud558\uace0 \uc788\uc2b5\ub2c8\ub2e4."
+      response: "\u2026\uadf8\ub807\ub2e4\uba74 \uc81c\uac00 \ub9cc\ub4e0 \ud68c\uc0ac\ub97c \uc5b4\ub5bb\uac8c \uafb8\ub824\uac08 \uc0dd\uac01\uc778\uc9c0, \ub2e4\uc74c\uc5d4 \uadf8 \uc598\uae30\ub3c4 \uc900\ube44\ud574 \uc624\uc2ed\uc2dc\uc624."
       targetNpcId: npc-mirae-construction-ceo-kang-junhyeok
       memoryType: 8
       interpretation: "\uACBD\uC601\uAD8C \uD655\uBCF4 \uC758\uC0AC\uB97C \uC54C\uB838\uC73C\uBA70
@@ -1179,12 +1030,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-mirae-construction-ceo-kang-junhyeok
-    voiceLabel: 
-    text: "\uD68C\uC0AC \uC774\uB984\uC774 \uC801\uD78C \uACC4\uC57D\uB4E4\uC774
-      \uC788\uC2B5\uB2C8\uB2E4. \uADF8 \uACC4\uC57D\uC744 \uBBFF\uACE0 \uD604\uC7A5\uC5D0
-      \uB098\uC628 \uC0AC\uB78C\uB4E4\uB3C4 \uC788\uACE0\uC694. \uC55E\uC73C\uB85C
-      \uBB34\uC5C7\uC744 \uBC14\uAFB8\uB4E0, \uADF8 \uC0AC\uC2E4\uBD80\uD130 \uC54C\uC544\uC8FC\uC168\uC73C\uBA74
-      \uD569\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\ud68c\uc0ac \uc774\ub984\uc774 \uc801\ud78c \uacc4\uc57d\ub4e4\uc774 \uc788\uc2b5\ub2c8\ub2e4. \uadf8 \uacc4\uc57d\uc744 \ubbff\uace0 \ud604\uc7a5\uc5d0 \ub098\uc628 \uc0ac\ub78c\ub4e4\ub3c4 \uc788\uace0\uc694. \uc55e\uc73c\ub85c \ubb34\uc5c7\uc744 \ubc14\uafb8\ub4e0, \uadf8 \uc0ac\uc2e4\ubd80\ud130 \uc54c\uc544\uc8fc\uc168\uc73c\uba74 \ud569\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -1194,10 +1041,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 3da8335e8f928b04ea9542177aaee968, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uC800 \uC0AC\uB78C\uB3C4 \uC9C0\uD0A4\uB824\uB294 \uAC8C \uC788\uB2E4.
-      \uB0B4\uAC00 \uC5EC\uAE30 \uC628 \uC774\uC720\uC640\uB294 \uB2E4\uB978 \uC774\uC720\uB85C."
+    npcId:
+    voiceLabel:
+    text: "\uc800 \uc0ac\ub78c\ub3c4 \uc9c0\ud0a4\ub824\ub294 \uac8c \uc788\ub2e4. \ub0b4\uac00 \uc5ec\uae30 \uc628 \uc774\uc720\uc640\ub294 \ub2e4\ub978 \uc774\uc720\ub85c."
     showPlayer: 0
     goal: 0
     choices: []
@@ -1206,14 +1052,14 @@ MonoBehaviour:
     sceneTitle: "\uCCAB \uBC88\uC9F8 \uC8FC\uC8FC  /  \uAC15\uC900\uD601\uC758 \uC9C8\uBB38"
     background: {fileID: 21300000, guid: 3da8335e8f928b04ea9542177aaee968, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
-    speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uAC15\uC900\uD601\uC758 \uC778\uBB3C \uC815\uBCF4\uB97C \uD655\uC778\uD558\uC138\uC694.
-      \uC778\uBB3C\uB9C8\uB2E4 \uC911\uC694\uD558\uAC8C \uC5EC\uAE30\uB294 \uC870\uAC74\uC774
-      \uB2E4\uB985\uB2C8\uB2E4."
+    speaker: 4
+    npcId:
+    voiceLabel:
+    text: "\uac15\uc900\ud601\uc758 \uc778\ubb3c \uc815\ubcf4\ub97c \ud655\uc778\ud558\uc138\uc694. \uc778\ubb3c\ub9c8\ub2e4 \uc911\uc694\ud558\uac8c \uc5ec\uae30\ub294 \uc870\uac74\uc774 \ub2e4\ub985\ub2c8\ub2e4."
     showPlayer: 0
     goal: 3
+    tutorialTitle: "\uc778\ubb3c \uc815\ubcf4"
+    tutorialText: "\uc778\ubb3c\uc758 \uc131\uaca9\uacfc \uc911\uc694\ud558\uac8c \uc5ec\uae30\ub294 \uc870\uac74\uc744 \ud655\uc778\ud558\uc2e4 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uac19\uc740 \ud589\ub3d9\uc774\ub77c\ub3c4 \uc0c1\ub300\uc758 \uc131\ud5a5\uc5d0 \ub530\ub77c \ubc18\uc751\uc774 \ub2ec\ub77c\uc9d1\ub2c8\ub2e4. \uc774\ubc88 \uba74\ub2f4\uc740 \uc724\ud558\uc9c4\uc758 \uc18c\uac1c\ub85c \ub9c8\ub828\ub418\uc5c8\uc2b5\ub2c8\ub2e4."
     choices: []
     skipDefaultChoice: 0
   - id: intro-081
@@ -1223,9 +1069,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-mirae-construction-field-director-park-dosik
-    voiceLabel: 
-    text: "\uC774\uAC70 \uC4F0\uC2ED\uC2DC\uC624. \uC548\uC73C\uB85C \uB4E4\uC5B4\uC624\uC2E4
-      \uAC70\uBA74\uC694."
+    voiceLabel:
+    text: "\uc774\uac70 \uc4f0\uc2ed\uc2dc\uc624. \uc548\uc73c\ub85c \ub4e4\uc5b4\uc624\uc2e4 \uac70\uba74\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -1237,8 +1082,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-mirae-construction-field-director-park-dosik
-    voiceLabel: 
-    text: "\uC81C \uC598\uAE30\uB294 \uB4E4\uC73C\uC168\uC2B5\uB2C8\uAE4C?"
+    voiceLabel:
+    text: "\uc81c \uc598\uae30\ub294 \ub4e4\uc73c\uc168\uc2b5\ub2c8\uae4c?"
     showPlayer: 1
     goal: 0
     choices: []
@@ -1250,8 +1095,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-mirae-construction-field-director-park-dosik
-    voiceLabel: 
-    text: "\uD22C\uC790\uD558\uC2DC\uB294 \uBD84\uC774\uB77C\uACE0 \uB4E4\uC5C8\uC2B5\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\ud22c\uc790\ud558\uc2dc\ub294 \ubd84\uc774\ub77c\uace0 \ub4e4\uc5c8\uc2b5\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices: []
@@ -1263,8 +1108,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 1
     npcId: npc-mirae-construction-field-director-park-dosik
-    voiceLabel: 
-    text: "\uAC71\uC815\uB418\uB294 \uAC8C \uC788\uC73C\uC2E0\uAC00 \uBCF4\uAD70\uC694."
+    voiceLabel:
+    text: "\uac71\uc815\ub418\ub294 \uac8c \uc788\uc73c\uc2e0\uac00 \ubcf4\uad70\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -1276,20 +1121,14 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-mirae-construction-field-director-park-dosik
-    voiceLabel: 
-    text: "\uC0AC\uB78C \uC904\uC774\uB294 \uC774\uC57C\uAE30\uAC00 \uB098\uC62C
-      \uB54C\uB9C8\uB2E4 \uACF5\uC0AC \uC77C\uC815\uC740 \uADF8\uB300\uB85C\uB354\uAD70\uC694.
-      \uC774\uBC88\uC5D0\uB3C4 \uADF8\uB7EC\uB294\uC9C0 \uAD81\uAE08\uD569\uB2C8\uB2E4."
+    voiceLabel:
+    text: "\uc0ac\ub78c \uc904\uc774\ub294 \uc774\uc57c\uae30\uac00 \ub098\uc62c \ub54c\ub9c8\ub2e4 \uacf5\uc0ac \uc77c\uc815\uc740 \uadf8\ub300\ub85c\ub354\uad70\uc694. \uc774\ubc88\uc5d0\ub3c4 \uadf8\ub7ec\ub294\uc9c0 \uad81\uae08\ud569\ub2c8\ub2e4."
     showPlayer: 1
     goal: 0
     choices:
     - title: "\uC791\uC5C5\uB7C9\uACFC \uC77C\uC815\uBD80\uD130 \uD655\uC778\uD55C\uB2E4"
-      playerLine: "\uC778\uC6D0\uC5D0 \uB300\uD574 \uC57D\uC18D\uD558\uAE30 \uC804\uC5D0
-        \uC791\uC5C5\uB7C9\uACFC \uC77C\uC815\uC744 \uBCF4\uACA0\uC2B5\uB2C8\uB2E4.
-        \uC5B4\uB5A4 \uBB38\uC81C\uAC00 \uC788\uB294\uC9C0 \uC124\uBA85\uD574 \uC8FC\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
-      response: "\uC608. \uC774\uCABD\uBD80\uD130 \uBCF4\uC2DC\uC8E0. \uC11C\uB958\uC5D0
-        \uC801\uD78C \uC778\uC6D0\uD558\uACE0 \uC2E4\uC81C\uB85C \uD22C\uC785\uD560
-        \uC218 \uC788\uB294 \uC778\uC6D0\uC774 \uB2E4\uB985\uB2C8\uB2E4."
+      playerLine: "\uc778\uc6d0\uc744 \uc5b4\ub5bb\uac8c \ud558\uaca0\ub2e4\uace0 \uc57d\uc18d\ud558\uae30 \uc804\uc5d0, \uc77c\ubd80\ud130 \uc880 \ubcf4\uaca0\uc2b5\ub2c8\ub2e4. \uc5b4\ub514\uac00 \uac00\uc7a5 \ube60\ub4ef\ud55c\uac00\uc694?"
+      response: "\uc774\ucabd\ubd80\ud130 \ubcf4\uc2dc\uc8e0. \uc11c\ub958\uc5d0 \uc801\ud78c \uc778\uc6d0\ud558\uace0 \uc2e4\uc81c\ub85c \ub098\uc62c \uc218 \uc788\ub294 \uc778\uc6d0\uc774 \ub2e4\ub985\ub2c8\ub2e4."
       targetNpcId: npc-mirae-construction-field-director-park-dosik
       memoryType: 8
       interpretation: "\uC778\uC6D0\uC744 \uC57D\uC18D\uD558\uAE30 \uC804\uC5D0 \uC791\uC5C5\uB7C9\uACFC
@@ -1304,11 +1143,8 @@ MonoBehaviour:
         interest: 0
     - title: "\uACE0\uC6A9 \uC720\uC9C0\uB97C \uC6B0\uC120\uD558\uACA0\uB2E4\uACE0
         \uC57D\uC18D\uD55C\uB2E4"
-      playerLine: "\uC81C\uAC00 \uACBD\uC601\uC5D0 \uCC38\uC5EC\uD558\uAC8C \uB41C\uB2E4\uBA74
-        \uD604\uC7A5 \uACE0\uC6A9\uC744 \uC9C0\uD0A4\uB294 \uAC78 \uC6B0\uC120\uD558\uACA0\uC2B5\uB2C8\uB2E4."
-      response: "\uADF8 \uB9D0\uC500\uC740 \uAE30\uC5B5\uD558\uACA0\uC2B5\uB2C8\uB2E4.
-        \uC544\uC9C1 \uACB0\uC815\uD560 \uC704\uCE58\uAC00 \uC544\uB2C8\uC2DC\uB77C\uB294
-        \uAC83\uB3C4\uC694."
+      playerLine: "\uc81c\uac00 \uacbd\uc601\uc744 \ub9e1\uac8c \ub418\uba74, \ud604\uc7a5\uc5d0\uc11c \uc77c\ud558\uc2dc\ub294 \ubd84\ub4e4 \uc790\ub9ac\ub294 \uba3c\uc800 \uc9c0\ud0a4\uace0 \uc2f6\uc2b5\ub2c8\ub2e4."
+      response: "\uadf8 \ub9d0\uc500\uc740 \uae30\uc5b5\ud558\uaca0\uc2b5\ub2c8\ub2e4. \uc544\uc9c1 \uacb0\uc815\ud558\uc2e4 \uc790\ub9ac\uac00 \uc544\ub2c8\ub77c\ub294 \uac83\ub3c4\uc694."
       targetNpcId: npc-mirae-construction-field-director-park-dosik
       memoryType: 8
       interpretation: "\uACBD\uC601 \uCC38\uC5EC \uC2DC \uACE0\uC6A9 \uC720\uC9C0\uB97C
@@ -1322,11 +1158,8 @@ MonoBehaviour:
         dependency: 0
         interest: 1
     - title: "\uD604\uC7A5 \uC0C1\uD669\uACFC \uBE44\uC6A9\uC744 \uD568\uAED8 \uAC80\uD1A0\uD55C\uB2E4"
-      playerLine: "\uC778\uAC74\uBE44\uB3C4 \uAC80\uD1A0\uD574\uC57C \uD569\uB2C8\uB2E4.
-        \uB2E4\uB9CC \uD604\uC7A5 \uC0C1\uD669\uC744 \uB4E3\uACE0 \uD310\uB2E8\uD558\uACA0\uC2B5\uB2C8\uB2E4."
-      response: "\uAC80\uD1A0\uD558\uC2ED\uC2DC\uC624. \uB300\uC2E0 \uC0AC\uB78C\uC774
-        \uBE60\uC9C0\uBA74 \uC5B4\uB5A4 \uC791\uC5C5\uC774 \uBA48\uCD94\uB294\uC9C0\uB3C4
-        \uAC19\uC774 \uC801\uC5B4\uC8FC\uC2ED\uC2DC\uC624."
+      playerLine: "\uc778\uac74\ube44\ub3c4 \ubd10\uc57c\uaca0\uc8e0. \uadf8\ub798\ub3c4 \ud604\uc7a5\uc774 \uc5b4\ub5a4\uc9c0 \ub4e4\uc5b4\ubcf4\uace0 \uc815\ud558\uaca0\uc2b5\ub2c8\ub2e4."
+      response: "\ubcf4\uc2ed\uc2dc\uc624. \ub300\uc2e0 \uc0ac\ub78c\uc774 \ube60\uc9c0\uba74 \uc5b4\ub290 \uc77c\uc774 \uba48\ucd94\ub294\uc9c0\ub3c4 \uac19\uc774 \uc801\uc5b4\uc8fc\uc138\uc694."
       targetNpcId: npc-mirae-construction-field-director-park-dosik
       memoryType: 8
       interpretation: "\uBE44\uC6A9\uC744 \uAC80\uD1A0\uD558\uB418 \uD604\uC7A5 \uC0C1\uD669\uC744
@@ -1345,10 +1178,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: cd737e0de23899c4b9fc897defc1bbbb, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uB098\uC5D0\uAC8C\uB294 \uCCAB \uD22C\uC790\uB2E4. \uC774 \uC0AC\uB78C\uB4E4\uC5D0\uAC8C\uB294
-      \uB0B4\uC77C\uB3C4 \uB098\uC640\uC57C \uD558\uB294 \uC9C1\uC7A5\uC774\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\ub098\uc5d0\uac8c\ub294 \uccab \ud22c\uc790\ub2e4. \uc774 \uc0ac\ub78c\ub4e4\uc5d0\uac8c\ub294 \ub0b4\uc77c\ub3c4 \ub098\uc640\uc57c \ud558\ub294 \uc9c1\uc7a5\uc774\ub2e4."
     showPlayer: 0
     goal: 0
     choices: []
@@ -1358,14 +1190,27 @@ MonoBehaviour:
       \uD68C\uC0AC"
     background: {fileID: 21300000, guid: cd737e0de23899c4b9fc897defc1bbbb, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
-    speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uBC15\uB3C4\uC2DD\uC758 \uC778\uBB3C \uC815\uBCF4\uB97C \uC5F4\uC5B4
-      \uC774\uBC88 \uB300\uD654\uC758 \uAD00\uACC4 \uBCC0\uD654\uC640 \uAE30\uC5B5\uC744
-      \uD655\uC778\uD558\uC138\uC694."
+    speaker: 4
+    npcId:
+    voiceLabel:
+    text: "\ubc15\ub3c4\uc2dd\uc758 \uc778\ubb3c \uc815\ubcf4\ub97c \uc5f4\uc5b4 \uc774\ubc88 \ub300\ud654\uc758 \uad00\uacc4 \ubcc0\ud654\uc640 \uae30\uc5b5\uc744 \ud655\uc778\ud558\uc138\uc694."
     showPlayer: 0
     goal: 4
+    tutorialTitle: "\uad00\uacc4\uc640 \uae30\uc5b5"
+    tutorialText: "\ub300\ud654\uc640 \uc120\ud0dd\uc740 \uc0c1\ub300\uc640\uc758 \uad00\uacc4\ub97c \ubc14\uafb8\uace0 \uae30\uc5b5\uc73c\ub85c \ub0a8\uc2b5\ub2c8\ub2e4. \uc0c1\ub300\uc758 \uc131\ud5a5\uacfc \uc774\uc804 \ubc18\uc751\uc744 \ud568\uaed8 \ud655\uc778\ud558\uba74 \ub2e4\uc74c \ub9cc\ub0a8\uc744 \uc900\ube44\ud558\ub294 \ub370 \ub3c4\uc6c0\uc774 \ub429\ub2c8\ub2e4.\n\n\ube44\uc601\uad6c \uae30\uc5b5\uc740 \uc2dc\uac04\uc774 \uc9c0\ub098\uba74 \uc601\ud5a5\ub825\uc774 \uc904\uace0 \uae30\ud55c\uc774 \ub05d\ub098\uba74 \uc0ad\uc81c\ub429\ub2c8\ub2e4. \uc774\ubbf8 \ubc18\uc601\ub41c \uad00\uacc4 \ubcc0\ud654\ub294 \ub418\ub3cc\uc544\uac00\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
+    choices: []
+    skipDefaultChoice: 0
+  - id: intro-087-summary
+    sceneTitle: "\uCCAB \uBC88\uC9F8 \uC8FC\uC8FC  /  \uD68C\uC758\uC2E4 \uBC16\uC758
+      \uD68C\uC0AC"
+    background: {fileID: 21300000, guid: cd737e0de23899c4b9fc897defc1bbbb, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-mirae-construction-field-director-park-dosik
+    voiceLabel:
+    text: "\uc624\ub298 \ub098\ub208 \uc598\uae30\ub294 \uae30\uc5b5\ud574\ub450\uaca0\uc2b5\ub2c8\ub2e4. \ub2e4\uc74c\uc5d0 \uc624\uc2e4 \ub54c\ub3c4 \ud604\uc7a5 \uc0ac\ub78c\ub4e4 \uc598\uae30\ubd80\ud130 \ub4e4\uc5b4\uc8fc\uc168\uc73c\uba74 \ud569\ub2c8\ub2e4."
+    showPlayer: 1
+    goal: 0
     choices: []
     skipDefaultChoice: 0
   - id: intro-088
@@ -1373,12 +1218,9 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uB300\uD654\uC640 \uC7A5\uBA74 \uC804\uD658\uB9CC\uC73C\uB85C \uB0A0\uC9DC\uB098
-      \uD589\uB3D9\uB825\uC740 \uC18C\uBE44\uB418\uC9C0 \uC54A\uC558\uB2E4.\n\uC774\uC81C
-      \uC2E4\uC81C \uD558\uB8E8\uB97C \uB9C8\uAC10\uD574 \uAE30\uC5C5 \uC815\uBCF4\uC640
-      \uD589\uB3D9\uB825\uC774 \uAC31\uC2E0\uB418\uB294 \uAC83\uC744 \uD655\uC778\uD558\uC790."
+    npcId:
+    voiceLabel:
+    text: "\uc624\ub298\uc740 \uc5ec\uae30\uae4c\uc9c0. \ub0a8\uc740 \uc11c\ub958\ub294 \ub0b4\uc77c \ub2e4\uc2dc \ubcf4\uc790."
     showPlayer: 0
     goal: 0
     choices: []
@@ -1387,13 +1229,14 @@ MonoBehaviour:
     sceneTitle: "\uCCAB \uBC88\uC9F8 \uC8FC\uC8FC  /  \uCCAB\uB0A0\uC758 \uB05D"
     background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
-    speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uB300\uC2DC\uBCF4\uB4DC\uC758 \uD558\uB8E8 \uC885\uB8CC \uBC84\uD2BC\uC744
-      \uB20C\uB7EC \uB2E4\uC74C \uB0A0\uB85C \uC9C4\uD589\uD558\uC138\uC694."
+    speaker: 4
+    npcId:
+    voiceLabel:
+    text: "\ub300\uc2dc\ubcf4\ub4dc\uc758 \ud558\ub8e8 \uc885\ub8cc \ubc84\ud2bc\uc744 \ub20c\ub7ec \ub2e4\uc74c \ub0a0\ub85c \uc9c4\ud589\ud558\uc138\uc694."
     showPlayer: 0
     goal: 5
+    tutorialTitle: "\ud558\ub8e8 \uc885\ub8cc"
+    tutorialText: "\uc77c\uc815\uc744 \ub9c8\ucce4\ub2e4\uba74 \ub300\uc2dc\ubcf4\ub4dc\uc758 \ud558\ub8e8 \uc885\ub8cc\ub97c \uc120\ud0dd\ud574 \uc8fc\uc2ed\uc2dc\uc624. \ub2e4\uc74c \ub0a0\uc5d0\ub294 \uae30\uc5c5 \uc815\ubcf4\uc640 \uc774\ubca4\ud2b8\uac00 \uac31\uc2e0\ub418\uba70 \ud589\ub3d9 \ud3ec\uc778\ud2b8\uac00 \ucd5c\ub300\uce58\uae4c\uc9c0 \ud68c\ubcf5\ub429\ub2c8\ub2e4. \ub300\ud654\uc640 \uc7a5\uba74 \uc804\ud658 \uc790\uccb4\uc5d0\ub294 \ub0a0\uc9dc\uc640 \ud589\ub3d9 \ud3ec\uc778\ud2b8\uac00 \uc18c\ubaa8\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
     choices: []
     skipDefaultChoice: 0
   - id: intro-090
@@ -1402,11 +1245,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-mirae-construction-cfo-seo-jia
-    voiceLabel: 
-    text: "\uB2E4\uC74C \uD68C\uC758\uC5D0\uC11C\uB294 \uACBD\uC601 \uCC38\uC5EC
-      \uC870\uAC74\uC744 \uC774\uC57C\uAE30\uD558\uC8E0. \uCCAB \uAC70\uB798\uAC00
-      \uB05D\uB0AC\uB2E4\uACE0 \uD68C\uC0AC\uC758 \uBB38\uC81C\uAC00 \uB05D\uB09C
-      \uAC74 \uC544\uB2C8\uB2C8\uAE4C\uC694."
+    voiceLabel:
+    text: "\ub0b4\uc77c \ub2e4\uc2dc \ubcf4\uc2dc\uc8e0. \uc624\ub298 \ubabb \ubcf8 \uc790\ub8cc\ub3c4 \ucc59\uaca8\ub458\uac8c\uc694. \uc8fc\uc2dd\uc744 \uc0c0\ub2e4\uace0 \ud68c\uc0ac \uc0ac\uc815\uc744 \ub2e4 \uc544\ub294 \uac74 \uc544\ub2c8\ub2c8\uae4c\uc694."
     showPlayer: 1
     goal: 0
     choices: []
@@ -1417,10 +1257,8 @@ MonoBehaviour:
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 2
     npcId: npc-broker-yoon-hajin
-    voiceLabel: 
-    text: "\uBBF8\uB798\uAC74\uC124 \uB9D0\uACE0\uB3C4 \uBCFC \uD68C\uC0AC\uB294
-      \uC788\uC2B5\uB2C8\uB2E4. \uD558\uB298\uC2DD\uD488, \uB3D9\uBC29\uBB3C\uC0B0,
-      \uD55C\uC131\uACF5\uC5C5. \uAC01\uC790 \uC6D0\uD558\uB294 \uAC83\uC774 \uB2E4\uB974\uC8E0."
+    voiceLabel:
+    text: "\ubbf8\ub798\uac74\uc124 \ub9d0\uace0\ub3c4 \ubcfc \ud68c\uc0ac\ub294 \uc788\uc2b5\ub2c8\ub2e4. \ud558\ub298\uc2dd\ud488, \ub3d9\ubc29\ubb3c\uc0b0, \ud55c\uc131\uacf5\uc5c5. \uac01\uc790 \uc6d0\ud558\ub294 \uac83\uc774 \ub2e4\ub974\uc8e0."
     showPlayer: 1
     goal: 0
     choices: []
@@ -1430,31 +1268,601 @@ MonoBehaviour:
     background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
     speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uB354 \uD070 \uAC70\uB798\uC5D0\uB294 \uB2E4\uC12F \uAC08\uB798\uC758
-      \uACBD\uC7C1\uC774 \uAE30\uB2E4\uB9B0\uB2E4.\n\uD3F4\uB77C\uB9AC\uC2A4\uC758
-      \uC790\uAE08, \uB300\uC131\uC758 \uACF5\uAE09\uB9DD, \uC2E0\uC131\uC758 \uAC1C\uBC1C\uAD8C,
-      \uBE14\uB8E8\uD558\uBC84\uC758 \uD310\uB9E4\uB9DD, \uC624\uB85C\uB77C\uC758
-      \uC2E0\uAE30\uC220.\n\uAC01 \uD68C\uC0AC\uC758 \uC778\uBB3C\uB4E4\uC740 \uC11C\uB85C
-      \uB2E4\uB978 \uC774\uD574\uAD00\uACC4\uB97C \uAC00\uC9C0\uACE0 \uC788\uB2E4."
+    npcId:
+    voiceLabel:
+    text: "\ub354 \ud070 \uac70\ub798\uc5d0\ub294 \ub2e4\uc12f \uac08\ub798\uc758 \uacbd\uc7c1\uc774 \uae30\ub2e4\ub9b0\ub2e4. \ud3f4\ub77c\ub9ac\uc2a4\uc758 \uc790\uae08, \ub300\uc131\uc758 \uacf5\uae09\ub9dd, \uc2e0\uc131\uc758 \uac1c\ubc1c\uad8c, \ube14\ub8e8\ud558\ubc84\uc758 \ud310\ub9e4\ub9dd, \uc624\ub85c\ub77c\uc758 \uc2e0\uae30\uc220. \uac01 \ud68c\uc0ac\uc758 \uc778\ubb3c\ub4e4\uc740 \uc11c\ub85c \ub2e4\ub978 \uc774\ud574\uad00\uacc4\ub97c \uac00\uc9c0\uace0 \uc788\ub2e4."
     showPlayer: 0
     goal: 0
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-001
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub4e4\uc5b4\uc628 \uc5f0\ub77d"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc11c\uc9c0\uc544 \uc528\ud55c\ud14c \ub610 \uc5f0\ub77d\uc774 \uc654\ub124\uc694. \uc5b4\uc81c \ubabb \ud55c \uc598\uae30\uac00 \uc788\ub098 \ubd05\ub2c8\ub2e4."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-002
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub4e4\uc5b4\uc628 \uc5f0\ub77d"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 1
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ubb34\uc2a8 \uc598\uae34\uc9c0\ubd80\ud130 \uc77d\uc5b4\ubcf4\uc8e0. \ub9cc\ub0a0\uc9c0\ub294 \uadf8\ub2e4\uc74c\uc5d0 \uc815\ud558\uace0\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-003
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub4e4\uc5b4\uc628 \uc5f0\ub77d"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\ub300\uc2dc\ubcf4\ub4dc\uc758 \uc774\ubca4\ud2b8 \uce74\ub4dc\uc5d0\uc11c \u2018\uc790\uc138\ud788 \ubcf4\uae30\u2019\ub97c \uc120\ud0dd\ud558\uba74 \uc694\uccad \ub0b4\uc6a9\uacfc \uba74\ub2f4 \ube44\uc6a9\uc744 \ud655\uc778\ud558\uc2e4 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \ub0b4\uc6a9 \ud655\uc778\ub9cc\uc73c\ub85c\ub294 \ud589\ub3d9 \ud3ec\uc778\ud2b8\uac00 \uc18c\ubaa8\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
+    showPlayer: 0
+    goal: 0
+    companyId:
+    tutorialTitle: "\uc774\ubca4\ud2b8 \ud655\uc778"
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-004
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub4e4\uc5b4\uc628 \uc5f0\ub77d"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc11c\uc9c0\uc544 \uc528\uac00 {eventDays}\uc77c \uc548\uc5d0 \ub2f5\uc744 \ub2ec\ub78d\ub2c8\ub2e4. \ub108\ubb34 \ubbf8\ub918\ub2e4\uac00 \uae30\ud68c\ub97c \ub193\uce58\uc9c4 \ub9c8\uc138\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-006
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc624\ub298 \uc4f8 \uc2dc\uac04"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 1
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc624\ub298 \uc57d\uc18d\uc744 \uba87 \uac1c\ub098 \ub354 \uc7a1\uc744 \uc218 \uc788\uc744\uae4c\uc694?"
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-007
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc624\ub298 \uc4f8 \uc2dc\uac04"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\ud604\uc7ac \ud589\ub3d9 \ud3ec\uc778\ud2b8\ub294 {ap}/{maxAp}\uc785\ub2c8\ub2e4. \uc774 \uba74\ub2f4\uc744 \uc2dc\uc791\ud558\uba74 {apCost}\uac00 \uc18c\ubaa8\ub418\uba70 \ub2f5\ubcc0 \uc120\ud0dd\uc5d0\ub294 \ucd94\uac00\ub85c \uc18c\ubaa8\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.\n\n\ud589\ub3d9 \ud3ec\uc778\ud2b8\uac00 \ubd80\uc871\ud558\uba74 \uba74\ub2f4\uc744 \uc2dc\uc791\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4. \ud558\ub8e8\ub97c \uc885\ub8cc\ud558\uba74 \ub2e4\uc74c \ub0a0 \ucd5c\ub300\uce58\uae4c\uc9c0 \ud68c\ubcf5\ub429\ub2c8\ub2e4."
+    showPlayer: 0
+    goal: 0
+    companyId:
+    tutorialTitle: "\uc77c\uc815\uacfc \ud589\ub3d9 \ud3ec\uc778\ud2b8"
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-008
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc624\ub298 \uc4f8 \uc2dc\uac04"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 1
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc9c1\uc811 \ub4e4\uc5b4\ubd24\ub294\ub370 \ub9c8\uc74c\uc5d0 \uc548 \ub4e4\uba74, \uadf8 \uc790\ub9ac\uc5d0\uc11c \uac70\uc808\ud574\ub3c4 \ub418\uaca0\uc8e0?"
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-009
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc624\ub298 \uc4f8 \uc2dc\uac04"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uadf8\ub7fc\uc694. \ub2e4\ub9cc \ub9cc\ub098\ub7ec \ub2e4\ub140\uc628 \uc2dc\uac04\uae4c\uc9c0 \ub3cc\ub824\ubc1b\uc744 \uc21c \uc5c6\uc8e0. \uc598\uae30\ub97c \ub4e4\uc5b4\ubcfc \ub9cc\ud55c \uc0ac\ub78c\uc778\uc9c0 \uba3c\uc800 \uc0b4\ud3b4\ubcf4\uc138\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-011
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc624\ub298 \uc4f8 \uc2dc\uac04"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc77d\uc5b4\ubcf4\uace0 \uc598\uae30\ub97c \ub098\ub20c \ub9cc\ud558\ub2e4 \uc2f6\uc73c\uba74 \ub9cc\ub098\ubcf4\uc138\uc694. \ub2f5\uc740 \uc9c1\uc811 \uc815\ud558\uc2dc\uace0\uc694. \ub2e4\ub140\uc624\uc2dc\uba74 \uc5b4\ub5bb\uac8c \ub410\ub294\uc9c0 \uac19\uc774 \ubcf4\uc8e0."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-005
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub4e4\uc5b4\uc628 \uc5f0\ub77d"
+    background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\uc11c\uc9c0\uc544\uc758 \uc774\ubca4\ud2b8 \uce74\ub4dc\ub97c \uc5f4\uc5b4 \uc694\uccad \ub0b4\uc6a9\uc744 \ud655\uc778\ud558\uc138\uc694."
+    showPlayer: 0
+    goal: 6
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-012
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc624\ub298 \uc4f8 \uc2dc\uac04"
+    background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\uc11c\uc9c0\uc544\uc640 \ub9cc\ub098 \uc9c1\uc811 \ub2f5\ubcc0\ud558\uace0, \uc751\ub2f5\uc744 \ud655\uc778\ud55c \ub4a4 \ub300\ud654\ub97c \ub2eb\uc73c\uc138\uc694."
+    showPlayer: 0
+    goal: 7
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-013
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub9d0\uc774 \ub0a8\uae34 \uac83"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc5b4\ub5bb\uac8c \ub410\uc2b5\ub2c8\uae4c? \uc88b\uac8c \uc778\uc0ac\ud588\ub2e4\uace0 \uc18d\ub9c8\uc74c\uae4c\uc9c0 \uc54c \uc218 \uc788\ub294 \uac74 \uc544\ub2c8\uc8e0. \uc5b4\ub5a4 \uc598\uae30\ub97c \ub098\ub234\ub294\uc9c0\ubd80\ud130 \ubd05\uc2dc\ub2e4."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-014
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub9d0\uc774 \ub0a8\uae34 \uac83"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "{eventResult}"
+    showPlayer: 0
+    goal: 0
+    companyId:
+    tutorialTitle: "\uba74\ub2f4 \uacb0\uacfc"
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-019
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub9d0\uc774 \ub0a8\uae34 \uac83"
+    background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\uc11c\uc9c0\uc544\uc758 \uad00\uacc4\uc640 \uc774\ubc88 \ub9cc\ub0a8\uc758 \uae30\uc5b5\uc744 \ud655\uc778\ud558\uc138\uc694."
+    showPlayer: 0
+    goal: 8
+    companyId:
+    tutorialTitle: "\uc131\ud5a5\uacfc \ubc18\uc751 \uae30\ub85d"
+    tutorialText: "\uc2e0\ub8b0\ub294 \ub9d0\uc744 \ubbff\ub294 \uc815\ub3c4, \uc874\uc911\uc740 \ub2a5\ub825\uc744 \uc778\uc815\ud558\ub294 \uc815\ub3c4\uc785\ub2c8\ub2e4. \ub450\ub824\uc6c0\u00b7\uc801\ub300\uac10\u00b7\uc758\uc874\ub3c4\u00b7\uad00\uc2ec\ub3c4 \ud568\uaed8 \ud655\uc778\ud558\uc2e4 \uc218 \uc788\uc2b5\ub2c8\ub2e4.\n\n\ucd5c\uadfc \uae30\uc5b5\uc5d0\ub294 \uc5b4\ub5a4 \ub9d0\uc744 \ud588\uace0 \uc0c1\ub300\uac00 \uc5b4\ub5bb\uac8c \ubc1b\uc544\ub4e4\uc600\ub294\uc9c0\uac00 \ub0a8\uc2b5\ub2c8\ub2e4. \uc131\ud5a5\uacfc \ubc18\uc751\uc744 \ud568\uaed8 \uc0b4\ud3b4 \ub2e4\uc74c \ud611\uc0c1\uc5d0 \ud65c\uc6a9\ud574 \uc8fc\uc2ed\uc2dc\uc624."
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-020
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub9d0\uc774 \ub0a8\uae34 \uac83"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 1
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc774\ub807\uac8c \ub0a8\uaca8\ub450\uba74 \ub2e4\uc74c\uc5d0 \ub9cc\ub0a0 \ub54c \ub3c4\uc6c0\uc774 \ub418\uaca0\ub124\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-021
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub9d0\uc774 \ub0a8\uae34 \uac83"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc0ac\ub78c\ub9c8\ub2e4 \ubc18\uae30\ub294 \ub9d0\uc774 \ub2e4\ub974\uc796\uc2b5\ub2c8\uae4c. \uc131\ud5a5\uc774\ub791 \ubc18\uc751\uc744 \uc801\uc5b4\ub480\ub2e4\uac00 \uaebc\ub0b4\ubcf4\uba74, \ub2e4\uc74c\uc5d0 \uc598\uae30\ud560 \ub54c \ud6e8\uc52c \uc218\uc6d4\ud558\uc8e0."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-024
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud68c\uc0ac\uc758 \uc22b\uc790"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 1
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ubbf8\ub798\uac74\uc124 \uc8fc\uc2dd\uc744 \uc880 \ub354 \uc0b4\uae4c \ud569\ub2c8\ub2e4. \uac00\uaca9\ubd80\ud130 \ub2e4\uc2dc \ubcfc\uae4c\uc694?"
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-025
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud68c\uc0ac\uc758 \uc22b\uc790"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uac00\uaca9\ub9cc \ubcf4\uace0 \uc815\ud558\uc2dc\uac8c\uc694? \ub3c8\uc740 \uc798 \ubc84\ub294\uc9c0, \ube5a\uc740 \uc5bc\ub9c8\ub098 \uc788\ub294\uc9c0\ub3c4 \ubd10\uc57c\uc8e0. \uc2f8\uac8c \ub098\uc628 \ub370\ub294 \uc774\uc720\uac00 \uc788\uc744 \uc218\ub3c4 \uc788\uc73c\ub2c8\uae4c\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-026
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud68c\uc0ac\uc758 \uc22b\uc790"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ub4e4\uc5b4\uc62c \ub3c8\ud558\uace0 \ub2f9\uc7a5 \uc4f8 \uc218 \uc788\ub294 \ub3c8\uc740 \ub2e4\ub974\uc8e0. \uc7a5\ubd80\ub97c \uac19\uc774 \ubcf4\uc2dc\uc8e0."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-027
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud68c\uc0ac\uc758 \uc22b\uc790"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ube5a\uc774 \uc5bc\ub9c8\ub098 \ub07c\uc5b4 \uc788\ub294\uc9c0\ub3c4 \ube7c\ub193\uc73c\uba74 \uc548 \ub418\uace0\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-028
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud68c\uc0ac\uc758 \uc22b\uc790"
+    background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\ubbf8\ub798\uac74\uc124\uc758 \ub9e4\ucd9c\u00b7\uc21c\uc774\uc775\u00b7\ud604\uae08\u00b7\ubd80\ucc44\ube44\uc728\uc744 \ud655\uc778\ud558\uc138\uc694."
+    showPlayer: 0
+    goal: 9
+    companyId:
+    tutorialTitle: "\uc7ac\ubb34 \uc815\ubcf4 \uc77d\uae30"
+    tutorialText: "\ub9e4\ucd9c\uc740 \ud310\ub9e4 \uaddc\ubaa8, \uc21c\uc774\uc775\uc740 \ube44\uc6a9\uc744 \ubc18\uc601\ud55c \uacb0\uacfc\uc785\ub2c8\ub2e4. \ud68c\uc0ac \ud604\uae08\uc740 \ub2f9\uc7a5 \uc0ac\uc6a9\ud560 \uc218 \uc788\ub294 \ub3c8\uc774\uba70 \ud50c\ub808\uc774\uc5b4\uc758 \uc794\uc561\uacfc \uad6c\ubd84\ub429\ub2c8\ub2e4. \ubd80\ucc44\ube44\uc728\uc740 \ube4c\ub9b0 \ub3c8\uc758 \ubd80\ub2f4\uc744 \uc0b4\ud3b4\ubcf4\ub294 \uc9c0\ud45c\uc785\ub2c8\ub2e4."
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-029
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud68c\uc0ac\uc758 \uc22b\uc790"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc9c0\uae08 \uc6b0\ub9ac\uac00 \ub0b4\ub294 \ub3c8\uc740 \ud30c\ub294 \uc8fc\uc8fc\ud55c\ud14c \uac00\ub294 \uac81\ub2c8\ub2e4. \ud68c\uc0ac \ud1b5\uc7a5\uc5d0 \ubc14\ub85c \ub123\uc5b4\uc8fc\ub294 \ub3c8\uc740 \uc544\ub2c8\uace0\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-030
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud68c\uc0ac\uc758 \uc22b\uc790"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 1
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uadf8\ub7fc \ub2e4\ub978 \ud68c\uc0ac\ub3c4 \uac19\uc774 \ubd10\uc57c\uaca0\uad70\uc694. \uc5b4\ub290 \ucabd \uc0ac\uc815\uc774 \ub098\uc740\uc9c0."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-031
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud68c\uc0ac\uc758 \uc22b\uc790"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ud558\ub298\uc2dd\ud488\ub3c4 \ud55c\ubc88 \ubcf4\uc2dc\uc8e0. \ubb34\uc2a8 \uc7a5\uc0ac\ub97c \ud558\ub294\uc9c0\ubd80\ud130 \ubcf4\uace0, \uac19\uc740 \uc22b\uc790\ub07c\ub9ac \ub098\ub780\ud788 \ub193\uace0 \ubcf4\uc138\uc694. \ud55c \uc8fc\uac00 \uc2f8\ub2e4\uace0 \ubb34\uc870\uac74 \uc2fc \ud68c\uc0ac\ub294 \uc544\ub2c8\ub2c8\uae4c\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-032
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud68c\uc0ac\uc758 \uc22b\uc790"
+    background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\ud558\ub298\uc2dd\ud488\uc758 \uc18c\uac1c\uc640 \uac19\uc740 \uc7ac\ubb34 \uc9c0\ud45c\ub97c \ud655\uc778\ud558\uc138\uc694."
+    showPlayer: 0
+    goal: 10
+    companyId: haneul-food
+    tutorialTitle: "\ud68c\uc0ac \ube44\uad50"
+    tutorialText: "\ub2e4\ub978 \ud68c\uc0ac\ub3c4 \uac19\uc740 \uc9c0\ud45c\ub85c \ube44\uad50\ud558\uc2e4 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc5c5\uc885\uacfc \uc0ac\uc5c5 \ub0b4\uc6a9\uc744 \ud568\uaed8 \uc0b4\ud3b4\ubcf4\uc2dc\uace0, \uc8fc\uac00 \ud558\ub098\ub9cc\uc73c\ub85c \ud310\ub2e8\ud558\uc9c0 \uc54a\ub3c4\ub85d \ud574 \uc8fc\uc2ed\uc2dc\uc624."
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-033
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud68c\uc0ac\uc758 \uc22b\uc790"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 1
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ubc84\ub294 \ub3c8\ub3c4, \uc190\uc5d0 \uc954 \ub3c8\ub3c4 \uaf64 \ub2e4\ub974\ub124\uc694. \uadf8\ub798\ub3c4 \uc774\ubc88\uc5d4 \ubbf8\ub798\uac74\uc124\uc744 \uc870\uae08 \ub354 \uc0ac\ubcf4\uaca0\uc2b5\ub2c8\ub2e4."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-034
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc9c0\ubd84\uc744 \ub298\ub9ac\ub294 \uc120\ud0dd"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc9c0\uae08 \uac00\uc9c4 \uac8c \uc804\uccb4 \uc8fc\uc2dd\uc758 \uc5bc\ub9c8\ub098 \ub418\ub294\uc9c0\ub294 \uc544\uc2ed\ub2c8\uae4c? \ub611\uac19\uc774 \ud55c \uc8fc\ub97c \uc0ac\ub3c4, \ud68c\uc0ac\ub9c8\ub2e4 \ub0b4 \ubaab\uc774 \uc5bc\ub9c8\ub098 \ub298\uc5b4\ub098\ub294\uc9c0\ub294 \ub2e4\ub974\uac70\ub4e0\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-035
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc9c0\ubd84\uc744 \ub298\ub9ac\ub294 \uc120\ud0dd"
+    background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\ubbf8\ub798\uac74\uc124\uc758 \ubcf4\uc720 \uc8fc\uc2dd \uc218\uc640 \uc9c0\ubd84\uc728\uc744 \ud655\uc778\ud558\uc138\uc694."
+    showPlayer: 0
+    goal: 13
+    companyId:
+    tutorialTitle: "\ubcf4\uc720 \uc8fc\uc2dd\uacfc \uc9c0\ubd84"
+    tutorialText: "\uc9c0\ubd84\uc728\uc740 \uc804\uccb4 \uc8fc\uc2dd \uac00\uc6b4\ub370 \ubcf4\uc720 \uc8fc\uc2dd\uc774 \ucc28\uc9c0\ud558\ub294 \ube44\uc728\uc785\ub2c8\ub2e4. \uc9c0\ubd84 \ub4f1 \uc870\uac74\uc744 \ucda9\uc871\ud558\uba74 \ub2e4\uc74c \ub0a0 \uc0c8\ub85c\uc6b4 \uc774\ubca4\ud2b8\uac00 \ubc1c\uc0dd\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc81c\uc548\ub9c8\ub2e4 \ucd94\uac00 \uc870\uac74\uacfc \uc720\ud6a8\uae30\uac04\uc774 \uc801\uc6a9\ub429\ub2c8\ub2e4."
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-037
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc9c0\ubd84\uc744 \ub298\ub9ac\ub294 \uc120\ud0dd"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ub0b4 \ubaab\uc774 \ucee4\uc9c0\uba74 \ub9d0\uc744 \uac78\uc5b4\uc624\ub294 \uc0ac\ub78c\ub3c4 \ub2ec\ub77c\uc9c8 \uac81\ub2c8\ub2e4. \uadf8\ub807\ub2e4\uace0 \ub204\uad6c\ub098 \ub9cc\ub098\uc900\ub2e4\uac70\ub098, \ubc14\ub85c \ud68c\uc0ac \uc8fc\uc778\uc774 \ub418\ub294 \uac74 \uc544\ub2c8\uc8e0."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-038
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc9c0\ubd84\uc744 \ub298\ub9ac\ub294 \uc120\ud0dd"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 1
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ub2f9\uc7a5 \uc4f8 \ub3c8\uc740 \ub0a8\uaca8\ub46c\uc57c\uaca0\ub124\uc694. \uc774\ubc88\uc5d0\ub3c4 \ud55c \uc8fc\ub9cc \ub354 \uc0ac\uc8e0."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-039
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc9c0\ubd84\uc744 \ub298\ub9ac\ub294 \uc120\ud0dd"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ud55c \uc8fc\uc5d0 \uc5bc\ub9c8\uc778\uc9c0, \uc0ac\uace0 \ub098\uba74 \uc5bc\ub9c8\uac00 \ub0a8\ub294\uc9c0 \ubcf4\uace0 \uc815\ud558\uc2dc\uc8e0. \uae09\ud55c \ub370 \uc4f8 \ub3c8\uae4c\uc9c0 \ubb36\uc5b4\ub450\uba74 \uace4\ub780\ud558\ub2c8\uae4c\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-040
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc9c0\ubd84\uc744 \ub298\ub9ac\ub294 \uc120\ud0dd"
+    background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\ubbf8\ub798\uac74\uc124 1\uc8fc\ub97c \ucd94\uac00 \ub9e4\uc218\ud558\uc138\uc694. \uc608\uc0c1 \ub300\uae08\uacfc \ub0a8\ub294 \uc790\uae08\uc744 \ud655\uc778\ud558\uc138\uc694."
+    showPlayer: 0
+    goal: 11
+    companyId:
+    tutorialTitle: "\ucd94\uac00 \ub9e4\uc218"
+    tutorialText: "\uc774\ubc88\uc5d0\ub294 \ubbf8\ub798\uac74\uc124 1\uc8fc\ub97c \ub354 \ub9e4\uc218\ud569\ub2c8\ub2e4. \uc608\uc0c1 \ub300\uae08\uacfc \uac70\ub798 \ud6c4 \ub0a8\ub294 \uc790\uae08\uc744 \ud655\uc778\ud55c \ub4a4 \ub9e4\uc218\ud558\uae30\ub97c \uc120\ud0dd\ud574 \uc8fc\uc2ed\uc2dc\uc624."
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-041
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \uc9c0\ubd84\uc744 \ub298\ub9ac\ub294 \uc120\ud0dd"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "{tradeResult}"
+    showPlayer: 0
+    goal: 0
+    companyId:
+    tutorialTitle: "\ucd94\uac00 \ub9e4\uc218 \uacb0\uacfc"
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-042
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud604\uae08\uc73c\ub85c \ub3cc\ub824\ub193\uae30"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uacc4\uc18d \uc0ac\uae30\ub9cc \ud560 \uc218\ub294 \uc5c6\uc8e0. \ub2e4\ub978 \uac70\ub798\uc5d0 \uc4f8 \ub3c8\ub3c4 \ud544\uc694\ud560 \ud14c\ub2c8\uae4c\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-043
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud604\uae08\uc73c\ub85c \ub3cc\ub824\ub193\uae30"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 1
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uadf8\ub7fc \uc0b0 \uac83 \uc911\uc5d0 \uc77c\ubd80\ub9cc \ub2e4\uc2dc \ud314\uc544\ubcf4\uc8e0. \uc4f8 \ub3c8\uc740 \ub0a8\uaca8\ub46c\uc57c\uaca0\ub124\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-044
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud604\uae08\uc73c\ub85c \ub3cc\ub824\ub193\uae30"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ud55c \uc8fc\ub9cc \ud314\uc544\ubcf4\uc2dc\uc8e0. \uc9c0\uae08 \ud314\uba74 \uc5bc\ub9c8\uac00 \ub3cc\uc544\uc624\ub294\uc9c0\ub3c4 \ubcf4\uace0\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-045
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud604\uae08\uc73c\ub85c \ub3cc\ub824\ub193\uae30"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc5bc\ub9c8\uc5d0 \uc0c0\ub294\uc9c0\ub9cc \uc0dd\uac01\ud558\uc9c0 \ub9c8\uc138\uc694. \uc9c0\uae08 \uc5bc\ub9c8\uc5d0 \ud314 \uc218 \uc788\ub294\uc9c0\uac00 \uc911\uc694\ud558\uc8e0. \ud314\uc558\ub2e4\uace0 \ub2e4 \ub3c8\uc744 \ubc88 \uac74 \uc544\ub2c8\ub2c8\uae4c\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-047
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud604\uae08\uc73c\ub85c \ub3cc\ub824\ub193\uae30"
+    background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\ubbf8\ub798\uac74\uc124 1\uc8fc\ub97c \ub9e4\ub3c4\ud558\uc138\uc694. \uc608\uc0c1 \ub300\uae08\uacfc \ub9e4\ub3c4 \ud6c4 \ubcf4\uc720\ub7c9\uc744 \ud655\uc778\ud558\uc138\uc694."
+    showPlayer: 0
+    goal: 12
+    companyId:
+    tutorialTitle: "\uc8fc\uc2dd \ub9e4\ub3c4"
+    tutorialText: "\uc218\ub7c9\uc5d0 1\uc744 \uc785\ub825\ud558\uace0 \ub9e4\ub3c4\ud558\uae30\ub97c \uc120\ud0dd\ud574 \uc8fc\uc2ed\uc2dc\uc624. \ub9e4\ub3c4\ud558\uba74 \uc790\uae08\uc774 \ub298\uace0 \uc8fc\uc2dd\uacfc \uc9c0\ubd84\uc728\uc740 \uc904\uc5b4\ub4ed\ub2c8\ub2e4. \uc9c0\ubd84 \uc870\uac74\uc744 \uc783\uc740 \uc774\ubca4\ud2b8\ub294 \ubaa9\ub85d\uc5d0\uc11c \uc81c\uc678\ub420 \uc218 \uc788\uc2b5\ub2c8\ub2e4."
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-048
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud604\uae08\uc73c\ub85c \ub3cc\ub824\ub193\uae30"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "{tradeResult}"
+    showPlayer: 0
+    goal: 0
+    companyId:
+    tutorialTitle: "\ub9e4\ub3c4 \uacb0\uacfc"
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-049
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ud604\uae08\uc73c\ub85c \ub3cc\ub824\ub193\uae30"
+    background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 4
+    npcId:
+    voiceLabel: ""
+    text: "\ub9e4\ub3c4 \ud6c4 \uc904\uc5b4\ub4e0 \ubcf4\uc720 \uc8fc\uc2dd\uacfc \uc9c0\ubd84\uc728\uc744 \ub2e4\uc2dc \ud655\uc778\ud558\uc138\uc694."
+    showPlayer: 0
+    goal: 13
+    companyId:
+    tutorialTitle: "\ub9e4\ub3c4 \ud6c4 \ubcf4\uc720 \ud604\ud669"
+    tutorialText: "\ub9e4\ub3c4 \ud6c4 \ubcf4\uc720 \uc8fc\uc2dd\uacfc \uc9c0\ubd84\uc728, \ub0a8\uc740 \uc790\uae08\uc744 \ud655\uc778\ud574 \uc8fc\uc2ed\uc2dc\uc624. \ub2e4\uc74c \uac70\ub798\ub098 \ub9cc\ub0a8\uc5d0 \ud544\uc694\ud55c \uc790\uae08\uc774 \ub0a8\uc544 \uc788\ub294\uc9c0\ub3c4 \ud568\uaed8 \uc0b4\ud3b4\ubcf4\uc2ed\uc2dc\uc624."
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-050
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub2e4\uc74c \uac70\ub798"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 1
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uc774\uc81c \uc870\uae08 \uc54c\uaca0\ub124\uc694. \ud68c\uc0ac \uc0ac\uc815\ub3c4 \ubcf4\uace0, \uc4f8 \ub3c8\ub3c4 \ub0a8\uaca8\ub450\uace0, \ub204\uad6c\ud55c\ud14c \ubb34\uc2a8 \ub9d0\uc744 \ud588\ub294\uc9c0\ub3c4 \ucc59\uaca8\uc57c\uaca0\uad70\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-051
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub2e4\uc74c \uac70\ub798"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\uadf8\ub7fc \uc624\ub298 \ub0a8\uc740 \uc2dc\uac04\uc5d0 \uc5b4\ub5a4 \uc77c\uc815\uc744 \uc7a1\uc744\uc9c0 \uc815\ud574\ubcf4\uc2dc\uc8e0. \uc9c0\uac11 \uc0ac\uc815\ub3c4 \ud55c\ubc88 \ub354 \ubcf4\uc2dc\uace0\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    choices: []
+    skipDefaultChoice: 0
+  - id: lesson-052
+    sceneTitle: "\ub458\uc9f8 \ub0a0  /  \ub2e4\uc74c \uac70\ub798"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel: ""
+    text: "\ub354 \ub9cc\ub098\ubcfc \uc0ac\ub78c\uc774 \uc788\uc73c\uba74 \uc57d\uc18d\uc744 \uc7a1\uace0, \uc544\ub2c8\uba74 \uc624\ub298\uc740 \uc774\ub9cc \uc26c\uc2dc\uc8e0. \ud68c\uc0ac \uc0ac\uc815\uc740 \ub0b4\uc77c \ub610 \ubd10\uc57c \ud558\ub2c8\uae4c\uc694."
+    showPlayer: 1
+    goal: 0
+    companyId:
     choices: []
     skipDefaultChoice: 0
   - id: intro-093
     sceneTitle: "\uB3C4\uC785\uBD80 \uC644\uB8CC  /  \uCCAB \uBC88\uC9F8 \uC8FC\uC8FC"
     background: {fileID: 21300000, guid: f2ae5346af09a0045b072d43aaad3d54, type: 3}
     backgroundTint: {r: 1, g: 1, b: 1, a: 1}
-    speaker: 0
-    npcId: 
-    voiceLabel: 
-    text: "\uD604\uC7AC {turn}\uC77C \xB7 \uBBF8\uB798\uAC74\uC124 {shares}\uC8FC
-      \xB7 \uBCF4\uC720 \uC790\uAE08 {cash}\n\uC774\uC81C \uB3C4\uC2DC\uB9F5\uACFC
-      \uC778\uBB3C \uC815\uBCF4, \uD611\uC0C1\uC744 \uC790\uC720\uB86D\uAC8C \uD0D0\uC0C9\uD560
-      \uC218 \uC788\uB2E4.\n\uC5B4\uB5A4 \uAC70\uB798\uB85C \uBAA9\uD45C\uC5D0 \uB2E4\uAC00\uAC08\uC9C0\uB294
-      \uB0B4 \uC120\uD0DD\uC5D0 \uB2EC\uB824 \uC788\uB2E4."
+    speaker: 4
+    npcId:
+    voiceLabel:
+    text: "\ud29c\ud1a0\ub9ac\uc5bc\uc744 \uc644\ub8cc\ud558\uc600\uc2b5\ub2c8\ub2e4. \ud604\uc7ac {turn}\uc77c\uc774\uba70, \ubbf8\ub798\uac74\uc124 \uc8fc\uc2dd {shares}\uc8fc\uc640 \uc9c0\ubd84 {stake}%\ub97c \ubcf4\uc720\ud558\uace0 \uc788\uc2b5\ub2c8\ub2e4. \ub0a8\uc740 \uc790\uae08\uc740 {cash}\uc6d0, \ud589\ub3d9 \ud3ec\uc778\ud2b8\ub294 {ap}/{maxAp}\uc785\ub2c8\ub2e4. \ub2e4\uc74c \uc77c\uc815\uacfc \uac70\ub798\ub97c \uc790\uc720\ub86d\uac8c \uc9c4\ud589\ud558\uc2e4 \uc218 \uc788\uc2b5\ub2c8\ub2e4."
     showPlayer: 0
     goal: 0
+    tutorialTitle: "\ud29c\ud1a0\ub9ac\uc5bc \uc644\ub8cc"
     choices: []
     skipDefaultChoice: 0
