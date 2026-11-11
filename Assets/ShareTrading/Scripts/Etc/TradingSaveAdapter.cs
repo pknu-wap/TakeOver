@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using TakeOver.SaveSystem;
+using TakeOver.CompanyRules;
 using UnityEngine;
 
 /// <summary>거래 상태와 저장 형식 사이의 변환·검증·복원 담당</summary>
@@ -57,6 +58,7 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
             companyId = company.definition.companyID,
             state = new TradingSaveData.CompanyStateData
             {
+                status = state.status,
                 stats = new List<TradingSaveData.StatData>(), totalShares = state.totalShares,
                 initialRevenue = state.initialRevenue, initialCost = state.initialCost,
                 initialNetProfit = state.initialNetProfit, initialNetMargin = state.initialNetMargin,
@@ -161,7 +163,8 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         {
             throw new InvalidDataException("회사 ID·원본 수치·시장 효과·이력을 확인하세요.");
         }
-        if (entry.state.totalShares < 1 || entry.state.stats.Count != statCount
+        if (!Enum.IsDefined(typeof(CompanyStatus), entry.state.status)
+            || entry.state.totalShares < 1 || entry.state.stats.Count != statCount
             || entry.history.Count > company.history.getMaxHistory())
         {
             throw new InvalidDataException("회사 ID·원본 수치·시장 효과·이력을 확인하세요.");
@@ -233,6 +236,7 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
             state.setStat(statType, stat.value);
         }
         state.totalShares = entry.state.totalShares;
+        state.status = entry.state.status;
         state.initialRevenue = entry.state.initialRevenue;
         state.initialCost = entry.state.initialCost;
         state.initialNetProfit = entry.state.initialNetProfit;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TakeOver.CompanyRules;
 
 /// <summary>지분매입팀의 저장 전용 데이터 형식</summary>
 [Serializable]
@@ -36,6 +37,7 @@ public class TradingSaveData
     [Serializable]
     public class CompanyStateData
     {
+        public CompanyStatus status;
         public List<StatData> stats;
         public int totalShares;
         public float initialRevenue, initialCost, initialNetProfit, initialNetMargin;

@@ -6,6 +6,7 @@ public class SharetradingGameturnSystem : MonoBehaviour
     [SerializeField] private Companies companies;
     [SerializeField] private Marketdata marketData;
     [SerializeField] private MarketEventManager marketEventManager;
+    [SerializeField] private TakeOver.CompanyRules.CompanyRuleRunner ruleRunner;
     private GameTurnClock turnClock;
 
     private void Awake()
@@ -39,6 +40,7 @@ public class SharetradingGameturnSystem : MonoBehaviour
 
     private void handleTurnAdvanced(int newTurn)
     {
+        ruleRunner.RunTurn(newTurn);
         // TurnAdvanced는 턴 증가 후 호출되므로 종료된 턴 번호로 이력을 기록한다.
         int endedTurn = newTurn - 1;
 

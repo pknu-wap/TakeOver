@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using TakeOver.CompanyRules;
 
 public class CompanyState
 {
@@ -12,6 +13,7 @@ public class CompanyState
         = new Dictionary<CompanyDerivedStat, (float, float)>();
 
     public int totalShares { get; internal set; }
+    public CompanyStatus status = CompanyStatus.Normal;
 
     // 첫 턴 기록이 저장되기 전에 초기값을 과거 평균으로 사용
     public float beforeRevenue { get; set; }
@@ -47,6 +49,9 @@ public class CompanyState
         stats[CompanyStat.REPUTAION_PLAYER] = definition.initialReputaionPlayer;
         stats[CompanyStat.PLAYER_SHARES] = definition.initialPlayerShares;
         stats[CompanyStat.BASE_COMPANY_VALUE] = definition.initialBaseCompanyValue;
+        stats[CompanyStat.EMPLOYEE_COUNT] = definition.initialEmployeeCount;
+        stats[CompanyStat.WATCHLIST_REVIEWS_REMAINING] = 0f;
+        stats[CompanyStat.LIQUIDATION_TURNS_REMAINING] = 0f;
 
         totalShares = definition.totalShares;
 
