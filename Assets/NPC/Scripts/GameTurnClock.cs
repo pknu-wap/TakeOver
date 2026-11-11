@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TakeOver.NPC
@@ -9,10 +10,22 @@ namespace TakeOver.NPC
         [SerializeField, Min(1)] private int currentTurn = 1;
         [SerializeField] private NpcStateRegistry registry;
         [SerializeField] private NpcMemoryService memoryService;
+        private readonly List<ITurnBlocker> blockers = new List<ITurnBlocker>();
 
         /// <summary>현재 게임 턴. 초기값은 1이며 RestoreTurn도 최소 1로 제한한다.</summary>
         public int CurrentTurn => currentTurn;
         public event Action<int> TurnAdvanced;
+        public event Action<string> AdvanceBlocked;
+
+        public void RegisterBlocker(ITurnBlocker blocker)
+        {
+            if (!blockers.Contains(blocker)) blockers.Add(blocker);
+        }
+
+        public void UnregisterBlocker(ITurnBlocker blocker)
+        {
+            blockers.Remove(blocker);
+        }
 
         /// <summary>공용 상태 저장소와 기억 경과 처리 서비스를 연결한다.</summary>
         public void Configure(NpcStateRegistry stateRegistry, NpcMemoryService service)
@@ -31,6 +44,14 @@ namespace TakeOver.NPC
         /// <summary>게임의 턴 종료 경로에서 호출한다. 등록된 각 NPC에 경과 처리를 적용한다.</summary>
         public void AdvanceTurn()
         {
+            foreach (ITurnBlocker blocker in blockers)
+            {
+                if (blocker.IsBlocking(out string reason))
+                {
+                    AdvanceBlocked?.Invoke(reason);
+                    return;
+                }
+            }
             currentTurn++;
             if (registry != null)
                 foreach (var state in registry.States) memoryService.AdvanceTurn(state, currentTurn);
