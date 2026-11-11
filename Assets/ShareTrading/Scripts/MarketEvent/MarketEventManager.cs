@@ -79,6 +79,26 @@ public class MarketEventManager : MonoBehaviour
             break;
         }
         activeEvents.Add(entry);
+        logSelectedEvent(entry, currentTurn);
         EffectControl.addEffects(entry);
+    }
+
+    private void logSelectedEvent(ActiveMarketEvent entry, int currentTurn)
+    {
+        var companyIDs = new List<string>();
+        foreach (MarketEventDefinition.EventEffect effect in entry.definition.effects)
+        {
+            if (effect.companyTargetType == MarketEventCompanyTargetType.AllCompanies)
+                companyIDs.Add("AllCompanies");
+            else if (effect.companyTargetType == MarketEventCompanyTargetType.RandomCompany)
+                companyIDs.Add(entry.selectedCompanyID);
+            else
+                companyIDs.Add(effect.companyID);
+        }
+
+        Debug.Log($"[시장 이벤트 선정] turn={currentTurn}, orderID={entry.orderID}, "
+            + $"eventID={entry.definition.MarketEventID}, Name={entry.definition.MarketEventName}, "
+            + $"Type={entry.definition.applyType}, companyID=[{string.Join(", ", companyIDs)}], "
+            + $"delayTurns={entry.definition.delayTurns}, duration={entry.definition.duration}", entry.definition);
     }
 }
