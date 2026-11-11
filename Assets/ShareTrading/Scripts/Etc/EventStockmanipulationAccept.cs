@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TakeOver.NPC;
 using UnityEngine;
 
-public sealed class EventStockmanipulationAccept : MonoBehaviour
+public class EventStockmanipulationAccept : MonoBehaviour
 {
     // 주가조작 제안
     [SerializeField] private Companies companies;
