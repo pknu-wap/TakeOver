@@ -12,12 +12,14 @@ public sealed class TopBarNavigationController : MonoBehaviour
     [SerializeField] private FloatingMessage message;
     [SerializeField] private NpcStatusScreen statusScreen;
     [SerializeField] private EventSystemController eventController;
+    [SerializeField] private NewsScreen newsScreen;
     private int currentTab;
 
     private void Start()
     {
         if (eventController == null) eventController = FindFirstObjectByType<EventSystemController>();
         if (eventController == null) Debug.LogWarning("Top bar could not find EventSystemController.", this);
+        if (newsScreen == null) newsScreen = FindFirstObjectByType<NewsScreen>(FindObjectsInactive.Include);
         for (int i = 0; i < tabButtons.Length; i++)
         {
             int index = i;
@@ -28,12 +30,19 @@ public sealed class TopBarNavigationController : MonoBehaviour
 
     private void onTabClicked(int index)
     {
-        if (index >= 4)
+        if (index >= 5 || (index == 4 && newsScreen == null))
         {
             message.Show("준비 중입니다");
             return;
         }
-        if (index == 3)
+        if (newsScreen != null && index != 4) newsScreen.close();
+        if (index == 4)
+        {
+            browser.close();
+            statusScreen.Close();
+            newsScreen.open();
+        }
+        else if (index == 3)
         {
             browser.close();
             statusScreen.Open();
