@@ -15,10 +15,35 @@ MonoBehaviour:
   seed:
     position: 0
     preferenceResponse:
+      source: 1
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
-    memoryPreferences: []
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: "정책 자문과 거래 합의를 지키는 상대에게 신뢰와 관심을 더한다."
+      effect:
+        mode: 1
+        multiplier: 1.15
+        affectedAxes: 33
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 1
+      disposition: 2
+      rationale: "정치 거래에서도 약속을 깨는 상대는 협상 신뢰를 잃는다."
+      effect:
+        mode: 1
+        multiplier: 1.2
+        affectedAxes: 1
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 7
+      disposition: 2
+      rationale: "실익에 따른 사건 기본 신뢰는 유지하며 노골적 위험으로 생긴 적대감 증가·관심 하락만 소폭 강화한다."
+      effect:
+        mode: 1
+        multiplier: 1.15
+        affectedAxes: 40
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-political-lobbyist-park-sanghyeon
     companyId: external-network
     profile:

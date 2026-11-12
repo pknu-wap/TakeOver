@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: NpcTemplate
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
+    position: 0
+    preferenceResponse:
+      source: 1
+      enabled: 0
+      likedMultiplier: 1.5
+      dislikedMultiplier: 1.5
+      useCustomAxes: 0
+      affectedAxes: 43
+    memoryPreferences: []
     npcId:
     companyId:
     profile:

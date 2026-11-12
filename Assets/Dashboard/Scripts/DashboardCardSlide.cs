@@ -54,6 +54,7 @@ public class DashboardCardSlide : MonoBehaviour
     private readonly List<Dictionary<string, CardPartPose>> cardPoses = new List<Dictionary<string, CardPartPose>>();
     private readonly List<Image> transitionBackgrounds = new List<Image>();
     private readonly List<CanvasGroup> transitionGroups = new List<CanvasGroup>();
+    public RectTransform MainCard => cardUIList.Count > 2 ? cardUIList[2].cardRect : null;
 
     private void Awake()
     {
@@ -165,6 +166,8 @@ public class DashboardCardSlide : MonoBehaviour
         if (infos != null && infos.Count > 0)
         {
             List<TodayEventInfo> shuffledInfos = ShuffleList(infos);
+            if (TakeOver.Story.StoryDirector.IsGuidingEvent)
+                shuffledInfos.RemoveAll(info => info.definition.getId() != TakeOver.Story.StoryDirector.TutorialEventId);
             int displayCount = Mathf.Min(targetDisplayCount, shuffledInfos.Count);
             for (int i = 0; i < displayCount; i++)
             {

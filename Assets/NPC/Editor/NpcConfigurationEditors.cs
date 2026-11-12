@@ -24,12 +24,16 @@ namespace TakeOver.NPC.Editor
             if (!Enum.IsDefined(typeof(NpcPosition), seed.FindPropertyRelative("position").intValue))
                 errors.Add("Position이 올바르지 않습니다.");
             var response = seed.FindPropertyRelative("preferenceResponse");
+            if (!Enum.IsDefined(typeof(NpcPreferenceSource), response.FindPropertyRelative("source").intValue))
+                errors.Add("호불호 보너스 기준이 올바르지 않습니다.");
             foreach (var field in new[] { "likedMultiplier", "dislikedMultiplier" })
             {
                 var value = response.FindPropertyRelative(field).floatValue;
                 if (response.FindPropertyRelative("enabled").boolValue && (float.IsNaN(value) || float.IsInfinity(value) || value < 1))
                     errors.Add("활성 선호 배율은 1 이상의 유한한 값이어야 합니다.");
             }
+            if (response.FindPropertyRelative("enabled").boolValue && response.FindPropertyRelative("useCustomAxes").boolValue)
+                Axes(response.FindPropertyRelative("affectedAxes"), errors, "NPC 기본 배율");
             var memories = seed.FindPropertyRelative("memoryPreferences");
             var memoryTypes = new HashSet<int>();
             for (var i = 0; i < memories.arraySize; i++)
@@ -40,6 +44,7 @@ namespace TakeOver.NPC.Editor
                     errors.Add("Memory 선호 유형이 올바르지 않거나 중복입니다.");
                 if (!Enum.IsDefined(typeof(NpcActionDisposition), memory.FindPropertyRelative("disposition").intValue))
                     errors.Add("Memory 선호 분류가 올바르지 않습니다.");
+                PreferenceEffect(memory, errors, $"기억 선호 {i}");
             }
             if (string.IsNullOrWhiteSpace(seed.FindPropertyRelative("npcId").stringValue))
                 errors.Add("Npc Id를 입력하세요. 빈 양식은 레지스트리에 등록하지 않습니다.");
@@ -63,8 +68,30 @@ namespace TakeOver.NPC.Editor
                     errors.Add($"선호 {i}: 행동 ID가 비어 있거나 중복됐습니다.");
                 if (!Enum.IsDefined(typeof(NpcActionDisposition), preference.FindPropertyRelative("disposition").intValue))
                     errors.Add($"선호 {i}: 선호 분류가 올바르지 않습니다.");
+                PreferenceEffect(preference, errors, $"행동 선호 {i}");
             }
             return errors;
+        }
+
+        private static void PreferenceEffect(SerializedProperty entry, List<string> errors, string label)
+        {
+            var effect = entry.FindPropertyRelative("effect");
+            var mode = effect.FindPropertyRelative("mode").intValue;
+            if (!Enum.IsDefined(typeof(NpcPreferenceEffectMode), mode))
+                errors.Add($"{label}: 보너스 방식이 올바르지 않습니다.");
+            if (mode != (int)NpcPreferenceEffectMode.Custom
+                || entry.FindPropertyRelative("disposition").intValue == (int)NpcActionDisposition.Unspecified) return;
+            var multiplier = effect.FindPropertyRelative("multiplier").floatValue;
+            if (float.IsNaN(multiplier) || float.IsInfinity(multiplier) || multiplier < 1)
+                errors.Add($"{label}: 개별 배율은 1 이상의 유한한 값이어야 합니다.");
+            Axes(effect.FindPropertyRelative("affectedAxes"), errors, label);
+            Delta(effect.FindPropertyRelative("relationBonus"), errors, label + " 고정 보너스");
+        }
+
+        private static void Axes(SerializedProperty axes, List<string> errors, string label)
+        {
+            if ((axes.intValue & ~(int)NpcPreferenceAxes.All) != 0)
+                errors.Add($"{label}: 배율 적용 관계 항목이 올바르지 않습니다.");
         }
 
         internal static Tuple<string, int, string> Key(NpcChoiceReactionDefinition reaction)
@@ -178,16 +205,6 @@ namespace TakeOver.NPC.Editor
                 var value = delta.FindPropertyRelative(field).floatValue;
                 if (float.IsNaN(value) || float.IsInfinity(value)) errors.Add($"{label}: {field}에 NaN 또는 무한대가 있습니다.");
             }
-        }
-    }
-
-    [CustomEditor(typeof(NpcDefinition)), CanEditMultipleObjects]
-    internal sealed class NpcDefinitionEditor : UnityEditor.Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            DrawDefaultInspector();
-            foreach (var asset in targets) NpcConfigurationDiagnostics.Show(asset, NpcConfigurationDiagnostics.Definition((NpcDefinition)asset));
         }
     }
 

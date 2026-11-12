@@ -60,3 +60,10 @@ bool saved = saveManager.trySaveDayEnd(nextDay);
 - `nextDayNumber`: 이어서 시작할 날짜
 - `saved`: 저장 성공 여부
 - 실패 이유는 `saveManager.lastError`에서 확인
+
+
+## 2026-11-10 이벤트·NPC·AP 전체 저장 연결
+
+GameSaveManager는 Inspector 등록 순서를 유지한 뒤 로드된 씬의 미등록 ISaveParticipant를 자동 보충합니다. 현재 trading/events/npc/action-points가 참여합니다. 서로 다른 컴포넌트의 중복 ID는 거부합니다. ISaveRebuildOrder 구현체는 기본 파트 이후 재구성 순서를 지정할 수 있으며 이벤트 카드의 순서는 100입니다.
+
+미응답 면담 중 저장은 거부됩니다. 결과 확정 뒤 저장한 대화는 로드하면 닫히며 효과를 재지급하지 않습니다. 이벤트 구역이 없는 기존 전체 파일은 거부합니다. 기존 NPC 단독 저장 API는 유지됩니다. 전체 적용 전 검증, 적용 중 알림 금지, 전체 적용 후 UI 갱신을 따릅니다. 선행 회사 지표 PR의 구 저장 호환성까지 해결한 것은 아닙니다. 자세한 범위는 Docs/COMPANY_RULE_INTEGRATION_KO.md를 참고합니다.

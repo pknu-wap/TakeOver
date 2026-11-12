@@ -31,6 +31,7 @@ namespace TakeOver.NPC
             ValidateDelta(log.beforePreference);
             ValidateDelta(log.preferenceBonus);
             ValidateDelta(log.actuallyApplied);
+            ValidateDelta(log.configuredBonus);
         }
 
         private static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
@@ -53,28 +54,42 @@ namespace TakeOver.NPC
         public NpcMemoryType memoryType;
         public NpcActionDisposition disposition;
         [TextArea] public string rationale;
+        public NpcPreferenceEffect effect = new NpcPreferenceEffect();
     }
 
-    /// <summary>기획 미확정인 선택적 배율. 기본은 꺼 두어 기존 인물의 효과를 유지한다.</summary>
+    /// <summary>각 NPC SO의 기본 호불호 배율. 행동/기억 항목의 개별 설정이 있으면 해당 설정이 우선한다.</summary>
     [Serializable]
     public sealed class NpcPreferenceResponse
     {
+        public NpcPreferenceSource source;
         public bool enabled;
         [Min(1f)] public float likedMultiplier = 1.5f;
         [Min(1f)] public float dislikedMultiplier = 1.5f;
+        public bool useCustomAxes;
+        public NpcPreferenceAxes affectedAxes = NpcPreferenceAxes.Default;
 
         public NpcRelationDelta Apply(NpcRelationDelta delta, NpcActionDisposition disposition)
         {
             if (!enabled || disposition == NpcActionDisposition.Unspecified) return delta;
             var multiplier = disposition == NpcActionDisposition.Likes ? likedMultiplier : dislikedMultiplier;
+            return ApplyMultiplier(delta, disposition, multiplier,
+                useCustomAxes ? affectedAxes : NpcPreferenceAxes.Default);
+        }
+
+        internal static NpcRelationDelta ApplyMultiplier(NpcRelationDelta delta, NpcActionDisposition disposition,
+            float multiplier, NpcPreferenceAxes axes)
+        {
             if (float.IsNaN(multiplier) || float.IsInfinity(multiplier) || multiplier < 1f)
                 throw new ArgumentException("선호 반응 배율은 1 이상의 유한한 값이어야 합니다.");
-            // 신뢰·존중·관심 증가와 적대감 감소를 호의로 본다. 공포·의존도는 호불호와 동치가 아니므로 유지한다.
+            if ((axes & ~NpcPreferenceAxes.All) != 0) throw new ArgumentException("배율 적용 관계 항목이 올바르지 않습니다.");
+            // 기존 기본 4축을 유지한다. 제작자가 선택한 경우 두려움 감소·의존도 증가도 호의 방향에 포함한다.
             var likes = disposition == NpcActionDisposition.Likes;
-            delta.trust = Scale(delta.trust, likes, multiplier);
-            delta.respect = Scale(delta.respect, likes, multiplier);
-            delta.interest = Scale(delta.interest, likes, multiplier);
-            delta.hostility = -Scale(-delta.hostility, likes, multiplier);
+            if ((axes & NpcPreferenceAxes.Trust) != 0) delta.trust = Scale(delta.trust, likes, multiplier);
+            if ((axes & NpcPreferenceAxes.Respect) != 0) delta.respect = Scale(delta.respect, likes, multiplier);
+            if ((axes & NpcPreferenceAxes.Interest) != 0) delta.interest = Scale(delta.interest, likes, multiplier);
+            if ((axes & NpcPreferenceAxes.Hostility) != 0) delta.hostility = -Scale(-delta.hostility, likes, multiplier);
+            if ((axes & NpcPreferenceAxes.Fear) != 0) delta.fear = -Scale(-delta.fear, likes, multiplier);
+            if ((axes & NpcPreferenceAxes.Dependency) != 0) delta.dependency = Scale(delta.dependency, likes, multiplier);
             return delta;
         }
 
@@ -89,12 +104,13 @@ namespace TakeOver.NPC
         public string actionId;
         public NpcActionDisposition disposition;
         [TextArea] public string rationale;
+        public NpcPreferenceEffect effect = new NpcPreferenceEffect();
 
         public NpcActionPreference Clone() => new NpcActionPreference
         {
             actionId = actionId,
             disposition = disposition,
-            rationale = rationale
+            rationale = rationale, effect = effect?.Clone()
         };
     }
 
@@ -166,13 +182,16 @@ namespace TakeOver.NPC
     {
         public bool preferenceEnabled;
         public float multiplier = 1f;
+        public bool usedOverride;
+        public NpcRelationDelta configuredBonus;
         public NpcRelationDelta beforePreference;
         public NpcRelationDelta preferenceBonus;
         public NpcRelationDelta actuallyApplied;
 
         public NpcMemoryEffectLog Clone() => new NpcMemoryEffectLog
         {
-            preferenceEnabled = preferenceEnabled, multiplier = multiplier,
+            preferenceEnabled = preferenceEnabled, multiplier = multiplier, usedOverride = usedOverride,
+            configuredBonus = configuredBonus,
             beforePreference = beforePreference, preferenceBonus = preferenceBonus, actuallyApplied = actuallyApplied
         };
     }

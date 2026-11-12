@@ -34,65 +34,11 @@ MonoBehaviour:
   companyQuestion: 
   companyPlayerLine: 
   choices:
-  - choiceText: "\uC131\uACFC\uBCF4\uC218\uB97C \uBB38\uC11C\uB85C \uC57D\uC18D\uD55C\uB2E4"
-    choiceDescription: "\uD655\uC2E4\uD55C \uC815\uBCF4\uB97C \uC5BB\uC9C0\uB9CC
-      \uC57D\uC18D\uC5D0 \uBB36\uC778\uB2E4"
-    playerLine: "\uC131\uACFC\uBCF4\uC218\uB294 \uACC4\uC57D\uC11C\uC5D0 \uB123\uACA0\uC2B5\uB2C8\uB2E4.
-      \uC22B\uC790\uBD80\uD130 \uBCF4\uC5EC \uC8FC\uC2DC\uC8E0."
-    resultDialogue: "\uC11C\uB958\uB85C \uB0A8\uACA8 \uC8FC\uC2E0\uB2E4\uB2C8 \uBBFF\uACA0\uC2B5\uB2C8\uB2E4.
-      \uC790\uB8CC\uB294 \uACE7 \uBCF4\uB0B4\uB4DC\uB9AC\uC8E0."
-    resultValue: written_promise
-    npcResult:
-      eventId: 
-      companyId: 
-      actorId: 
-      actionId: 
-      targetNpcIds:
-      - npc-mirae-construction-cfo-seo-jia
-      targetReactions:
-      - targetNpcId: npc-mirae-construction-cfo-seo-jia
-        memoryType: 6
-        strength: 2
-        publicity: 0
-        permanent: 0
-        durationTurns: 3
-        reliability: 1
-        interpretation: 
-        tags: []
-        relationDelta:
-          trust: 10
-          respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 10
-      memoryType: 6
-      strength: 2
-      publicity: 0
-      permanent: 0
-      durationTurns: 3
-      reliability: 1
-      interpretation: 
-      tags: []
-      relationDelta:
-        trust: 0
-        respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
-    cashDelta: 0
-    stockSurgeMinRatio: 0
-    stockSurgeMaxRatio: 0
-    buybackPremiumRatio: 0
-  - choiceText: "\uB9D0\uB85C\uB9CC \uC57D\uC18D\uD55C\uB2E4"
-    choiceDescription: "\uD754\uC801\uC740 \uB0A8\uC9C0 \uC54A\uC9C0\uB9CC \uC2E0\uB8B0\uB97C
-      \uC783\uC744 \uC218 \uC788\uB2E4"
-    playerLine: "\uBCF4\uC218\uB294 \uCC59\uACA8 \uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4.
-      \uC81C \uB9D0\uC744 \uBBFF\uC73C\uC154\uB3C4 \uB429\uB2C8\uB2E4."
-    resultDialogue: "\uB9D0\uBFD0\uC774\uAD70\uC694. \uC624\uB298 \uC598\uAE30\uB294
-      \uC5EC\uAE30\uAE4C\uC9C0 \uD558\uC8E0."
-    resultValue: verbal_promise
+  - choiceText: "\uc790\ub8cc\uc640 \uc694\uad6c \uc870\uac74\uc744 \uc11c\uba74\uc73c\ub85c \uc694\uccad\ud55c\ub2e4"
+    choiceDescription: "\uac80\ud1a0\uc6a9 \uc790\ub8cc\ub97c \ubc1b\uc2b5\ub2c8\ub2e4. \ubcf4\uc218 \uc9c0\uae09\uc774\ub098 \uacc4\uc57d \uccb4\uacb0\uc740 \uc544\uc9c1 \ud655\uc815\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
+    playerLine: "\uc790\ub8cc\uc640 \uc694\uad6c \uc870\uac74\uc744 \uc11c\uba74\uc73c\ub85c \ubcf4\ub0b4\uc8fc\uc2ed\uc2dc\uc624. \ub0b4\uc6a9\uc744 \ud655\uc778\ud55c \ub4a4 \ub2f5\ub4dc\ub9ac\uaca0\uc2b5\ub2c8\ub2e4."
+    resultDialogue: "\uc54c\uaca0\uc2b5\ub2c8\ub2e4. \uc81c\uac00 \uc6d0\ud558\ub294 \uc870\uac74\ub3c4 \ud568\uaed8 \uc801\uaca0\uc2b5\ub2c8\ub2e4. \uac80\ud1a0\ud558\uc2dc\uace0 \ub2e4\uc2dc \ub9d0\uc500\ud574 \uc8fc\uc2ed\uc2dc\uc624."
+    resultValue: "request_terms"
     npcResult:
       eventId: 
       companyId: 
@@ -108,9 +54,57 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation: "\ud22c\uc790\uc790\uac00 \uc790\ub8cc\uc640 \uc131\uacfc\ubcf4\uc218 \uc694\uad6c \uc870\uac74\uc744 \uc11c\uba74\uc73c\ub85c \uc694\uccad\ud588\ub2e4. \ubcf4\uc218 \uc9c0\uae09\uc774\ub098 \uc778\uc218 \uacc4\uc57d\uc740 \uccb4\uacb0\ud558\uc9c0 \uc54a\uc558\ub2e4."
+        tags: []
+        relationDelta:
+          trust: 10
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 10
+      memoryType: 8
+      strength: 2
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\ud22c\uc790\uc790\uac00 \uc790\ub8cc\uc640 \uc131\uacfc\ubcf4\uc218 \uc694\uad6c \uc870\uac74\uc744 \uc11c\uba74\uc73c\ub85c \uc694\uccad\ud588\ub2e4. \ubcf4\uc218 \uc9c0\uae09\uc774\ub098 \uc778\uc218 \uacc4\uc57d\uc740 \uccb4\uacb0\ud558\uc9c0 \uc54a\uc558\ub2e4."
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+  - choiceText: "\uc6b0\uc120 \uad6c\ub450\ub85c \ub0b4\uc6a9\uc744 \ub4e3\ub294\ub2e4"
+    choiceDescription: "\uacc4\uc57d \uc758\uc0ac\ub294 \ubc1d\ud788\uc9c0 \uc54a\uace0 \uc124\uba85\ub9cc \uc694\uccad\ud569\ub2c8\ub2e4. \uc0c1\ub300\ub294 \uc790\ub8cc \uc81c\uacf5\uc5d0 \uc18c\uadf9\uc801\uc785\ub2c8\ub2e4."
+    playerLine: "\uc624\ub298\uc740 \ub9d0\uc500\ubd80\ud130 \ub4e3\uaca0\uc2b5\ub2c8\ub2e4. \ubcf4\uc218\ub098 \uacc4\uc57d\uc740 \uc9c0\uae08 \uacb0\uc815\ud558\uae30 \uc5b4\ub835\uc2b5\ub2c8\ub2e4."
+    resultDialogue: "\uadf8\ub807\ub2e4\uba74 \uc790\uc138\ud55c \uc790\ub8cc\ub97c \ub4dc\ub9ac\uae30\ub294 \uc5b4\ub835\uaca0\uad70\uc694. \uc870\uac74\uc744 \uac80\ud1a0\ud558\uc2e4 \uc0dd\uac01\uc774 \ub4e4\uba74 \ub2e4\uc2dc \uc5f0\ub77d \uc8fc\uc2ed\uc2dc\uc624."
+    resultValue: "hear_outline"
+    npcResult:
+      eventId: 
+      companyId: 
+      actorId: 
+      actionId: 
+      targetNpcIds:
+      - npc-mirae-construction-cfo-seo-jia
+      targetReactions:
+      - targetNpcId: npc-mirae-construction-cfo-seo-jia
+        memoryType: 8
+        strength: 2
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\ud22c\uc790\uc790\uac00 \uc124\uba85\ub9cc \ub4e3\uace0 \ubcf4\uc218 \uc870\uac74\uc5d0 \ub300\ud55c \ud655\ub2f5\uc744 \uc720\ubcf4\ud588\ub2e4. \uc57d\uc18d \ud30c\uae30\ub098 \uc9c0\uae09 \uc644\ub8cc\uac00 \uc544\ub2c8\ub2e4."
         tags:
-        - vague_promise
+        - terms_uncommitted
         relationDelta:
           trust: -10
           respect: 0
@@ -124,9 +118,9 @@ MonoBehaviour:
       permanent: 0
       durationTurns: 3
       reliability: 1
-      interpretation: 
+      interpretation: "\ud22c\uc790\uc790\uac00 \uc124\uba85\ub9cc \ub4e3\uace0 \ubcf4\uc218 \uc870\uac74\uc5d0 \ub300\ud55c \ud655\ub2f5\uc744 \uc720\ubcf4\ud588\ub2e4. \uc57d\uc18d \ud30c\uae30\ub098 \uc9c0\uae09 \uc644\ub8cc\uac00 \uc544\ub2c8\ub2e4."
       tags:
-      - vague_promise
+      - terms_uncommitted
       relationDelta:
         trust: 0
         respect: 0
@@ -171,7 +165,10 @@ MonoBehaviour:
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
     buybackPremiumRatio: 0
-  conditions: []
+  conditions:
+  - kind: 2
+    comparison: 0
+    value: 10
   validDays: 2
   speakerSource: 0
   choiceGeneration: 0

@@ -60,6 +60,7 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
             {
                 status = state.status,
                 stats = new List<TradingSaveData.StatData>(), totalShares = state.totalShares,
+                greenmailBuyBlocked = state.greenmailBuyBlocked,
                 initialRevenue = state.initialRevenue, initialCost = state.initialCost,
                 initialNetProfit = state.initialNetProfit, initialNetMargin = state.initialNetMargin,
                 initialDebtRatio = state.initialDebtRatio, initialLiquidityStrength = state.initialLiquidityStrength,

@@ -4952,6 +4952,16 @@ MonoBehaviour:
     position: {x: 282, y: -81}
   - companyID: dongbang-trading
     position: {x: -369, y: 257}
+  - companyID: polaris-finance
+    position: {x: -550, y: 320}
+  - companyID: daeseong-industry
+    position: {x: 560, y: 300}
+  - companyID: sinseong-development
+    position: {x: 0, y: 380}
+  - companyID: blueharbor-retail
+    position: {x: -520, y: -320}
+  - companyID: aurora-foodtech
+    position: {x: 520, y: -300}
   autoRadius: 600
 --- !u!1 &2636877699205057073
 GameObject:
