@@ -368,7 +368,7 @@ namespace TakeOver.Story.Editor
             Check(visited==sequence.beats.Count,"Every authored beat visited without skip");
             Check(choices==3,"All three conversations completed");
             Check(clock.CurrentTurn==startTurn+1,"Only one real turn consumed");
-            Check(StoryDirector.CanTrade(company,false) && StoryDirector.CanNavigate(3),"Normal controls restored");
+            Check(StoryDirector.CanTrade(company,false) && StoryDirector.CanNavigate(DashboardTab.Npcs),"Normal controls restored");
             Check(GameObject.Find("Help introduction")!=null,"Normal tutorial completion shows help location notice");
             events.refreshAvailability(); Check(events.getTodayEventInfos().Count>0,"Normal events available after intro");
             if(StoryPlayVerification.SkipRegression)

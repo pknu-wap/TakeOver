@@ -7,7 +7,10 @@ namespace TakeOver.Operations
     {
         [SerializeField] private Button[] subTabButtons;
         [SerializeField] private GameObject[] subTabs;
-        private int current;
+        [SerializeField] private GameObject documentsTab;
+        [SerializeField] private Text[] subTabLabels;
+        [SerializeField] private Image[] subTabBackgrounds;
+        private int current = -1;
         private TopBarNavigationController navigation;
 
         private void Awake()
@@ -23,7 +26,7 @@ namespace TakeOver.Operations
         public void open()
         {
             gameObject.SetActive(true);
-            Show(current);
+            Show(current < 0 ? System.Array.IndexOf(subTabs, documentsTab) : current);
         }
 
         public void close() => gameObject.SetActive(false);
@@ -31,13 +34,20 @@ namespace TakeOver.Operations
         public void Show(int index)
         {
             current = index;
-            for (int i = 0; i < subTabs.Length; i++) subTabs[i].SetActive(i == index);
+            for (int i = 0; i < subTabs.Length; i++)
+            {
+                bool selected = i == index;
+                subTabs[i].SetActive(selected);
+                subTabLabels[i].fontStyle = selected ? FontStyle.Bold : FontStyle.Normal;
+                subTabLabels[i].color = selected ? new Color(1f, .81f, .3f) : new Color(.65f, .75f, .88f);
+                subTabBackgrounds[i].color = selected ? new Color(.025f, .065f, .13f) : new Color(.055f, .15f, .29f);
+            }
         }
 
         public void OpenDocumentsTab()
         {
             if (navigation == null) navigation = FindFirstObjectByType<TopBarNavigationController>();
-            if (navigation.Navigate(DashboardTab.Operations)) Show(0);
+            if (navigation.Navigate(DashboardTab.Operations)) Show(System.Array.IndexOf(subTabs, documentsTab));
         }
     }
 }

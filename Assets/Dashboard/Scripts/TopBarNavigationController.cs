@@ -7,7 +7,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
 {
     [SerializeField] private Button[] tabButtons;
     [SerializeField] private DashboardTab[] tabKinds = {
-        DashboardTab.Home, DashboardTab.Map, DashboardTab.Companies, DashboardTab.Npcs, DashboardTab.News, DashboardTab.Log, DashboardTab.Operations
+        DashboardTab.Home, DashboardTab.Operations, DashboardTab.Map, DashboardTab.Companies, DashboardTab.Npcs, DashboardTab.News, DashboardTab.Log
     };
     [SerializeField] private TopBarIndicatorController indicator;
     [SerializeField] private CompanyBrowserScreen browser;
@@ -17,6 +17,8 @@ public sealed class TopBarNavigationController : MonoBehaviour
     [SerializeField] private EventSystemController eventController;
     [SerializeField] private NewsScreen newsScreen;
     private TakeOver.Operations.OperationsScreen operationsScreen;
+    [SerializeField] private GameObject operationsSelection;
+    [SerializeField] private TMPro.TMP_Text operationsLabel;
     private int currentTab;
     private TakeOver.Help.HelpScreen help;
     private int helpTab;
@@ -75,7 +77,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
             if (operationsScreen != null) operationsScreen.close();
             if (newsScreen != null) newsScreen.close();
             browser.close(); statusScreen.Close(); help.Open();
-            currentTab = index; indicator.OnTabClicked(index); return;
+            currentTab = index; indicator.OnTabClicked(index); operationsSelection.SetActive(false); operationsLabel.color = Color.white; return;
         }
         help.Close();
         if ((tab == DashboardTab.News && newsScreen == null) || tab == DashboardTab.Log || (tab == DashboardTab.Operations && operationsScreen == null))
@@ -119,6 +121,8 @@ public sealed class TopBarNavigationController : MonoBehaviour
         }
         currentTab = index;
         indicator.OnTabClicked(index);
+        operationsSelection.SetActive(tab == DashboardTab.Operations);
+        operationsLabel.color = tab == DashboardTab.Operations ? new Color(1f, .81f, .3f) : Color.white;
     }
 
     private void LateUpdate()
