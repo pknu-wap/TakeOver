@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TakeOver.Documents;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TakeOver.Operations
 {
@@ -10,6 +11,7 @@ namespace TakeOver.Operations
         [SerializeField] private DocumentButton valueButton;
         [SerializeField] private GameObject optionsRoot;
         [SerializeField] private DocumentButton optionTemplate;
+        [SerializeField] private Text fieldLabel;
         private readonly List<GameObject> options = new List<GameObject>();
 
         public void Bind(IApprovalDocument document, DocumentField field, bool readOnly, float value, Action changed)
@@ -24,7 +26,8 @@ namespace TakeOver.Operations
             options.Clear();
             optionsRoot.SetActive(false);
             optionTemplate.gameObject.SetActive(false);
-            valueButton.Bind($"{field.label}: {value:P0} ▾", () => optionsRoot.SetActive(!optionsRoot.activeSelf), !readOnly);
+            fieldLabel.text = field.label;
+            valueButton.Bind($"{value:P0}{(readOnly ? "" : " ▾")}", () => optionsRoot.SetActive(!optionsRoot.activeSelf), !readOnly);
             if (readOnly) return;
             foreach (float choice in field.options)
             {
@@ -33,7 +36,7 @@ namespace TakeOver.Operations
                 button.Bind(choice.ToString("P0"), () =>
                 {
                     document.SetField(field.name, choice);
-                    valueButton.Bind($"{field.label}: {choice:P0} ▾", () => optionsRoot.SetActive(!optionsRoot.activeSelf));
+                    valueButton.Bind($"{choice:P0} ▾", () => optionsRoot.SetActive(!optionsRoot.activeSelf));
                     optionsRoot.SetActive(false);
                     changed();
                 });

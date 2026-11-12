@@ -8,16 +8,17 @@ namespace TakeOver.Operations
 {
     public sealed class DocumentTabView : MonoBehaviour
     {
-        [SerializeField] private GameObject listRoot;
         [SerializeField] private Transform openRoot;
         [SerializeField] private Transform historyRoot;
-        [SerializeField] private DocumentButton rowTemplate;
+        [SerializeField] private DocumentCard rowTemplate;
         [SerializeField] private GameObject openEmpty;
         [SerializeField] private GameObject historyEmpty;
         [SerializeField] private DocumentDetailView detail;
-        private readonly List<GameObject> rows = new List<GameObject>();
+        private readonly List<DocumentCard> cards = new List<DocumentCard>();
+        private readonly List<IApprovalDocument> cardDocuments = new List<IApprovalDocument>();
         private DocumentInbox inbox;
         private GameTurnClock clock;
+        private IApprovalDocument selected;
 
         private void Start()
         {
@@ -27,8 +28,7 @@ namespace TakeOver.Operations
             if (inbox != null) inbox.Changed += refresh;
             clock.TurnAdvanced += onTurn;
             detail.Decided += decide;
-            detail.Closed += showList;
-            showList();
+            refresh();
         }
 
         private void OnEnable()
@@ -41,59 +41,56 @@ namespace TakeOver.Operations
             if (inbox != null) inbox.Changed -= refresh;
             if (clock != null) clock.TurnAdvanced -= onTurn;
             detail.Decided -= decide;
-            detail.Closed -= showList;
         }
 
         private void onTurn(int turn) => refresh();
-
-        private void decide(IApprovalDocument doc, bool approved)
-        {
-            inbox.Resolve(doc, approved);
-            showList();
-        }
-
-        private void showList()
-        {
-            detail.gameObject.SetActive(false);
-            listRoot.SetActive(true);
-            refresh();
-        }
+        private void decide(IApprovalDocument doc, bool approved) => inbox.Resolve(doc, approved);
 
         private void refresh()
         {
-            foreach (var row in rows) { row.SetActive(false); Destroy(row); }
-            rows.Clear();
+            foreach (var card in cards) { card.gameObject.SetActive(false); Destroy(card.gameObject); }
+            cards.Clear();
+            cardDocuments.Clear();
             rowTemplate.gameObject.SetActive(false);
             openEmpty.SetActive(inbox == null || inbox.PendingCount == 0);
             historyEmpty.SetActive(inbox == null || inbox.History.Count == 0);
-            if (inbox == null) return;
+            if (inbox == null) { detail.Clear(); return; }
             foreach (var doc in inbox.Open)
             {
                 int remaining = doc.DeadlineTurn - clock.CurrentTurn;
-                string deadline = remaining <= 0 ? "기한 지남" : $"남은 기한 {remaining}턴";
-                var row = addRow(openRoot);
-                row.SetColor(remaining <= 0 ? new Color(1f, .84f, .35f) : new Color(.96f, .97f, 1f));
-                row.Bind($"{doc.Title} · {doc.TargetCompany?.definition.companyName} · {deadline}", () => showDetail(doc, null));
+                string due = remaining < 0 ? "기한 지남" : remaining == 0 ? "오늘 마감" : $"D-{remaining}";
+                addCard(openRoot, doc, due, remaining <= 0, null);
             }
             foreach (var entry in inbox.History)
             {
-                string values = string.Join(", ", entry.fields.Select(f => $"{f.name}={f.value:P0}"));
-                var row = addRow(historyRoot);
-                row.Bind($"{entry.document.Title} · {entry.document.TargetCompany?.definition.companyName} · {(entry.approved ? "승인" : "거절")} · 처리 {entry.resolvedTurn}턴 · {values}", () => showDetail(entry.document, entry));
+                string values = string.Join(", ", entry.fields.Select(f => $"{f.value:P0}"));
+                addCard(historyRoot, entry.document,
+                    $"{(entry.approved ? "승인" : "거절")} · {entry.resolvedTurn}턴 · {values}", false, entry);
             }
+            if (selected == null || !cardDocuments.Contains(selected))
+                selected = cardDocuments.Count > 0 ? cardDocuments[0] : null;
+            if (selected == null) { detail.Clear(); return; }
+            ResolvedDocument resolved = null;
+            foreach (var entry in inbox.History)
+                if (entry.document == selected) { resolved = entry; break; }
+            select(selected, resolved);
         }
 
-        private DocumentButton addRow(Transform parent)
+        private void addCard(Transform parent, IApprovalDocument doc, string status, bool overdue, ResolvedDocument resolved)
         {
-            var row = Instantiate(rowTemplate, parent, false);
-            row.gameObject.SetActive(true);
-            rows.Add(row.gameObject);
-            return row;
+            var card = Instantiate(rowTemplate, parent, false);
+            card.gameObject.SetActive(true);
+            string title = doc.TypeId == DividendPolicyDocument.typeId
+                ? $"배당 정책 · {doc.TargetCompany?.definition.companyName}" : doc.Title;
+            card.Bind(title, doc.TargetCompany?.definition.companyName ?? "대상 없음", status, overdue, () => select(doc, resolved));
+            cards.Add(card);
+            cardDocuments.Add(doc);
         }
 
-        private void showDetail(IApprovalDocument doc, ResolvedDocument resolved)
+        private void select(IApprovalDocument doc, ResolvedDocument resolved)
         {
-            listRoot.SetActive(false);
+            selected = doc;
+            for (int i = 0; i < cards.Count; i++) cards[i].SetSelected(cardDocuments[i] == doc);
             detail.Show(doc, resolved);
         }
     }
