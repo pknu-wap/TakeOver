@@ -53,6 +53,7 @@ public class CompanyState
         stats[CompanyStat.EMPLOYEE_COUNT] = definition.initialEmployeeCount;
         stats[CompanyStat.WATCHLIST_REVIEWS_REMAINING] = 0f;
         stats[CompanyStat.LIQUIDATION_TURNS_REMAINING] = 0f;
+        stats[CompanyStat.DIVIDEND_RATIO] = definition.dividendRatio;
 
         totalShares = definition.totalShares;
 
