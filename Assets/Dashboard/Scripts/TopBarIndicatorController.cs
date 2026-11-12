@@ -17,6 +17,8 @@ public class TopBarIndicatorController : MonoBehaviour
     private Coroutine moveCoroutine;
     private RectTransform indicatorRect;
 
+    public void AddTab(Button button) => tabButtons.Add(button);
+
     private void Awake()
     {
         if (markCurrentTap != null)

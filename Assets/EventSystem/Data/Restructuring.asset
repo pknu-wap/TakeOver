@@ -604,10 +604,13 @@ MonoBehaviour:
     npcId: 
     relationAxis: 0
     comparison: 0
-    value: 55
+    value: 51
     relaxedByEventId: 
     relaxedByChoiceIndex: 0
     relaxedValue: 0
+  - kind: 3
+    comparison: 0
+    value: 1
   validDays: 3
   speakerSource: 2
   choiceGeneration: 0

@@ -252,6 +252,8 @@ public class CompanyDetailPanel : MonoBehaviour
         }
         else
         {
+            if(isBuy && current.state.greenmailBuyBlocked)
+            {setText(messageText,"그린메일 제안을 수락한 회사의 주식은 다시 매수할 수 없습니다.");return;}
             setText(messageText, isBuy
                 ? $"{action}하지 못하였습니다. 잔액과 매수 가능 수량을 확인해 주십시오."
                 : $"{action}하지 못하였습니다. 보유 주식을 확인해 주십시오.");
