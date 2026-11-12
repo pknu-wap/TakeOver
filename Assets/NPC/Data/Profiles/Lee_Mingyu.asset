@@ -15,10 +15,35 @@ MonoBehaviour:
   seed:
     position: 0
     preferenceResponse:
+      source: 1
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
-    memoryPreferences: []
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: "공식 자료와 숫자로 설명되는 투명한 약속 이행을 신뢰하고 존중한다."
+      effect:
+        mode: 1
+        multiplier: 1.3
+        affectedAxes: 3
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 1
+      disposition: 2
+      rationale: "설명이 뒤집히고 약속이 깨지는 기록은 사실관계의 신뢰를 떨어뜨린다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 1
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 7
+      disposition: 2
+      rationale: "자료와 기업 실적의 신뢰성을 흐리는 뇌물 기억은 신뢰 하락을 강화한다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 1
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-economic-reporter-lee-mingyu
     companyId: external-network
     profile:

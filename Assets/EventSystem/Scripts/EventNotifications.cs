@@ -51,6 +51,7 @@ namespace TakeOver.Events
                 this.npcResult = JsonUtility.FromJson<NpcEventPayload>(JsonUtility.ToJson(npcResult));
                 this.npcResult.eventId = occurrenceId;
                 this.npcResult.companyId = companyId;
+                if(string.IsNullOrWhiteSpace(this.npcResult.actorId))this.npcResult.actorId="player";
             }
         }
     }

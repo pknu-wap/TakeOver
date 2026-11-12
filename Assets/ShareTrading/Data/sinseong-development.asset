@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
+  m_Name: sinseong-development
+  m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
+  companyName: "\uC2E0\uC131\uAC1C\uBC1C"
+  companyID: sinseong-development
+  logo: {fileID: 0}
+  industry: "\uBD80\uB3D9\uC0B0\xB7\uBCF5\uD569\uAC1C\uBC1C"
+  coreValue: "\uC790\uC0B0\uAC00\uCE58\uC640 \uB3C4\uC2DC \uC601\uD5A5\uB825"
+  description: "\uADF8\uB8F9\uACFC \uB300\uD615 \uAC1C\uBC1C\uC0AC\uC5C5\uC744 \uD568\uAED8
+    \uC218\uD589\uD558\uB294 \uACF5\uB3D9\uC0AC\uC5C5 \uD30C\uD2B8\uB108. \uC785\uC9C0\uC640
+    \uAC1C\uBC1C\uAD8C\uC744 \uC120\uC810\uD574 \uBBF8\uB798\uAC74\uC124\uC744 \uC555\uBC15\uD55C\uB2E4.
+    \uC790\uC0B0 \uAC00\uACA9\uBFD0 \uC544\uB2C8\uB77C \uC7A5\uAE30 \uACF5\uAC04
+    \uAC00\uCE58\uC640 \uC9C0\uC5ED \uAD00\uACC4\uAC00 \uC0AC\uC5C5\uC758 \uC131\uD328\uB97C
+    \uC88C\uC6B0\uD55C\uB2E4."
+  coverImage: {fileID: 0}
+  totalShares: 10000
+  initialBaseCompanyValue: 11000
+  initialRevenue: 760
+  initialCost: 590
+  initialCash: 1500
+  initialDebt: 4200
+  initialTangibleAssets: 9400
+  initialIntangibleAssets: 600
+  initialReputationB2C: 50
+  initialReputationB2B: 50
+  initialReputaionPlayer: 0
+  initialMarketPosition: 50
+  initialPlayerShares: 0
+  initialTangibleCoefficient: 0.75
+  initialIntangibleCoefficient: 0.75

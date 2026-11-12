@@ -6,6 +6,17 @@ namespace TakeOver.NPC
     internal static class NpcInfoPanel
     {
         private static Texture2D silhouette;
+        private static Sprite silhouetteSprite;
+        internal static Sprite FallbackStanding
+        {
+            get
+            {
+                if (silhouette == null) silhouette = CreateSilhouette();
+                if (silhouetteSprite == null)
+                    silhouetteSprite = Sprite.Create(silhouette, new Rect(0, 0, 160, 400), new Vector2(.5f, 0), 100);
+                return silhouetteSprite;
+            }
+        }
         // 0~100 스탯은 긍정/부정 성격에 따라 채워지는 바의 색을 구분한다.
         private static readonly Color PositiveBar = new Color(0.25f, 0.60f, 0.95f);
         private static readonly Color NegativeBar = new Color(0.90f, 0.28f, 0.30f);
@@ -61,6 +72,12 @@ namespace TakeOver.NPC
             GUILayout.Label(profile?.gameplayRoleSummary ?? "", text);
             GUILayout.Space(12);
             GUILayout.Label($"기억 {state.memories.Count}개 · 관계 갱신 {r.lastUpdatedTurn}일", text);
+            foreach (var memory in state.memories)
+            {
+                if (memory == null) continue;
+                GUILayout.Space(8);
+                GUILayout.Label($"{memory.turn}일 · {memory.interpretation}", text);
+            }
             GUILayout.EndScrollView();
             GUILayout.EndArea();
         }

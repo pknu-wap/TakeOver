@@ -7,6 +7,7 @@ public class DaySkipController : MonoBehaviour
 {
     [Header("UI Reference")]
     [SerializeField] private Button daySkipButton;
+    public Button DaySkipButton => daySkipButton;
 
     private void Awake()
     {

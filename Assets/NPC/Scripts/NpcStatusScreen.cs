@@ -62,6 +62,12 @@ namespace TakeOver.NPC
             ResolveRegistry();
             var scale = Mathf.Min(Screen.width / 1280f, Screen.height / 720f);
             var offset = new Vector2((Screen.width - 1280f * scale) * .5f, (Screen.height - 720f * scale) * .5f);
+            bool tutorial = TakeOver.Story.StoryDirector.IsInspectingProfile;
+            if (tutorial)
+            {
+                offset += new Vector2(356 * scale,40 * scale);
+                scale *= .70f;
+            }
             var previousMatrix = GUI.matrix;
             var previousColor = GUI.color;
             int previousDepth = GUI.depth;
@@ -77,7 +83,7 @@ namespace TakeOver.NPC
             if (registry != null && registry.TryGetProfile(selectedNpcId, out var selected) && registry.TryGet(selectedNpcId, out var state))
             {
                 DrawSelector();
-                NpcInfoPanel.Draw(selected, state, new GUIStyle(GUI.skin.label) { fontSize = 16, wordWrap = true }, ref infoScroll);
+                NpcInfoPanel.Draw(selected, state, new GUIStyle(GUI.skin.label) { fontSize = tutorial ? 20 : 16, wordWrap = true }, ref infoScroll);
             }
             else GUI.Label(new Rect(20, 154, 1160, 40), "표시할 NPC 정보가 없습니다.", new GUIStyle(GUI.skin.label) { fontSize = 20 });
             GUI.EndGroup();

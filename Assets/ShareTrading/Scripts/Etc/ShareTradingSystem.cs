@@ -5,6 +5,8 @@ public class ShareTradingSystem : MonoBehaviour
     [SerializeField] private Player player;
     public bool buyShares(Company company, int buyAmount)
     {
+        if(company != null && company.state.greenmailBuyBlocked) return false;
+        if (!TakeOver.Story.StoryDirector.CanTradeAmount(company, true, buyAmount)) return false;
         float sharePrice = company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
         float remainShares = company.state.getDerivedStat(CompanyDerivedStat.REMAIN_SHARES);
         if (buyAmount <= 0 || sharePrice <= 0 || buyAmount > remainShares) {
@@ -29,6 +31,7 @@ public class ShareTradingSystem : MonoBehaviour
 
     public bool sellShares(Company company, int sellAmount)
     {
+        if (!TakeOver.Story.StoryDirector.CanTradeAmount(company, false, sellAmount)) return false;
         float sharePrice = company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
         float playerShares = company.state.getStat(CompanyStat.PLAYER_SHARES);
         if (sellAmount <= 0 || sharePrice <= 0 || sellAmount > playerShares) {

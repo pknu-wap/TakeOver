@@ -15,10 +15,35 @@ MonoBehaviour:
   seed:
     position: 0
     preferenceResponse:
+      source: 1
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
-    memoryPreferences: []
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: "투명한 협상에서 고용 승계·보상·안전 약속을 지킨 결과를 신뢰하고 존중한다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 3
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 1
+      disposition: 2
+      rationale: "직원 권리를 보장한 합의를 뒤집는 결과는 신뢰 하락과 반발을 남긴다."
+      effect:
+        mode: 1
+        multiplier: 1.35
+        affectedAxes: 9
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 2
+      disposition: 2
+      rationale: "기습적 대규모 해고에 노동자 권리를 근거로 강하게 반발한다."
+      effect:
+        mode: 1
+        multiplier: 1.4
+        affectedAxes: 8
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-hansung-industry-labor-director-choi-mijeong
     companyId: hansung-industry
     profile:

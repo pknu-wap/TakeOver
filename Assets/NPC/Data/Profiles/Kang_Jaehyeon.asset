@@ -15,10 +15,35 @@ MonoBehaviour:
   seed:
     position: 1
     preferenceResponse:
+      source: 1
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
-    memoryPreferences: []
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: "성과로 이어지는 약속 이행에는 사업적 관심을 소폭 더한다."
+      effect:
+        mode: 1
+        multiplier: 1.1
+        affectedAxes: 32
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 1
+      disposition: 2
+      rationale: "약속 파기로 실행 일정과 시장 확대가 어긋나면 신뢰·관심이 줄어든다."
+      effect:
+        mode: 1
+        multiplier: 1.2
+        affectedAxes: 33
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 4
+      disposition: 1
+      rationale: "회사를 살려 성장과 실행 기회를 확보한 결과를 존중한다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 34
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-dongbang-trading-ceo-kang-jaehyeon
     companyId: dongbang-trading
     profile:

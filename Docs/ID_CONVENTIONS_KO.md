@@ -51,3 +51,36 @@ Unity 6000.3.6f1에서 93개 항목을 검증했다. 이벤트의 모든 NPC 대
 | 최미정 | Choi_Mijeong.asset | Choi_Mijeong | `npc-hansung-industry-labor-director-choi-mijeong` |
 
 이번 변경에서는 이벤트 SO/프리팹, NPC 기본 명단, 테스트 씬과 검증 코드의 참조를 함께 변경했다. 구 인명 ID의 별칭/자동 변환은 추가하지 않았다. 새 ID와 다른 저장은 기존 ID 검증 규칙에 따라 거부한다.
+
+## 대립기업 확장 — 2026-11-10
+
+기존 14명의 ID를 유지하고, 승인된 대립기업 5곳의 핵심 인물 16명을 추가한다. 총 등록 30명, 회사 9곳, CEO 9명이다.
+
+| 회사 | companyID |
+|---|---|
+| 폴라리스파이낸스 | `polaris-finance` |
+| 대성산업 | `daeseong-industry` |
+| 신성개발 | `sinseong-development` |
+| 블루하버리테일 | `blueharbor-retail` |
+| 오로라푸드테크 | `aurora-foodtech` |
+
+| 인물 | SO 파일 | npcId |
+|---|---|---|
+| 임도현 | Lim_Dohyeon.asset | `npc-polaris-finance-ceo-lim-dohyeon` |
+| 송현석 | Song_Hyeonseok.asset | `npc-polaris-finance-risk-director-song-hyeonseok` |
+| 정유라 | Jung_Yura.asset | `npc-polaris-finance-ma-director-jung-yura` |
+| 김성호 | Kim_Seongho.asset | `npc-daeseong-industry-ceo-kim-seongho` |
+| 노현정 | Noh_Hyeonjeong.asset | `npc-daeseong-industry-cfo-noh-hyeonjeong` |
+| 오진우 | Oh_Jinu.asset | `npc-daeseong-industry-business-development-director-oh-jinu` |
+| 최은수 | Choi_Eunsu.asset | `npc-daeseong-industry-hr-director-choi-eunsu` |
+| 정도현 | Jung_Dohyeon.asset | `npc-sinseong-development-ceo-jung-dohyeon` |
+| 유정민 | Yoo_Jeongmin.asset | `npc-sinseong-development-planning-director-yoo-jeongmin` |
+| 강민지 | Kang_Minji.asset | `npc-sinseong-development-community-director-kang-minji` |
+| 서유진 | Seo_Yujin.asset | `npc-blueharbor-retail-ceo-seo-yujin` |
+| 한도경 | Han_Dogyeong.asset | `npc-blueharbor-retail-data-director-han-dogyeong` |
+| 김동석 | Kim_Dongseok.asset | `npc-blueharbor-retail-operations-director-kim-dongseok` |
+| 김서후 | Kim_Seohu.asset | `npc-aurora-foodtech-ceo-kim-seohu` |
+| 정하린 | Jung_Harin.asset | `npc-aurora-foodtech-chief-scientist-jung-harin` |
+| 한유나 | Han_Yuna.asset | `npc-aurora-foodtech-business-development-director-han-yuna` |
+
+임도현의 성은 통용 표기 `lim`, 정도현의 성은 기존 정수아와 같은 `jung`을 사용한다. 이름 내부 음절은 붙인다. 신규 인물의 원화는 미등록이며 공용 인물 정보창의 실루엣을 사용한다.

@@ -40,6 +40,7 @@ public class TradingSaveData
         public CompanyStatus status;
         public List<StatData> stats;
         public int totalShares;
+        public bool greenmailBuyBlocked;
         public float initialRevenue, initialCost, initialNetProfit, initialNetMargin;
         public float initialDebtRatio, initialLiquidityStrength, initialAssetValue;
         public float tangibleCoefficient, intangibleCoefficient;

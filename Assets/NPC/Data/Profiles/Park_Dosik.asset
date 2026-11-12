@@ -15,10 +15,43 @@ MonoBehaviour:
   seed:
     position: 0
     preferenceResponse:
+      source: 1
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
-    memoryPreferences: []
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: "현장 고용 조건을 실제로 지킨 기억을 강하게 신뢰한다."
+      effect:
+        mode: 1
+        multiplier: 1.35
+        affectedAxes: 1
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 1
+      disposition: 2
+      rationale: "약속한 고용·안전 조건의 위반은 신뢰를 잃고 현장 책임자로서 반발하게 한다."
+      effect:
+        mode: 1
+        multiplier: 1.35
+        affectedAxes: 9
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 2
+      disposition: 2
+      rationale: "공사 일정과 안전을 망가뜨리는 대규모 감축에 가장 강하게 반발한다."
+      effect:
+        mode: 1
+        multiplier: 1.4
+        affectedAxes: 8
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 4
+      disposition: 1
+      rationale: "현장과 회사의 운영을 이어 간 구제 결과를 소폭 긍정한다."
+      effect:
+        mode: 1
+        multiplier: 1.1
+        affectedAxes: 3
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-mirae-construction-field-director-park-dosik
     companyId: mirae-construction
     profile:

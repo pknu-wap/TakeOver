@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace TakeOver.SaveSystem
@@ -17,7 +18,7 @@ namespace TakeOver.SaveSystem
             FixedDaySeed.generateSeed();
         }
 
-        private SaveFileStorage storage
+        protected virtual SaveFileStorage storage
         {
             get { return new SaveFileStorage(Application.persistentDataPath); }
         }
@@ -161,7 +162,7 @@ namespace TakeOver.SaveSystem
                 {
                     module.applyLoad();
                 }
-                foreach (ISaveParticipant module in modules)
+                foreach (ISaveParticipant module in modules.OrderBy(x => x is ISaveRebuildOrder ordered ? ordered.rebuildOrder : 0))
                 {
                     module.rebuildAfterLoad();
                 }
@@ -181,15 +182,21 @@ namespace TakeOver.SaveSystem
 
         private ISaveParticipant[] getParticipants()
         {
-            if (participants.Length == 0)
+            // 명시한 순서를 유지하고, 현재 씬의 저장 파트를 보충한다.
+            // 빈 기본 프리팹이나 기존 연결에서도 신규 이벤트 파트가 누락되지 않도록 한다.
+            var sources = new List<MonoBehaviour>(participants);
+            foreach (var source in FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .Where(x => x is ISaveParticipant).OrderBy(x => ((ISaveParticipant)x).saveId, StringComparer.Ordinal))
+                if (!sources.Contains(source)) sources.Add(source);
+            if (sources.Count == 0)
             {
                 throw new InvalidOperationException("저장할 파트를 등록해야 합니다.");
             }
-            ISaveParticipant[] modules = new ISaveParticipant[participants.Length];
+            ISaveParticipant[] modules = new ISaveParticipant[sources.Count];
             HashSet<string> ids = new HashSet<string>(StringComparer.Ordinal);
-            for (int i = 0; i < participants.Length; i++)
+            for (int i = 0; i < sources.Count; i++)
             {
-                ISaveParticipant module = participants[i] as ISaveParticipant;
+                ISaveParticipant module = sources[i] as ISaveParticipant;
                 if (module == null)
                 {
                     throw new InvalidOperationException("저장 파트의 계약·ID·버전을 확인하세요.");
