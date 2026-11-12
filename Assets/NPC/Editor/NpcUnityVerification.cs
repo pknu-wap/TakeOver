@@ -51,17 +51,17 @@ namespace TakeOver.NPC.Editor
                 var errors = new List<string>();
                 var ids = NpcConfigurationDiagnostics.RegistryIds(registry, errors);
                 Require(errors.Count == 0, "Inspector diagnostics: " + string.Join("; ", errors));
-                Require(ids.Count == 14, "Prefab has 14 unique NPC definitions");
+                Require(ids.Count == 30, "Prefab has 30 unique NPC definitions");
                 var definitions = new SerializedObject(registry).FindProperty("npcDefinitions");
                 var ceos = 0;
                 for (var i = 0; i < definitions.arraySize; i++)
                 {
                     var seed = ((NpcDefinition)definitions.GetArrayElementAtIndex(i).objectReferenceValue).CreateRuntimeSeed();
-                    Require(new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry", "external-network" }.Contains(seed.companyId)
+                    Require(new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry", "polaris-finance", "daeseong-industry", "sinseong-development", "blueharbor-retail", "aurora-foodtech", "external-network" }.Contains(seed.companyId)
                         && (seed.companyId == "external-network" || seed.npcId.StartsWith("npc-" + seed.companyId + "-", StringComparison.Ordinal)), "Canonical ID: " + seed.npcId);
                     if (seed.position == NpcPosition.CEO) ceos++;
                 }
-                Require(ceos == 4, "Exactly four CEO definitions");
+                Require(ceos == 9, "Exactly nine CEO definitions");
                 VerifyProjectIdReferences();
                 EditorSceneManager.OpenScene("Assets/Scenes/Game.unity", OpenSceneMode.Single);
                 var gameView = EditorWindow.GetWindow(Type.GetType("UnityEditor.GameView,UnityEditor"));
@@ -160,47 +160,49 @@ namespace TakeOver.NPC.Editor
             ui = UnityEngine.Object.FindFirstObjectByType<NpcFeatureTestScene>();
             Require(harness != null && ui != null, "NPC runtime exists in Game scene");
             var registry = harness.GetComponent<NpcStateRegistry>();
-            Require(registry.Profiles.Count == 14 && registry.States.Count == 14, "All 14 NPCs initialized in Play mode");
+            Require(registry.Profiles.Count == 30 && registry.States.Count == 30, "All 30 NPCs initialized in Play mode");
+            NpcMemoryBalanceVerification.Verify(registry);
+            VerifyPreferenceRegistration(registry);
             // 타 팀은 비활성 상태로 유지하고 초기화된 정식 ID 인덱스만 조회한다.
             var trading = UnityEngine.Object.FindFirstObjectByType<Companies>(FindObjectsInactive.Include);
             var market = UnityEngine.Object.FindFirstObjectByType<Marketdata>(FindObjectsInactive.Include);
             Require(trading != null && market != null, "Trading ID index exists for reference verification");
-            foreach (var id in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" })
+            foreach (var id in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry", "polaris-finance", "daeseong-industry", "sinseong-development", "blueharbor-retail", "aurora-foodtech" })
                 Require(trading.getCompany(id) != null && market.tryGetCompany(id, out var company)
                     && company.definition.companyID == id, "Runtime company lookup: " + id);
-            foreach (var company in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" })
+            foreach (var company in new[] { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry", "polaris-finance", "daeseong-industry", "sinseong-development", "blueharbor-retail", "aurora-foodtech" })
                 Require(registry.TryFindByPosition(company, NpcPosition.CEO, out var ceo) && ceo.position == NpcPosition.CEO,
                     "CEO lookup: " + company);
             const string seo = "npc-mirae-construction-cfo-seo-jia";
             Require(harness.SelectNpcProfile(seo), "Select SEO JIA");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(0);
-            Near(harness.RuntimeState.relation.trust, 6, "Liked action amplifies trust +4 to +6");
+            Near(harness.RuntimeState.relation.trust, 4, "Action-only demo keeps base effect under Memory-only policy");
             Near(harness.LastRecordedMemory.effectLog.beforePreference.trust, 4, "Last-event log keeps pre-preference base");
-            Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 2, "Last-event log records liked bonus +2");
-            Require(NpcFeatureTestScene.FormatLastMemoryLog(harness.LastRecordedMemory).Contains("선호 ×1.5"), "Footer log identifies applied preference multiplier");
+            Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 0, "Action-only log records no preference bonus");
+            Require(NpcFeatureTestScene.FormatLastMemoryLog(harness.LastRecordedMemory).Contains("보정 비활성"), "Footer log identifies inactive action bonus");
             Near(harness.RuntimeState.relation.hostility, 0, "Hostility reduction stops at zero");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(1);
-            Near(harness.RuntimeState.relation.trust, -6, "Disliked action amplifies trust -4 to -6");
-            Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, -2, "Last-event log records disliked extra penalty -2");
-            Near(harness.RuntimeState.relation.hostility, 6, "Disliked action amplifies hostility increase");
+            Near(harness.RuntimeState.relation.trust, -4, "Disliked action alone does not receive a bonus");
+            Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 0, "Action-only negative log has no bonus");
+            Near(harness.RuntimeState.relation.hostility, 4, "Action-only hostility keeps base effect");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(2);
             Near(harness.RuntimeState.relation.trust, 4, "Unspecified action keeps base effect");
             Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 0, "Neutral log has no preference bonus");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(3);
-            Near(harness.RuntimeState.relation.trust, 6, "Result Memory preference works without actionId");
+            Near(harness.RuntimeState.relation.trust, 4.8f, "Seo GoodFaith Memory applies individual trust multiplier 1.2");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(4);
-            Near(harness.RuntimeState.relation.trust, -6, "Disliked result Memory amplifies negative effect");
+            Near(harness.RuntimeState.relation.trust, -5.6f, "Seo ContractBreach Memory applies individual multiplier 1.4");
             var mixed = new NpcRelationDelta { trust = 4, respect = -4, hostility = 4, fear = 4, dependency = 4 };
             var result = registry.EvaluatePreference(seo, "ClearFundingPlan", NpcMemoryType.ContractBreach, mixed, out var disposition);
-            Require(disposition == NpcActionDisposition.Likes, "Action preference takes priority over conflicting Memory preference");
-            Near(result.trust, 6, "Mixed liked effect: favorable axis amplified");
-            Near(result.respect, -4, "Mixed liked effect: unfavorable axis unchanged");
-            Near(result.hostility, 4, "Mixed liked effect: hostility increase unchanged");
+            Require(disposition == NpcActionDisposition.Dislikes, "Memory-only policy ignores conflicting liked action");
+            Near(result.trust, 4, "Disliked Memory leaves positive trust unchanged");
+            Near(result.respect, -4, "Unselected respect axis remains unchanged");
+            Near(result.hostility, 5.6f, "Contract breach increases defensive hostility by 1.4");
             Near(result.fear, 4, "Fear is not treated as affection");
             Near(result.dependency, 4, "Dependency is not treated as affection");
             var channel = harness.GetComponent<NpcEventChannel>();
@@ -210,7 +212,7 @@ namespace TakeOver.NPC.Editor
             channel.Publish(payload);
             channel.Publish(payload);
             Require(harness.RuntimeState.memories.Count == 1, "Repeated action occurrence records Memory once");
-            Near(harness.RuntimeState.relation.trust, 6, "Repeated occurrence applies amplified effect once");
+            Near(harness.RuntimeState.relation.trust, 4, "Repeated action-only occurrence applies base effect once");
             Near(payload.relationDelta.trust, 4, "Publisher payload is not mutated by preference processing");
             harness.SelectNpcProfile("npc-haneul-food-ceo-kim-harin");
             harness.ResetSelectedNpcState();
@@ -222,11 +224,11 @@ namespace TakeOver.NPC.Editor
             serialized.ApplyModifiedPropertiesWithoutUndo();
             Require(saver.TrySave(), "Save NPC runtime to isolated test file: " + saver.LastError);
             Require(saver.Load(), "Load canonical ID save: " + saver.LastError);
-            Require(registry.States.Count == 14 && registry.States.All(s => registry.TryGetProfile(s.npcId, out var seed) && seed.companyId == s.companyId), "Saved states match canonical profile IDs");
+            Require(registry.States.Count == 30 && registry.States.All(s => registry.TryGetProfile(s.npcId, out var seed) && seed.companyId == s.companyId), "Saved states match canonical profile IDs");
             Require(registry.TryGet(seo, out var restored) && restored.memories.Count == 1
                 && restored.memories[0].targetId == seo && restored.memories[0].memoryId.EndsWith(seo, StringComparison.Ordinal), "Memory target and deduplication key use canonical IDs");
-            Near(restored.relation.trust, 6, "Saved preference-adjusted relation restored without reapplying multiplier");
-            Near(restored.memories[0].effectLog.preferenceBonus.trust, 2, "Bonus details survive save/load");
+            Near(restored.relation.trust, 4, "Saved relation restored without reapplying a preference");
+            Near(restored.memories[0].effectLog.preferenceBonus.trust, 0, "Zero action bonus survives save/load");
             var canonicalSave = File.ReadAllText(saver.SavePath);
             File.WriteAllText(saver.SavePath, canonicalSave.Replace(seo, "npc-unregistered-test"));
             Require(!saver.Load(), "Unregistered saved ID is rejected instead of creating an orphan NPC");
@@ -236,11 +238,11 @@ namespace TakeOver.NPC.Editor
             harness.ResetSelectedNpcState();
             harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = 99 });
             harness.PreviewPreferenceAction(0);
-            Near(harness.LastRecordedMemory.relationDelta.trust, 6, "Clamped log retains requested final effect");
+            Near(harness.LastRecordedMemory.relationDelta.trust, 4, "Clamped log retains Memory-only action base effect");
             Near(harness.LastRecordedMemory.effectLog.actuallyApplied.trust, 1, "Clamped log records actual +1 at trust cap");
             var cloned = harness.LastRecordedMemory.Clone();
             cloned.effectLog.preferenceBonus.trust = 999;
-            Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 2, "Copied logs do not mutate original Memory details");
+            Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 0, "Copied logs do not mutate original Memory details");
             // 이번에 바뀐 스탯 하한/상한과 이전 저장의 음수 값 보정을 함께 확인한다.
             harness.ResetSelectedNpcState();
             harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = -200, respect = -200, fear = -200,
@@ -260,6 +262,51 @@ namespace TakeOver.NPC.Editor
             Require(registry.TryGet(seo, out var normalized) && normalized.relation.hostility == 0
                 && normalized.relation.interest == 0 && normalized.relation.trust == 100 && normalized.relation.respect == 100,
                 "Load normalizes hostility and interest without changing signed axes");
+            NpcPreferenceDefinitionVerification.VerifyRuntime();
+        }
+
+        private static void VerifyPreferenceRegistration(NpcStateRegistry registry)
+        {
+            const string npcId = "npc-mirae-construction-cfo-seo-jia";
+            Require(registry.TryGetProfile(npcId, out var profile), "Preference regression profile exists");
+            try
+            {
+                var first = new NpcActionPreference { actionId = "GoodFaith", disposition = NpcActionDisposition.Unspecified };
+                var liked = new NpcActionPreference { actionId = "ClearFundingPlan", disposition = NpcActionDisposition.Likes };
+                registry.ConfigureActionPreferences(npcId, new List<NpcActionPreference>
+                {
+                    null, new NpcActionPreference { actionId = " " }, first,
+                    new NpcActionPreference { actionId = "GoodFaith", disposition = NpcActionDisposition.Dislikes }, liked
+                });
+                Require(!registry.TryGetActionPreference(npcId, "GoodFaith", out var disposition)
+                    && disposition == NpcActionDisposition.Unspecified, "First duplicate wins even when Unspecified");
+                registry.EvaluatePreference(npcId, "GoodFaith", NpcMemoryType.GoodFaith,
+                    new NpcRelationDelta { trust = 4 }, out disposition);
+                Require(disposition == NpcActionDisposition.Likes, "Unspecified action still falls back to Memory preference");
+                liked.actionId = "ChangedAfterRegistration";
+                liked.disposition = NpcActionDisposition.Dislikes;
+                Require(registry.TryGetActionPreference(npcId, "ClearFundingPlan", out disposition)
+                    && disposition == NpcActionDisposition.Likes, "Preference registration snapshots source values");
+                Require(!registry.TryGetActionPreference(npcId, "ChangedAfterRegistration", out _), "Source mutation does not change registered keys");
+                Require(!registry.TryGetActionPreference(npcId, "clearfundingplan", out _), "Action lookup remains case sensitive");
+                Require(!registry.TryGetActionPreference(null, "ClearFundingPlan", out _)
+                    && !registry.TryGetActionPreference(npcId, null, out _), "Null lookup keeps false result");
+                registry.ConfigureActionPreferences(npcId, null);
+                Require(!registry.TryGetActionPreference(npcId, "ClearFundingPlan", out _), "Reconfiguration replaces old preferences");
+                Require(registry.TryGet(npcId, out var state) && state.memories.Count == 0,
+                    "Preference reconfiguration does not create memories");
+            }
+            finally { registry.ConfigureActionPreferences(npcId, profile.actionPreferences); }
+
+            var roster = NpcStateRegistry.CreateDefaultNpcRoster();
+            var second = NpcStateRegistry.CreateDefaultNpcRoster();
+            Require(roster.Count == 5 && JsonUtility.ToJson(roster[0]) == JsonUtility.ToJson(second[0]),
+                "Fallback roster retains the same five profiles");
+            roster[0].profile.displayName = "changed";
+            roster[0].actionPreferences[0].disposition = NpcActionDisposition.Unspecified;
+            Require(second[0].profile.displayName != "changed"
+                && second[0].actionPreferences[0].disposition == NpcActionDisposition.Likes,
+                "Fallback roster returns independent nested profiles and preferences");
         }
 
         private static void Near(float actual, float expected, string label) => Require(Mathf.Abs(actual - expected) < 0.001f, label + $" ({actual} vs {expected})");
@@ -282,7 +329,23 @@ namespace TakeOver.NPC.Editor
                 { "Kang_Jaehyeon", "npc-dongbang-trading-ceo-kang-jaehyeon" },
                 { "Park_Minu", "npc-dongbang-trading-hr-director-park-minu" },
                 { "Jo_Minseok", "npc-hansung-industry-ceo-jo-minseok" },
-                { "Choi_Mijeong", "npc-hansung-industry-labor-director-choi-mijeong" }
+                { "Choi_Mijeong", "npc-hansung-industry-labor-director-choi-mijeong" },
+                { "Lim_Dohyeon", "npc-polaris-finance-ceo-lim-dohyeon" },
+                { "Song_Hyeonseok", "npc-polaris-finance-risk-director-song-hyeonseok" },
+                { "Jung_Yura", "npc-polaris-finance-ma-director-jung-yura" },
+                { "Kim_Seongho", "npc-daeseong-industry-ceo-kim-seongho" },
+                { "Noh_Hyeonjeong", "npc-daeseong-industry-cfo-noh-hyeonjeong" },
+                { "Oh_Jinu", "npc-daeseong-industry-business-development-director-oh-jinu" },
+                { "Choi_Eunsu", "npc-daeseong-industry-hr-director-choi-eunsu" },
+                { "Jung_Dohyeon", "npc-sinseong-development-ceo-jung-dohyeon" },
+                { "Yoo_Jeongmin", "npc-sinseong-development-planning-director-yoo-jeongmin" },
+                { "Kang_Minji", "npc-sinseong-development-community-director-kang-minji" },
+                { "Seo_Yujin", "npc-blueharbor-retail-ceo-seo-yujin" },
+                { "Han_Dogyeong", "npc-blueharbor-retail-data-director-han-dogyeong" },
+                { "Kim_Dongseok", "npc-blueharbor-retail-operations-director-kim-dongseok" },
+                { "Kim_Seohu", "npc-aurora-foodtech-ceo-kim-seohu" },
+                { "Jung_Harin", "npc-aurora-foodtech-chief-scientist-jung-harin" },
+                { "Han_Yuna", "npc-aurora-foodtech-business-development-director-han-yuna" }
             };
             var npcs = new Dictionary<string, NpcStateRegistry.NpcSeed>();
             foreach (var guid in AssetDatabase.FindAssets("t:NpcDefinition", new[] { "Assets/NPC/Data/Profiles" }))
@@ -301,14 +364,14 @@ namespace TakeOver.NPC.Editor
             }
             Require(npcs.Count == expectedNpcIds.Count && expectedNpcIds.Values.All(npcs.ContainsKey),
                 "All approved NPC IDs are present without inferred name formats");
-            var expected = new HashSet<string> { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry" };
+            var expected = new HashSet<string> { "mirae-construction", "haneul-food", "dongbang-trading", "hansung-industry", "polaris-finance", "daeseong-industry", "sinseong-development", "blueharbor-retail", "aurora-foodtech" };
             var companies = AssetDatabase.FindAssets("t:CompanyDefinition", new[] { "Assets/ShareTrading/Data" })
                 .Select(guid => AssetDatabase.LoadAssetAtPath<CompanyDefinition>(AssetDatabase.GUIDToAssetPath(guid))).ToArray();
-            Require(companies.Length == 4 && new HashSet<string>(companies.Select(c => c.companyID)).SetEquals(expected), "Trading has exactly four canonical company SOs");
+            Require(companies.Length == 9 && new HashSet<string>(companies.Select(c => c.companyID)).SetEquals(expected), "Trading has exactly nine canonical company SOs");
             var tradingPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/ShareTrading/Prefabs/ShareTradingLogic.prefab");
             var referenced = tradingPrefab.GetComponentInChildren<Companies>(true).CompanyList;
-            Require(referenced.Count == 4 && referenced.All(c => c != null && c.definition != null)
-                && new HashSet<string>(referenced.Select(c => c.definition.companyID)).SetEquals(expected), "Trading prefab references all four companies without missing assets");
+            Require(referenced.Count == 9 && referenced.All(c => c != null && c.definition != null)
+                && new HashSet<string>(referenced.Select(c => c.definition.companyID)).SetEquals(expected), "Trading prefab references all nine companies without missing assets");
             var restructuring = AssetDatabase.LoadAssetAtPath<TakeOver.Events.EventDefinition>("Assets/EventSystem/Data/Restructuring.asset");
             foreach (var company in referenced)
             {

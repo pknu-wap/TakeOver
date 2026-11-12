@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89ba9835fba3edc4caa344a1d7be5446, type: 3}
+  m_Name: CompanyRuleSettings
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.CompanyRules.CompanyRuleSettings
+  performance:
+    periodTurns: 7
+    marketWeight: 0.02
+    positionWeight: 0.01
+    reputationWeight: 0.01
+    employeeWeight: 0.01
+    minGrowth: -0.5
+    maxGrowth: 0.5
+    fixedCost: 100
+    costPerEmployee: 1
+    variableCostRatio: 0.8
+  employees:
+    periodTurns: 7
+    revenueChangeWeight: 0.01
+    lossWeight: 0.01
+  dividend:
+    periodTurns: 7
+  delisting:
+    periodTurns: 7
+    watchlistRatio: 0.5
+    graceReviews: 8
+    liquidationTurns: 7

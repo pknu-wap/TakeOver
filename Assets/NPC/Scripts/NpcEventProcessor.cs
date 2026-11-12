@@ -106,19 +106,11 @@ namespace TakeOver.NPC
                 recordInput.relationDelta = registry.ApplyProfileEventBias(
                     targetId, recordInput.memoryType, recordInput.relationDelta);
                 var beforePreference = recordInput.relationDelta;
-                recordInput.relationDelta = registry.EvaluatePreference(targetId, payload.actionId,
-                    recordInput.memoryType, recordInput.relationDelta, out var preferenceDisposition);
-                recordInput.actionDisposition = preferenceDisposition;
-                registry.TryGetProfile(targetId, out var profile);
-                var response = profile?.preferenceResponse;
-                recordInput.effectLog = new NpcMemoryEffectLog
-                {
-                    preferenceEnabled = response != null && response.enabled,
-                    multiplier = response == null || !response.enabled || preferenceDisposition == NpcActionDisposition.Unspecified ? 1f
-                        : preferenceDisposition == NpcActionDisposition.Likes ? response.likedMultiplier : response.dislikedMultiplier,
-                    beforePreference = beforePreference,
-                    preferenceBonus = NpcRelationDelta.Subtract(recordInput.relationDelta, beforePreference)
-                };
+                var evaluation = registry.EvaluatePreferenceDetails(targetId, payload.actionId,
+                    recordInput.memoryType, recordInput.relationDelta);
+                recordInput.relationDelta = evaluation.relationDelta;
+                recordInput.actionDisposition = evaluation.disposition;
+                recordInput.effectLog = evaluation.CreateLog(beforePreference);
                 if (!memoryService.TryRecordMemory(state, recordInput, out var record)) continue;
                 MemoryRecorded?.Invoke(record);
                 onMemoryRecorded?.Invoke();

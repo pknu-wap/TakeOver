@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83909597d462f0a4aa1e0e89b4bff479, type: 3}
+  m_Name: CommonMarketEvent3_Restructuring
+  m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
+  MarketEventName: "\uB300\uADDC\uBAA8 \uAD6C\uC870\uC870\uC815"
+  MarketEventID: 3
+  description: "{targetCompany}이 대규모 구조조정을 발표했습니다."
+  applyType: 0
+  duration: 6
+  delayTurns: 2
+  effects:
+  - companyTargetType: 2
+    companyID: ""
+    targetType: 0
+    stat: 1
+    derivedStat: 0
+    changeNormalValue: 0
+    changePercentValue: -10

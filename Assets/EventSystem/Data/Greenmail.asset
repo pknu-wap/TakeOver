@@ -37,8 +37,7 @@ MonoBehaviour:
   companyPlayerLine: 
   choices:
   - choiceText: "\uBC1B\uC544\uB4E4\uC778\uB2E4"
-    choiceDescription: "\uC9C0\uBD84\uC744 \uC6C3\uB3C8 \uBC1B\uACE0 \uBAA8\uB450
-      \uB118\uAE34\uB2E4"
+    choiceDescription: "\uc6c3\ub3c8\uc744 \ubc1b\uace0 \ubcf4\uc720 \uc8fc\uc2dd\uc744 \ubaa8\ub450 \ub9e4\ub3c4\ud569\ub2c8\ub2e4. \uc774 \ud68c\uc0ac\uc758 \uc8fc\uc2dd\uc740 \uc774\ud6c4 \ub2e4\uc2dc \ub9e4\uc218\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4."
     playerLine: "\uC88B\uC2B5\uB2C8\uB2E4. \uADF8 \uAC12\uC774\uBA74 \uB118\uAE30\uACA0\uC2B5\uB2C8\uB2E4."
     resultDialogue: "\uD604\uBA85\uD558\uC2DC\uAD70\uC694. \uB300\uAE08\uC740 \uBC14\uB85C
       \uBCF4\uB0B4\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
@@ -53,6 +52,11 @@ MonoBehaviour:
       - npc-haneul-food-ceo-kim-harin
       - npc-hansung-industry-ceo-jo-minseok
       - npc-dongbang-trading-ceo-kang-jaehyeon
+      - npc-polaris-finance-ceo-lim-dohyeon
+      - npc-daeseong-industry-ceo-kim-seongho
+      - npc-sinseong-development-ceo-jung-dohyeon
+      - npc-blueharbor-retail-ceo-seo-yujin
+      - npc-aurora-foodtech-ceo-kim-seohu
       targetReactions:
       - targetNpcId: npc-mirae-construction-ceo-kang-junhyeok
         memoryType: 8
@@ -122,6 +126,96 @@ MonoBehaviour:
           hostility: -10
           dependency: 0
           interest: 0
+      - targetNpcId: npc-polaris-finance-ceo-lim-dohyeon
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC784\uB3C4\uD604\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags:
+        - greenmail_accept
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: -10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-daeseong-industry-ceo-kim-seongho
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uAE40\uC131\uD638\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags:
+        - greenmail_accept
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: -10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-sinseong-development-ceo-jung-dohyeon
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC815\uB3C4\uD604\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags:
+        - greenmail_accept
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: -10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-blueharbor-retail-ceo-seo-yujin
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC11C\uC720\uC9C4\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags:
+        - greenmail_accept
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: -10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-aurora-foodtech-ceo-kim-seohu
+        memoryType: 8
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uAE40\uC11C\uD6C4\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags:
+        - greenmail_accept
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: -10
+          dependency: 0
+          interest: 0
       memoryType: 8
       strength: 2
       publicity: 1
@@ -143,7 +237,7 @@ MonoBehaviour:
     stockSurgeMaxRatio: 0
     buybackPremiumRatio: 0.2
   - choiceText: "\uAC70\uC808\uD55C\uB2E4"
-    choiceDescription: "\uC9C0\uBD84\uC744 \uC9C0\uD0A4\uACE0 \uACC4\uC18D \uAC04\uB2E4"
+    choiceDescription: "\ubcf4\uc720 \uc8fc\uc2dd\uc744 \uc720\uc9c0\ud569\ub2c8\ub2e4. \ub9e4\uc218\uc640 \ub9e4\ub3c4\ub97c \uacc4\uc18d\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4."
     playerLine: "\uC9C0\uBD84\uC740 \uD314\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
       \uC800\uB3C4 \uC0DD\uAC01\uC774 \uC788\uC5B4\uC11C \uC0B0 \uAC81\uB2C8\uB2E4."
     resultDialogue: "\uD6C4\uD68C\uD558\uC2E4 \uAC81\uB2C8\uB2E4."
@@ -158,6 +252,11 @@ MonoBehaviour:
       - npc-haneul-food-ceo-kim-harin
       - npc-hansung-industry-ceo-jo-minseok
       - npc-dongbang-trading-ceo-kang-jaehyeon
+      - npc-polaris-finance-ceo-lim-dohyeon
+      - npc-daeseong-industry-ceo-kim-seongho
+      - npc-sinseong-development-ceo-jung-dohyeon
+      - npc-blueharbor-retail-ceo-seo-yujin
+      - npc-aurora-foodtech-ceo-kim-seohu
       targetReactions:
       - targetNpcId: npc-mirae-construction-ceo-kang-junhyeok
         memoryType: 3
@@ -219,6 +318,91 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 10
+          fear: 10
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-polaris-finance-ceo-lim-dohyeon
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC784\uB3C4\uD604\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 10
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-daeseong-industry-ceo-kim-seongho
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uAE40\uC131\uD638\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 10
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-sinseong-development-ceo-jung-dohyeon
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC815\uB3C4\uD604\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 10
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-blueharbor-retail-ceo-seo-yujin
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC11C\uC720\uC9C4\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 10
+          hostility: 10
+          dependency: 0
+          interest: 0
+      - targetNpcId: npc-aurora-foodtech-ceo-kim-seohu
+        memoryType: 3
+        strength: 2
+        publicity: 1
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uAE40\uC11C\uD6C4\uC774(\uAC00) \uC790\uC0AC\uC5D0\uC11C
+          \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
           fear: 10
           hostility: 10
           dependency: 0

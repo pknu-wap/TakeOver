@@ -1,12 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using TakeOver.CompanyRules;
 
 public class CompanyState
 {
     private Dictionary<CompanyStat, float> stats;
     private Dictionary<CompanyDerivedStat, float> derivedStats;
+    private readonly Dictionary<CompanyStat, (float multiplier, float normalValue)> statEventModifiers
+        = new Dictionary<CompanyStat, (float, float)>();
+    private readonly Dictionary<CompanyDerivedStat, (float multiplier, float normalValue)> derivedStatEventModifiers
+        = new Dictionary<CompanyDerivedStat, (float, float)>();
 
     public int totalShares { get; internal set; }
+    public CompanyStatus status = CompanyStatus.Normal;
 
     // 첫 턴 기록이 저장되기 전에 초기값을 과거 평균으로 사용
     public float beforeRevenue { get; set; }
@@ -42,6 +49,9 @@ public class CompanyState
         stats[CompanyStat.REPUTAION_PLAYER] = definition.initialReputaionPlayer;
         stats[CompanyStat.PLAYER_SHARES] = definition.initialPlayerShares;
         stats[CompanyStat.BASE_COMPANY_VALUE] = definition.initialBaseCompanyValue;
+        stats[CompanyStat.EMPLOYEE_COUNT] = definition.initialEmployeeCount;
+        stats[CompanyStat.WATCHLIST_REVIEWS_REMAINING] = 0f;
+        stats[CompanyStat.LIQUIDATION_TURNS_REMAINING] = 0f;
 
         totalShares = definition.totalShares;
 
@@ -68,16 +78,33 @@ public class CompanyState
         beforeNetMargin = initialNetMargin;
     }
     
-    public float getStat(CompanyStat stat) { return stats[stat]; }
+    public float getBaseStat(CompanyStat stat) { return stats[stat]; }
+
+    public float getStat(CompanyStat stat)
+    {
+        float value = stats[stat];
+        if (statEventModifiers.TryGetValue(stat, out var modifier))
+            return value * modifier.multiplier + modifier.normalValue;
+        return value;
+    }
+
     public bool tryGetStat(string statName, out float returnStat)
     {
         CompanyStat stat;
-        if (System.Enum.TryParse(statName, out stat))
-            return stats.TryGetValue(stat, out returnStat);
+        if (Enum.TryParse(statName, out stat))
+        {
+            if (!stats.TryGetValue(stat, out returnStat)) return false;
+            returnStat = getStat(stat);
+            return true;
+        }
 
         CompanyDerivedStat derivedStat;
-        if (System.Enum.TryParse(statName, out derivedStat))
-            return derivedStats.TryGetValue(derivedStat, out returnStat);
+        if (Enum.TryParse(statName, out derivedStat))
+        {
+            if (!derivedStats.TryGetValue(derivedStat, out returnStat)) return false;
+            returnStat = getDerivedStat(derivedStat);
+            return true;
+        }
 
         returnStat = 0f;
         return false;
@@ -89,6 +116,30 @@ public class CompanyState
         stats[stat] += value;
     }
 
-    public float getDerivedStat(CompanyDerivedStat derivedStat) { return derivedStats[derivedStat]; }
+    public float getDerivedStat(CompanyDerivedStat derivedStat)
+    {
+        float value = derivedStats[derivedStat];
+        if (derivedStatEventModifiers.TryGetValue(derivedStat, out var modifier))
+            return value * modifier.multiplier + modifier.normalValue;
+        return value;
+    }
+
     public void setDerivedStat(CompanyDerivedStat derivedStat, float value) { derivedStats[derivedStat] = value; }
+
+    public void setMarketEventEffect(CompanyStat stat, float multiplier, float normalValue)
+    {
+        statEventModifiers[stat] = (multiplier, normalValue);
+    }
+
+    public void setMarketEventEffect(CompanyDerivedStat stat, float multiplier, float normalValue)
+    {
+        derivedStatEventModifiers[stat] = (multiplier, normalValue);
+    }
+
+    // 원본값은 유지하고 이벤트 보정만 초기화
+    public void resetMarketEventEffects()
+    {
+        statEventModifiers.Clear();
+        derivedStatEventModifiers.Clear();
+    }
 }

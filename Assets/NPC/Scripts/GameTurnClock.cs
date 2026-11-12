@@ -3,6 +3,12 @@ using UnityEngine;
 
 namespace TakeOver.NPC
 {
+    /// <summary>마감 문서 등 하루 진행 전 필수 처리를 연결하는 계약</summary>
+    public interface ITurnAdvanceGuard
+    {
+        bool CanAdvanceTurn(int currentTurn);
+        void OnTurnAdvanceBlocked();
+    }
     /// <summary>공통 게임 턴 번호를 보유하고 종료 시 NPC 기억 서비스에 한 번만 턴 경과를 알린다.</summary>
     public sealed class GameTurnClock : MonoBehaviour
     {
@@ -31,6 +37,10 @@ namespace TakeOver.NPC
         /// <summary>게임의 턴 종료 경로에서 호출한다. 등록된 각 NPC에 경과 처리를 적용한다.</summary>
         public void AdvanceTurn()
         {
+            if (!TakeOver.Story.StoryDirector.CanAdvanceTurn) return;
+            foreach (var component in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None))
+                if (component.isActiveAndEnabled && component is ITurnAdvanceGuard guard && !guard.CanAdvanceTurn(currentTurn))
+                { guard.OnTurnAdvanceBlocked(); return; }
             currentTurn++;
             if (registry != null)
                 foreach (var state in registry.States) memoryService.AdvanceTurn(state, currentTurn);

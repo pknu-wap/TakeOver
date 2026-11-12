@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Companies : MonoBehaviour
 {
@@ -44,6 +45,20 @@ public class Companies : MonoBehaviour
         Company company = getCompany(companyID);
         if (company != null)
             return company.state.tryGetStat(statName, out returnStat);
+
+        returnStat = 0f;
+        return false;
+    }
+
+    public bool tryGetCompanyBaseStat(string companyID, string statName, out float returnStat)
+    {
+        Company company = getCompany(companyID);
+        if (company != null && Enum.TryParse(statName, out CompanyStat stat)
+            && Enum.IsDefined(typeof(CompanyStat), stat))
+        {
+            returnStat = company.state.getBaseStat(stat);
+            return true;
+        }
 
         returnStat = 0f;
         return false;

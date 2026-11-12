@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
+  m_Name: daeseong-industry
+  m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
+  companyName: "\uB300\uC131\uC0B0\uC5C5"
+  companyID: daeseong-industry
+  logo: {fileID: 0}
+  industry: "\uC911\uACF5\uC5C5\xB7\uC0B0\uC5C5\uC124\uBE44"
+  coreValue: "\uADDC\uBAA8\uC640 \uACF5\uAE09\uB9DD \uD1B5\uD569"
+  description: "\uADF8\uB8F9\uC758 \uC81C\uC870\xB7\uC124\uBE44 \uAE30\uBC18\uC744
+    \uB2F4\uB2F9\uD558\uB294 \uD575\uC2EC \uACC4\uC5F4\uC0AC. \uADDC\uBAA8\uC640
+    \uC7A5\uAE30 \uACF5\uAE09\uB9DD\uC744 \uD798\uC73C\uB85C \uBCF4\uBA70, \uC778\uC218
+    \uACBD\uC7C1\uACFC \uC870\uC9C1 \uD1B5\uD569\uC5D0 \uAC15\uD558\uB2E4. \uB0B4\uBD80\uC5D0\uB294
+    \uD655\uC7A5 \uC18D\uB3C4\xB7\uC7AC\uBB34 \uC548\uC815\xB7\uD575\uC2EC \uC778\uB825
+    \uC2B9\uACC4\uB97C \uB458\uB7EC\uC2FC \uACAC\uD574\uCC28\uAC00 \uC788\uB2E4."
+  coverImage: {fileID: 0}
+  totalShares: 10000
+  initialBaseCompanyValue: 18000
+  initialRevenue: 1600
+  initialCost: 1220
+  initialCash: 2300
+  initialDebt: 4900
+  initialTangibleAssets: 12500
+  initialIntangibleAssets: 1700
+  initialReputationB2C: 50
+  initialReputationB2B: 50
+  initialReputaionPlayer: 0
+  initialMarketPosition: 50
+  initialPlayerShares: 0
+  initialTangibleCoefficient: 0.75
+  initialIntangibleCoefficient: 0.75

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
 #endif
@@ -9,9 +10,20 @@ namespace TakeOver.MainMenu
     public sealed class MainMenuController : MonoBehaviour
     {
         [SerializeField] private string nextScenePath = "Assets/Scenes/Game.unity";
+        [SerializeField] private Toggle skipIntroToggle;
+        public Toggle SkipIntroToggle => skipIntroToggle;
+        private bool starting;
+
+        private void Awake()
+        {
+            if (skipIntroToggle != null) skipIntroToggle.SetIsOnWithoutNotify(false);
+        }
 
         public void startNewGame()
         {
+            if (starting) return;
+            starting = true;
+            TakeOver.Story.StoryLaunch.RequestNewGame(skipIntroToggle != null && skipIntroToggle.isOn);
 #if UNITY_EDITOR
             EditorSceneManager.LoadSceneInPlayMode(nextScenePath, new LoadSceneParameters(LoadSceneMode.Single));
 #else

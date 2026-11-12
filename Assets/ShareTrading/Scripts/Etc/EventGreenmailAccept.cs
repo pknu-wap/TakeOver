@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TakeOver.NPC;
 using UnityEngine;
 
-public sealed class EventGreenmailAccept : MonoBehaviour
+public class EventGreenmailAccept : MonoBehaviour
 {
     // 그린메일 제안 수락
     [SerializeField] private Companies companies;
@@ -60,6 +60,7 @@ public sealed class EventGreenmailAccept : MonoBehaviour
         if (!tradingSystem.sellShares(company, amount)) return false;
 
         player.state.addCash(premium);
+        company.state.greenmailBuyBlocked = true;
         return true;
     }
 

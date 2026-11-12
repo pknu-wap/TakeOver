@@ -15,10 +15,43 @@ MonoBehaviour:
   seed:
     position: 0
     preferenceResponse:
+      source: 1
       enabled: 0
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
-    memoryPreferences: []
+    memoryPreferences:
+    - memoryType: 0
+      disposition: 1
+      rationale: "조직이 감당할 전환 과정에서 합의와 고용 약속을 지킨 기억을 신뢰한다."
+      effect:
+        mode: 1
+        multiplier: 1.2
+        affectedAxes: 1
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 1
+      disposition: 2
+      rationale: "협의한 재교육·전환배치 약속이 깨지면 중재의 기반인 신뢰를 잃는다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 9
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 2
+      disposition: 2
+      rationale: "예고 없는 대량해고로 조직 갈등이 커지는 결과에 반발한다."
+      effect:
+        mode: 1
+        multiplier: 1.25
+        affectedAxes: 8
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
+    - memoryType: 4
+      disposition: 1
+      rationale: "회사가 살아 조직 전환을 이어 갈 수 있는 결과를 소폭 신뢰한다."
+      effect:
+        mode: 1
+        multiplier: 1.15
+        affectedAxes: 1
+        relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-dongbang-trading-hr-director-park-minu
     companyId: dongbang-trading
     profile:

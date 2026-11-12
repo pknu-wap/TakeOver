@@ -69,6 +69,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3759379c5f29404d91dcbe920419eb28, type: 2}
   - {fileID: 11400000, guid: 07d4ac1562a64e7e90b22644cec474f9, type: 2}
   - {fileID: 11400000, guid: 79f1b03a7dd144478dea60595ec0cd3e, type: 2}
+  - {fileID: 11400000, guid: 2c31bce0d8a6ad340ad0412d5cb97dfc, type: 2}
+  - {fileID: 11400000, guid: 270370314c0665e49869d3905811d7c9, type: 2}
+  - {fileID: 11400000, guid: 6b55ef445e6e69b409286b6acf5474e5, type: 2}
+  - {fileID: 11400000, guid: cbfabd8fa6d927345a61dc4d17303630, type: 2}
+  - {fileID: 11400000, guid: 2de3885dcb5f7374ea45dc4ef2573c27, type: 2}
+  - {fileID: 11400000, guid: 24a07c2803d6469489008703b5acc223, type: 2}
+  - {fileID: 11400000, guid: a3ca1f1656002ba4f9d62ba0d4c4d554, type: 2}
+  - {fileID: 11400000, guid: 07e10a2e5abefa14a800eac827a615cf, type: 2}
+  - {fileID: 11400000, guid: f8d8c30186d6065479b5f99818d33592, type: 2}
+  - {fileID: 11400000, guid: e8db3700ecdd9bc47aaeea93b22c8941, type: 2}
+  - {fileID: 11400000, guid: c2c669695388a9146b5a6a56e4880694, type: 2}
+  - {fileID: 11400000, guid: 1383128b07f4ea042afd7f4af43cbe0a, type: 2}
+  - {fileID: 11400000, guid: 3086a794e1de4d343950a47a011b03f6, type: 2}
+  - {fileID: 11400000, guid: ad6fb60e8fe78e845a74210ed1c9076a, type: 2}
+  - {fileID: 11400000, guid: f5d4b9ff1dbce684d91b4afa47878dff, type: 2}
+  - {fileID: 11400000, guid: b620f8628c96078469b2989908b924a0, type: 2}
 --- !u!114 &5069817366027939039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,15 +187,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b4db7bb7fc443f0a1d9f718f49f0d4d, type: 3}
-  m_Name: ''
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcFeatureTestHarness
-  memoryService: {fileID: 5069817366027939039}
-  registry: {fileID: 2384012610848785350}
-  turnClock: {fileID: 440253565984179455}
-  eventChannel: {fileID: 4158906415785013732}
-  eventProcessor: {fileID: 5246106580691168825}
-  screenNavigation: {fileID: 8909477381549077842}
-  saveService: {fileID: 6440314261592844075}
   previewEvents:
   - {fileID: 11400000, guid: 159df46a23855c54ca7b6c0d2400fb2e, type: 2}
   - {fileID: 11400000, guid: 22995f2b4d8a7c5439045e94e8072ca0, type: 2}
@@ -188,6 +197,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba748721572119a4198b543e7f3cc8a6, type: 2}
   - {fileID: 11400000, guid: 5f7905cf21cc5f64698e39e699a09996, type: 2}
   - {fileID: 11400000, guid: 7c6a1b69a5216c5438ede78cc0dce987, type: 2}
+  memoryService: {fileID: 5069817366027939039}
+  registry: {fileID: 2384012610848785350}
+  turnClock: {fileID: 440253565984179455}
+  eventChannel: {fileID: 4158906415785013732}
+  eventProcessor: {fileID: 5246106580691168825}
+  screenNavigation: {fileID: 8909477381549077842}
+  saveService: {fileID: 6440314261592844075}
   npcId: npc-broker-yoon-hajin
   companyId: external-network
   testTargetNpcIds:
@@ -196,8 +212,8 @@ MonoBehaviour:
     eventId: test-event
     companyId: external-network
     actorId: player
-    actionId: GoodFaith
     targetNpcId: npc-broker-yoon-hajin
+    actionId: GoodFaith
     memoryType: 0
     memoryStrength: 1
     publicity: 1
@@ -212,20 +228,104 @@ MonoBehaviour:
       hostility: 0
       dependency: 0
       interest: 0
-  trustTestDelta: {trust: 10, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
-  respectTestDelta: {trust: 0, respect: 10, fear: 0, hostility: 0, dependency: 0, interest: 0}
-  fearTestDelta: {trust: 0, respect: 0, fear: 10, hostility: 0, dependency: 0, interest: 0}
-  hostilityTestDelta: {trust: 0, respect: 0, fear: 0, hostility: 10, dependency: 0, interest: 0}
-  dependencyTestDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 10, interest: 0}
-  interestTestDelta: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 10}
-  goodFaithMemoryDelta: {trust: 5, respect: 3, fear: 0, hostility: 0, dependency: 0, interest: 1}
-  contractBreachMemoryDelta: {trust: -10, respect: 0, fear: 0, hostility: 8, dependency: 0, interest: 0}
-  massLayoffMemoryDelta: {trust: 0, respect: 2, fear: 0, hostility: 10, dependency: 0, interest: 0}
-  hostileTakeoverMemoryDelta: {trust: 0, respect: -4, fear: 8, hostility: 4, dependency: 0, interest: 0}
-  savedCompanyMemoryDelta: {trust: 8, respect: 2, fear: 0, hostility: 0, dependency: 5, interest: 0}
-  publicHumiliationMemoryDelta: {trust: 0, respect: -6, fear: 0, hostility: 12, dependency: 0, interest: 0}
-  leakedInfoMemoryDelta: {trust: -7, respect: 0, fear: 0, hostility: 3, dependency: 0, interest: 4}
-  briberyMemoryDelta: {trust: -6, respect: 0, fear: 0, hostility: 5, dependency: 4, interest: 0}
+  trustTestDelta:
+    trust: 10
+    respect: 0
+    fear: 0
+    hostility: 0
+    dependency: 0
+    interest: 0
+  respectTestDelta:
+    trust: 0
+    respect: 10
+    fear: 0
+    hostility: 0
+    dependency: 0
+    interest: 0
+  fearTestDelta:
+    trust: 0
+    respect: 0
+    fear: 10
+    hostility: 0
+    dependency: 0
+    interest: 0
+  hostilityTestDelta:
+    trust: 0
+    respect: 0
+    fear: 0
+    hostility: 10
+    dependency: 0
+    interest: 0
+  dependencyTestDelta:
+    trust: 0
+    respect: 0
+    fear: 0
+    hostility: 0
+    dependency: 10
+    interest: 0
+  interestTestDelta:
+    trust: 0
+    respect: 0
+    fear: 0
+    hostility: 0
+    dependency: 0
+    interest: 10
+  goodFaithMemoryDelta:
+    trust: 5
+    respect: 3
+    fear: 0
+    hostility: 0
+    dependency: 0
+    interest: 1
+  contractBreachMemoryDelta:
+    trust: -10
+    respect: 0
+    fear: 0
+    hostility: 8
+    dependency: 0
+    interest: 0
+  massLayoffMemoryDelta:
+    trust: 0
+    respect: 2
+    fear: 0
+    hostility: 10
+    dependency: 0
+    interest: 0
+  hostileTakeoverMemoryDelta:
+    trust: 0
+    respect: -4
+    fear: 8
+    hostility: 4
+    dependency: 0
+    interest: 0
+  savedCompanyMemoryDelta:
+    trust: 8
+    respect: 2
+    fear: 0
+    hostility: 0
+    dependency: 5
+    interest: 0
+  publicHumiliationMemoryDelta:
+    trust: 0
+    respect: -6
+    fear: 0
+    hostility: 12
+    dependency: 0
+    interest: 0
+  leakedInfoMemoryDelta:
+    trust: -7
+    respect: 0
+    fear: 0
+    hostility: 3
+    dependency: 0
+    interest: 4
+  briberyMemoryDelta:
+    trust: -6
+    respect: 0
+    fear: 0
+    hostility: 5
+    dependency: 4
+    interest: 0
   onTestEventRecorded:
     m_PersistentCalls:
       m_Calls: []
@@ -245,7 +345,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f5b3c9cf9f34c2ba6c4aa1cbb9f5a11, type: 3}
-  m_Name: ''
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcFeatureTestScene
   bridge: {fileID: 7300000000000000001}
   showTestUI: 0

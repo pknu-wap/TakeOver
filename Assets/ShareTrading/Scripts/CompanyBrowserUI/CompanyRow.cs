@@ -33,12 +33,12 @@ public class CompanyRow : MonoBehaviour
         setLogo(logoImage, company.definition.logo);
         setText(letterText, companyName.Length > 0 ? companyName.Substring(0, 1) : "");
         setText(industryText, company.definition.industry);
-        setText(priceText, $"{price:N2}");
+        setText(priceText, $"{price:N0}");
         setText(revenueText, $"{CompanyUIUtil.getStat(company, CompanyStat.REVENUE):N0}");
         setText(netProfitText, $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.NET_PROFIT):N0}");
         setText(debtRatioText, $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.DEBT_RATIO):P1}");
         setText(stakeText, $"{stake:0.#}%");
-        setText(summaryText, $"지분 {stake:0.#}%  |  {price:N2}");
+        setText(summaryText, $"지분 {stake:0.#}%  |  {price:N0}");
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => onClick(company));

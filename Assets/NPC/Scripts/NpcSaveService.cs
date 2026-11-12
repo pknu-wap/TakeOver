@@ -6,7 +6,7 @@ using UnityEngine;
 namespace TakeOver.NPC
 {
     /// <summary>NPC 상태와 턴을 검증한 뒤 저장·복원하는 경계다.</summary>
-    public sealed class NpcSaveService : MonoBehaviour
+    public sealed partial class NpcSaveService : MonoBehaviour, TakeOver.SaveSystem.ISaveParticipant
     {
         [Serializable]
         private sealed class SaveData

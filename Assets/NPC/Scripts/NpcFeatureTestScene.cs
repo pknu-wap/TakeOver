@@ -33,6 +33,7 @@ namespace TakeOver.NPC
         private string selectorProfileId;
         private Vector2 lastEventScroll;
         private string displayedMemoryId;
+        private readonly NpcTestGuiStyles styles = new NpcTestGuiStyles();
 
         /// <summary>씬의 브리지를 찾아 테스트 화면에서 사용할 준비를 한다.</summary>
         private void Start()
@@ -60,11 +61,12 @@ namespace TakeOver.NPC
             var offset = new Vector2((Screen.width - 1280f * scale) * 0.5f, (Screen.height - 720f * scale) * 0.5f);
             var previousMatrix = GUI.matrix;
             GUI.matrix = Matrix4x4.TRS(new Vector3(offset.x, offset.y, 0f), Quaternion.identity, new Vector3(scale, scale, 1f));
-            var titleStyle = new GUIStyle(GUI.skin.label) { fontSize = 28, fontStyle = FontStyle.Bold };
-            var labelStyle = new GUIStyle(GUI.skin.label) { fontSize = 20 };
-            var profileTextStyle = new GUIStyle(GUI.skin.label) { fontSize = 16, wordWrap = true };
-            var buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = 20 };
-            var footerButtonStyle = new GUIStyle(GUI.skin.button) { fontSize = 16 };
+            styles.Ensure(GUI.skin);
+            var titleStyle = styles.Title;
+            var labelStyle = styles.Label;
+            var profileTextStyle = styles.ProfileText;
+            var buttonStyle = styles.Button;
+            var footerButtonStyle = styles.FooterButton;
             var relation = bridge.RuntimeState.relation;
             var profile = bridge.SelectedProfile;
             GUI.BeginGroup(new Rect(40f, 20f, 1200f, 680f));
@@ -89,7 +91,7 @@ namespace TakeOver.NPC
             GUI.Label(new Rect(20f, 202f, 1160f, 26f),
                 $"현재 날짜: {bridge.CurrentTurn}일    기록된 기억: {bridge.RuntimeState.memories.Count}개", labelStyle);
             GUI.Label(new Rect(20f, 228f, 1160f, 25f),
-                "관계 버튼은 직접 조작 · 사건은 프로필/선호 보정 적용 · 서지아 배율 1.5는 테스트용 임시 규칙", profileTextStyle);
+                "관계 버튼은 직접 조작 · 사건은 각 NPC SO의 프로필/호불호 보너스 설정을 적용합니다.", profileTextStyle);
             GUI.Label(new Rect(20f, 255f, 1160f, 27f),
                 $"신뢰 {relation.trust:0}   존중 {relation.respect:0}   두려움 {relation.fear:0}", labelStyle);
             GUI.Label(new Rect(20f, 282f, 1160f, 27f),
@@ -97,7 +99,7 @@ namespace TakeOver.NPC
 
             // 중앙의 관계/기억 조작 영역만 스크롤한다. 하단 동작은 별도 고정 영역에 둔다.
             bodyTab = GUI.Toolbar(new Rect(20f, 314f, 1160f, 30f), bodyTab,
-                new[] { "관계·Memory 조작", "선호·불호", "이벤트 미리보기" }, footerButtonStyle);
+                NpcTestGuiStyles.BodyTabs, footerButtonStyle);
             var bodyViewport = new Rect(10f, 350f, 1180f, 140f);
             if (bodyTab == 0)
             {
@@ -140,7 +142,7 @@ namespace TakeOver.NPC
                         var duration = memory.permanent
                             ? "영구 영향력 100%"
                             : $"협상 영향력 {memory.influence * 100f:0}% · 잔여 {memory.remainingTurns}턴";
-                        GUILayout.Label($"{memory.memoryId} | {GetMemoryLabel(memory.memoryType)} | 행동 성향 {GetActionDispositionLabel(memory.actionDisposition)} | 기록 턴 {memory.turn} | {duration}", labelStyle);
+                        GUILayout.Label($"{memory.memoryId} | {NpcMemoryPresentation.GetMemoryLabel(memory.memoryType)} | 행동 성향 {NpcMemoryPresentation.GetActionDispositionLabel(memory.actionDisposition)} | 기록 턴 {memory.turn} | {duration}", labelStyle);
                     }
                 }
                 GUILayout.EndScrollView();
@@ -161,7 +163,7 @@ namespace TakeOver.NPC
             {
                 if (displayedMemoryId != bridge.LastRecordedMemory.memoryId)
                 { displayedMemoryId = bridge.LastRecordedMemory.memoryId; lastEventScroll = Vector2.zero; }
-                var logStyle = new GUIStyle(profileTextStyle) { fontSize = 14 };
+                var logStyle = styles.Log;
                 var log = FormatLastMemoryLog(bridge.LastRecordedMemory);
                 var height = logStyle.CalcHeight(new GUIContent(log), 1120);
                 GUI.Box(new Rect(14, 494, 1172, 94), GUIContent.none);
@@ -171,9 +173,10 @@ namespace TakeOver.NPC
                 GUI.EndScrollView();
             }
             // 마지막 기록 아래의 별도 영역에서 긴 저장 오류도 스크롤하며 확인한다.
+            var saveStatusHeight = profileTextStyle.CalcHeight(new GUIContent(saveStatus), 1135f);
             saveStatusScroll = GUI.BeginScrollView(new Rect(20f, 590f, 1160f, 20f), saveStatusScroll,
-                new Rect(0f, 0f, 1135f, Mathf.Max(36f, profileTextStyle.CalcHeight(new GUIContent(saveStatus), 1135f))));
-            GUI.Label(new Rect(0f, 0f, 1135f, profileTextStyle.CalcHeight(new GUIContent(saveStatus), 1135f)), saveStatus, profileTextStyle);
+                new Rect(0f, 0f, 1135f, Mathf.Max(36f, saveStatusHeight)));
+            GUI.Label(new Rect(0f, 0f, 1135f, saveStatusHeight), saveStatus, profileTextStyle);
             GUI.EndScrollView();
             if (GUI.Button(new Rect(10f, 614f, 220f, 52f), "테스트 사건 발행", footerButtonStyle)) bridge.PublishTestEvent();
             if (GUI.Button(new Rect(236f, 614f, 135f, 52f), "턴 진행", footerButtonStyle)) bridge.AdvanceTurn();
@@ -218,7 +221,7 @@ namespace TakeOver.NPC
         private void DrawPreferences(NpcStateRegistry.NpcSeed profile, GUIStyle style)
         {
             preferenceScroll = GUILayout.BeginScrollView(preferenceScroll);
-            GUILayout.Label("서지아 테스트: 기본 변화량 ±4, 활성 배율 1.5 (임시). 아래 입력은 현재 선택 NPC에 적용됩니다.", style);
+            GUILayout.Label("테스트 입력의 기본 변화량은 ±4입니다. 보너스는 현재 선택 NPC SO의 설정을 따릅니다.", style);
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("자금 계획 제시 (선호)")) bridge.PreviewPreferenceAction(0);
             if (GUILayout.Button("거짓 재무 제시 (불호)")) bridge.PreviewPreferenceAction(1);
@@ -229,22 +232,24 @@ namespace TakeOver.NPC
             if (GUILayout.Button("계약 위반 결과 Memory")) bridge.PreviewPreferenceAction(4);
             GUILayout.EndHorizontal();
             GUILayout.Label(bridge.PreferencePreviewReport, style);
+            if (profile?.preferenceResponse != null && profile.preferenceResponse.source == NpcPreferenceSource.MemoryOnly)
+                GUILayout.Label("현재 보너스 기준: Memory만 · 행동별 호불호 목록은 보너스 계산에서 제외합니다.", style);
             GUILayout.Label(profile?.preferenceResponse != null && profile.preferenceResponse.enabled
-                ? "선호 반응 보정 활성 (임시 규칙)" : "선호 반응 보정 비활성 · 기본 효과 유지", style);
+                ? "NPC 기본 배율 활성 · 항목 개별 설정이 있으면 우선 적용" : "NPC 기본 배율 비활성 · 항목 개별 설정은 별도 적용", style);
             if (profile == null || profile.actionPreferences == null || profile.actionPreferences.Count == 0)
                 GUILayout.Label("등록된 행동 선호가 없습니다.", style);
             else
                 foreach (var preference in profile.actionPreferences)
                 {
                     if (preference == null) continue;
-                    GUILayout.Label($"[{GetActionDispositionLabel(preference.disposition)}] {preference.actionId}", style);
+                    GUILayout.Label($"[{NpcMemoryPresentation.GetActionDispositionLabel(preference.disposition)}] {preference.actionId}", style);
                     GUILayout.Label($"이유: {preference.rationale}", style);
                     GUILayout.Space(8f);
                 }
             if (profile?.memoryPreferences != null)
                 foreach (var preference in profile.memoryPreferences)
                     if (preference != null)
-                        GUILayout.Label($"[결과 Memory / {GetActionDispositionLabel(preference.disposition)}] {GetMemoryLabel(preference.memoryType)} · {preference.rationale}", style);
+                        GUILayout.Label($"[결과 Memory / {NpcMemoryPresentation.GetActionDispositionLabel(preference.disposition)}] {NpcMemoryPresentation.GetMemoryLabel(preference.memoryType)} · {preference.rationale}", style);
             GUILayout.EndScrollView();
         }
 
@@ -339,12 +344,7 @@ namespace TakeOver.NPC
                 var profile = profiles[index];
                 if (profile == null || profile.profile == null) continue;
                 var isSelected = selectedProfile != null && selectedProfile.npcId == profile.npcId;
-                var tabStyle = new GUIStyle(GUI.skin.button)
-                {
-                    fontSize = 16,
-                    fontStyle = isSelected ? FontStyle.Bold : FontStyle.Normal,
-                    wordWrap = true
-                };
+                var tabStyle = isSelected ? styles.SelectedTab : styles.Tab;
                 var label = $"{profile.profile.displayName}\n{profile.profile.role}";
                 if (GUI.Button(new Rect(index * tabWidth, 0f, tabWidth - 6f, tabHeight), label, tabStyle))
                 {
@@ -360,30 +360,9 @@ namespace TakeOver.NPC
             saveStatus = bridge.TrySaveNpcState() ? "NPC 상태 저장 완료" : bridge.SaveError;
         }
 
-        /// <summary>현재 프로필로 재계산하지 않고 마지막 Memory에 저장된 보정 근거를 표시한다.</summary>
+        /// <summary>기존 호출부가 사용하는 마지막 기억의 효과 표시 진입점이다.</summary>
         public static string FormatLastMemoryLog(NpcMemoryRecord memory)
-        {
-            if (memory == null) return "마지막 사건 없음";
-            var header = $"마지막 사건: {memory.actionId ?? memory.memoryType.ToString()} / {GetMemoryLabel(memory.memoryType)} · {memory.turn}일";
-            var log = memory.effectLog;
-            if (log == null) return header + "\n선호 보정 상세 기록 없음 (기존 기록)";
-            var status = !log.preferenceEnabled ? "보정 비활성" : memory.actionDisposition == NpcActionDisposition.Unspecified
-                ? "미지정 · 기본 효과" : $"{GetActionDispositionLabel(memory.actionDisposition)} ×{log.multiplier:0.##}";
-            return header + $" · {status}\n기본(프로필 보정 포함): {FormatDelta(log.beforePreference)}"
-                + $"\n선호·불호 추가분: {FormatDelta(log.preferenceBonus)}"
-                + $"\n최종 요청: {FormatDelta(memory.relationDelta)} / 실제 반영: {FormatDelta(log.actuallyApplied)}"
-                + $"\n기록 ID: {memory.memoryId}";
-        }
-
-        private static string FormatDelta(NpcRelationDelta delta)
-        {
-            var parts = new System.Collections.Generic.List<string>();
-            var names = new[] { "신뢰", "존중", "두려움", "적대감", "의존도", "관심" };
-            var values = new[] { delta.trust, delta.respect, delta.fear, delta.hostility, delta.dependency, delta.interest };
-            for (var i = 0; i < names.Length; i++)
-                if (values[i] != 0) parts.Add($"{names[i]} {values[i]:+0.##;-0.##;0}");
-            return parts.Count == 0 ? "변화 없음" : string.Join(" · ", parts);
-        }
+            => NpcMemoryPresentation.FormatLastMemoryLog(memory);
 
         private void LoadState()
         {
@@ -400,33 +379,6 @@ namespace TakeOver.NPC
         private void DrawMemoryButton(string label, NpcMemoryType memoryType, GUIStyle style)
         {
             if (GUILayout.Button(label, style, GUILayout.Height(36f))) bridge.TriggerTestMemory(memoryType);
-        }
-
-        /// <summary>테스트 화면에서 enum 이름 대신 팀원이 읽기 쉬운 기억 이름을 보여준다.</summary>
-        private static string GetActionDispositionLabel(NpcActionDisposition disposition)
-        {
-            switch (disposition)
-            {
-                case NpcActionDisposition.Likes: return "선호";
-                case NpcActionDisposition.Dislikes: return "불호";
-                default: return "미지정";
-            }
-        }
-
-        private static string GetMemoryLabel(NpcMemoryType memoryType)
-        {
-            switch (memoryType)
-            {
-                case NpcMemoryType.GoodFaith: return "선의 / 약속 이행";
-                case NpcMemoryType.ContractBreach: return "계약 파기";
-                case NpcMemoryType.MassLayoff: return "대규모 구조조정";
-                case NpcMemoryType.HostileTakeover: return "적대적 인수";
-                case NpcMemoryType.SavedCompany: return "회사 구원";
-                case NpcMemoryType.PublicHumiliation: return "공개적 망신";
-                case NpcMemoryType.LeakedInfo: return "정보 유출";
-                case NpcMemoryType.Bribery: return "뇌물";
-                default: return "기타";
-            }
         }
 
     }
