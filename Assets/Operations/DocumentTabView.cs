@@ -82,7 +82,7 @@ namespace TakeOver.Operations
             card.gameObject.SetActive(true);
             string title = doc.TypeId == DividendPolicyDocument.typeId
                 ? $"배당 정책 · {doc.TargetCompany?.definition.companyName}" : doc.Title;
-            card.Bind(title, doc.TargetCompany?.definition.companyName ?? "대상 없음", status, overdue, () => select(doc, resolved));
+            card.Bind(title, doc.TargetCompany?.definition.companyName ?? "대상 없음", status, overdue, () => select(doc, resolved), resolved != null);
             cards.Add(card);
             cardDocuments.Add(doc);
         }
