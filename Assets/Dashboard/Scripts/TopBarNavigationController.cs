@@ -7,7 +7,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
 {
     [SerializeField] private Button[] tabButtons;
     [SerializeField] private DashboardTab[] tabKinds = {
-        DashboardTab.Home, DashboardTab.Map, DashboardTab.Companies, DashboardTab.Npcs, DashboardTab.News, DashboardTab.Log
+        DashboardTab.Home, DashboardTab.Map, DashboardTab.Companies, DashboardTab.Npcs, DashboardTab.News, DashboardTab.Log, DashboardTab.Operations
     };
     [SerializeField] private TopBarIndicatorController indicator;
     [SerializeField] private CompanyBrowserScreen browser;
@@ -16,6 +16,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
     [SerializeField] private NpcStatusScreen statusScreen;
     [SerializeField] private EventSystemController eventController;
     [SerializeField] private NewsScreen newsScreen;
+    private TakeOver.Operations.OperationsScreen operationsScreen;
     private int currentTab;
     private TakeOver.Help.HelpScreen help;
     private int helpTab;
@@ -29,6 +30,8 @@ public sealed class TopBarNavigationController : MonoBehaviour
         var source = tabButtons[tabButtons.Length - 1];
         var helpButton = Instantiate(source, source.transform.parent, false);
         helpButton.name = "HelpTab";
+        var copiedBadge = helpButton.GetComponent<TakeOver.Operations.DocumentCountBadge>();
+        if (copiedBadge != null) copiedBadge.Hide();
         var label = helpButton.GetComponentInChildren<TMPro.TMP_Text>();
         if (label != null) label.text = "도움말";
         var legacy = helpButton.GetComponentInChildren<Text>();
@@ -45,6 +48,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
         if (eventController == null) eventController = FindFirstObjectByType<EventSystemController>();
         if (eventController == null) Debug.LogWarning("Top bar could not find EventSystemController.", this);
         if (newsScreen == null) newsScreen = FindFirstObjectByType<NewsScreen>(FindObjectsInactive.Include);
+        operationsScreen = FindFirstObjectByType<TakeOver.Operations.OperationsScreen>(FindObjectsInactive.Include);
         for (int i = 0; i < tabButtons.Length; i++)
         {
             int index = i;
@@ -53,24 +57,41 @@ public sealed class TopBarNavigationController : MonoBehaviour
         }
     }
 
+    public bool Navigate(DashboardTab tab)
+    {
+        if (!TakeOver.Story.StoryDirector.CanNavigate(tab)) return false;
+        int index = System.Array.IndexOf(tabKinds, tab);
+        if (index < 0) return false;
+        onTabClicked(index);
+        return true;
+    }
+
     private void onTabClicked(int index)
     {
         DashboardTab tab = tabKinds[index];
         if (!TakeOver.Story.StoryDirector.CanNavigate(tab)) return;
         if (tab == DashboardTab.Help)
         {
+            if (operationsScreen != null) operationsScreen.close();
             if (newsScreen != null) newsScreen.close();
             browser.close(); statusScreen.Close(); help.Open();
             currentTab = index; indicator.OnTabClicked(index); return;
         }
         help.Close();
-        if ((tab == DashboardTab.News && newsScreen == null) || tab == DashboardTab.Log || tab == DashboardTab.Operations)
+        if ((tab == DashboardTab.News && newsScreen == null) || tab == DashboardTab.Log || (tab == DashboardTab.Operations && operationsScreen == null))
         {
             message.Show("준비 중입니다");
             return;
         }
         if (newsScreen != null && tab != DashboardTab.News) newsScreen.close();
-        if (tab == DashboardTab.News)
+        if (operationsScreen != null && tab != DashboardTab.Operations) operationsScreen.close();
+        if (tab == DashboardTab.Operations)
+        {
+            browser.close();
+            statusScreen.Close();
+            operationsScreen.open();
+        }
+        else if (tab == DashboardTab.News)
         {
             browser.close();
             statusScreen.Close();
