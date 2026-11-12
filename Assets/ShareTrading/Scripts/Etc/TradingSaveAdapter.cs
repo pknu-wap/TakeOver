@@ -6,7 +6,7 @@ using TakeOver.CompanyRules;
 using UnityEngine;
 
 /// <summary>거래 상태와 저장 형식 사이의 변환·검증·복원 담당</summary>
-public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
+public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
 {
     [SerializeField] private Player player;
     [SerializeField] private Companies companies;
@@ -68,18 +68,14 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
             },
             market = new TradingSaveData.CompanyMarketData
             {
-                npcSentiment = market.npcSentiment, eventPriceMultiplier = market.eventPriceMultiplier,
-                marketNoise = market.marketNoise, activeEvents = new List<TradingSaveData.MarketEffectData>()
+                npcSentiment = company.npcRelations.npcSentiment, eventPriceMultiplier = market.eventPriceMultiplier,
+                marketNoise = market.marketNoise
             },
             history = new List<CompanyHistoryEntry>(company.history.History)
         };
         foreach (CompanyStat stat in Enum.GetValues(typeof(CompanyStat)))
         {
-            data.state.stats.Add(new TradingSaveData.StatData { id = stat.ToString(), value = state.getStat(stat) });
-        }
-        foreach (CompanyMarketState.ActiveEventImpact entry in market.ActiveEvents)
-        {
-            data.market.activeEvents.Add(new TradingSaveData.MarketEffectData { impact = entry.impact, remainingTurns = entry.remainingTurns });
+            data.state.stats.Add(new TradingSaveData.StatData { id = stat.ToString(), value = state.getBaseStat(stat) });
         }
         return data;
     }
@@ -163,7 +159,7 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         {
             throw new InvalidDataException("회사 ID·원본 수치·시장 효과·이력을 확인하세요.");
         }
-        if (entry.state.stats == null || entry.market.activeEvents == null)
+        if (entry.state.stats == null)
         {
             throw new InvalidDataException("회사 ID·원본 수치·시장 효과·이력을 확인하세요.");
         }
@@ -202,14 +198,6 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
                 throw new InvalidDataException("회사 이력의 턴 순서가 올바르지 않습니다.");
             }
             previousTurn = history.turn;
-        }
-        foreach (TradingSaveData.MarketEffectData effect in entry.market.activeEvents)
-        {
-            if (effect == null || effect.impact.durationTurns < 1 || effect.remainingTurns < 1
-                || effect.remainingTurns > effect.impact.durationTurns)
-            {
-                throw new InvalidDataException("지속 중인 시장 효과의 기간이 올바르지 않습니다.");
-            }
         }
     }
 
@@ -258,17 +246,9 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         state.initialAssetValue = entry.state.initialAssetValue;
         state.tangibleCoefficient = entry.state.tangibleCoefficient;
         state.intangibleCoefficient = entry.state.intangibleCoefficient;
-        market.npcSentiment = entry.market.npcSentiment;
+        company.npcRelations.npcSentiment = entry.market.npcSentiment;
         market.eventPriceMultiplier = entry.market.eventPriceMultiplier;
         market.marketNoise = entry.market.marketNoise;
-        market.ActiveEvents.Clear();
-        foreach (TradingSaveData.MarketEffectData effect in entry.market.activeEvents)
-        {
-            market.ActiveEvents.Add(new CompanyMarketState.ActiveEventImpact
-            {
-                impact = effect.impact, remainingTurns = effect.remainingTurns
-            });
-        }
         company.history.Entries.Clear();
         company.history.Entries.AddRange(entry.history);
     }
@@ -286,7 +266,6 @@ public sealed class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
     {
         foreach (Company company in companies.CompanyList)
         {
-            company.marketState.updateEventScores();
             company.calculator.recalculate(company, marketData);
         }
     }

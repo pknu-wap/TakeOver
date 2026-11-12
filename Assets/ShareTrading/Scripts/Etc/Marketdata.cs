@@ -1,6 +1,5 @@
 using UnityEngine;
 using TakeOver.SaveSystem;
-using System.Collections.Generic;
 
 public class Marketdata : MonoBehaviour
 {
@@ -13,29 +12,6 @@ public class Marketdata : MonoBehaviour
     public bool tryGetCompany(string companyID, out Company company)
     {
         return companies.tryGetCompany(companyID, out company);
-    }
-
-    public bool setNpcSentiment(string companyID, float sentiment)
-    {
-        if (!tryGetCompany(companyID, out Company company)) return false;
-        company.marketState.setNpcSentiment(sentiment);
-        company.calculator.recalculate(company, this);
-        return true;
-    }
-
-    public bool setNpcOpinions(string companyID, IReadOnlyList<NpcMarketOpinion> opinions)
-    {
-        if (!tryGetCompany(companyID, out Company company)) return false;
-        company.marketState.setNpcOpinions(opinions);
-        company.calculator.recalculate(company, this);
-        return true;
-    }
-
-    public bool addEventImpact(string companyID, MarketEventImpact impact)
-    {
-        if (!tryGetCompany(companyID, out Company company) || !company.marketState.addEventImpact(impact)) return false;
-        company.calculator.recalculate(company, this);
-        return true;
     }
 
     public void updateTurn(int turn)

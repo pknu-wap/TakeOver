@@ -8,7 +8,6 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
     private Companies companies;
     private GameTurnClock turnClock;
     private CompanyDetailPanel detailPanel;
-    private EventListener eventListener;
     private bool refreshPending;
 
     private void Awake()
@@ -16,18 +15,15 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
         companies = FindFirstObjectByType<Companies>();
         turnClock = FindFirstObjectByType<GameTurnClock>();
         detailPanel = FindFirstObjectByType<CompanyDetailPanel>(FindObjectsInactive.Include);
-        eventListener = FindFirstObjectByType<EventListener>();
         if (companies == null) Debug.LogWarning("Dashboard company data source was not found.", this);
         if (turnClock == null) Debug.LogWarning("Dashboard turn update signal was not found.", this);
         if (detailPanel == null) Debug.LogWarning("Dashboard trade update signal was not found.", this);
-        if (eventListener == null) Debug.LogWarning("Dashboard company effect signal was not found.", this);
     }
 
     private void OnEnable()
     {
         if (turnClock != null) turnClock.TurnAdvanced += onTurnAdvanced;
         if (detailPanel != null) detailPanel.OnTraded += refresh;
-        if (eventListener != null) eventListener.effectsAppliedToCompany += refresh;
         refresh();
     }
 
@@ -36,7 +32,6 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
         refreshPending = false;
         if (turnClock != null) turnClock.TurnAdvanced -= onTurnAdvanced;
         if (detailPanel != null) detailPanel.OnTraded -= refresh;
-        if (eventListener != null) eventListener.effectsAppliedToCompany -= refresh;
     }
 
     private IEnumerator Start()
