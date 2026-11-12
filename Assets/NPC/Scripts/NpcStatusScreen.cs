@@ -55,10 +55,6 @@ namespace TakeOver.NPC
 
         private void OnGUI()
         {
-            if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape)
-            {
-                Event.current.Use(); Close(); return;
-            }
             ResolveRegistry();
             var scale = Mathf.Min(Screen.width / 1280f, Screen.height / 720f);
             var offset = new Vector2((Screen.width - 1280f * scale) * .5f, (Screen.height - 720f * scale) * .5f);

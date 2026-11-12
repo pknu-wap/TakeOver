@@ -15,6 +15,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
     [SerializeField] private FloatingMessage message;
     [SerializeField] private NpcStatusScreen statusScreen;
     [SerializeField] private EventSystemController eventController;
+    [SerializeField] private NewsScreen newsScreen;
     private int currentTab;
     private TakeOver.Help.HelpScreen help;
     private int helpTab;
@@ -43,6 +44,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
         indicator.AddTab(helpButton);
         if (eventController == null) eventController = FindFirstObjectByType<EventSystemController>();
         if (eventController == null) Debug.LogWarning("Top bar could not find EventSystemController.", this);
+        if (newsScreen == null) newsScreen = FindFirstObjectByType<NewsScreen>(FindObjectsInactive.Include);
         for (int i = 0; i < tabButtons.Length; i++)
         {
             int index = i;
@@ -57,16 +59,24 @@ public sealed class TopBarNavigationController : MonoBehaviour
         if (!TakeOver.Story.StoryDirector.CanNavigate(tab)) return;
         if (tab == DashboardTab.Help)
         {
+            if (newsScreen != null) newsScreen.close();
             browser.close(); statusScreen.Close(); help.Open();
             currentTab = index; indicator.OnTabClicked(index); return;
         }
         help.Close();
-        if (tab == DashboardTab.News || tab == DashboardTab.Log || tab == DashboardTab.Operations)
+        if ((tab == DashboardTab.News && newsScreen == null) || tab == DashboardTab.Log || tab == DashboardTab.Operations)
         {
             message.Show("준비 중입니다");
             return;
         }
-        if (tab == DashboardTab.Npcs)
+        if (newsScreen != null && tab != DashboardTab.News) newsScreen.close();
+        if (tab == DashboardTab.News)
+        {
+            browser.close();
+            statusScreen.Close();
+            newsScreen.open();
+        }
+        else if (tab == DashboardTab.Npcs)
         {
             browser.close();
             statusScreen.Open();
