@@ -1,6 +1,6 @@
 using TakeOver.NPC;
 
-internal static class CompanyNpcCalculation
+public static class CompanyNpcCalculation
 {
     public static float calculateOpinion(NpcRelationState relation)
     {

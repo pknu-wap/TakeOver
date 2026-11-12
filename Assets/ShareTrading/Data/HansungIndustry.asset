@@ -38,3 +38,6 @@ MonoBehaviour:
   initialPlayerShares: 0
   initialTangibleCoefficient: 0.7
   initialIntangibleCoefficient: 0.6
+  growthRate: 0.01
+  initialEmployeeCount: 100
+  dividendRatio: 0.2

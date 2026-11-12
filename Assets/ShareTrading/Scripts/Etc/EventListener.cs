@@ -1,15 +1,11 @@
-using System;
 using TakeOver.Events;
 using UnityEngine;
 
-public sealed class EventListener : MonoBehaviour
+public class EventListener : MonoBehaviour
 {
     private EventSystemController eventSystem;
     [SerializeField] private Player player;
-    [SerializeField] private Marketdata marketData;
     [SerializeField] private TradingEventEffects eventEffects;
-
-    public event Action effectsAppliedToCompany;
 
     private void Awake()
     {
@@ -53,16 +49,4 @@ public sealed class EventListener : MonoBehaviour
         Debug.Log($"이벤트 결과 반영: companyID={companyID}, cashDelta={cashDelta}, playerCash={player.state.cash}", this);
     }
 
-    // 시장 효과 전달 방식이 확정될 때까지 미호출
-    private bool applyEventDelayeffect(string companyID, MarketEventImpact marketImpact)
-    {
-        if (!marketData.addEventImpact(companyID, marketImpact))
-        {
-            Debug.LogWarning($"{companyID} 이벤트 효과 적용 실패", this);
-            return false;
-        }
-
-        effectsAppliedToCompany?.Invoke();
-        return true;
-    }
 }

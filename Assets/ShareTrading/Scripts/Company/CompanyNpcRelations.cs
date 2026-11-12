@@ -10,6 +10,8 @@ public class CompanyNpcRelations : MonoBehaviour
     [SerializeField] private NpcStateReader reader;
     [SerializeField] private Marketdata marketData;
 
+    public float npcSentiment { get; set; }
+
     public void initialize(string companyID)
     {
         this.companyID = companyID;
@@ -48,6 +50,25 @@ public class CompanyNpcRelations : MonoBehaviour
         npcOpinions.Clear();
     }
 
+    public void setNpcSentiment(float value)
+    {
+        npcSentiment = CompanyCalculationMath.clamp(value, -1f, 1f);
+    }
+
+    public void setNpcOpinions(IReadOnlyList<NpcMarketOpinion> opinions)
+    {
+        double weightedOpinion = 0d;
+        double totalWeight = 0d;
+        foreach (NpcMarketOpinion opinion in opinions)
+        {
+            float weight = CompanyCalculationMath.finite(opinion.influenceWeight);
+            if (weight <= 0f) continue;
+            weightedOpinion += CompanyCalculationMath.clamp(opinion.normalizedOpinion, -1f, 1f) * (double)weight;
+            totalWeight += weight;
+        }
+        setNpcSentiment(totalWeight == 0d ? 0f : CompanyCalculationMath.finite(weightedOpinion / totalWeight));
+    }
+
     public void reEvalutate()
     {
         if (marketData == null) return;
@@ -61,7 +82,7 @@ public class CompanyNpcRelations : MonoBehaviour
         float sentiment = 0f;
         if (npcOpinions.Count > 0) sentiment = (float)(totalOpinion / npcOpinions.Count);
 
-        company.marketState.setNpcSentiment(sentiment);
+        setNpcSentiment(sentiment);
         company.calculator.recalculate(company, marketData);
     }
 }

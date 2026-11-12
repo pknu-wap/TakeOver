@@ -112,7 +112,7 @@ public class CompanyStatCalculator
     {
         CompanyState state = company.state;
         state.setDerivedStat(CompanyDerivedStat.MARKET_EVALUATION,
-            company.marketState.getMarketEvaluation(state, marketData.globalMarketScore));
+            company.marketState.getMarketEvaluation(state, marketData.globalMarketScore, company.npcRelations.npcSentiment));
         float liquidityPriceFactor = 1f
             + (company.marketState.getMarketLiquidity(state, marketData.globalMarketScore) - 1f) * 0.1f;
         state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE,
