@@ -72,7 +72,7 @@ namespace TakeOver.Operations
                 int remaining = doc.DeadlineTurn - clock.CurrentTurn;
                 string deadline = remaining <= 0 ? "기한 지남" : $"남은 기한 {remaining}턴";
                 var row = addRow(openRoot);
-                row.SetColor(remaining <= 0 ? new Color(.72f, .15f, .12f) : new Color(.15f, .18f, .15f));
+                row.SetColor(remaining <= 0 ? new Color(1f, .84f, .35f) : new Color(.96f, .97f, 1f));
                 row.Bind($"{doc.Title} · {doc.TargetCompany?.definition.companyName} · {deadline}", () => showDetail(doc, null));
             }
             foreach (var entry in inbox.History)
