@@ -27,7 +27,7 @@ public sealed class EscMenu : MonoBehaviour
 
     private Action pendingAction;
 
-    // 메뉴를 여느라 잠깐 숨긴 인물 화면이 있는지
+  
     private bool npcHiddenByMenu;
 
     public bool isOpen => menuRoot.activeSelf;
