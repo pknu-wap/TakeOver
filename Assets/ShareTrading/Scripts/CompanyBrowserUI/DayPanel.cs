@@ -7,10 +7,8 @@ using UnityEngine.UI;
 public class DayPanel : MonoBehaviour
 {
     [Header("날짜")]
+    [SerializeField] private TMP_Text dayCountText;
     [SerializeField] private TMP_Text dateText;
-    [SerializeField] private TMP_Text[] weekDayTexts = new TMP_Text[7];
-    [SerializeField] private Image[] weekDayHighlights = new Image[7];
-    [SerializeField] private Color highlightTextColor = new Color32(14, 24, 48, 255);
     [SerializeField] private int startYear = 2026;
     [SerializeField] private int startMonth = 1;
     [SerializeField] private int startDay = 1;
@@ -18,22 +16,12 @@ public class DayPanel : MonoBehaviour
     [Header("하루 마감")]
     [SerializeField] private Button endDayButton;
 
-    [Header("턴 넘어가면 새로고침할 목록")]
-    [SerializeField] private CompanyListView[] listsToRefresh;
-
     private static readonly string[] DayNames = { "일", "월", "화", "수", "목", "금", "토" };
 
     private GameTurnClock turnClock;
-    private Color[] baseColors;
 
     void Awake()
     {
-        baseColors = new Color[weekDayTexts.Length];
-        for (int i = 0; i < weekDayTexts.Length; i++)
-        {
-            baseColors[i] = weekDayTexts[i] != null ? weekDayTexts[i].color : Color.white;
-        }
-
         if (endDayButton != null)
         {
             endDayButton.onClick.AddListener(endDay);
@@ -71,13 +59,6 @@ public class DayPanel : MonoBehaviour
     private void handleTurnAdvanced(int newTurn)
     {
         refresh();
-        foreach (CompanyListView list in listsToRefresh)
-        {
-            if (list != null && list.isActiveAndEnabled)
-            {
-                list.refresh();
-            }
-        }
     }
 
     private void refresh()
@@ -85,26 +66,13 @@ public class DayPanel : MonoBehaviour
         int turn = turnClock != null ? turnClock.CurrentTurn : 1;
         DateTime today = new DateTime(startYear, startMonth, startDay).AddDays(turn - 1);
 
+        if (dayCountText != null)
+        {
+            dayCountText.text = $"{turn}일째";
+        }
         if (dateText != null)
         {
             dateText.text = $"{today:yyyy.MM.dd} ({DayNames[(int)today.DayOfWeek]})";
-        }
-
-        DateTime sunday = today.AddDays(-(int)today.DayOfWeek);
-        for (int i = 0; i < weekDayTexts.Length; i++)
-        {
-            DateTime day = sunday.AddDays(i);
-            bool isToday = day == today;
-
-            if (weekDayTexts[i] != null)
-            {
-                weekDayTexts[i].text = day.Day.ToString();
-                weekDayTexts[i].color = isToday ? highlightTextColor : baseColors[i];
-            }
-            if (i < weekDayHighlights.Length && weekDayHighlights[i] != null)
-            {
-                weekDayHighlights[i].enabled = isToday;
-            }
         }
     }
 }
