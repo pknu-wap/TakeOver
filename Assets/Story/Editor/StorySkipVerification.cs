@@ -115,7 +115,7 @@ namespace TakeOver.Story.Editor
             Check(Object.FindFirstObjectByType<GameTurnClock>().CurrentTurn==2,"Whole skip advances exactly one real day");
             var company=Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId);
             Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==1,"Whole skip completes two purchases and one sale, leaving one share");
-            Check(StoryDirector.CanNavigate(3) && StoryDirector.CanTrade(company,false),"Whole skip releases normal gameplay controls");
+            Check(StoryDirector.CanNavigate(DashboardTab.Npcs) && StoryDirector.CanTrade(company,false),"Whole skip releases normal gameplay controls");
             Check(Object.FindFirstObjectByType<DashboardCardSlide>().MainCard.gameObject.activeInHierarchy,"Whole skip restores remaining real event cards");
             yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(StorySkipVerification.Output,"03-whole-skip-complete.png"));yield return null;
 
