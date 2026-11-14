@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace TakeOver.CompanyRules
@@ -11,6 +12,7 @@ namespace TakeOver.CompanyRules
         [SerializeField] private CompanyRuleSettings settings;
         private List<ICompanyRule> rules;
         private ChangeApplier applier;
+        public event Action<int> RulesCompleted;
 
         private void Awake()
         {
@@ -41,6 +43,7 @@ namespace TakeOver.CompanyRules
                     applier.Apply(rule.Evaluate(company, context), company);
                 }
             }
+            RulesCompleted?.Invoke(turn);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace TakeOver.CompanyRules
             float profit = state.getStat(CompanyStat.REVENUE) - state.getStat(CompanyStat.COST);
             if (profit <= 0f) return result;
             float total = Mathf.Min(Mathf.Max(0f, state.getStat(CompanyStat.CASH)),
-                profit * Mathf.Clamp01(company.definition.dividendRatio));
+                profit * Mathf.Clamp01(state.getBaseStat(CompanyStat.DIVIDEND_RATIO)));
             result.stats.Add(new StatChange(CompanyStat.CASH, -total));
             result.playerCash = total * state.getStat(CompanyStat.PLAYER_SHARES) / state.totalShares;
             return result;
