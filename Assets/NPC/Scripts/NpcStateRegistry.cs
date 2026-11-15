@@ -13,6 +13,8 @@ namespace TakeOver.NPC
             // 스탠딩은 원본 SO에서 참조한다. JsonUtility 사본에 Unity 객체 참조를 직렬화해 옮기지 않는다.
             public Sprite standingIllustration;
             public Sprite dimmedStandingIllustration;
+            [Tooltip("전용 원화가 없는 서브 기업 인물의 공용 모브 외형. 원화 대기 회사에는 적용하지 않습니다.")]
+            public NpcMobAppearance mobAppearance;
             public string displayName;
             public string role;
             public string affiliation;
@@ -127,6 +129,7 @@ namespace TakeOver.NPC
                 foreach (var seed in initialNpcs)
                 {
                     if (seed == null) continue;
+                    NpcStandingCatalog.ApplyFallback(seed);
                     var state = GetOrCreate(seed.npcId, seed.companyId);
                     ConfigureActionPreferences(state.npcId, seed.actionPreferences);
                 }

@@ -19,7 +19,7 @@ namespace TakeOver.Story.Editor
     public static class EventDialogueSkipVerification
     {
         private const string Key = "TakeOver.EventDialogueSkip";
-        internal static string Output => Path.GetFullPath("../QA_NarrativeRevision/EventRegression");
+        internal static string Output => Path.GetFullPath(Environment.GetEnvironmentVariable("TAKEOVER_QA_OUTPUT") ?? "../QA_NarrativeRevision/EventRegression");
         static EventDialogueSkipVerification() { EditorApplication.playModeStateChanged += Changed; }
         public static void Run()
         {
@@ -135,6 +135,30 @@ namespace TakeOver.Story.Editor
             yield return null; Canvas.ForceUpdateCanvases();
             Check(State(controller) == "Negotiation" && ap.Current == apBefore - definition.getApCost(), "Negotiation consumes AP once " + definition.getId());
             var question = Get<Text>(view, "dialogueText");
+            string beforeReading = StorySkipState.Capture();
+            var readPages = new List<string>();
+            while (view.HasMorePages)
+            {
+                Check(Get<List<Button>>(view, "choices").Count == 0 && Skip(view).interactable, "Long introduction waits for reading or skip before showing choices");
+                Check(question.preferredHeight <= question.rectTransform.rect.height + .5f, "Introduction page fits shared event body");
+                readPages.Add(question.text);
+                if (definition.getId() == "inside_info_01" && choice == 0 && !skip && readPages.Count == 1)
+                {
+                    yield return new WaitForEndOfFrame();
+                    ScreenCapture.CaptureScreenshot(Path.Combine(EventDialogueSkipVerification.Output, "cooperation-introduction.png"));
+                    yield return null;
+                }
+                if (skip)
+                {
+                    Click(Skip(view)); while (Skipping(view)) yield return null;
+                }
+                else Click(Get<Button>(view, "closeButton"));
+                yield return null;
+            }
+            readPages.Add(question.text);
+            if (definition.getId() == "inside_info_01" && !skip)
+                Check(new string(string.Concat(readPages).Where(c => !char.IsWhiteSpace(c)).ToArray()) == new string(definition.getDialogue().Where(c => !char.IsWhiteSpace(c)).ToArray()), "Every authored introduction character is reachable through pages");
+            Check(StorySkipState.Capture() == beforeReading && notifications == 0, "Reading or skipping introduction applies no effects and spends no extra AP");
             Check(question.rectTransform.rect.width >= 800 && question.preferredHeight <= question.rectTransform.rect.height + .5f,
                 "Native event question uses readable shared width without clipping " + definition.getId());
             Check(Skip(view).gameObject.activeInHierarchy && !Skip(view).interactable, "Skip visible and disabled at unanswered choice");
@@ -180,6 +204,16 @@ namespace TakeOver.Story.Editor
                 yield return null; Canvas.ForceUpdateCanvases();
                 var response = Get<Text>(view, "responseText");
                 var playerLine = Get<Text>(view, "playerLineText");
+                var responsePages = new List<string>();
+                while (view.HasMorePages)
+                {
+                    responsePages.Add(response.text);
+                    Check(response.preferredHeight <= response.rectTransform.rect.height + .5f, "Result page fits shared event body");
+                    Click(Get<Button>(view, "closeButton")); yield return null;
+                }
+                responsePages.Add(response.text);
+                if (definition.getId() == "inside_info_01")
+                    Check(new string(string.Concat(responsePages).Where(c => !char.IsWhiteSpace(c)).ToArray()) == new string(definition.getChoices()[choice].getResultDialogue().Where(c => !char.IsWhiteSpace(c)).ToArray()), "Every authored result character is reachable without replaying effects");
                 Check(response.preferredHeight <= response.rectTransform.rect.height + .5f,
                     "Native NPC response is not clipped " + definition.getId()+"/"+choice);
                 if (Get<CanvasGroup>(view,"playerBlock").gameObject.activeInHierarchy)
@@ -213,6 +247,16 @@ namespace TakeOver.Story.Editor
             var definitions = AssetDatabase.FindAssets("t:EventDefinition", new[] { "Assets/EventSystem/Data" })
                 .Select(g => AssetDatabase.LoadAssetAtPath<EventDefinition>(AssetDatabase.GUIDToAssetPath(g))).OrderBy(d => d.getId()).ToArray();
             Check(definitions.Length == 7, "All seven existing event definitions covered");
+            var cooperation = definitions.Single(d => d.getId() == "inside_info_01");
+            Check(cooperation.getTitle() == "미래건설의 협력 제안" && cooperation.getDialogue().Length > 600, "Main story explains internal operations and cooperation in a longer conversation");
+            Check(cooperation.getChoices().Select(c => c.getResultValue()).SequenceEqual(new[] { "review_cooperation", "prepare_takeover", "decline_cooperation" }), "Three distinct player intentions are authored");
+            yield return Setup(cooperation);
+            var eligibility = Object.FindFirstObjectByType<EventSystemController>();
+            var mirae = Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId);
+            mirae.state.setStat(CompanyStat.PLAYER_SHARES, mirae.state.totalShares * .099f); mirae.calculator.calculateAboutShares(mirae); eligibility.refreshAvailability();
+            Check(!eligibility.getTodayEvents().Contains(cooperation), "Mirae story is unavailable at 9.9 percent");
+            mirae.state.setStat(CompanyStat.PLAYER_SHARES, mirae.state.totalShares * .1f); mirae.calculator.calculateAboutShares(mirae); eligibility.refreshAvailability();
+            Check(eligibility.getTodayEvents().Contains(cooperation), "Mirae story remains available at exactly 10 percent");
             foreach (var definition in definitions)
             {
                 string original = EditorJsonUtility.ToJson(definition);
@@ -233,6 +277,7 @@ namespace TakeOver.Story.Editor
             var controller = Object.FindFirstObjectByType<EventSystemController>();
             var view = Object.FindFirstObjectByType<EventNegotiationView>(FindObjectsInactive.Include);
             controller.openEvent("inside_info_01"); controller.startNegotiation(); yield return null; Canvas.ForceUpdateCanvases();
+            if (view.HasMorePages) { Click(Skip(view)); while (Skipping(view)) yield return null; }
             Click(Choice(view, 0));
             while (!Get<Button>(view, "closeButton").gameObject.activeSelf) yield return null;
             yield return null; Canvas.ForceUpdateCanvases();

@@ -341,12 +341,33 @@ namespace TakeOver.Events
             setPlayerFrame(playerInitialFrame);
             playerIllustration.gameObject.SetActive(playerStandingIllustration != null);
             highlightPlayer(false);
-            showChoices(info, controller);
             closeButton.onClick.RemoveAllListeners();
-            closeButton.onClick.AddListener(controller.closeResult);
-            closeButton.gameObject.SetActive(false);
             gameObject.SetActive(true);
             transform.SetAsLastSibling();
+            Canvas.ForceUpdateCanvases();
+            currentDialogue = dialogueText;
+            paginate(info.dialogue ?? "");
+            page = 0;
+            showEventIntroductionPage(info);
+        }
+
+        private void showEventIntroductionPage(TodayEventInfo info)
+        {
+            dialogueText.text = pages[page];
+            if (!HasMorePages)
+            {
+                showChoices(info, controller);
+                closeButton.gameObject.SetActive(false);
+                return;
+            }
+            clearChoices();
+            choicesRoot.gameObject.SetActive(false);
+            closeButton.GetComponentInChildren<Text>(true).text = "계속";
+            closeButton.onClick.RemoveAllListeners();
+            closeButton.onClick.AddListener(() => { if (HasMorePages) { page++; showEventIntroductionPage(info); } });
+            closeButton.interactable = true;
+            closeButton.gameObject.SetActive(true);
+            skipTarget = () => { page = pages.Count - 1; showEventIntroductionPage(info); };
             refreshSkipButton();
         }
 
@@ -413,7 +434,21 @@ namespace TakeOver.Events
         }
 
         public void showResult(string dialogue, string playerLine = "") =>
-            beginExchange(dialogue, playerLine, () => closeButton.gameObject.SetActive(true), false);
+            beginExchange(dialogue, playerLine, showEventResultPage, false);
+
+        private void showEventResultPage()
+        {
+            responseText.text = pages[page];
+            closeButton.GetComponentInChildren<Text>(true).text = HasMorePages ? "계속" : "확인";
+            closeButton.onClick.RemoveAllListeners();
+            closeButton.onClick.AddListener(() =>
+            {
+                if (HasMorePages) { page++; showEventResultPage(); }
+                else controller.closeResult();
+            });
+            closeButton.interactable = true;
+            closeButton.gameObject.SetActive(true);
+        }
 
         public void showExchange(string dialogue, string playerLine, Action completed) =>
             beginExchange(dialogue, playerLine, completed, true);
@@ -451,7 +486,10 @@ namespace TakeOver.Events
             setBlock(responseBlock, false);
             ((RectTransform)playerBlock.transform).anchoredPosition = playerPosition;
             playerLineText.text = playerLine;
-            responseText.text = dialogue;
+            currentDialogue = responseText;
+            paginate(dialogue ?? "");
+            page = 0;
+            responseText.text = pages[0];
             bool hasPlayerLine = !string.IsNullOrWhiteSpace(playerLine);
             ((RectTransform)responseBlock.transform).anchoredPosition = responsePosition + (hasPlayerLine ? Vector2.zero :
                 Vector2.up * (speakerText.rectTransform.localPosition.y - responseSpeakerText.rectTransform.localPosition.y));

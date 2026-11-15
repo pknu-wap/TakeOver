@@ -1,5 +1,10 @@
 namespace TakeOver.SaveSystem
 {
+    /// <summary>명시적으로 지원하는 과거 전체 저장에 새 구역의 초기 데이터를 제공한다.</summary>
+    public interface ILegacySaveSectionInitializer
+    {
+        bool TryCreateLegacySection(int sourceFormatVersion, out SaveSectionData section);
+    }
     /// <summary>기본 파트의 파생 수치가 완성된 뒤 화면을 재구성할 때 사용</summary>
     public interface ISaveRebuildOrder
     {

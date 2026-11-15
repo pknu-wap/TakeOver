@@ -427,11 +427,11 @@ MonoBehaviour:
     stockSurgeMaxRatio: 0
     buybackPremiumRatio: 0
   conditions:
-  - kind: 2
+  - kind: 9
     npcId: 
     relationAxis: 0
     comparison: 0
-    value: 25
+    value: 0
     relaxedByEventId: 
     relaxedByChoiceIndex: 0
     relaxedValue: 0

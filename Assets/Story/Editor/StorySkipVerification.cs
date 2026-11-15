@@ -21,7 +21,7 @@ namespace TakeOver.Story.Editor
     public static class StorySkipVerification
     {
         private const string Key="TakeOver.StorySkip.Verify";
-        internal static string Output=>Path.GetFullPath("../QA_NarrativeRevision");
+        internal static string Output=>Path.GetFullPath(Environment.GetEnvironmentVariable("TAKEOVER_QA_OUTPUT") ?? "../QA_NarrativeRevision");
         static StorySkipVerification(){EditorApplication.playModeStateChanged+=Changed;}
         [MenuItem("TakeOver/Story/Verify Intro Skip Options")]
         public static void Run()
@@ -108,13 +108,18 @@ namespace TakeOver.Story.Editor
             while(StoryDirector.Active!=null)
             {sawDialogue|=StoryDirector.Active.View.Dialogue.gameObject.activeInHierarchy;yield return null;}
             Check(!sawDialogue,"Whole-intro skip shows no story or choices");
+            Check(GameObject.Find("Tutorial completion notice")!=null && GameObject.Find("Help introduction")==null,"Whole skip shows reward before help notice");
+            Check(Object.FindFirstObjectByType<TakeOver.Events.EventSystemController>().TutorialRewardGranted,"Whole skip records reward grant");
+            Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b=>b.name=="Confirm tutorial reward"));
+            yield return null;
+            Check(GameObject.Find("Help introduction")!=null,"Whole skip reward confirmation opens help notice");
             var fullState=StorySkipState.Capture();
             File.WriteAllText(Path.Combine(StorySkipVerification.Output,"skipped-completed-state.json"),fullState);
             var normalState=File.ReadAllText(Path.Combine(StorySkipVerification.Output,"normal-completed-state.json"));
             Check(fullState==normalState,"Whole skip matches normal completed tutorial: cash, all company data/history, NPC relations/Memory, date, AP");
             Check(Object.FindFirstObjectByType<GameTurnClock>().CurrentTurn==2,"Whole skip advances exactly one real day");
             var company=Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId);
-            Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==1,"Whole skip completes two purchases and one sale, leaving one share");
+            Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==51,"Whole skip retains one traded share plus 50 bonus shares");
             Check(StoryDirector.CanNavigate(DashboardTab.Npcs) && StoryDirector.CanTrade(company,false),"Whole skip releases normal gameplay controls");
             Check(Object.FindFirstObjectByType<DashboardCardSlide>().MainCard.gameObject.activeInHierarchy,"Whole skip restores remaining real event cards");
             yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(StorySkipVerification.Output,"03-whole-skip-complete.png"));yield return null;
@@ -217,7 +222,7 @@ namespace TakeOver.Story.Editor
             Check(clock.CurrentTurn==2,"Dialogue skipping advances the actual day once");
             var registry=Object.FindFirstObjectByType<NpcStateRegistry>();
             Check(registry.States.Sum(s=>s.memories.Count)==4,"Three conversations and one event record memories without duplicates");
-            Check(Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId).state.getStat(CompanyStat.PLAYER_SHARES)==1,"Initial buy, additional buy and first sale all complete");
+            Check(Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId).state.getStat(CompanyStat.PLAYER_SHARES)==51,"Initial buy, additional buy and first sale complete with 50 bonus shares");
             Check(Object.FindFirstObjectByType<TakeOver.Events.EventSystemController>().tryGetChoice(StoryDirector.TutorialEventId,out int selected) && selected==0,"General event choice committed during guided playback");
             Check(Object.FindFirstObjectByType<DashboardCardSlide>().MainCard.gameObject.activeInHierarchy,"Guided completion restores remaining real event cards");
 

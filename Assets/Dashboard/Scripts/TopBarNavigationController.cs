@@ -29,6 +29,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
         if (tabKinds.Length != tabButtons.Length || System.Array.IndexOf(tabKinds, DashboardTab.Home) < 0)
         { Debug.LogError("상단 메뉴 버튼과 화면 식별자 연결을 확인해 주십시오.", this); return; }
         help = gameObject.AddComponent<TakeOver.Help.HelpScreen>();
+        gameObject.AddComponent<TakeOver.Dashboard.StoryDeadlineBar>();
         var source = tabButtons[tabButtons.Length - 1];
         var helpButton = Instantiate(source, source.transform.parent, false);
         helpButton.name = "HelpTab";

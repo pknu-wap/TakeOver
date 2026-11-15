@@ -43,6 +43,7 @@ namespace TakeOver.NPC.Editor
                 Field(profile, "affiliation", "소속 표시명");
                 Field(profile, "standingIllustration", "기본 스탠딩");
                 Field(profile, "dimmedStandingIllustration", "어두운 스탠딩");
+                Field(profile, "mobAppearance", "공용 모브 외형 · 전용 원화 없을 때");
                 Field(profile, "personalitySummary", "성격 · 가치관");
                 Field(profile, "gameplayRoleSummary", "게임 내 역할");
             }

@@ -1,4 +1,4 @@
-﻿# NPC 작업 가이드
+# NPC 작업 가이드
 
 ## NPC별 SO 세부 설정 — 2026-11-08
 
@@ -40,7 +40,7 @@ NPC ID는 `Docs/ID_CONVENTIONS_KO.md`의 표를 따른다. 등록 NPC 14명 모�
 
 이 자동 경로는 아래 수동 반응 SO 목록을 사용하지 않는다. 같은 결과를 수동으로도 발행하면 별도 발생으로 계산될 수 있으므로 중복 연결하지 않는다. 행동 ID가 비어 있는 이벤트에 선호 행동을 임의로 붙이지 않으며 기존 결과 Memory 선호만 적용한다.
 
-`TakeOver > NPC > Verify Event Connection`은 현재 Game 씬에서 인터뷰 2개/내부 정보 제보 3개 선택을 실제 컨트롤러로 실행하고 관계·기억·중복·재구독·저장 복원을 검사한다. 씬을 저장하지 않고 Play 종료로 테스트 상태를 버린다. 결과는 workspace `psm/event-connection-verification.txt`, 전용 저장은 `psm/event-connection-test-save.json`이다. 검증 중 NPC 상태와 이벤트 진행을 초기화하므로 기존 Play 세션을 끝낸 후 실행한다.
+`TakeOver > NPC > Verify Event Connection`은 현재 Game 씬에서 인터뷰 2개/미래건설 협력 제안 3개 선택을 실제 컨트롤러로 실행하고 관계·기억·중복·재구독·저장 복원을 검사한다. 협력 제안은 거절도 기억으로 남기며, 인수 준비 선택의 숨은 의도가 NPC 기억에 유출되지 않는지도 확인한다. 씬을 저장하지 않고 Play 종료로 테스트 상태를 버린다. 결과는 workspace `psm/event-connection-verification.txt`, 전용 저장은 `psm/event-connection-test-save.json`이다. 검증 중 NPC 상태와 이벤트 진행을 초기화하므로 기존 Play 세션을 끝낸 후 실행한다.
 
 ## 2026-10-27 · ID·직책·선호·정보 화면
 
@@ -131,3 +131,7 @@ Npc Definitions 목록에 새 NPC SO를 등록한 뒤 Play를 시작하면 선�
 - **이벤트 미리보기:** Reactions에 등록한 반응 SO를 선택하고 **선택 반응 수동 발행**을 누른다. 대상 NPC, 실제 관계 변화와 생성된 Memory가 표시된다.
 
 미리보기는 반응 SO에 지정된 NPC의 런타임 상태를 실제로 바꾼다. 클릭마다 별도 발생으로 처리하며, 파일에 남기려면 저장 버튼을 누른다. 실제 이벤트와 자동 연결되지는 않는다.
+
+## 공용 모브 원화
+
+전용 원화가 없는 서브 기업 인물은 NpcStandingCatalog의 남녀 기본/암전 이미지를 재사용한다. NPC SO의 공용 모브 외형으로 선택하며 신규 5개 회사와 APEX는 제외한다. 목록과 적용 규칙은 Docs/NPC_STANDING_CATALOG_KO.md를 참조한다.
