@@ -238,6 +238,7 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         }
         state.totalShares = entry.state.totalShares;
         state.status = entry.state.status;
+        state.greenmailBuyBlocked = entry.state.greenmailBuyBlocked;
         state.initialRevenue = entry.state.initialRevenue;
         state.initialCost = entry.state.initialCost;
         state.initialNetProfit = entry.state.initialNetProfit;

@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        if (GetComponent<TakeOver.PlayerMemories.PlayerMemoryService>() == null)
+            gameObject.AddComponent<TakeOver.PlayerMemories.PlayerMemoryService>();
         state = new PlayerState(
             initialCash: 10000f,
             initialManPower: 10f,

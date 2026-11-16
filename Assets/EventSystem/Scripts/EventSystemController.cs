@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using TakeOver.NPC;
 using TakeOver.Events;
+using TakeOver.PlayerMemories;
 
 
 namespace TakeOver.Events
@@ -11,6 +12,8 @@ namespace TakeOver.Events
     public sealed partial class EventSystemController : MonoBehaviour, TakeOver.SaveSystem.ISaveParticipant
     {
         [SerializeField] private List<EventDefinition> events = new List<EventDefinition>();
+        [SerializeField] private StoryEventDatabase storyDatabase;
+        public IReadOnlyList<EventDefinition> StoryEvents => events.Where(item => item.IsStory).ToList().AsReadOnly();
         [SerializeField] private EventDetailView detailView;
         [SerializeField] private EventNegotiationView negotiationView;
         private sealed class Occurrence
@@ -31,6 +34,10 @@ namespace TakeOver.Events
         private readonly List<EventDefinition> todayEvents = new List<EventDefinition>();
         private readonly List<TodayEventInfo> todayInfos = new List<TodayEventInfo>();
         private readonly Dictionary<string, int> selectedChoices = new Dictionary<string, int>();
+        private readonly Dictionary<string, bool> storyResults = new Dictionary<string, bool>();
+        private bool tutorialRewardGranted;
+        public bool TutorialRewardGranted => tutorialRewardGranted;
+        public bool TryGetStoryResult(string eventId, out bool succeeded) => storyResults.TryGetValue(eventId, out succeeded);
         private readonly Dictionary<(string, string), int> companyChoices = new Dictionary<(string, string), int>();
         private readonly Dictionary<(string, string), int> availableDays = new Dictionary<(string, string), int>();
         private TodayEventInfo activeInfo;
@@ -49,6 +56,19 @@ namespace TakeOver.Events
 
         private void Awake()
         {
+            if (storyDatabase == null) storyDatabase = Resources.Load<StoryEventDatabase>("Story/StoryEventDatabase");
+            if (storyDatabase == null) throw new InvalidOperationException("스토리 이벤트 DB가 없습니다.");
+            // 기존 씬의 등록을 남겨도 스토리는 전용 DB가 유일한 공급원이 된다.
+            events.RemoveAll(item => item != null && item.IsStory);
+            if (storyDatabase != null)
+                foreach (var definition in storyDatabase.Events)
+                {
+                    if (definition == null || string.IsNullOrWhiteSpace(definition.getId()) || !definition.IsStory || definition.IsTutorialOnly ||
+                        definition.getChoiceGeneration() != EventChoiceGeneration.Fixed ||
+                        events.Any(item => item == null || item.getId() == definition.getId()))
+                        throw new InvalidOperationException("스토리 이벤트 DB의 분류·ID·참조를 확인해 주십시오.");
+                    events.Add(definition);
+                }
             var lesson = Resources.Load<EventDefinition>("Story/TutorialVisit");
             if (lesson != null && !events.Contains(lesson)) events.Add(lesson);
             turnClock = FindFirstObjectByType<GameTurnClock>();
@@ -60,16 +80,19 @@ namespace TakeOver.Events
         private void OnEnable()
         {
             if (turnClock != null) turnClock.TurnAdvanced += onDayStarted;
+            if (turnClock != null) turnClock.DayStarted += OnMandatoryDayStarted;
         }
         private void OnDisable()
         {
             if (turnClock != null) turnClock.TurnAdvanced -= onDayStarted;
+            if (turnClock != null) turnClock.DayStarted -= OnMandatoryDayStarted;
         }
         private System.Collections.IEnumerator Start()
         {
             // 지분매입팀 Start의 첫 STAKE 계산이 끝난 뒤 첫날을 판정한다.
             yield return null;
             if (currentDay == 0) onDayStarted(turnClock != null ? turnClock.CurrentTurn : 1);
+            EvaluateMandatoryDeadline(currentDay);
         }
         public IReadOnlyList<EventDefinition> getTodayEvents() => todayEvents.AsReadOnly();
         public IReadOnlyList<TodayEventInfo> getTodayEventInfos() => todayInfos.AsReadOnly();
@@ -96,17 +119,51 @@ namespace TakeOver.Events
         }
         private bool hasRequiredHoldings(EventDefinition definition) =>
             definition.getChoiceGeneration() != EventChoiceGeneration.OwnedCompanies || getOwnedCompanies().Count > 0;
+        private bool isGreenmailOfferCurrent(EventDefinition definition, string companyId) =>
+            !definition.getConditions().Any(condition => condition.kind == EventConditionKind.CompanyGreenmailStake) ||
+            meetsConditions(definition, companyId) && occurrences.Exists(item => item.definition == definition && item.companyId == companyId && currentDay < OccurrenceExpiry(definition, item.firstDay));
         private bool canAppear(EventDefinition definition, string companyId)
         {
             var key = (definition.getId(), getKeyCompany(definition, companyId));
-            return !(definition.hasCompanyConditions() ? companyChoices.ContainsKey(key) : selectedChoices.ContainsKey(definition.getId())) && (!availableDays.TryGetValue(key, out int day) || currentDay >= day);
+            return !(definition.hasCompanyConditions() && !definition.IsStory ? companyChoices.ContainsKey(key) : selectedChoices.ContainsKey(definition.getId())) && (IsMandatory(definition) || !availableDays.TryGetValue(key, out int day) || currentDay >= day);
         }
         private bool meetsConditions(EventDefinition definition, string companyId)
         {
             if (definition.IsTutorialOnly && !TakeOver.Story.StoryDirector.IsRunning) return false;
             if (definition.hasCompanyConditions() && definition.getCompanyIds().Count > 0 && !definition.getCompanyIds().Contains(companyId)) return false;
-            foreach (EventCondition condition in definition.getConditions())
+            return meetsConditions(definition.getConditions(), companyId);
+        }
+        private bool meetsConditions(IReadOnlyList<EventCondition> conditions, string eventCompanyId)
+        {
+            foreach (EventCondition condition in conditions)
             {
+                if (condition == null || !Enum.IsDefined(typeof(EventConditionKind), condition.kind) ||
+                    !Enum.IsDefined(typeof(EventComparison), condition.comparison) || float.IsNaN(condition.value) || float.IsInfinity(condition.value)) return false;
+                string companyId = string.IsNullOrEmpty(condition.companyId) ? eventCompanyId : condition.companyId;
+                if (condition.kind == EventConditionKind.PlayerHasMemory || condition.kind == EventConditionKind.PlayerLacksMemory)
+                {
+                    var memories = FindFirstObjectByType<PlayerMemoryService>();
+                    if (memories == null || string.IsNullOrWhiteSpace(condition.playerMemoryKey) ||
+                        memories.HasMemory(condition.playerMemoryKey, string.IsNullOrEmpty(condition.companyId) ? null : condition.companyId) != (condition.kind == EventConditionKind.PlayerHasMemory)) return false;
+                    continue;
+                }
+                if ((condition.kind == EventConditionKind.CompanyStake || condition.kind == EventConditionKind.CompanyGreenmailStake || condition.kind == EventConditionKind.CompanyConsumerReaction ||
+                     condition.kind == EventConditionKind.CompanyProfitDeteriorating) && worldReader.getCompany(companyId) == null) return false;
+                if (condition.kind == EventConditionKind.EventCompleted || condition.kind == EventConditionKind.EventChoice ||
+                    condition.kind == EventConditionKind.StorySucceeded || condition.kind == EventConditionKind.StoryFailed)
+                {
+                    if (string.IsNullOrEmpty(condition.requiredEventId) || !events.Any(item => item.getId() == condition.requiredEventId)) return false;
+                    bool met;
+                    if (condition.kind == EventConditionKind.StorySucceeded || condition.kind == EventConditionKind.StoryFailed)
+                        met = storyResults.TryGetValue(condition.requiredEventId, out bool success) && success == (condition.kind == EventConditionKind.StorySucceeded);
+                    else
+                        met = (string.IsNullOrEmpty(condition.companyId)
+                            ? selectedChoices.TryGetValue(condition.requiredEventId, out int answer)
+                            : companyChoices.TryGetValue((condition.requiredEventId, condition.companyId), out answer)) &&
+                            (condition.kind == EventConditionKind.EventCompleted || answer == condition.requiredChoiceIndex);
+                    if (!met) return false;
+                    continue;
+                }
                 float threshold = condition.value;
                 if (!string.IsNullOrEmpty(condition.relaxedByEventId))
                 {
@@ -115,7 +172,12 @@ namespace TakeOver.Events
                             threshold = condition.relaxedValue;
                 }
                 float actual;
-                if (condition.kind == EventConditionKind.CompanyStake) actual = worldReader.getStake(companyId);
+                if (condition.kind == EventConditionKind.CompanyGreenmailStake)
+                {
+                    if (condition.comparison != EventComparison.AtLeast || !worldReader.tryGetGreenmailStake(companyId, out actual, out threshold)) return false;
+                }
+                else if (condition.kind == EventConditionKind.Day) actual = currentDay;
+                else if (condition.kind == EventConditionKind.CompanyStake) actual = worldReader.getStake(companyId);
                 else if (condition.kind == EventConditionKind.CompanyConsumerReaction) actual = worldReader.getConsumerReaction(companyId);
                 else if (condition.kind == EventConditionKind.CompanyProfitDeteriorating) actual = worldReader.isProfitDeteriorating(companyId) ? 1 : 0;
                 else
@@ -137,6 +199,18 @@ namespace TakeOver.Events
             }
             return true;
         }
+        public bool GrantTutorialReward(Company company)
+        {
+            if (tutorialRewardGranted) return true;
+            if (company == null || company.definition.companyID != TakeOver.Story.StoryDirector.CompanyId || company.state.totalShares <= 0) return false;
+            float amount = company.state.totalShares * .05f;
+            float owned = company.state.getBaseStat(CompanyStat.PLAYER_SHARES);
+            if (float.IsNaN(owned) || float.IsInfinity(owned) || owned < 0 || owned + amount > company.state.totalShares) return false;
+            company.state.addStat(CompanyStat.PLAYER_SHARES, amount);
+            company.calculator.calculateAboutShares(company);
+            tutorialRewardGranted = true;
+            return true;
+        }
         public void onDayStarted(int dayNumber)
         {
             if (dayNumber <= currentDay) return;
@@ -144,7 +218,7 @@ namespace TakeOver.Events
             for (int i = occurrences.Count - 1; i >= 0; i--)
             {
                 Occurrence occurrence = occurrences[i];
-                int expiry = occurrence.firstDay + occurrence.definition.getValidDays();
+                int expiry = OccurrenceExpiry(occurrence.definition, occurrence.firstDay);
                 if (!hasRequiredHoldings(occurrence.definition)) occurrences.RemoveAt(i);
                 else if (currentDay >= expiry)
                 {
@@ -172,11 +246,13 @@ namespace TakeOver.Events
                 }
                 occurrences.Add(new Occurrence { definition = definition, companyId = companyId, firstDay = currentDay });
             }
+            if (turnClock == null || dayNumber != turnClock.CurrentTurn) EvaluateMandatoryDeadline(dayNumber);
             rebuildToday();
             todayEventsChanged?.Invoke();
         }
         public void refreshAvailability()
         {
+            EnsureMandatoryOffer();
             if (rebuildToday()) todayEventsChanged?.Invoke();
         }
         private bool rebuildToday()
@@ -186,10 +262,11 @@ namespace TakeOver.Events
             todayInfos.Clear();
             foreach (Occurrence occurrence in occurrences)
             {
+                if (!ShowMandatoryOccurrence(occurrence.definition)) continue;
                 if (!hasRequiredHoldings(occurrence.definition) || !meetsConditions(occurrence.definition, occurrence.companyId)) continue;
                 todayEvents.Add(occurrence.definition);
                 todayInfos.Add(new TodayEventInfo(occurrence.definition, worldReader.getCompany(occurrence.companyId, occurrence.definition),
-                    occurrence.firstDay + occurrence.definition.getValidDays() - currentDay));
+                    IsMandatory(occurrence.definition) ? Mathf.Max(0, MandatoryFailureDay - currentDay) : occurrence.firstDay + occurrence.definition.getValidDays() - currentDay));
             }
             if (previous.Count != todayInfos.Count) return true;
             for (int i = 0; i < previous.Count; i++)
@@ -199,10 +276,11 @@ namespace TakeOver.Events
         }
         public void openEvent(string eventId)
         {
+            if (mandatoryState == MandatoryStoryState.Failed || mandatoryState == MandatoryStoryState.Forced && eventId != MandatoryEventId) return;
             if (!TakeOver.Story.StoryDirector.CanOpenEvent(eventId)) return;
             if (screenState != ScreenState.Closed) return;
             Occurrence occurrence = occurrences.Find(item => item.definition.getId() == eventId);
-            if (occurrence != null && (!hasRequiredHoldings(occurrence.definition) || !meetsConditions(occurrence.definition, occurrence.companyId)))
+            if (occurrence != null && (!hasRequiredHoldings(occurrence.definition) || !meetsConditions(occurrence.definition, occurrence.companyId) || !isGreenmailOfferCurrent(occurrence.definition, occurrence.companyId)))
             {
                 refreshAvailability();
                 return;
@@ -223,7 +301,7 @@ namespace TakeOver.Events
         {
             if (!TakeOver.Story.StoryDirector.CanNegotiate(ActiveEventId)) return;
             if (screenState != ScreenState.Detail) return;
-            if(activeInfo==null || !hasRequiredHoldings(activeInfo.definition) || !meetsConditions(activeInfo.definition,activeInfo.companyId))
+            if(activeInfo==null || !hasRequiredHoldings(activeInfo.definition) || !meetsConditions(activeInfo.definition,activeInfo.companyId) || !isGreenmailOfferCurrent(activeInfo.definition,activeInfo.companyId))
             {closeDetail();refreshAvailability();return;}
             buildNegotiationChoices();
             if (negotiationChoices.Count == 0) return;
@@ -272,6 +350,13 @@ namespace TakeOver.Events
         {
             if ((screenState != ScreenState.Negotiation && screenState != ScreenState.CompanyChoice) || choiceIndex < 0 || choiceIndex >= negotiationChoices.Count) return;
             EventDefinition definition = activeInfo.definition;
+            if (!isGreenmailOfferCurrent(definition, activeInfo.companyId))
+            {
+                negotiationView.hide(); activeInfo = null; negotiationChoices.Clear(); screenState = ScreenState.Closed;
+                refreshAvailability();
+                FindFirstObjectByType<FloatingMessage>()?.Show("제안 조건이나 기한이 변경되어 만남을 종료하였습니다.");
+                return;
+            }
             NegotiationChoice selected = negotiationChoices[choiceIndex];
             EventChoice choice = selected.choice;
             bool companyChoice = screenState == ScreenState.CompanyChoice;
@@ -283,30 +368,54 @@ namespace TakeOver.Events
                 return;
             }
             // 선택 완료·관계·기억·현금 변경 전에 검사한다. 실패한 답변은 다시 고를 수 있다.
-            if (!canAfford(choice))
+            bool succeeded = !definition.IsStory || meetsConditions(choice.getResultConditions(), activeInfo.companyId);
+            EventOutcome outcome = succeeded ? choice : choice.getFailureOutcome();
+            if (outcome == null || !canAfford(outcome))
             {
                 negotiationView.showChoiceFailure("보유자금이 부족합니다. 다른 답변을 선택해 주십시오.");
                 return;
+            }
+            PlayerMemoryService playerMemories = null;
+            PlayerMemoryOrigin memoryOrigin = null;
+            if (outcome.getPlayerMemories().Count > 0)
+            {
+                playerMemories = FindFirstObjectByType<PlayerMemoryService>();
+                memoryOrigin = new PlayerMemoryOrigin(PlayerMemorySourceKind.EventChoice, definition.getId(),
+                    $"day{currentDay}:{definition.getId()}", activeInfo.companyId, currentDay, selected.originalIndex);
+                if (playerMemories == null)
+                {
+                    negotiationView.showChoiceFailure("플레이어 기억 저장소를 확인할 수 없습니다.");
+                    return;
+                }
+                try { playerMemories.ValidateGrants(outcome.getPlayerMemories(), memoryOrigin); }
+                catch (Exception error) when (error is ArgumentException || error is System.IO.InvalidDataException)
+                {
+                    negotiationView.showChoiceFailure("선택 결과의 플레이어 기억 설정이 올바르지 않습니다.");
+                    return;
+                }
             }
             string playerLine = companyChoice ? (definition.getCompanyPlayerLine() ?? "").Replace("{company}", selected.companyName) : choice.getPlayerLine();
             string companyId = activeInfo.companyId;
             screenState = ScreenState.Result;
             selectedChoices[definition.getId()] = selected.originalIndex;
             companyChoices[(definition.getId(), companyId)] = selected.originalIndex;
+            if (definition.IsStory) storyResults[definition.getId()] = succeeded;
             occurrences.RemoveAll(item => item.definition == definition);
             rebuildToday();
-            var result = new ChoiceConfirmedInfo(definition.getId(), selected.originalIndex, choice.getResultValue(),
-                currentDay, choice.getNpcResult(), choice.getCashDelta(), companyId,
-                selected.companyId, choice.getStockSurgeMinRatio(), choice.getStockSurgeMaxRatio(), choice.getBuybackPremiumRatio());
+            var result = new ChoiceConfirmedInfo(definition.getId(), selected.originalIndex, outcome.getResultValue(),
+                currentDay, outcome.getNpcResult(), outcome.getCashDelta(), companyId,
+                selected.companyId, outcome.getStockSurgeMinRatio(), outcome.getStockSurgeMaxRatio(), outcome.getBuybackPremiumRatio());
             if (definition.hasCompanyConditions() && result.npcResult != null)
             {
                 result.npcResult.targetNpcIds.RemoveAll(id => worldReader.belongsToOtherCompany(id, companyId));
                 result.npcResult.targetReactions.RemoveAll(reaction => worldReader.belongsToOtherCompany(reaction.targetNpcId, companyId));
                 if (result.npcResult.targetNpcIds.Count == 0) result.clearNpcResult();
             }
+            var addedPlayerMemories = playerMemories?.Commit(outcome.getPlayerMemories(), memoryOrigin);
             choiceConfirmed?.Invoke(result);
+            if (playerMemories != null) playerMemories.NotifyAdded(addedPlayerMemories);
             todayEventsChanged?.Invoke();
-            negotiationView.showResult(activeInfo.resolve(choice.getResultDialogue()), activeInfo.resolve(playerLine));
+            negotiationView.showResult(activeInfo.resolve(outcome.getResultDialogue()), activeInfo.resolve(playerLine));
         }
         public void closeResult()
         {
@@ -314,9 +423,10 @@ namespace TakeOver.Events
             negotiationView.hide();
             activeInfo = null;
             screenState = ScreenState.Closed;
+            CompleteMandatoryPresentation();
         }
 
-        private bool canAfford(EventChoice choice)
+        private bool canAfford(EventOutcome choice)
         {
             float delta = choice.getCashDelta();
             if (float.IsNaN(delta) || float.IsInfinity(delta)) return false;

@@ -22,6 +22,7 @@ namespace TakeOver.NPC
                 copy.profile.standingIllustration = seed.profile.standingIllustration;
                 copy.profile.dimmedStandingIllustration = seed.profile.dimmedStandingIllustration;
             }
+            NpcStandingCatalog.ApplyFallback(copy);
             return copy;
         }
 

@@ -21,10 +21,11 @@ namespace TakeOver.Story.Editor
             var trading=Object.FindFirstObjectByType<TradingSaveAdapter>();
             var ap=Object.FindFirstObjectByType<ActionPointService>();
             var clock=Object.FindFirstObjectByType<GameTurnClock>();
+            var playerMemories=Object.FindFirstObjectByType<TakeOver.PlayerMemories.PlayerMemoryService>();
             var npcs=string.Join("\n",registry.States.OrderBy(s=>s.npcId).Select(s=>JsonUtility.ToJson(s)));
             // Only per-playthrough occurrence GUIDs vary; NPC IDs, choices, effects and decay must match.
             npcs=Regex.Replace(npcs,"intro-[a-f0-9]{32}-","intro-INSTANCE-");
-            return "turn="+clock.CurrentTurn+";AP="+ap.Current+"\n"+trading.captureJson()+"\n"+npcs;
+            return "turn="+clock.CurrentTurn+";AP="+ap.Current+"\n"+trading.captureJson()+"\n"+npcs+"\nplayer-memories="+playerMemories.captureJson();
         }
     }
 }

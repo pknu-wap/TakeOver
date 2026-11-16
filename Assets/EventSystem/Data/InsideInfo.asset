@@ -13,147 +13,125 @@ MonoBehaviour:
   m_Name: InsideInfo
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
   eventId: inside_info_01
-  title: "\uB0B4\uBD80 \uC815\uBCF4 \uC81C\uBCF4"
+  category: 1
+  title: "미래건설의 협력 제안"
   image: {fileID: 21300000, guid: e4f06f328acf53c4385995fb1f2c1e65, type: 3}
   cardImage: {fileID: 21300000, guid: d04aa39026668454991718ef00702904, type: 3}
   highlightImage: {fileID: 0}
-  description: "\uBBF8\uB798\uAC74\uC124 CFO \uC11C\uC9C0\uC544\uAC00 \uC740\uBC00\uD788
-    \uC5F0\uB77D\uD574 \uC654\uB2E4. \uC7A5\uBD80\uC5D0 \uB4DC\uB7EC\uB098\uC9C0
-    \uC54A\uC740 \uBD80\uCC44 \uC815\uBCF4\uB97C \uB118\uAE30\uACA0\uB2E4\uACE0 \uD55C\uB2E4."
+  description: "미래건설의 주요 주주가 된 당신에게 CFO 서지아가 면담을 요청했다. 공사대금 회수 지연과 현장 비용 부담으로 빠듯해진 회사 사정을 설명하고, 운영 계획과 앞으로의 협력 방향을 함께 검토하고 싶다고 한다."
   apCost: 1
-  startButtonText: "\uB9CC\uB098 \uBCF8\uB2E4"
+  startButtonText: "만나 본다"
   companyIds:
   - mirae-construction
   speakerNpcId: npc-mirae-construction-cfo-seo-jia
   speakerName: "\uC11C\uC9C0\uC544"
   speakerRole: "\uBBF8\uB798\uAC74\uC124 CFO"
-  dialogue: "\uC7A5\uBD80\uC5D0 \uC548 \uC7A1\uD78C \uBD80\uCC44\uAC00 \uC788\uC2B5\uB2C8\uB2E4.
-    \uC22B\uC790\uB294 \uC81C\uAC00 \uB4DC\uB9AC\uC8E0. \uB300\uC2E0 \uC778\uC218
-    \uD6C4 \uC81C \uC131\uACFC\uBCF4\uC218\uB97C \uD655\uC2E4\uD788 \uBCF4\uC7A5\uD574
-    \uC8FC\uC154\uC57C \uD569\uB2C8\uB2E4."
+  dialogue: "지분을 꾸준히 늘리고 계시더군요. 이제는 저희 사정을 조금 더 말씀드려야 할 것 같아서 자리를 부탁드렸어요. 밖에서 보이는 것보다 회사가 빠듯하게 돌아가고 있습니다.\n\n일감이 끊긴 건 아니에요. 문제는 공사대금이 들어오는 날과 현장에 돈을 보내야 하는 날이 자꾸 어긋난다는 거예요. 자재값과 인건비는 먼저 나가는데, 발주처 정산은 늦어져요. 한 현장에서 늦어진 돈을 기다리는 동안 다른 현장까지 숨이 차는 식이죠.\n\n현장에서는 사람과 장비를 빼면 남은 일정도 못 지킨다고 해요. 사무실에서는 새 공사를 더 받아야 버틴다고 하고요. 강 대표님도 기존 현장을 끝까지 책임지려 하지만, 일이 늘수록 자금과 인력이 더 묶이는 게 지금의 고민이에요.\n\n누가 일을 안 해서 생긴 문제라면 답이 쉬웠겠죠. 다들 자기 자리에서는 버티고 있어요. 다만 현장마다 급한 순서가 다르고, 서로 양보할 여유가 없어졌어요. 자금 일정을 맞추는 제 입장에서도 이번 달을 넘기는 것만으로는 부족하다고 느껴요.\n\n그래서 앞으로 어떤 식으로 함께할 수 있을지 여쭤보고 싶어요. 현장별 대금 회수 일정과 필요한 자금을 함께 살펴보고, 지금 끝낼 공사와 새로 받을 공사의 우선순위부터 맞추는 거예요. 지원을 검토하신다면 어디에 쓰고 어떻게 확인받을지도 먼저 정하고 싶고요.\n\n우선 공유할 수 있는 운영 자료와 경영진의 계획을 정리해 드릴게요. 그걸 보시고 협력할 여지가 있는지 말씀해 주세요. 현장과 직원들에게도 설명할 수 있는 방향이면 좋겠어요. 지금 저희와 함께 검토해 보실 생각이 있으신가요?"
   companyQuestion: 
   companyPlayerLine: 
   choices:
-  - choiceText: "\uc790\ub8cc\uc640 \uc694\uad6c \uc870\uac74\uc744 \uc11c\uba74\uc73c\ub85c \uc694\uccad\ud55c\ub2e4"
-    choiceDescription: "\uac80\ud1a0\uc6a9 \uc790\ub8cc\ub97c \ubc1b\uc2b5\ub2c8\ub2e4. \ubcf4\uc218 \uc9c0\uae09\uc774\ub098 \uacc4\uc57d \uccb4\uacb0\uc740 \uc544\uc9c1 \ud655\uc815\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
-    playerLine: "\uc790\ub8cc\uc640 \uc694\uad6c \uc870\uac74\uc744 \uc11c\uba74\uc73c\ub85c \ubcf4\ub0b4\uc8fc\uc2ed\uc2dc\uc624. \ub0b4\uc6a9\uc744 \ud655\uc778\ud55c \ub4a4 \ub2f5\ub4dc\ub9ac\uaca0\uc2b5\ub2c8\ub2e4."
-    resultDialogue: "\uc54c\uaca0\uc2b5\ub2c8\ub2e4. \uc81c\uac00 \uc6d0\ud558\ub294 \uc870\uac74\ub3c4 \ud568\uaed8 \uc801\uaca0\uc2b5\ub2c8\ub2e4. \uac80\ud1a0\ud558\uc2dc\uace0 \ub2e4\uc2dc \ub9d0\uc500\ud574 \uc8fc\uc2ed\uc2dc\uc624."
-    resultValue: "request_terms"
+  - choiceText: "협력 방안을 함께 검토한다"
+    choiceDescription: "회사 정상화를 위한 자료와 실행 계획을 검토합니다."
+    playerLine: "현장을 유지하면서 풀 수 있는 방법부터 함께 살펴보겠습니다. 지금 가능한 일부터 계획을 맞춰보죠."
+    resultDialogue: "그렇게 말씀해 주시니 다행이에요. 현장별로 들어올 돈과 먼저 나갈 돈을 나눠서 준비할게요. 대표님과 현장 책임자들의 생각도 함께 정리하겠습니다.\n\n자료를 보시다가 납득이 안 되는 부분이 있으면 꼭 짚어주세요. 급하다고 숫자를 좋게만 보여드리고 싶지는 않아요. 실행할 수 있는 계획이 나와야 저희도 직원들에게 설명할 수 있으니까요. 오늘은 그 검토를 시작하는 것으로 이해할게요."
+    resultValue: "review_cooperation"
     npcResult:
-      eventId: 
-      companyId: 
-      actorId: 
-      actionId: 
+      eventId: ""
+      companyId: ""
+      actorId: player
+      actionId: mirae-cooperation-discussion
       targetNpcIds:
       - npc-mirae-construction-cfo-seo-jia
-      targetReactions:
-      - targetNpcId: npc-mirae-construction-cfo-seo-jia
-        memoryType: 8
-        strength: 2
-        publicity: 0
-        permanent: 0
-        durationTurns: 3
-        reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc790\ub8cc\uc640 \uc131\uacfc\ubcf4\uc218 \uc694\uad6c \uc870\uac74\uc744 \uc11c\uba74\uc73c\ub85c \uc694\uccad\ud588\ub2e4. \ubcf4\uc218 \uc9c0\uae09\uc774\ub098 \uc778\uc218 \uacc4\uc57d\uc740 \uccb4\uacb0\ud558\uc9c0 \uc54a\uc558\ub2e4."
-        tags: []
-        relationDelta:
-          trust: 10
-          respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 10
-      memoryType: 8
-      strength: 2
-      publicity: 0
-      permanent: 0
-      durationTurns: 3
-      reliability: 1
-      interpretation: "\ud22c\uc790\uc790\uac00 \uc790\ub8cc\uc640 \uc131\uacfc\ubcf4\uc218 \uc694\uad6c \uc870\uac74\uc744 \uc11c\uba74\uc73c\ub85c \uc694\uccad\ud588\ub2e4. \ubcf4\uc218 \uc9c0\uae09\uc774\ub098 \uc778\uc218 \uacc4\uc57d\uc740 \uccb4\uacb0\ud558\uc9c0 \uc54a\uc558\ub2e4."
-      tags: []
-      relationDelta:
-        trust: 0
-        respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
-    cashDelta: 0
-    stockSurgeMinRatio: 0
-    stockSurgeMaxRatio: 0
-    buybackPremiumRatio: 0
-  - choiceText: "\uc6b0\uc120 \uad6c\ub450\ub85c \ub0b4\uc6a9\uc744 \ub4e3\ub294\ub2e4"
-    choiceDescription: "\uacc4\uc57d \uc758\uc0ac\ub294 \ubc1d\ud788\uc9c0 \uc54a\uace0 \uc124\uba85\ub9cc \uc694\uccad\ud569\ub2c8\ub2e4. \uc0c1\ub300\ub294 \uc790\ub8cc \uc81c\uacf5\uc5d0 \uc18c\uadf9\uc801\uc785\ub2c8\ub2e4."
-    playerLine: "\uc624\ub298\uc740 \ub9d0\uc500\ubd80\ud130 \ub4e3\uaca0\uc2b5\ub2c8\ub2e4. \ubcf4\uc218\ub098 \uacc4\uc57d\uc740 \uc9c0\uae08 \uacb0\uc815\ud558\uae30 \uc5b4\ub835\uc2b5\ub2c8\ub2e4."
-    resultDialogue: "\uadf8\ub807\ub2e4\uba74 \uc790\uc138\ud55c \uc790\ub8cc\ub97c \ub4dc\ub9ac\uae30\ub294 \uc5b4\ub835\uaca0\uad70\uc694. \uc870\uac74\uc744 \uac80\ud1a0\ud558\uc2e4 \uc0dd\uac01\uc774 \ub4e4\uba74 \ub2e4\uc2dc \uc5f0\ub77d \uc8fc\uc2ed\uc2dc\uc624."
-    resultValue: "hear_outline"
-    npcResult:
-      eventId: 
-      companyId: 
-      actorId: 
-      actionId: 
-      targetNpcIds:
-      - npc-mirae-construction-cfo-seo-jia
-      targetReactions:
-      - targetNpcId: npc-mirae-construction-cfo-seo-jia
-        memoryType: 8
-        strength: 2
-        publicity: 0
-        permanent: 0
-        durationTurns: 3
-        reliability: 1
-        interpretation: "\ud22c\uc790\uc790\uac00 \uc124\uba85\ub9cc \ub4e3\uace0 \ubcf4\uc218 \uc870\uac74\uc5d0 \ub300\ud55c \ud655\ub2f5\uc744 \uc720\ubcf4\ud588\ub2e4. \uc57d\uc18d \ud30c\uae30\ub098 \uc9c0\uae09 \uc644\ub8cc\uac00 \uc544\ub2c8\ub2e4."
-        tags:
-        - terms_uncommitted
-        relationDelta:
-          trust: -10
-          respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
-      memoryType: 8
-      strength: 2
-      publicity: 0
-      permanent: 0
-      durationTurns: 3
-      reliability: 1
-      interpretation: "\ud22c\uc790\uc790\uac00 \uc124\uba85\ub9cc \ub4e3\uace0 \ubcf4\uc218 \uc870\uac74\uc5d0 \ub300\ud55c \ud655\ub2f5\uc744 \uc720\ubcf4\ud588\ub2e4. \uc57d\uc18d \ud30c\uae30\ub098 \uc9c0\uae09 \uc644\ub8cc\uac00 \uc544\ub2c8\ub2e4."
-      tags:
-      - terms_uncommitted
-      relationDelta:
-        trust: 0
-        respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
-    cashDelta: 0
-    stockSurgeMinRatio: 0
-    stockSurgeMaxRatio: 0
-    buybackPremiumRatio: 0
-  - choiceText: "\uAC70\uC808\uD55C\uB2E4"
-    choiceDescription: "\uB0B4\uBD80 \uC815\uBCF4\uC5D0\uB294 \uC190\uB300\uC9C0
-      \uC54A\uB294\uB2E4"
-    playerLine: "\uADF8\uB7F0 \uC790\uB8CC\uB294 \uBC1B\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
-    resultDialogue: "\uADF8\uB7EC\uC2DC\uC8E0. \uC774 \uB300\uD654\uB294 \uC5C6\uC5C8\uB358
-      \uAC81\uB2C8\uB2E4."
-    resultValue: reject
-    npcResult:
-      eventId: 
-      companyId: 
-      actorId: 
-      actionId: 
-      targetNpcIds: []
       targetReactions: []
-      memoryType: 0
+      memoryType: 8
       strength: 2
       publicity: 0
       permanent: 0
       durationTurns: 3
       reliability: 1
-      interpretation: 
-      tags: []
+      interpretation: "주요 주주가 현장 유지와 운영 정상화를 위한 협력 방안을 함께 검토하겠다고 했다. 자료와 실행 계획을 살펴보는 단계이며 자금 지원이나 경영 참여를 확정하지는 않았다."
+      tags:
+      - mirae_operations
+      - cooperation_review
+      relationDelta:
+        trust: 10
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 10
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+  - choiceText: "우호적으로 답하며 인수를 준비한다"
+    choiceDescription: "공격적 인수를 준비한다는 의도가 영구 기억으로 남습니다."
+    playerLine: "먼저 함께할 수 있는 일부터 찾아보죠. 자금 일정과 의사결정 구조를 정리해주시면 자세히 검토하겠습니다."
+    resultDialogue: "네. 관심을 갖고 봐주시는 만큼 저희도 준비하겠습니다. 공유할 수 있는 자금 일정과 각 현장의 담당 체계부터 정리해 드릴게요. 투자 조건이나 경영에 관한 결정은 대표님과도 따로 논의해 주세요.\n\n한 가지는 부탁드리고 싶어요. 자료만으로 결론을 내리기 전에 현장 이야기도 들어주세요. 비용으로만 보이는 자리에 일정과 사람 사정이 얽혀 있는 경우가 많거든요. 서로 생각하는 협력이 같은 방향인지 차근차근 확인했으면 해요."
+    resultValue: "prepare_takeover"
+    playerMemories:
+    - key: intent.hostile-takeover
+      title: "미래건설 공격적 인수 검토"
+      description: "미래건설에 협력하는 태도를 보이면서 자금 일정과 의사결정 구조를 살펴보고, 공격적 인수의 기회를 검토하기로 했다. 아직 인수를 실행하거나 계약을 체결한 것은 아니다."
+      kind: 0
+      permanent: 1
+      companyId: mirae-construction
+      tags:
+      - intent
+      - hostile_takeover
+      - private
+    npcResult:
+      eventId: ""
+      companyId: ""
+      actorId: player
+      actionId: mirae-cooperation-discussion
+      targetNpcIds:
+      - npc-mirae-construction-cfo-seo-jia
+      targetReactions: []
+      memoryType: 8
+      strength: 2
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "주요 주주가 협력에 관심을 보이며 자금 일정과 의사결정 구조를 검토할 자료를 요청했다. 서지아는 협력 가능성을 살펴보는 답변으로 받아들였으며 투자나 경영 참여는 확정되지 않았다."
+      tags:
+      - mirae_operations
+      - cooperation_interest
+      relationDelta:
+        trust: 4
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 5
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+  - choiceText: "협력 제안을 거절한다"
+    choiceDescription: "제안을 정중히 거절하고 주주로서 거리를 둡니다."
+    playerLine: "회사 사정은 이해했습니다. 다만 지금은 경영에 관여하거나 협력할 계획이 없습니다. 주주로서 지켜보겠습니다."
+    resultDialogue: "알겠습니다. 지금 결정하기 어려우실 수도 있겠죠. 말씀드린 사정은 이해해 주셨으면 해요. 현장과 자금 계획은 저희가 먼저 정리해 보겠습니다.\n\n주주로서 확인하실 수 있는 내용은 앞으로도 안내해 드릴게요. 나중에 생각이 달라지시면 그때 다시 이야기하죠. 오늘 시간 내주셔서 감사합니다."
+    resultValue: "decline_cooperation"
+    npcResult:
+      eventId: ""
+      companyId: ""
+      actorId: player
+      actionId: mirae-cooperation-discussion
+      targetNpcIds:
+      - npc-mirae-construction-cfo-seo-jia
+      targetReactions: []
+      memoryType: 8
+      strength: 2
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "주요 주주가 회사 사정에 대한 설명을 들은 뒤 현재는 경영 관여나 협력 계획이 없다며 제안을 정중히 거절했다. 이미 한 지원 약속을 어기거나 회사를 비난한 것은 아니다."
+      tags:
+      - mirae_operations
+      - cooperation_declined
       relationDelta:
         trust: 0
         respect: 0

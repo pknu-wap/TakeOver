@@ -1,5 +1,9 @@
 # SaveSystem 사용법
 
+## 플레이어 기억 구역과 전체 저장 v3 — 2026-11-15
+
+Player의 `PlayerMemoryService`가 `player-memories` 구역 v1을 소유한다. 일지는 이 저장소의 읽기 인터페이스와 추가/복원 알림을 사용한다. 현재 전체 저장 형식은 v3이며, 이전 v2는 새 플레이어 기억 구역만 빈 목록으로 초기화하는 명시 변환을 지원한다(`ILegacySaveSectionInitializer`). 다른 필수 구역 누락이나 통계/enum 검증은 완화하지 않는다. 새 v3에서 플레이어 기억 구역 누락은 손상으로 거부한다. 이벤트 구역 자체의 버전은 기존 v3다. 상세 계약은 `Docs/PLAYER_MEMORY_KO.md`를 따른다.
+
 ## 난수 사용
 
 ```csharp

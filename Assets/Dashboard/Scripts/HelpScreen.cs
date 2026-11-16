@@ -92,6 +92,35 @@ namespace TakeOver.Help
             var screen=FindFirstObjectByType<HelpScreen>();
             if(screen!=null)screen.Introduce();
         }
+        public static void ShowTutorialCompletion()
+        {
+            var screen = FindFirstObjectByType<HelpScreen>();
+            if (screen != null) screen.ShowCompletionNotice();
+        }
+        private void ShowCompletionNotice()
+        {
+            EnsureBuilt();
+            if (introduction != null) Destroy(introduction);
+            introduction = new GameObject("Tutorial completion notice", typeof(RectTransform), typeof(Image));
+            introduction.transform.SetParent(canvasObject.transform, false);
+            var blocker = (RectTransform)introduction.transform;
+            blocker.anchorMin = Vector2.zero; blocker.anchorMax = Vector2.one; blocker.offsetMin = blocker.offsetMax = Vector2.zero;
+            introduction.GetComponent<Image>().color = new Color(0, 0, 0, .65f);
+            var notice = template.CreateInformationPanel(introduction.transform, out var title, out var text);
+            var background = notice.GetComponent<Image>();
+            if (background != null) { var color = background.color; color.a = 1; background.color = color; }
+            Place((RectTransform)notice.transform, 280, 200, 720, 320);
+            title.text = "튜토리얼 완료";
+            text.text = "튜토리얼을 완료하였습니다. 보상으로 '미래건설' 지분 5%가 지급되었습니다.";
+            var confirm = template.CreateActionButton(notice.transform, "Confirm tutorial reward", "확인", () =>
+            {
+                introduction.SetActive(false);
+                Destroy(introduction);
+                introduction = null;
+                Introduce();
+            });
+            Place((RectTransform)confirm.transform, 260, 16, 200, 38);
+        }
         private void ShowPhoto()
         {
             if(photo.sprite==null)return;

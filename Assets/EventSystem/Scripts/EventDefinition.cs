@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TakeOver.NPC;
+using TakeOver.PlayerMemories;
 
 namespace TakeOver.Events
 {
-    public enum EventConditionKind { NpcRelation, CompanyConsumerReaction, CompanyStake, CompanyProfitDeteriorating }
+    public enum EventConditionKind { NpcRelation, CompanyConsumerReaction, CompanyStake, CompanyProfitDeteriorating, Day, EventCompleted, EventChoice, StorySucceeded, StoryFailed, CompanyGreenmailStake, PlayerHasMemory, PlayerLacksMemory }
+    public enum EventCategory { General, Story }
     public enum EventComparison { AtLeast, AtMost }
     public enum EventRelationAxis { trust, respect, fear, hostility, dependency, interest }
     public enum EventSpeakerSource { Fixed, CompanyCeo, CompanyRestructuring }
@@ -37,10 +39,15 @@ namespace TakeOver.Events
         public string relaxedByEventId;
         public int relaxedByChoiceIndex;
         public float relaxedValue;
+        [Tooltip("비워 두면 현재 이벤트의 대상 회사")]
+        public string companyId;
+        public string requiredEventId;
+        public int requiredChoiceIndex;
+        public string playerMemoryKey;
     }
 
     [Serializable]
-    public sealed class EventChoice
+    public class EventOutcome
     {
         [SerializeField] private string choiceText;
         [SerializeField] private string choiceDescription;
@@ -52,6 +59,7 @@ namespace TakeOver.Events
         [SerializeField] private float stockSurgeMinRatio;
         [SerializeField] private float stockSurgeMaxRatio;
         [SerializeField] private float buybackPremiumRatio;
+        [SerializeField] private List<PlayerMemoryGrant> playerMemories = new List<PlayerMemoryGrant>();
 
         public string getText() => choiceText;
         public string getDescription() => choiceDescription;
@@ -63,13 +71,28 @@ namespace TakeOver.Events
         public float getStockSurgeMinRatio() => stockSurgeMinRatio;
         public float getStockSurgeMaxRatio() => stockSurgeMaxRatio;
         public float getBuybackPremiumRatio() => buybackPremiumRatio;
+        public IReadOnlyList<PlayerMemoryGrant> getPlayerMemories() => playerMemories.AsReadOnly();
+        protected void ResolveCompanyName(string companyName)
+        {
+            choiceText = (choiceText ?? "").Replace("{company}", companyName);
+            choiceDescription = (choiceDescription ?? "").Replace("{company}", companyName);
+            playerLine = (playerLine ?? "").Replace("{company}", companyName);
+            resultDialogue = (resultDialogue ?? "").Replace("{company}", companyName);
+        }
+    }
+
+    [Serializable]
+    public sealed class EventChoice : EventOutcome
+    {
+        [Tooltip("스토리 이벤트에서만 사용. 모두 만족하면 기본 결과, 하나라도 불만족하면 실패 결과")]
+        [SerializeField] private List<EventCondition> resultConditions = new List<EventCondition>();
+        [SerializeField] private EventOutcome failureOutcome = new EventOutcome();
+        public IReadOnlyList<EventCondition> getResultConditions() => resultConditions.AsReadOnly();
+        public EventOutcome getFailureOutcome() => failureOutcome;
         public EventChoice createForCompany(string companyName)
         {
             EventChoice choice = JsonUtility.FromJson<EventChoice>(JsonUtility.ToJson(this));
-            choice.choiceText = (choiceText ?? "").Replace("{company}", companyName);
-            choice.choiceDescription = (choiceDescription ?? "").Replace("{company}", companyName);
-            choice.playerLine = (playerLine ?? "").Replace("{company}", companyName);
-            choice.resultDialogue = (resultDialogue ?? "").Replace("{company}", companyName);
+            choice.ResolveCompanyName(companyName);
             return choice;
         }
     }
@@ -78,6 +101,8 @@ namespace TakeOver.Events
     public sealed class EventDefinition : ScriptableObject
     {
         [SerializeField] private string eventId;
+        [SerializeField] private EventCategory category;
+        public bool IsStory => category == EventCategory.Story;
         [SerializeField] private bool tutorialOnly;
         public bool IsTutorialOnly => tutorialOnly;
         [SerializeField] private string title;
@@ -113,7 +138,9 @@ namespace TakeOver.Events
             npcId = speaker?.npcId ?? "";
             return speaker != null;
         }
-        public bool hasCompanyConditions() => conditions.Exists(condition => condition.kind != EventConditionKind.NpcRelation || string.IsNullOrEmpty(condition.npcId));
+        public bool hasCompanyConditions() => conditions.Exists(condition => string.IsNullOrEmpty(condition.companyId) &&
+            (condition.kind == EventConditionKind.CompanyStake || condition.kind == EventConditionKind.CompanyGreenmailStake || condition.kind == EventConditionKind.CompanyConsumerReaction ||
+             condition.kind == EventConditionKind.CompanyProfitDeteriorating || condition.kind == EventConditionKind.NpcRelation && string.IsNullOrEmpty(condition.npcId)));
 
         public string getId() => eventId;
         public string getTitle() => title;

@@ -16,7 +16,7 @@ using Object = UnityEngine.Object;
 [InitializeOnLoad]
 public static class EventPersistenceVerification
 {
-    public const string Output = "../QA_EventPersistence/";
+    public static string Output => Environment.GetEnvironmentVariable("TAKEOVER_QA_OUTPUT") is string root ? root + "/Persistence/" : "../QA_EventPersistence/";
     static EventPersistenceVerification() { EditorApplication.playModeStateChanged += Changed; }
     public static void Run()
     {
@@ -78,13 +78,20 @@ public sealed class EventPersistenceProbe : MonoBehaviour
         var ap = Object.FindFirstObjectByType<ActionPointService>();
         var companies = Object.FindFirstObjectByType<Companies>();
         var company = companies.getCompany(TakeOver.Story.StoryDirector.CompanyId);
+        // 장기 저장 회귀는 새 필수 스토리를 실제 완료한 정상 진행 상태에서 검사한다.
+        company.state.setStat(CompanyStat.PLAYER_SHARES, company.state.totalShares * .1f);
+        company.calculator.calculateAboutShares(company);
+        game.refreshAvailability();
+        game.openEvent(EventSystemController.MandatoryEventId); game.startNegotiation(); game.confirmChoice(2); game.closeResult();
+        company.state.setStat(CompanyStat.PLAYER_SHARES, 0); company.calculator.calculateAboutShares(company);
+        ap.Restore();
         const string eventId = "political_donation_01";
         string initialEvents = game.captureJson();
         string initialCards = string.Join("|", game.getTodayEventInfos().Select(x => x.definition.getId() + ":" + x.companyId + ":" + x.remainingDays));
         Check(game.getTodayEventInfos().Count > 0, "Initial save contains active offers with remaining deadlines");
         game.onDayStarted(game.getCurrentDay() + 5);
         var randomBefore = UnityEngine.Random.state;
-        game.prepareLoad(initialEvents, 1, new DayStartData(clock.CurrentTurn, FixedDaySeed.seed));
+        game.prepareLoad(initialEvents, game.saveVersion, new DayStartData(clock.CurrentTurn, FixedDaySeed.seed));
         game.applyLoad(); game.rebuildAfterLoad();
         Check(initialEvents == game.captureJson() && initialCards == string.Join("|", game.getTodayEventInfos().Select(x => x.definition.getId() + ":" + x.companyId + ":" + x.remainingDays)), "Active company, first day and remaining deadlines restore without rerolling");
         Check(UnityEngine.Random.state.Equals(randomBefore), "Card restoration consumes no randomness");
@@ -127,7 +134,7 @@ public sealed class EventPersistenceProbe : MonoBehaviour
         Check(manager.trySaveDayEnd(nextDay), "Whole GameSaveManager writes scene participants: " + manager.lastError);
         var storage = new SaveFileStorage(Path.GetFullPath(EventPersistenceVerification.Output + "save"));
         var file = JsonUtility.FromJson<SaveFileData>(storage.read());
-        Check(new HashSet<string>(file.sections.Select(x => x.id)).SetEquals(new[] { "trading", "events", "npc", "action-points" }), "Trading, event, NPC and AP sections are all registered");
+        Check(new HashSet<string>(file.sections.Select(x => x.id)).SetEquals(new[] { "trading", "events", "npc", "action-points", "player-memories" }), "Trading, event, NPC, AP and player memory sections are all registered");
         string expectedEvents = game.captureJson(), expectedNpc = npc.captureJson();
         int expectedAp = ap.Current;
         var savedEvents = JsonUtility.FromJson<EventSystemController.EventSaveData>(expectedEvents);

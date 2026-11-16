@@ -12,7 +12,7 @@ using UnityEngine.UI;
 [InitializeOnLoad]
 public static class HelpVerification
 {
-    public const string Output="../QA_Help/";
+    public static string Output => (Environment.GetEnvironmentVariable("TAKEOVER_QA_OUTPUT") ?? "../QA_Help") + "/";
     static HelpVerification(){EditorApplication.playModeStateChanged+=Changed;}
     public static void Run()
     {
@@ -90,7 +90,8 @@ public sealed class HelpProbe:MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
         yield return null;yield return null;
         float until=Time.realtimeSinceStartup+45;
-        while((TakeOver.Story.StoryDirector.IsRunning || GameObject.Find("Help introduction")==null) && Time.realtimeSinceStartup<until)yield return null;
+        while((TakeOver.Story.StoryDirector.IsRunning || GameObject.Find("Tutorial completion notice")==null) && Time.realtimeSinceStartup<until)yield return null;
+        UnityEngine.Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b=>b.name=="Confirm tutorial reward").onClick.Invoke();
         yield return null;
         try{Check(!TakeOver.Story.StoryDirector.IsRunning && GameObject.Find("Help introduction")!=null,"Whole tutorial skip always shows help introduction");}
         catch(Exception e){File.AppendAllText(HelpVerification.Output+"results.txt","FAIL: "+e+"\n");}

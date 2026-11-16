@@ -47,7 +47,7 @@ namespace TakeOver.SaveSystem
             try
             {
                 SaveFileData data = JsonUtility.FromJson<SaveFileData>(storage.read());
-                if (data == null || data.formatVersion != SaveFileData.currentFormatVersion
+                if (data == null || (data.formatVersion != SaveFileData.currentFormatVersion && data.formatVersion != 2)
                     || data.dayStart.day < 1)
                     throw new InvalidDataException("저장 파일의 형식 버전·날짜가 올바르지 않습니다.");
                 dayStart = data.dayStart;
@@ -144,6 +144,7 @@ namespace TakeOver.SaveSystem
                 ISaveParticipant[] modules = getParticipants();
                 string json = storage.read();
                 SaveFileData data = JsonUtility.FromJson<SaveFileData>(json);
+                upgradeLegacySections(data, modules);
                 validateFile(data, modules);
 
                 // 모든 파트의 검증 완료 후 실제 상태 적용
@@ -213,6 +214,19 @@ namespace TakeOver.SaveSystem
                 modules[i] = module;
             }
             return modules;
+        }
+
+        private static void upgradeLegacySections(SaveFileData data, ISaveParticipant[] modules)
+        {
+            if (data == null || data.formatVersion != 2 || data.sections == null) return;
+            foreach (var module in modules)
+                if (!data.sections.Any(savedSection => savedSection != null && savedSection.id == module.saveId) &&
+                    module is ILegacySaveSectionInitializer initializer && initializer.TryCreateLegacySection(2, out var legacySection))
+                {
+                    if (legacySection == null || legacySection.id != module.saveId) throw new InvalidOperationException("과거 저장 변환의 구역 ID가 올바르지 않습니다.");
+                    data.sections.Add(legacySection);
+                }
+            data.formatVersion = SaveFileData.currentFormatVersion;
         }
 
         private void validateFile(SaveFileData data, ISaveParticipant[] modules)

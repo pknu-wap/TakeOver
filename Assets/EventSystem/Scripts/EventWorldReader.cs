@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TakeOver.NPC;
+using TakeOver.CompanyRules;
 using UnityEngine;
 
 namespace TakeOver.Events
@@ -70,6 +71,15 @@ namespace TakeOver.Events
         }
         public float getStake(string companyId) =>
             companies != null && companies.tryGetCompanyStake(companyId, out float stake) ? stake : 0;
+        public bool tryGetGreenmailStake(string companyId, out float actual, out float required)
+        {
+            actual = required = 0;
+            var company = companies != null ? companies.getCompany(companyId) : null;
+            if (company == null || company.state.totalShares <= 0 || !CompanyScaleRules.TryGetGreenmailStake(company.definition, out required)) return false;
+            // 소유권은 시세나 파생 수치 갱신 순서와 무관하게 실제 보유 주식으로 판정한다.
+            actual = company.state.getBaseStat(CompanyStat.PLAYER_SHARES) * 100f / company.state.totalShares;
+            return !float.IsNaN(actual) && !float.IsInfinity(actual) && actual >= 0 && actual <= 100;
+        }
         public bool isProfitDeteriorating(string companyId)
         {
             var company=companies != null ? companies.getCompany(companyId) : null;

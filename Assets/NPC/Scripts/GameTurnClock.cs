@@ -21,6 +21,8 @@ namespace TakeOver.NPC
         /// <summary>현재 게임 턴. 초기값은 1이며 RestoreTurn도 최소 1로 제한한다.</summary>
         public int CurrentTurn => currentTurn;
         public event Action<int> TurnAdvanced;
+        /// <summary>모든 날짜 갱신과 경제 계산이 끝난 뒤 날짜 시작 조건을 판정한다.</summary>
+        public event Action<int> DayStarted;
         public event Action<string> AdvanceBlocked;
 
         public void RegisterBlocker(ITurnBlocker blocker)
@@ -66,6 +68,7 @@ namespace TakeOver.NPC
             if (registry != null)
                 foreach (var state in registry.States) memoryService.AdvanceTurn(state, currentTurn);
             TurnAdvanced?.Invoke(currentTurn);
+            DayStarted?.Invoke(currentTurn);
         }
 
         /// <summary>저장 데이터에서 턴을 복원한다. 잘못된 0 이하 값은 1턴으로 보정한다.</summary>

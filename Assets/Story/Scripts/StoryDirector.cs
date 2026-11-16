@@ -244,13 +244,20 @@ namespace TakeOver.Story
 
         private IEnumerator Finish()
         {
+            if (Completed) yield break;
+            if (eventController == null || !eventController.GrantTutorialReward(company))
+            {
+                Debug.LogError("튜토리얼 완료 보상을 지급할 수 없습니다.", this);
+                view.ShowError("완료 보상을 지급할 수 없습니다. 미래건설의 주식 데이터를 확인해 주십시오.");
+                yield break;
+            }
             Completed = true;
             var events = FindFirstObjectByType<EventSystemController>();
             if (events != null) events.refreshAvailability();
             FindFirstObjectByType<DashboardCardSlide>()?.RefreshCards();
             view.HideContent();
             yield return view.FadeTo(0, sequence.fadeSeconds);
-            TakeOver.Help.HelpScreen.ShowIntroduction();
+            TakeOver.Help.HelpScreen.ShowTutorialCompletion();
             Destroy(gameObject);
         }
 

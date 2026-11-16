@@ -21,7 +21,7 @@ namespace TakeOver.Story.Editor
     {
         private const string Key = "TakeOver.Story.Verify";
         public static bool SkipRegression => SessionState.GetBool("TakeOver.StorySkip.Normal", false);
-        public static string Output => Path.GetFullPath(SkipRegression ? "../QA_NarrativeRevision/Normal" : "../QA_NarrativeRevision");
+        public static string Output => Path.GetFullPath(Path.Combine(Environment.GetEnvironmentVariable("TAKEOVER_QA_OUTPUT") ?? "../QA_NarrativeRevision", SkipRegression ? "Normal" : "."));
         public static void RunSkipRegression()
         {
             SessionState.SetBool("TakeOver.StorySkip.Normal", true);
@@ -369,11 +369,15 @@ namespace TakeOver.Story.Editor
             Check(choices==3,"All three conversations completed");
             Check(clock.CurrentTurn==startTurn+1,"Only one real turn consumed");
             Check(StoryDirector.CanTrade(company,false) && StoryDirector.CanNavigate(DashboardTab.Npcs),"Normal controls restored");
-            Check(GameObject.Find("Help introduction")!=null,"Normal tutorial completion shows help location notice");
+            Check(GameObject.Find("Tutorial completion notice")!=null && GameObject.Find("Help introduction")==null,"Normal completion shows reward before help notice");
+            Check(events.TutorialRewardGranted && company.state.getStat(CompanyStat.PLAYER_SHARES)==51,"Normal completion grants 50 bonus shares in addition to the one remaining share");
+            Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b=>b.name=="Confirm tutorial reward"));
+            yield return null;
+            Check(GameObject.Find("Help introduction")!=null,"Reward confirmation opens help location notice");
             events.refreshAvailability(); Check(events.getTodayEventInfos().Count>0,"Normal events available after intro");
             if(StoryPlayVerification.SkipRegression)
             {
-                File.WriteAllText(Path.GetFullPath("../QA_NarrativeRevision/normal-completed-state.json"),StorySkipState.Capture());
+                File.WriteAllText(Path.Combine(StorySkipVerification.Output,"normal-completed-state.json"),StorySkipState.Capture());
                 UnityEngine.SceneManagement.SceneManager.sceneLoaded -= StorySkipState.Seed;
             }
             // Existing direct Game scene entry never requests the intro.
