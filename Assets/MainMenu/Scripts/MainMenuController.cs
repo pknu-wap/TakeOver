@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
 #endif
@@ -24,6 +25,18 @@ namespace TakeOver.MainMenu
         public void showNewGamePrompt()
         {
             if (!starting) tutorialPrompt.SetActive(true);
+        }
+
+        private void Update()
+        {
+            if (tutorialPrompt.activeSelf && Keyboard.current != null
+                && Keyboard.current.escapeKey.wasPressedThisFrame)
+                closeTutorialPrompt();
+        }
+
+        public void closeTutorialPrompt()
+        {
+            if (!starting) tutorialPrompt.SetActive(false);
         }
 
         public void startWithTutorialChoice(bool skipIntro)
