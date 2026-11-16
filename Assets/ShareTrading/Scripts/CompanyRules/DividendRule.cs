@@ -16,12 +16,12 @@ namespace TakeOver.CompanyRules
         {
             RuleResult result = new RuleResult();
             CompanyState state = company.state;
-            float profit = state.getStat(CompanyStat.REVENUE) - state.getStat(CompanyStat.COST);
+            float profit = state.getBaseStat(CompanyStat.REVENUE) - state.getBaseStat(CompanyStat.COST);
             if (profit <= 0f) return result;
-            float total = Mathf.Min(Mathf.Max(0f, state.getStat(CompanyStat.CASH)),
+            float total = Mathf.Min(Mathf.Max(0f, state.getBaseStat(CompanyStat.CASH)),
                 profit * Mathf.Clamp01(state.getBaseStat(CompanyStat.DIVIDEND_RATIO)));
             result.stats.Add(new StatChange(CompanyStat.CASH, -total));
-            result.playerCash = total * state.getStat(CompanyStat.PLAYER_SHARES) / state.totalShares;
+            result.playerCash = total * state.getBaseStat(CompanyStat.PLAYER_SHARES) / state.totalShares;
             return result;
         }
     }

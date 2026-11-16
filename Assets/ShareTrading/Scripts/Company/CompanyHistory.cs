@@ -21,7 +21,7 @@ public class CompanyHistory
     {
         CompanyHistoryEntry entry = new CompanyHistoryEntry(
             turn,
-            state.getStat(CompanyStat.REVENUE),
+            state.getBaseStat(CompanyStat.REVENUE),
             state.getDerivedStat(CompanyDerivedStat.NET_PROFIT),
             state.getDerivedStat(CompanyDerivedStat.NET_MARGIN)
         );
