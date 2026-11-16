@@ -85,24 +85,28 @@ namespace TakeOver.Story.Editor
                 throw new Exception("Occluded control: "+selectable.name+" by "+(hits.Count>0?hits[0].gameObject.name:"nothing"));
             ExecuteEvents.Execute(selectable.gameObject,pointer,ExecuteEvents.pointerClickHandler);
         }
-        private static void NewGame()
+        private static IEnumerator NewGame(bool skip = false)
         {
-            var button=Object.FindObjectsByType<Button>(FindObjectsSortMode.None).First(b=>Enumerable.Range(0,b.onClick.GetPersistentEventCount()).Any(i=>b.onClick.GetPersistentMethodName(i)=="startNewGame"));
+            var button=Object.FindObjectsByType<Button>(FindObjectsSortMode.None).First(b=>Enumerable.Range(0,b.onClick.GetPersistentEventCount()).Any(i=>b.onClick.GetPersistentMethodName(i)=="showNewGamePrompt"));
             Click(button);
+            yield return null;
+            yield return new WaitForEndOfFrame();
+            Canvas.ForceUpdateCanvases();
+            Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b => b.name == (skip ? "YesButton" : "NoButton")));
         }
         private IEnumerator Verify()
         {
             yield return null;yield return null;
             var menu=Object.FindFirstObjectByType<MainMenuController>();
-            Check(menu.SkipIntroToggle!=null && !menu.SkipIntroToggle.isOn,"Serialized title checkbox defaults off");
-            Check(menu.SkipIntroToggle.GetComponentInChildren<Text>().fontSize<=20,"Title option is small");
-            var corners=new Vector3[4];menu.SkipIntroToggle.GetComponent<RectTransform>().GetWorldCorners(corners);
-            var camera=menu.SkipIntroToggle.GetComponentInParent<Canvas>().worldCamera;
-            Check(RectTransformUtility.WorldToScreenPoint(camera,corners[0]).y<80,"Title option anchored to screen bottom");
+            Check(menu.SkipIntroToggle!=null && !menu.SkipIntroToggle.isOn,"New-game tutorial choice defaults to normal introduction");
             yield return new WaitForEndOfFrame(); ScreenCapture.CaptureScreenshot(Path.Combine(StorySkipVerification.Output,"01-title-default-off.png"));yield return null;
-            Click(menu.SkipIntroToggle);Check(menu.SkipIntroToggle.isOn,"Title checkbox toggles through UI");
-            yield return new WaitForEndOfFrame(); ScreenCapture.CaptureScreenshot(Path.Combine(StorySkipVerification.Output,"02-title-skip-on.png"));yield return null;
-            NewGame();
+            var start=Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b=>Enumerable.Range(0,b.onClick.GetPersistentEventCount()).Any(i=>b.onClick.GetPersistentMethodName(i)=="showNewGamePrompt"));
+            Click(start); Canvas.ForceUpdateCanvases();
+            Check(GameObject.Find("YesButton")!=null && GameObject.Find("NoButton")!=null && SceneManager.GetActiveScene().name=="MainMenu", "New game opens the merged tutorial-choice prompt before scene loading");
+            yield return new WaitForEndOfFrame(); ScreenCapture.CaptureScreenshot(Path.Combine(StorySkipVerification.Output,"02-title-tutorial-prompt.png"));yield return null;
+            Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b=>b.name=="CloseButton"));
+            Check(SceneManager.GetActiveScene().name=="MainMenu" && !menu.SkipIntroToggle.isOn,"Closing tutorial prompt leaves title and default choice intact");
+            yield return NewGame(true);
             while(StoryDirector.Active==null)yield return null;
             bool sawDialogue=false;
             while(StoryDirector.Active!=null)
@@ -127,7 +131,7 @@ namespace TakeOver.Story.Editor
             SceneManager.LoadScene("MainMenu");yield return null;yield return null;
             menu=Object.FindFirstObjectByType<MainMenuController>();
             Check(!menu.SkipIntroToggle.isOn,"Returning to title resets option off");
-            NewGame();while(StoryDirector.Active==null || StoryDirector.Active.Current==null || StoryDirector.Active.Busy)yield return null;
+            yield return NewGame();while(StoryDirector.Active==null || StoryDirector.Active.Current==null || StoryDirector.Active.Busy)yield return null;
             var director=StoryDirector.Active;
             var sequence=AssetDatabase.LoadAssetAtPath<StorySequence>("Assets/Story/Data/IntroSequence.asset");
             int choices = 0;
