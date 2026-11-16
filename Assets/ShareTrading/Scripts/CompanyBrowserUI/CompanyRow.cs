@@ -20,28 +20,67 @@ public class CompanyRow : MonoBehaviour
     [SerializeField] private TMP_Text debtRatioText;
     [SerializeField] private TMP_Text stakeText;
     [SerializeField] private TMP_Text summaryText;
+    [SerializeField] private TMP_Text changeText;
 
+    [Header("등락 색")]
+    [SerializeField] private Color upColor = new Color32(232, 65, 65, 255);
+    [SerializeField] private Color downColor = new Color32(64, 120, 235, 255);
+    [SerializeField] private Color flatColor = new Color32(175, 192, 216, 255);
 
-    public void setup(Company company, Action<Company> onClick)
+    public void setup(Company company, Action<Company> onClick, float? changeRate = null)
     {
         string companyName = company.definition.companyName;
+        Sprite logo = company.definition.logo;
         float price = CompanyUIUtil.getDerived(company, CompanyDerivedStat.SHARE_PRICE);
         float stake = CompanyUIUtil.getDerived(company, CompanyDerivedStat.STAKE);
 
         nameText.text = companyName;
 
-        setLogo(logoImage, company.definition.logo);
-        setText(letterText, companyName.Length > 0 ? companyName.Substring(0, 1) : "");
+        setLogo(logoImage, logo);
+        bool showLetter = logo == null && companyName.Length > 0;
+        setText(letterText, showLetter ? companyName.Substring(0, 1) : "");
+
         setText(industryText, company.definition.industry);
         setText(priceText, $"{price:N0}");
         setText(revenueText, $"{CompanyUIUtil.getStat(company, CompanyStat.REVENUE):N0}");
         setText(netProfitText, $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.NET_PROFIT):N0}");
         setText(debtRatioText, $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.DEBT_RATIO):P1}");
         setText(stakeText, $"{stake:0.#}%");
-        setText(summaryText, $"지분 {stake:0.#}%  |  {price:N0}");
+        setText(summaryText, $"{formatSignedRate(changeRate)}  |  {price:N0}₩");
+        setChange(changeRate);
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => onClick(company));
+    }
+
+    private void setChange(float? changeRate)
+    {
+        if (changeText == null)
+        {
+            return;
+        }
+
+        if (!changeRate.HasValue || Mathf.Approximately(changeRate.Value, 0f))
+        {
+            changeText.text = "-";
+            changeText.color = flatColor;
+            return;
+        }
+
+        float rate = changeRate.Value;
+        bool isUp = rate > 0f;
+        string arrow = isUp ? "▲" : "▼";
+        changeText.text = $"{arrow} {Mathf.Abs(rate) * 100f:0.0}%";
+        changeText.color = isUp ? upColor : downColor;
+    }
+
+    private static string formatSignedRate(float? changeRate)
+    {
+        if (!changeRate.HasValue)
+        {
+            return "-";
+        }
+        return $"{changeRate.Value * 100f:+0.0;-0.0;0.0}%";
     }
 
     private static void setText(TMP_Text target, string value)

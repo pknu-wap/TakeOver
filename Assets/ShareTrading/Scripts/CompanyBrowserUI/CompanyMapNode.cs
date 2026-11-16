@@ -9,23 +9,31 @@ public class CompanyMapNode : MonoBehaviour
 {
     [SerializeField] private TMP_Text nameText;   // 노드에 표시할 회사 이름
     [SerializeField] private Image logoImage;     // 동그라미 안 로고. 비워 둬도 동작한다.
+    [SerializeField] private TMP_Text letterText;
     [SerializeField] private Button button;       // 노드 클릭
 
     // 이 노드가 표시하는 회사
     public Company company { get; private set; }
 
     // company : 표시할 회사
-    // logo    : 동그라미 안에 넣을 로고 (null이면 흰 동그라미만 보인다)
+    // logo    : 동그라미 안에 넣을 로고 (null이면 회사 이름 첫 글자가 대신 보인다)
     // onClick : 클릭하면 실행할 함수 (보통 상세 패널의 show)
     public void setup(Company company, Sprite logo, Action<Company> onClick)
     {
         this.company = company;   // this.company = 이 클래스의 변수, company = 매개변수. 이름이 같아서 this로 구분
-        nameText.text = company.definition.companyName;
+        string companyName = company.definition.companyName;
+        nameText.text = companyName;
 
         if (logoImage != null)
         {
             logoImage.sprite = logo;
             logoImage.enabled = logo != null;   // 로고가 없으면 빈 흰 사각형 대신 아예 숨긴다
+        }
+
+        if (letterText != null)
+        {
+            bool showLetter = logo == null && companyName.Length > 0;
+            letterText.text = showLetter ? companyName.Substring(0, 1) : "";
         }
 
         button.onClick.RemoveAllListeners();
