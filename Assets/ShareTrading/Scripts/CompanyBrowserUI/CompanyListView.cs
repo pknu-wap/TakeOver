@@ -34,6 +34,10 @@ public class CompanyListView : MonoBehaviour
     private bool ascending;
     private GameTurnClock turnClock;
 
+    private readonly Dictionary<Company, float> lastSeenPrice = new Dictionary<Company, float>();
+    private Dictionary<Company, float> closePrice = new Dictionary<Company, float>();
+    private int recordedTurn = -1;
+
     // Start를 IEnumerator로 만들면 "코루틴"이 된다.
     // 한 프레임 쉬었다가 그리는 이유: 주가 같은 값은 팀원 코드가 각자의 Start()에서 계산하는데,
     // Unity는 Start() 순서를 보장하지 않아서 바로 그리면 0으로 나올 수 있다.
@@ -130,6 +134,13 @@ public class CompanyListView : MonoBehaviour
 
         IEnumerable<Company> valid = companies.Where(c => c != null && c.state != null);
 
+        int turn = turnClock != null ? turnClock.CurrentTurn : 1;
+        if (turn != recordedTurn)
+        {
+            closePrice = new Dictionary<Company, float>(lastSeenPrice);
+            recordedTurn = turn;
+        }
+
         int index = 0;
         foreach (Company company in sort(valid))
         {
@@ -139,9 +150,18 @@ public class CompanyListView : MonoBehaviour
                 rows.Add(Instantiate(rowPrefab, rowParent));
             }
 
+            float price = CompanyUIUtil.getDerived(company, CompanyDerivedStat.SHARE_PRICE);
+
+            float? changeRate = null;
+            if (closePrice.TryGetValue(company, out float close) && close > 0f)
+            {
+                changeRate = (price - close) / close;
+            }
+            lastSeenPrice[company] = price;
+
             CompanyRow row = rows[index];
             row.gameObject.SetActive(true);
-            row.setup(company, detailPanel.show);
+            row.setup(company, detailPanel.show, changeRate);
             index++;
         }
 
