@@ -10,7 +10,8 @@ namespace TakeOver.Documents
             = new Dictionary<string, Func<DocumentSaveRecord, DocumentContext, IApprovalDocument>>
             {
                 { DividendPolicyDocument.typeId, (record, context) => new DividendPolicyDocument(
-                    context.companies.getCompany(record.companyId), record.deadlineTurn, context.settings) }
+                    context.companies.getCompany(record.companyId), record.deadlineTurn, context.settings) },
+                { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) }
             };
 
         public IApprovalDocument Restore(DocumentSaveRecord record, DocumentContext context)

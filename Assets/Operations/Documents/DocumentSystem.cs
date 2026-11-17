@@ -40,6 +40,24 @@ namespace TakeOver.Documents
             foreach (IDocumentSource source in sources) source.Generate(turn, Inbox);
         }
 
+        // 검증용 임시 문서. 실제 게임 흐름에는 연결하지 않는다.
+        [ContextMenu("Sample/읽기 전용 샘플 2개 추가")]
+        private void addSampleReports()
+        {
+            for (int number = 1; number <= 2; number++)
+            {
+                List<DocumentInfo> rows = new List<DocumentInfo>();
+                for (int row = 1; row <= 6; row++) rows.Add(new DocumentInfo($"항목 {row}", $"값 {number}-{row}"));
+                Inbox.Add(new SnapshotDocument("sample-report", $"임시 보고서 {number}", "검증 담당", rows));
+            }
+        }
+
+        [ContextMenu("Sample/선택칸 승인 샘플 추가")]
+        private void addSampleChoice()
+        {
+            Inbox.Add(new SampleChoiceDocument(clock.CurrentTurn + 7));
+        }
+
         public bool IsBlocking(out string reason)
         {
             reason = "기한이 지난 결재 문서가 있습니다";
