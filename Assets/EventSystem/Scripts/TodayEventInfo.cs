@@ -13,8 +13,8 @@ namespace TakeOver.Events
             : $"{companyName} {speakerRole} {speakerName}".Trim();
         public UnityEngine.Sprite cardImage => definition.getCardImageFor(speakerNpcId);
         public UnityEngine.Sprite popupImage => definition.getImageFor(speakerNpcId);
-        public string title => resolve(definition.getTitle());
-        public string description => resolve(definition.getDescription());
+        public string title => resolve(definition.Variant(companyId)?.title ?? definition.getTitle());
+        public string description => resolve(definition.Variant(companyId)?.description ?? definition.getDescription());
         public string dialogue => resolve(definition.getDialogue());
         public int remainingDays { get; }
 

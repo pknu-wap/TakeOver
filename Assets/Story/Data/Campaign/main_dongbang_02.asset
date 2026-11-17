@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: main_dongbang_02
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: main_dongbang_02
+  category: 1
+  tutorialOnly: 0
+  title: "\uAC19\uC740 \uB0A0, \uB2E4\uB978 \uD1B5\uBCF4"
+  image: {fileID: 21300000, guid: c14fff8faf593184c926460e35759051, type: 3}
+  cardImage: {fileID: 21300000, guid: c14fff8faf593184c926460e35759051, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uAC19\uC740 \uB0A0, \uB2E4\uB978 \uD1B5\uBCF4\uC5D0 \uAD00\uD55C
+    \uBA74\uB2F4 \uC694\uCCAD\uC785\uB2C8\uB2E4. \uB0B4\uC6A9\uACFC \uBE44\uC6A9\uC744
+    \uD655\uC778\uD55C \uB4A4 \uB9CC\uB098\uC2ED\uC2DC\uC624."
+  apCost: 0
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds:
+  - dongbang-trading
+  speakerNpcId: npc-dongbang-trading-hr-director-park-minu
+  speakerName: "\uBC15\uBBFC\uC6B0"
+  speakerRole:
+  dialogue: "\uC800\uD76C \uD45C\uC5D0\uB294 \u2018\uC778\uACC4 \uC608\uC815\u2019\uC774\uC5C8\uC5B4\uC694.
+    \uC0C1\uB300 \uD45C\uC5D0\uB294 \u2018\uAC1C\uC2DC \uB300\uAE30\u2019\uC600\uB2E4\uB294
+    \uAC70\uAD70\uC694."
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uD655\uC778"
+    choiceDescription: "\uC774\uBC88 \uB300\uD654\uC758 \uC120\uD0DD\uACFC \uAD00\uCC30
+      \uC0AC\uC2E4\uC744 \uAE30\uB85D\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84
+      \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uD655\uC778"
+    resultDialogue: "\uC624\uB298 \uD655\uC778\uD55C \uBC94\uC704\uC5D0\uC11C \uC815\uB9AC\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-dongbang-trading-hr-director-park-minu
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uD655\uC778"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uD655\uC778"
+      player: 1
+      narration: 0
+    - npcId: npc-dongbang-trading-hr-director-park-minu
+      text: "\uC624\uB298 \uD655\uC778\uD55C \uBC94\uC704\uC5D0\uC11C \uC815\uB9AC\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 0
+  campaignDay: 21
+  missionStartDay: 0
+  prerequisiteEventId:
+  prerequisiteEventIds:
+  - main_dongbang_01
+  - main_mirae_03
+  failureSignal:
+  openingLines:
+  - npcId: npc-mirae-construction-cfo-seo-jia
+    text: "\uC800\uD76C \uD45C\uC5D0\uB294 \u2018\uC778\uACC4 \uC608\uC815\u2019\uC774\uC5C8\uC5B4\uC694.
+      \uC0C1\uB300 \uD45C\uC5D0\uB294 \u2018\uAC1C\uC2DC \uB300\uAE30\u2019\uC600\uB2E4\uB294
+      \uAC70\uAD70\uC694."
+    player: 0
+    narration: 0
+  - npcId: npc-dongbang-trading-hr-director-park-minu
+    text: "\uD604\uC7A5 \uB458\uC774 \uC2F8\uC6CC\uC11C \uBA48\uCDC4\uB2E4\uB294
+      \uC124\uBA85\uC73C\uB85C\uB294 \uC880 \uACE4\uB780\uD574\uC84C\uB124\uC694.
+      \uB458 \uB2E4 \uC11C\uB85C \uAE30\uB2E4\uB9AC\uB77C\uB294 \uB9D0\uC744 \uB4E3\uACE0
+      \uC788\uC5C8\uC73C\uB2C8\uAE4C."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uB204\uAC00 \uAC70\uC9D3\uB9D0\uD588\uB294\uC9C0\uBD80\uD130 \uC815\uD558\uC9C0
+      \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uB2E4\uB9CC \uD604\uC7A5 \uAC04 \uC778\uACC4
+      \uBB38\uC81C\uB9CC\uC73C\uB85C \uC124\uBA85\uD560 \uC218 \uC5C6\uB2E4\uB294
+      \uAC74 \uB0A8\uACA8\uB450\uC8E0."
+    player: 1
+    narration: 0
+  - npcId:
+    text: "\uBBF8\uB798\uAC74\uC124\uC740 \uC794\uC5EC \uBE44\uC6A9\xB7\uC0C8 \uC218\uC8FC\uB97C,
+      \uB3D9\uBC29\uBB3C\uC0B0\uC740 \uD655\uC815 \uBB3C\uB7C9\xB7\uC778\uC6D0 \uBC30\uCE58\uB97C
+      \uB098\uB208 \uAC80\uD1A0\uC548\uC744 \uC900\uBE44\uD55C\uB2E4. 32\uC77C\uCC28
+      \uC7AC\uAC80\uD1A0 \uAE30\uC900\uC740 \uBBF8\uB798\uAC74\uC124 30%\uC640 \uB3D9\uBC29\uBB3C\uC0B0
+      20%\uB2E4. \uC0C8 \uBAA9\uD45C\uB294 29\uC77C\uCC28\uC5D0 \uC815\uC2DD \uC548\uB0B4\uD55C\uB2E4."
+    player: 0
+    narration: 1
+  - npcId: npc-dongbang-trading-hr-director-park-minu
+    text: "\uD655\uC778\uD558\uC168\uC73C\uBA74 \uB9D0\uC500\uD574\uC8FC\uC138\uC694."
+    player: 0
+    narration: 0
+  companyVariants: []

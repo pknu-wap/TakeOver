@@ -51,7 +51,7 @@ namespace TakeOver.Documents
 
         public void Resolve(IApprovalDocument document, bool approved)
         {
-            if (!open.Contains(document)) return;
+            if (IsSavePending() || !open.Contains(document)) return;
             if (approved && !document.CanApprove(out string reason))
             {
                 Debug.LogWarning($"[Documents] Resolve 거부 type={document.TypeId} reason={reason}");
@@ -70,12 +70,19 @@ namespace TakeOver.Documents
 
         public void MarkRead(IDocument document)
         {
-            if (document is IApprovalDocument || !open.Contains(document)) return;
+            if (IsSavePending() || document is IApprovalDocument || !open.Contains(document)) return;
             open.Remove(document);
             history.Add(new ResolvedDocument(document, false, clock.CurrentTurn, new List<NameValue>()));
             trimHistory();
             Debug.Log($"[Documents] MarkRead type={document.TypeId} turn={clock.CurrentTurn} pending={PendingCount} history={history.Count}");
             Changed?.Invoke();
+        }
+
+        private static bool IsSavePending()
+        {
+            if (TakeOver.SaveSystem.GameSessionCoordinator.Active?.IsPersistenceBlocked != true) return false;
+            UnityEngine.Object.FindFirstObjectByType<FloatingMessage>()?.Show("저장 재시도 후 처리해 주세요.");
+            return true;
         }
 
         public bool HasOverdue(int currentTurn)
@@ -113,7 +120,7 @@ namespace TakeOver.Documents
             history.Clear();
             arrivals.Clear();
             bool legacy = records.All(record => record.arrival == 0);
-            nextArrival = legacy ? 1 : records.Max(record => record.arrival) + 1;
+            nextArrival = legacy || records.Count == 0 ? 1 : records.Max(record => record.arrival) + 1;
             foreach (DocumentSaveRecord record in records.OrderBy(record => record.arrival))
             {
                 IDocument document = record.snapshot ? SnapshotDocument.FromRecord(record) : registry.Restore(record, context);

@@ -168,8 +168,7 @@ public class DashboardCardSlide : MonoBehaviour
             List<TodayEventInfo> shuffledInfos = ShuffleList(infos);
             if (TakeOver.Story.StoryDirector.IsGuidingEvent)
                 shuffledInfos.RemoveAll(info => info.definition.getId() != TakeOver.Story.StoryDirector.TutorialEventId);
-            int displayCount = Mathf.Min(targetDisplayCount, shuffledInfos.Count);
-            for (int i = 0; i < displayCount; i++)
+            for (int i = 0; i < shuffledInfos.Count; i++)
             {
                 displayEventList.Add(shuffledInfos[i]);
             }
@@ -207,14 +206,21 @@ public class DashboardCardSlide : MonoBehaviour
         isAnimating = true;
 
         int firstSlot = GetFirstVisibleSlot();
-        int activeCount = displayEventList.Count;
+        int activeCount = VisibleCardCount;
         int wrapSlot = isNext ? firstSlot : firstSlot + activeCount - 1;
+        bool wrapContentUpdated = false;
 
         float elapsedTime = 0f;
         while (elapsedTime < slideDuration)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsedTime / slideDuration);
+            if (!wrapContentUpdated && t >= .5f && displayEventList.Count > activeCount)
+            {
+                int incoming = isNext ? (currentIndex + activeCount - 1) % displayEventList.Count : currentIndex;
+                ApplyEventToCard(cardUIList[wrapSlot], displayEventList[incoming]);
+                wrapContentUpdated = true;
+            }
 
             for (int offset = 0; offset < activeCount; offset++)
             {
@@ -386,7 +392,7 @@ public class DashboardCardSlide : MonoBehaviour
         int firstSlot = GetFirstVisibleSlot();
         for (int i = 0; i < cardUIList.Count; i++)
         {
-            bool visible = displayEventList.Count > 0 && i >= firstSlot && i < firstSlot + displayEventList.Count;
+            bool visible = displayEventList.Count > 0 && i >= firstSlot && i < firstSlot + VisibleCardCount;
             if (cardUIList[i].cardRect != null) cardUIList[i].cardRect.gameObject.SetActive(visible);
             if (!visible)
             {
@@ -399,17 +405,7 @@ public class DashboardCardSlide : MonoBehaviour
             var eventInfo = displayEventList[eventIndex];
             var cardUI = cardUIList[i];
 
-            if (eventInfo != null)
-            {
-                if (cardUI.cardImage != null)
-                    cardUI.cardImage.sprite = eventInfo.cardImage;
-
-                if (cardUI.speakerText != null)
-                    cardUI.speakerText.text = eventInfo.speakerLabel;
-
-                if (cardUI.apCostText != null)
-                    cardUI.apCostText.text = $"소모 에너지 {eventInfo.definition.getApCost()}";
-            }
+            ApplyEventToCard(cardUI, eventInfo);
         }
 
         if (emptyEventsText != null) emptyEventsText.gameObject.SetActive(displayEventList.Count == 0);
@@ -419,19 +415,29 @@ public class DashboardCardSlide : MonoBehaviour
             if (button != null) button.interactable = canRotate;
     }
 
+    private static void ApplyEventToCard(CardUI card, TodayEventInfo info)
+    {
+        if (info == null) return;
+        if (card.cardImage != null) card.cardImage.sprite = info.cardImage;
+        if (card.speakerText != null) card.speakerText.text = info.speakerLabel;
+        if (card.apCostText != null) card.apCostText.text = $"소모 에너지 {info.definition.getApCost()}";
+    }
+
+    private int VisibleCardCount => Mathf.Min(targetDisplayCount, cardUIList.Count, displayEventList.Count);
     private int GetFirstVisibleSlot()
     {
-        if (cardUIList.Count == 0 || displayEventList.Count >= cardUIList.Count) return 0;
-        return (cardUIList.Count - displayEventList.Count) / 2;
+        if (cardUIList.Count == 0 || VisibleCardCount >= cardUIList.Count) return 0;
+        return (cardUIList.Count - VisibleCardCount) / 2;
     }
 
     private List<T> ShuffleList<T>(IReadOnlyList<T> list)
     {
         List<T> result = new List<T>(list);
+        var random = new System.Random(unchecked(TakeOver.SaveSystem.FixedDaySeed.seed ^ eventController.getCurrentDay() * 397));
 
         for (int i = result.Count - 1; i > 0; i--)
         {
-            int randomIndex = UnityEngine.Random.Range(0, i + 1);
+            int randomIndex = random.Next(i + 1);
 
             T temp = result[i];
             result[i] = result[randomIndex];

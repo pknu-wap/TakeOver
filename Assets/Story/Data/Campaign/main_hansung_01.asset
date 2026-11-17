@@ -1,0 +1,615 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: main_hansung_01
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: main_hansung_01
+  category: 1
+  tutorialOnly: 0
+  title: "28\uC77C\uCC28 \u2014 \uC0AC\uC5C5\uC5D0 \uC5F0\uACB0\uB41C \uC774\uB984
+    (\uD55C\uC131\uACF5\uC5C5 \uBA54\uC778\xB7APEX \uAC1C\uC785 \uD655\uC778)"
+  image: {fileID: 21300000, guid: 8298786505bf66c4194b3f550818e3d4, type: 3}
+  cardImage: {fileID: 21300000, guid: 8298786505bf66c4194b3f550818e3d4, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "28\uC77C\uCC28 \u2014 \uC0AC\uC5C5\uC5D0 \uC5F0\uACB0\uB41C \uC774\uB984
+    (\uD55C\uC131\uACF5\uC5C5 \uBA54\uC778\xB7APEX \uAC1C\uC785 \uD655\uC778)\uC5D0
+    \uAD00\uD55C \uBA74\uB2F4 \uC694\uCCAD\uC785\uB2C8\uB2E4. \uB0B4\uC6A9\uACFC
+    \uBE44\uC6A9\uC744 \uD655\uC778\uD55C \uB4A4 \uB9CC\uB098\uC2ED\uC2DC\uC624."
+  apCost: 0
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds:
+  - hansung-industry
+  speakerNpcId: npc-hansung-industry-ceo-jo-minseok
+  speakerName: "\uC870\uBBFC\uC11D"
+  speakerRole:
+  dialogue: "\uB208\uC73C\uB85C \uBCF4\uC2DC\uC8E0. \uB458 \uC911 \uC5B4\uB290 \uAC8C
+    \uC81C\uB300\uB85C \uB098\uC628 \uAC81\uB2C8\uAE4C?"
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uACFC\uAC70 \uACB0\uC815 \uBC94\uC704\uB97C \uD568\uAED8 \uD655\uC778\uD55C\uB2E4"
+    choiceDescription: "\uC774\uBC88 \uB300\uD654\uC758 \uC120\uD0DD\uACFC \uAD00\uCC30
+      \uC0AC\uC2E4\uC744 \uAE30\uB85D\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84
+      \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uACFC\uAC70 \uACB0\uC815 \uBC94\uC704\uB97C \uD568\uAED8 \uD655\uC778\uD55C\uB2E4"
+    resultDialogue: "\uD655\uC778\uD560 \uC218 \uC788\uB294 \uB0B4\uC6A9\uC740 \uC124\uBA85\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB2E4\uB9CC \uADF8 \uC774\uB984 \uD558\uB098\uB85C \uBAA8\uB4E0 \uACB0\uB860\uC744
+      \uB0B4\uB9AC\uC9C0\uB294 \uB9C8\uC2ED\uC2DC\uC624. \uC2E4\uC81C\uB85C \uBB34\uC5C7\uC744
+      \uD55C \uC0C1\uB300\uC778\uC9C0 \uB354 \uBD10\uC57C \uD569\uB2C8\uB2E4."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-hansung-industry-ceo-jo-minseok
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uAE30\uC220 \uD310\uB2E8 \uC804\uC218\uB97C \uC704\uD55C
+        \uC5C5\uBB34\uC2DC\uAC04 \uAC80\uD1A0. \uAE30\uC220 \uC804\uC218 \uC644\uB8CC\xB7\uC0DD\uC0B0\uC131
+        \uC99D\uAC00 \uC5C6\uC74C."
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uACFC\uAC70 \uACB0\uC815 \uBC94\uC704\uB97C \uD568\uAED8 \uD655\uC778\uD55C\uB2E4"
+      player: 1
+      narration: 0
+    - npcId: npc-hansung-industry-ceo-jo-minseok
+      text: "\uD655\uC778\uD560 \uC218 \uC788\uB294 \uB0B4\uC6A9\uC740 \uC124\uBA85\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+        \uB2E4\uB9CC \uADF8 \uC774\uB984 \uD558\uB098\uB85C \uBAA8\uB4E0 \uACB0\uB860\uC744
+        \uB0B4\uB9AC\uC9C0\uB294 \uB9C8\uC2ED\uC2DC\uC624. \uC2E4\uC81C\uB85C \uBB34\uC5C7\uC744
+        \uD55C \uC0C1\uB300\uC778\uC9C0 \uB354 \uBD10\uC57C \uD569\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uD22C\uC790\uC640 \uC870\uC0AC\uB97C \uAD6C\uBD84\uD55C\uB2E4"
+    choiceDescription: "\uC774\uBC88 \uB300\uD654\uC758 \uC120\uD0DD\uACFC \uAD00\uCC30
+      \uC0AC\uC2E4\uC744 \uAE30\uB85D\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84
+      \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uD22C\uC790\uC640 \uC870\uC0AC\uB97C \uAD6C\uBD84\uD55C\uB2E4"
+    resultDialogue: "\uADF8\uB807\uAC8C \uD558\uC2ED\uC2DC\uC624. \uD68C\uC0AC\uAC00
+      \uC9C0\uAE08 \uB9CC\uB4E4 \uC218 \uC788\uB294 \uAC83\uACFC \uACFC\uAC70 \uAC70\uB798\uB97C
+      \uAD6C\uBD84\uD574 \uBCF4\uB294 \uB370 \uB3D9\uC758\uD569\uB2C8\uB2E4. \uC5B4\uB290
+      \uCABD\uB3C4 \uB300\uCDA9 \uB118\uAE38 \uC77C\uC740 \uC544\uB2C8\uC624."
+    resultValue: answer_1
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-hansung-industry-ceo-jo-minseok
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uC124\uBE44\xB7\uCE21\uC815\uC73C\uB85C \uC219\uB828 \uC758\uC874
+        \uC644\uD654 \uAC00\uB2A5\uC131 \uD655\uC778. \uBB34\uC778\uD654\xB7\uC778\uB825
+        \uB300\uCCB4\xB7\uC124\uBE44 \uAD6C\uB9E4 \uD655\uC815 \uC5C6\uC74C."
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uD22C\uC790\uC640 \uC870\uC0AC\uB97C \uAD6C\uBD84\uD55C\uB2E4"
+      player: 1
+      narration: 0
+    - npcId: npc-hansung-industry-ceo-jo-minseok
+      text: "\uADF8\uB807\uAC8C \uD558\uC2ED\uC2DC\uC624. \uD68C\uC0AC\uAC00 \uC9C0\uAE08
+        \uB9CC\uB4E4 \uC218 \uC788\uB294 \uAC83\uACFC \uACFC\uAC70 \uAC70\uB798\uB97C
+        \uAD6C\uBD84\uD574 \uBCF4\uB294 \uB370 \uB3D9\uC758\uD569\uB2C8\uB2E4. \uC5B4\uB290
+        \uCABD\uB3C4 \uB300\uCDA9 \uB118\uAE38 \uC77C\uC740 \uC544\uB2C8\uC624."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uC790\uB8CC\uB97C \uC815\uB9AC\uD55C \uB4A4 \uB2F5\uD55C\uB2E4"
+    choiceDescription: "\uC774\uBC88 \uB300\uD654\uC758 \uC120\uD0DD\uACFC \uAD00\uCC30
+      \uC0AC\uC2E4\uC744 \uAE30\uB85D\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84
+      \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uC790\uB8CC\uB97C \uC815\uB9AC\uD55C \uB4A4 \uB2F5\uD55C\uB2E4"
+    resultDialogue: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uC624\uB298 \uC790\uB9AC\uC5D0\uC11C
+      \uC57D\uC18D\uC744 \uBC1B\uC544\uB0B4\uB824\uB294 \uAC74 \uC544\uB2D9\uB2C8\uB2E4.
+      \uB2E4\uC2DC \uC9C8\uBB38\uD560 \uB54C\uB294 \uC5B4\uB5A4 \uBD80\uBD84\uC744
+      \uB354 \uD655\uC778\uD558\uACE0 \uC2F6\uC740\uC9C0 \uC54C\uB824\uC8FC\uC2ED\uC2DC\uC624."
+    resultValue: answer_2
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-hansung-industry-ceo-jo-minseok
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uC219\uB828 \uC778\uB825\uC758 \uD604 \uBD80\uB2F4\uACFC
+        \uBCF4\uC0C1 \uD655\uC778 \uC694\uCCAD. \uC784\uAE08 \uC778\uC0C1\xB7\uACE0\uC6A9
+        \uC2B9\uACC4 \uBCF4\uC7A5 \uC5C6\uC74C."
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uC790\uB8CC\uB97C \uC815\uB9AC\uD55C \uB4A4 \uB2F5\uD55C\uB2E4"
+      player: 1
+      narration: 0
+    - npcId: npc-hansung-industry-ceo-jo-minseok
+      text: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uC624\uB298 \uC790\uB9AC\uC5D0\uC11C
+        \uC57D\uC18D\uC744 \uBC1B\uC544\uB0B4\uB824\uB294 \uAC74 \uC544\uB2D9\uB2C8\uB2E4.
+        \uB2E4\uC2DC \uC9C8\uBB38\uD560 \uB54C\uB294 \uC5B4\uB5A4 \uBD80\uBD84\uC744
+        \uB354 \uD655\uC778\uD558\uACE0 \uC2F6\uC740\uC9C0 \uC54C\uB824\uC8FC\uC2ED\uC2DC\uC624."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions:
+  - kind: 2
+    npcId:
+    relationAxis: 0
+    comparison: 0
+    value: 10
+    relaxedByEventId:
+    relaxedByChoiceIndex: 0
+    relaxedValue: 0
+    companyId:
+    requiredEventId:
+    requiredChoiceIndex: 0
+    playerMemoryKey:
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 0
+  campaignDay: 28
+  missionStartDay: 23
+  prerequisiteEventId:
+  prerequisiteEventIds:
+  - main_hansung_contact
+  failureSignal: hansung-industry-investment-deadline-failed
+  openingLines:
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uD3EC\uC7A5 \uC804\uD658 \uC7A5\uCE58\uB97C \uBB3C\uC73C\uC168\uC9C0\uC694.
+      \uB9CC\uB4E4 \uC218 \uC788\uB290\uB0D0\uBA74 \uB9CC\uB4E4 \uC218 \uC788\uC18C.
+      \uC5BC\uB9C8\uB098 \uBE68\uB9AC, \uAC19\uC740 \uC0C1\uD0DC\uB85C \uACC4\uC18D
+      \uC4F0\uAC8C \uD558\uB290\uB0D0\uBA74 \uB530\uC838\uBD10\uC57C \uD569\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uADF8 \u2018\uB9CC\uB4E4 \uC218 \uC788\uB2E4\u2019\uC5D0 \uB298 \uAC19\uC740
+      \uBD84\uB4E4 \uC774\uB984\uC774 \uB4E4\uC5B4\uAC11\uB2C8\uB2E4. \uADF8\uBD84\uB4E4\uC774
+      \uB2E4\uB978 \uC77C\uC5D0\uC11C \uBE60\uC9C0\uB294 \uC2DC\uAC04\uC740 \uACAC\uC801\uC11C\uC5D0
+      \uC798 \uC548 \uBCF4\uC774\uACE0\uC694."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uB3C4\uBA74\uACFC \uC7A5\uBE44\uB9CC \uC788\uC73C\uBA74 \uB2E4\uB978
+      \uD300\uC774 \uB9E1\uC744 \uC218 \uC788\uB294 \uC791\uC5C5\uC740 \uC544\uB2D9\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uC544\uC9C1\uC740 \uC544\uB2C8\uC624. \uC190\uC73C\uB85C \uB9DE\uCD98
+      \uBD80\uBD84\uC744 \uB9D0\uB85C\uB9CC \uB118\uAE34 \uAC8C \uC788\uC18C. \uADF8\uAC8C
+      \uAE30\uC220\uC744 \uC9C0\uD0A8\uB2E4\uACE0 \uC0DD\uAC01\uD588\uC9C0."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uBC16\uC73C\uB85C \uC548 \uB098\uAC04 \uAE30\uC220\uC774 \uC548\uC5D0\uC11C
+      \uC774\uC5B4\uC9C4\uB2E4\uB294 \uB73B\uC740 \uC544\uB2C8\uC5D0\uC694. \uC804\uC218
+      \uC2DC\uAC04\uC744 \uC774\uBC88\uC5D0\uB3C4 \uC8FC\uBB38 \uB4A4\uB85C \uBC00\uBA74
+      \uB2E4\uC74C \uC0AC\uB78C\uC774 \uC5C6\uC5B4\uC694."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uD558\uB298\uC2DD\uD488\uC5D0\uB3C4 \uBE60\uB978 \uB0A9\uD488\uC744 \uC57D\uC18D\uD558\uC9C0
+      \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uD488\uC9C8\uC744 \uBC18\uBCF5\uD560 \uC870\uAC74\uACFC
+      \uC804\uC218 \uACC4\uD68D\uC774 \uB4E4\uC5B4\uAC04 \uAC80\uD1A0\uC548\uC744
+      \uBCF4\uC8E0."
+    player: 1
+    narration: 0
+  - npcId:
+    text: "\uC124\uBA85\uC6A9 \uBD80\uD488 \uB450 \uAC1C\uAC00 \uD0C1\uC790\uC5D0
+      \uB193\uC600\uB2E4. \uC870\uBBFC\uC11D\uC740 \uBA3C\uC800 \uB9CC\uC838\uBCF4\uB77C\uACE0
+      \uD558\uC9C0 \uC54A\uC558\uB2E4. \uCD5C\uBBF8\uC815\uC774 \uC548\uB0B4\uD55C
+      \uCD9C\uC785\xB7\uC548\uC804 \uC218\uCE59\uC744 \uD655\uC778\uD55C \uB4A4\uC5D0\uC57C
+      \uBD80\uD488\uC744 \uAC00\uB9AC\uCF30\uB2E4."
+    player: 0
+    narration: 1
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uB208\uC73C\uB85C \uBCF4\uC2DC\uC8E0. \uB458 \uC911 \uC5B4\uB290 \uAC8C
+      \uC81C\uB300\uB85C \uB098\uC628 \uAC81\uB2C8\uAE4C?"
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC774 \uAC70\uB9AC\uC5D0\uC11C\uB294 \uAD6C\uBD84\uD558\uAE30 \uC5B4\uB835\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uB9DE\uB294 \uB2F5\uC785\uB2C8\uB2E4. \uBAA8\uB974\uBA74 \uCE21\uC815\uD574\uC57C
+      \uD569\uB2C8\uB2E4. \uC798 \uBAA8\uB974\uB294 \uBD84\uB4E4\uC774 \uB354 \uC27D\uAC8C
+      \uAD1C\uCC2E\uB2E4\uACE0 \uD558\uB354\uAD70\uC694."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uB300\uD45C\uB2D8\uC740 \uC774 \uC9C8\uBB38\uC744 \uC790\uC8FC \uD558\uC138\uC694.
+      \uB2F5\uC744 \uB9DE\uD788\uB294 \uC790\uB9AC\uB294 \uC544\uB2C8\uB2C8 \uBD80\uB2F4
+      \uAC16\uC9C0 \uC54A\uC73C\uC154\uB3C4 \uB429\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC124\uBA85\uBD80\uD130 \uB4E3\uB294 \uD3B8\uC774 \uB0AB\uACA0\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uADDC\uACA9 \uC548\uC5D0 \uB4E4\uC5B4\uC640\uB3C4 \uC4F0\uB294 \uC870\uAC74\uC5D0
+      \uB530\uB77C \uCC28\uC774\uAC00 \uB0A9\uB2C8\uB2E4. \uC628\uB3C4, \uC7AC\uB8CC
+      \uD3B8\uCC28, \uAC00\uACF5 \uC21C\uC11C. \uB0A9\uD488 \uB4A4\uC5D0 \uBB38\uC81C\uAC00
+      \uC0DD\uAE30\uBA74 \u2018\uB3C4\uBA74\uB300\uB85C \uD588\uC2B5\uB2C8\uB2E4\u2019\uB9CC\uC73C\uB85C\uB294
+      \uB05D\uB098\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC124\uBE44\uAC00 \uC88B\uC544\uB3C4 \uB611\uAC19\uC774 \uB9CC\uB4E4\uAE30
+      \uC5B4\uB835\uC2B5\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uC124\uBE44\uB294 \uD544\uC694\uD569\uB2C8\uB2E4. \uB2E4\uB9CC \uBB34\uC5C7\uC744
+      \uBCF4\uACE0 \uC870\uC815\uD560\uC9C0 \uBAA8\uB974\uBA74 \uBE44\uC2FC \uAE30\uACC4\uB85C
+      \uAC19\uC740 \uBB38\uC81C\uB97C \uBE68\uB9AC \uB9CC\uB4E4 \uC218\uB3C4 \uC788\uC8E0."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uADF8\uAC78 \uC544\uB294 \uBD84\uC774 \uD63C\uC790 \uB9E1\uB294 \uC791\uC5C5\uC774
+      \uC788\uC2B5\uB2C8\uB2E4. \uBB38\uC81C\uB294 \uADF8\uBD84\uC774 \uC5C6\uC744
+      \uB54C\uC785\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uADF8\uB798\uC11C \uC80A\uC740 \uC0AC\uB78C\uB3C4 \uC606\uC5D0\uC11C
+      \uBC30\uC6B0\uAC8C \uD558\uACE0 \uC788\uC796\uC2B5\uB2C8\uAE4C."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uBC30\uC6B0\uB294 \uC2DC\uAC04\uC5D0 \uB0A9\uAE30 \uBB3C\uB7C9\uB3C4
+      \uAC19\uC774 \uB9E1\uACE0 \uC788\uC2B5\uB2C8\uB2E4. \uAC00\uB974\uCE58\uB294
+      \uCABD\uB3C4 \uC790\uAE30 \uC0DD\uC0B0\uB7C9\uC744 \uADF8\uB300\uB85C \uCC44\uC6CC\uC57C
+      \uD558\uACE0\uC694. \uBD99\uC5EC\uB193\uC558\uB2E4\uB294 \uAC83\uACFC \uBC30\uC6B8
+      \uC2DC\uAC04\uC774 \uC788\uB2E4\uB294 \uAC74 \uB2E4\uB985\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC870\uBBFC\uC11D\uC774 \uBD80\uD488\uC744 \uC9D1\uC73C\uB824\uB2E4 \uC190\uC744
+      \uAC70\uB480\uB2E4. \uCC45\uC0C1 \uC704 \uBB3C\uAC74\uBCF4\uB2E4 \uCD5C\uBBF8\uC815\uC758
+      \uC790\uB8CC\uB97C \uBA3C\uC800 \uBCF4\uB294 \uB370 \uC7A0\uAE50 \uC2DC\uAC04\uC774
+      \uAC78\uB838\uB2E4."
+    player: 0
+    narration: 1
+  - npcId:
+    text: "\uC219\uB828\uC790\uAC00 \uB5A0\uB0A0\uAE4C \uBD10 \uAC71\uC815\uD558\uC2DC\uB294
+      \uAC81\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uADF8\uAC83\uB3C4 \uC788\uC2B5\uB2C8\uB2E4. \uD558\uC9C0\uB9CC \uB0A8\uC544
+      \uC788\uB294 \uB3D9\uC548 \uBB34\uC2A8 \uC870\uAC74\uC73C\uB85C \uC77C\uC744
+      \uD558\uB294\uC9C0\uB3C4 \uBD10\uC57C\uC8E0. \uC544\uD504\uBA74 \uC26C\uACE0,
+      \uD1F4\uADFC\uD560 \uC218 \uC788\uC5B4\uC57C \uD569\uB2C8\uB2E4. \uC911\uC694\uD55C
+      \uC0AC\uB78C\uC774\uB77C\uB294 \uB9D0\uC774 \uACC4\uC18D \uBD88\uB824 \uB098\uC624\uB294
+      \uC774\uC720\uAC00 \uB418\uBA74 \uACE4\uB780\uD569\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uC5EC\uAE30 \uC624\uB798 \uACC4\uC2E0 \uBD84\uB4E4\uC744 \uAC00\uBCCD\uAC8C
+      \uB300\uD55C \uC801\uC740 \uC5C6\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uADF8 \uB9C8\uC74C\uACFC \uBCC4\uAC1C\uB85C \uAE30\uB85D\uC744 \uBCF4\uC790\uB294
+      \uB9D0\uC500\uC785\uB2C8\uB2E4. \uC5B4\uB5A4 \uC791\uC5C5\uC774 \uB204\uAD6C\uC5D0\uAC8C
+      \uBAB0\uB9AC\uB294\uC9C0\uC694."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uB300\uD45C\uB2D8\uB3C4 \uC9C1\uC811 \uD604\uC7A5\uC5D0\uC11C \uBC30\uC6B0\uC168\uC2B5\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uADF8\uB7AC\uC2B5\uB2C8\uB2E4. \uC548 \uB418\uBA74 \uB420 \uB54C\uAE4C\uC9C0
+      \uD588\uC8E0. \uADF8\uB54C\uB294 \uADF8\uB807\uAC8C \uBC30\uC6E0\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uADF8\uB798\uC11C \uC9C0\uAE08\uB3C4 \uADF8 \uBC29\uBC95\uC774\uBA74
+      \uB41C\uB2E4\uACE0 \uC0DD\uAC01\uD558\uC2DC\uB294 \uBD80\uBD84\uC774 \uC788\uC5B4\uC694."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC870\uBBFC\uC11D\uC740 \uBC14\uB85C \uB300\uB2F5\uD558\uC9C0 \uC54A\uC558\uB2E4.
+      \uB9DE\uC740\uD3B8 \uBCBD\uC758 \uC624\uB798\uB41C \uC124\uBE44 \uC0AC\uC9C4\uC744
+      \uC7A0\uAE50 \uBD24\uB2E4."
+    player: 0
+    narration: 1
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uC608\uC804 \uC0AC\uC5C5 \uC598\uAE30\uB97C \uC6D0\uD558\uC2E0\uB2E4\uACE0
+      \uB4E4\uC5C8\uC2B5\uB2C8\uB2E4. \uC124\uBE44\uAC00 \uB4E4\uC5B4\uC624\uACE0
+      \uB098\uBA74 \uC8FC\uBB38\uC774 \uC774\uC5B4\uC9C8 \uAC70\uB77C\uACE0 \uBD24\uC18C.
+      \uC0DD\uC0B0 \uC870\uAC74 \uB9DE\uCD94\uB290\uB77C \uC0AC\uB78C\uB3C4 \uC624\uB798
+      \uBD99\uC600\uACE0\uC694."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC0C1\uB300\uAC00 \uCCA0\uC218\uD588\uC744 \uB54C \uC774\uBBF8 \uBE44\uC6A9\uC744
+      \uC4F4 \uB4A4\uC600\uC2B5\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uADF8\uB807\uC2B5\uB2C8\uB2E4. \uAE30\uACC4\uB294 \uB0A8\uC558\uC8E0.
+      \uADF8\uAC78 \uB2E4\uB978 \uC81C\uD488\uC5D0 \uB9DE\uCDB0 \uC4F0\uB294 \uAC74
+      \uC6B0\uB9AC \uC77C\uC774 \uB410\uACE0. \uB3C4\uC785\uD560 \uB54C\uC758 \uACC4\uC0B0\uC744
+      \uD574\uC900 \uC0AC\uB78C\uB4E4\uC740 \uADF8 \uBE44\uC6A9\uC740 \uBAB0\uB790\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uB0A8\uC544 \uC788\uB358 \uBD84\uB4E4\uC774 \uB3CC\uB824 \uC4F8 \uBC29\uBC95\uC744
+      \uCC3E\uC558\uC2B5\uB2C8\uB2E4. \uB0A9\uAE30\uB97C \uB9DE\uCD94\uB824\uACE0
+      \uADFC\uBB34\uB97C \uBC14\uAFE8\uACE0 \uC804\uC218 \uC2DC\uAC04\uC740 \uB4A4\uB85C
+      \uBC00\uB838\uC5B4\uC694. \uC9C0\uAE08 \uC774\uC57C\uAE30\uD55C \uAE30\uC220
+      \uC758\uC874\uB3C4 \uADF8\uB54C\uBD80\uD130 \uB354 \uC2EC\uD574\uC9C4 \uBD80\uBD84\uC774
+      \uC788\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uB3D9\uBC29\uBB3C\uC0B0 \uCABD\uC5D0\uC11C\uB294 \uBB3C\uB7C9 \uCD95\uC18C
+      \uC804\uC5D0 \uBC1C\uC8FC \uC911\uB2E8 \uC548\uB0B4\uB97C \uBC1B\uC558\uB2E4\uACE0
+      \uD588\uC2B5\uB2C8\uB2E4. \uD55C\uC131\uB3C4 \uADF8 \uC2DC\uC810\uC5D0 \uD1B5\uBCF4\uBC1B\uC558\uC2B5\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uBA3C\uC800 \uB300\uAE30\uD558\uB77C\uACE0 \uD588\uACE0, \uB098\uC911\uC5D0\uB294
+      \uC911\uB2E8\uC774\uB77C\uACE0 \uD588\uC2B5\uB2C8\uB2E4. \uC0AC\uC720\uAC00
+      \uBA87 \uBC88 \uB2EC\uB77C\uC84C\uC18C. \uB0B4\uAC00 \uBB38\uC11C\uB97C \uB0A8\uACA8\uB454
+      \uC774\uC720\uC785\uB2C8\uB2E4. \uC6B0\uB9AC\uAC00 \uBABB \uB9CC\uB4E4\uC5B4\uC11C
+      \uB05D\uB0AC\uB2E4\uB294 \uC124\uBA85\uC5D0\uB294 \uB3D9\uC758\uD560 \uC218
+      \uC5C6\uC5B4\uC11C."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uACC4\uC57D\uD55C \uC0C1\uB300\uAC00 \uC9C1\uC811 \uC815\uD55C \uC77C\uC785\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uACC4\uC57D\uD55C \uD68C\uC0AC \uC678\uC5D0 \uC790\uAE08\uC744 \uB300\uACE0
+      \uC0AC\uC5C5\uC744 \uC870\uC815\uD558\uB294 \uCABD\uC774 \uC788\uC5C8\uC2B5\uB2C8\uB2E4.
+      \uC124\uBA85 \uC790\uB9AC\uC5D0\uB3C4 \uAD00\uACC4\uC790\uAC00 \uC654\uACE0\uC694.
+      \uB2E4\uB9CC \uC911\uB2E8\uC744 \uB204\uAC00 \uC815\uD588\uACE0 \uB204\uAC00
+      \uC5B4\uB5A4 \uC870\uAC74\uC744 \uBC14\uAFE8\uB294\uC9C0\uB294 \uB0B4\uAC00
+      \uB2E4 \uC54C\uC9C0 \uBABB\uD569\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uB2F9\uC2DC \uC0AC\uC5C5 \uCC38\uC5EC\uC640 \uC790\uAE08 \uAD00\uACC4\uB97C
+      \uC124\uBA85\uD55C \uC790\uB8CC\uAC00 \uB0A8\uC544 \uC788\uC5B4\uC694. \uACF5\uAC1C\uD560
+      \uC218 \uC788\uB294 \uBD80\uBD84\uC740 \uC815\uB9AC\uD588\uC2B5\uB2C8\uB2E4.
+      \uC911\uB2E8 \uBA85\uB839\uC774\uB098 \uACC4\uC57D \uC704\uBC18\uC744 \uC785\uC99D\uD558\uB294
+      \uC790\uB8CC\uAE4C\uC9C0 \uC788\uB2E4\uB294 \uB73B\uC740 \uC544\uB2D9\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC790\uB8CC\uC758 \uC0AC\uC5C5 \uCC38\uC5EC \uC8FC\uCCB4\uC640 \uC55E\uC11C
+      \uCC3E\uC544\uB454 \uACF5\uAC1C \uAC70\uB798 \uAD00\uACC4\uB97C \uB9DE\uCDB0\uBD24\uB2E4.
+      \uC790\uAE08\uC744 \uB300\uACE0 \uC0AC\uC5C5\uC5D0 \uAD00\uC5EC\uD588\uB358
+      \uC774\uB984\uC774 \uC5F0\uACB0\uB410\uB2E4. \uC774\uB984\uC740 \uB0AF\uC124\uC9C0
+      \uC54A\uC558\uB2E4. \uB0AF\uC120 \uAC83\uC740 \uADF8 \uC774\uB984\uC774 \uC774
+      \uC790\uB9AC\uC5D0 \uC788\uB2E4\uB294 \uC0AC\uC2E4\uC774\uC5C8\uB2E4."
+    player: 0
+    narration: 1
+  - npcId:
+    text: "\u2026APEX Corp."
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uADF8 \uC774\uB984\uC744 \uC54C\uACE0 \uACC4\uC2ED\uB2C8\uAE4C?"
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC54C\uACE0 \uC788\uC2B5\uB2C8\uB2E4. \uB2E4\uB9CC \uC774 \uC77C\uC5D0
+      \uC5F0\uACB0\uB418\uC5B4 \uC788\uB294 \uC904\uC740 \uBAB0\uB790\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uC774 \uC790\uB8CC\uB85C \uD655\uC778\uB418\uB294 \uAC74 \uC0AC\uC5C5\uC5D0
+      \uAD00\uC5EC\uD588\uB2E4\uB294 \uC0AC\uC2E4\uC774\uC5D0\uC694. \uC2E4\uC81C
+      \uAC70\uB798\uB97C \uC9D1\uD589\uD55C \uD68C\uC0AC\uAC00 \uBB34\uC5C7\uC744
+      \uD588\uB294\uC9C0\uB294 \uADF8\uCABD \uC790\uB8CC\uB3C4 \uBD10\uC57C \uD569\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uB124. APEX\uAC00 \uAD00\uB828\uB418\uC5B4 \uC788\uC5C8\uB2E4\uB294 \uAC74
+      \uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uB204\uAC00 \uBB34\uC2A8 \uC77C\uC744 \uD588\uACE0
+      \uC5B4\uB514\uC5D0\uC11C \uC815\uD55C \uC77C\uC778\uC9C0\uB294 \uB354 \uD655\uC778\uD574\uC57C\uACA0\uAD70\uC694."
+    player: 1
+    narration: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uB098\uD55C\uD14C\uB3C4 \uAC70\uB798 \uC0C1\uB300\uAC00 \uC5EC\uB7FF
+      \uC788\uC5C8\uC2B5\uB2C8\uB2E4. \uAC01\uC790 \uD55C \uB9D0\uB3C4 \uB2EC\uB790\uACE0\uC694.
+      \uADF8 \uC774\uB984 \uD558\uB098\uB85C \uC124\uBA85\uC744 \uB05D\uB0B4\uC9C0\uB294
+      \uB9C8\uC2ED\uC2DC\uC624. \uC5B4\uB5A4 \uC77C\uC744 \uACAA\uC5C8\uB294\uC9C0\uB294
+      \uACC4\uC18D \uB9D0\uC500\uB4DC\uB9B4 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC775\uC219\uD55C \uC774\uB984 \uD558\uB098\uB85C \uBAA8\uB4E0 \uC758\uBB38\uC774
+      \uB05D\uB098\uC9C0\uB294 \uC54A\uC558\uB2E4. \uC624\uD788\uB824 \uBB34\uC5C7\uC744
+      \uB354 \uBB3C\uC5B4\uC57C \uD558\uB294\uC9C0 \uBD84\uBA85\uD574\uC84C\uB2E4.
+      \uC6B0\uB9AC \uAC00\uC871\uC5D0\uAC8C \uC788\uC5C8\uB358 \uC77C\uC774 \uC774
+      \uD68C\uC0AC\uB4E4\uC5D0\uC11C\uB3C4 \uAC19\uC740 \uBC29\uC2DD\uC73C\uB85C
+      \uBC18\uBCF5\uB418\uC5C8\uB294\uC9C0. \uADF8\uB9AC\uACE0 \uB204\uAC00 \uC5B4\uB514\uAE4C\uC9C0
+      \uC54C\uACE0 \uC788\uC5C8\uB294\uC9C0."
+    player: 0
+    narration: 1
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uC624\uB298 \uD655\uC778\uD55C \uB0B4\uC6A9\uC740 \uC5B4\uB5BB\uAC8C
+      \uBCF4\uACE0 \uACC4\uC2ED\uB2C8\uAE4C?"
+    player: 0
+    narration: 0
+  companyVariants: []

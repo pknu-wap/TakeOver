@@ -13,6 +13,7 @@ namespace TakeOver.Events
         public string speaker, text;
         public bool player, narration, showPlayer = true, response;
         public IReadOnlyList<string> choices;
+        public IReadOnlyList<string> choiceDescriptions;
     }
 
     public sealed class EventNegotiationView : MonoBehaviour
@@ -284,7 +285,7 @@ namespace TakeOver.Events
                 for (int i = 0; i < presentation.choices.Count; i++)
                 {
                     int index = i;
-                    createChoice(i, presentation.choices.Count, presentation.choices[i], "", () => dialogueChoose?.Invoke(index));
+                    createChoice(i, presentation.choices.Count, presentation.choices[i], presentation.choiceDescriptions != null && i < presentation.choiceDescriptions.Count ? presentation.choiceDescriptions[i] : "", () => dialogueChoose?.Invoke(index));
                 }
             closeButton.gameObject.SetActive(!showChoicesNow);
             SetDialogueInput(dialogueInput);

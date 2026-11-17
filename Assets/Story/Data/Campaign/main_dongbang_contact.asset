@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: main_dongbang_contact
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: main_dongbang_contact
+  category: 1
+  tutorialOnly: 0
+  title: "\uC6B4\uC601 \uAC70\uC810\uC758 \uB2E4\uC74C \uC77C\uC815"
+  image: {fileID: 21300000, guid: e4ad3f1b63392de47bb9cbfeb6be2bd0, type: 3}
+  cardImage: {fileID: 21300000, guid: e317d1d530e3577478c641da73f9c3d8, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uC6B4\uC601 \uAC70\uC810\uC758 \uB2E4\uC74C \uC77C\uC815\uC5D0 \uAD00\uD55C
+    \uBA74\uB2F4 \uC694\uCCAD\uC785\uB2C8\uB2E4. \uB0B4\uC6A9\uACFC \uBE44\uC6A9\uC744
+    \uD655\uC778\uD55C \uB4A4 \uB9CC\uB098\uC2ED\uC2DC\uC624."
+  apCost: 0
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds:
+  - dongbang-trading
+  speakerNpcId: npc-broker-yoon-hajin
+  speakerName: "\uC724\uD558\uC9C4"
+  speakerRole:
+  dialogue: "\uC800\uD76C \uC794\uC5EC \uC815\uB9AC\uC548\uB3C4 20\uC77C\uCC28\uC5D0
+    \uAC80\uD1A0\uD569\uB2C8\uB2E4. \uB3D9\uBC29 \uCABD \uACF5\uAC1C \uC6B4\uC601
+    \uC124\uBA85\uD558\uACE0 \uAC19\uC740 \uC2DC\uAE30\uB85C \uBCF4\uC2DC\uBA74 \uC9C8\uBB38\uC744
+    \uC815\uB9AC\uD558\uAE30 \uC88B\uC744 \uAC70\uC608\uC694."
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uD655\uC778"
+    choiceDescription: "\uC774\uBC88 \uB300\uD654\uC758 \uC120\uD0DD\uACFC \uAD00\uCC30
+      \uC0AC\uC2E4\uC744 \uAE30\uB85D\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84
+      \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uD655\uC778"
+    resultDialogue: "\uC624\uB298 \uD655\uC778\uD55C \uBC94\uC704\uC5D0\uC11C \uC815\uB9AC\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-broker-yoon-hajin
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uD655\uC778"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uD655\uC778"
+      player: 1
+      narration: 0
+    - npcId: npc-broker-yoon-hajin
+      text: "\uC624\uB298 \uD655\uC778\uD55C \uBC94\uC704\uC5D0\uC11C \uC815\uB9AC\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 0
+  campaignDay: 15
+  missionStartDay: 0
+  prerequisiteEventId:
+  prerequisiteEventIds:
+  - main_haneul_02
+  failureSignal:
+  openingLines:
+  - npcId:
+    text: "\uBBF8\uB798\uAC74\uC124\uC5D0\uC11C \uBC1B\uC740 \uACF5\uAC1C \uC778\uACC4
+      \uC77C\uC815\uC758 \uC6B4\uC601 \uAC70\uC810 \uCC38\uC5EC\uC0AC\uB97C \uCC3E\uC558\uB2E4.
+      \uB3D9\uBC29\uBB3C\uC0B0. \uC9C0\uAE08\uC740 \uACE0\uAC1D\uC744 \uB098\uB204\uACE0
+      \uC790\uCCB4 \uC6B4\uC601\uC744 \uB298\uB9AC\uB824\uB294 \uD68C\uC0AC\uC600\uB2E4."
+    player: 0
+    narration: 1
+  - npcId: npc-mirae-construction-cfo-seo-jia
+    text: "\uC800\uD76C \uC794\uC5EC \uC815\uB9AC\uC548\uB3C4 20\uC77C\uCC28\uC5D0
+      \uAC80\uD1A0\uD569\uB2C8\uB2E4. \uB3D9\uBC29 \uCABD \uACF5\uAC1C \uC6B4\uC601
+      \uC124\uBA85\uD558\uACE0 \uAC19\uC740 \uC2DC\uAE30\uB85C \uBCF4\uC2DC\uBA74
+      \uC9C8\uBB38\uC744 \uC815\uB9AC\uD558\uAE30 \uC88B\uC744 \uAC70\uC608\uC694."
+    player: 0
+    narration: 0
+  - npcId: npc-dongbang-trading-hr-director-park-minu
+    text: "\uB3D9\uBC29\uBB3C\uC0B0 \uBC15\uBBFC\uC6B0\uC785\uB2C8\uB2E4. \uD604\uC7AC
+      \uC6B4\uC601\uC548\uACFC \uACF5\uAC1C\uD560 \uC218 \uC788\uB294 \uB2F9\uC2DC
+      \uC124\uBA85\uC744 \uD568\uAED8 \uBB38\uC758\uD558\uC168\uC8E0? 20\uC77C\uCC28\uC5D0
+      \uC8FC\uC8FC \uBA74\uB2F4\uC744 \uD569\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uD655\uC815 \uBB3C\uB7C9\uACFC \uC55E\uC73C\uB85C \uB298\uB9B4 \uBB3C\uB7C9\uC744
+      \uAD6C\uBD84\uD574\uC11C \uBCF4\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4. \uC9C0\uAE08
+      \uD68C\uC0AC\uC758 \uAC00\uCE58\uBD80\uD130 \uD655\uC778\uD558\uB824\uACE0\uC694."
+    player: 1
+    narration: 0
+  - npcId: npc-dongbang-trading-hr-director-park-minu
+    text: "\uADF8 \uB450 \uD45C\uB97C \uB530\uB85C \uBCF4\uC790\uACE0 \uD558\uC2DC\uBA74
+      \uC2DC\uC791\uC740 \uC88B\uB124\uC694. \uC544\uC9C1 \uC5C6\uB294 \uBB3C\uAC74\uAE4C\uC9C0
+      \uC138\uBA74 \uCC3D\uACE0\uB294 \uBC8C\uC368 \uAF49 \uCC28\uAC70\uB4E0\uC694."
+    player: 0
+    narration: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uB3D9\uBC29\uBB3C\uC0B0\uC740 \uCCAB \uBA74\uB2F4 \uAE30\uC900\uC774
+      10%\uC608\uC694. \uBBF8\uB798\uAC74\uC124\uC740 \uC774\uBC88\uC5D0 \uC8FC\uC694
+      \uC8FC\uC8FC \uAC80\uD1A0 \uC790\uB9AC\uB97C \uC7A1\uC73C\uBA74\uC11C 30%\uB97C
+      \uAE30\uC900\uC73C\uB85C \uC815\uD588\uACE0\uC694. \uB450 \uD68C\uC0AC \uBAA8\uB450
+      20\uC77C\uCC28 \uC2DC\uC791\uC5D0 \uD655\uC778\uD569\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC0C8 \uD68C\uC0AC\uB9CC \uB298\uB9AC\uB294 \uACC4\uD68D\uC740 \uC544\uB2C8\uC5C8\uC2B5\uB2C8\uB2E4.
+      \uC55E\uC120 \uD22C\uC790\uC640 \uB2E4\uC74C \uC6B4\uC601\uC744 \uC5F0\uACB0\uD574
+      \uD68C\uC0AC\uC5D0 \uBCF4\uACE0\uD574\uC57C\uACA0\uAD70\uC694."
+    player: 1
+    narration: 0
+  - npcId:
+    text: "20\uC77C\uCC28 \uC2DC\uC791\uAE4C\uC9C0 \uB3D9\uBC29\uBB3C\uC0B0 10%\uC640
+      \uBBF8\uB798\uAC74\uC124 30%\uB97C \uBAA8\uB450 \uD655\uBCF4\uD574\uC57C \uD55C\uB2E4.
+      19\uC77C\uCC28 \uB9C8\uAC10 \uC804\uAE4C\uC9C0 \uC900\uBE44\uD55C\uB2E4. \uB450
+      \uC870\uAC74\uC774 \uCDA9\uC871\uB418\uBA74 \uD544\uC218 \uC0AC\uAC74 \uB450
+      \uAC1C\uAC00 \uD568\uAED8 \uC5F4\uB9AC\uBA70 \uBAA8\uB450 \uB9C8\uCCD0\uC57C
+      \uC77C\uBC18 \uC0AC\uAC74\uC73C\uB85C \uB3CC\uC544\uAC04\uB2E4. \uC9C0\uBD84\uC740
+      \uACBD\uC601\uAD8C\uC774\uB098 \uD68C\uC0AC\uC758 \uD604\uAE08 \uC9C0\uC6D0\uC774
+      \uC544\uB2C8\uB2E4."
+    player: 0
+    narration: 1
+  - npcId: npc-broker-yoon-hajin
+    text: "\uD655\uC778\uD558\uC168\uC73C\uBA74 \uB9D0\uC500\uD574\uC8FC\uC138\uC694."
+    player: 0
+    narration: 0
+  companyVariants: []

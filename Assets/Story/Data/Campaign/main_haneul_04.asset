@@ -1,0 +1,330 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: main_haneul_04
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: main_haneul_04
+  category: 1
+  tutorialOnly: 0
+  title: "\uC218\uB7C9 \uB300\uC2E0 \uB2E4\uC2DC \uC8FC\uBB38\uD560 \uC774\uC720"
+  image: {fileID: 21300000, guid: 78c838ba73b33d84589843d32505324c, type: 3}
+  cardImage: {fileID: 21300000, guid: 78c838ba73b33d84589843d32505324c, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uC218\uB7C9 \uB300\uC2E0 \uB2E4\uC2DC \uC8FC\uBB38\uD560 \uC774\uC720\uC5D0
+    \uAD00\uD55C \uBA74\uB2F4 \uC694\uCCAD\uC785\uB2C8\uB2E4. \uB0B4\uC6A9\uACFC
+    \uBE44\uC6A9\uC744 \uD655\uC778\uD55C \uB4A4 \uB9CC\uB098\uC2ED\uC2DC\uC624."
+  apCost: 0
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds:
+  - haneul-food
+  speakerNpcId: npc-haneul-food-ceo-kim-harin
+  speakerName: "\uAE40\uD558\uB9B0"
+  speakerRole:
+  dialogue: "\uB2E4 \uB0A8\uAE30\uACA0\uB2E4\uACE0 \uB9D0\uD558\uB294 \uAC8C \uC190\uB2D8
+    \uD3B8\uC774\uB77C\uACE0 \uC0DD\uAC01\uD588\uC5B4\uC694. \uADF8\uB7F0\uB370 \uADF8
+    \uB9D0\uC744 \uC9C0\uD0A4\uB824\uACE0 \uB2E4\uB978 \uB370\uC11C \uD488\uC9C8\uC744
+    \uC904\uC774\uBA74 \uB354 \uB098\uC058\uACA0\uC8E0."
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uD575\uC2EC \uC81C\uD488\uACFC \uC7AC\uAD6C\uB9E4 \uAE30\uC900\uC744
+      \uBCF8\uB2E4"
+    choiceDescription: "\uC774\uBC88 \uB300\uD654\uC758 \uC120\uD0DD\uACFC \uAD00\uCC30
+      \uC0AC\uC2E4\uC744 \uAE30\uB85D\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84
+      \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uD575\uC2EC \uC81C\uD488\uACFC \uC7AC\uAD6C\uB9E4 \uAE30\uC900\uC744
+      \uBCF8\uB2E4"
+    resultDialogue: "\uB0A8\uAE38 \uC774\uC720\uC640 \uADF8 \uBE44\uC6A9\uC744 \uD568\uAED8
+      \uC124\uBA85\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-haneul-food-ceo-kim-harin
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uD575\uC2EC
+        \uC81C\uD488\uACFC \uC7AC\uAD6C\uB9E4 \uAE30\uC900\uC744 \uBCF8\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uD575\uC2EC \uC81C\uD488\uACFC \uC7AC\uAD6C\uB9E4 \uAE30\uC900\uC744
+        \uBCF8\uB2E4"
+      player: 1
+      narration: 0
+    - npcId: npc-haneul-food-ceo-kim-harin
+      text: "\uB0A8\uAE38 \uC774\uC720\uC640 \uADF8 \uBE44\uC6A9\uC744 \uD568\uAED8
+        \uC124\uBA85\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uD604\uAE08 \uD68C\uC218 \uAE30\uC900\uC744 \uBA3C\uC800 \uC810\uAC80\uD55C\uB2E4"
+    choiceDescription: "\uC774\uBC88 \uB300\uD654\uC758 \uC120\uD0DD\uACFC \uAD00\uCC30
+      \uC0AC\uC2E4\uC744 \uAE30\uB85D\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84
+      \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uD604\uAE08 \uD68C\uC218 \uAE30\uC900\uC744 \uBA3C\uC800 \uC810\uAC80\uD55C\uB2E4"
+    resultDialogue: "\uB0A9\uD488\uD55C \uB3C8\uACFC \uB2E4\uC74C \uC0DD\uC0B0\uC744
+      \uC704\uD55C \uB3C8\uC744 \uAD6C\uBD84\uD574\uC11C \uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: answer_1
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-haneul-food-ceo-kim-harin
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uD604\uAE08
+        \uD68C\uC218 \uAE30\uC900\uC744 \uBA3C\uC800 \uC810\uAC80\uD55C\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 1
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uD604\uAE08 \uD68C\uC218 \uAE30\uC900\uC744 \uBA3C\uC800 \uC810\uAC80\uD55C\uB2E4"
+      player: 1
+      narration: 0
+    - npcId: npc-haneul-food-ceo-kim-harin
+      text: "\uB0A9\uD488\uD55C \uB3C8\uACFC \uB2E4\uC74C \uC0DD\uC0B0\uC744 \uC704\uD55C
+        \uB3C8\uC744 \uAD6C\uBD84\uD574\uC11C \uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uB2E8\uACC4\uC801 \uD488\uBAA9 \uC804\uD658\uC744 \uAC80\uD1A0\uD55C\uB2E4"
+    choiceDescription: "\uC774\uBC88 \uB300\uD654\uC758 \uC120\uD0DD\uACFC \uAD00\uCC30
+      \uC0AC\uC2E4\uC744 \uAE30\uB85D\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84
+      \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uB2E8\uACC4\uC801 \uD488\uBAA9 \uC804\uD658\uC744 \uAC80\uD1A0\uD55C\uB2E4"
+    resultDialogue: "\uC190\uB2D8\uC5D0\uAC8C \uC124\uBA85\uD560 \uBC94\uC704\uC640
+      \uC0DD\uC0B0 \uC804\uD658\uC744 \uD568\uAED8 \uC900\uBE44\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: answer_2
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-haneul-food-ceo-kim-harin
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uB2E8\uACC4\uC801
+        \uD488\uBAA9 \uC804\uD658\uC744 \uAC80\uD1A0\uD55C\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uB2E8\uACC4\uC801 \uD488\uBAA9 \uC804\uD658\uC744 \uAC80\uD1A0\uD55C\uB2E4"
+      player: 1
+      narration: 0
+    - npcId: npc-haneul-food-ceo-kim-harin
+      text: "\uC190\uB2D8\uC5D0\uAC8C \uC124\uBA85\uD560 \uBC94\uC704\uC640 \uC0DD\uC0B0
+        \uC804\uD658\uC744 \uD568\uAED8 \uC900\uBE44\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 0
+  campaignDay: 40
+  missionStartDay: 34
+  prerequisiteEventId:
+  prerequisiteEventIds:
+  - main_pair_b_review
+  failureSignal:
+  openingLines:
+  - npcId: npc-haneul-food-ceo-kim-harin
+    text: "\uB2E4 \uB0A8\uAE30\uACA0\uB2E4\uACE0 \uB9D0\uD558\uB294 \uAC8C \uC190\uB2D8
+      \uD3B8\uC774\uB77C\uACE0 \uC0DD\uAC01\uD588\uC5B4\uC694. \uADF8\uB7F0\uB370
+      \uADF8 \uB9D0\uC744 \uC9C0\uD0A4\uB824\uACE0 \uB2E4\uB978 \uB370\uC11C \uD488\uC9C8\uC744
+      \uC904\uC774\uBA74 \uB354 \uB098\uC058\uACA0\uC8E0."
+    player: 0
+    narration: 0
+  - npcId: npc-haneul-food-cfo-oh-jaeseong
+    text: "\uC5C6\uC560\uB294 \uC218\uB9CC \uC815\uD558\uBA74 \uBE60\uB974\uAE34
+      \uD569\uB2C8\uB2E4. \uC624\uB298\uC740 \uB0A8\uAE30\uB294 \uC774\uC720\uC640
+      \uADF8 \uBE44\uC6A9\uAE4C\uC9C0 \uC801\uC5C8\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uD68C\uC218 \uC870\uAC74\uC774 \uB2E4\uC2DC \uBC14\uB00C\uBA74 \uBB34\uC5C7\uBD80\uD130
+      \uBA48\uCDA5\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+  - npcId: npc-haneul-food-cfo-oh-jaeseong
+    text: "\uB0A9\uD488\uC744 \uC774\uBBF8 \uB05D\uB0B8 \uB3C8\uACFC \uB2E4\uC74C
+      \uC0DD\uC0B0\uC5D0 \uC4F8 \uB3C8\uBD80\uD130 \uC11E\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
+      \uCD94\uAC00 \uD589\uC0AC \uBB3C\uB7C9\uC740 \uBCC4\uB3C4 \uD310\uB2E8\uD558\uACE0\uC694."
+    player: 0
+    narration: 0
+  companyVariants: []

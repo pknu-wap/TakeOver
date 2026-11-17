@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Restructuring
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
   eventId: restructuring_01
+  category: 0
+  tutorialOnly: 0
   title: "\uAD6C\uC870\uC870\uC815 \uC555\uBC15"
   image: {fileID: 21300000, guid: 7d714964754218147960c156ac4cf78f, type: 3}
   cardImage: {fileID: 21300000, guid: c540404617b92194591ff62394967d14, type: 3}
@@ -24,14 +26,14 @@ MonoBehaviour:
   apCost: 2
   startButtonText: "\uB17C\uC758\uD55C\uB2E4"
   companyIds: []
-  speakerNpcId: 
-  speakerName: 
-  speakerRole: 
+  speakerNpcId:
+  speakerName:
+  speakerRole:
   dialogue: "\uD68C\uC0AC\uB97C \uB9E1\uC73C\uC168\uC73C\uB2C8 \uC778\uB825 \uBB38\uC81C\uB97C
     \uC815\uD558\uC154\uC57C \uD569\uB2C8\uB2E4. \uC5BC\uB9C8\uB098 \uC904\uC774\uC2E4
     \uAC81\uB2C8\uAE4C?"
-  companyQuestion: 
-  companyPlayerLine: 
+  companyQuestion:
+  companyPlayerLine:
   choices:
   - choiceText: "\uB300\uADDC\uBAA8\uB85C \uAC10\uCD95\uD55C\uB2E4"
     choiceDescription: "\uBE44\uC6A9\uC740 \uD06C\uAC8C \uC904\uC9C0\uB9CC \uBC18\uBC1C\uC774
@@ -42,10 +44,10 @@ MonoBehaviour:
       \uD560 \uAC81\uB2C8\uB2E4."
     resultValue: mass_layoff
     npcResult:
-      eventId: 
-      companyId: 
-      actorId: 
-      actionId: 
+      eventId:
+      companyId:
+      actorId:
+      actionId:
       targetNpcIds:
       - npc-mirae-construction-field-director-park-dosik
       - npc-dongbang-trading-hr-director-park-minu
@@ -64,7 +66,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 0
@@ -80,7 +82,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 0
@@ -96,7 +98,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 0
@@ -112,7 +114,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 0
@@ -212,7 +214,7 @@ MonoBehaviour:
       permanent: 0
       durationTurns: 3
       reliability: 1
-      interpretation: 
+      interpretation:
       tags: []
       relationDelta:
         trust: 0
@@ -225,6 +227,43 @@ MonoBehaviour:
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
     buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines: []
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
   - choiceText: "\uB2E8\uACC4\uC801\uC73C\uB85C \uAC10\uCD95\uD55C\uB2E4"
     choiceDescription: "\uC2DC\uAC04\uC744 \uB4E4\uC5EC \uCDA9\uACA9\uC744 \uC904\uC778\uB2E4"
     playerLine: "\uD55C \uBC88\uC5D0 \uC790\uB974\uC9C4 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
@@ -233,10 +272,10 @@ MonoBehaviour:
       \uC218 \uC788\uACA0\uC8E0."
     resultValue: gradual
     npcResult:
-      eventId: 
-      companyId: 
-      actorId: 
-      actionId: 
+      eventId:
+      companyId:
+      actorId:
+      actionId:
       targetNpcIds:
       - npc-mirae-construction-field-director-park-dosik
       - npc-dongbang-trading-hr-director-park-minu
@@ -254,7 +293,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags:
         - gradual_restructuring
         relationDelta:
@@ -271,7 +310,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags:
         - gradual_restructuring
         relationDelta:
@@ -288,7 +327,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags:
         - gradual_restructuring
         relationDelta:
@@ -394,7 +433,7 @@ MonoBehaviour:
       permanent: 0
       durationTurns: 3
       reliability: 1
-      interpretation: 
+      interpretation:
       tags:
       - gradual_restructuring
       relationDelta:
@@ -408,6 +447,43 @@ MonoBehaviour:
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
     buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines: []
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
   - choiceText: "\uAC10\uCD95\uD558\uC9C0 \uC54A\uB294\uB2E4"
     choiceDescription: "\uC0AC\uB78C\uC744 \uC9C0\uD0A4\uACE0 \uB2E4\uB978 \uAE38\uC744
       \uCC3E\uB294\uB2E4"
@@ -416,10 +492,10 @@ MonoBehaviour:
     resultDialogue: "\uADF8 \uACB0\uC815, \uAE30\uC5B5\uD574 \uB450\uACA0\uC2B5\uB2C8\uB2E4."
     resultValue: retain
     npcResult:
-      eventId: 
-      companyId: 
-      actorId: 
-      actionId: 
+      eventId:
+      companyId:
+      actorId:
+      actionId:
       targetNpcIds:
       - npc-mirae-construction-field-director-park-dosik
       - npc-dongbang-trading-hr-director-park-minu
@@ -438,7 +514,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 20
@@ -454,7 +530,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 10
@@ -470,7 +546,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 10
@@ -486,7 +562,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 0
@@ -586,7 +662,7 @@ MonoBehaviour:
       permanent: 0
       durationTurns: 3
       reliability: 1
-      interpretation: 
+      interpretation:
       tags: []
       relationDelta:
         trust: 0
@@ -599,18 +675,68 @@ MonoBehaviour:
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
     buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines: []
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
   conditions:
   - kind: 2
-    npcId: 
+    npcId:
     relationAxis: 0
     comparison: 0
     value: 51
-    relaxedByEventId: 
+    relaxedByEventId:
     relaxedByChoiceIndex: 0
     relaxedValue: 0
+    companyId:
+    requiredEventId:
+    requiredChoiceIndex: 0
+    playerMemoryKey:
   - kind: 3
+    npcId:
+    relationAxis: 0
     comparison: 0
     value: 1
+    relaxedByEventId:
+    relaxedByChoiceIndex: 0
+    relaxedValue: 0
+    companyId:
+    requiredEventId:
+    requiredChoiceIndex: 0
+    playerMemoryKey:
   validDays: 3
   speakerSource: 2
   choiceGeneration: 0
@@ -633,3 +759,1285 @@ MonoBehaviour:
     npcId: npc-blueharbor-retail-operations-director-kim-dongseok
   - companyId: aurora-foodtech
     npcId: npc-aurora-foodtech-chief-scientist-jung-harin
+  repeatable: 1
+  repeatCooldown: 7
+  repeatGroup:
+  firstContact: 0
+  campaignDay: 0
+  missionStartDay: 0
+  prerequisiteEventId:
+  prerequisiteEventIds: []
+  failureSignal:
+  openingLines: []
+  companyVariants:
+  - companyId: mirae-construction
+    title: "\uBBF8\uB798\uAC74\uC124 \u2014 \uC778\uC6D0\uD45C\uBCF4\uB2E4 \uBA3C\uC800
+      \uBCFC \uAC83"
+    description: "\uBBF8\uB798\uAC74\uC124 \u2014 \uC778\uC6D0\uD45C\uBCF4\uB2E4
+      \uBA3C\uC800 \uBCFC \uAC83\uC5D0 \uAD00\uD55C \uD68C\uC0AC \uCE21\uC758 \uBA74\uB2F4
+      \uC694\uCCAD\uC785\uB2C8\uB2E4."
+    openingLines:
+    - npcId: npc-mirae-construction-field-director-park-dosik
+      text: "\uC774\uBC88 \uBE44\uC6A9\uC548 \uBCF4\uC168\uC2B5\uB2C8\uAE4C. \uC778\uAC74\uBE44
+        \uD56D\uBAA9\uC5D0 \uBA3C\uC800 \uD45C\uC2DC\uAC00 \uB3FC \uC788\uB354\uAD70\uC694."
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uC544\uC9C1 \uC138\uBD80\uC548\uC744 \uBCF4\uACE0 \uC788\uC2B5\uB2C8\uB2E4.
+        \uD604\uC7A5\uC5D0\uC11C\uB294 \uC5B4\uB5BB\uC2B5\uB2C8\uAE4C?"
+      player: 1
+      narration: 0
+    - npcId: npc-mirae-construction-field-director-park-dosik
+      text: "\uC0AC\uB78C \uC218\uD558\uACE0 \uB0A8\uC740 \uC77C\uBD80\uD130 \uAC19\uC774
+        \uBCF4\uC154\uC57C \uD569\uB2C8\uB2E4. \uC22B\uC790\uB9CC \uC904\uC774\uBA74
+        \uADF8\uB2E4\uC74C \uC904\uC740 \uACF5\uC0AC \uC9C0\uC5F0\uC785\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uBE44\uC6A9\uC744 \uADF8\uB300\uB85C \uB458 \uC5EC\uC720\uB3C4 \uC5C6\uB2E4\uB294
+        \uC598\uAE30\uAC00 \uB098\uC635\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+    - npcId: npc-mirae-construction-field-director-park-dosik
+      text: "\uC555\uB2C8\uB2E4. \uADF8\uB798\uC11C \uBABB \uC904\uC778\uB2E4\uACE0\uB9CC
+        \uB9D0\uD558\uB7EC \uC628 \uAC74 \uC544\uB2D9\uB2C8\uB2E4. \uC5B4\uB290 \uC791\uC5C5\uC744
+        \uB2A6\uCD94\uACE0 \uC5B4\uB290 \uC791\uC5C5\uC740 \uACC4\uC18D\uD560\uC9C0
+        \uBA3C\uC800 \uB4E3\uACE0 \uC2F6\uC740 \uAC81\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    choices:
+    - choiceText: "\uD070 \uD3ED\uC758 \uAC10\uCD95\uC548\uC744 \uC6B0\uC120 \uAC80\uD1A0\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uC774\uBC88\uC5D0\uB294 \uBE44\uC6A9\uC744 \uD06C\uAC8C \uB0AE\uCD94\uB294
+        \uC548\uBD80\uD130 \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uB2E4\uB9CC \uC904\uC778
+        \uC778\uC6D0\uC73C\uB85C \uC77C\uC815\uC774 \uADF8\uB300\uB85C \uB41C\uB2E4\uACE0
+        \uC801\uC9C0\uB294 \uB9C8\uC2ED\uC2DC\uC624."
+      resultDialogue: "\uADF8\uB7EC\uBA74 \uBA48\uCD94\uB294 \uACF5\uC815\uB3C4 \uAC19\uC774
+        \uC801\uACA0\uC2B5\uB2C8\uB2E4. \uD604\uC7A5\uC5D0 \uCC45\uC784\uB9CC \uB118\uAE38
+        \uC218\uB294 \uC5C6\uC2B5\uB2C8\uB2E4.\n\n\uC0AC\uB78C\uBD80\uD130 \uC815\uD574\uB193\uACE0
+        \uADF8\uB2E4\uC74C\uC5D0 \uC774\uC720\uB97C \uB9DE\uCD94\uC9C0 \uC54A\uC558\uC73C\uBA74
+        \uD569\uB2C8\uB2E4. \uADF8 \uBD80\uBD84\uC740 \uBD84\uBA85\uD788 \uB9D0\uC500\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
+      resultValue: mass_layoff
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-mirae-construction-field-director-park-dosik
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uD070 \uAC10\uCD95\uC548 \uAC80\uD1A0 \uC758\uC0AC. \uC2E4\uC81C
+          \uD574\uACE0 \uC5C6\uC74C. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 1
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uC774\uBC88\uC5D0\uB294 \uBE44\uC6A9\uC744 \uD06C\uAC8C \uB0AE\uCD94\uB294
+          \uC548\uBD80\uD130 \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uB2E4\uB9CC \uC904\uC778
+          \uC778\uC6D0\uC73C\uB85C \uC77C\uC815\uC774 \uADF8\uB300\uB85C \uB41C\uB2E4\uACE0
+          \uC801\uC9C0\uB294 \uB9C8\uC2ED\uC2DC\uC624."
+        player: 1
+        narration: 0
+      - npcId: npc-mirae-construction-field-director-park-dosik
+        text: "\uADF8\uB7EC\uBA74 \uBA48\uCD94\uB294 \uACF5\uC815\uB3C4 \uAC19\uC774
+          \uC801\uACA0\uC2B5\uB2C8\uB2E4. \uD604\uC7A5\uC5D0 \uCC45\uC784\uB9CC \uB118\uAE38
+          \uC218\uB294 \uC5C6\uC2B5\uB2C8\uB2E4."
+        player: 0
+        narration: 0
+      - npcId:
+        text: "\uADF8 \uC601\uD5A5\uAE4C\uC9C0 \uBCF4\uACE0 \uCD5C\uC885 \uD310\uB2E8\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+        player: 1
+        narration: 0
+      - npcId: npc-mirae-construction-field-director-park-dosik
+        text: "\uC0AC\uB78C\uBD80\uD130 \uC815\uD574\uB193\uACE0 \uADF8\uB2E4\uC74C\uC5D0
+          \uC774\uC720\uB97C \uB9DE\uCD94\uC9C0 \uC54A\uC558\uC73C\uBA74 \uD569\uB2C8\uB2E4.
+          \uADF8 \uBD80\uBD84\uC740 \uBD84\uBA85\uD788 \uB9D0\uC500\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+    - choiceText: "\uB2E8\uACC4\uC801 \uC870\uC815\uC548\uC744 \uC6B0\uC120 \uAC80\uD1A0\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uD604\uC7A5\uC774 \uB05D\uB098\uB294 \uC2DC\uC810\uACFC \uB2E4\uC74C
+        \uBC30\uCE58\uB97C \uB9DE\uCD98 \uC870\uC815\uC548\uC744 \uBA3C\uC800 \uBCF4\uC8E0.
+        \uD55C \uBC88\uC5D0 \uBE48\uC790\uB9AC\uB97C \uB9CC\uB4DC\uB294 \uBC29\uC2DD\uC740
+        \uD53C\uD558\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4."
+      resultDialogue: "\uB0A0\uC9DC\uB97C \uAC19\uC774 \uBCFC \uC218 \uC788\uB2E4\uBA74
+        \uC900\uBE44\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB2E4\uB9CC \uB05D\uB098\uB294
+        \uD604\uC7A5\uC774 \uC788\uB2E4\uACE0 \uBC14\uB85C \uB2E4\uB978 \uD604\uC7A5\uC73C\uB85C
+        \uC62E\uAE38 \uC218 \uC788\uB294 \uAC74 \uC544\uB2D9\uB2C8\uB2E4.\n\n\uC54C\uACA0\uC2B5\uB2C8\uB2E4.
+        \uC774\uB984 \uC606 \uC22B\uC790\uB9CC \uC62E\uAE34 \uACC4\uD68D\uC740 \uB0B4\uC9C0
+        \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+      resultValue: gradual
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-mirae-construction-field-director-park-dosik
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uB2E8\uACC4\uC801 \uC870\uC815\uC758 \uC2E4\uC81C \uC77C\uC815
+          \uAC80\uD1A0. \uC804\uD658\xB7\uACE0\uC6A9 \uC720\uC9C0 \uD655\uC57D \uC5C6\uC74C. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 1
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uD604\uC7A5\uC774 \uB05D\uB098\uB294 \uC2DC\uC810\uACFC \uB2E4\uC74C
+          \uBC30\uCE58\uB97C \uB9DE\uCD98 \uC870\uC815\uC548\uC744 \uBA3C\uC800 \uBCF4\uC8E0.
+          \uD55C \uBC88\uC5D0 \uBE48\uC790\uB9AC\uB97C \uB9CC\uB4DC\uB294 \uBC29\uC2DD\uC740
+          \uD53C\uD558\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4."
+        player: 1
+        narration: 0
+      - npcId: npc-mirae-construction-field-director-park-dosik
+        text: "\uB0A0\uC9DC\uB97C \uAC19\uC774 \uBCFC \uC218 \uC788\uB2E4\uBA74 \uC900\uBE44\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+          \uB2E4\uB9CC \uB05D\uB098\uB294 \uD604\uC7A5\uC774 \uC788\uB2E4\uACE0 \uBC14\uB85C
+          \uB2E4\uB978 \uD604\uC7A5\uC73C\uB85C \uC62E\uAE38 \uC218 \uC788\uB294
+          \uAC74 \uC544\uB2D9\uB2C8\uB2E4."
+        player: 0
+        narration: 0
+      - npcId:
+        text: "\uC791\uC5C5 \uC885\uB958\uC640 \uC774\uB3D9 \uC5EC\uAC74\uB3C4 \uC801\uC5B4\uC8FC\uC138\uC694."
+        player: 1
+        narration: 0
+      - npcId: npc-mirae-construction-field-director-park-dosik
+        text: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uC774\uB984 \uC606 \uC22B\uC790\uB9CC
+          \uC62E\uAE34 \uACC4\uD68D\uC740 \uB0B4\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+    - choiceText: "\uC774\uBC88 \uC548\uC5D0\uC11C\uB294 \uAC10\uCD95\uC744 \uC81C\uC678\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uC774\uBC88 \uAC80\uD1A0\uC548\uC5D0\uC11C\uB294 \uC778\uB825
+        \uAC10\uCD95\uC744 \uC81C\uC678\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB2E4\uB978
+        \uBE44\uC6A9\uACFC \uC77C\uC815\uC5D0\uC11C \uC904\uC77C \uBD80\uBD84\uC744
+        \uBA3C\uC800 \uCC3E\uC544\uBCF4\uC8E0."
+      resultDialogue: "\uADF8 \uBC29\uD5A5\uC740 \uBC18\uAC11\uC2B5\uB2C8\uB2E4.
+        \uB300\uC2E0 \uD604\uC7A5\uC5D0\uC11C \uBB58 \uB354 \uD574\uC57C \uD558\uB294\uC9C0\uB3C4
+        \uB4E3\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4. \uC0AC\uB78C\uC740 \uB450\uACE0 \uC77C\uC744
+        \uB354 \uC5B9\uB294 \uCABD\uC774\uBA74 \uB2E4\uB978 \uBB38\uC81C\uAC00 \uC0DD\uAE41\uB2C8\uB2E4.\n\n\uADF8\uB7FC
+        \uC791\uC5C5\uB7C9\uBD80\uD130 \uB2E4\uC2DC \uBCF4\uACA0\uC2B5\uB2C8\uB2E4.
+        \uC624\uB298 \uC815\uD55C \uAC80\uD1A0 \uBC29\uD5A5\uC73C\uB85C \uAE30\uB85D\uD558\uC8E0."
+      resultValue: retain
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-mirae-construction-field-director-park-dosik
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uD574\uB2F9 \uD68C\uCC28\uC5D0\uC11C \uAC10\uCD95 \uC81C\uC678
+          \uC758\uACAC. \uD3C9\uC0DD \uACE0\uC6A9 \uBCF4\uC7A5\uC73C\uB85C \uC800\uC7A5\uD558\uC9C0
+          \uC54A\uC74C. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uC774\uBC88 \uAC80\uD1A0\uC548\uC5D0\uC11C\uB294 \uC778\uB825 \uAC10\uCD95\uC744
+          \uC81C\uC678\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB2E4\uB978 \uBE44\uC6A9\uACFC
+          \uC77C\uC815\uC5D0\uC11C \uC904\uC77C \uBD80\uBD84\uC744 \uBA3C\uC800 \uCC3E\uC544\uBCF4\uC8E0."
+        player: 1
+        narration: 0
+      - npcId: npc-mirae-construction-field-director-park-dosik
+        text: "\uADF8 \uBC29\uD5A5\uC740 \uBC18\uAC11\uC2B5\uB2C8\uB2E4. \uB300\uC2E0
+          \uD604\uC7A5\uC5D0\uC11C \uBB58 \uB354 \uD574\uC57C \uD558\uB294\uC9C0\uB3C4
+          \uB4E3\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4. \uC0AC\uB78C\uC740 \uB450\uACE0
+          \uC77C\uC744 \uB354 \uC5B9\uB294 \uCABD\uC774\uBA74 \uB2E4\uB978 \uBB38\uC81C\uAC00
+          \uC0DD\uAE41\uB2C8\uB2E4."
+        player: 0
+        narration: 0
+      - npcId:
+        text: "\uADF8\uB300\uB85C \uB354 \uBC84\uD2F0\uB77C\uACE0 \uB05D\uB0B4\uC9C0\uB294
+          \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+        player: 1
+        narration: 0
+      - npcId: npc-mirae-construction-field-director-park-dosik
+        text: "\uADF8\uB7FC \uC791\uC5C5\uB7C9\uBD80\uD130 \uB2E4\uC2DC \uBCF4\uACA0\uC2B5\uB2C8\uB2E4.
+          \uC624\uB298 \uC815\uD55C \uAC80\uD1A0 \uBC29\uD5A5\uC73C\uB85C \uAE30\uB85D\uD558\uC8E0."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+  - companyId: haneul-food
+    title: "\uD558\uB298\uC2DD\uD488 \u2014 \uBE48\uC790\uB9AC\uAC00 \uC904\uC774\uB294
+      \uBE44\uC6A9"
+    description: "\uD558\uB298\uC2DD\uD488 \u2014 \uBE48\uC790\uB9AC\uAC00 \uC904\uC774\uB294
+      \uBE44\uC6A9\uC5D0 \uAD00\uD55C \uD68C\uC0AC \uCE21\uC758 \uBA74\uB2F4 \uC694\uCCAD\uC785\uB2C8\uB2E4."
+    openingLines:
+    - npcId: npc-haneul-food-cfo-oh-jaeseong
+      text: "\uC778\uAC74\uBE44\uB97C \uC904\uC774\uB294 \uC548\uC774 \uC62C\uB77C\uC654\uC2B5\uB2C8\uB2E4.
+        \uC22B\uC790\uB294 \uBC14\uB85C \uB0B4\uB824\uAC11\uB2C8\uB2E4. \uBB38\uC81C\uB294
+        \uADF8 \uB4A4 \uBE44\uC6A9\uC744 \uAC19\uC740 \uD45C\uC5D0 \uB123\uC5C8\uB294\uC9C0\uC785\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uACB0\uC6D0 \uB54C\uBB38\uC5D0 \uC0DD\uAE30\uB294 \uBE44\uC6A9 \uB9D0\uC785\uB2C8\uAE4C?"
+      player: 1
+      narration: 0
+    - npcId: npc-haneul-food-cfo-oh-jaeseong
+      text: "\uB300\uCCB4 \uC778\uB825 \uAD50\uC721, \uC0DD\uC0B0 \uC21C\uC11C \uBCC0\uACBD,
+        \uD488\uC9C8 \uD655\uC778 \uC2DC\uAC04\uC774 \uC788\uC2B5\uB2C8\uB2E4. \uBC18\uB300\uB85C
+        \uD604\uC7AC \uBC30\uCE58\uC5D0\uC11C \uD6A8\uC728\uC774 \uB0AE\uC740 \uBD80\uBD84\uB3C4
+        \uC788\uACE0\uC694. \uAC10\uCD95\uC774 \uC5B8\uC81C\uB098 \uB098\uC058\uB2E4\uAC70\uB098
+        \uC5B8\uC81C\uB098 \uC2F8\uB2E4\uACE0 \uB193\uACE0 \uC2DC\uC791\uD560 \uC218\uB294
+        \uC5C6\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uC774\uBC88\uC5D0\uB294 \uBB34\uC5C7\uC744 \uBA3C\uC800 \uBE44\uAD50\uD558\uACA0\uC2B5\uB2C8\uAE4C?"
+      player: 1
+      narration: 0
+    - npcId: npc-haneul-food-cfo-oh-jaeseong
+      text: "\uAC80\uD1A0\uD560 \uBC29\uD5A5\uC744 \uB9D0\uC500\uD574\uC8FC\uC2DC\uBA74
+        \uADF8 \uBC29\uD5A5\uC758 \uBE44\uC6A9\uC744 \uC228\uAE30\uC9C0 \uC54A\uACE0
+        \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uD488\uC9C8 \uAE30\uC900\uC744 \uB0AE\uCD94\uB294
+        \uAC74 \uACC4\uC0B0\uC758 \uC9C0\uB984\uAE38\uB85C \uC4F0\uC9C0 \uC54A\uC744
+        \uC0DD\uAC01\uC785\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    choices:
+    - choiceText: "\uD070 \uD3ED\uC758 \uAC10\uCD95\uC548\uC744 \uC6B0\uC120 \uAC80\uD1A0\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uBE44\uC6A9\uC744 \uBE60\uB974\uAC8C \uB0AE\uCD94\uB294 \uC548\uBD80\uD130
+        \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uC904\uC5B4\uB4E0 \uC0DD\uC0B0\uB7C9\uACFC
+        \uCD94\uAC00 \uAD50\uC721\uBE44\uB3C4 \uAC19\uC740 \uC790\uB9AC\uC5D0 \uB123\uC5B4\uC8FC\uC138\uC694."
+      resultDialogue: "\uADF8\uB807\uAC8C \uACC4\uC0B0\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+        \uB2E4\uB9CC \uD070 \uD3ED\uC758 \uAC10\uCD95\uC744 \uC804\uC81C\uB85C \uD558\uBA74
+        \uCD08\uAE30 \uD63C\uB780\uB3C4 \uCEE4\uC9C8 \uAC81\uB2C8\uB2E4. \uB2E8\uAE30
+        \uBE44\uC6A9 \uAC10\uC18C\uB9CC \uACB0\uACFC\uB85C \uB0B4\uC9C0\uB294 \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+      resultValue: mass_layoff
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-haneul-food-cfo-oh-jaeseong
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uB300\uADDC\uBAA8 \uAC10\uCD95\uC548 \uBE44\uAD50 \uC694\uCCAD. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 1
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uBE44\uC6A9\uC744 \uBE60\uB974\uAC8C \uB0AE\uCD94\uB294 \uC548\uBD80\uD130
+          \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uC904\uC5B4\uB4E0 \uC0DD\uC0B0\uB7C9\uACFC
+          \uCD94\uAC00 \uAD50\uC721\uBE44\uB3C4 \uAC19\uC740 \uC790\uB9AC\uC5D0 \uB123\uC5B4\uC8FC\uC138\uC694."
+        player: 1
+        narration: 0
+      - npcId: npc-haneul-food-cfo-oh-jaeseong
+        text: "\uADF8\uB807\uAC8C \uACC4\uC0B0\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB2E4\uB9CC
+          \uD070 \uD3ED\uC758 \uAC10\uCD95\uC744 \uC804\uC81C\uB85C \uD558\uBA74
+          \uCD08\uAE30 \uD63C\uB780\uB3C4 \uCEE4\uC9C8 \uAC81\uB2C8\uB2E4. \uB2E8\uAE30
+          \uBE44\uC6A9 \uAC10\uC18C\uB9CC \uACB0\uACFC\uB85C \uB0B4\uC9C0\uB294 \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+    - choiceText: "\uB2E8\uACC4\uC801 \uC870\uC815\uC548\uC744 \uC6B0\uC120 \uAC80\uD1A0\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uC0DD\uC0B0 \uC77C\uC815\uACFC \uAD50\uC721\uC744 \uB9DE\uCD98
+        \uB2E8\uACC4\uC801 \uC548\uC744 \uBCF4\uC8E0. \uBE44\uC6A9\uC774 \uC904\uC5B4\uB4DC\uB294
+        \uC2DC\uC810\uC774 \uB2A6\uC5B4\uC9C0\uB294 \uAC83\uB3C4 \uD3EC\uD568\uD574\uC11C\uC694."
+      resultDialogue: "\uB124. \uC2DC\uAC04\uC744 \uB450\uBA74 \uC77C\uBD80 \uBD80\uB2F4\uC740
+        \uC904\uC77C \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uADF8\uB3D9\uC548 \uC720\uC9C0\uD560
+        \uBE44\uC6A9\uB3C4 \uC788\uC73C\uB2C8 \uC790\uAE08 \uACC4\uD68D\uACFC \uD568\uAED8
+        \uBE44\uAD50\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+      resultValue: gradual
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-haneul-food-cfo-oh-jaeseong
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC804\uD658 \uC2DC\uAC04\uACFC \uC720\uC9C0 \uBE44\uC6A9\uC744
+          \uD568\uAED8 \uAC80\uD1A0. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 1
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uC0DD\uC0B0 \uC77C\uC815\uACFC \uAD50\uC721\uC744 \uB9DE\uCD98 \uB2E8\uACC4\uC801
+          \uC548\uC744 \uBCF4\uC8E0. \uBE44\uC6A9\uC774 \uC904\uC5B4\uB4DC\uB294
+          \uC2DC\uC810\uC774 \uB2A6\uC5B4\uC9C0\uB294 \uAC83\uB3C4 \uD3EC\uD568\uD574\uC11C\uC694."
+        player: 1
+        narration: 0
+      - npcId: npc-haneul-food-cfo-oh-jaeseong
+        text: "\uB124. \uC2DC\uAC04\uC744 \uB450\uBA74 \uC77C\uBD80 \uBD80\uB2F4\uC740
+          \uC904\uC77C \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uADF8\uB3D9\uC548 \uC720\uC9C0\uD560
+          \uBE44\uC6A9\uB3C4 \uC788\uC73C\uB2C8 \uC790\uAE08 \uACC4\uD68D\uACFC \uD568\uAED8
+          \uBE44\uAD50\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+    - choiceText: "\uC774\uBC88 \uC548\uC5D0\uC11C\uB294 \uAC10\uCD95\uC744 \uC81C\uC678\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uC774\uBC88\uC5D0\uB294 \uC778\uB825 \uAC10\uCD95 \uC5C6\uC774
+        \uC870\uC815\uD560 \uD56D\uBAA9\uBD80\uD130 \uBCF4\uACA0\uC2B5\uB2C8\uB2E4.
+        \uD488\uBAA9 \uC218\uC640 \uC0DD\uC0B0 \uC21C\uC11C, \uD589\uC0AC \uBB3C\uB7C9\uB3C4
+        \uD3EC\uD568\uD574\uC11C\uC694."
+      resultDialogue: "\uAC00\uB2A5\uD569\uB2C8\uB2E4. \uB2E4\uB9CC \uAC10\uCD95\uC744
+        \uC81C\uC678\uD588\uB2E4\uB294 \uC774\uC720\uB85C \uBE44\uC6A9 \uBB38\uC81C\uAC00
+        \uD574\uACB0\uB41C \uAC83\uC73C\uB85C \uC124\uBA85\uD558\uC9C0\uB294 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
+        \uB2E4\uB978 \uB300\uC548\uC774 \uC5BC\uB9C8\uB098 \uC904\uC774\uB294\uC9C0
+        \uD655\uC778\uD574\uC57C \uD569\uB2C8\uB2E4."
+      resultValue: retain
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-haneul-food-cfo-oh-jaeseong
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uD574\uB2F9 \uD68C\uCC28 \uAC10\uCD95 \uC81C\uC678 \uC758\uACAC. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uC774\uBC88\uC5D0\uB294 \uC778\uB825 \uAC10\uCD95 \uC5C6\uC774 \uC870\uC815\uD560
+          \uD56D\uBAA9\uBD80\uD130 \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uD488\uBAA9 \uC218\uC640
+          \uC0DD\uC0B0 \uC21C\uC11C, \uD589\uC0AC \uBB3C\uB7C9\uB3C4 \uD3EC\uD568\uD574\uC11C\uC694."
+        player: 1
+        narration: 0
+      - npcId: npc-haneul-food-cfo-oh-jaeseong
+        text: "\uAC00\uB2A5\uD569\uB2C8\uB2E4. \uB2E4\uB9CC \uAC10\uCD95\uC744 \uC81C\uC678\uD588\uB2E4\uB294
+          \uC774\uC720\uB85C \uBE44\uC6A9 \uBB38\uC81C\uAC00 \uD574\uACB0\uB41C \uAC83\uC73C\uB85C
+          \uC124\uBA85\uD558\uC9C0\uB294 \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uB2E4\uB978
+          \uB300\uC548\uC774 \uC5BC\uB9C8\uB098 \uC904\uC774\uB294\uC9C0 \uD655\uC778\uD574\uC57C
+          \uD569\uB2C8\uB2E4."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+  - companyId: dongbang-trading
+    title: "\uB3D9\uBC29\uBB3C\uC0B0 \u2014 \uC0C8 \uBC30\uCE58\uD45C\uB97C \uD3B4\uAE30
+      \uC804\uC5D0"
+    description: "\uB3D9\uBC29\uBB3C\uC0B0 \u2014 \uC0C8 \uBC30\uCE58\uD45C\uB97C
+      \uD3B4\uAE30 \uC804\uC5D0\uC5D0 \uAD00\uD55C \uD68C\uC0AC \uCE21\uC758 \uBA74\uB2F4
+      \uC694\uCCAD\uC785\uB2C8\uB2E4."
+    openingLines:
+    - npcId: npc-dongbang-trading-hr-director-park-minu
+      text: "\uD45C\uB97C \uD3B4\uAE30 \uC804\uC5D0 \uD558\uB098\uB9CC \uB9D0\uC500\uB4DC\uB9B4\uAC8C\uC694.
+        \uCE78\uC744 \uC9C0\uC6B0\uBA74 \uC5D1\uC140\uC740 \uC870\uC6A9\uD569\uB2C8\uB2E4.
+        \uC0AC\uB78C\uC740 \uC124\uBA85\uC744 \uB4E4\uC5B4\uC57C \uD558\uACE0\uC694."
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uC774\uBC88 \uBC30\uCE58\uC548\uC774 \uB098\uC654\uC2B5\uB2C8\uAE4C?"
+      player: 1
+      narration: 0
+    - npcId: npc-dongbang-trading-hr-director-park-minu
+      text: "\uBC29\uD5A5\uBD80\uD130 \uC815\uD574\uC57C \uD569\uB2C8\uB2E4. \uC904\uC77C\uC9C0,
+        \uB098\uB220 \uC62E\uAE38\uC9C0, \uB2E4\uB978 \uBE44\uC6A9\uC744 \uBCFC\uC9C0\uC694.
+        \uB2E4\uB9CC \uC5B4\uB290 \uCABD\uC774\uB4E0 \u2018\uC0AC\uB78C\uC740 \uB098\uC911\uC5D0
+        \uB9DE\uCD98\uB2E4\u2019\uACE0 \uC801\uC744 \uC790\uB9AC\uB294 \uC5C6\uC5C8\uC73C\uBA74
+        \uD569\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uAC00\uB2A5\uD55C \uB300\uC548\uC744 \uAC19\uC774 \uC900\uBE44\uD560
+        \uC218 \uC788\uACA0\uC2B5\uB2C8\uAE4C?"
+      player: 1
+      narration: 0
+    - npcId: npc-dongbang-trading-hr-director-park-minu
+      text: "\uB124. \uC81C\uAC00 \uC6D0\uD558\uB294 \uAC83\uB3C4 \uBE44\uAD50\uD560
+        \uB300\uC548\uC785\uB2C8\uB2E4. \uC9C1\uC6D0\uB4E4 \uC55E\uC5D0\uC11C \uCC98\uC74C
+        \uB4E3\uB294 \uACC4\uD68D\uC744 \uC124\uBA85\uD558\uB294 \uC5ED\uD560\uC740
+        \uD53C\uD558\uACE0 \uC2F6\uAC70\uB4E0\uC694."
+      player: 0
+      narration: 0
+    choices:
+    - choiceText: "\uD070 \uD3ED\uC758 \uAC10\uCD95\uC548\uC744 \uC6B0\uC120 \uAC80\uD1A0\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uBE44\uC6A9\uC744 \uBE68\uB9AC \uC904\uC774\uB294 \uC548\uBD80\uD130
+        \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uBE60\uC9C0\uB294 \uC5C5\uBB34\uC640 \uC124\uBA85\xB7\uBCF4\uC0C1
+        \uBB38\uC81C\uB3C4 \uBE7C\uC9C0 \uB9D0\uACE0\uC694."
+      resultDialogue: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8\uB7FC \uBC18\uB300
+        \uC758\uACAC\uB3C4 \uADF8\uB300\uB85C \uC62C\uB9AC\uACA0\uC2B5\uB2C8\uB2E4.
+        \uADDC\uBAA8\uAC00 \uD06C\uBA74 \uC911\uAC04\uAD00\uB9AC\uC790 \uBA87 \uBA85\uC774
+        \uC124\uB4DD\uD574\uC11C \uB05D\uB0BC \uC218 \uC788\uB294 \uC77C\uC774 \uC544\uB2D9\uB2C8\uB2E4."
+      resultValue: mass_layoff
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-dongbang-trading-hr-director-park-minu
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uD070 \uAC10\uCD95\uC548 \uAC80\uD1A0 \uC758\uC0AC. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 1
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uBE44\uC6A9\uC744 \uBE68\uB9AC \uC904\uC774\uB294 \uC548\uBD80\uD130
+          \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uBE60\uC9C0\uB294 \uC5C5\uBB34\uC640 \uC124\uBA85\xB7\uBCF4\uC0C1
+          \uBB38\uC81C\uB3C4 \uBE7C\uC9C0 \uB9D0\uACE0\uC694."
+        player: 1
+        narration: 0
+      - npcId: npc-dongbang-trading-hr-director-park-minu
+        text: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8\uB7FC \uBC18\uB300 \uC758\uACAC\uB3C4
+          \uADF8\uB300\uB85C \uC62C\uB9AC\uACA0\uC2B5\uB2C8\uB2E4. \uADDC\uBAA8\uAC00
+          \uD06C\uBA74 \uC911\uAC04\uAD00\uB9AC\uC790 \uBA87 \uBA85\uC774 \uC124\uB4DD\uD574\uC11C
+          \uB05D\uB0BC \uC218 \uC788\uB294 \uC77C\uC774 \uC544\uB2D9\uB2C8\uB2E4."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+    - choiceText: "\uB2E8\uACC4\uC801 \uC870\uC815\uC548\uC744 \uC6B0\uC120 \uAC80\uD1A0\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uC791\uC5C5\uBCC4\uB85C \uC62E\uAE38 \uC218 \uC788\uB294 \uC790\uB9AC\uC640
+        \uAD50\uC721 \uC2DC\uAC04\uC744 \uBA3C\uC800 \uBCF4\uC8E0. \uB2E8\uACC4\uC801\uC73C\uB85C
+        \uC870\uC815\uD558\uB294 \uC548\uC744 \uBE44\uAD50\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+      resultDialogue: "\uB124. \uB2E4 \uC62E\uAE38 \uC218 \uC788\uB2E4\uACE0 \uC57D\uC18D\uD558\uC9C0\uB294
+        \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uAC00\uB2A5\uD55C \uC790\uB9AC\uC640 \uC5B4\uB824\uC6B4
+        \uC790\uB9AC\uB97C \uB098\uB220\uC11C \uC124\uBA85\uB4DC\uB9B4\uAC8C\uC694.
+        \uD45C\uAC00 \uC870\uAE08 \uAE38\uC5B4\uC838\uB3C4 \uB05D\uAE4C\uC9C0 \uBD10\uC8FC\uC138\uC694."
+      resultValue: gradual
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-dongbang-trading-hr-director-park-minu
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uB2E8\uACC4\uC801 \uBC30\uCE58 \uAC80\uD1A0 \uC694\uCCAD. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 1
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uC791\uC5C5\uBCC4\uB85C \uC62E\uAE38 \uC218 \uC788\uB294 \uC790\uB9AC\uC640
+          \uAD50\uC721 \uC2DC\uAC04\uC744 \uBA3C\uC800 \uBCF4\uC8E0. \uB2E8\uACC4\uC801\uC73C\uB85C
+          \uC870\uC815\uD558\uB294 \uC548\uC744 \uBE44\uAD50\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+        player: 1
+        narration: 0
+      - npcId: npc-dongbang-trading-hr-director-park-minu
+        text: "\uB124. \uB2E4 \uC62E\uAE38 \uC218 \uC788\uB2E4\uACE0 \uC57D\uC18D\uD558\uC9C0\uB294
+          \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uAC00\uB2A5\uD55C \uC790\uB9AC\uC640 \uC5B4\uB824\uC6B4
+          \uC790\uB9AC\uB97C \uB098\uB220\uC11C \uC124\uBA85\uB4DC\uB9B4\uAC8C\uC694.
+          \uD45C\uAC00 \uC870\uAE08 \uAE38\uC5B4\uC838\uB3C4 \uB05D\uAE4C\uC9C0 \uBD10\uC8FC\uC138\uC694."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+    - choiceText: "\uC774\uBC88 \uC548\uC5D0\uC11C\uB294 \uAC10\uCD95\uC744 \uC81C\uC678\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uC774\uBC88\uC5D0\uB294 \uAC10\uCD95\uC744 \uC81C\uC678\uD558\uACE0
+        \uC6B4\uC601 \uC2DC\uAC04\uC744 \uC870\uC815\uD560 \uC5EC\uC9C0\uAC00 \uC788\uB294\uC9C0
+        \uBCF4\uC8E0. \uC608\uC678 \uC5C5\uBB34\uAC00 \uC5B4\uB514\uC5D0 \uBAB0\uB9AC\uB294\uC9C0\uB3C4\uC694."
+      resultDialogue: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8 \uBC29\uD5A5\uC774\uBA74
+        \uC9C1\uC6D0\uB4E4 \uC758\uACAC\uB3C4 \uBA3C\uC800 \uBAA8\uC544\uBCFC \uC218
+        \uC788\uACA0\uB124\uC694. \uB300\uC2E0 \uAC10\uCD95 \uC548 \uD55C\uB2E4\uACE0
+        \uC57C\uADFC\uD45C\uBD80\uD130 \uB298\uB9AC\uC9C0\uB294 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
+        \uADF8\uAC74 \uB2E4\uB978 \uCE78\uC5D0\uC11C \uAC19\uC740 \uAC12\uC744 \uBE7C\uB294
+        \uC77C\uC774\uB2C8\uAE4C\uC694."
+      resultValue: retain
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-dongbang-trading-hr-director-park-minu
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC774\uBC88 \uC548\uC758 \uAC10\uCD95 \uC81C\uC678 \uC758\uACAC. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uC774\uBC88\uC5D0\uB294 \uAC10\uCD95\uC744 \uC81C\uC678\uD558\uACE0
+          \uC6B4\uC601 \uC2DC\uAC04\uC744 \uC870\uC815\uD560 \uC5EC\uC9C0\uAC00 \uC788\uB294\uC9C0
+          \uBCF4\uC8E0. \uC608\uC678 \uC5C5\uBB34\uAC00 \uC5B4\uB514\uC5D0 \uBAB0\uB9AC\uB294\uC9C0\uB3C4\uC694."
+        player: 1
+        narration: 0
+      - npcId: npc-dongbang-trading-hr-director-park-minu
+        text: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8 \uBC29\uD5A5\uC774\uBA74 \uC9C1\uC6D0\uB4E4
+          \uC758\uACAC\uB3C4 \uBA3C\uC800 \uBAA8\uC544\uBCFC \uC218 \uC788\uACA0\uB124\uC694.
+          \uB300\uC2E0 \uAC10\uCD95 \uC548 \uD55C\uB2E4\uACE0 \uC57C\uADFC\uD45C\uBD80\uD130
+          \uB298\uB9AC\uC9C0\uB294 \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uADF8\uAC74 \uB2E4\uB978
+          \uCE78\uC5D0\uC11C \uAC19\uC740 \uAC12\uC744 \uBE7C\uB294 \uC77C\uC774\uB2C8\uAE4C\uC694."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+  - companyId: hansung-industry
+    title: "\uD55C\uC131\uACF5\uC5C5 \u2014 \uAC10\uCD95\uC548\uC758 \uBE48\uCE78"
+    description: "\uD55C\uC131\uACF5\uC5C5 \u2014 \uAC10\uCD95\uC548\uC758 \uBE48\uCE78\uC5D0
+      \uAD00\uD55C \uD68C\uC0AC \uCE21\uC758 \uBA74\uB2F4 \uC694\uCCAD\uC785\uB2C8\uB2E4."
+    openingLines:
+    - npcId: npc-hansung-industry-labor-director-choi-mijeong
+      text: "\uC774\uBC88 \uC548\uC5D0\uB294 \uC904\uC77C \uBE44\uC6A9\uC740 \uC788\uB294\uB370,
+        \uADF8 \uC77C\uC744 \uB9E1\uB358 \uC0AC\uB78C\uC744 \uC5B4\uB5BB\uAC8C \uD560\uC9C0\uB294
+        \uBE44\uC5B4 \uC788\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uC544\uC9C1 \uCD5C\uC885\uC548\uC740 \uC544\uB2D9\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+    - npcId: npc-hansung-industry-labor-director-choi-mijeong
+      text: "\uB124. \uADF8\uB798\uC11C \uC9C0\uAE08 \uB9D0\uC500\uB4DC\uB9AC\uB294
+        \uAC81\uB2C8\uB2E4. \uCD5C\uC885\uC548\uC774 \uB41C \uB4A4\uC5D0 \uC124\uBA85\uC744
+        \uBD99\uC774\uBA74 \uC120\uD0DD\uC9C0\uAC00 \uC801\uC5B4\uC9C0\uB2C8\uAE4C\uC694."
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uC5B4\uB5A4 \uD56D\uBAA9\uC744 \uBA3C\uC800 \uBD10\uC57C \uD569\uB2C8\uAE4C?"
+      player: 1
+      narration: 0
+    - npcId: npc-hansung-industry-labor-director-choi-mijeong
+      text: "\uBE60\uC9C0\uB294 \uC791\uC5C5, \uB0A8\uB294 \uC0AC\uB78C\uC758 \uBD80\uB2F4,
+        \uBCF4\uC0C1\uACFC \uC804\uD658 \uC870\uAC74\uC785\uB2C8\uB2E4. \uC0AC\uB78C
+        \uC218\uAC00 \uC904\uC5B4\uB3C4 \uAC19\uC740 \uC0DD\uC0B0\uB7C9\uC774 \uB098\uC628\uB2E4\uB294
+        \uAC00\uC815\uB3C4 \uD655\uC778\uD574\uC57C \uD558\uACE0\uC694."
+      player: 0
+      narration: 0
+    choices:
+    - choiceText: "\uD070 \uD3ED\uC758 \uAC10\uCD95\uC548\uC744 \uC6B0\uC120 \uAC80\uD1A0\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uD070 \uD3ED\uC73C\uB85C \uBE44\uC6A9\uC744 \uC904\uC774\uB294
+        \uC548\uBD80\uD130 \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uB300\uC2E0 \uC804\uD658\uACFC
+        \uBCF4\uC0C1, \uC0DD\uC0B0 \uCC28\uC9C8\uC744 \uD3EC\uD568\uD55C \uC804\uCCB4
+        \uBE44\uC6A9\uC744 \uC62C\uB824\uC8FC\uC138\uC694."
+      resultDialogue: "\uC790\uB8CC\uB294 \uC900\uBE44\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+        \uADF8 \uC548\uC5D0 \uBC18\uB300\uD55C\uB2E4\uB294 \uC758\uACAC\uB3C4 \uD568\uAED8
+        \uB0A8\uAE30\uACA0\uC2B5\uB2C8\uB2E4. \uB2F9\uC0AC\uC790\uC5D0\uAC8C \uC124\uBA85\uD560
+        \uC808\uCC28\uB97C \uBE44\uC6A9 \uB54C\uBB38\uC5D0 \uBE7C\uC9C0\uB294 \uB9C8\uC2ED\uC2DC\uC624."
+      resultValue: mass_layoff
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-hansung-industry-labor-director-choi-mijeong
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uB300\uADDC\uBAA8 \uAC10\uCD95\uC548 \uC6B0\uC120 \uAC80\uD1A0. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 1
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uD070 \uD3ED\uC73C\uB85C \uBE44\uC6A9\uC744 \uC904\uC774\uB294 \uC548\uBD80\uD130
+          \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uB300\uC2E0 \uC804\uD658\uACFC \uBCF4\uC0C1,
+          \uC0DD\uC0B0 \uCC28\uC9C8\uC744 \uD3EC\uD568\uD55C \uC804\uCCB4 \uBE44\uC6A9\uC744
+          \uC62C\uB824\uC8FC\uC138\uC694."
+        player: 1
+        narration: 0
+      - npcId: npc-hansung-industry-labor-director-choi-mijeong
+        text: "\uC790\uB8CC\uB294 \uC900\uBE44\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uADF8
+          \uC548\uC5D0 \uBC18\uB300\uD55C\uB2E4\uB294 \uC758\uACAC\uB3C4 \uD568\uAED8
+          \uB0A8\uAE30\uACA0\uC2B5\uB2C8\uB2E4. \uB2F9\uC0AC\uC790\uC5D0\uAC8C \uC124\uBA85\uD560
+          \uC808\uCC28\uB97C \uBE44\uC6A9 \uB54C\uBB38\uC5D0 \uBE7C\uC9C0\uB294 \uB9C8\uC2ED\uC2DC\uC624."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+    - choiceText: "\uB2E8\uACC4\uC801 \uC870\uC815\uC548\uC744 \uC6B0\uC120 \uAC80\uD1A0\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uC791\uC5C5 \uC804\uC218\uC640 \uB300\uCCB4 \uAC00\uB2A5\uD55C
+        \uC790\uB9AC\uB97C \uD655\uC778\uD55C \uB4A4 \uB2E8\uACC4\uC801\uC73C\uB85C
+        \uC870\uC815\uD558\uB294 \uC548\uC744 \uBCF4\uC8E0."
+      resultDialogue: "\uB124. \uB2E8\uACC4\uC801\uC774\uB77C\uB294 \uB9D0\uB9CC\uC73C\uB85C
+        \uBD80\uB2F4\uC774 \uC904\uC9C0\uB294 \uC54A\uC73C\uB2C8 \uAC01 \uB2E8\uACC4\uC5D0\uC11C
+        \uBB34\uC5C7\uC774 \uB2EC\uB77C\uC9C0\uB294\uC9C0 \uC801\uACA0\uC2B5\uB2C8\uB2E4.
+        \uB2F9\uC0AC\uC790\uAC00 \uC900\uBE44\uD560 \uC2DC\uAC04\uB3C4 \uD3EC\uD568\uD558\uACE0\uC694."
+      resultValue: gradual
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-hansung-industry-labor-director-choi-mijeong
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uB2E8\uACC4\uBCC4 \uC870\uAC74 \uAC80\uD1A0. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 1
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uC791\uC5C5 \uC804\uC218\uC640 \uB300\uCCB4 \uAC00\uB2A5\uD55C \uC790\uB9AC\uB97C
+          \uD655\uC778\uD55C \uB4A4 \uB2E8\uACC4\uC801\uC73C\uB85C \uC870\uC815\uD558\uB294
+          \uC548\uC744 \uBCF4\uC8E0."
+        player: 1
+        narration: 0
+      - npcId: npc-hansung-industry-labor-director-choi-mijeong
+        text: "\uB124. \uB2E8\uACC4\uC801\uC774\uB77C\uB294 \uB9D0\uB9CC\uC73C\uB85C
+          \uBD80\uB2F4\uC774 \uC904\uC9C0\uB294 \uC54A\uC73C\uB2C8 \uAC01 \uB2E8\uACC4\uC5D0\uC11C
+          \uBB34\uC5C7\uC774 \uB2EC\uB77C\uC9C0\uB294\uC9C0 \uC801\uACA0\uC2B5\uB2C8\uB2E4.
+          \uB2F9\uC0AC\uC790\uAC00 \uC900\uBE44\uD560 \uC2DC\uAC04\uB3C4 \uD3EC\uD568\uD558\uACE0\uC694."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []
+    - choiceText: "\uC774\uBC88 \uC548\uC5D0\uC11C\uB294 \uAC10\uCD95\uC744 \uC81C\uC678\uD55C\uB2E4"
+      choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+        \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654
+        \uC5C6\uC74C."
+      playerLine: "\uC774\uBC88\uC5D0\uB294 \uAC10\uCD95\uC744 \uC81C\uC678\uD558\uACE0
+        \uB2E4\uB978 \uBE44\uC6A9 \uB300\uC548\uBD80\uD130 \uAC80\uD1A0\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+        \uAE30\uC874 \uC778\uB825\uC5D0\uAC8C \uC77C\uC744 \uB354 \uC5B9\uB294 \uC548\uB3C4
+        \uB530\uB85C \uBCF4\uC8E0."
+      resultDialogue: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8 \uBC29\uD5A5\uC744
+        \uC624\uB298 \uAC80\uD1A0 \uC758\uACAC\uC73C\uB85C \uB0A8\uAE30\uACA0\uC2B5\uB2C8\uB2E4.
+        \uD544\uC694\uD55C \uC9C0\uC6D0\uACFC \uD68C\uC0AC\uAC00 \uAC10\uB2F9\uD560
+        \uBC94\uC704\uB3C4 \uAC19\uC774 \uC124\uBA85\uD574\uC8FC\uC138\uC694. \uADF8
+        \uBD80\uBD84\uC774 \uC5C6\uC73C\uBA74 \uB2E4\uC74C\uBC88\uC5D0 \uAC19\uC740
+        \uC790\uB9AC\uB85C \uB3CC\uC544\uC635\uB2C8\uB2E4."
+      resultValue: retain
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds:
+        - npc-hansung-industry-labor-director-choi-mijeong
+        targetReactions: []
+        memoryType: 8
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation: "\uC774\uBC88 \uAC10\uCD95 \uC81C\uC678 \uC758\uACAC. "
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines:
+      - npcId:
+        text: "\uC774\uBC88\uC5D0\uB294 \uAC10\uCD95\uC744 \uC81C\uC678\uD558\uACE0
+          \uB2E4\uB978 \uBE44\uC6A9 \uB300\uC548\uBD80\uD130 \uAC80\uD1A0\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+          \uAE30\uC874 \uC778\uB825\uC5D0\uAC8C \uC77C\uC744 \uB354 \uC5B9\uB294
+          \uC548\uB3C4 \uB530\uB85C \uBCF4\uC8E0."
+        player: 1
+        narration: 0
+      - npcId: npc-hansung-industry-labor-director-choi-mijeong
+        text: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8 \uBC29\uD5A5\uC744 \uC624\uB298
+          \uAC80\uD1A0 \uC758\uACAC\uC73C\uB85C \uB0A8\uAE30\uACA0\uC2B5\uB2C8\uB2E4.
+          \uD544\uC694\uD55C \uC9C0\uC6D0\uACFC \uD68C\uC0AC\uAC00 \uAC10\uB2F9\uD560
+          \uBC94\uC704\uB3C4 \uAC19\uC774 \uC124\uBA85\uD574\uC8FC\uC138\uC694. \uADF8
+          \uBD80\uBD84\uC774 \uC5C6\uC73C\uBA74 \uB2E4\uC74C\uBC88\uC5D0 \uAC19\uC740
+          \uC790\uB9AC\uB85C \uB3CC\uC544\uC635\uB2C8\uB2E4."
+        player: 0
+        narration: 0
+      resultConditions: []
+      failureOutcome:
+        choiceText:
+        choiceDescription:
+        playerLine:
+        resultDialogue:
+        resultValue:
+        npcResult:
+          eventId:
+          companyId:
+          actorId:
+          actionId:
+          targetNpcIds: []
+          targetReactions: []
+          memoryType: 0
+          strength: 1
+          publicity: 0
+          permanent: 0
+          durationTurns: 3
+          reliability: 1
+          interpretation:
+          tags: []
+          relationDelta:
+            trust: 0
+            respect: 0
+            fear: 0
+            hostility: 0
+            dependency: 0
+            interest: 0
+        cashDelta: 0
+        stockSurgeMinRatio: 0
+        stockSurgeMaxRatio: 0
+        buybackPremiumRatio: 0
+        playerMemories: []
+        resultLines: []

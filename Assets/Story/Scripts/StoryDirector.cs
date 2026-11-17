@@ -40,9 +40,10 @@ namespace TakeOver.Story
         private bool IsProfile => Goal == StoryGoal.ViewRepresentative || Goal == StoryGoal.ViewMemory || Goal == StoryGoal.ViewEventMemory;
         private bool NeedsConfirmation => IsProfile || IsCompanyReading;
         private Company GoalCompany => string.IsNullOrEmpty(Current?.companyId) ? company : FindFirstObjectByType<Companies>()?.getCompany(Current.companyId);
-        public static bool CanTrade(Company company, bool buy) => !IsRunning ||
+        public static bool CanTrade(Company company, bool buy) => FindFirstObjectByType<EventSystemController>()?.IsCampaignTradeLocked != true &&
+            TakeOver.SaveSystem.GameSessionCoordinator.Active?.IsPersistenceBlocked != true && (!IsRunning ||
             (Active.IsTrading && !Active.busy || Active.applyingSkippedAction) && buy == Active.IsBuying && company != null && company.definition.companyID == CompanyId &&
-            (Active.applyingSkippedAction || company.state.getStat(CompanyStat.PLAYER_SHARES) == Active.initialShares);
+            (Active.applyingSkippedAction || company.state.getStat(CompanyStat.PLAYER_SHARES) == Active.initialShares));
         public static bool CanTradeAmount(Company company, bool buy, int amount) => CanTrade(company, buy) && (!IsRunning || amount == 1);
         public static bool CanSelectCompany(Company company) => !IsRunning ||
             (Active.Goal == StoryGoal.SelectCompany || Active.IsTrading || Active.IsCompanyReading) && (!Active.busy || Active.preparing) &&

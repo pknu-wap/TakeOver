@@ -1,0 +1,425 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: neutral-lee-first-interview
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: neutral-lee-first-interview
+  category: 0
+  tutorialOnly: 0
+  title: "\uC774\uBBFC\uADDC \u2014 \uAE30\uC0AC\uC5D0 \uB0A8\uC744 \uD55C \uBB38\uC7A5"
+  image: {fileID: 21300000, guid: 5e4f9d2677ff7d14485fc7b35103459b, type: 3}
+  cardImage: {fileID: 21300000, guid: 50c03d92d4dbc3141a37c95c1ddcd7c6, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uC774\uBBFC\uADDC \u2014 \uAE30\uC0AC\uC5D0 \uB0A8\uC744 \uD55C
+    \uBB38\uC7A5\uC5D0 \uAD00\uD55C \uBA74\uB2F4 \uC694\uCCAD\uC785\uB2C8\uB2E4.
+    \uB0B4\uC6A9\uACFC \uBE44\uC6A9\uC744 \uD655\uC778\uD55C \uB4A4 \uB9CC\uB098\uC2ED\uC2DC\uC624."
+  apCost: 1
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds: []
+  speakerNpcId: npc-economic-reporter-lee-mingyu
+  speakerName: "\uC774\uBBFC\uADDC"
+  speakerRole:
+  dialogue: "\uC624\uB298\uC740 \uBA3C\uC800 \uD655\uC778\uD560\uAC8C\uC694. \uC774\uB984\uACFC
+    \uD22C\uC790\uC790\uB77C\uB294 \uC2E0\uBD84\uC744 \uB123\uACE0, \uB2F5\uBCC0\uD55C
+    \uBD80\uBD84\uB9CC \uC778\uC6A9\uD574\uB3C4 \uB420\uAE4C\uC694? \uC2EB\uC73C\uC2DC\uBA74
+    \uC778\uD130\uBDF0\uB294 \uC5EC\uAE30\uC11C \uBA48\uCDB0\uB3C4 \uB429\uB2C8\uB2E4."
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uD604\uC7AC \uD655\uC778\uD558\uB294 \uBC94\uC704\uB97C \uAD6C\uCCB4\uC801\uC73C\uB85C
+      \uB9D0\uD55C\uB2E4"
+    choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+      \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uC9C0\uAE08\uC740 \uD68C\uC0AC\uBCC4 \uD604\uAE08 \uD68C\uC218\uC640
+      \uD604\uC7A5 \uC6B4\uC601\uC744 \uBCF4\uACE0 \uC788\uC2B5\uB2C8\uB2E4. \uD22C\uC790
+      \uD310\uB2E8 \uB2E8\uACC4\uC774\uACE0 \uACBD\uC601 \uBCC0\uD654\uB098 \uC790\uAE08
+      \uC9C0\uC6D0\uC740 \uC815\uD558\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4. \uADF8
+      \uBC94\uC704\uB85C \uC778\uC6A9\uD574 \uC8FC\uC138\uC694."
+    resultDialogue: "\uB124. \u2018\uC7AC\uBB34\uC640 \uC6B4\uC601\uC744 \uD655\uC778
+      \uC911\uC774\uBA70 \uCD94\uAC00 \uC9C0\uC6D0\uC740 \uBBF8\uC815\u2019 \uC815\uB3C4\uB85C
+      \uC815\uB9AC\uD558\uBA74 \uB9DE\uC2B5\uB2C8\uAE4C?\n\n\uC54C\uACA0\uC2B5\uB2C8\uB2E4.
+      \uADF8 \uC81C\uD55C\uB3C4 \uAC19\uC774 \uC801\uC744\uAC8C\uC694. \uC9E7\uC740
+      \uAE30\uC0AC\uB77C\uB3C4 \uBE60\uC9C0\uBA74 \uB2E4\uB978 \uB73B\uC774 \uB418\uB2C8\uAE4C."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-economic-reporter-lee-mingyu
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD655\uC778 \uBC94\uC704\uB97C \uBC1D\uD78C \uCDE8\uC7AC
+        \uC751\uB2F5. \uD68C\uC0AC \uAD6C\uC81C\xB7\uACE0\uC6A9 \uC57D\uC18D \uC5C6\uC74C."
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uC9C0\uAE08\uC740 \uD68C\uC0AC\uBCC4 \uD604\uAE08 \uD68C\uC218\uC640
+        \uD604\uC7A5 \uC6B4\uC601\uC744 \uBCF4\uACE0 \uC788\uC2B5\uB2C8\uB2E4. \uD22C\uC790
+        \uD310\uB2E8 \uB2E8\uACC4\uC774\uACE0 \uACBD\uC601 \uBCC0\uD654\uB098 \uC790\uAE08
+        \uC9C0\uC6D0\uC740 \uC815\uD558\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4. \uADF8
+        \uBC94\uC704\uB85C \uC778\uC6A9\uD574 \uC8FC\uC138\uC694."
+      player: 1
+      narration: 0
+    - npcId: npc-economic-reporter-lee-mingyu
+      text: "\uB124. \u2018\uC7AC\uBB34\uC640 \uC6B4\uC601\uC744 \uD655\uC778 \uC911\uC774\uBA70
+        \uCD94\uAC00 \uC9C0\uC6D0\uC740 \uBBF8\uC815\u2019 \uC815\uB3C4\uB85C \uC815\uB9AC\uD558\uBA74
+        \uB9DE\uC2B5\uB2C8\uAE4C?"
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uB9DE\uC2B5\uB2C8\uB2E4. \uC9C1\uC6D0 \uACE0\uC6A9\uC744 \uBCF4\uC7A5\uD55C\uB2E4\uB294
+        \uB73B\uB3C4 \uC544\uB2D9\uB2C8\uB2E4. \uC81C\uAC00 \uC9C0\uAE08 \uACB0\uC815\uD560
+        \uC218 \uC788\uB294 \uC77C\uC774 \uC544\uB2C8\uB2C8\uAE4C\uC694."
+      player: 1
+      narration: 0
+    - npcId: npc-economic-reporter-lee-mingyu
+      text: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8 \uC81C\uD55C\uB3C4 \uAC19\uC774
+        \uC801\uC744\uAC8C\uC694. \uC9E7\uC740 \uAE30\uC0AC\uB77C\uB3C4 \uBE60\uC9C0\uBA74
+        \uB2E4\uB978 \uB73B\uC774 \uB418\uB2C8\uAE4C."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uC7A5\uAE30\uC801\uC778 \uACBD\uC601 \uCC38\uC5EC \uC758\uD5A5\uC744
+      \uBC1D\uD78C\uB2E4"
+    choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+      \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uC7A5\uAE30\uC801\uC73C\uB85C \uC9C1\uC811 \uACBD\uC601\uC5D0 \uCC38\uC5EC\uD560
+      \uC218 \uC788\uB294 \uD68C\uC0AC\uB97C \uCC3E\uACE0 \uC788\uC2B5\uB2C8\uB2E4.
+      \uB2E4\uB9CC \uB300\uC0C1\uACFC \uBC29\uBC95\uC740 \uC544\uC9C1 \uC815\uD558\uC9C0
+      \uC54A\uC558\uC2B5\uB2C8\uB2E4."
+    resultDialogue: "\uADF8\uB7FC \uB2E8\uC21C \uC2DC\uC138 \uCC28\uC775\uB9CC \uBCF4\uB294
+      \uAC74 \uC544\uB2C8\uB77C\uB294 \uB73B\uC774\uB124\uC694. \uC778\uC218 \uB300\uC0C1\uC774
+      \uC815\uD574\uC84C\uB2E4\uACE0 \uC4F0\uBA74 \uD2C0\uB9AC\uACE0\uC694.\n\n\uD655\uC778\uD588\uC2B5\uB2C8\uB2E4.
+      \uADF8 \uC815\uB3C4 \uB9D0\uB3C4 \uB098\uC911\uC5D0 \uB2E4\uC2DC \uC9C8\uBB38\uB4DC\uB9B4
+      \uADFC\uAC70\uB294 \uB429\uB2C8\uB2E4. \uC0DD\uAC01\uC774 \uBC14\uB00C\uC2DC\uBA74
+      \uBC14\uB010 \uC774\uC720\uB3C4 \uB4E4\uB824\uC8FC\uC138\uC694."
+    resultValue: answer_1
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-economic-reporter-lee-mingyu
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uC7A5\uAE30 \uACBD\uC601 \uCC38\uC5EC \uAD00\uC2EC\uC744
+        \uACF5\uAC1C\uD588\uB2E4. \uD2B9\uC815 \uD68C\uC0AC \uC778\uC218 \uC120\uC5B8\xB7\uACC4\uC57D\uC740
+        \uC544\uB2C8\uB2E4. \uC774\uD6C4 \uD68C\uC0AC \uC778\uBB3C\uC5D0\uAC8C \uC54C\uB824\uC9C0\uB294
+        \uAC83\uC740 \uC2E4\uC81C \uBCF4\uB3C4 \uC5F0\uACB0\uC744 \uAD6C\uD604\uD55C
+        \uACBD\uC6B0\uC5D0\uB9CC \uD5C8\uC6A9\uD55C\uB2E4."
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uC7A5\uAE30\uC801\uC73C\uB85C \uC9C1\uC811 \uACBD\uC601\uC5D0 \uCC38\uC5EC\uD560
+        \uC218 \uC788\uB294 \uD68C\uC0AC\uB97C \uCC3E\uACE0 \uC788\uC2B5\uB2C8\uB2E4.
+        \uB2E4\uB9CC \uB300\uC0C1\uACFC \uBC29\uBC95\uC740 \uC544\uC9C1 \uC815\uD558\uC9C0
+        \uC54A\uC558\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+    - npcId: npc-economic-reporter-lee-mingyu
+      text: "\uADF8\uB7FC \uB2E8\uC21C \uC2DC\uC138 \uCC28\uC775\uB9CC \uBCF4\uB294
+        \uAC74 \uC544\uB2C8\uB77C\uB294 \uB73B\uC774\uB124\uC694. \uC778\uC218 \uB300\uC0C1\uC774
+        \uC815\uD574\uC84C\uB2E4\uACE0 \uC4F0\uBA74 \uD2C0\uB9AC\uACE0\uC694."
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uB124. \uAE30\uC874 \uACBD\uC601\uC9C4\uACFC \uD569\uC758\uD588\uB2E4\uACE0
+        \uC4F0\uB294 \uAC83\uB3C4 \uD2C0\uB9BD\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+    - npcId: npc-economic-reporter-lee-mingyu
+      text: "\uD655\uC778\uD588\uC2B5\uB2C8\uB2E4. \uADF8 \uC815\uB3C4 \uB9D0\uB3C4
+        \uB098\uC911\uC5D0 \uB2E4\uC2DC \uC9C8\uBB38\uB4DC\uB9B4 \uADFC\uAC70\uB294
+        \uB429\uB2C8\uB2E4. \uC0DD\uAC01\uC774 \uBC14\uB00C\uC2DC\uBA74 \uBC14\uB010
+        \uC774\uC720\uB3C4 \uB4E4\uB824\uC8FC\uC138\uC694."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uC815\uC2DD \uC778\uD130\uBDF0\uB97C \uC0AC\uC591\uD55C\uB2E4"
+    choiceDescription: "\uC774\uBC88 \uB2F5\uBCC0\uC744 \uAD00\uACC4\uC640 \uAE30\uC5B5\uC5D0
+      \uBC18\uC601\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84 \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uC544\uC9C1\uC740 \uC778\uC6A9\uB418\uB294 \uB2F5\uBCC0\uC744 \uB4DC\uB9AC\uC9C0
+      \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uB354 \uD655\uC778\uD55C \uB4A4\uC5D0 \uC774\uC57C\uAE30\uD558\uC8E0."
+    resultDialogue: "\uB124. \uC624\uB298 \uB300\uD654\uB294 \uC778\uD130\uBDF0\uB85C
+      \uC4F0\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uB300\uC2E0 \uACF5\uAC1C\uB41C
+      \uAC70\uB798\uB098 \uACF5\uC2DC\uAC00 \uC788\uC73C\uBA74 \uADF8\uAC74 \uBCC4\uB3C4\uB85C
+      \uD655\uC778\uD560 \uAC81\uB2C8\uB2E4.\n\n\uADF8\uB7FC \uB2E4\uC74C\uC5D4 \uCEE4\uD53C\uB9CC
+      \uB9C8\uC154\uB3C4 \uB418\uACA0\uB124\uC694. \uBB3C\uB860 \uC81C\uAC00 \uC218\uCCA9\uC744
+      \uC548 \uAEBC\uB0BC \uC790\uC2E0\uC740 \uC5C6\uC2B5\uB2C8\uB2E4. \uAEBC\uB0B4\uAE30
+      \uC804\uC5D0\uB294 \uBB3C\uC5B4\uBCFC\uAC8C\uC694."
+    resultValue: answer_2
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-economic-reporter-lee-mingyu
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uCDE8\uC7AC \uC751\uB2F5 \uC0AC\uC591. \uD5C8\uC704 \uD574\uBA85\xB7\uC740\uD3D0\xB7\uC5B8\uB860
+        \uC801\uB300 \uD6A8\uACFC \uC5C6\uC74C."
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uC544\uC9C1\uC740 \uC778\uC6A9\uB418\uB294 \uB2F5\uBCC0\uC744 \uB4DC\uB9AC\uC9C0
+        \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uB354 \uD655\uC778\uD55C \uB4A4\uC5D0 \uC774\uC57C\uAE30\uD558\uC8E0."
+      player: 1
+      narration: 0
+    - npcId: npc-economic-reporter-lee-mingyu
+      text: "\uB124. \uC624\uB298 \uB300\uD654\uB294 \uC778\uD130\uBDF0\uB85C \uC4F0\uC9C0
+        \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uB300\uC2E0 \uACF5\uAC1C\uB41C \uAC70\uB798\uB098
+        \uACF5\uC2DC\uAC00 \uC788\uC73C\uBA74 \uADF8\uAC74 \uBCC4\uB3C4\uB85C \uD655\uC778\uD560
+        \uAC81\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    - npcId:
+      text: "\uADF8\uAC74 \uC774\uD574\uD569\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+    - npcId: npc-economic-reporter-lee-mingyu
+      text: "\uADF8\uB7FC \uB2E4\uC74C\uC5D4 \uCEE4\uD53C\uB9CC \uB9C8\uC154\uB3C4
+        \uB418\uACA0\uB124\uC694. \uBB3C\uB860 \uC81C\uAC00 \uC218\uCCA9\uC744 \uC548
+        \uAEBC\uB0BC \uC790\uC2E0\uC740 \uC5C6\uC2B5\uB2C8\uB2E4. \uAEBC\uB0B4\uAE30
+        \uC804\uC5D0\uB294 \uBB3C\uC5B4\uBCFC\uAC8C\uC694."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 1
+  campaignDay: 0
+  missionStartDay: 0
+  prerequisiteEventId:
+  prerequisiteEventIds: []
+  failureSignal:
+  openingLines:
+  - npcId: npc-economic-reporter-lee-mingyu
+    text: "\uC624\uB298\uC740 \uBA3C\uC800 \uD655\uC778\uD560\uAC8C\uC694. \uC774\uB984\uACFC
+      \uD22C\uC790\uC790\uB77C\uB294 \uC2E0\uBD84\uC744 \uB123\uACE0, \uB2F5\uBCC0\uD55C
+      \uBD80\uBD84\uB9CC \uC778\uC6A9\uD574\uB3C4 \uB420\uAE4C\uC694? \uC2EB\uC73C\uC2DC\uBA74
+      \uC778\uD130\uBDF0\uB294 \uC5EC\uAE30\uC11C \uBA48\uCDB0\uB3C4 \uB429\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC9C8\uBB38\uBD80\uD130 \uB4E4\uC5B4\uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uB300\uB2F5\uD55C
+      \uB4A4\uC5D0 \uC4F8 \uBC94\uC704\uB97C \uD655\uC778\uD558\uC8E0."
+    player: 1
+    narration: 0
+  - npcId: npc-economic-reporter-lee-mingyu
+    text: "\uC88B\uC2B5\uB2C8\uB2E4. \uC0C8\uB85C\uC6B4 \uD22C\uC790\uC790\uAC00
+      \uB4E4\uC5B4\uC624\uBA74 \uD68C\uC0AC\uAC00 \uBC14\uB014 \uAC70\uB77C\uB294
+      \uB9D0\uC774 \uB530\uB77C\uBD99\uC5B4\uC694. \uBCF8\uC778\uC740 \uBB34\uC5C7\uC744
+      \uBC14\uAFB8\uB824\uACE0 \uC624\uC168\uC2B5\uB2C8\uAE4C?"
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC544\uC9C1 \uBC14\uAFC0 \uAD8C\uD55C\uC740 \uC5C6\uC2B5\uB2C8\uB2E4.
+      \uAC00\uC9C4 \uC8FC\uC2DD\uD558\uACE0 \uD68C\uC0AC\uB97C \uC6B4\uC601\uD558\uB294
+      \uAD8C\uD55C\uC740 \uB2E4\uB974\uC8E0."
+    player: 1
+    narration: 0
+  - npcId: npc-economic-reporter-lee-mingyu
+    text: "\uADF8 \uBB38\uC7A5\uBD80\uD130 \uC801\uC5B4\uB3C4 \uB418\uACA0\uB124\uC694.
+      \uB2E4\uB4E4 \uB4A4\uB85C \uBBF8\uB8E8\uB294 \uC598\uAE30\uC778\uB370."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC65C \uADF8 \uC9C8\uBB38\uC744 \uD558\uC2ED\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+  - npcId: npc-economic-reporter-lee-mingyu
+    text: "\uC0AC\uB78C\uB9C8\uB2E4 \uAE30\uB300\uAC00 \uB2EC\uB77C\uC11C\uC694.
+      \uC5B4\uB5A4 \uC9C1\uC6D0\uC740 \uB3C8\uC774 \uB354 \uB4E4\uC5B4\uC628\uB2E4\uACE0
+      \uC0DD\uAC01\uD558\uACE0, \uB204\uAD70\uAC00\uB294 \uC790\uAE30 \uC77C\uC790\uB9AC\uAC00
+      \uC5C6\uC5B4\uC9C8\uAE4C \uAC71\uC815\uD574\uC694. \uADF8\uB7F0\uB370 \uD22C\uC790\uC790\uB294
+      \uADF8\uB0E5 \uC8FC\uC2DD\uC744 \uC0C0\uC744 \uC218\uB3C4 \uC788\uC8E0. \uADF8
+      \uCC28\uC774\uB97C \uC4F0\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC81C \uB9D0\uC774 \uC9C1\uC6D0\uB4E4\uC5D0\uAC8C \uC57D\uC18D\uCC98\uB7FC
+      \uC77D\uD790 \uC218\uB3C4 \uC788\uACA0\uAD70\uC694."
+    player: 1
+    narration: 0
+  - npcId: npc-economic-reporter-lee-mingyu
+    text: "\uADF8\uB798\uC11C \u2018\uC0B4\uB9AC\uACA0\uB2E4\u2019, \u2018\uCC45\uC784\uC9C0\uACA0\uB2E4\u2019
+      \uAC19\uC740 \uB9D0\uC740 \uD55C \uBC88 \uB354 \uC5EC\uCB64\uBD05\uB2C8\uB2E4.
+      \uB204\uAD6C\uC758 \uC5B4\uB5A4 \uC77C\uAE4C\uC9C0 \uCC45\uC784\uC9C4\uB2E4\uB294
+      \uB73B\uC778\uC9C0\uC694."
+    player: 0
+    narration: 0
+  companyVariants: []

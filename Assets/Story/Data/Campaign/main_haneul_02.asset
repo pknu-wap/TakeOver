@@ -1,0 +1,157 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: main_haneul_02
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: main_haneul_02
+  category: 1
+  tutorialOnly: 0
+  title: "13\uC77C\uCC28 \uC9E7\uC740 \uC5F0\uACB0 \u2014 \uACB9\uCE58\uB294 \uC774\uB984"
+  image: {fileID: 21300000, guid: d8d3f113a14a1de47b97d1e11657d5d6, type: 3}
+  cardImage: {fileID: 21300000, guid: d8d3f113a14a1de47b97d1e11657d5d6, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "13\uC77C\uCC28 \uC9E7\uC740 \uC5F0\uACB0 \u2014 \uACB9\uCE58\uB294
+    \uC774\uB984\uC5D0 \uAD00\uD55C \uBA74\uB2F4 \uC694\uCCAD\uC785\uB2C8\uB2E4.
+    \uB0B4\uC6A9\uACFC \uBE44\uC6A9\uC744 \uD655\uC778\uD55C \uB4A4 \uB9CC\uB098\uC2ED\uC2DC\uC624."
+  apCost: 0
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds:
+  - haneul-food
+  speakerNpcId: npc-investigative-reporter-jung-sua
+  speakerName: "\uC815\uC218\uC544"
+  speakerRole:
+  dialogue: "\uBCF4\uB0B4\uC8FC\uC2E0 \uAC74 \uACF5\uAC1C \uC124\uBA85\uC5D0 \uB098\uC628
+    \uC774\uB984\uB4E4\uC774\uC8E0? \uADF8 \uBC94\uC704\uC5D0\uC11C \uAE30\uC5C5
+    \uAD00\uACC4\uB294 \uD655\uC778\uD560 \uC218 \uC788\uACA0\uC5B4\uC694. \uB2E4\uB9CC
+    \uAC19\uC740 \uC815\uC0B0 \uC77C\uC744 \uB9E1\uC558\uB2E4\uB294 \uAC83\uACFC
+    \uCCA0\uC218\uB97C \uACB0\uC815\uD588\uB2E4\uB294 \uAC74 \uB2E4\uB985\uB2C8\uB2E4."
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uD655\uC778"
+    choiceDescription: "\uC774\uBC88 \uB300\uD654\uC758 \uC120\uD0DD\uACFC \uAD00\uCC30
+      \uC0AC\uC2E4\uC744 \uAE30\uB85D\uD569\uB2C8\uB2E4. \uD604\uAE08\xB7\uC9C0\uBD84
+      \uBCC0\uD654 \uC5C6\uC74C."
+    playerLine: "\uD655\uC778\uD588\uC2B5\uB2C8\uB2E4. \uACC4\uC18D \uC0B4\uD3B4\uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
+    resultDialogue: "\uB124. \uC624\uB298 \uD655\uC778\uD55C \uBC94\uC704\uC5D0\uC11C
+      \uAE30\uB85D\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds: []
+      targetReactions: []
+      memoryType: 0
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation:
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uD655\uC778\uD588\uC2B5\uB2C8\uB2E4. \uACC4\uC18D \uC0B4\uD3B4\uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+    - npcId: npc-investigative-reporter-jung-sua
+      text: "\uB124. \uC624\uB298 \uD655\uC778\uD55C \uBC94\uC704\uC5D0\uC11C \uAE30\uB85D\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 0
+  campaignDay: 13
+  missionStartDay: 0
+  prerequisiteEventId: main_haneul_01
+  prerequisiteEventIds: []
+  failureSignal:
+  openingLines:
+  - npcId: npc-investigative-reporter-jung-sua
+    text: "\uBCF4\uB0B4\uC8FC\uC2E0 \uAC74 \uACF5\uAC1C \uC124\uBA85\uC5D0 \uB098\uC628
+      \uC774\uB984\uB4E4\uC774\uC8E0? \uADF8 \uBC94\uC704\uC5D0\uC11C \uAE30\uC5C5
+      \uAD00\uACC4\uB294 \uD655\uC778\uD560 \uC218 \uC788\uACA0\uC5B4\uC694. \uB2E4\uB9CC
+      \uAC19\uC740 \uC815\uC0B0 \uC77C\uC744 \uB9E1\uC558\uB2E4\uB294 \uAC83\uACFC
+      \uCCA0\uC218\uB97C \uACB0\uC815\uD588\uB2E4\uB294 \uAC74 \uB2E4\uB985\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+  - npcId:
+    text: "\uC800\uB3C4 \uB450 \uD68C\uC0AC\uC758 \uD53C\uD574\uB97C \uD55C \uC0AC\uAC74\uC73C\uB85C
+      \uB2E8\uC815\uD558\uB824\uB294 \uAC74 \uC544\uB2D9\uB2C8\uB2E4. \uB204\uAC00
+      \uC870\uAC74\uC744 \uBC14\uAFE8\uB294\uC9C0\uBD80\uD130 \uC54C\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+  - npcId: npc-investigative-reporter-jung-sua
+    text: "\uADF8\uB7FC \uB3C8\uC744 \uC815\uB9AC\uD55C \uD68C\uC0AC\uB9CC \uBCF4\uC9C0
+      \uB9D0\uACE0, \uADF8 \uAC70\uB798\uAC00 \uC2E4\uC81C\uB85C \uB3CC\uC544\uAC04
+      \uC790\uB9AC\uB97C \uBCF4\uC138\uC694. \uC77C\uC774 \uC911\uB2E8\uB410\uC744
+      \uB54C \uB204\uAC00 \uBB34\uC5C7\uC744 \uD1B5\uBCF4\uBC1B\uC558\uB294\uC9C0\uC694."
+    player: 0
+    narration: 0
+  companyVariants: []
