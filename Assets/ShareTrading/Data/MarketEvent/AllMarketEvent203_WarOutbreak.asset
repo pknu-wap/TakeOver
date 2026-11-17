@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83909597d462f0a4aa1e0e89b4bff479, type: 3}
+  m_Name: AllMarketEvent203_WarOutbreak
+  m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
+  MarketEventName: "국제 전쟁 발발"
+  description: "국제 전쟁이 발발해 시장의 불확실성이 커지고 있습니다."
+  MarketEventID: 203
+  applyType: 2
+  duration: 6
+  delayTurns: 0
+  effects:
+  - companyTargetType: 1
+    companyID: ""
+    targetType: 1
+    stat: 0
+    derivedStat: 15
+    changeNormalValue: 0
+    changePercentValue: -10
