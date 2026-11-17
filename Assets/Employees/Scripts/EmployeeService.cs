@@ -144,9 +144,7 @@ namespace TakeOver.Employees
                 return 1f;
             }
 
-            float diligenceFactor = Mathf.Lerp(0.5f, 1.5f, Mathf.Clamp01(emp.Diligence.Value / 20f));
-            float potentialFactor = Mathf.Lerp(0.5f, 1.5f, Mathf.Clamp01(emp.Potential / 100f));
-            return diligenceFactor * potentialFactor;
+            return Mathf.Lerp(0.7f, 1.5f, Mathf.Clamp01(emp.Ambition.Value / 20f));
         }
 
         public int GetRenewalSalary(Employee emp)
