@@ -12,7 +12,7 @@ namespace TakeOver.Documents
         public Company TargetCompany { get; }
         public int DeadlineTurn { get; }
         public string BodyId => "generic";
-        public string Title => $"{TargetCompany.definition.companyName} 배당 정책";
+        public string Title => "배당 정책";
         public string Author => "";
         public string ApproveLabel => "";
         public string RejectLabel => "";

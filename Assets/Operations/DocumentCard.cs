@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,24 +10,28 @@ namespace TakeOver.Operations
         [SerializeField] private Text title;
         [SerializeField] private Text company;
         [SerializeField] private Text deadline;
-        [SerializeField] private Text resolvedSummary;
         [SerializeField] private Image border;
+        [SerializeField] private Image icon;
+        [SerializeField] private Sprite pendingIcon;
+        [SerializeField] private Sprite doneIcon;
+        [SerializeField] private Outline highlight;
 
         public void Bind(string heading, string target, string status, bool overdue, Action clicked, bool resolved = false)
         {
             title.text = heading;
             company.text = target;
             deadline.text = status;
-            company.gameObject.SetActive(!resolved);
-            deadline.gameObject.SetActive(!resolved);
-            resolvedSummary.gameObject.SetActive(resolved);
-            resolvedSummary.text = $"{target} · {status}";
-            deadline.color = overdue ? new Color(1f, .38f, .43f) : new Color(.68f, .79f, .92f);
+            title.color = resolved ? new Color(.72f, .73f, .76f) : Color.white;
+            deadline.color = overdue ? new Color(1f, .38f, .43f) : title.color;
+            icon.sprite = resolved ? doneIcon : pendingIcon;
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => clicked());
         }
 
-        public void SetSelected(bool selected) =>
-            border.color = selected ? new Color(1f, .81f, .3f) : new Color(.14f, .26f, .43f);
+        public void SetSelected(bool selected)
+        {
+            border.color = selected ? Color.white : new Color(.16f, .32f, .44f);
+            highlight.enabled = selected;
+        }
     }
 }
