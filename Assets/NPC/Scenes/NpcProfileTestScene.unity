@@ -273,7 +273,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4282532418
   m_fontColor: {r: 0.26, g: 0.26, b: 0.26, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -769,7 +769,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4282532418
   m_fontColor: {r: 0.26, g: 0.26, b: 0.26, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -782,7 +782,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4280032284
   m_fontColor: {r: 0.11, g: 0.11, b: 0.11, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -919,7 +919,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -1132,7 +1132,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4282532418
   m_fontColor: {r: 0.26, g: 0.26, b: 0.26, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1145,7 +1145,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -1360,7 +1360,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4282532418
   m_fontColor: {r: 0.26, g: 0.26, b: 0.26, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1373,7 +1373,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -1535,6 +1535,7 @@ GameObject:
   - component: {fileID: 831036381}
   - component: {fileID: 831036380}
   - component: {fileID: 831036379}
+  - component: {fileID: 831036382}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1616,6 +1617,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &831036382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831036378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &835925262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,7 +1848,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4282532418
   m_fontColor: {r: 0.26, g: 0.26, b: 0.26, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1816,7 +1861,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -2058,7 +2103,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4285756275
   m_fontColor: {r: 0.45, g: 0.45, b: 0.45, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2071,7 +2116,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -2396,7 +2441,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4282532418
   m_fontColor: {r: 0.26, g: 0.26, b: 0.26, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2409,7 +2454,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -2533,7 +2578,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4285756275
   m_fontColor: {r: 0.45, g: 0.45, b: 0.45, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2546,7 +2591,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3379,7 +3424,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4280032284
   m_fontColor: {r: 0.11, g: 0.11, b: 0.11, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3392,7 +3437,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3845,6 +3890,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcProfilePanelView
   registry: {fileID: 854972488}
+  standingSprites:
+  - {fileID: 21300000, guid: be943ac5483228a4ba0b3a1a4c5de5c2, type: 3}
+  - {fileID: 21300000, guid: 003cdb8d751f12f4d9c9859e00e29726, type: 3}
+  - {fileID: 21300000, guid: bd92c50a36ea06d419038ba34c374c35, type: 3}
+  - {fileID: 21300000, guid: 8298786505bf66c4194b3f550818e3d4, type: 3}
+  - {fileID: 21300000, guid: 3f12e5f3fc91f2547853193dd02860ed, type: 3}
+  - {fileID: 21300000, guid: d8d3f113a14a1de47b97d1e11657d5d6, type: 3}
+  - {fileID: 21300000, guid: 8973fed999183404c831143f5fe84b28, type: 3}
+  - {fileID: 21300000, guid: 1888bf53b7e9aac4e88f7363a0da552b, type: 3}
+  - {fileID: 21300000, guid: 38f31400d7dcf6c48b2fa61f93ac7e79, type: 3}
+  - {fileID: 21300000, guid: 1ee2409856f7f1e44bfd7c21245a1f7a, type: 3}
+  - {fileID: 21300000, guid: 96b1c3f49270bff4bba7ead9ad86f2b8, type: 3}
+  - {fileID: 21300000, guid: 78c838ba73b33d84589843d32505324c, type: 3}
+  - {fileID: 21300000, guid: 0cae5acf2b8cfdc47b0a90ceb867182d, type: 3}
+  - {fileID: 21300000, guid: 19c4990f7686f4d49b8c0ca95d675ea4, type: 3}
+  - {fileID: 21300000, guid: fe291ab741eb8b94297055d55a24d36b, type: 3}
+  - {fileID: 21300000, guid: 3d012b8fc14f0b34d8210473f3b16567, type: 3}
+  - {fileID: 21300000, guid: 264d662f967d5c347b2e1bad273c2cac, type: 3}
+  - {fileID: 21300000, guid: 7c3d63bbfa82cce408e7bd709624fe68, type: 3}
+  - {fileID: 21300000, guid: ebc60401740ecca46a62b8a7aeccadc5, type: 3}
+  - {fileID: 21300000, guid: 25338d5afcc75e14bac3d24afb5ea544, type: 3}
+  - {fileID: 21300000, guid: 826b7de828dd2584a99df63278c54824, type: 3}
+  - {fileID: 21300000, guid: c14fff8faf593184c926460e35759051, type: 3}
+  - {fileID: 21300000, guid: e24733bd840c3994a94a5c41d82cdc42, type: 3}
+  - {fileID: 21300000, guid: ad98133a1108cd347803017d85e4c90c, type: 3}
+  - {fileID: 21300000, guid: 64ed30aa8e3c5f04eb485ec5fd247f50, type: 3}
+  - {fileID: 21300000, guid: 2e26f4928160a7d429af82e49f52d353, type: 3}
+  - {fileID: 21300000, guid: e6c86315a1fd5a54c9ec5155d11a7b9e, type: 3}
+  - {fileID: 21300000, guid: 452a5a10a14dcaa40af28f5ccb302b71, type: 3}
+  - {fileID: 21300000, guid: 422793b121c24244e99fefb94f88ed17, type: 3}
+  - {fileID: 21300000, guid: 7924ed62abf368541b0b2394a4a9d55a, type: 3}
+  manualSpriteOverrides: []
   npcListContent: {fileID: 29986816}
   npcListItemPrefab: {fileID: 0}
   npcListScrollRect: {fileID: 941902890}
@@ -3857,7 +3934,7 @@ MonoBehaviour:
   dependencyInterestGauge: {fileID: 1880802047}
   introHeaderText: {fileID: 1766637081}
   descriptionText: {fileID: 1326816475}
-  closeButton: {fileID: 0}
+  closeOnEscape: 0
 --- !u!114 &1979019324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3962,7 +4039,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4282532418
   m_fontColor: {r: 0.26, g: 0.26, b: 0.26, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3975,7 +4052,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

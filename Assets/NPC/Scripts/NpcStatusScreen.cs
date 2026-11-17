@@ -73,7 +73,6 @@ namespace TakeOver.NPC
             if (profilePanel == null) profilePanel = GetComponentInChildren<NpcProfilePanelView>(true);
             if (profilePanel == null) return;
 
-            // 튜토리얼 연출 중일 때 기존 OnGUI와 동일한 위치/축소 비율 자동 적용
             RectTransform panelRect = profilePanel.GetComponent<RectTransform>();
             if (panelRect != null)
             {
