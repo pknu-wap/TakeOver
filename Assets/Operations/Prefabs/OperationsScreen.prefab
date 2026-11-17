@@ -3264,6 +3264,8 @@ MonoBehaviour:
   company: {fileID: 809267889082550016}
   deadline: {fileID: 7677499279670580664}
   border: {fileID: 6930846790102889026}
+  selectedBackground: {fileID: 21300000, guid: 28d6d22312113cf4abd9df437d267796, type: 3}
+  unselectedBackground: {fileID: 21300000, guid: 882e7018d1b5edc4f9942c14dff8885b, type: 3}
   icon: {fileID: 3198654967855560598}
   pendingIcon: {fileID: 21300000, guid: 30fbc24d1d9346a438a552bace3c41b8, type: 3}
   doneIcon: {fileID: 21300000, guid: 1485a27b005f8c14694fe18c615351c2, type: 3}
@@ -6638,8 +6640,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -12, y: 12}
-  m_SizeDelta: {x: 24, y: 24}
+  m_AnchoredPosition: {x: -6, y: 6}
+  m_SizeDelta: {x: 12, y: 12}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8744179190805036636
 CanvasRenderer:
@@ -6669,7 +6671,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 28d6d22312113cf4abd9df437d267796, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 882e7018d1b5edc4f9942c14dff8885b, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

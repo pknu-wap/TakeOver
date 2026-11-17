@@ -11,6 +11,8 @@ namespace TakeOver.Operations
         [SerializeField] private Text company;
         [SerializeField] private Text deadline;
         [SerializeField] private Image border;
+        [SerializeField] private Sprite selectedBackground;
+        [SerializeField] private Sprite unselectedBackground;
         [SerializeField] private Image icon;
         [SerializeField] private Sprite pendingIcon;
         [SerializeField] private Sprite doneIcon;
@@ -29,7 +31,11 @@ namespace TakeOver.Operations
 
         public void SetSelected(bool selected)
         {
-            border.color = selected ? Color.white : new Color(.85f, .9f, .95f, 1f);
+            border.sprite = selected ? selectedBackground : unselectedBackground;
+            border.color = Color.white;
+            float padding = selected ? 12f : 6f;
+            border.rectTransform.offsetMin = new Vector2(-padding, -padding);
+            border.rectTransform.offsetMax = new Vector2(padding, padding);
         }
     }
 }
