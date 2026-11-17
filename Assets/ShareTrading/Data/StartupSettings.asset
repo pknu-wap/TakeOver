@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b06bb50121c190a4dbe45a59219be95a, type: 3}
+  m_Name: StartupSettings
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Startups.StartupSettings
+  initialCount: 10
+  randomSeed: 0
+  idPrefix: startup-
+  stageCount: 5
+  initialStage: 1
+  names:
+  - "\uB178\uBC14\uB7A9\uC2A4"
+  - "\uADF8\uB9B0\uC140"
+  - "\uC628\uACB0"
+  - "\uB8E8\uBBF8\uBE0C\uB9BF\uC9C0"
+  - "\uBAA8\uC544\uD540"
+  - "\uB378\uD0C0\uC6E8\uC774\uBE0C"
+  - "\uC194\uB77C\uD53C\uD06C"
+  - "\uBC14\uB85C\uC787"
+  - "\uD53D\uC2A4\uB7A9"
+  - "\uC544\uC774\uC5B8\uB9AC\uD504"
+  - "\uD14C\uB77C\uD050\uBE0C"
+  - "\uC2A4\uC717\uD3EC\uD2B8"
+  - "\uBE14\uB8E8\uB2F7\uB7A9"
+  - "\uD558\uB8E8\uC628"
+  - "\uCF54\uC5B4\uB9C1\uD06C"
+  - "\uC81C\uB85C\uB9C8\uC77C"
+  industries:
+  - industry: "AI \uBB3C\uB958"
+    coreValue: "\uC18D\uB3C4\uC640 \uC790\uB3D9\uD654"
+    description: "\uBB3C\uB958 \uCC3D\uACE0\uC758 \uBD84\uB958\uC640 \uBC30\uC1A1
+      \uACBD\uB85C\uB97C AI\uB85C \uC904\uC5EC \uC8FC\uB294 \uD68C\uC0AC."
+    revenue: {x: 250, y: 450}
+    initialCostRatio: 1.15
+    cash: {x: 500, y: 900}
+    debt: {x: 0, y: 100}
+    tangibleAssets: {x: 20, y: 60}
+    intangibleAssets: {x: 60, y: 160}
+    baseCompanyValue: {x: 150, y: 350}
+    employees: {x: 10, y: 25}
+    growthRate: {x: 0.01, y: 0.1}
+  - industry: "\uBC30\uD130\uB9AC \uC18C\uC7AC"
+    coreValue: "\uAE30\uC220\uACFC \uC591\uC0B0"
+    description: "\uC804\uAE30\uCC28 \uBC30\uD130\uB9AC\uC5D0 \uB4E4\uC5B4\uAC00\uB294
+      \uC18C\uC7AC\uB97C \uB9CC\uB4DC\uB294 \uD68C\uC0AC."
+    revenue: {x: 200, y: 400}
+    initialCostRatio: 1.15
+    cash: {x: 600, y: 1100}
+    debt: {x: 50, y: 200}
+    tangibleAssets: {x: 80, y: 200}
+    intangibleAssets: {x: 40, y: 100}
+    baseCompanyValue: {x: 200, y: 450}
+    employees: {x: 15, y: 30}
+    growthRate: {x: 0, y: 0.09}
+  - industry: "\uC9C4\uB2E8 \uD0A4\uD2B8"
+    coreValue: "\uC815\uD655\uB3C4\uC640 \uC2E0\uB8B0"
+    description: "\uBCD1\uC6D0 \uBC16\uC5D0\uC11C\uB3C4 \uC4F8 \uC218 \uC788\uB294
+      \uAC04\uD3B8 \uC9C4\uB2E8 \uD0A4\uD2B8\uB97C \uB9CC\uB4DC\uB294 \uD68C\uC0AC."
+    revenue: {x: 150, y: 350}
+    initialCostRatio: 1.15
+    cash: {x: 700, y: 1200}
+    debt: {x: 0, y: 150}
+    tangibleAssets: {x: 30, y: 80}
+    intangibleAssets: {x: 100, y: 250}
+    baseCompanyValue: {x: 200, y: 500}
+    employees: {x: 10, y: 25}
+    growthRate: {x: -0.01, y: 0.12}
+  - industry: "\uD540\uD14C\uD06C"
+    coreValue: "\uD3B8\uC758\uC640 \uBCF4\uC548"
+    description: "\uC18C\uC0C1\uACF5\uC778\uC758 \uACB0\uC81C\uC640 \uC815\uC0B0\uC744
+      \uD55C \uBC88\uC5D0 \uCC98\uB9AC\uD574 \uC8FC\uB294 \uD68C\uC0AC."
+    revenue: {x: 300, y: 500}
+    initialCostRatio: 1.15
+    cash: {x: 400, y: 800}
+    debt: {x: 0, y: 100}
+    tangibleAssets: {x: 10, y: 40}
+    intangibleAssets: {x: 80, y: 200}
+    baseCompanyValue: {x: 180, y: 400}
+    employees: {x: 10, y: 20}
+    growthRate: {x: 0, y: 0.08}
+  - industry: "\uD478\uB4DC\uD14C\uD06C"
+    coreValue: "\uB9DB\uACFC \uC6D0\uAC00"
+    description: "\uC2DD\uB2F9 \uC8FC\uBC29\uC758 \uC870\uB9AC \uACFC\uC815\uC744
+      \uC790\uB3D9\uD654\uD558\uB294 \uD68C\uC0AC."
+    revenue: {x: 250, y: 480}
+    initialCostRatio: 1.15
+    cash: {x: 400, y: 800}
+    debt: {x: 50, y: 150}
+    tangibleAssets: {x: 50, y: 120}
+    intangibleAssets: {x: 30, y: 90}
+    baseCompanyValue: {x: 120, y: 300}
+    employees: {x: 15, y: 30}
+    growthRate: {x: -0.01, y: 0.07}

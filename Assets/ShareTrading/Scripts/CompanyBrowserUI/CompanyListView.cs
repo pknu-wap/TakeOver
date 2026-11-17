@@ -27,7 +27,9 @@ public class CompanyListView : MonoBehaviour
     [Header("상세 패널")]
     [SerializeField] private CompanyDetailPanel detailPanel;
 
-    private Company[] companies;
+    private Companies companyRegistry;
+    private Company[] fallbackCompanies;
+    private bool started;
     private readonly List<CompanyRow> rows = new List<CompanyRow>();
 
     private int sortColumn;
@@ -43,7 +45,12 @@ public class CompanyListView : MonoBehaviour
     // Unity는 Start() 순서를 보장하지 않아서 바로 그리면 0으로 나올 수 있다.
     IEnumerator Start()
     {
-        companies = FindObjectsByType<Company>(FindObjectsSortMode.None);
+        companyRegistry = FindFirstObjectByType<Companies>();
+        if (companyRegistry == null)
+        {
+            fallbackCompanies = FindObjectsByType<Company>(FindObjectsSortMode.None);
+        }
+        started = true;
 
         foreach (Transform child in rowParent)
         {
@@ -85,7 +92,7 @@ public class CompanyListView : MonoBehaviour
     // 지도 ↔ 리스트 전환으로 다시 켜질 때 최신 숫자로 다시 그린다.
     void OnEnable()
     {
-        if (companies != null)
+        if (started)
         {
             refresh();
         }
@@ -127,12 +134,13 @@ public class CompanyListView : MonoBehaviour
 
     public void refresh()
     {
-        if (companies == null)
+        IEnumerable<Company> listed = getListedCompanies();
+        if (listed == null)
         {
             return;
         }
 
-        IEnumerable<Company> valid = companies.Where(c => c != null && c.state != null);
+        IEnumerable<Company> valid = listed.Where(c => c != null && c.state != null);
 
         int turn = turnClock != null ? turnClock.CurrentTurn : 1;
         if (turn != recordedTurn)
@@ -170,6 +178,15 @@ public class CompanyListView : MonoBehaviour
         {
             rows[i].gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerable<Company> getListedCompanies()
+    {
+        if (companyRegistry != null)
+        {
+            return companyRegistry.CompanyList;
+        }
+        return fallbackCompanies;
     }
 
     private IEnumerable<Company> sort(IEnumerable<Company> list)

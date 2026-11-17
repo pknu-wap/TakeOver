@@ -969,6 +969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3558106062144004734}
+  - component: {fileID: 3107666395107235508}
   m_Layer: 0
   m_Name: Slot 2
   m_TagString: Untagged
@@ -996,6 +997,20 @@ RectTransform:
   m_AnchoredPosition: {x: 64, y: -62}
   m_SizeDelta: {x: -160, y: -156}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3107666395107235508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665391549111495102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c822d3bcbd28046b171bbf325a7df3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Operations.StartupTabView
+  listText: {fileID: 0}
+  emptyMessage: "\uC2A4\uD0C0\uD2B8\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4"
 --- !u!1 &1674295429671886192
 GameObject:
   m_ObjectHideFlags: 0

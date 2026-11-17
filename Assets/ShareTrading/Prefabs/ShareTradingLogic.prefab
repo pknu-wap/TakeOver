@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efef8ab77bf68f045bb4e9a858b8f0fa, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Company
   companyDefinition: {fileID: 11400000, guid: f7688d9cc6dfa5b4b9c10e1cf127f198, type: 2}
   <npcRelations>k__BackingField: {fileID: 7514993841436242980}
@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a95ba583241c48ab9913d5c36715a8de, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CompanyNpcRelations
   reader: {fileID: 1180946999928390598}
   marketData: {fileID: 5191246152492245077}
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efef8ab77bf68f045bb4e9a858b8f0fa, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Company
   companyDefinition: {fileID: 11400000, guid: ed5570c5e0eea0948a85b2310a358442, type: 2}
   <npcRelations>k__BackingField: {fileID: 8199184295393667730}
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a95ba583241c48ab9913d5c36715a8de, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CompanyNpcRelations
   reader: {fileID: 1180946999928390598}
   marketData: {fileID: 5191246152492245077}
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efef8ab77bf68f045bb4e9a858b8f0fa, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Company
   companyDefinition: {fileID: 11400000, guid: d11222a423eeea04bb1a7af541545d26, type: 2}
   <npcRelations>k__BackingField: {fileID: 6925969199769002184}
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a95ba583241c48ab9913d5c36715a8de, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CompanyNpcRelations
   reader: {fileID: 1180946999928390598}
   marketData: {fileID: 5191246152492245077}
@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a95ba583241c48ab9913d5c36715a8de, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CompanyNpcRelations
   reader: {fileID: 1180946999928390598}
   marketData: {fileID: 5191246152492245077}
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efef8ab77bf68f045bb4e9a858b8f0fa, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Company
   companyDefinition: {fileID: 11400000, guid: 0b96e855f4e9f8f4f8a8e1d9294f16d2, type: 2}
   <npcRelations>k__BackingField: {fileID: 8732241388550538667}
@@ -620,6 +620,7 @@ GameObject:
   - component: {fileID: 9056152948097765713}
   - component: {fileID: 3551093198360838554}
   - component: {fileID: 317006268609881434}
+  - component: {fileID: 2540622395508894044}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -725,6 +726,22 @@ MonoBehaviour:
   player: {fileID: 0}
   marketData: {fileID: 0}
   settings: {fileID: 11400000, guid: efe5805ed8c08d84494d86804d7af4b4, type: 2}
+--- !u!114 &2540622395508894044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5643717909320174764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce833330101e32479d539c7410f6078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Startups.StartupSystem
+  settings: {fileID: 11400000, guid: 4832db61dd11d9444a611641d1b265d9, type: 2}
+  companies: {fileID: 0}
+  marketData: {fileID: 0}
+  ruleRunner: {fileID: 0}
 --- !u!1 &6316138442216068506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,7 +1058,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efef8ab77bf68f045bb4e9a858b8f0fa, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Company
   companyDefinition: {fileID: 11400000, guid: cac65a7cfcf8c52499d045183c30067a, type: 2}
   <npcRelations>k__BackingField: {fileID: 7399063743670420751}
@@ -1055,7 +1072,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a95ba583241c48ab9913d5c36715a8de, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CompanyNpcRelations
   reader: {fileID: 1180946999928390598}
   marketData: {fileID: 5191246152492245077}
