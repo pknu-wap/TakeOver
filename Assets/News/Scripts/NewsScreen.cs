@@ -1,65 +1,61 @@
 using System;
 using System.Collections.Generic;
+using TakeOver.NPC;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 뉴스 화면. 상단바 "뉴스" 탭으로 열고 닫는다. 최신 날짜가 위로 오게 날짜별로 묶어서 보여준다.
 public class NewsScreen : MonoBehaviour
 {
-    [Tooltip("비워두면 씬에서 자동으로 찾음")]
     [SerializeField] private NewsFeed feed;
-
-    [Tooltip("Scroll View/Viewport/Content")]
-    [SerializeField] private RectTransform listContent;
-
-    [SerializeField] private Text dateHeaderPrefab;
-    [SerializeField] private NewsRow newsRowPrefab;
-
-    [Tooltip("뉴스가 하나도 없을 때 보여줄 안내")]
-    [SerializeField] private GameObject emptyMessage;
+    [SerializeField] private GameObject cardsRoot;
+    [SerializeField] private NewsRow[] newsCards;
+    [SerializeField] private Text dateText;
+    [SerializeField] private Button generalTabButton;
+    [SerializeField] private Button secretTabButton;
+    [SerializeField] private GameObject generalTabUnderline;
+    [SerializeField] private GameObject secretTabUnderline;
+    [SerializeField] private Button nextDateButton;
+    [SerializeField] private Button previousDateButton;
+    [SerializeField] private Image[] dateIndicators;
 
     [Header("시작 날짜 (DayPanel과 같은 값)")]
     [SerializeField] private int startYear = 2026;
     [SerializeField] private int startMonth = 1;
     [SerializeField] private int startDay = 1;
 
-    private static readonly string[] DayNames = { "일", "월", "화", "수", "목", "금", "토" };
+    private static readonly string[] dayNames = { "일", "월", "화", "수", "목", "금", "토" };
+    private static readonly Color activeColor = new Color32(17, 35, 61, 255);
+    private static readonly Color inactiveColor = new Color32(160, 171, 183, 255);
 
+    private GameTurnClock turnClock;
     private Companies companies;
+    private int selectedTurn;
+    private int latestTurn;
+    private bool isSecretNews;
 
-    // 이 화면이 만든 줄만 기억해 두고 지운다. (List Content 안의 다른 오브젝트는 건드리지 않음)
-    private readonly List<GameObject> spawnedRows = new List<GameObject>();
-
-    // 마지막으로 그린 뒤에 뉴스가 바뀌었는지. 바뀌지 않았으면 다시 열 때 새로 그리지 않는다.
-    private bool isDirty = true;
-
-    void Awake()
+    private void Awake()
     {
-        if (feed == null)
-        {
-            feed = FindFirstObjectByType<NewsFeed>();
-        }
+        if (feed == null) feed = FindFirstObjectByType<NewsFeed>();
+        turnClock = FindFirstObjectByType<GameTurnClock>();
+        companies = FindFirstObjectByType<Companies>();
+        selectedTurn = turnClock.CurrentTurn;
+        latestTurn = selectedTurn;
 
-        if (feed != null)
-        {
-            feed.NewsChanged += markDirty;
-        }
+        feed.NewsChanged += handleNewsChanged;
+        generalTabButton.onClick.AddListener(showGeneralNews);
+        secretTabButton.onClick.AddListener(showSecretNews);
+        nextDateButton.onClick.AddListener(showNextDate);
+        previousDateButton.onClick.AddListener(showPreviousDate);
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
-        if (feed != null)
-        {
-            feed.NewsChanged -= markDirty;
-        }
+        feed.NewsChanged -= handleNewsChanged;
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        if (isDirty)
-        {
-            rebuild();
-        }
+        handleNewsChanged();
     }
 
     public void open()
@@ -72,81 +68,92 @@ public class NewsScreen : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void markDirty()
+    private void handleNewsChanged()
     {
-        isDirty = true;
-        if (isActiveAndEnabled)
+        if (latestTurn != turnClock.CurrentTurn)
         {
-            rebuild();
+            latestTurn = turnClock.CurrentTurn;
+            selectedTurn = latestTurn;
         }
+        if (isActiveAndEnabled) refresh();
     }
 
-    private void rebuild()
+    private void showGeneralNews()
     {
-        isDirty = false;
+        isSecretNews = false;
+        refresh();
+    }
 
-        foreach (GameObject spawned in spawnedRows)
+    private void showSecretNews()
+    {
+        isSecretNews = true;
+        refresh();
+    }
+
+    private void showNextDate()
+    {
+        selectedTurn++;
+        refresh();
+    }
+
+    private void showPreviousDate()
+    {
+        selectedTurn--;
+        refresh();
+    }
+
+    private void refresh()
+    {
+        int currentTurn = turnClock.CurrentTurn;
+        dateText.text = formatDate(selectedTurn);
+        nextDateButton.interactable = selectedTurn < currentTurn;
+        previousDateButton.interactable = selectedTurn > Mathf.Max(1, currentTurn - NewsFeed.retainedDayCount + 1);
+
+        for (int i = 0; i < dateIndicators.Length; i++)
         {
-            Destroy(spawned);
-        }
-        spawnedRows.Clear();
-
-        IReadOnlyList<NewsEntry> entries = feed != null ? feed.Entries : null;
-        bool hasNews = entries != null && entries.Count > 0;
-        emptyMessage.SetActive(!hasNews);
-        if (!hasNews)
-        {
-            return;
+            int turn = currentTurn - i;
+            dateIndicators[i].gameObject.SetActive(turn >= 1);
+            dateIndicators[i].color = turn == selectedTurn ? activeColor : inactiveColor;
         }
 
-        if (companies == null)
-        {
-            companies = FindFirstObjectByType<Companies>();
-        }
+        generalTabUnderline.SetActive(!isSecretNews);
+        secretTabUnderline.SetActive(isSecretNews);
+        generalTabButton.GetComponentInChildren<Text>().color = isSecretNews ? inactiveColor : activeColor;
+        secretTabButton.GetComponentInChildren<Text>().color = isSecretNews ? activeColor : inactiveColor;
+        cardsRoot.SetActive(!isSecretNews);
+        if (isSecretNews) return;
 
-        // 뉴스는 턴 순서대로 쌓여 있으므로 뒤에서부터 읽으면 최신 날짜가 위로 온다.
-        int lastTurn = -1;
-        for (int i = entries.Count - 1; i >= 0; i--)
+        foreach (NewsRow card in newsCards) card.setup("", "", "뉴스가 없습니다");
+
+        int cardIndex = 0;
+        IReadOnlyList<NewsEntry> entries = feed.Entries;
+        for (int i = entries.Count - 1; i >= 0 && cardIndex < newsCards.Length; i--)
         {
             NewsEntry entry = entries[i];
-            if (entry.turn != lastTurn)
-            {
-                Text header = Instantiate(dateHeaderPrefab, listContent);
-                header.text = formatDate(entry.turn);
-                spawnedRows.Add(header.gameObject);
-                lastTurn = entry.turn;
-            }
+            if (entry.turn != selectedTurn) continue;
 
-            NewsRow row = Instantiate(newsRowPrefab, listContent);
-            row.setup(entry.title, getCompanyNames(entry));
-            spawnedRows.Add(row.gameObject);
+            newsCards[cardIndex].setup(entry.title, getCompanyNames(entry), entry.description);
+            cardIndex++;
         }
     }
 
     private string formatDate(int turn)
     {
         DateTime date = new DateTime(startYear, startMonth, startDay).AddDays(turn - 1);
-        return $"{date:yyyy.MM.dd} ({DayNames[(int)date.DayOfWeek]})";
+        return $"{date:yyyy.MM.dd} ({dayNames[(int)date.DayOfWeek]})";
     }
 
     private string getCompanyNames(NewsEntry entry)
     {
-        if (entry.companyIDs.Count == 0)
-        {
-            return "";
-        }
+        if (entry.companyIDs.Count == 0) return "";
 
         List<string> names = new List<string>();
         foreach (string id in entry.companyIDs)
         {
             if (companies != null && companies.tryGetCompany(id, out Company company))
-            {
                 names.Add(company.definition.companyName);
-            }
             else
-            {
                 names.Add(id);
-            }
         }
         return string.Join(", ", names);
     }
