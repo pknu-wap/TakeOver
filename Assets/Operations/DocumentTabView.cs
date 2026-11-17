@@ -78,7 +78,9 @@ namespace TakeOver.Operations
                         : remaining == 0 ? "오늘 마감" : $"D-{remaining}";
                     var card = Instantiate(rowTemplate, listRoot, false);
                     card.gameObject.SetActive(true);
-                    card.Bind(doc.Title, string.IsNullOrEmpty(doc.Author)
+                    string heading = doc is DividendPolicyDocument
+                        ? $"{doc.Title} · {doc.TargetCompany.definition.companyName}" : doc.Title;
+                    card.Bind(heading, string.IsNullOrEmpty(doc.Author)
                         ? doc.TargetCompany?.definition.companyName ?? "대상 없음" : doc.Author,
                         due, resolved == null && remaining <= 0, () => select(doc, resolved), resolved != null);
                     cards.Add(card);

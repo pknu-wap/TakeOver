@@ -19,7 +19,6 @@ namespace TakeOver.Operations
         [SerializeField] private Text rejectLabel;
         [SerializeField] private GameObject doneButton;
         [SerializeField] private Text doneLabel;
-        [SerializeField] private GameObject decisionGlow;
         [SerializeField] private Transform infoRoot;
         [SerializeField] private DocumentInfoRow infoTemplate;
         [SerializeField] private Transform fieldsRoot;
@@ -63,7 +62,6 @@ namespace TakeOver.Operations
             approveLabel.text = string.IsNullOrEmpty(doc.ApproveLabel) ? "승인" : doc.ApproveLabel;
             rejectLabel.text = string.IsNullOrEmpty(doc.RejectLabel) ? "거절" : doc.RejectLabel;
             doneButton.SetActive(readOnly);
-            decisionGlow.SetActive(!readOnly);
             doneLabel.text = string.IsNullOrEmpty(doc.DoneLabel)
                 ? resolved?.approved == true ? "승인 완료" : "거절 완료" : doc.DoneLabel;
             if (doc.BodyId != "generic") Debug.LogWarning($"알 수 없는 문서 본문 {doc.BodyId}: 범용 본문을 사용합니다.");

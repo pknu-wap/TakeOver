@@ -14,7 +14,6 @@ namespace TakeOver.Operations
         [SerializeField] private Image icon;
         [SerializeField] private Sprite pendingIcon;
         [SerializeField] private Sprite doneIcon;
-        [SerializeField] private Outline highlight;
 
         public void Bind(string heading, string target, string status, bool overdue, Action clicked, bool resolved = false)
         {
@@ -30,8 +29,7 @@ namespace TakeOver.Operations
 
         public void SetSelected(bool selected)
         {
-            border.color = selected ? Color.white : new Color(.16f, .32f, .44f);
-            highlight.enabled = selected;
+            border.color = selected ? Color.white : new Color(.85f, .9f, .95f, 1f);
         }
     }
 }
