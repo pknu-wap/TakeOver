@@ -34,6 +34,7 @@ public class DayPanel : MonoBehaviour
         if (turnClock != null)
         {
             turnClock.TurnAdvanced += handleTurnAdvanced;
+            turnClock.TurnRestored += handleTurnAdvanced;
         }
         refresh();
     }
@@ -43,6 +44,7 @@ public class DayPanel : MonoBehaviour
         if (turnClock != null)
         {
             turnClock.TurnAdvanced -= handleTurnAdvanced;
+            turnClock.TurnRestored -= handleTurnAdvanced;
         }
     }
 

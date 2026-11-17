@@ -8,6 +8,7 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
     private Companies companies;
     private GameTurnClock turnClock;
     private CompanyDetailPanel detailPanel;
+    private TakeOver.Events.EventSystemController eventController;
     private bool refreshPending;
 
     private void Awake()
@@ -15,6 +16,7 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
         companies = FindFirstObjectByType<Companies>();
         turnClock = FindFirstObjectByType<GameTurnClock>();
         detailPanel = FindFirstObjectByType<CompanyDetailPanel>(FindObjectsInactive.Include);
+        eventController = FindFirstObjectByType<TakeOver.Events.EventSystemController>();
         if (companies == null) Debug.LogWarning("Dashboard company data source was not found.", this);
         if (turnClock == null) Debug.LogWarning("Dashboard turn update signal was not found.", this);
         if (detailPanel == null) Debug.LogWarning("Dashboard trade update signal was not found.", this);
@@ -23,6 +25,8 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
     private void OnEnable()
     {
         if (turnClock != null) turnClock.TurnAdvanced += onTurnAdvanced;
+        if (turnClock != null) turnClock.TurnRestored += onTurnAdvanced;
+        if (eventController != null) eventController.choiceConfirmed += onEventConfirmed;
         if (detailPanel != null) detailPanel.OnTraded += refresh;
         refresh();
     }
@@ -31,6 +35,8 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
     {
         refreshPending = false;
         if (turnClock != null) turnClock.TurnAdvanced -= onTurnAdvanced;
+        if (turnClock != null) turnClock.TurnRestored -= onTurnAdvanced;
+        if (eventController != null) eventController.choiceConfirmed -= onEventConfirmed;
         if (detailPanel != null) detailPanel.OnTraded -= refresh;
     }
 
@@ -41,6 +47,7 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
     }
 
     private void onTurnAdvanced(int turn) => refreshPending = true;
+    private void onEventConfirmed(TakeOver.Events.ChoiceConfirmedInfo info) => refreshPending = true;
 
     private void LateUpdate()
     {

@@ -23,6 +23,8 @@ namespace TakeOver.NPC
         public event Action<int> TurnAdvanced;
         /// <summary>모든 날짜 갱신과 경제 계산이 끝난 뒤 날짜 시작 조건을 판정한다.</summary>
         public event Action<int> DayStarted;
+        /// <summary>저장 복원 시 표시를 갱신한다. 날짜 진행이나 경제 효과를 실행하지 않는다.</summary>
+        public event Action<int> TurnRestored;
         public event Action<string> AdvanceBlocked;
 
         public void RegisterBlocker(ITurnBlocker blocker)
@@ -72,6 +74,10 @@ namespace TakeOver.NPC
         }
 
         /// <summary>저장 데이터에서 턴을 복원한다. 잘못된 0 이하 값은 1턴으로 보정한다.</summary>
-        public void RestoreTurn(int turn) => currentTurn = Mathf.Max(1, turn);
+        public void RestoreTurn(int turn)
+        {
+            currentTurn = Mathf.Max(1, turn);
+            TurnRestored?.Invoke(currentTurn);
+        }
     }
 }

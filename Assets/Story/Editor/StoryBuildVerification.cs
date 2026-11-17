@@ -42,7 +42,8 @@ namespace TakeOver.Story.Editor
         }
         public static void Run()
         {
-            string output=Path.GetFullPath(outputOverride ?? "../QA_Story");
+            string output=Path.GetFullPath(outputOverride ?? Environment.GetEnvironmentVariable("TAKEOVER_BUILD_QA_OUTPUT") ?? "../QA_Story");
+            Directory.CreateDirectory(output);
             results.Clear();
             try
             {
