@@ -9,19 +9,20 @@ namespace TakeOver.Documents
 {
     public sealed class DocumentInbox
     {
-        private readonly List<IApprovalDocument> open = new List<IApprovalDocument>();
+        // open = 열린 승인 문서 + 안 읽은 읽기 전용 문서. history = 처리한 승인 문서 + 읽은 읽기 전용 문서.
+        private readonly List<IDocument> open = new List<IDocument>();
         private readonly List<ResolvedDocument> history = new List<ResolvedDocument>();
-        private readonly Dictionary<IApprovalDocument, int> arrivals = new Dictionary<IApprovalDocument, int>();
+        private readonly Dictionary<IDocument, int> arrivals = new Dictionary<IDocument, int>();
         private int nextArrival = 1;
         private readonly ChangeApplier applier;
         private readonly GameTurnClock clock;
         private readonly int historyLimit;
-        public IReadOnlyList<IApprovalDocument> Open => open;
+        public IReadOnlyList<IDocument> Open => open;
         public IReadOnlyList<ResolvedDocument> History => history;
         public int PendingCount => open.Count;
         public event Action Changed;
         public event Action<IApprovalDocument, bool> DocumentResolved;
-        public int GetArrival(IApprovalDocument document) => arrivals[document];
+        public int GetArrival(IDocument document) => arrivals[document];
 
         public DocumentInbox(ChangeApplier applier, GameTurnClock clock, int historyLimit)
         {
@@ -30,19 +31,20 @@ namespace TakeOver.Documents
             this.historyLimit = historyLimit;
         }
 
-        public bool Add(IApprovalDocument document)
+        public bool Add(IDocument document)
         {
             return add(document, nextArrival);
         }
 
-        private bool add(IApprovalDocument document, int arrival)
+        private bool add(IDocument document, int arrival)
         {
-            foreach (IApprovalDocument current in open)
-                if (current.TypeId == document.TypeId && current.TargetCompany == document.TargetCompany) return false;
+            if (!string.IsNullOrEmpty(document.DedupKey))
+                foreach (IDocument current in open)
+                    if (current.TypeId == document.TypeId && current.DedupKey == document.DedupKey) return false;
             open.Add(document);
             arrivals.Add(document, arrival);
             nextArrival = Math.Max(nextArrival, arrival + 1);
-            Debug.Log($"[Documents] Add type={document.TypeId} company={document.TargetCompany?.definition.companyName} deadline={document.DeadlineTurn}");
+            Debug.Log($"[Documents] Add type={document.TypeId} dedup={document.DedupKey} deadline={(document as IApprovalDocument)?.DeadlineTurn.ToString() ?? "-"}");
             Changed?.Invoke();
             return true;
         }
@@ -50,6 +52,11 @@ namespace TakeOver.Documents
         public void Resolve(IApprovalDocument document, bool approved)
         {
             if (!open.Contains(document)) return;
+            if (approved && !document.CanApprove(out string reason))
+            {
+                Debug.LogWarning($"[Documents] Resolve 거부 type={document.TypeId} reason={reason}");
+                return;
+            }
             List<NameValue> fields = document.ToSaveRecord().fields;
             RuleResult result = approved ? document.OnApprove() : document.OnReject();
             if (document.TargetCompany != null) applier.Apply(result, document.TargetCompany);
@@ -61,17 +68,27 @@ namespace TakeOver.Documents
             Changed?.Invoke();
         }
 
+        public void MarkRead(IDocument document)
+        {
+            if (document is IApprovalDocument || !open.Contains(document)) return;
+            open.Remove(document);
+            history.Add(new ResolvedDocument(document, false, clock.CurrentTurn, new List<NameValue>()));
+            trimHistory();
+            Debug.Log($"[Documents] MarkRead type={document.TypeId} turn={clock.CurrentTurn} pending={PendingCount} history={history.Count}");
+            Changed?.Invoke();
+        }
+
         public bool HasOverdue(int currentTurn)
         {
-            foreach (IApprovalDocument document in open)
-                if (currentTurn >= document.DeadlineTurn) return true;
+            foreach (IDocument document in open)
+                if (document is IApprovalDocument approval && currentTurn >= approval.DeadlineTurn) return true;
             return false;
         }
 
         public List<DocumentSaveRecord> ToSaveRecords()
         {
             List<DocumentSaveRecord> records = new List<DocumentSaveRecord>();
-            foreach (IApprovalDocument document in open)
+            foreach (IDocument document in open)
             {
                 DocumentSaveRecord record = document.ToSaveRecord();
                 record.arrival = arrivals[document];
@@ -99,12 +116,13 @@ namespace TakeOver.Documents
             nextArrival = legacy ? 1 : records.Max(record => record.arrival) + 1;
             foreach (DocumentSaveRecord record in records.OrderBy(record => record.arrival))
             {
-                IApprovalDocument document = registry.Restore(record, context);
+                IDocument document = record.snapshot ? SnapshotDocument.FromRecord(record) : registry.Restore(record, context);
                 if (document == null) continue;
                 int arrival = legacy ? nextArrival : record.arrival;
                 if (record.resolved)
                 {
-                    history.Add(new ResolvedDocument(document, record.approved, record.resolvedTurn, record.fields));
+                    history.Add(new ResolvedDocument(document, record.approved, record.resolvedTurn,
+                        record.fields ?? new List<NameValue>()));
                     arrivals.Add(document, arrival);
                     nextArrival = Math.Max(nextArrival, arrival + 1);
                 }

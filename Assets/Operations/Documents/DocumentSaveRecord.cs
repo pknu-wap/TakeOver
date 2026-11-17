@@ -11,6 +11,13 @@ namespace TakeOver.Documents
     }
 
     [Serializable]
+    public struct NameText
+    {
+        public string label;
+        public string value;
+    }
+
+    [Serializable]
     public sealed class DocumentSaveRecord
     {
         public string type;
@@ -21,5 +28,9 @@ namespace TakeOver.Documents
         public bool approved;
         public int resolvedTurn;
         public int arrival;
+        public bool snapshot;
+        public string title;
+        public string author;
+        public List<NameText> infoRows;
     }
 }

@@ -67,9 +67,9 @@ namespace TakeOver.Operations
             }
             if (inbox != null)
             {
-                IEnumerable<IApprovalDocument> documents = filter == 1 ? inbox.Open
+                IEnumerable<IApprovalDocument> documents = (filter == 1 ? inbox.Open
                     : filter == 2 ? inbox.History.Select(entry => entry.document)
-                    : inbox.Open.Concat(inbox.History.Select(entry => entry.document)).OrderBy(inbox.GetArrival);
+                    : inbox.Open.Concat(inbox.History.Select(entry => entry.document)).OrderBy(inbox.GetArrival)).OfType<IApprovalDocument>();
                 foreach (IApprovalDocument doc in documents)
                 {
                     var resolved = inbox.History.FirstOrDefault(entry => entry.document == doc);
