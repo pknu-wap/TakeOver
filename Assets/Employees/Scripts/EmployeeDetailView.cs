@@ -43,7 +43,15 @@ namespace TakeOver.Employees
         [SerializeField] private TextMeshProUGUI severanceText;
         [SerializeField] private Button dismissButton;
 
+        [Header("Job (임시 디자인)")]
+        [SerializeField] private TextMeshProUGUI jobNameText;
+        [SerializeField] private TextMeshProUGUI jobRemainingText;
+        [SerializeField] private Button appraisalButton;
+        [SerializeField] private Button discoveryButton;
+        [SerializeField] private Button clearJobButton;
+
         private Employee currentEmployee;
+        private JobService jobService;
         private EmployeeService employeeService;
         private Func<int> currentTurnProvider;
         private Action onDismissed;
@@ -61,6 +69,31 @@ namespace TakeOver.Employees
                 dismissButton.onClick.RemoveAllListeners();
                 dismissButton.onClick.AddListener(HandleDismiss);
             }
+
+            BindJobButton(appraisalButton, JobType.Appraisal);
+            BindJobButton(discoveryButton, JobType.Discovery);
+            BindJobButton(clearJobButton, JobType.None);
+        }
+
+        private void BindJobButton(Button button, JobType job)
+        {
+            if (button == null)
+            {
+                return;
+            }
+
+            button.onClick.RemoveAllListeners();
+            // 시세 예측은 지금은 회사 선택 없이 대상 회사 없이 배정한다. 회사 선택 목록은 이 자리에 연결한다.
+            button.onClick.AddListener(() =>
+            {
+                if (currentEmployee == null || jobService == null)
+                {
+                    return;
+                }
+
+                jobService.Assign(currentEmployee, job);
+                Refresh();
+            });
         }
 
         public void Open(Employee emp, EmployeeService service, Func<int> turnProvider, Action onEmployeeDismissed)
@@ -69,6 +102,10 @@ namespace TakeOver.Employees
             employeeService = service;
             currentTurnProvider = turnProvider;
             onDismissed = onEmployeeDismissed;
+            if (jobService == null)
+            {
+                jobService = FindFirstObjectByType<JobService>();
+            }
 
             if (currentEmployee == null)
             {
@@ -135,10 +172,37 @@ namespace TakeOver.Employees
                     : "?";
             }
 
+            RefreshJob();
+
             int severance = employeeService != null ? employeeService.GetSeveranceAmount(currentEmployee) : 0;
             if (severanceText != null)
             {
                 severanceText.text = $"해고 보상금: {severance:N0}만원";
+            }
+        }
+
+        private void RefreshJob()
+        {
+            JobType job = jobService != null ? jobService.GetJob(currentEmployee) : JobType.None;
+            if (jobNameText != null)
+            {
+                jobNameText.text = $"직무: {FormatJob(job)}";
+            }
+
+            if (jobRemainingText != null)
+            {
+                jobRemainingText.text = job == JobType.None ? "" : $"D-{jobService.GetRemainingDays(currentEmployee)}";
+            }
+        }
+
+        private static string FormatJob(JobType job)
+        {
+            switch (job)
+            {
+                case JobType.Appraisal: return "시세 예측";
+                case JobType.Discovery: return "스타트업 발굴";
+                case JobType.Support: return "지원 인원 배치";
+                default: return "직무 없음";
             }
         }
 
