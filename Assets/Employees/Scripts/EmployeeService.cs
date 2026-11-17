@@ -18,6 +18,9 @@ namespace TakeOver.Employees
         private readonly List<Employee> employees = new List<Employee>();
         private readonly List<Employee> applicants = new List<Employee>();
 
+        // 직원 정수 ID용 다음 번호. 재사용하지 않는다. 저장 기능이 생기면 이 값도 저장해야 한다.
+        private int nextEmployeeId = 1;
+
         private bool isRecruiting;
         private int recruitRemainingTurns;
         private int lastSeenClockTurn;
@@ -332,6 +335,7 @@ namespace TakeOver.Employees
                 0, 0, config.contractDurationTurns,
                 config);
 
+            candidate.Id = nextEmployeeId++;
             candidate.MonthlySalary = CalculateMonthlySalary(candidate);
             return candidate;
         }
