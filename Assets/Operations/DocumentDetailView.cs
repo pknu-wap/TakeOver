@@ -77,19 +77,11 @@ namespace TakeOver.Operations
             foreach (var row in infoRows) { row.SetActive(false); Destroy(row); }
             infoRows.Clear();
             infoTemplate.gameObject.SetActive(false);
-            addInfo("대상 회사", doc.TargetCompany?.definition.companyName ?? "—");
+            foreach (DocumentInfo info in doc.InfoRows) addInfo(info.label, info.value);
             if (resolved != null)
             {
                 addInfo("처리 결과", resolved.approved ? "승인" : "거절");
                 addInfo("처리한 턴", resolved.resolvedTurn.ToString());
-                return;
-            }
-            foreach (string line in doc.BodyLines)
-            {
-                if (line == doc.TargetCompany?.definition.companyName) continue;
-                int colon = line.IndexOf(':');
-                addInfo(colon < 0 ? "내용" : line.Substring(0, colon),
-                    colon < 0 ? line : line.Substring(colon + 1).Trim());
             }
         }
 

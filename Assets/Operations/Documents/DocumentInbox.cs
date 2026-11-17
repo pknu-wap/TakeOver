@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TakeOver.CompanyRules;
 using TakeOver.NPC;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace TakeOver.Documents
     {
         private readonly List<IApprovalDocument> open = new List<IApprovalDocument>();
         private readonly List<ResolvedDocument> history = new List<ResolvedDocument>();
+        private readonly Dictionary<IApprovalDocument, int> arrivals = new Dictionary<IApprovalDocument, int>();
+        private int nextArrival = 1;
         private readonly ChangeApplier applier;
         private readonly GameTurnClock clock;
         private readonly int historyLimit;
@@ -18,6 +21,7 @@ namespace TakeOver.Documents
         public int PendingCount => open.Count;
         public event Action Changed;
         public event Action<IApprovalDocument, bool> DocumentResolved;
+        public int GetArrival(IApprovalDocument document) => arrivals[document];
 
         public DocumentInbox(ChangeApplier applier, GameTurnClock clock, int historyLimit)
         {
@@ -28,9 +32,16 @@ namespace TakeOver.Documents
 
         public bool Add(IApprovalDocument document)
         {
+            return add(document, nextArrival);
+        }
+
+        private bool add(IApprovalDocument document, int arrival)
+        {
             foreach (IApprovalDocument current in open)
                 if (current.TypeId == document.TypeId && current.TargetCompany == document.TargetCompany) return false;
             open.Add(document);
+            arrivals.Add(document, arrival);
+            nextArrival = Math.Max(nextArrival, arrival + 1);
             Debug.Log($"[Documents] Add type={document.TypeId} company={document.TargetCompany?.definition.companyName} deadline={document.DeadlineTurn}");
             Changed?.Invoke();
             return true;
@@ -60,7 +71,12 @@ namespace TakeOver.Documents
         public List<DocumentSaveRecord> ToSaveRecords()
         {
             List<DocumentSaveRecord> records = new List<DocumentSaveRecord>();
-            foreach (IApprovalDocument document in open) records.Add(document.ToSaveRecord());
+            foreach (IApprovalDocument document in open)
+            {
+                DocumentSaveRecord record = document.ToSaveRecord();
+                record.arrival = arrivals[document];
+                records.Add(record);
+            }
             foreach (ResolvedDocument entry in history)
             {
                 DocumentSaveRecord record = entry.document.ToSaveRecord();
@@ -68,6 +84,7 @@ namespace TakeOver.Documents
                 record.resolved = true;
                 record.approved = entry.approved;
                 record.resolvedTurn = entry.resolvedTurn;
+                record.arrival = arrivals[entry.document];
                 records.Add(record);
             }
             return records;
@@ -77,13 +94,21 @@ namespace TakeOver.Documents
         {
             open.Clear();
             history.Clear();
-            foreach (DocumentSaveRecord record in records)
+            arrivals.Clear();
+            bool legacy = records.All(record => record.arrival == 0);
+            nextArrival = legacy ? 1 : records.Max(record => record.arrival) + 1;
+            foreach (DocumentSaveRecord record in records.OrderBy(record => record.arrival))
             {
                 IApprovalDocument document = registry.Restore(record, context);
                 if (document == null) continue;
+                int arrival = legacy ? nextArrival : record.arrival;
                 if (record.resolved)
+                {
                     history.Add(new ResolvedDocument(document, record.approved, record.resolvedTurn, record.fields));
-                else Add(document);
+                    arrivals.Add(document, arrival);
+                    nextArrival = Math.Max(nextArrival, arrival + 1);
+                }
+                else add(document, arrival);
             }
             trimHistory();
             Changed?.Invoke();
@@ -91,7 +116,11 @@ namespace TakeOver.Documents
 
         private void trimHistory()
         {
-            while (history.Count > historyLimit) history.RemoveAt(0);
+            while (history.Count > historyLimit)
+            {
+                arrivals.Remove(history[0].document);
+                history.RemoveAt(0);
+            }
         }
     }
 }
