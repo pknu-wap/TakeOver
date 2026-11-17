@@ -30,45 +30,36 @@ public class ScreenBlurBackground : MonoBehaviour
             rawImage = GetComponent<RawImage>();
         }
 
-        // 1) 지금 화면을 그림으로 찍는다.
-        Texture2D screen = ScreenCapture.CaptureScreenshotAsTexture();
-
-        // 2) 반씩 여러 번 줄인다. 한 번에 확 줄이는 것보다 여러 번 나눠 줄여야 부드럽게 뭉개진다.
-        int width = screen.width;
-        int height = screen.height;
+        RenderTexture previousActive = RenderTexture.active;
+        Texture2D screen = null;
         RenderTexture source = null;
-
-        for (int i = 0; i < downsampleSteps; i++)
+        try
         {
-            width = Mathf.Max(1, width / 2);
-            height = Mathf.Max(1, height / 2);
-
-            RenderTexture next = RenderTexture.GetTemporary(width, height, 0);
-            next.filterMode = FilterMode.Bilinear;   // 픽셀 사이를 섞어서 부드럽게
-
-            if (source == null)
+            screen = ScreenCapture.CaptureScreenshotAsTexture();
+            int width = screen.width;
+            int height = screen.height;
+            for (int i = 0; i < downsampleSteps; i++)
             {
-                Graphics.Blit(screen, next);   // Blit = 그림을 다른 크기의 그림에 복사
+                width = Mathf.Max(1, width / 2);
+                height = Mathf.Max(1, height / 2);
+                RenderTexture next = RenderTexture.GetTemporary(width, height, 0);
+                next.filterMode = FilterMode.Bilinear;
+                Graphics.Blit(source != null ? (Texture)source : screen, next);
+                if (source != null) RenderTexture.ReleaseTemporary(source);
+                source = next;
             }
-            else
-            {
-                Graphics.Blit(source, next);
-                RenderTexture.ReleaseTemporary(source);
-            }
-            source = next;
+            prepareResult(width, height);
+            Graphics.Blit(source, blurred);
+            rawImage.texture = blurred;
+            rawImage.color = new Color(brightness, brightness, brightness, 1f);
         }
-
-        // 3) 결과를 보관용 그림에 옮긴다. (임시 그림은 다른 곳에서 재사용될 수 있어서 계속 들고 있으면 안 됨)
-        prepareResult(width, height);
-        Graphics.Blit(source, blurred);
-        RenderTexture.ReleaseTemporary(source);
-
-        // 찍은 원본은 더 이상 필요 없으니 바로 지운다. (안 지우면 열 때마다 메모리가 쌓인다)
-        Destroy(screen);
-
-        // 4) 화면에 보여 주고, 색을 곱해서 어둡게 만든다.
-        rawImage.texture = blurred;
-        rawImage.color = new Color(brightness, brightness, brightness, 1f);
+        finally
+        {
+            // 캡처·Blit가 바꾼 렌더 대상을 돌려놓고 임시 자원을 해제한다.
+            RenderTexture.active = previousActive;
+            if (source != null) RenderTexture.ReleaseTemporary(source);
+            if (screen != null) Destroy(screen);
+        }
     }
 
     // 결과 그림 크기가 바뀌었을 때만 새로 만든다.
@@ -81,6 +72,7 @@ public class ScreenBlurBackground : MonoBehaviour
 
         if (blurred != null)
         {
+            if (RenderTexture.active == blurred) RenderTexture.active = null;
             blurred.Release();
             Destroy(blurred);
         }
@@ -93,6 +85,7 @@ public class ScreenBlurBackground : MonoBehaviour
     {
         if (blurred != null)
         {
+            if (RenderTexture.active == blurred) RenderTexture.active = null;
             blurred.Release();
             Destroy(blurred);
         }

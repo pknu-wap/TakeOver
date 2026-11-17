@@ -35,10 +35,11 @@ namespace TakeOver.Events
         {
             public string eventId, companyId;
             public int day;
+            public float greenmailStake;
         }
         private EventSaveData preparedEventSave;
         public string saveId => "events";
-        public int saveVersion => 3;
+        public int saveVersion => 4;
         public int rebuildOrder => 100;
 
         public string captureJson()
@@ -60,7 +61,7 @@ namespace TakeOver.Events
             foreach (var item in availableDays.OrderBy(x => x.Key.Item1, StringComparer.Ordinal).ThenBy(x => x.Key.Item2, StringComparer.Ordinal))
                 data.cooldowns.Add(new TimingData { eventId = item.Key.Item1, companyId = item.Key.Item2, day = item.Value });
             foreach (var item in occurrences)
-                data.occurrences.Add(new TimingData { eventId = item.definition.getId(), companyId = item.companyId, day = item.firstDay });
+                data.occurrences.Add(new TimingData { eventId = item.definition.getId(), companyId = item.companyId, day = item.firstDay, greenmailStake = item.greenmailStake });
             return JsonUtility.ToJson(data);
         }
 
@@ -160,6 +161,11 @@ namespace TakeOver.Events
             {
                 if (entry == null) throw new InvalidDataException("진행 가능한 이벤트가 누락됐습니다.");
                 var definition = Definition(entry.eventId, entry.companyId);
+                bool greenmail = definition.getConditions().Any(condition => condition.kind == EventConditionKind.CompanyGreenmailStake);
+                if (savedVersion >= 4 && (float.IsNaN(entry.greenmailStake) || float.IsInfinity(entry.greenmailStake) ||
+                    (greenmail ? entry.greenmailStake != 25 && entry.greenmailStake != 30 && entry.greenmailStake != 35 : entry.greenmailStake != 0)))
+                    throw new InvalidDataException("이벤트의 발생 당시 요구 지분이 올바르지 않습니다.");
+                if (savedVersion < 4) entry.greenmailStake = 0;
                 string keyCompany = getKeyCompany(definition, entry.companyId);
                 if (entry.day < 1 || entry.day > data.day || OccurrenceExpiry(definition, entry.day) <= data.day
                     || definition.hasCompanyConditions() && entry.companyId == ""
@@ -184,7 +190,7 @@ namespace TakeOver.Events
             foreach (var entry in data.companyChoices) companyChoices.Add((entry.eventId, entry.companyId), entry.choice);
             foreach (var entry in data.cooldowns) availableDays.Add((entry.eventId, entry.companyId), entry.day);
             foreach (var entry in data.occurrences)
-                occurrences.Add(new Occurrence { definition = events.Find(x => x.getId() == entry.eventId), companyId = entry.companyId, firstDay = entry.day });
+                occurrences.Add(new Occurrence { definition = events.Find(x => x.getId() == entry.eventId), companyId = entry.companyId, firstDay = entry.day, greenmailStake = entry.greenmailStake });
             currentDay = data.day;
             activeInfo = null; negotiationChoices.Clear(); todayEvents.Clear(); todayInfos.Clear();
             screenState = ScreenState.Closed;
@@ -199,6 +205,10 @@ namespace TakeOver.Events
             var randomState = UnityEngine.Random.state;
             try
             {
+                // v1~v3에는 발행 시점 지분이 없다. 거래 수치 복원 후 현재가치로 한 번 정해 보존한다.
+                foreach (var item in occurrences)
+                    if (item.greenmailStake == 0 && item.definition.getConditions().Any(condition => condition.kind == EventConditionKind.CompanyGreenmailStake))
+                        worldReader.tryGetGreenmailStake(item.companyId, out _, out item.greenmailStake);
                 RestoreMandatoryPresentation();
                 rebuildToday();
                 todayEventsChanged?.Invoke();

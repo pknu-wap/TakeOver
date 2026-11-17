@@ -11386,6 +11386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CalendarController
   dateTitleText: {fileID: 4449045864149811897}
+  dayCountText: {fileID: 5529920803339221944}
   dateNumberTexts:
   - {fileID: 0}
   - {fileID: 0}
@@ -12216,6 +12217,8 @@ MonoBehaviour:
   - {fileID: 9157933662258479643}
   - {fileID: 6436535766009937205}
   - {fileID: 7206080807011097344}
+  - {fileID: 1604976155933964724}
+  - {fileID: 3555061405800631496}
 --- !u!1 &7361698350258046304
 GameObject:
   m_ObjectHideFlags: 0

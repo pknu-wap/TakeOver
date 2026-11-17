@@ -5,6 +5,8 @@ namespace TakeOver.Employees
 {
     public class Employee
     {
+        // EmployeeService가 지원자를 만들 때 붙이는 번호. 1부터 증가하고 재사용하지 않는다(0은 번호 없음).
+        public int Id { get; internal set; }
         public string Name;
 
         public AbilityStat Analysis;

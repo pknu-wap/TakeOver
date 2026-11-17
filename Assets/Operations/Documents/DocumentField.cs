@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 namespace TakeOver.Documents
 {
+    public enum DocumentValueFormat { Percent, Number, Money }
+
     public sealed class DocumentField
     {
         public string name { get; }
@@ -11,9 +13,11 @@ namespace TakeOver.Documents
         public float max { get; }
         public float step { get; }
         public float value { get; internal set; }
+        public DocumentValueFormat format { get; }
 
         public DocumentField(string name, string label, float value, IReadOnlyList<float> options,
-            float min = 0f, float max = 0f, float step = 0f)
+            float min = 0f, float max = 0f, float step = 0f,
+            DocumentValueFormat format = DocumentValueFormat.Percent)
         {
             this.name = name;
             this.label = label;
@@ -22,6 +26,7 @@ namespace TakeOver.Documents
             this.min = min;
             this.max = max;
             this.step = step;
+            this.format = format;
         }
     }
 }
