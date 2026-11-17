@@ -12,6 +12,7 @@ namespace TakeOver.Documents
         public Company TargetCompany { get; }
         public int DeadlineTurn { get; }
         public string BodyId => "generic";
+        public string DedupKey => TargetCompany.definition.companyID;
         public string Title => "배당 정책";
         public string Author => "";
         public string ApproveLabel => "";
@@ -24,6 +25,7 @@ namespace TakeOver.Documents
             new DocumentInfo("선택한 비율", $"{fields[0].value:P0}")
         };
         public IReadOnlyList<DocumentField> Fields => fields;
+        public IReadOnlyList<DocumentChoiceField> ChoiceFields => Array.Empty<DocumentChoiceField>();
         public IReadOnlyList<string> BodyLines => new[]
         {
             TargetCompany.definition.companyName,
@@ -46,6 +48,17 @@ namespace TakeOver.Documents
         {
             if (name != fields[0].name) throw new ArgumentException("알 수 없는 문서 입력 칸입니다.", nameof(name));
             fields[0].value = value;
+        }
+
+        public void SetChoice(string name, int key)
+        {
+            throw new ArgumentException("알 수 없는 문서 선택 칸입니다.", nameof(name));
+        }
+
+        public bool CanApprove(out string reason)
+        {
+            reason = "";
+            return true;
         }
 
         public RuleResult OnApprove()

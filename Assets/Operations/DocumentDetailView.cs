@@ -23,14 +23,16 @@ namespace TakeOver.Operations
         [SerializeField] private DocumentInfoRow infoTemplate;
         [SerializeField] private Transform fieldsRoot;
         [SerializeField] private DocumentFieldView fieldTemplate;
+        [SerializeField] private DocumentChoiceFieldView choiceFieldTemplate;
+        [SerializeField] private Text errorText;
         [SerializeField] private Button approve;
         [SerializeField] private Button reject;
         private readonly List<GameObject> fields = new List<GameObject>();
         private readonly List<GameObject> infoRows = new List<GameObject>();
-        private IApprovalDocument document;
+        private IDocument document;
         private bool readOnly;
         private GameTurnClock clock;
-        public event Action<IApprovalDocument, bool> Decided;
+        public event Action<IDocument, bool> Decided;
 
         private void Awake()
         {
@@ -46,51 +48,88 @@ namespace TakeOver.Operations
             emptyMessage.SetActive(true);
         }
 
-        public void Show(IApprovalDocument doc, ResolvedDocument resolved = null)
+        // readOnly = 이미 처리한(읽은) 문서. 읽기 전용 문서(approval == null)는 기한·D-day·거절·입력 칸이 없다.
+        public void Show(IDocument doc, ResolvedDocument resolved = null, int arrival = 0)
         {
             document = doc;
             readOnly = resolved != null;
+            IApprovalDocument approval = doc as IApprovalDocument;
             documentRoot.SetActive(true);
             emptyMessage.SetActive(false);
+            errorText.gameObject.SetActive(false);
             title.text = doc.Title;
-            documentNumber.text = "NO. " + numberFor(doc);
+            documentNumber.text = "NO. " + numberFor(doc, arrival);
             sender.gameObject.SetActive(!string.IsNullOrEmpty(doc.Author));
             sender.text = $"<color=#2C507A>작성자</color> {doc.Author}";
-            int remaining = doc.DeadlineTurn - clock.CurrentTurn;
-            deadline.text = readOnly ? "완료" : remaining < 0 ? "기한 지남" : remaining == 0 ? "오늘 마감" : $"D-{remaining}";
+            if (approval != null)
+            {
+                int remaining = approval.DeadlineTurn - clock.CurrentTurn;
+                deadline.text = readOnly ? "완료" : remaining < 0 ? "기한 지남" : remaining == 0 ? "오늘 마감" : $"D-{remaining}";
+            }
+            else deadline.text = "";
             deadline.color = new Color(.88f, .08f, .11f);
-            approveLabel.text = string.IsNullOrEmpty(doc.ApproveLabel) ? "승인" : doc.ApproveLabel;
-            rejectLabel.text = string.IsNullOrEmpty(doc.RejectLabel) ? "거절" : doc.RejectLabel;
+            if (approval != null)
+            {
+                approveLabel.text = string.IsNullOrEmpty(approval.ApproveLabel) ? "승인" : approval.ApproveLabel;
+                rejectLabel.text = string.IsNullOrEmpty(approval.RejectLabel) ? "거절" : approval.RejectLabel;
+                doneLabel.text = string.IsNullOrEmpty(approval.DoneLabel)
+                    ? resolved?.approved == true ? "승인 완료" : "거절 완료" : approval.DoneLabel;
+            }
+            else
+            {
+                approveLabel.text = "확인";
+                doneLabel.text = "확인 완료";
+            }
             doneButton.SetActive(readOnly);
-            doneLabel.text = string.IsNullOrEmpty(doc.DoneLabel)
-                ? resolved?.approved == true ? "승인 완료" : "거절 완료" : doc.DoneLabel;
             if (doc.BodyId != "generic") Debug.LogWarning($"알 수 없는 문서 본문 {doc.BodyId}: 범용 본문을 사용합니다.");
             refreshInfo(doc, resolved);
             foreach (var field in fields) { field.SetActive(false); Destroy(field); }
             fields.Clear();
             fieldTemplate.gameObject.SetActive(false);
-            foreach (DocumentField field in doc.Fields)
+            choiceFieldTemplate.gameObject.SetActive(false);
+            if (approval != null)
             {
-                float value = field.value;
-                if (resolved != null)
-                    foreach (NameValue saved in resolved.fields)
-                        if (saved.name == field.name) { value = saved.value; break; }
-                var view = Instantiate(fieldTemplate, fieldsRoot, false);
-                view.gameObject.SetActive(true);
-                view.Bind(doc, field, readOnly, value, () => refreshInfo(doc, resolved));
-                fields.Add(view.gameObject);
+                foreach (DocumentField field in approval.Fields)
+                {
+                    float value = field.value;
+                    if (resolved != null)
+                        foreach (NameValue saved in resolved.fields)
+                            if (saved.name == field.name) { value = saved.value; break; }
+                    var view = Instantiate(fieldTemplate, fieldsRoot, false);
+                    view.gameObject.SetActive(true);
+                    view.Bind(approval, field, readOnly, value, () => refreshInfo(doc, resolved));
+                    fields.Add(view.gameObject);
+                }
+                foreach (DocumentChoiceField field in approval.ChoiceFields)
+                {
+                    int? value = field.value;
+                    if (resolved != null)
+                    {
+                        value = null;
+                        foreach (NameValue saved in resolved.fields)
+                            if (saved.name == field.name) { value = Mathf.RoundToInt(saved.value); break; }
+                    }
+                    var view = Instantiate(choiceFieldTemplate, fieldsRoot, false);
+                    view.gameObject.SetActive(true);
+                    view.Bind(approval, field, readOnly, value, () =>
+                    {
+                        errorText.gameObject.SetActive(false);
+                        refreshInfo(doc, resolved);
+                    });
+                    fields.Add(view.gameObject);
+                }
             }
             approve.gameObject.SetActive(!readOnly);
-            reject.gameObject.SetActive(!readOnly);
+            reject.gameObject.SetActive(!readOnly && approval != null);
         }
 
-        private void refreshInfo(IApprovalDocument doc, ResolvedDocument resolved)
+        private void refreshInfo(IDocument doc, ResolvedDocument resolved)
         {
             foreach (var row in infoRows) { row.SetActive(false); Destroy(row); }
             infoRows.Clear();
             infoTemplate.gameObject.SetActive(false);
             foreach (DocumentInfo info in doc.InfoRows) addInfo(info.label, info.value);
-            if (resolved != null)
+            if (resolved != null && !resolved.isReadOnly)
             {
                 addInfo("처리 결과", resolved.approved ? "승인" : "거절");
                 addInfo("처리한 턴", resolved.resolvedTurn.ToString());
@@ -107,13 +146,22 @@ namespace TakeOver.Operations
 
         private void decide(bool approved)
         {
-            if (!readOnly && document != null) Decided?.Invoke(document, approved);
+            if (readOnly || document == null) return;
+            if (approved && document is IApprovalDocument approval && !approval.CanApprove(out string reason))
+            {
+                errorText.text = reason;
+                errorText.gameObject.SetActive(true);
+                return;
+            }
+            Decided?.Invoke(document, approved);
         }
 
-        private static string numberFor(IApprovalDocument doc)
+        private static string numberFor(IDocument doc, int arrival)
         {
-            string key = doc.TypeId + "|" + doc.TargetCompany?.definition.companyID + "|"
-                + doc.DeadlineTurn.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string key = doc is IApprovalDocument approval
+                ? doc.TypeId + "|" + approval.TargetCompany?.definition.companyID + "|"
+                    + approval.DeadlineTurn.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                : doc.TypeId + "|" + arrival.ToString(System.Globalization.CultureInfo.InvariantCulture);
             uint hash = 2166136261;
             foreach (byte value in System.Text.Encoding.UTF8.GetBytes(key))
                 hash = unchecked((hash ^ value) * 16777619);

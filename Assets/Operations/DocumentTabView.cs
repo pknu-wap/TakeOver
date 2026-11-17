@@ -17,10 +17,10 @@ namespace TakeOver.Operations
         [SerializeField] private Text[] filterLabels;
         [SerializeField] private Image[] filterUnderlines;
         private readonly List<DocumentCard> cards = new List<DocumentCard>();
-        private readonly List<IApprovalDocument> cardDocuments = new List<IApprovalDocument>();
+        private readonly List<IDocument> cardDocuments = new List<IDocument>();
         private DocumentInbox inbox;
         private GameTurnClock clock;
-        private IApprovalDocument selected;
+        private IDocument selected;
         private int filter;
 
         private void Awake()
@@ -52,7 +52,11 @@ namespace TakeOver.Operations
         }
 
         private void onTurn(int turn) => refresh();
-        private void decide(IApprovalDocument doc, bool approved) => inbox.Resolve(doc, approved);
+        private void decide(IDocument doc, bool approved)
+        {
+            if (doc is IApprovalDocument approval) inbox.Resolve(approval, approved);
+            else inbox.MarkRead(doc);
+        }
 
         private void refresh()
         {
@@ -67,22 +71,30 @@ namespace TakeOver.Operations
             }
             if (inbox != null)
             {
-                IEnumerable<IApprovalDocument> documents = filter == 1 ? inbox.Open
+                IEnumerable<IDocument> documents = filter == 1 ? inbox.Open
                     : filter == 2 ? inbox.History.Select(entry => entry.document)
                     : inbox.Open.Concat(inbox.History.Select(entry => entry.document)).OrderBy(inbox.GetArrival);
-                foreach (IApprovalDocument doc in documents)
+                foreach (IDocument doc in documents)
                 {
                     var resolved = inbox.History.FirstOrDefault(entry => entry.document == doc);
-                    int remaining = doc.DeadlineTurn - clock.CurrentTurn;
-                    string due = resolved != null ? "완료" : remaining < 0 ? "기한 지남"
-                        : remaining == 0 ? "오늘 마감" : $"D-{remaining}";
+                    IApprovalDocument approval = doc as IApprovalDocument;
+                    string due;
+                    bool overdue = false;
+                    if (approval != null)
+                    {
+                        int remaining = approval.DeadlineTurn - clock.CurrentTurn;
+                        due = resolved != null ? "완료" : remaining < 0 ? "기한 지남"
+                            : remaining == 0 ? "오늘 마감" : $"D-{remaining}";
+                        overdue = resolved == null && remaining <= 0;
+                    }
+                    else due = resolved != null ? "완료" : "새 보고";
                     var card = Instantiate(rowTemplate, listRoot, false);
                     card.gameObject.SetActive(true);
                     string heading = doc is DividendPolicyDocument
-                        ? $"{doc.Title} · {doc.TargetCompany.definition.companyName}" : doc.Title;
+                        ? $"{doc.Title} · {approval.TargetCompany.definition.companyName}" : doc.Title;
                     card.Bind(heading, string.IsNullOrEmpty(doc.Author)
-                        ? doc.TargetCompany?.definition.companyName ?? "대상 없음" : doc.Author,
-                        due, resolved == null && remaining <= 0, () => select(doc, resolved), resolved != null);
+                        ? approval?.TargetCompany?.definition.companyName ?? "대상 없음" : doc.Author,
+                        due, overdue, () => select(doc, resolved), resolved != null);
                     cards.Add(card);
                     cardDocuments.Add(doc);
                 }
@@ -94,11 +106,11 @@ namespace TakeOver.Operations
             select(selected, inbox.History.FirstOrDefault(entry => entry.document == selected));
         }
 
-        private void select(IApprovalDocument doc, ResolvedDocument resolved)
+        private void select(IDocument doc, ResolvedDocument resolved)
         {
             selected = doc;
             for (int i = 0; i < cards.Count; i++) cards[i].SetSelected(cardDocuments[i] == doc);
-            detail.Show(doc, resolved);
+            detail.Show(doc, resolved, inbox.GetArrival(doc));
         }
     }
 }
