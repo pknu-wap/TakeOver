@@ -20,5 +20,6 @@ namespace TakeOver.Documents
         public bool resolved;
         public bool approved;
         public int resolvedTurn;
+        public int arrival;
     }
 }

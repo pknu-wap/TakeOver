@@ -27,20 +27,30 @@ namespace TakeOver.Operations
             optionsRoot.SetActive(false);
             optionTemplate.gameObject.SetActive(false);
             fieldLabel.text = field.label;
-            valueButton.Bind($"{value:P0}{(readOnly ? "" : " ▾")}", () => optionsRoot.SetActive(!optionsRoot.activeSelf), !readOnly);
+            valueButton.Bind($"{formatValue(value, field.format)}{(readOnly ? "" : " ▾")}", () => optionsRoot.SetActive(!optionsRoot.activeSelf), !readOnly);
             if (readOnly) return;
             foreach (float choice in field.options)
             {
                 var button = Instantiate(optionTemplate, optionTemplate.transform.parent, false);
                 button.gameObject.SetActive(true);
-                button.Bind(choice.ToString("P0"), () =>
+                button.Bind(formatValue(choice, field.format), () =>
                 {
                     document.SetField(field.name, choice);
-                    valueButton.Bind($"{choice:P0} ▾", () => optionsRoot.SetActive(!optionsRoot.activeSelf));
+                    valueButton.Bind($"{formatValue(choice, field.format)} ▾", () => optionsRoot.SetActive(!optionsRoot.activeSelf));
                     optionsRoot.SetActive(false);
                     changed();
                 });
                 options.Add(button.gameObject);
+            }
+        }
+
+        private static string formatValue(float value, DocumentValueFormat format)
+        {
+            switch (format)
+            {
+                case DocumentValueFormat.Number: return value.ToString("N0");
+                case DocumentValueFormat.Money: return value.ToString("N0") + "원";
+                default: return value.ToString("P0");
             }
         }
     }

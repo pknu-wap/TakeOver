@@ -12,7 +12,17 @@ namespace TakeOver.Documents
         public Company TargetCompany { get; }
         public int DeadlineTurn { get; }
         public string BodyId => "generic";
-        public string Title => $"{TargetCompany.definition.companyName} 배당 정책";
+        public string Title => "배당 정책";
+        public string Author => "";
+        public string ApproveLabel => "";
+        public string RejectLabel => "";
+        public string DoneLabel => "";
+        public IReadOnlyList<DocumentInfo> InfoRows => new[]
+        {
+            new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
+            new DocumentInfo("현재 배당 비율", $"{TargetCompany.state.getBaseStat(CompanyStat.DIVIDEND_RATIO):P0}"),
+            new DocumentInfo("선택한 비율", $"{fields[0].value:P0}")
+        };
         public IReadOnlyList<DocumentField> Fields => fields;
         public IReadOnlyList<string> BodyLines => new[]
         {

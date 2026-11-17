@@ -14,6 +14,11 @@ namespace TakeOver.Operations
         [SerializeField] private Text title;
         [SerializeField] private Text sender;
         [SerializeField] private Text deadline;
+        [SerializeField] private Text documentNumber;
+        [SerializeField] private Text approveLabel;
+        [SerializeField] private Text rejectLabel;
+        [SerializeField] private GameObject doneButton;
+        [SerializeField] private Text doneLabel;
         [SerializeField] private Transform infoRoot;
         [SerializeField] private DocumentInfoRow infoTemplate;
         [SerializeField] private Transform fieldsRoot;
@@ -47,11 +52,18 @@ namespace TakeOver.Operations
             readOnly = resolved != null;
             documentRoot.SetActive(true);
             emptyMessage.SetActive(false);
-            title.text = string.Join(" ", doc.Title.ToCharArray());
-            sender.text = $"대상 · {doc.TargetCompany?.definition.companyName}";
+            title.text = doc.Title;
+            documentNumber.text = "NO. " + numberFor(doc);
+            sender.gameObject.SetActive(!string.IsNullOrEmpty(doc.Author));
+            sender.text = $"<color=#2C507A>작성자</color> {doc.Author}";
             int remaining = doc.DeadlineTurn - clock.CurrentTurn;
-            deadline.text = remaining < 0 ? "기한 지남" : remaining == 0 ? "오늘 마감" : $"D-{remaining}";
-            deadline.color = remaining <= 0 ? new Color(.73f, .18f, .22f) : new Color(.3f, .34f, .4f);
+            deadline.text = readOnly ? "완료" : remaining < 0 ? "기한 지남" : remaining == 0 ? "오늘 마감" : $"D-{remaining}";
+            deadline.color = new Color(.88f, .08f, .11f);
+            approveLabel.text = string.IsNullOrEmpty(doc.ApproveLabel) ? "승인" : doc.ApproveLabel;
+            rejectLabel.text = string.IsNullOrEmpty(doc.RejectLabel) ? "거절" : doc.RejectLabel;
+            doneButton.SetActive(readOnly);
+            doneLabel.text = string.IsNullOrEmpty(doc.DoneLabel)
+                ? resolved?.approved == true ? "승인 완료" : "거절 완료" : doc.DoneLabel;
             if (doc.BodyId != "generic") Debug.LogWarning($"알 수 없는 문서 본문 {doc.BodyId}: 범용 본문을 사용합니다.");
             refreshInfo(doc, resolved);
             foreach (var field in fields) { field.SetActive(false); Destroy(field); }
@@ -77,19 +89,11 @@ namespace TakeOver.Operations
             foreach (var row in infoRows) { row.SetActive(false); Destroy(row); }
             infoRows.Clear();
             infoTemplate.gameObject.SetActive(false);
-            addInfo("대상 회사", doc.TargetCompany?.definition.companyName ?? "—");
+            foreach (DocumentInfo info in doc.InfoRows) addInfo(info.label, info.value);
             if (resolved != null)
             {
                 addInfo("처리 결과", resolved.approved ? "승인" : "거절");
                 addInfo("처리한 턴", resolved.resolvedTurn.ToString());
-                return;
-            }
-            foreach (string line in doc.BodyLines)
-            {
-                if (line == doc.TargetCompany?.definition.companyName) continue;
-                int colon = line.IndexOf(':');
-                addInfo(colon < 0 ? "내용" : line.Substring(0, colon),
-                    colon < 0 ? line : line.Substring(colon + 1).Trim());
             }
         }
 
@@ -104,6 +108,17 @@ namespace TakeOver.Operations
         private void decide(bool approved)
         {
             if (!readOnly && document != null) Decided?.Invoke(document, approved);
+        }
+
+        private static string numberFor(IApprovalDocument doc)
+        {
+            string key = doc.TypeId + "|" + doc.TargetCompany?.definition.companyID + "|"
+                + doc.DeadlineTurn.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            uint hash = 2166136261;
+            foreach (byte value in System.Text.Encoding.UTF8.GetBytes(key))
+                hash = unchecked((hash ^ value) * 16777619);
+            string digits = (hash % 100000000).ToString("D8");
+            return digits.Substring(0, 4) + "-" + digits.Substring(4);
         }
     }
 }
