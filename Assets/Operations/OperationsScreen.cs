@@ -10,9 +10,9 @@ namespace TakeOver.Operations
         [SerializeField] private GameObject documentsTab;
         [SerializeField] private Text[] subTabLabels;
         [SerializeField] private Image[] subTabBackgrounds;
-        [SerializeField] private Outline[] subTabOutlines;
-        [SerializeField] private GameObject documentPanel;
-        [SerializeField] private GameObject plainFrame;
+        [SerializeField] private Image panel;
+        [SerializeField] private Sprite[] panelSprites;
+        [SerializeField] private Vector2 selectedLabelOffset;
         private TopBarNavigationController navigation;
 
         private void Awake()
@@ -35,20 +35,15 @@ namespace TakeOver.Operations
 
         public void Show(int index)
         {
-            bool documentsSelected = subTabs[index] == documentsTab;
-            documentPanel.SetActive(documentsSelected);
-            plainFrame.SetActive(!documentsSelected);
+            panel.sprite = panelSprites[index];
             for (int i = 0; i < subTabs.Length; i++)
             {
                 bool selected = i == index;
                 subTabs[i].SetActive(selected);
                 subTabLabels[i].fontStyle = selected ? FontStyle.Bold : FontStyle.Normal;
-                bool embeddedLabel = selected && documentsSelected;
-                subTabLabels[i].enabled = !embeddedLabel;
+                subTabLabels[i].rectTransform.anchoredPosition = selected ? selectedLabelOffset : Vector2.zero;
                 subTabLabels[i].color = selected ? Color.white : new Color(.88f, .88f, .88f);
-                subTabBackgrounds[i].color = selected ? new Color(.14f, .21f, .31f) : new Color(.37f, .37f, .37f);
-                if (embeddedLabel) subTabBackgrounds[i].color = Color.clear;
-                subTabOutlines[i].enabled = selected && !embeddedLabel;
+                subTabBackgrounds[i].enabled = !selected;
             }
         }
 
