@@ -14,6 +14,24 @@ namespace TakeOver.Events
     public enum EventChoiceGeneration { Fixed, OwnedCompanies }
 
     [Serializable]
+    public sealed class EventDialogueLine
+    {
+        public string npcId;
+        public string text;
+        public bool player;
+        public bool narration;
+        public int scene;
+    }
+
+    [Serializable]
+    public sealed class EventCompanyVariant
+    {
+        public string companyId, title, description;
+        public List<EventDialogueLine> openingLines = new List<EventDialogueLine>();
+        public List<EventChoice> choices = new List<EventChoice>();
+    }
+
+    [Serializable]
     public sealed class EventNpcArt
     {
         public string npcId;
@@ -60,6 +78,8 @@ namespace TakeOver.Events
         [SerializeField] private float stockSurgeMaxRatio;
         [SerializeField] private float buybackPremiumRatio;
         [SerializeField] private List<PlayerMemoryGrant> playerMemories = new List<PlayerMemoryGrant>();
+        [SerializeField] private List<EventDialogueLine> resultLines = new List<EventDialogueLine>();
+        public IReadOnlyList<EventDialogueLine> ResultLines => resultLines;
 
         public string getText() => choiceText;
         public string getDescription() => choiceDescription;
@@ -103,6 +123,8 @@ namespace TakeOver.Events
         [SerializeField] private string eventId;
         [SerializeField] private EventCategory category;
         public bool IsStory => category == EventCategory.Story;
+        [SerializeField] private bool linearDialogue;
+        public bool IsLinearDialogue => linearDialogue;
         [SerializeField] private bool tutorialOnly;
         public bool IsTutorialOnly => tutorialOnly;
         [SerializeField] private string title;
@@ -127,6 +149,28 @@ namespace TakeOver.Events
         [SerializeField] private EventSpeakerSource speakerSource;
         [SerializeField] private EventChoiceGeneration choiceGeneration;
         [SerializeField] private List<EventRestructuringSpeaker> restructuringSpeakers = new List<EventRestructuringSpeaker>();
+        [SerializeField] private bool repeatable;
+        [SerializeField] private int repeatCooldown = 3;
+        [SerializeField] private string repeatGroup;
+        [SerializeField] private bool firstContact;
+        [SerializeField] private int campaignDay;
+        [SerializeField] private int missionStartDay;
+        [SerializeField] private string prerequisiteEventId;
+        [SerializeField] private List<string> prerequisiteEventIds = new List<string>();
+        [SerializeField] private string failureSignal;
+        [SerializeField] private List<EventDialogueLine> openingLines = new List<EventDialogueLine>();
+        [SerializeField] private List<EventCompanyVariant> companyVariants = new List<EventCompanyVariant>();
+        public bool Repeatable => repeatable;
+        public int RepeatCooldown => Mathf.Max(1, repeatCooldown);
+        public string RepeatGroup => repeatGroup;
+        public bool FirstContact => firstContact;
+        public int CampaignDay => campaignDay;
+        public int MissionStartDay => missionStartDay;
+        public string PrerequisiteEventId => prerequisiteEventId;
+        public IReadOnlyList<string> PrerequisiteEventIds => prerequisiteEventIds;
+        public string FailureSignal => failureSignal;
+        public IReadOnlyList<EventDialogueLine> OpeningLines => openingLines;
+        public EventCompanyVariant Variant(string companyId) => companyVariants.Find(item => item.companyId == companyId);
 
         public IReadOnlyList<EventCondition> getConditions() => conditions.AsReadOnly();
         public int getValidDays() => Mathf.Max(1, validDays);

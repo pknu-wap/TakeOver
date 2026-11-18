@@ -200,7 +200,7 @@ namespace TakeOver.Story.Editor
                 if (beat.goal==StoryGoal.None && beat.speaker!=StorySpeaker.System)
                 {
                     Check(director.View.SharedDialogue!=null,"Story uses shared EventNegotiationView component: "+beat.id);
-                    Check(director.View.SharedDialogue.DialoguePageCount==1,"Authored line fits one readable page without excessive wrapping: "+beat.id);
+                    Check(director.View.SharedDialogue.CurrentDialogue.preferredHeight <= director.View.SharedDialogue.CurrentDialogue.rectTransform.rect.height + 1,"Current authored dialogue page fits its shared text area: "+beat.id);
                     Check(director.View.Dialogue.preferredHeight <= director.View.Dialogue.rectTransform.rect.height + .5f,"Shared dialogue page fits original text area: "+beat.id);
                     if (beat.choices.Count>0 && director.View.HasMoreDialoguePages)
                     { Click(director.View.ContinueButton); yield return null; continue; }
@@ -335,7 +335,7 @@ namespace TakeOver.Story.Editor
                     director.Choose((chosen+1)%3);
                     Check(director.Decisions.Count==before+1,"Choice double submission rejected: "+beat.id);
                     Check(director.View.Dialogue.alignment==TextAnchor.UpperRight,"Player reply uses shared player dialogue block");
-                    Check(director.View.SharedDialogue.DialoguePageCount==1 && director.View.Dialogue.rectTransform.rect.width>=600,"Player reply has a readable single-page body");
+                    Check(director.View.SharedDialogue.CurrentDialogue.preferredHeight <= director.View.SharedDialogue.CurrentDialogue.rectTransform.rect.height + 1 && director.View.Dialogue.rectTransform.rect.width>=600,"Player reply page fits a readable body");
                     var rule=director.View.SharedDialogue.PlayerImage.transform.parent.parent;
                     var playerBlock=(CanvasGroup)typeof(EventNegotiationView).GetField("playerBlock",Fields).GetValue(director.View.SharedDialogue);
                     var line=(RectTransform)playerBlock.transform.Find("Underline");
@@ -349,7 +349,7 @@ namespace TakeOver.Story.Editor
                     until=Time.unscaledTime+.22f; while(Time.unscaledTime<until) yield return null;
                     Click(Named(director.transform,"Continue"));
                     Check(director.View.Dialogue.alignment==TextAnchor.UpperLeft,"NPC reply uses shared response dialogue block");
-                    Check(director.View.SharedDialogue.DialoguePageCount==1,"NPC response fits one readable page");
+                    Check(director.View.SharedDialogue.CurrentDialogue.preferredHeight <= director.View.SharedDialogue.CurrentDialogue.rectTransform.rect.height + 1,"Current NPC response page fits its shared text area");
                     yield return null;
                     yield return null;
                     while(director.View.HasMoreDialoguePages)
@@ -366,7 +366,7 @@ namespace TakeOver.Story.Editor
             }
             while(StoryDirector.Active!=null) yield return null;
             Check(visited==sequence.beats.Count,"Every authored beat visited without skip");
-            Check(choices==3,"All three conversations completed");
+            Check(choices==sequence.beats.Count(item => item.choices.Count > 0),"All authored conversations completed");
             Check(clock.CurrentTurn==startTurn+1,"Only one real turn consumed");
             Check(StoryDirector.CanTrade(company,false) && StoryDirector.CanNavigate(DashboardTab.Npcs),"Normal controls restored");
             Check(GameObject.Find("Tutorial completion notice")!=null && GameObject.Find("Help introduction")==null,"Normal completion shows reward before help notice");

@@ -207,7 +207,7 @@ namespace TakeOver.Story.Editor
                     if(director.View.HasMoreDialoguePages)
                     { Click(director.View.ContinueButton); yield return null; continue; }
                     int[] answers = {2,1,0};
-                    Click(Button(director.transform,"Choice"+answers[choices++]));
+                    Click(Button(director.transform,"Choice"+answers[choices++ % answers.Length]));
                     yield return new WaitForSeconds(.24f);
                     Click(Button(director.transform,"Skip to choice"));
                     director.SkipToNextChoice();
@@ -221,11 +221,11 @@ namespace TakeOver.Story.Editor
             }
             while (StoryDirector.Active != null) yield return null;
             Check(goals.Count == 14,"Dialogue skipping still requires all 14 learning objectives");
-            Check(choices == 3,"No introductory choice was auto-selected");
+            Check(choices == sequence.beats.Count(beat => beat.choices.Count > 0),"No introductory choice was auto-selected");
             var clock=Object.FindFirstObjectByType<GameTurnClock>();
             Check(clock.CurrentTurn==2,"Dialogue skipping advances the actual day once");
             var registry=Object.FindFirstObjectByType<NpcStateRegistry>();
-            Check(registry.States.Sum(s=>s.memories.Count)==4,"Three conversations and one event record memories without duplicates");
+            Check(registry.States.Sum(s=>s.memories.Count)==choices + 1,"All conversations and one event record memories without duplicates");
             Check(Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId).state.getStat(CompanyStat.PLAYER_SHARES)==51,"Initial buy, additional buy and first sale complete with 50 bonus shares");
             Check(Object.FindFirstObjectByType<TakeOver.Events.EventSystemController>().tryGetChoice(StoryDirector.TutorialEventId,out int selected) && selected==0,"General event choice committed during guided playback");
             Check(Object.FindFirstObjectByType<DashboardCardSlide>().MainCard.gameObject.activeInHierarchy,"Guided completion restores remaining real event cards");

@@ -1,0 +1,602 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: main_hansung_02
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: main_hansung_02
+  category: 1
+  linearDialogue: 0
+  tutorialOnly: 0
+  title: "\uB124 \uD68C\uC0AC\uC758 \uC7A5\uBD80\uAC00 \uB9CC\uB098\uB294 \uACF3"
+  image: {fileID: 21300000, guid: e4f06f328acf53c4385995fb1f2c1e65, type: 3}
+  cardImage: {fileID: 21300000, guid: d04aa39026668454991718ef00702904, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uBCF4\uACE0\uC11C\uC5D0 \uC801\uD78C \uD68C\uC0AC\uB294 \uB137\uC774\uB2E4.
+    \uC790\uAE08\uACFC \uAC70\uB798 \uCC3D\uAD6C\uB97C \uB530\uB77C\uAC00\uB2C8 \uBA87
+    \uC904\uC774 \uAC19\uC740 \uACF3\uC5D0\uC11C \uB9CC\uB0AC\uB2E4. \uB2E4\uC74C\uC5D0\uB294
+    \uB204\uAD6C\uC5D0\uAC8C \uC5B4\uB5A4 \uAE30\uB85D\uC744 \uBB3C\uC744\uC9C0 \uC815\uD574\uC57C
+    \uD55C\uB2E4."
+  apCost: 0
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds:
+  - hansung-industry
+  speakerNpcId: npc-investigative-reporter-jung-sua
+  speakerName: "\uC815\uC218\uC544"
+  speakerRole:
+  dialogue: "\uACF5\uAC1C \uAC70\uB798 \uAD00\uACC4\uC640 \uC0AC\uC5C5 \uCC38\uC5EC
+    \uC790\uB8CC\uB97C \uB9DE\uCDB0\uBD24\uC5B4\uC694. APEX\uAC00 \uC774 \uC0AC\uC5C5\uB4E4\uC5D0
+    \uAD00\uC5EC\uD588\uB358 \uAC74 \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+    \uB2E4\uB9CC \uB204\uAC00 \uC2E4\uC81C\uB85C \uC870\uAC74\uC744 \uBC14\uAFE8\uACE0
+    \uBB34\uC5C7\uC774 \uACC4\uC57D\uC744 \uC5B4\uAE34 \uC77C\uC778\uC9C0\uB294 \uC544\uC9C1
+    \uB354 \uBD10\uC57C \uD574\uC694."
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uBBF8\uB798\uAC74\uC124 \uAC70\uB798\uBD80\uD130 \uC0B4\uD540\uB2E4"
+    choiceDescription:
+    playerLine: "\uBBF8\uB798\uAC74\uC124\uC758 \uD604\uC7A5 \uC778\uACC4\uC640 \uC815\uC0B0\uBD80\uD130
+      \uB530\uB77C\uAC00\uACA0\uC2B5\uB2C8\uB2E4. \uADF8 \uB2E4\uC74C\uC5D0 \uC5F0\uACB0\uB41C
+      \uAC70\uB798\uCC98\uC758 \uC124\uBA85\uC744 \uB4E3\uC8E0."
+    resultDialogue: "\uACF5\uC0AC\uAC00 \uB05D\uB09C \uB4A4 \uB204\uAC00 \uC77C\uC744
+      \uC774\uC5B4\uBC1B\uC558\uB294\uC9C0\uBD80\uD130\uC694. \uC55E\uC5D0\uC11C
+      \uBC1B\uC740 \uB0A0\uC9DC\uB4E4\uC744 \uCC59\uACA8\uB450\uC138\uC694. \uB2E4\uC74C
+      \uC124\uBA85\uACFC \uB9DE\uCDB0\uBCFC \uC218 \uC788\uC744 \uAC70\uC608\uC694."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds: []
+      targetReactions: []
+      memoryType: 0
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation:
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uBBF8\uB798\uAC74\uC124\uC758 \uD604\uC7A5 \uC778\uACC4\uC640 \uC815\uC0B0\uBD80\uD130
+        \uB530\uB77C\uAC00\uACA0\uC2B5\uB2C8\uB2E4. \uADF8 \uB2E4\uC74C\uC5D0 \uC5F0\uACB0\uB41C
+        \uAC70\uB798\uCC98\uC758 \uC124\uBA85\uC744 \uB4E3\uC8E0."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-investigative-reporter-jung-sua
+      text: "\uACF5\uC0AC\uAC00 \uB05D\uB09C \uB4A4 \uB204\uAC00 \uC77C\uC744 \uC774\uC5B4\uBC1B\uC558\uB294\uC9C0\uBD80\uD130\uC694.
+        \uC55E\uC5D0\uC11C \uBC1B\uC740 \uB0A0\uC9DC\uB4E4\uC744 \uCC59\uACA8\uB450\uC138\uC694.
+        \uB2E4\uC74C \uC124\uBA85\uACFC \uB9DE\uCDB0\uBCFC \uC218 \uC788\uC744 \uAC70\uC608\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uD558\uB298\uC2DD\uD488 \uAC70\uB798\uBD80\uD130 \uC0B4\uD540\uB2E4"
+    choiceDescription:
+    playerLine: "\uD558\uB298\uC2DD\uD488\uC758 \uD310\uB9E4\uC640 \uC81C\uD488 \uC804\uD658\uBD80\uD130
+      \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uC870\uAC74\uC744 \uC815\uD55C \uCABD\uC5D0\uC11C\uB294
+      \uC5B4\uB5A4 \uC124\uBA85\uC744 \uD558\uB294\uC9C0 \uB4E3\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4."
+    resultDialogue: "\uB0A9\uD488\uD55C \uB4A4 \uB3C8\uC774 \uB3CC\uC544\uC624\uB294
+      \uAE38\uB3C4 \uAC19\uC774 \uBCF4\uC138\uC694. \uC81C\uD488\uC744 \uBC14\uAFB8\uB77C\uB294
+      \uB9D0\uC774 \uC5B4\uB514\uC11C \uC2DC\uC791\uB410\uB294\uC9C0 \uC9C8\uBB38\uC774
+      \uC774\uC5B4\uC9C8 \uAC70\uC608\uC694."
+    resultValue: answer_1
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds: []
+      targetReactions: []
+      memoryType: 0
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation:
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uD558\uB298\uC2DD\uD488\uC758 \uD310\uB9E4\uC640 \uC81C\uD488 \uC804\uD658\uBD80\uD130
+        \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uC870\uAC74\uC744 \uC815\uD55C \uCABD\uC5D0\uC11C\uB294
+        \uC5B4\uB5A4 \uC124\uBA85\uC744 \uD558\uB294\uC9C0 \uB4E3\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-investigative-reporter-jung-sua
+      text: "\uB0A9\uD488\uD55C \uB4A4 \uB3C8\uC774 \uB3CC\uC544\uC624\uB294 \uAE38\uB3C4
+        \uAC19\uC774 \uBCF4\uC138\uC694. \uC81C\uD488\uC744 \uBC14\uAFB8\uB77C\uB294
+        \uB9D0\uC774 \uC5B4\uB514\uC11C \uC2DC\uC791\uB410\uB294\uC9C0 \uC9C8\uBB38\uC774
+        \uC774\uC5B4\uC9C8 \uAC70\uC608\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uB3D9\uBC29\uBB3C\uC0B0 \uAC70\uB798\uBD80\uD130 \uC0B4\uD540\uB2E4"
+    choiceDescription:
+    playerLine: "\uB3D9\uBC29\uBB3C\uC0B0\uC774 \uAE30\uB2E4\uB838\uB358 \uBB3C\uB7C9\uBD80\uD130
+      \uB530\uB77C\uAC00\uACA0\uC2B5\uB2C8\uB2E4. \uAC70\uC810\uC744 \uC6C0\uC9C1\uC778
+      \uCABD\uC758 \uAE30\uB85D\uB3C4 \uD568\uAED8 \uCC3E\uC544\uBCF4\uC8E0."
+    resultDialogue: "\uD655\uC815\uB410\uB2E4\uB294 \uB9D0\uACFC \uC2E4\uC81C \uBC18\uC785\uC744
+      \uB098\uB220\uBCF4\uC138\uC694. \uBC15 \uBD80\uC7A5\uB2D8\uC774 \uC9DA\uC740
+      \uB0A0\uC9DC\uAC00 \uB2E4\uC74C \uC0C1\uB300\uC5D0\uAC8C\uB3C4 \uAC19\uC740
+      \uB0A0\uC9DC\uC778\uC9C0 \uBB3C\uC5B4\uBCF4\uC2DC\uACE0\uC694."
+    resultValue: answer_2
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds: []
+      targetReactions: []
+      memoryType: 0
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation:
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uB3D9\uBC29\uBB3C\uC0B0\uC774 \uAE30\uB2E4\uB838\uB358 \uBB3C\uB7C9\uBD80\uD130
+        \uB530\uB77C\uAC00\uACA0\uC2B5\uB2C8\uB2E4. \uAC70\uC810\uC744 \uC6C0\uC9C1\uC778
+        \uCABD\uC758 \uAE30\uB85D\uB3C4 \uD568\uAED8 \uCC3E\uC544\uBCF4\uC8E0."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-investigative-reporter-jung-sua
+      text: "\uD655\uC815\uB410\uB2E4\uB294 \uB9D0\uACFC \uC2E4\uC81C \uBC18\uC785\uC744
+        \uB098\uB220\uBCF4\uC138\uC694. \uBC15 \uBD80\uC7A5\uB2D8\uC774 \uC9DA\uC740
+        \uB0A0\uC9DC\uAC00 \uB2E4\uC74C \uC0C1\uB300\uC5D0\uAC8C\uB3C4 \uAC19\uC740
+        \uB0A0\uC9DC\uC778\uC9C0 \uBB3C\uC5B4\uBCF4\uC2DC\uACE0\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uD55C\uC131\uACF5\uC5C5 \uAC70\uB798\uBD80\uD130 \uC0B4\uD540\uB2E4"
+    choiceDescription:
+    playerLine: "\uD55C\uC131\uACF5\uC5C5\uC758 \uC124\uBE44\uC640 \uC0DD\uC0B0 \uC804\uD658\uBD80\uD130
+      \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uB3C8\uC774 \uC6C0\uC9C1\uC778 \uB54C\uC640
+      \uD604\uC7A5 \uACB0\uC815\uC774 \uB9DE\uB294\uC9C0\uB3C4 \uD655\uC778\uD558\uACE0
+      \uC2F6\uC2B5\uB2C8\uB2E4."
+    resultDialogue: "\uACAC\uC801\uC11C\uC640 \uC2E4\uC81C \uC791\uC5C5 \uC0AC\uC774\uB97C
+      \uBCF4\uB824\uB294 \uAC70\uAD70\uC694. \uC870 \uB300\uD45C\uB2D8\uACFC \uCD5C
+      \uC774\uC0AC\uB2D8\uC774 \uAC01\uAC01 \uC9DA\uC740 \uBD80\uBD84\uC744 \uB530\uB85C
+      \uCC59\uACA8\uB450\uC138\uC694."
+    resultValue: answer_3
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds: []
+      targetReactions: []
+      memoryType: 0
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation:
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uD55C\uC131\uACF5\uC5C5\uC758 \uC124\uBE44\uC640 \uC0DD\uC0B0 \uC804\uD658\uBD80\uD130
+        \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uB3C8\uC774 \uC6C0\uC9C1\uC778 \uB54C\uC640
+        \uD604\uC7A5 \uACB0\uC815\uC774 \uB9DE\uB294\uC9C0\uB3C4 \uD655\uC778\uD558\uACE0
+        \uC2F6\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-investigative-reporter-jung-sua
+      text: "\uACAC\uC801\uC11C\uC640 \uC2E4\uC81C \uC791\uC5C5 \uC0AC\uC774\uB97C
+        \uBCF4\uB824\uB294 \uAC70\uAD70\uC694. \uC870 \uB300\uD45C\uB2D8\uACFC \uCD5C
+        \uC774\uC0AC\uB2D8\uC774 \uAC01\uAC01 \uC9DA\uC740 \uBD80\uBD84\uC744 \uB530\uB85C
+        \uCC59\uACA8\uB450\uC138\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 0
+  campaignDay: 29
+  missionStartDay: 0
+  prerequisiteEventId: main_hansung_01
+  prerequisiteEventIds: []
+  failureSignal:
+  openingLines:
+  - npcId: npc-investigative-reporter-jung-sua
+    text: "\uACF5\uAC1C \uAC70\uB798 \uAD00\uACC4\uC640 \uC0AC\uC5C5 \uCC38\uC5EC
+      \uC790\uB8CC\uB97C \uB9DE\uCDB0\uBD24\uC5B4\uC694. APEX\uAC00 \uC774 \uC0AC\uC5C5\uB4E4\uC5D0
+      \uAD00\uC5EC\uD588\uB358 \uAC74 \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+      \uB2E4\uB9CC \uB204\uAC00 \uC2E4\uC81C\uB85C \uC870\uAC74\uC744 \uBC14\uAFE8\uACE0
+      \uBB34\uC5C7\uC774 \uACC4\uC57D\uC744 \uC5B4\uAE34 \uC77C\uC778\uC9C0\uB294
+      \uC544\uC9C1 \uB354 \uBD10\uC57C \uD574\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uB124 \uD68C\uC0AC\uAC00 \uBAA8\uB450 \uAC19\uC740 \uACC4\uC57D\uC744
+      \uD55C \uAC74 \uC544\uB2D9\uB2C8\uB2E4. \uADF8\uB7F0\uB370 \uBE44\uC6A9\uC744
+      \uBA3C\uC800 \uC9C0\uACE0, \uC870\uAC74\uC774 \uBC14\uB010 \uB4A4 \uB0A8\uC740
+      \uBD80\uB2F4\uC744 \uB5A0\uC548\uC558\uC5B4\uC694."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-investigative-reporter-jung-sua
+    text: "\uB124. \uADF8 \uACB0\uACFC\uC640 \uACC4\uC57D \uC704\uBC18\uC744 \uC785\uC99D\uD558\uB294
+      \uC77C\uC740 \uAD6C\uBD84\uD574\uC57C \uD569\uB2C8\uB2E4. \uC2E4\uC81C\uB85C
+      \uAC70\uB798\uB97C \uC9D1\uD589\uD55C \uACC4\uC5F4\uC0AC\uC640 \uD611\uB825\uC0AC
+      \uCABD \uAE30\uB85D\uC774 \uD544\uC694\uD574\uC694. \uB204\uAC00 \uBB34\uC5C7\uC744
+      \uC54C\uACE0 \uC788\uC5C8\uB294\uC9C0\uB3C4\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-economic-reporter-lee-mingyu
+    text: "\uADF8\uAC78 \uD68C\uC0AC\uB9C8\uB2E4 \uB2E4\uB974\uAC8C \uC124\uBA85\uD574\uC654\uB124\uC694.
+      \uD310\uB9E4 \uD655\uB300\uAC00 \uC548 \uB410\uB2E4, \uBB3C\uB7C9\uC774 \uC904\uC5C8\uB2E4,
+      \uC0C8 \uC8FC\uBB38\uC774 \uB04A\uACBC\uB2E4. \uB2F9\uC2DC \uAE30\uC0AC\uB3C4
+      \uADF8 \uB2E8\uC704\uB85C \uB098\uC654\uACE0\uC694. \uADF8 \uC124\uBA85\uC774
+      \uC804\uBD80 \uAC70\uC9D3\uC774\uC5C8\uB2E4\uB294 \uB73B\uC740 \uC544\uB2D9\uB2C8\uB2E4.
+      \uB204\uAC00 \uC65C \uBC14\uAFE8\uB294\uC9C0\uAC00 \uBE60\uC838 \uC788\uC5C8\uB358
+      \uAC70\uC8E0."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-institutional-investor-kim-taeseong
+    text: "\uADF8 \uB4A4\uC5D0\uB3C4 \uAC01 \uD68C\uC0AC\uAC00 \uBB34\uC2A8 \uACB0\uC815\uC744
+      \uD588\uB294\uC9C0 \uBCF4\uC154\uC57C \uD569\uB2C8\uB2E4. \uACFC\uAC70 \uD53C\uD574\uAC00
+      \uC788\uB2E4\uACE0 \uD604\uC7AC \uD22C\uC790 \uC704\uD5D8\uC774 \uC0AC\uB77C\uC9C0\uC9C0\uB294
+      \uC54A\uC73C\uB2C8\uAE4C\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-political-lobbyist-park-sanghyeon
+    text: "\uACF5\uAC1C\uB85C \uD655\uC778\uD560 \uC218 \uC788\uB294 \uACBD\uB85C\uC640
+      \uB2E4\uC74C\uC5D0 \uC815\uC2DD \uC9C8\uC758\uD560 \uC0C1\uB300\uB294 \uB098\uB220\uB4DC\uB9B4
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uB204\uAD70\uAC00 \uB300\uC2E0 \uC815\uB9AC\uD574\uC904
+      \uAC70\uB77C\uACE0 \uAE30\uB2E4\uB9B4 \uB2E8\uACC4\uB294 \uC544\uB2CC \uAC83
+      \uAC19\uAD70\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uC774\uC81C \uC5EC\uAE30\uC11C \uBB58 \uD560 \uC0DD\uAC01\uC774\uC138\uC694?"
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uCC98\uC74C\uC5D0\uB294 \uC81C \uC77C\uC744 \uB418\uAC1A\uC744 \uD798\uC774
+      \uD544\uC694\uD588\uC2B5\uB2C8\uB2E4. \uADF8\uB798\uC11C \uD68C\uC0AC\uB97C
+      \uBCF4\uACE0, \uC8FC\uC2DD\uC744 \uC0C0\uACE0\uC694. \uADF8\uB7F0\uB370 \uADF8
+      \uC774\uB984\uC774 \uC5EC\uAE30\uC5D0\uB3C4 \uB0A8\uC544 \uC788\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uADF8\uB7FC \uC0C1\uB300\uAC00 \uB204\uAD70\uC9C0\uB294 \uC804\uBCF4\uB2E4
+      \uBD84\uBA85\uD574\uC84C\uB124\uC694. \uB2E4\uB978 \uC0AC\uB78C\uB4E4\uAE4C\uC9C0
+      \uB2F9\uC2E0\uACFC \uAC19\uC740 \uC120\uD0DD\uC744 \uD560 \uAC70\uB77C\uACE0
+      \uC0DD\uAC01\uD558\uC9C0\uB294 \uB9C8\uC138\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC54C\uACE0 \uC788\uC2B5\uB2C8\uB2E4. \uD68C\uC0AC\uB4E4\uC740 \uC9C0\uAE08\uB3C4
+      \uC790\uAE30 \uC77C\uC744 \uD574\uC57C \uD569\uB2C8\uB2E4. \uADF8\uAC78 \uBB34\uC2DC\uD558\uACE0
+      \uC81C \uC2F8\uC6C0\uC5D0 \uB04C\uC5B4\uB4E4\uC774\uBA74 \uC81C\uAC00 \uBCF4\uB7EC
+      \uC654\uB358 \uAC83\uBD80\uD130 \uB9DD\uCE60 \uC218 \uC788\uACA0\uC8E0."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uB098\uB294 APEX\uC758 \uC774\uB984\uC744 \uB124 \uD68C\uC0AC\uC758 \uC774\uB984
+      \uC704\uC5D0 \uC4F0\uC9C0 \uC54A\uC558\uB2E4. \uBCC4\uB3C4 \uC885\uC774\uC5D0
+      \uC801\uACE0, \uD655\uC778\uD55C \uAC70\uB798\uB9CC \uC120\uC73C\uB85C \uC774\uC5C8\uB2E4.
+      \uC544\uC9C1 \uB2FF\uC9C0 \uC54A\uC740 \uACF3\uB3C4 \uB0A8\uACA8\uB480\uB2E4."
+    player: 0
+    narration: 1
+    scene: 0
+  - npcId:
+    text: "\uC0AC\uBB34\uC2E4\uC5D0 \uB3CC\uC544\uC640 \uC790\uB8CC\uB97C \uB124
+      \uBB36\uC74C\uC73C\uB85C \uB098\uB234\uB2E4. \uAC19\uC740 \uCE78\uC5D0 \uAC19\uC740
+      \uC22B\uC790\uB97C \uC801\uC5B4\uB3C4 \uD68C\uC0AC\uB9C8\uB2E4 \uADF8 \uC22B\uC790\uAC00
+      \uB73B\uD558\uB294 \uC77C\uC740 \uB2EC\uB790\uB2E4."
+    player: 0
+    narration: 1
+    scene: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uC774\uC81C \uC5B4\uB290 \uD68C\uC0AC\uAC00 \uC81C\uC77C \uC2F8 \uBCF4\uC774\uC138\uC694?"
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC544\uC9C1 \uADF8 \uC9C8\uBB38\uBD80\uD130\uB294 \uBABB \uD558\uACA0\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uCC98\uC74C\uBCF4\uB2E4 \uC624\uB798 \uAC78\uB9AC\uB294 \uB2F5\uC774\uB124\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uBBF8\uB798\uAC74\uC124\uC740 \uBC1B\uC744 \uB3C8\uC774 \uB4E4\uC5B4\uC624\uAE30
+      \uC804\uC5D0 \uD604\uC7A5\uC774 \uBA48\uCD9C \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+      \uD558\uB298\uC2DD\uD488\uC740 \uB9CE\uC774 \uD314\uC544\uB3C4 \uB098\uC911
+      \uC815\uC0B0\uC744 \uBD10\uC57C \uD558\uACE0\uC694."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uB3D9\uBC29\uD558\uACE0 \uD55C\uC131\uC740\uC694?"
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uB3D9\uBC29\uC740 \uBE68\uB77C\uC9C4 \uBB3C\uB7C9 \uC606\uC5D0 \uB204\uAC00
+      \uBB34\uC5C7\uC744 \uB354 \uB9E1\uB294\uC9C0 \uBD10\uC57C \uD569\uB2C8\uB2E4.
+      \uD55C\uC131\uC740 \uAE30\uACC4\uAC00 \uB0A8\uC544\uB3C4 \uADF8\uAC78 \uB2E4\uB8F0
+      \uC0AC\uB78C\uC774 \uC5C6\uC73C\uBA74 \uB2E4\uB978 \uD68C\uC0AC\uAC00 \uB420
+      \uC218 \uC788\uACE0\uC694."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uADF8\uB7FC \uC774\uC81C \uB2E4 \uC544\uC168\uC2B5\uB2C8\uAE4C?"
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uBB3C\uC5B4\uBCFC \uAC8C \uB298\uC5C8\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uADF8 \uC815\uB3C4\uBA74 \uB410\uC5B4\uC694. \uC624\uB298 \uB124 \uD68C\uC0AC\uB97C
+      \uC804\uBD80 \uB9E1\uC744 \uC0DD\uAC01\uC740 \uC544\uB2C8\uC2E4 \uD14C\uB2C8\uAE4C."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uD68C\uC0AC \uBC16 \uC0AC\uB78C\uB4E4\uB3C4 \uB611\uAC19\uB354\uAD70\uC694.
+      \uAE30\uC790\uB77C\uACE0 \uAC19\uC740 \uAC78 \uBB3B\uC9C0 \uC54A\uACE0, \uD22C\uC790\uC790\uB77C\uACE0
+      \uB3C8\uBD80\uD130 \uAEBC\uB0B4\uC9C0\uB3C4 \uC54A\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uBC15 \uC120\uC0DD\uB2D8\uC740\uC694?"
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC5B4\uB514\uAE4C\uC9C0 \uB9E1\uAE38 \uC218 \uC788\uB294\uC9C0 \uBA3C\uC800
+      \uC815\uD574\uC57C\uACA0\uC8E0. \uB2F9\uC2E0\uD55C\uD14C\uB3C4 \uB9C8\uCC2C\uAC00\uC9C0\uACE0\uC694."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uB124. \uC81C\uAC00 \uC18C\uAC1C\uD55C \uAC70\uB798\uB3C4 \uB530\uB85C
+      \uBCF4\uC138\uC694. \uC218\uC218\uB8CC\uB97C \uBC1B\uB294 \uC0AC\uB78C\uC5D0\uAC8C
+      \uC88B\uC740 \uAC70\uB798\uC640 \uB2F9\uC2E0\uC5D0\uAC8C \uC88B\uC740 \uAC70\uB798\uAC00
+      \uC5B8\uC81C\uB098 \uAC19\uC9C0\uB294 \uC54A\uC73C\uB2C8\uAE4C\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-broker-yoon-hajin
+    text: "\uADF8\uB7EC\uBA74 \uB2E4\uC74C\uC5D0\uB294 \uC5B4\uB290 \uD68C\uC0AC\uB97C
+      \uB354 \uBCF4\uC2E4\uB798\uC694? \uD55C \uAD70\uB370\uB97C \uACE0\uB978\uB2E4\uACE0
+      \uB098\uBA38\uC9C0 \uC5F0\uB77D\uC744 \uB04A\uC744 \uD544\uC694\uB294 \uC5C6\uC5B4\uC694.
+      \uB2E4\uB9CC \uC2DC\uAC04\uC744 \uC5B4\uB514\uC5D0 \uBA3C\uC800 \uC4F8\uC9C0\uB294
+      \uC815\uD558\uC154\uC57C\uC8E0."
+    player: 0
+    narration: 0
+    scene: 0
+  companyVariants: []

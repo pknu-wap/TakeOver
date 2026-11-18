@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System.Linq;
+using TakeOver.SaveSystem;
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
 #endif
@@ -20,6 +22,15 @@ namespace TakeOver.MainMenu
         {
             if (skipIntroToggle != null) skipIntroToggle.SetIsOnWithoutNotify(false);
             tutorialPrompt.SetActive(false);
+            var continueButton = gameObject.scene.GetRootGameObjects()
+                .SelectMany(root => root.GetComponentsInChildren<Button>(true))
+                .FirstOrDefault(button => button.name == "ContinueButton");
+            if (continueButton != null)
+            {
+                continueButton.onClick.RemoveAllListeners();
+                continueButton.onClick.AddListener(startContinue);
+                continueButton.interactable = new SaveFileStorage(GameSaveManager.SaveDirectory).exists();
+            }
         }
 
         public void showNewGamePrompt()
@@ -51,6 +62,19 @@ namespace TakeOver.MainMenu
             if (starting) return;
             starting = true;
             TakeOver.Story.StoryLaunch.RequestNewGame(skipIntroToggle != null && skipIntroToggle.isOn);
+            LoadGameScene();
+        }
+
+        public void startContinue()
+        {
+            if (starting || !new SaveFileStorage(GameSaveManager.SaveDirectory).exists()) return;
+            starting = true;
+            GameSessionCoordinator.RequestContinue();
+            LoadGameScene();
+        }
+
+        private void LoadGameScene()
+        {
 #if UNITY_EDITOR
             EditorSceneManager.LoadSceneInPlayMode(nextScenePath, new LoadSceneParameters(LoadSceneMode.Single));
 #else

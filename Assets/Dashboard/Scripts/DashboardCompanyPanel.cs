@@ -27,6 +27,7 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
         if (turnClock != null) turnClock.TurnAdvanced += onTurnAdvanced;
         if (turnClock != null) turnClock.TurnRestored += onTurnAdvanced;
         if (eventController != null) eventController.choiceConfirmed += onEventConfirmed;
+        if (eventController != null) eventController.todayEventsChanged += onEventsChanged;
         if (detailPanel != null) detailPanel.OnTraded += refresh;
         refresh();
     }
@@ -37,6 +38,7 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
         if (turnClock != null) turnClock.TurnAdvanced -= onTurnAdvanced;
         if (turnClock != null) turnClock.TurnRestored -= onTurnAdvanced;
         if (eventController != null) eventController.choiceConfirmed -= onEventConfirmed;
+        if (eventController != null) eventController.todayEventsChanged -= onEventsChanged;
         if (detailPanel != null) detailPanel.OnTraded -= refresh;
     }
 
@@ -48,6 +50,7 @@ public sealed class DashboardCompanyPanel : MonoBehaviour
 
     private void onTurnAdvanced(int turn) => refreshPending = true;
     private void onEventConfirmed(TakeOver.Events.ChoiceConfirmedInfo info) => refreshPending = true;
+    private void onEventsChanged() => refreshPending = true;
 
     private void LateUpdate()
     {

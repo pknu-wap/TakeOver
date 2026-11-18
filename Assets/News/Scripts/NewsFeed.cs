@@ -4,7 +4,7 @@ using TakeOver.NPC;
 using UnityEngine;
 
 // 지금까지 나온 뉴스를 모아 두는 곳. 화면이 닫혀 있어도 하루 마감을 들어야 하므로 항상 켜진 오브젝트에 붙인다.
-public class NewsFeed : MonoBehaviour
+public partial class NewsFeed : MonoBehaviour
 {
     [Tooltip("시장 이벤트를 연결하기 전까지 하루 마감마다 임시 뉴스를 만들지")]
     [SerializeField] private bool useDummyNews = true;
