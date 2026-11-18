@@ -42,17 +42,25 @@ namespace TakeOver.Events
             return !string.IsNullOrEmpty(item.RepeatGroup) || CompanyStoryStarted(companyId);
         }
         private string RepeatKey(EventDefinition item, string companyId) => string.IsNullOrEmpty(item.RepeatGroup) ? companyId : item.RepeatGroup;
-        private bool RepeatReady(EventDefinition item, string companyId)
+        private bool RepeatReady(EventDefinition item, string companyId, HashSet<string> groupsOnCooldown)
         {
             string group = RepeatKey(item, companyId);
             if (occurrences.Any(active => active.definition.Repeatable && RepeatKey(active.definition, active.companyId) == group)) return false;
-            foreach (var record in repeatHistory)
-            {
-                var past = events.Find(definition => definition.getId() == record.eventId);
-                if (past != null && RepeatKey(past, record.companyId) == group && currentDay < record.day + past.RepeatCooldown) return false;
-            }
+            if (groupsOnCooldown.Contains(group)) return false;
             if (item.getId() == "stock_manipulation_01" && FindFirstObjectByType<EventStockmanipulationAccept>()?.ScheduledEffects.Count > 0) return false;
             return !availableDays.TryGetValue((item.getId(), getKeyCompany(item, companyId)), out int day) || currentDay >= day;
+        }
+        private HashSet<string> CollectRepeatGroupsOnCooldown()
+        {
+            var definitions = new Dictionary<string, EventDefinition>();
+            foreach (var definition in events) definitions.TryAdd(definition.getId(), definition);
+            var cooldowns = new HashSet<string>();
+            foreach (var record in repeatHistory)
+            {
+                if (definitions.TryGetValue(record.eventId, out var past) && currentDay < record.day + past.RepeatCooldown)
+                    cooldowns.Add(RepeatKey(past, record.companyId));
+            }
+            return cooldowns;
         }
         private uint DailyOrder(string key)
         {
@@ -66,15 +74,17 @@ namespace TakeOver.Events
         private void SpawnRepeatableOffers()
         {
             var candidates = new List<(EventDefinition definition, string company)>();
+            var groupsOnCooldown = CollectRepeatGroupsOnCooldown();
+            IReadOnlyList<EventCompanyData> companies = null;
             foreach (var item in events.Where(definition => definition.Repeatable))
             {
                 if (!hasRequiredHoldings(item) || occurrences.Any(active => active.definition == item)) continue;
                 if (item.hasCompanyConditions())
                 {
-                    foreach (var company in worldReader.getCompanies())
-                        if (PresentationGate(item, company.companyId) && RepeatReady(item, company.companyId) && meetsConditions(item, company.companyId)) candidates.Add((item, company.companyId));
+                    foreach (var company in companies ??= worldReader.getCompanies())
+                        if (PresentationGate(item, company.companyId) && RepeatReady(item, company.companyId, groupsOnCooldown) && meetsConditions(item, company.companyId)) candidates.Add((item, company.companyId));
                 }
-                else if (PresentationGate(item, "") && RepeatReady(item, "") && meetsConditions(item, "")) candidates.Add((item, ""));
+                else if (PresentationGate(item, "") && RepeatReady(item, "", groupsOnCooldown) && meetsConditions(item, "")) candidates.Add((item, ""));
             }
             var winners = candidates.GroupBy(item => RepeatKey(item.definition, item.company))
                 .Where(group => DailyOrder("chance:" + group.Key) % 10000 < 2000)

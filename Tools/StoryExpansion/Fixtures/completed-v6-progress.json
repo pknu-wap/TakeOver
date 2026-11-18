@@ -1,0 +1,6333 @@
+{
+  "formatVersion": 4,
+  "dayStart": {
+    "day": 234,
+    "seed": 99
+  },
+  "sections": [
+    {
+      "id": "action-points",
+      "version": 1,
+      "data": {
+        "current": 48,
+        "maximum": 50
+      }
+    },
+    {
+      "id": "documents",
+      "version": 1,
+      "data": {
+        "records": [
+          {
+            "type": "dividend-policy",
+            "companyId": "haneul-food",
+            "deadlineTurn": 70,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 63,
+            "arrival": 1,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "mirae-construction",
+            "deadlineTurn": 70,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 63,
+            "arrival": 2,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "haneul-food",
+            "deadlineTurn": 91,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 84,
+            "arrival": 3,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "mirae-construction",
+            "deadlineTurn": 91,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 84,
+            "arrival": 4,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "haneul-food",
+            "deadlineTurn": 112,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 105,
+            "arrival": 5,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "mirae-construction",
+            "deadlineTurn": 112,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 105,
+            "arrival": 6,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "haneul-food",
+            "deadlineTurn": 133,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 126,
+            "arrival": 7,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "mirae-construction",
+            "deadlineTurn": 133,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 126,
+            "arrival": 8,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "haneul-food",
+            "deadlineTurn": 154,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 147,
+            "arrival": 9,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "mirae-construction",
+            "deadlineTurn": 154,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 147,
+            "arrival": 10,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "haneul-food",
+            "deadlineTurn": 175,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 168,
+            "arrival": 11,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "mirae-construction",
+            "deadlineTurn": 175,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 168,
+            "arrival": 12,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "haneul-food",
+            "deadlineTurn": 196,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 189,
+            "arrival": 13,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "mirae-construction",
+            "deadlineTurn": 196,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 189,
+            "arrival": 14,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "haneul-food",
+            "deadlineTurn": 217,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 210,
+            "arrival": 15,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "mirae-construction",
+            "deadlineTurn": 217,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 210,
+            "arrival": 16,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "haneul-food",
+            "deadlineTurn": 238,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 231,
+            "arrival": 17,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          },
+          {
+            "type": "dividend-policy",
+            "companyId": "mirae-construction",
+            "deadlineTurn": 238,
+            "fields": [
+              {
+                "name": "dividendRatio",
+                "value": 0.20000000298023224
+              }
+            ],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 231,
+            "arrival": 18,
+            "snapshot": false,
+            "title": "",
+            "author": "",
+            "infoRows": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "events",
+      "version": 6,
+      "data": {
+        "day": 234,
+        "choices": [
+          {
+            "eventId": "inside_info_01",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_dongbang_01",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_dongbang_02",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_dongbang_03",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_dongbang_contact",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_early_conclusion",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_haneul_01",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_haneul_02",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_haneul_03",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_haneul_04",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_haneul_contact",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_hansung_01",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_hansung_02",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_hansung_03",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_hansung_contact",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_mirae_02",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_mirae_03",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_mirae_04",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "main_pair_a_complete",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_pair_b_complete",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_pair_b_review",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "political_donation_01",
+            "companyId": "",
+            "choice": 2
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "",
+            "choice": 1
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_park_scope_note_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_yoon_fee_scope_01",
+            "companyId": "",
+            "choice": 0
+          }
+        ],
+        "companyChoices": [
+          {
+            "eventId": "inside_info_01",
+            "companyId": "mirae-construction",
+            "choice": 1
+          },
+          {
+            "eventId": "main_dongbang_01",
+            "companyId": "dongbang-trading",
+            "choice": 1
+          },
+          {
+            "eventId": "main_dongbang_02",
+            "companyId": "dongbang-trading",
+            "choice": 0
+          },
+          {
+            "eventId": "main_dongbang_03",
+            "companyId": "dongbang-trading",
+            "choice": 1
+          },
+          {
+            "eventId": "main_dongbang_contact",
+            "companyId": "dongbang-trading",
+            "choice": 0
+          },
+          {
+            "eventId": "main_early_conclusion",
+            "companyId": "hansung-industry",
+            "choice": 0
+          },
+          {
+            "eventId": "main_haneul_01",
+            "companyId": "haneul-food",
+            "choice": 1
+          },
+          {
+            "eventId": "main_haneul_02",
+            "companyId": "haneul-food",
+            "choice": 0
+          },
+          {
+            "eventId": "main_haneul_03",
+            "companyId": "haneul-food",
+            "choice": 1
+          },
+          {
+            "eventId": "main_haneul_04",
+            "companyId": "haneul-food",
+            "choice": 1
+          },
+          {
+            "eventId": "main_haneul_contact",
+            "companyId": "haneul-food",
+            "choice": 0
+          },
+          {
+            "eventId": "main_hansung_01",
+            "companyId": "hansung-industry",
+            "choice": 1
+          },
+          {
+            "eventId": "main_hansung_02",
+            "companyId": "hansung-industry",
+            "choice": 0
+          },
+          {
+            "eventId": "main_hansung_03",
+            "companyId": "hansung-industry",
+            "choice": 1
+          },
+          {
+            "eventId": "main_hansung_contact",
+            "companyId": "hansung-industry",
+            "choice": 0
+          },
+          {
+            "eventId": "main_mirae_02",
+            "companyId": "mirae-construction",
+            "choice": 1
+          },
+          {
+            "eventId": "main_mirae_03",
+            "companyId": "mirae-construction",
+            "choice": 1
+          },
+          {
+            "eventId": "main_mirae_04",
+            "companyId": "mirae-construction",
+            "choice": 1
+          },
+          {
+            "eventId": "main_pair_a_complete",
+            "companyId": "mirae-construction",
+            "choice": 0
+          },
+          {
+            "eventId": "main_pair_b_complete",
+            "companyId": "haneul-food",
+            "choice": 0
+          },
+          {
+            "eventId": "main_pair_b_review",
+            "companyId": "haneul-food",
+            "choice": 0
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "dongbang-trading",
+            "choice": 0
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "choice": 0
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "hansung-industry",
+            "choice": 0
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "mirae-construction",
+            "choice": 0
+          },
+          {
+            "eventId": "political_donation_01",
+            "companyId": "",
+            "choice": 2
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "dongbang-trading",
+            "choice": 0
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "haneul-food",
+            "choice": 0
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "hansung-industry",
+            "choice": 0
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "mirae-construction",
+            "choice": 0
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "dongbang-trading",
+            "choice": 1
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "haneul-food",
+            "choice": 1
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "hansung-industry",
+            "choice": 1
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "mirae-construction",
+            "choice": 1
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "haneul-food",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_park_scope_note_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "sub_yoon_fee_scope_01",
+            "companyId": "",
+            "choice": 0
+          }
+        ],
+        "cooldowns": [
+          {
+            "eventId": "greenmail_01",
+            "companyId": "dongbang-trading",
+            "day": 74,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "greenmail_01",
+            "companyId": "haneul-food",
+            "day": 241,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "greenmail_01",
+            "companyId": "mirae-construction",
+            "day": 234,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "dongbang-trading",
+            "day": 185,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "day": 223,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "hansung-industry",
+            "day": 237,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "mirae-construction",
+            "day": 236,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "political_donation_01",
+            "companyId": "",
+            "day": 193,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 233,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "dongbang-trading",
+            "day": 219,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "haneul-food",
+            "day": 151,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "hansung-industry",
+            "day": 233,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "mirae-construction",
+            "day": 169,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "dongbang-trading",
+            "day": 236,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "haneul-food",
+            "day": 158,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "hansung-industry",
+            "day": 187,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "mirae-construction",
+            "day": 205,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 231,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "haneul-food",
+            "day": 234,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 220,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 192,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "day": 209,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 237,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "day": 216,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 235,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 230,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 236,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "day": 201,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 213,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "day": 213,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_park_scope_note_01",
+            "companyId": "",
+            "day": 218,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_yoon_fee_scope_01",
+            "companyId": "",
+            "day": 211,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_yoon_introduction_01",
+            "companyId": "",
+            "day": 14,
+            "greenmailStake": 0.0,
+            "serial": 0
+          }
+        ],
+        "occurrences": [
+          {
+            "eventId": "neutral-lee-first-interview",
+            "companyId": "",
+            "day": 1,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "neutral-jung-first-record",
+            "companyId": "",
+            "day": 1,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "neutral-kim-first-review",
+            "companyId": "",
+            "day": 1,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "neutral-park-first-briefing",
+            "companyId": "",
+            "day": 1,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "greenmail_01",
+            "companyId": "mirae-construction",
+            "day": 234,
+            "greenmailStake": 35.0,
+            "serial": 0
+          }
+        ],
+        "storyResults": [
+          {
+            "eventId": "inside_info_01",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_dongbang_01",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_dongbang_02",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_dongbang_03",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_dongbang_contact",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_early_conclusion",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_haneul_01",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_haneul_02",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_haneul_03",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_haneul_04",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_haneul_contact",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_hansung_01",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_hansung_02",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_hansung_03",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_hansung_contact",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_mirae_02",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_mirae_03",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_mirae_04",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_pair_a_complete",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_pair_b_complete",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_pair_b_review",
+            "succeeded": true
+          }
+        ],
+        "tutorialRewardGranted": true,
+        "mandatoryState": 3,
+        "mandatoryFailureStake": 0.0,
+        "mandatoryEventId": "",
+        "campaignRevision": 2,
+        "campaignRunId": "8a970e5001db4bbcb5c4321d7138f28b",
+        "pendingMandatoryEvents": [],
+        "failureGoals": [],
+        "failedMissionId": "",
+        "failedEndingSignal": "",
+        "endingLineIndex": 0,
+        "campaignDayOffset": 0,
+        "lastOccurrenceSerial": 256,
+        "politicalFavorGranted": false,
+        "repeatHistory": [
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 43,
+            "choice": 0,
+            "serial": 44
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 44,
+            "choice": 0,
+            "serial": 45
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "mirae-construction",
+            "day": 44,
+            "choice": 0,
+            "serial": 46
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "day": 47,
+            "choice": 0,
+            "serial": 47
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "day": 48,
+            "choice": 0,
+            "serial": 48
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "haneul-food",
+            "day": 49,
+            "choice": 0,
+            "serial": 49
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "haneul-food",
+            "day": 49,
+            "choice": 1,
+            "serial": 50
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 50,
+            "choice": 0,
+            "serial": 51
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "day": 50,
+            "choice": 0,
+            "serial": 52
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "hansung-industry",
+            "day": 51,
+            "choice": 0,
+            "serial": 53
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "day": 51,
+            "choice": 0,
+            "serial": 54
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "day": 53,
+            "choice": 0,
+            "serial": 55
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "dongbang-trading",
+            "day": 54,
+            "choice": 0,
+            "serial": 56
+          },
+          {
+            "eventId": "sub_park_scope_note_01",
+            "companyId": "",
+            "day": 55,
+            "choice": 0,
+            "serial": 57
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "mirae-construction",
+            "day": 55,
+            "choice": 0,
+            "serial": 58
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 57,
+            "choice": 0,
+            "serial": 59
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "haneul-food",
+            "day": 59,
+            "choice": 0,
+            "serial": 60
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "hansung-industry",
+            "day": 60,
+            "choice": 0,
+            "serial": 61
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 61,
+            "choice": 0,
+            "serial": 62
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 61,
+            "choice": 0,
+            "serial": 63
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "dongbang-trading",
+            "day": 63,
+            "choice": 0,
+            "serial": 64
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "haneul-food",
+            "day": 64,
+            "choice": 0,
+            "serial": 65
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 65,
+            "choice": 0,
+            "serial": 66
+          },
+          {
+            "eventId": "sub_park_scope_note_01",
+            "companyId": "",
+            "day": 65,
+            "choice": 0,
+            "serial": 67
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 66,
+            "choice": 0,
+            "serial": 68
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 69,
+            "choice": 0,
+            "serial": 69
+          },
+          {
+            "eventId": "political_donation_01",
+            "companyId": "",
+            "day": 69,
+            "choice": 2,
+            "serial": 70
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "dongbang-trading",
+            "day": 70,
+            "choice": 0,
+            "serial": 71
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "haneul-food",
+            "day": 71,
+            "choice": 0,
+            "serial": 72
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 72,
+            "choice": 0,
+            "serial": 73
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 72,
+            "choice": 0,
+            "serial": 74
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "haneul-food",
+            "day": 75,
+            "choice": 0,
+            "serial": 75
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "dongbang-trading",
+            "day": 75,
+            "choice": 1,
+            "serial": 76
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "day": 76,
+            "choice": 0,
+            "serial": 77
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 76,
+            "choice": 0,
+            "serial": 78
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 77,
+            "choice": 0,
+            "serial": 79
+          },
+          {
+            "eventId": "sub_park_scope_note_01",
+            "companyId": "",
+            "day": 79,
+            "choice": 0,
+            "serial": 80
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "mirae-construction",
+            "day": 79,
+            "choice": 0,
+            "serial": 81
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 80,
+            "choice": 0,
+            "serial": 82
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "hansung-industry",
+            "day": 81,
+            "choice": 0,
+            "serial": 83
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "day": 83,
+            "choice": 0,
+            "serial": 84
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 83,
+            "choice": 0,
+            "serial": 85
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 84,
+            "choice": 0,
+            "serial": 86
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "haneul-food",
+            "day": 86,
+            "choice": 0,
+            "serial": 87
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 87,
+            "choice": 0,
+            "serial": 88
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 87,
+            "choice": 0,
+            "serial": 89
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 88,
+            "choice": 0,
+            "serial": 90
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "day": 88,
+            "choice": 0,
+            "serial": 91
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "day": 89,
+            "choice": 0,
+            "serial": 92
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "haneul-food",
+            "day": 90,
+            "choice": 0,
+            "serial": 93
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 90,
+            "choice": 0,
+            "serial": 94
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "hansung-industry",
+            "day": 92,
+            "choice": 0,
+            "serial": 95
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 93,
+            "choice": 0,
+            "serial": 96
+          },
+          {
+            "eventId": "political_donation_01",
+            "companyId": "",
+            "day": 94,
+            "choice": 2,
+            "serial": 97
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 95,
+            "choice": 0,
+            "serial": 98
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 96,
+            "choice": 0,
+            "serial": 99
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "haneul-food",
+            "day": 96,
+            "choice": 1,
+            "serial": 100
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "day": 97,
+            "choice": 0,
+            "serial": 101
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "haneul-food",
+            "day": 100,
+            "choice": 0,
+            "serial": 102
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "mirae-construction",
+            "day": 102,
+            "choice": 0,
+            "serial": 103
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 102,
+            "choice": 0,
+            "serial": 104
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 103,
+            "choice": 0,
+            "serial": 105
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 104,
+            "choice": 0,
+            "serial": 106
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 106,
+            "choice": 0,
+            "serial": 107
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "haneul-food",
+            "day": 108,
+            "choice": 1,
+            "serial": 108
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 108,
+            "choice": 0,
+            "serial": 109
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 109,
+            "choice": 0,
+            "serial": 110
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "day": 109,
+            "choice": 0,
+            "serial": 111
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "hansung-industry",
+            "day": 110,
+            "choice": 0,
+            "serial": 112
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 111,
+            "choice": 0,
+            "serial": 113
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "haneul-food",
+            "day": 111,
+            "choice": 0,
+            "serial": 114
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "dongbang-trading",
+            "day": 112,
+            "choice": 0,
+            "serial": 115
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 112,
+            "choice": 0,
+            "serial": 116
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 113,
+            "choice": 0,
+            "serial": 117
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 114,
+            "choice": 0,
+            "serial": 118
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "day": 114,
+            "choice": 0,
+            "serial": 119
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "dongbang-trading",
+            "day": 115,
+            "choice": 0,
+            "serial": 120
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 115,
+            "choice": 0,
+            "serial": 121
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 119,
+            "choice": 0,
+            "serial": 122
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 119,
+            "choice": 0,
+            "serial": 123
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "haneul-food",
+            "day": 121,
+            "choice": 0,
+            "serial": 124
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 121,
+            "choice": 0,
+            "serial": 125
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "day": 123,
+            "choice": 0,
+            "serial": 126
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "hansung-industry",
+            "day": 123,
+            "choice": 1,
+            "serial": 127
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 124,
+            "choice": 0,
+            "serial": 128
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 124,
+            "choice": 0,
+            "serial": 129
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "day": 125,
+            "choice": 0,
+            "serial": 130
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 127,
+            "choice": 0,
+            "serial": 131
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 127,
+            "choice": 0,
+            "serial": 132
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "day": 128,
+            "choice": 0,
+            "serial": 133
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 128,
+            "choice": 0,
+            "serial": 134
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "haneul-food",
+            "day": 129,
+            "choice": 0,
+            "serial": 135
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "mirae-construction",
+            "day": 129,
+            "choice": 0,
+            "serial": 136
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "dongbang-trading",
+            "day": 130,
+            "choice": 0,
+            "serial": 137
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 130,
+            "choice": 0,
+            "serial": 138
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "day": 131,
+            "choice": 0,
+            "serial": 139
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 132,
+            "choice": 0,
+            "serial": 140
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 133,
+            "choice": 0,
+            "serial": 141
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "day": 133,
+            "choice": 0,
+            "serial": 142
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "hansung-industry",
+            "day": 134,
+            "choice": 1,
+            "serial": 143
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "dongbang-trading",
+            "day": 135,
+            "choice": 0,
+            "serial": 144
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "hansung-industry",
+            "day": 137,
+            "choice": 0,
+            "serial": 145
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 137,
+            "choice": 0,
+            "serial": 146
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 138,
+            "choice": 0,
+            "serial": 147
+          },
+          {
+            "eventId": "sub_park_scope_note_01",
+            "companyId": "",
+            "day": 139,
+            "choice": 0,
+            "serial": 148
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "haneul-food",
+            "day": 140,
+            "choice": 0,
+            "serial": 149
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 140,
+            "choice": 0,
+            "serial": 150
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 143,
+            "choice": 0,
+            "serial": 151
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "haneul-food",
+            "day": 144,
+            "choice": 0,
+            "serial": 152
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 147,
+            "choice": 0,
+            "serial": 153
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 148,
+            "choice": 0,
+            "serial": 154
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "haneul-food",
+            "day": 148,
+            "choice": 1,
+            "serial": 155
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 149,
+            "choice": 0,
+            "serial": 156
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 150,
+            "choice": 0,
+            "serial": 157
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "day": 150,
+            "choice": 0,
+            "serial": 158
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 151,
+            "choice": 0,
+            "serial": 159
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "mirae-construction",
+            "day": 152,
+            "choice": 0,
+            "serial": 160
+          },
+          {
+            "eventId": "political_donation_01",
+            "companyId": "",
+            "day": 153,
+            "choice": 2,
+            "serial": 161
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 153,
+            "choice": 0,
+            "serial": 162
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 154,
+            "choice": 0,
+            "serial": 163
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "day": 154,
+            "choice": 0,
+            "serial": 164
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 155,
+            "choice": 0,
+            "serial": 165
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 156,
+            "choice": 0,
+            "serial": 166
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 157,
+            "choice": 0,
+            "serial": 167
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "day": 158,
+            "choice": 0,
+            "serial": 168
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "dongbang-trading",
+            "day": 160,
+            "choice": 0,
+            "serial": 169
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "day": 160,
+            "choice": 0,
+            "serial": 170
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 161,
+            "choice": 0,
+            "serial": 171
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 162,
+            "choice": 0,
+            "serial": 172
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "mirae-construction",
+            "day": 162,
+            "choice": 0,
+            "serial": 173
+          },
+          {
+            "eventId": "sub_park_scope_note_01",
+            "companyId": "",
+            "day": 163,
+            "choice": 0,
+            "serial": 174
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "day": 164,
+            "choice": 0,
+            "serial": 175
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 165,
+            "choice": 0,
+            "serial": 176
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "dongbang-trading",
+            "day": 166,
+            "choice": 1,
+            "serial": 177
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "day": 166,
+            "choice": 0,
+            "serial": 178
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "day": 168,
+            "choice": 0,
+            "serial": 179
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "hansung-industry",
+            "day": 169,
+            "choice": 0,
+            "serial": 180
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 169,
+            "choice": 0,
+            "serial": 181
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "day": 172,
+            "choice": 0,
+            "serial": 182
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "day": 173,
+            "choice": 0,
+            "serial": 183
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 173,
+            "choice": 0,
+            "serial": 184
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 174,
+            "choice": 0,
+            "serial": 185
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 175,
+            "choice": 0,
+            "serial": 186
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 175,
+            "choice": 0,
+            "serial": 187
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "day": 176,
+            "choice": 0,
+            "serial": 188
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "hansung-industry",
+            "day": 177,
+            "choice": 1,
+            "serial": 189
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 178,
+            "choice": 0,
+            "serial": 190
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "day": 178,
+            "choice": 0,
+            "serial": 191
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 179,
+            "choice": 0,
+            "serial": 192
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 180,
+            "choice": 0,
+            "serial": 193
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 181,
+            "choice": 0,
+            "serial": 194
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "dongbang-trading",
+            "day": 182,
+            "choice": 0,
+            "serial": 195
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 182,
+            "choice": 0,
+            "serial": 196
+          },
+          {
+            "eventId": "political_donation_01",
+            "companyId": "",
+            "day": 183,
+            "choice": 2,
+            "serial": 197
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 183,
+            "choice": 0,
+            "serial": 198
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 184,
+            "choice": 0,
+            "serial": 199
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "day": 186,
+            "choice": 0,
+            "serial": 200
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 187,
+            "choice": 0,
+            "serial": 201
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 189,
+            "choice": 0,
+            "serial": 202
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 189,
+            "choice": 0,
+            "serial": 203
+          },
+          {
+            "eventId": "sub_yoon_fee_scope_01",
+            "companyId": "",
+            "day": 190,
+            "choice": 0,
+            "serial": 204
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 191,
+            "choice": 0,
+            "serial": 205
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 193,
+            "choice": 0,
+            "serial": 206
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 193,
+            "choice": 0,
+            "serial": 207
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "day": 194,
+            "choice": 0,
+            "serial": 208
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 194,
+            "choice": 0,
+            "serial": 209
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "hansung-industry",
+            "day": 195,
+            "choice": 0,
+            "serial": 210
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "mirae-construction",
+            "day": 195,
+            "choice": 1,
+            "serial": 211
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 196,
+            "choice": 0,
+            "serial": 212
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 197,
+            "choice": 0,
+            "serial": 213
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "day": 197,
+            "choice": 0,
+            "serial": 214
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "day": 198,
+            "choice": 0,
+            "serial": 215
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 198,
+            "choice": 0,
+            "serial": 216
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "day": 199,
+            "choice": 0,
+            "serial": 217
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 200,
+            "choice": 0,
+            "serial": 218
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "day": 201,
+            "choice": 0,
+            "serial": 219
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "day": 204,
+            "choice": 0,
+            "serial": 220
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "mirae-construction",
+            "day": 204,
+            "choice": 0,
+            "serial": 221
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 205,
+            "choice": 0,
+            "serial": 222
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 205,
+            "choice": 0,
+            "serial": 223
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "day": 206,
+            "choice": 0,
+            "serial": 224
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "day": 207,
+            "choice": 0,
+            "serial": 225
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 208,
+            "choice": 0,
+            "serial": 226
+          },
+          {
+            "eventId": "sub_yoon_fee_scope_01",
+            "companyId": "",
+            "day": 208,
+            "choice": 0,
+            "serial": 227
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 210,
+            "choice": 0,
+            "serial": 228
+          },
+          {
+            "eventId": "sub_park_public_briefing_01",
+            "companyId": "",
+            "day": 210,
+            "choice": 0,
+            "serial": 229
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 212,
+            "choice": 0,
+            "serial": 230
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "dongbang-trading",
+            "day": 212,
+            "choice": 0,
+            "serial": 231
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "day": 213,
+            "choice": 0,
+            "serial": 232
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "mirae-construction",
+            "day": 213,
+            "choice": 0,
+            "serial": 233
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 214,
+            "choice": 0,
+            "serial": 234
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "dongbang-trading",
+            "day": 215,
+            "choice": 1,
+            "serial": 235
+          },
+          {
+            "eventId": "sub_park_scope_note_01",
+            "companyId": "",
+            "day": 215,
+            "choice": 0,
+            "serial": 236
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "mirae-construction",
+            "day": 216,
+            "choice": 0,
+            "serial": 237
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "haneul-food",
+            "day": 216,
+            "choice": 0,
+            "serial": 238
+          },
+          {
+            "eventId": "sub_hansung_inspection_note_01",
+            "companyId": "hansung-industry",
+            "day": 217,
+            "choice": 0,
+            "serial": 239
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 218,
+            "choice": 0,
+            "serial": 240
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 219,
+            "choice": 0,
+            "serial": 241
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 220,
+            "choice": 0,
+            "serial": 242
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "haneul-food",
+            "day": 220,
+            "choice": 0,
+            "serial": 243
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "hansung-industry",
+            "day": 222,
+            "choice": 0,
+            "serial": 244
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "dongbang-trading",
+            "day": 226,
+            "choice": 1,
+            "serial": 245
+          },
+          {
+            "eventId": "restructuring_01",
+            "companyId": "hansung-industry",
+            "day": 226,
+            "choice": 0,
+            "serial": 246
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 227,
+            "choice": 0,
+            "serial": 247
+          },
+          {
+            "eventId": "sub_dongbang_address_check_01",
+            "companyId": "dongbang-trading",
+            "day": 228,
+            "choice": 0,
+            "serial": 248
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "mirae-construction",
+            "day": 229,
+            "choice": 0,
+            "serial": 249
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 230,
+            "choice": 0,
+            "serial": 250
+          },
+          {
+            "eventId": "sub_haneul_package_line_01",
+            "companyId": "haneul-food",
+            "day": 231,
+            "choice": 0,
+            "serial": 251
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 232,
+            "choice": 0,
+            "serial": 252
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 233,
+            "choice": 0,
+            "serial": 253
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "mirae-construction",
+            "day": 233,
+            "choice": 0,
+            "serial": 254
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 234,
+            "choice": 0,
+            "serial": 255
+          },
+          {
+            "eventId": "management_defense_01",
+            "companyId": "hansung-industry",
+            "day": 234,
+            "choice": 0,
+            "serial": 256
+          }
+        ]
+      }
+    },
+    {
+      "id": "news",
+      "version": 1,
+      "data": {
+        "entries": [
+          {
+            "turn": 2,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 2,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 3,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 3,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 4,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 4,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 4,
+            "title": "내일 시작에 투자 목표 판정: 미래건설 10% 이상  달성 (현재 10%)",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 5,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 7,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 7,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 8,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 8,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 9,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 9,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 11,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 11,
+            "title": "내일 시작에 투자 목표 판정: 하늘식품 10% 이상  달성 (현재 10%)",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 12,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 13,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 14,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 15,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 15,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 17,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 18,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 18,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 19,
+            "title": "내일 시작에 투자 목표 판정: 미래건설 30% 이상  달성 (현재 30%) / 동방물산 10% 이상  달성 (현재 10%)",
+            "companyIDs": [
+              "mirae-construction",
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 20,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 20,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 21,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 21,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 24,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 25,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 25,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 27,
+            "title": "내일 시작에 투자 목표 판정: 하늘식품 30% 이상  달성 (현재 30%) / 한성공업 10% 이상  달성 (현재 10%)",
+            "companyIDs": [
+              "haneul-food",
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 28,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 31,
+            "title": "내일 시작에 투자 목표 판정: 미래건설 30% 이상  달성 (현재 30%) / 동방물산 20% 이상  달성 (현재 20%)",
+            "companyIDs": [
+              "mirae-construction",
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 32,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 32,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 34,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 34,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 36,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 38,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 39,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 39,
+            "title": "내일 시작에 투자 목표 판정: 하늘식품 30% 이상  달성 (현재 30%) / 한성공업 20% 이상  달성 (현재 20%)",
+            "companyIDs": [
+              "haneul-food",
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 40,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 40,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 41,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 42,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 42,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 44,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 46,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 47,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 48,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 48,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 49,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 49,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 50,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 53,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 54,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 54,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 56,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 57,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 58,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 58,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 59,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 59,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 62,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 62,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 63,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 63,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 64,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 64,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 65,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 67,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 68,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 68,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 70,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 71,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 71,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 72,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 72,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 73,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 73,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 74,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 75,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 76,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 76,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 80,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 80,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 82,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 83,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 83,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 86,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 86,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 87,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 90,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 90,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 91,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 92,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 92,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 96,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 98,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 98,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 99,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 101,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 102,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 102,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 103,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 103,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 106,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 106,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 109,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 109,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 110,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 114,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 115,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 116,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 116,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 117,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 117,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 118,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 119,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 119,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 120,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 124,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 125,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 126,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 127,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 128,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 131,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 131,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 132,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 133,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 134,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 134,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 138,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 138,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 139,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 139,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 140,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 141,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 142,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 142,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 144,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 145,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 145,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 148,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 149,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 149,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 150,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 150,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 151,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 152,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 153,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 154,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 154,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 155,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 155,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 158,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 159,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 160,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 161,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 161,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 164,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 164,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 165,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 167,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 167,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 168,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 169,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 170,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 171,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 171,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 173,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 174,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 174,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 175,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 176,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 176,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 178,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 179,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 180,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 181,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 181,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 182,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 183,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 184,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 184,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 185,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 186,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 186,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 187,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 187,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 188,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 188,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 189,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 189,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 190,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 191,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 191,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 192,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 192,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 193,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 195,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 196,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 198,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 200,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 200,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 201,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 203,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 203,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 204,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 206,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 206,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 207,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 207,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 208,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 209,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 210,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 210,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 211,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 211,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 212,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 212,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 213,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 213,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 214,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 215,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 215,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 218,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 220,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 220,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 222,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 224,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 224,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 225,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 225,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 226,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 226,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 227,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 231,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 231,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 232,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 232,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "polaris-finance"
+            ]
+          },
+          {
+            "turn": 233,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "npc",
+      "version": 1,
+      "data": {
+        "currentTurn": 234,
+        "npcs": [
+          {
+            "npcId": "npc-broker-yoon-hajin",
+            "companyId": "external-network",
+            "relation": {
+              "trust": 0.0,
+              "respect": 5.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 12.0,
+              "lastUpdatedTurn": 226
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-investigative-reporter-jung-sua",
+            "companyId": "external-network",
+            "relation": {
+              "trust": 0.0,
+              "respect": 26.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 26.0,
+              "lastUpdatedTurn": 234
+            },
+            "currentGoal": "",
+            "memories": [
+              {
+                "memoryId": "repeat:255:sub_jung_quote_check_01::npc-investigative-reporter-jung-sua",
+                "memoryType": 8,
+                "actorId": "player",
+                "targetId": "npc-investigative-reporter-jung-sua",
+                "actionId": "",
+                "actionDisposition": 0,
+                "companyId": "",
+                "sourceEventId": "repeat:255:sub_jung_quote_check_01:",
+                "strength": 1,
+                "turn": 234,
+                "publicity": 0,
+                "permanent": false,
+                "durationTurns": 3,
+                "remainingTurns": 3,
+                "influence": 1.0,
+                "reliability": 1.0,
+                "interpretation": "인용 범위를 정한 공개 의견. ",
+                "tags": [],
+                "relationDelta": {
+                  "trust": 0.0,
+                  "respect": 1.0,
+                  "fear": 0.0,
+                  "hostility": 0.0,
+                  "dependency": 0.0,
+                  "interest": 1.0
+                },
+                "effectLog": {
+                  "preferenceEnabled": false,
+                  "multiplier": 1.0,
+                  "usedOverride": false,
+                  "configuredBonus": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "beforePreference": {
+                    "trust": 0.0,
+                    "respect": 1.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 1.0
+                  },
+                  "preferenceBonus": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "actuallyApplied": {
+                    "trust": 0.0,
+                    "respect": 1.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 1.0
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "npcId": "npc-institutional-investor-kim-taeseong",
+            "companyId": "external-network",
+            "relation": {
+              "trust": 0.0,
+              "respect": 29.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 232
+            },
+            "currentGoal": "",
+            "memories": [
+              {
+                "memoryId": "repeat:252:sub_kim_pass_reason_01::npc-institutional-investor-kim-taeseong",
+                "memoryType": 8,
+                "actorId": "player",
+                "targetId": "npc-institutional-investor-kim-taeseong",
+                "actionId": "",
+                "actionDisposition": 0,
+                "companyId": "",
+                "sourceEventId": "repeat:252:sub_kim_pass_reason_01:",
+                "strength": 1,
+                "turn": 232,
+                "publicity": 0,
+                "permanent": false,
+                "durationTurns": 3,
+                "remainingTurns": 1,
+                "influence": 0.3333333432674408,
+                "reliability": 1.0,
+                "interpretation": "이해 범위를 확인한 뒤 판단 의사. ",
+                "tags": [],
+                "relationDelta": {
+                  "trust": 0.0,
+                  "respect": 1.0,
+                  "fear": 0.0,
+                  "hostility": 0.0,
+                  "dependency": 0.0,
+                  "interest": 0.0
+                },
+                "effectLog": {
+                  "preferenceEnabled": false,
+                  "multiplier": 1.0,
+                  "usedOverride": false,
+                  "configuredBonus": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "beforePreference": {
+                    "trust": 0.0,
+                    "respect": 1.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "preferenceBonus": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "actuallyApplied": {
+                    "trust": 0.0,
+                    "respect": 1.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "npcId": "npc-political-lobbyist-park-sanghyeon",
+            "companyId": "external-network",
+            "relation": {
+              "trust": 0.0,
+              "respect": 15.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 215
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-mirae-construction-ceo-kang-junhyeok",
+            "companyId": "mirae-construction",
+            "relation": {
+              "trust": 0.0,
+              "respect": 7.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 233
+            },
+            "currentGoal": "",
+            "memories": [
+              {
+                "memoryId": "repeat:254:management_defense_01:mirae-construction:npc-mirae-construction-ceo-kang-junhyeok",
+                "memoryType": 8,
+                "actorId": "player",
+                "targetId": "npc-mirae-construction-ceo-kang-junhyeok",
+                "actionId": "",
+                "actionDisposition": 0,
+                "companyId": "mirae-construction",
+                "sourceEventId": "repeat:254:management_defense_01:mirae-construction",
+                "strength": 1,
+                "turn": 233,
+                "publicity": 0,
+                "permanent": false,
+                "durationTurns": 3,
+                "remainingTurns": 2,
+                "influence": 0.66666668653488159,
+                "reliability": 1.0,
+                "interpretation": "현재 투자 검토 범위를 설명함. 경영진 유지·보유 기간을 약속하지 않음. ",
+                "tags": [],
+                "relationDelta": {
+                  "trust": 0.0,
+                  "respect": 1.0,
+                  "fear": 0.0,
+                  "hostility": 0.0,
+                  "dependency": 0.0,
+                  "interest": 0.0
+                },
+                "effectLog": {
+                  "preferenceEnabled": false,
+                  "multiplier": 1.0,
+                  "usedOverride": false,
+                  "configuredBonus": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "beforePreference": {
+                    "trust": 0.0,
+                    "respect": 1.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "preferenceBonus": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "actuallyApplied": {
+                    "trust": 0.0,
+                    "respect": 1.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "npcId": "npc-mirae-construction-cfo-seo-jia",
+            "companyId": "mirae-construction",
+            "relation": {
+              "trust": 4.0,
+              "respect": 15.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 7.0,
+              "lastUpdatedTurn": 210
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-mirae-construction-field-director-park-dosik",
+            "companyId": "mirae-construction",
+            "relation": {
+              "trust": 0.0,
+              "respect": 5.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 162
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-economic-reporter-lee-mingyu",
+            "companyId": "external-network",
+            "relation": {
+              "trust": 100.0,
+              "respect": 100.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 233
+            },
+            "currentGoal": "",
+            "memories": [
+              {
+                "memoryId": "repeat:253:sub_lee_field_question_01::npc-economic-reporter-lee-mingyu",
+                "memoryType": 8,
+                "actorId": "player",
+                "targetId": "npc-economic-reporter-lee-mingyu",
+                "actionId": "",
+                "actionDisposition": 0,
+                "companyId": "",
+                "sourceEventId": "repeat:253:sub_lee_field_question_01:",
+                "strength": 1,
+                "turn": 233,
+                "publicity": 0,
+                "permanent": false,
+                "durationTurns": 3,
+                "remainingTurns": 2,
+                "influence": 0.66666668653488159,
+                "reliability": 1.0,
+                "interpretation": "관찰 시점과 운영 차이 질문 제안. ",
+                "tags": [],
+                "relationDelta": {
+                  "trust": 0.0,
+                  "respect": 1.0,
+                  "fear": 0.0,
+                  "hostility": 0.0,
+                  "dependency": 0.0,
+                  "interest": 0.0
+                },
+                "effectLog": {
+                  "preferenceEnabled": false,
+                  "multiplier": 1.0,
+                  "usedOverride": false,
+                  "configuredBonus": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "beforePreference": {
+                    "trust": 0.0,
+                    "respect": 1.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "preferenceBonus": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "actuallyApplied": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "npcId": "npc-haneul-food-ceo-kim-harin",
+            "companyId": "haneul-food",
+            "relation": {
+              "trust": 0.0,
+              "respect": 18.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 2.0,
+              "lastUpdatedTurn": 231
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-haneul-food-cfo-oh-jaeseong",
+            "companyId": "haneul-food",
+            "relation": {
+              "trust": 0.0,
+              "respect": 7.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 144
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-dongbang-trading-ceo-kang-jaehyeon",
+            "companyId": "dongbang-trading",
+            "relation": {
+              "trust": 0.0,
+              "respect": 7.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 1.0,
+              "lastUpdatedTurn": 182
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-dongbang-trading-hr-director-park-minu",
+            "companyId": "dongbang-trading",
+            "relation": {
+              "trust": 0.0,
+              "respect": 15.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 228
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-hansung-industry-ceo-jo-minseok",
+            "companyId": "hansung-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 19.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 234
+            },
+            "currentGoal": "",
+            "memories": [
+              {
+                "memoryId": "repeat:256:management_defense_01:hansung-industry:npc-hansung-industry-ceo-jo-minseok",
+                "memoryType": 8,
+                "actorId": "player",
+                "targetId": "npc-hansung-industry-ceo-jo-minseok",
+                "actionId": "",
+                "actionDisposition": 0,
+                "companyId": "hansung-industry",
+                "sourceEventId": "repeat:256:management_defense_01:hansung-industry",
+                "strength": 1,
+                "turn": 234,
+                "publicity": 0,
+                "permanent": false,
+                "durationTurns": 3,
+                "remainingTurns": 3,
+                "influence": 1.0,
+                "reliability": 1.0,
+                "interpretation": "투자 검토 범위 설명. ",
+                "tags": [],
+                "relationDelta": {
+                  "trust": 0.0,
+                  "respect": 1.0,
+                  "fear": 0.0,
+                  "hostility": 0.0,
+                  "dependency": 0.0,
+                  "interest": 0.0
+                },
+                "effectLog": {
+                  "preferenceEnabled": false,
+                  "multiplier": 1.0,
+                  "usedOverride": false,
+                  "configuredBonus": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "beforePreference": {
+                    "trust": 0.0,
+                    "respect": 1.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "preferenceBonus": {
+                    "trust": 0.0,
+                    "respect": 0.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  },
+                  "actuallyApplied": {
+                    "trust": 0.0,
+                    "respect": 1.0,
+                    "fear": 0.0,
+                    "hostility": 0.0,
+                    "dependency": 0.0,
+                    "interest": 0.0
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "npcId": "npc-hansung-industry-labor-director-choi-mijeong",
+            "companyId": "hansung-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 7.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 1.0,
+              "lastUpdatedTurn": 226
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-polaris-finance-ceo-lim-dohyeon",
+            "companyId": "polaris-finance",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-polaris-finance-risk-director-song-hyeonseok",
+            "companyId": "polaris-finance",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-polaris-finance-ma-director-jung-yura",
+            "companyId": "polaris-finance",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-daeseong-industry-ceo-kim-seongho",
+            "companyId": "daeseong-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-daeseong-industry-cfo-noh-hyeonjeong",
+            "companyId": "daeseong-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-daeseong-industry-business-development-director-oh-jinu",
+            "companyId": "daeseong-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-daeseong-industry-hr-director-choi-eunsu",
+            "companyId": "daeseong-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-sinseong-development-ceo-jung-dohyeon",
+            "companyId": "sinseong-development",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-sinseong-development-planning-director-yoo-jeongmin",
+            "companyId": "sinseong-development",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-sinseong-development-community-director-kang-minji",
+            "companyId": "sinseong-development",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-blueharbor-retail-ceo-seo-yujin",
+            "companyId": "blueharbor-retail",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-blueharbor-retail-data-director-han-dogyeong",
+            "companyId": "blueharbor-retail",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-blueharbor-retail-operations-director-kim-dongseok",
+            "companyId": "blueharbor-retail",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-aurora-foodtech-ceo-kim-seohu",
+            "companyId": "aurora-foodtech",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-aurora-foodtech-chief-scientist-jung-harin",
+            "companyId": "aurora-foodtech",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-aurora-foodtech-business-development-director-han-yuna",
+            "companyId": "aurora-foodtech",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "player-memories",
+      "version": 1,
+      "data": {
+        "memories": [
+          {
+            "memoryId": "player:intent.hostile-takeover:mirae-construction",
+            "key": "intent.hostile-takeover",
+            "title": "미래건설 공격적 인수 검토",
+            "description": "미래건설에 협력하는 태도를 보이면서 자금 일정과 의사결정 구조를 살펴보고, 공격적 인수의 기회를 검토하기로 했다. 아직 인수를 실행하거나 계약을 체결한 것은 아니다.",
+            "ownerId": "player",
+            "companyId": "mirae-construction",
+            "kind": 0,
+            "permanent": true,
+            "createdTurn": 5,
+            "sourceChoiceIndex": 1,
+            "sourceKind": 0,
+            "sourceId": "inside_info_01",
+            "sourceOccurrenceId": "day5:inside_info_01",
+            "tags": [
+              "intent",
+              "hostile_takeover",
+              "private"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "trading",
+      "version": 1,
+      "data": {
+        "player": {
+          "money": 6144.86328125,
+          "manPower": 10.0,
+          "information": 5.0,
+          "reputation": 0.0
+        },
+        "market": {
+          "globalMarketScore": 0.13242310285568237,
+          "lastUpdatedTurn": 234
+        },
+        "companies": [
+          {
+            "companyId": "dongbang-trading",
+            "state": {
+              "status": 3,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 706.20849609375
+                },
+                {
+                  "id": "COST",
+                  "value": 700.2772216796875
+                },
+                {
+                  "id": "CASH",
+                  "value": 0.0
+                },
+                {
+                  "id": "DEBT",
+                  "value": 1445.55126953125
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 40.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 160.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 20.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 65.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 60.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 510.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 450.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 78.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 4.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 1000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 500.0,
+              "initialCost": 250.0,
+              "initialNetProfit": 250.0,
+              "initialNetMargin": 0.5,
+              "initialDebtRatio": 0.0555555559694767,
+              "initialLiquidityStrength": 2.7999999523162842,
+              "initialAssetValue": 774.0,
+              "tangibleCoefficient": 0.699999988079071,
+              "intangibleCoefficient": 0.60000002384185791
+            },
+            "market": {
+              "npcSentiment": 0.036666668951511383,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": -0.019193155691027641
+            },
+            "history": [
+              {
+                "turn": 229,
+                "revenue": 698.4781494140625,
+                "netProfit": 253.1748046875,
+                "netMargin": 0.36246630549430847
+              },
+              {
+                "turn": 230,
+                "revenue": 706.20849609375,
+                "netProfit": 295.89907836914063,
+                "netMargin": 0.41899678111076355
+              },
+              {
+                "turn": 231,
+                "revenue": 706.20849609375,
+                "netProfit": 217.34738159179688,
+                "netMargin": 0.36207833886146545
+              },
+              {
+                "turn": 232,
+                "revenue": 706.20849609375,
+                "netProfit": 221.15133666992188,
+                "netMargin": 0.36841532588005066
+              },
+              {
+                "turn": 233,
+                "revenue": 706.20849609375,
+                "netProfit": 224.95529174804688,
+                "netMargin": 0.37475234270095825
+              }
+            ]
+          },
+          {
+            "companyId": "haneul-food",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 2245.689208984375
+                },
+                {
+                  "id": "COST",
+                  "value": 2323.232421875
+                },
+                {
+                  "id": "CASH",
+                  "value": 5466.81640625
+                },
+                {
+                  "id": "DEBT",
+                  "value": 500.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 450.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 80.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 20.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 30.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 55.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 510.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 250.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 100.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 1000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 1800.0,
+              "initialCost": 1760.0,
+              "initialNetProfit": 40.0,
+              "initialNetMargin": 0.02222222276031971,
+              "initialDebtRatio": 0.8474576473236084,
+              "initialLiquidityStrength": 0.034090910106897354,
+              "initialAssetValue": -137.99998474121094,
+              "tangibleCoefficient": 0.60000002384185791,
+              "intangibleCoefficient": 0.40000000596046448
+            },
+            "market": {
+              "npcSentiment": 0.0416666641831398,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": -0.0081269601359963417
+            },
+            "history": [
+              {
+                "turn": 229,
+                "revenue": 2226.17138671875,
+                "netProfit": 487.495849609375,
+                "netMargin": 0.1990763396024704
+              },
+              {
+                "turn": 230,
+                "revenue": 2245.689208984375,
+                "netProfit": 933.912109375,
+                "netMargin": 0.37806254625320435
+              },
+              {
+                "turn": 231,
+                "revenue": 2245.689208984375,
+                "netProfit": 440.6815185546875,
+                "netMargin": 0.19623441994190216
+              },
+              {
+                "turn": 232,
+                "revenue": 2245.689208984375,
+                "netProfit": 435.505126953125,
+                "netMargin": 0.19588825106620789
+              },
+              {
+                "turn": 233,
+                "revenue": 2245.689208984375,
+                "netProfit": 435.505126953125,
+                "netMargin": 0.19588825106620789
+              }
+            ]
+          },
+          {
+            "companyId": "mirae-construction",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 2077.572265625
+                },
+                {
+                  "id": "COST",
+                  "value": 2177.572265625
+                },
+                {
+                  "id": "CASH",
+                  "value": 3901.527587890625
+                },
+                {
+                  "id": "DEBT",
+                  "value": 200.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 1400.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 100.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 20.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 85.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 75.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 510.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 600.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 100.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 1000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 1200.0,
+              "initialCost": 1020.0,
+              "initialNetProfit": 180.0,
+              "initialNetMargin": 0.15000000596046448,
+              "initialDebtRatio": 0.095238097012043,
+              "initialLiquidityStrength": 0.58823531866073608,
+              "initialAssetValue": 1570.0,
+              "tangibleCoefficient": 0.800000011920929,
+              "intangibleCoefficient": 0.5
+            },
+            "market": {
+              "npcSentiment": 0.034444443881511688,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": 0.0064435973763465881
+            },
+            "history": [
+              {
+                "turn": 229,
+                "revenue": 2040.3011474609375,
+                "netProfit": -100.0,
+                "netMargin": -0.042619455605745316
+              },
+              {
+                "turn": 230,
+                "revenue": 2077.572265625,
+                "netProfit": 527.150146484375,
+                "netMargin": 0.22063803672790527
+              },
+              {
+                "turn": 231,
+                "revenue": 2077.572265625,
+                "netProfit": -100.0,
+                "netMargin": -0.048133101314306259
+              },
+              {
+                "turn": 232,
+                "revenue": 2077.572265625,
+                "netProfit": -100.0,
+                "netMargin": -0.048133101314306259
+              },
+              {
+                "turn": 233,
+                "revenue": 2077.572265625,
+                "netProfit": -100.0,
+                "netMargin": -0.048133101314306259
+              }
+            ]
+          },
+          {
+            "companyId": "hansung-industry",
+            "state": {
+              "status": 3,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 686.24566650390625
+                },
+                {
+                  "id": "COST",
+                  "value": 786.24566650390625
+                },
+                {
+                  "id": "CASH",
+                  "value": 0.0
+                },
+                {
+                  "id": "DEBT",
+                  "value": 2126.65185546875
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 50.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 500.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 20.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 35.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 40.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 510.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 400.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 83.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 7.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 1000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 600.0,
+              "initialCost": 570.0,
+              "initialNetProfit": 30.0,
+              "initialNetMargin": 0.05000000074505806,
+              "initialDebtRatio": 0.55555558204650879,
+              "initialLiquidityStrength": 0.14035087823867798,
+              "initialAssetValue": 65.000007629394531,
+              "tangibleCoefficient": 0.699999988079071,
+              "intangibleCoefficient": 0.60000002384185791
+            },
+            "market": {
+              "npcSentiment": 0.043333332985639572,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": -0.012812602333724499
+            },
+            "history": [
+              {
+                "turn": 229,
+                "revenue": 683.12554931640625,
+                "netProfit": 272.1087646484375,
+                "netMargin": 0.33194088935852051
+              },
+              {
+                "turn": 230,
+                "revenue": 686.24566650390625,
+                "netProfit": 387.64630126953125,
+                "netMargin": 0.47073313593864441
+              },
+              {
+                "turn": 231,
+                "revenue": 686.24566650390625,
+                "netProfit": 273.62353515625,
+                "netMargin": 0.33227109909057617
+              },
+              {
+                "turn": 232,
+                "revenue": 686.24566650390625,
+                "netProfit": 273.62353515625,
+                "netMargin": 0.33227109909057617
+              },
+              {
+                "turn": 233,
+                "revenue": 686.24566650390625,
+                "netProfit": 218.09588623046875,
+                "netMargin": 0.31781020760536194
+              }
+            ]
+          },
+          {
+            "companyId": "polaris-finance",
+            "state": {
+              "status": 3,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 704.2877197265625
+                },
+                {
+                  "id": "COST",
+                  "value": 742.43017578125
+                },
+                {
+                  "id": "CASH",
+                  "value": 1316.2498779296875
+                },
+                {
+                  "id": "DEBT",
+                  "value": 2200.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 500.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 1400.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 50.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 9000.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 79.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 10000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 520.0,
+              "initialCost": 310.0,
+              "initialNetProfit": 210.0,
+              "initialNetMargin": 0.4038461446762085,
+              "initialDebtRatio": 0.41509434580802917,
+              "initialLiquidityStrength": 10.967741966247559,
+              "initialAssetValue": 2625.0,
+              "tangibleCoefficient": 0.75,
+              "intangibleCoefficient": 0.75
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": -0.013495724648237228
+            },
+            "history": [
+              {
+                "turn": 229,
+                "revenue": 696.85406494140625,
+                "netProfit": 34.01910400390625,
+                "netMargin": 0.048818118870258331
+              },
+              {
+                "turn": 230,
+                "revenue": 704.2877197265625,
+                "netProfit": 36.1005859375,
+                "netMargin": 0.05125829204916954
+              },
+              {
+                "turn": 231,
+                "revenue": 704.2877197265625,
+                "netProfit": 36.1005859375,
+                "netMargin": 0.05125829204916954
+              },
+              {
+                "turn": 232,
+                "revenue": 704.2877197265625,
+                "netProfit": 36.1005859375,
+                "netMargin": 0.05125829204916954
+              },
+              {
+                "turn": 233,
+                "revenue": 704.2877197265625,
+                "netProfit": 36.1005859375,
+                "netMargin": 0.05125829204916954
+              }
+            ]
+          },
+          {
+            "companyId": "daeseong-industry",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 2268.493896484375
+                },
+                {
+                  "id": "COST",
+                  "value": 2014.795166015625
+                },
+                {
+                  "id": "CASH",
+                  "value": 7185.5263671875
+                },
+                {
+                  "id": "DEBT",
+                  "value": 4900.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 12500.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 1700.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 50.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 18000.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 100.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 10000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 1600.0,
+              "initialCost": 1220.0,
+              "initialNetProfit": 380.0,
+              "initialNetMargin": 0.23749999701976776,
+              "initialDebtRatio": 0.2969697117805481,
+              "initialLiquidityStrength": 1.8852459192276,
+              "initialAssetValue": 8050.0,
+              "tangibleCoefficient": 0.75,
+              "intangibleCoefficient": 0.75
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": -0.0016676894156262279
+            },
+            "history": [
+              {
+                "turn": 229,
+                "revenue": 2239.896240234375,
+                "netProfit": 626.443603515625,
+                "netMargin": 0.27967527508735657
+              },
+              {
+                "turn": 230,
+                "revenue": 2268.493896484375,
+                "netProfit": 636.5098876953125,
+                "netMargin": 0.28058698773384094
+              },
+              {
+                "turn": 231,
+                "revenue": 2268.493896484375,
+                "netProfit": 636.5098876953125,
+                "netMargin": 0.28058698773384094
+              },
+              {
+                "turn": 232,
+                "revenue": 2268.493896484375,
+                "netProfit": 636.5098876953125,
+                "netMargin": 0.28058698773384094
+              },
+              {
+                "turn": 233,
+                "revenue": 2268.493896484375,
+                "netProfit": 636.5098876953125,
+                "netMargin": 0.28058698773384094
+              }
+            ]
+          },
+          {
+            "companyId": "sinseong-development",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 1077.5347900390625
+                },
+                {
+                  "id": "COST",
+                  "value": 1062.02783203125
+                },
+                {
+                  "id": "CASH",
+                  "value": 923.76324462890625
+                },
+                {
+                  "id": "DEBT",
+                  "value": 4200.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 9400.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 600.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 50.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 11000.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 100.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 10000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 760.0,
+              "initialCost": 590.0,
+              "initialNetProfit": 170.0,
+              "initialNetMargin": 0.22368420660495758,
+              "initialDebtRatio": 0.365217387676239,
+              "initialLiquidityStrength": 2.5423729419708252,
+              "initialAssetValue": 4800.0,
+              "tangibleCoefficient": 0.75,
+              "intangibleCoefficient": 0.75
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": 0.00012439045531209558
+            },
+            "history": [
+              {
+                "turn": 229,
+                "revenue": 1063.9508056640625,
+                "netProfit": 212.5107421875,
+                "netMargin": 0.19973737001419067
+              },
+              {
+                "turn": 230,
+                "revenue": 1077.5347900390625,
+                "netProfit": 217.29229736328125,
+                "netMargin": 0.20165687799453735
+              },
+              {
+                "turn": 231,
+                "revenue": 1077.5347900390625,
+                "netProfit": 217.29229736328125,
+                "netMargin": 0.20165687799453735
+              },
+              {
+                "turn": 232,
+                "revenue": 1077.5347900390625,
+                "netProfit": 217.29229736328125,
+                "netMargin": 0.20165687799453735
+              },
+              {
+                "turn": 233,
+                "revenue": 1077.5347900390625,
+                "netProfit": 217.29229736328125,
+                "netMargin": 0.20165687799453735
+              }
+            ]
+          },
+          {
+            "companyId": "blueharbor-retail",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 3402.740966796875
+                },
+                {
+                  "id": "COST",
+                  "value": 2922.19287109375
+                },
+                {
+                  "id": "CASH",
+                  "value": 11768.28515625
+                },
+                {
+                  "id": "DEBT",
+                  "value": 2600.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 6800.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 2100.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 50.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 13000.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 100.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 10000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 2400.0,
+              "initialCost": 2170.0,
+              "initialNetProfit": 230.0,
+              "initialNetMargin": 0.095833331346511841,
+              "initialDebtRatio": 0.24299065768718719,
+              "initialLiquidityStrength": 0.82949310541152954,
+              "initialAssetValue": 5875.0,
+              "tangibleCoefficient": 0.75,
+              "intangibleCoefficient": 0.75
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": 0.017673196271061897
+            },
+            "history": [
+              {
+                "turn": 229,
+                "revenue": 3359.84423828125,
+                "netProfit": 760.75634765625,
+                "netMargin": 0.22642607986927032
+              },
+              {
+                "turn": 230,
+                "revenue": 3402.740966796875,
+                "netProfit": 772.767333984375,
+                "netMargin": 0.22710143029689789
+              },
+              {
+                "turn": 231,
+                "revenue": 3402.740966796875,
+                "netProfit": 772.767333984375,
+                "netMargin": 0.22710143029689789
+              },
+              {
+                "turn": 232,
+                "revenue": 3402.740966796875,
+                "netProfit": 772.767333984375,
+                "netMargin": 0.22710143029689789
+              },
+              {
+                "turn": 233,
+                "revenue": 3402.740966796875,
+                "netProfit": 772.767333984375,
+                "netMargin": 0.22710143029689789
+              }
+            ]
+          },
+          {
+            "companyId": "aurora-foodtech",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 853.575927734375
+                },
+                {
+                  "id": "COST",
+                  "value": 871.86077880859375
+                },
+                {
+                  "id": "CASH",
+                  "value": 354.6588134765625
+                },
+                {
+                  "id": "DEBT",
+                  "value": 900.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 650.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 4200.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 50.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 7000.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 89.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 10000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 620.0,
+              "initialCost": 580.0,
+              "initialNetProfit": 40.0,
+              "initialNetMargin": 0.064516127109527588,
+              "initialDebtRatio": 0.13533835113048553,
+              "initialLiquidityStrength": 3.1034483909606934,
+              "initialAssetValue": 4537.5,
+              "tangibleCoefficient": 0.75,
+              "intangibleCoefficient": 0.75
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": -0.0054241325706243515
+            },
+            "history": [
+              {
+                "turn": 229,
+                "revenue": 843.73175048828125,
+                "netProfit": -20.253662109375,
+                "netMargin": -0.0240048598498106
+              },
+              {
+                "turn": 230,
+                "revenue": 853.575927734375,
+                "netProfit": -18.28485107421875,
+                "netMargin": -0.021421469748020172
+              },
+              {
+                "turn": 231,
+                "revenue": 853.575927734375,
+                "netProfit": -18.28485107421875,
+                "netMargin": -0.021421469748020172
+              },
+              {
+                "turn": 232,
+                "revenue": 853.575927734375,
+                "netProfit": -18.28485107421875,
+                "netMargin": -0.021421469748020172
+              },
+              {
+                "turn": 233,
+                "revenue": 853.575927734375,
+                "netProfit": -18.28485107421875,
+                "netMargin": -0.021421469748020172
+              }
+            ]
+          }
+        ],
+        "greenmail": [],
+        "stockManipulation": []
+      }
+    }
+  ]
+}
