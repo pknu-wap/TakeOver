@@ -131,6 +131,7 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
         var info = game.getTodayEventInfos().Single(item => item.definition.getId() == id);
         int before = Object.FindFirstObjectByType<ActionPointService>().Current;
         game.openEvent(id); game.startNegotiation(); yield return null;
+        while (EventSceneTransition.IsBusy) yield return null;
         Check(game.getNegotiationChoiceCount() > choice, "Authored choices are connected: " + id);
         var view = Object.FindFirstObjectByType<EventNegotiationView>();
         if (info.definition.IsLinearDialogue)
@@ -138,9 +139,10 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
             int guard = 20000;
             while (!game.IsClosed && --guard > 0)
             {
-                view.ContinueButton.onClick.Invoke();
+                if (!EventSceneTransition.IsBusy) view.ContinueButton.onClick.Invoke();
                 yield return null;
             }
+            while (EventSceneTransition.IsBusy) yield return null;
             Check(guard > 0 && Object.FindFirstObjectByType<ActionPointService>().Current == before - info.definition.getApCost(), "Linear conversation finishes through Continue without a confirmation choice: " + id);
             yield break;
         }
@@ -163,6 +165,7 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
         game.confirmChoice(choice);
         Check(player.state.cash == cash && memories == Object.FindFirstObjectByType<NpcStateRegistry>().States.Sum(state => state.memories.Count), "Double confirmation does not duplicate effects: " + id);
         game.closeResult(); game.closeResult(); yield return null;
+        while (EventSceneTransition.IsBusy) yield return null;
         Check(game.IsClosed && Object.FindFirstObjectByType<ActionPointService>().Current == before - info.definition.getApCost(), "One AP charge and closed result: " + id);
     }
     private IEnumerator CompleteForced(bool capture = false)

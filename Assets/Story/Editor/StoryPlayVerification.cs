@@ -285,6 +285,7 @@ namespace TakeOver.Story.Editor
                     Check(events.IsDetailOpen && service.Current==0 && !events.tryGetChoice(StoryDirector.TutorialEventId,out _),"Insufficient AP cannot start or commit event");
                     typeof(ActionPointService).GetField("currentAp",Fields).SetValue(service,ap);
                     Click(button); events.startNegotiation();
+                    while (EventSceneTransition.IsBusy) yield return null;
                     Check(Object.FindFirstObjectByType<ActionPointService>().Current==ap-cost,"Negotiation consumes actual AP once");
                     var negotiation=Object.FindFirstObjectByType<EventNegotiationView>();
                     var cap=Await(Capture("13-event-choice")); while(cap.MoveNext()) yield return null;

@@ -27,6 +27,7 @@ namespace TakeOver.Story
         [SerializeField] private StorySequence sequence;
         public static StoryDirector Active { get; private set; }
         public static bool IsRunning => Active != null && !Active.Completed;
+        public static bool IsApplyingWholeSkip => IsRunning && Active.applyingSkippedAction;
         public static bool CanAdvanceTurn => !IsRunning || Active.applyingSkippedAction || Active.Goal == StoryGoal.EndDay && !Active.busy && Active.clock.CurrentTurn == Active.initialTurn;
         public static bool IsGuidingEvent => IsRunning && (Active.Goal == StoryGoal.OpenEvent || Active.Goal == StoryGoal.CompleteEvent);
         public static bool IsInspectingProfile => IsRunning && Active.IsProfile;

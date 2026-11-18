@@ -129,7 +129,12 @@ public sealed class CardQueueProbe : MonoBehaviour
         clock.AdvanceTurn(); int timeout = 300;
         while (!game.IsMandatoryFailureReady && --timeout > 0) yield return null;
         Check(timeout > 0, "Late company ending becomes ready after the blackout");
-        game.AdvanceEnding(true); yield return null;
+        while (EventSceneTransition.IsBusy) yield return null;
+        for (int act = 0; act < 3; act++)
+        {
+            game.AdvanceEnding(true);
+            while (EventSceneTransition.IsBusy) yield return null;
+        }
         var ending = Object.FindFirstObjectByType<CampaignEndingPresenter>();
         Check(ending.AtEnd && !ending.View.SkipButton.gameObject.activeInHierarchy, "Ending result shows only actionable ending controls");
         var choices = (List<UnityEngine.UI.Button>)typeof(EventNegotiationView).GetField("choices", Flags).GetValue(ending.View);

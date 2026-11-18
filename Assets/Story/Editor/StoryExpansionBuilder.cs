@@ -47,6 +47,15 @@ namespace TakeOver.Story.Editor
             }
             SetList(Create<StoryEventDatabase>("Assets/Resources/Story/LegacyStoryEventDatabase.asset"), legacyStories);
             File.WriteAllText("Assets/Resources/Story/EarlyCampaign.json", data["plan"].ToString());
+            var endingVisuals = Create<CampaignEndingVisuals>("Assets/Resources/Story/EndingVisuals.asset");
+            endingVisuals.backgrounds = new[] {
+                AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Story/Art/ConstructionSite.png"),
+                AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Story/Art/FamilyOffice.png"),
+                AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Story/Art/HotelLounge.png"),
+                AssetDatabase.LoadAssetAtPath<GameObject>("Assets/EventSystem/Prefabs/EventNegotiation.prefab")
+                    .GetComponentsInChildren<UnityEngine.UI.Image>(true).Single(image => image.name == "RoomBackground").sprite
+            };
+            EditorUtility.SetDirty(endingVisuals);
             var stories = new List<EventDefinition> { originals.Single(item => item.getId() == EventSystemController.MandatoryEventId) };
             foreach (JObject draft in data["campaign"])
             {
