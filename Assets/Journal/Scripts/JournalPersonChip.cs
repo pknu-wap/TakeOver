@@ -39,11 +39,27 @@ namespace TakeOver.Journal
         [Tooltip("대부분의 NPC에 쓰는 값")]
         [SerializeField] private FaceArea defaultFace = new FaceArea();
         [Tooltip("구도가 다른 NPC만 따로 지정한다")]
-        [SerializeField] private List<FaceArea> faceOverrides = new List<FaceArea>
+        [SerializeField] private List<FaceArea> faceOverrides = new List<FaceArea>();
+
+        private static readonly Dictionary<string, FaceArea> measuredFaces = new Dictionary<string, FaceArea>
         {
-            
-            new FaceArea { npcId = "npc-broker-yoon-hajin", headTop = 0.097f, headHeight = 0.073f, headCenterX = 0.53f }
+            ["npc-hansung-industry-labor-director-choi-mijeong"] = measured(0.034f),
+            ["npc-hansung-industry-ceo-jo-minseok"] = measured(0.011f),
+            ["npc-investigative-reporter-jung-sua"] = measured(0.048f),
+            ["npc-dongbang-trading-ceo-kang-jaehyeon"] = measured(0.009f),
+            ["npc-mirae-construction-ceo-kang-junhyeok"] = measured(0.004f),
+            ["npc-haneul-food-ceo-kim-harin"] = measured(0.021f),
+            ["npc-institutional-investor-kim-taeseong"] = measured(0.013f),
+            ["npc-economic-reporter-lee-mingyu"] = measured(0.005f),
+            ["npc-haneul-food-cfo-oh-jaeseong"] = measured(0.004f),
+            ["npc-mirae-construction-field-director-park-dosik"] = measured(0.005f),
+            ["npc-dongbang-trading-hr-director-park-minu"] = measured(0.006f),
+            ["npc-political-lobbyist-park-sanghyeon"] = measured(0.003f),
+            ["npc-mirae-construction-cfo-seo-jia"] = measured(0.023f),
+            ["npc-broker-yoon-hajin"] = new FaceArea { headTop = 0.098f, headHeight = 0.073f, headCenterX = 0.53f }
         };
+
+        private static FaceArea measured(float headTop) => new FaceArea { headTop = headTop };
 
         public void setup(JournalPerson person)
         {
@@ -81,6 +97,7 @@ namespace TakeOver.Journal
             {
                 if (face != null && face.npcId == npcId) return face;
             }
+            if (npcId != null && measuredFaces.TryGetValue(npcId, out FaceArea measuredFace)) return measuredFace;
             return defaultFace;
         }
     }

@@ -75,6 +75,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Journal.JournalPersonChip
   portraitImage: {fileID: 3582780809912070183}
   nameText: {fileID: 3051010858484927475}
+  faceHeightInChip: 28
+  faceTopInChip: 0.5
+  faceCenterXInChip: 33.5
+  defaultFace:
+    npcId: 
+    headTop: 0.03
+    headHeight: 0.09
+    headCenterX: 0.5
+  faceOverrides:
+  - npcId: npc-broker-yoon-hajin
+    headTop: 0.097
+    headHeight: 0.073
+    headCenterX: 0.53
 --- !u!1 &2158637173636211282
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,8 +199,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 4.5999985, y: 0.8316994}
-  m_SizeDelta: {x: 81.3142, y: 47.5317}
+  m_AnchoredPosition: {x: 1.5, y: -1.5}
+  m_SizeDelta: {x: 80.7, y: 44}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5507415184108208723
 CanvasRenderer:

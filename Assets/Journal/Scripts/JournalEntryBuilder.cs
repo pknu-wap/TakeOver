@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TakeOver.Events;
 using TakeOver.NPC;
@@ -27,9 +28,16 @@ namespace TakeOver.Journal
                 IReadOnlyList<EventChoice> choices = definition.getChoices();
                 if (choiceIndex < 0 || choiceIndex >= choices.Count) continue;
 
-                entries.Add(buildEntry(definition, choices[choiceIndex], events, npcs));
+                JournalEntry entry = buildEntry(definition, choices[choiceIndex], events, npcs);
+                entry.resolvedDay = events.tryGetStoryResolvedDay(definition.getId(), out int resolvedDay) ? resolvedDay : 0;
+                entries.Add(entry);
             }
-            return entries;
+
+            return entries.Select((entry, order) => (entry, order))
+                .OrderBy(item => item.entry.resolvedDay)
+                .ThenBy(item => item.order)
+                .Select(item => item.entry)
+                .ToList();
         }
 
         private static JournalEntry buildEntry(EventDefinition definition, EventChoice choice,

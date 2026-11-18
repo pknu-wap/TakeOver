@@ -7,6 +7,7 @@ namespace TakeOver.Journal
     public sealed class JournalEntry
     {
         public string eventId;
+        public int resolvedDay;
         public string title;
         public string summary;
         public Sprite photo;
