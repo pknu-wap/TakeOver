@@ -87,8 +87,8 @@ namespace TakeOver.Startups
         public float facilityGrowthPer100 = 0.01f;
         [Tooltip("시설 투자 후 보너스가 붙기까지 걸리는 턴 (2달 = 14턴)")]
         [Min(0)] public int facilityBonusDelayTurns = 14;
-        [Tooltip("보너스가 이어지는 턴 (1년 = 84턴)")]
-        [Min(1)] public int facilityBonusDurationTurns = 84;
+        [Tooltip("보너스가 이어지는 턴. 실적은 7턴마다 갱신되므로 이 기간 안에 든 실적 갱신에만 보너스가 붙는다")]
+        [Min(1)] public int facilityBonusDurationTurns = 21;
 
         [Header("화면")]
         [Tooltip("스타트업 탭의 매출 그래프에 보여줄 주 수 (이번 주 + 지난 N주)")]
