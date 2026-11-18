@@ -27,12 +27,20 @@ namespace TakeOver.Documents
         public string RejectLabel => "";
         public string DoneLabel => "";
 
+        // 처리한 순간의 지분 미리보기. 처리 뒤 기록에서 다시 열어도 숫자가 다시 계산되지 않게 고정한다.
+        private string resolvedStakeText;
+
         public IReadOnlyList<DocumentInfo> InfoRows => new[]
         {
             new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
             new DocumentInfo("투자금", $"{Amount:N0}원"),
-            new DocumentInfo("내 지분", $"{stakePercent(TargetCompany.state.totalShares):0.##}% → {stakePercent(newTotalShares()):0.##}%")
+            new DocumentInfo("내 지분", resolvedStakeText ?? stakeText())
         };
+
+        private string stakeText()
+        {
+            return $"{stakePercent(TargetCompany.state.totalShares):0.##}% → {stakePercent(newTotalShares()):0.##}%";
+        }
 
         public IReadOnlyList<string> BodyLines => new[]
         {
@@ -114,6 +122,7 @@ namespace TakeOver.Documents
 
         public RuleResult OnApprove()
         {
+            resolvedStakeText = stakeText();
             int newTotal = newTotalShares();
             TargetCompany.state.totalShares = newTotal;
             if (record != null) record.totalShares = newTotal;
@@ -125,6 +134,7 @@ namespace TakeOver.Documents
 
         public RuleResult OnReject()
         {
+            resolvedStakeText = stakeText();
             return new RuleResult();
         }
 

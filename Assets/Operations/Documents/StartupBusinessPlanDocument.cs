@@ -40,22 +40,24 @@ namespace TakeOver.Documents
         public string RejectLabel => "";
         public string DoneLabel => "";
 
-        // 선택을 바꿀 때마다 화면이 다시 읽어서 예상 지출이 바로 바뀐다.
-        public IReadOnlyList<DocumentInfo> InfoRows
+        // 처리한 순간의 현금·지출 표시. 처리 뒤 기록에서 다시 열어도 돈을 쓴 뒤 숫자로 바뀌지 않게 고정한다.
+        private IReadOnlyList<DocumentInfo> resolvedInfoRows;
+
+        // 선택을 바꿀 때마다 화면이 다시 읽어서 예상 지출이 바로 바뀐다. 처리한 뒤에는 고정된 값을 보여 준다.
+        public IReadOnlyList<DocumentInfo> InfoRows => resolvedInfoRows ?? buildInfoRows();
+
+        private IReadOnlyList<DocumentInfo> buildInfoRows()
         {
-            get
+            float cash = TargetCompany.state.getBaseStat(CompanyStat.CASH);
+            float spend = totalSpend();
+            List<DocumentInfo> rows = new List<DocumentInfo>
             {
-                float cash = TargetCompany.state.getBaseStat(CompanyStat.CASH);
-                float spend = totalSpend();
-                List<DocumentInfo> rows = new List<DocumentInfo>
-                {
-                    new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
-                    new DocumentInfo("회사 현금", $"{cash:N0}원"),
-                    new DocumentInfo("예상 지출", $"{spend:N0}원")
-                };
-                if (spend > cash) rows.Add(new DocumentInfo("부족분 대출", $"{spend - cash:N0}원"));
-                return rows;
-            }
+                new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
+                new DocumentInfo("회사 현금", $"{cash:N0}원"),
+                new DocumentInfo("예상 지출", $"{spend:N0}원")
+            };
+            if (spend > cash) rows.Add(new DocumentInfo("부족분 대출", $"{spend - cash:N0}원"));
+            return rows;
         }
 
         public IReadOnlyList<string> BodyLines => new[]
@@ -149,6 +151,7 @@ namespace TakeOver.Documents
 
         public RuleResult OnApprove()
         {
+            resolvedInfoRows = buildInfoRows();
             CompanyState state = TargetCompany.state;
             RuleResult result = new RuleResult();
 
@@ -183,6 +186,7 @@ namespace TakeOver.Documents
 
         public RuleResult OnReject()
         {
+            resolvedInfoRows = buildInfoRows();
             return new RuleResult();
         }
 
