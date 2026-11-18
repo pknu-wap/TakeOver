@@ -24,7 +24,11 @@ namespace TakeOver.Documents
             sources = new List<IDocumentSource> { new DividendPolicySource(companies, settings) };
 
             StartupSystem startupSystem = FindFirstObjectByType<StartupSystem>();
-            if (startupSystem != null) sources.Add(new StartupFundingSource(companies, startupSystem, player));
+            if (startupSystem != null)
+            {
+                sources.Add(new StartupFundingSource(companies, startupSystem, player));
+                sources.Add(new StartupListingSource(companies, startupSystem, clock));
+            }
         }
 
         private void Start()

@@ -1,3 +1,4 @@
+using TakeOver.NPC;
 using TakeOver.Startups;
 
 namespace TakeOver.Documents
@@ -8,14 +9,16 @@ namespace TakeOver.Documents
         public DocumentSettings settings { get; }
         public Player player { get; }
         public StartupSystem startupSystem { get; }
+        public GameTurnClock clock { get; }
 
         public DocumentContext(Companies companies, DocumentSettings settings,
-            Player player = null, StartupSystem startupSystem = null)
+            Player player = null, StartupSystem startupSystem = null, GameTurnClock clock = null)
         {
             this.companies = companies;
             this.settings = settings;
             this.player = player;
             this.startupSystem = startupSystem;
+            this.clock = clock;
         }
     }
 }

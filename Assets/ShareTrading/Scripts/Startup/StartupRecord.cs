@@ -26,5 +26,8 @@ namespace TakeOver.Startups
         public List<float> revenueHistory = new List<float>();
 
         public bool fundingRejected;
+
+        public int contractTurn;
+        public int listingRetryTurn;
     }
 }

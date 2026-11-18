@@ -206,5 +206,25 @@ namespace TakeOver.Startups
             startup.state.setStat(CompanyStat.CASH, 0f);
             Debug.Log($"{startup.definition.companyName}의 현금을 0으로 만듦 (검증용). 다음 턴에 자금 요청이 올라온다.");
         }
+
+        [ContextMenu("검증용: 첫 스타트업 상장 요건 채우기 (상장 추진 문서 확인)")]
+        private void fillFirstStartupListingForTest()
+        {
+            if (companies == null || companies.StartupList.Count == 0) return;
+            Company startup = companies.StartupList[0];
+            startup.state.setStat(CompanyStat.REVENUE, settings.listingRevenue);
+            Debug.Log($"{startup.definition.companyName}의 매출을 상장 기준({settings.listingRevenue:N0})으로 만듦 (검증용). 다음 턴에 상장 추진이 올라온다.");
+        }
+
+        [ContextMenu("검증용: 첫 스타트업을 거절 불가 기간으로 (요건을 채우면 바로 상장)")]
+        private void skipFirstStartupContractForTest()
+        {
+            if (companies == null || companies.StartupList.Count == 0) return;
+            Company startup = companies.StartupList[0];
+            if (!tryGetRecord(startup.definition.companyID, out StartupRecord record)) return;
+            record.contractTurn = -settings.listingNoRejectTurns;
+            record.listingRetryTurn = 0;
+            Debug.Log($"{startup.definition.companyName}의 계약 시점을 앞당김 (검증용). 요건을 채우면 문서 없이 바로 상장한다.");
+        }
     }
 }
