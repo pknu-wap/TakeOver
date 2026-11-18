@@ -5,10 +5,11 @@ using TakeOver.Events;
 using TakeOver.NPC;
 using TakeOver.Operations;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace TakeOver.Startups
 {
-    public sealed class StartupContractService : MonoBehaviour
+    public sealed class StartupContractService : MonoBehaviour, ITurnBlocker
     {
         [SerializeField] private DocumentDetailView contractPrefab;
         private readonly Queue<(Company company, int day)> requests = new Queue<(Company, int)>();
@@ -21,6 +22,7 @@ namespace TakeOver.Startups
         private EventNegotiationView negotiation;
         private DocumentDetailView detail;
         private StartupContractDocument contract;
+        private GameObject previousSelection;
 
         private void Start()
         {
@@ -30,6 +32,13 @@ namespace TakeOver.Startups
             clock = FindFirstObjectByType<GameTurnClock>();
             events = FindFirstObjectByType<EventSystemController>();
             negotiationTemplate = FindFirstObjectByType<EventNegotiationView>(FindObjectsInactive.Include);
+            clock.RegisterBlocker(this);
+        }
+
+        public bool IsBlocking(out string reason)
+        {
+            reason = "진행 중인 투자 계약을 먼저 처리해 주세요";
+            return contract != null;
         }
 
         // 발굴 보고서의 투자 검토 선택에서 호출할 연결 함수
@@ -54,6 +63,7 @@ namespace TakeOver.Startups
             if (company == null || !containsStartup(company) || company.state.getStat(CompanyStat.PLAYER_SHARES) > 0f) return;
 
             contract = new StartupContractDocument(company, player, companies, clock.CurrentTurn);
+            previousSelection = EventSystem.current.currentSelectedGameObject;
             negotiation = Instantiate(negotiationTemplate, negotiationTemplate.transform.parent, false);
             negotiation.name = "Startup contract negotiation";
             negotiation.transform.SetAsLastSibling();
@@ -68,6 +78,7 @@ namespace TakeOver.Startups
                 showPlayer = false
             }, showContract, null, showContract, () => true);
             negotiation.SetDialogueInput(true);
+            negotiation.ContinueButton.Select();
         }
 
         private bool containsStartup(Company company)
@@ -97,6 +108,7 @@ namespace TakeOver.Startups
             detail.gameObject.SetActive(true);
             detail.Decided += decide;
             detail.Show(contract);
+            detail.GetComponentInChildren<UnityEngine.UI.Button>().Select();
         }
 
         private void decide(IDocument document, bool approved)
@@ -106,6 +118,8 @@ namespace TakeOver.Startups
                 if (!contract.CanApprove(out _)) return;
                 new ChangeApplier(player).Apply(contract.OnApprove(), contract.TargetCompany);
                 contract.TargetCompany.calculator.recalculate(contract.TargetCompany, marketData);
+                var startupTab = FindFirstObjectByType<StartupTabView>();
+                if (startupTab != null) startupTab.refreshAfterInvestment();
             }
             close();
         }
@@ -116,13 +130,19 @@ namespace TakeOver.Startups
             {
                 negotiation.gameObject.SetActive(false);
                 Destroy(negotiation.gameObject);
+                if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(previousSelection);
             }
             detail = null;
             negotiation = null;
             contract = null;
+            previousSelection = null;
         }
 
-        private void OnDestroy() => close();
+        private void OnDestroy()
+        {
+            if (clock != null) clock.UnregisterBlocker(this);
+            close();
+        }
 
         [ContextMenu("검증용: 첫 미투자 스타트업 계약 요청")]
         private void requestFirstStartup()

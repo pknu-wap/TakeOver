@@ -13,6 +13,8 @@ namespace TakeOver.Documents
         private readonly Companies companies;
         private readonly DocumentChoiceField employee;
         private readonly List<DocumentInfo> infoRows;
+        private string employeeLabel;
+        private bool isResolved;
 
         public string TypeId => typeId;
         public string Title => "인원 요청서";
@@ -63,13 +65,20 @@ namespace TakeOver.Documents
             this.jobs = jobs;
             this.companies = companies;
             infoRows = new List<DocumentInfo>();
-            foreach (NameText row in record.infoRows) infoRows.Add(new DocumentInfo(row.label, row.value));
+            foreach (NameText row in record.infoRows)
+            {
+                if (row.label == "employee-label") employeeLabel = row.value;
+                else infoRows.Add(new DocumentInfo(row.label, row.value));
+            }
+            isResolved = record.resolved;
             employee = new DocumentChoiceField("employee", "직원", getEmployeeChoices);
             ChoiceFields = new[] { employee };
         }
 
         private IReadOnlyList<DocumentChoice> getEmployeeChoices()
         {
+            if (isResolved && employee.value.HasValue && employeeLabel != null)
+                return new[] { new DocumentChoice { key = employee.value.Value, label = employeeLabel } };
             var choices = new List<DocumentChoice>();
             foreach (Employee candidate in employees.Employees)
                 if (jobs.GetJob(candidate) != JobType.Support)
@@ -87,6 +96,12 @@ namespace TakeOver.Documents
         {
             if (name != employee.name) throw new ArgumentException("알 수 없는 직원 선택 칸입니다.", nameof(name));
             employee.value = key;
+            if (!isResolved || employeeLabel == null)
+            {
+                employeeLabel = null;
+                foreach (DocumentChoice choice in getEmployeeChoices())
+                    if (choice.key == key) { employeeLabel = choice.label; break; }
+            }
         }
 
         public bool CanApprove(out string reason)
@@ -116,6 +131,7 @@ namespace TakeOver.Documents
 
         public RuleResult OnApprove()
         {
+            rememberEmployee();
             assignEmployee(TargetCompany, employee.value.Value);
             return new RuleResult();
         }
@@ -127,7 +143,18 @@ namespace TakeOver.Documents
 
         public void cancel() => isCancelled = true;
 
-        public RuleResult OnReject() => new RuleResult();
+        public RuleResult OnReject()
+        {
+            rememberEmployee();
+            return new RuleResult();
+        }
+
+        private void rememberEmployee()
+        {
+            foreach (DocumentChoice choice in getEmployeeChoices())
+                if (choice.key == employee.value) { employeeLabel = choice.label; break; }
+            isResolved = true;
+        }
 
         public DocumentSaveRecord ToSaveRecord()
         {
@@ -136,6 +163,7 @@ namespace TakeOver.Documents
                 type = typeId,
                 companyId = DedupKey,
                 deadlineTurn = DeadlineTurn,
+                resolved = isResolved,
                 author = Author,
                 fields = new List<NameValue>(),
                 infoRows = new List<NameText>()
@@ -144,6 +172,7 @@ namespace TakeOver.Documents
                 record.fields.Add(new NameValue { name = employee.name, value = employee.value.Value });
             if (isCancelled) record.fields.Add(new NameValue { name = "cancelled", value = 1f });
             foreach (DocumentInfo row in infoRows) record.infoRows.Add(new NameText { label = row.label, value = row.value });
+            if (employeeLabel != null) record.infoRows.Add(new NameText { label = "employee-label", value = employeeLabel });
             return record;
         }
     }
