@@ -63,6 +63,6 @@ namespace TakeOver.Employees
             vote > 0 ? Direction.Up : vote < 0 ? Direction.Down : Direction.Unknown;
 
         public static string describe(Direction direction) =>
-            direction == Direction.Up ? "오를 쪽" : direction == Direction.Down ? "내릴 쪽" : "알 수 없음";
+            direction == Direction.Up ? "상승 예측" : direction == Direction.Down ? "하락 예측" : "알 수 없음";
     }
 }

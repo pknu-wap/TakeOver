@@ -38,17 +38,16 @@ namespace TakeOver.Employees
         {
             foreach (JobCompletion completion in completed)
             {
-                var rows = new List<DocumentInfo> { new DocumentInfo("조사일", $"{turn}일") };
+                var rows = new List<DocumentInfo>();
                 foreach (Company company in completion.Targets)
                 {
                     MarketAppraisal.Result result = MarketAppraisal.evaluate(company, completion.Employee.Analysis.Current, random);
+                    rows.Add(new DocumentInfo("조사일", $"{turn}일"));
                     rows.Add(new DocumentInfo("회사", company.definition.companyName));
                     rows.Add(new DocumentInfo("실적 추세", MarketAppraisal.describe(result.performance)));
-                    rows.Add(new DocumentInfo("시장 평가",
-                        result.market == MarketAppraisal.Direction.Up ? "상승 예상" :
-                        result.market == MarketAppraisal.Direction.Down ? "하락 예상" : "알 수 없음"));
+                    rows.Add(new DocumentInfo("시장 평가", MarketAppraisal.describe(result.market)));
                 }
-                documents.Inbox.Add(new SnapshotDocument("market-appraisal", "시세 예측 보고서", completion.Employee.Name, rows));
+                documents.Inbox.Add(new SnapshotDocument("market-appraisal", "시세 예측 보고서", completion.Employee.Name, rows, rowsPerPage: 4));
             }
             completed.Clear();
         }
