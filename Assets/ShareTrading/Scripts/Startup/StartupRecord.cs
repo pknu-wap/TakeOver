@@ -24,5 +24,7 @@ namespace TakeOver.Startups
         public int employeeCount;
 
         public List<float> revenueHistory = new List<float>();
+
+        public bool fundingRejected;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TakeOver.CompanyRules;
 using TakeOver.NPC;
+using TakeOver.Startups;
 using UnityEngine;
 
 namespace TakeOver.Documents
@@ -21,6 +22,9 @@ namespace TakeOver.Documents
             clock = FindFirstObjectByType<GameTurnClock>();
             Inbox = new DocumentInbox(new ChangeApplier(player), clock, settings.historyLimit);
             sources = new List<IDocumentSource> { new DividendPolicySource(companies, settings) };
+
+            StartupSystem startupSystem = FindFirstObjectByType<StartupSystem>();
+            if (startupSystem != null) sources.Add(new StartupFundingSource(companies, startupSystem, player));
         }
 
         private void Start()

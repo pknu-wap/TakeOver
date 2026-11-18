@@ -22,6 +22,12 @@ namespace TakeOver.Startups
         [Tooltip("순자산(현금 + 유형자산 + 무형자산 - 부채)이 이 값 이하이면 파산 조건을 채운다.")]
         public float bankruptcyNetAssets = 0f;
 
+        [Header("결재 문서 (임시 값, 밸런스 때 조정)")]
+        [Tooltip("자금 요청 금액 범위. 문서가 올라올 때 이 안에서 무작위로 정한다 (x = 최소, y = 최대).")]
+        public Vector2 fundingAmount = new Vector2(200f, 400f);
+        [Tooltip("자금 요청 문서의 처리 기한 (턴). 기한이 지나면 하루 넘기기가 막힌다.")]
+        [Min(1)] public int fundingDeadlineTurns = 7;
+
         [Header("화면")]
         [Tooltip("스타트업 탭의 매출 그래프에 보여줄 주 수 (이번 주 + 지난 N주)")]
         [Min(1)] public int revenueHistoryWeeks = 8;

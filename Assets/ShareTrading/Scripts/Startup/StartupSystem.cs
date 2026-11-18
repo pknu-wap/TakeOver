@@ -197,5 +197,14 @@ namespace TakeOver.Startups
             startup.state.setStat(CompanyStat.INTANGIBLE_ASSTES, 0f);
             Debug.Log($"{startup.definition.companyName}의 매출·현금·자산을 0으로 만듦 (검증용).");
         }
+
+        [ContextMenu("검증용: 첫 스타트업 현금만 0으로 (자금 요청 문서 확인)")]
+        private void emptyFirstStartupCashForTest()
+        {
+            if (companies == null || companies.StartupList.Count == 0) return;
+            Company startup = companies.StartupList[0];
+            startup.state.setStat(CompanyStat.CASH, 0f);
+            Debug.Log($"{startup.definition.companyName}의 현금을 0으로 만듦 (검증용). 다음 턴에 자금 요청이 올라온다.");
+        }
     }
 }
