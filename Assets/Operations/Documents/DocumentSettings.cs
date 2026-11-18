@@ -10,5 +10,9 @@ namespace TakeOver.Documents
         public float[] dividendRatioOptions = { 0f, 0.3f, 0.5f, 0.7f };
         public float takeoverRatio = 0.51f;
         [Min(1)] public int historyLimit = 20;
+
+        [Header("인원 요청 (임시 값)")]
+        [Min(1)] public int supportRequestDeadlineTurns = 7;
+        [Min(1)] public int supportRequestRetryTurns = 7;
     }
 }
