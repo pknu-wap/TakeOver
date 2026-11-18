@@ -52,6 +52,44 @@ namespace TakeOver.Startups
         [Tooltip("스타트업이 처음 만들어질 때 플레이어가 가진 주식 수 (확인용). 벤처 캐피탈 계약 이벤트가 생기면 그쪽에서 정한다.")]
         [Min(0)] public int testPlayerShares = 200;
 
+        [Header("연간 사업 계획 (임시 값, 밸런스 때 조정)")]
+        [Tooltip("연간 사업 계획이 올라오는 주기 (턴). 1년 = 84턴")]
+        [Min(1)] public int businessPlanPeriodTurns = 84;
+        [Tooltip("첫 연간 사업 계획이 올라오는 날짜 범위 (턴). 1 ~ 이 값 사이에서 회사마다 무작위로 정한다")]
+        [Min(1)] public int businessPlanFirstMaxTurns = 21;
+        [Tooltip("연간 사업 계획 문서의 처리 기한 (턴)")]
+        [Min(1)] public int businessPlanDeadlineTurns = 7;
+        [Tooltip("채용 소폭: 지금 직원 수 대비 늘리는 비율 (0.1 = 10%)")]
+        public float hireSmallRatio = 0.1f;
+        [Tooltip("채용 대폭: 지금 직원 수 대비 늘리는 비율")]
+        public float hireLargeRatio = 0.25f;
+        [Tooltip("마케팅 보통: 회사 현금에서 나가는 비용")]
+        public float marketingNormalCost = 50f;
+        [Tooltip("마케팅 집중: 회사 현금에서 나가는 비용")]
+        public float marketingFocusCost = 120f;
+        [Tooltip("마케팅 보통: 평판 0일 때의 소비자 평판 상승량. 평판이 높을수록 덜 오른다")]
+        public float marketingNormalGain = 10f;
+        [Tooltip("마케팅 집중: 평판 0일 때의 소비자 평판 상승량")]
+        public float marketingFocusGain = 25f;
+        [Tooltip("운영 기조 공격: 직원 변화 비율")]
+        public float aggressiveEmployeeRatio = 0.1f;
+        [Tooltip("운영 기조 공격: 소비자 평판 변화")]
+        public float aggressiveReputation = -3f;
+        [Tooltip("운영 기조 보수: 직원 변화 비율")]
+        public float conservativeEmployeeRatio = -0.05f;
+        [Tooltip("운영 기조 보수: 소비자 평판 변화")]
+        public float conservativeReputation = 3f;
+        [Tooltip("시설 투자 중간: 투자금 (고정 금액)")]
+        public float facilityMediumCost = 150f;
+        [Tooltip("시설 투자 대규모: 투자금 (고정 금액)")]
+        public float facilityLargeCost = 400f;
+        [Tooltip("시설 투자 100원당 붙는 실적 주기 성장률 보너스 (0.01 = 1%p)")]
+        public float facilityGrowthPer100 = 0.01f;
+        [Tooltip("시설 투자 후 보너스가 붙기까지 걸리는 턴 (2달 = 14턴)")]
+        [Min(0)] public int facilityBonusDelayTurns = 14;
+        [Tooltip("보너스가 이어지는 턴 (1년 = 84턴)")]
+        [Min(1)] public int facilityBonusDurationTurns = 84;
+
         [Header("화면")]
         [Tooltip("스타트업 탭의 매출 그래프에 보여줄 주 수 (이번 주 + 지난 N주)")]
         [Min(1)] public int revenueHistoryWeeks = 8;

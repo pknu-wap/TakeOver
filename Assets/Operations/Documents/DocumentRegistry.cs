@@ -14,7 +14,8 @@ namespace TakeOver.Documents
                 { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) },
                 { StartupFundingDocument.typeId, StartupFundingDocument.restore },
                 { StartupListingDocument.typeId, StartupListingDocument.restore },
-                { StartupFollowUpDocument.typeId, StartupFollowUpDocument.restore }
+                { StartupFollowUpDocument.typeId, StartupFollowUpDocument.restore },
+                { StartupBusinessPlanDocument.typeId, StartupBusinessPlanDocument.restore }
             };
 
         public IApprovalDocument Restore(DocumentSaveRecord record, DocumentContext context)

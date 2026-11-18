@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TakeOver.CompanyRules
@@ -5,11 +6,15 @@ namespace TakeOver.CompanyRules
     public sealed class PerformanceRule : ICompanyRule
     {
         private readonly CompanyRuleSettings.PerformanceSettings settings;
+        // 회사별 추가 성장률. 스타트업용 규칙에만 시설 투자 보너스를 연결하고, 상장 기업용 규칙은 null이라 0이다.
+        private readonly Func<Company, int, float> extraGrowth;
         public int PeriodTurns => settings.periodTurns;
 
-        public PerformanceRule(CompanyRuleSettings.PerformanceSettings settings)
+        public PerformanceRule(CompanyRuleSettings.PerformanceSettings settings,
+            Func<Company, int, float> extraGrowth = null)
         {
             this.settings = settings;
+            this.extraGrowth = extraGrowth;
         }
 
         public RuleResult Evaluate(Company company, RuleContext context)
@@ -27,7 +32,9 @@ namespace TakeOver.CompanyRules
                 + context.marketScore * settings.marketWeight
                 + CompanyCalculationMath.normalizeScore(state.getBaseStat(CompanyStat.MARKET_POSITION)) * settings.positionWeight
                 + CompanyCalculationMath.normalizeScore(reputation) * settings.reputationWeight
-                + employeeGrowth * settings.employeeWeight, settings.minGrowth, settings.maxGrowth);
+                + employeeGrowth * settings.employeeWeight
+                + (extraGrowth != null ? extraGrowth(company, context.currentTurn) : 0f),
+                settings.minGrowth, settings.maxGrowth);
             float revenue = Mathf.Max(0f, state.getBaseStat(CompanyStat.REVENUE) * (1f + growth));
             float cost = Mathf.Max(0f, settings.fixedCost + employees * settings.costPerEmployee
                 + revenue * settings.variableCostRatio);
