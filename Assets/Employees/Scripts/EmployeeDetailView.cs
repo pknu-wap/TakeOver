@@ -166,9 +166,8 @@ namespace TakeOver.Employees
 
             if (potentialValueText != null)
             {
-                bool potRevealed = IsStatRevealed(HiddenStatType.Potential);
-                potentialValueText.text = potRevealed
-                    ? GetHiddenStatValue(HiddenStatType.Potential).ToString()
+                potentialValueText.text = TryGetHiddenStatValue(HiddenStatType.Potential, out int potVal)
+                    ? potVal.ToString()
                     : "?";
             }
 
@@ -221,10 +220,8 @@ namespace TakeOver.Employees
 
         private void SetHiddenBarStat(Image fill, TextMeshProUGUI label, HiddenStatType type)
         {
-            bool revealed = IsStatRevealed(type);
-            if (revealed)
+            if (TryGetHiddenStatValue(type, out int val))
             {
-                int val = GetHiddenStatValue(type);
                 if (fill != null) fill.fillAmount = Mathf.Clamp01(val / StatBarMax);
                 if (label != null) label.text = val.ToString();
             }
@@ -235,20 +232,17 @@ namespace TakeOver.Employees
             }
         }
 
-        private bool IsStatRevealed(HiddenStatType type)
+        private bool TryGetHiddenStatValue(HiddenStatType type, out int value)
         {
-            if (currentEmployee == null) return false;
-            return employeeService != null
-                ? employeeService.IsRevealed(currentEmployee, type)
-                : currentEmployee.IsHiddenRevealed(type);
-        }
+            value = 0;
+            if (currentEmployee == null)
+            {
+                return false;
+            }
 
-        private int GetHiddenStatValue(HiddenStatType type)
-        {
-            if (currentEmployee == null) return 0;
             return employeeService != null
-                ? employeeService.GetHiddenStat(currentEmployee, type)
-                : currentEmployee.GetHiddenStat(type);
+                ? employeeService.TryGetHiddenStat(currentEmployee, type, out value)
+                : currentEmployee.TryGetHiddenStat(type, out value);
         }
 
         private void HandleDismiss()
