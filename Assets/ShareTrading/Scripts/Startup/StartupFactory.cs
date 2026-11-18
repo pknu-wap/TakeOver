@@ -27,7 +27,8 @@ namespace TakeOver.Startups
                 intangibleAssets = Mathf.Round(pick(random, template.intangibleAssets)),
                 growthRate = pick(random, template.growthRate),
                 employeeCount = pick(random, template.employees),
-                revenueHistory = new List<float> { revenue }
+                revenueHistory = new List<float> { revenue },
+                playerShares = settings.testPlayerShares
             };
         }
 
@@ -48,7 +49,7 @@ namespace TakeOver.Startups
             definition.initialDebt = record.debt;
             definition.initialTangibleAssets = record.tangibleAssets;
             definition.initialIntangibleAssets = record.intangibleAssets;
-            definition.initialPlayerShares = 0;
+            definition.initialPlayerShares = record.playerShares;
             definition.growthRate = record.growthRate;
             definition.initialEmployeeCount = record.employeeCount;
             definition.dividendRatio = 0f;

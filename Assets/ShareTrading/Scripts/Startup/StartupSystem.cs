@@ -226,5 +226,20 @@ namespace TakeOver.Startups
             record.listingRetryTurn = 0;
             Debug.Log($"{startup.definition.companyName}의 계약 시점을 앞당김 (검증용). 요건을 채우면 문서 없이 바로 상장한다.");
         }
+
+        [ContextMenu("검증용: 첫 스타트업 후속 투자 바로 받기 (후속 투자 문서 확인)")]
+        private void triggerFirstStartupFollowUpForTest()
+        {
+            if (companies == null || companies.StartupList.Count == 0) return;
+            Company startup = companies.StartupList[0];
+            if (!tryGetRecord(startup.definition.companyID, out StartupRecord record)) return;
+            record.nextFollowUpTurn = 1;
+
+            float value = startup.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE);
+            float baseValue = startup.state.getBaseStat(CompanyStat.BASE_COMPANY_VALUE);
+            if (value < settings.followUpMinCompanyValue && value > 0f && baseValue > 0f)
+                startup.state.setStat(CompanyStat.BASE_COMPANY_VALUE, baseValue * settings.followUpMinCompanyValue / value * 1.1f);
+            Debug.Log($"{startup.definition.companyName}의 후속 투자 예정일을 당김 (검증용). 1~2턴 뒤에 후속 투자가 올라온다.");
+        }
     }
 }

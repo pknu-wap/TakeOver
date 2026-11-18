@@ -28,6 +28,7 @@ namespace TakeOver.Documents
             {
                 sources.Add(new StartupFundingSource(companies, startupSystem, player));
                 sources.Add(new StartupListingSource(companies, startupSystem, clock));
+                sources.Add(new StartupFollowUpSource(companies, startupSystem));
             }
         }
 

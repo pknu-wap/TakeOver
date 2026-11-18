@@ -13,6 +13,7 @@ namespace TakeOver.Startups
         public string description;
 
         public int totalShares = 1000;
+        public int playerShares;
         public float baseCompanyValue;
         public float revenue;
         public float cost;
@@ -29,5 +30,7 @@ namespace TakeOver.Startups
 
         public int contractTurn;
         public int listingRetryTurn;
+
+        public int nextFollowUpTurn;
     }
 }

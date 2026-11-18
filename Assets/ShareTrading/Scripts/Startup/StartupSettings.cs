@@ -41,6 +41,17 @@ namespace TakeOver.Startups
         [Tooltip("상장하는 순간 넣는 배당 비율 (0.3 = 30%)")]
         [Range(0f, 1f)] public float listedDividendRatio = 0.3f;
 
+        [Tooltip("후속 투자 문서가 올라오는 주기 범위 (턴). 스타트업마다 이 안에서 무작위로 다음 날짜를 정한다 (x = 최소, y = 최대).")]
+        public Vector2Int followUpIntervalTurns = new Vector2Int(21, 42);
+        [Tooltip("기업가치가 이 값 이상인 스타트업만 후속 투자를 받는다.")]
+        public float followUpMinCompanyValue = 300f;
+        [Tooltip("후속 투자금 범위. 문서가 올라올 때 이 안에서 무작위로 정한다 (x = 최소, y = 최대).")]
+        public Vector2 followUpAmount = new Vector2(100f, 300f);
+        [Tooltip("후속 투자 문서의 처리 기한 (턴)")]
+        [Min(1)] public int followUpDeadlineTurns = 7;
+        [Tooltip("스타트업이 처음 만들어질 때 플레이어가 가진 주식 수 (확인용). 벤처 캐피탈 계약 이벤트가 생기면 그쪽에서 정한다.")]
+        [Min(0)] public int testPlayerShares = 200;
+
         [Header("화면")]
         [Tooltip("스타트업 탭의 매출 그래프에 보여줄 주 수 (이번 주 + 지난 N주)")]
         [Min(1)] public int revenueHistoryWeeks = 8;
