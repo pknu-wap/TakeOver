@@ -2089,6 +2089,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: News
       objectReference: {fileID: 0}
+    - target: {fileID: 3942595880866608606, guid: eb15e3cd394870b43a8c48e9e2804479, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7002405708384497032, guid: eb15e3cd394870b43a8c48e9e2804479, type: 3}
       propertyPath: m_Pivot.x
       value: 0
