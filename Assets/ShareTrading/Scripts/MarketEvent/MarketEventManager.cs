@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ public class MarketEventManager : MonoBehaviour
     [SerializeField] private MarketEventEffectControl EffectControl;
     private MarketEventCompanySelector companySelector;
     private int nextEventOrderID;
+
+    public event Action<ActiveMarketEvent, int> marketEventAdded;
 
     private void Awake()
     {
@@ -81,6 +84,7 @@ public class MarketEventManager : MonoBehaviour
         activeEvents.Add(entry);
         logSelectedEvent(entry, currentTurn);
         EffectControl.addEffects(entry);
+        marketEventAdded?.Invoke(entry, currentTurn);
     }
 
     private void logSelectedEvent(ActiveMarketEvent entry, int currentTurn)
