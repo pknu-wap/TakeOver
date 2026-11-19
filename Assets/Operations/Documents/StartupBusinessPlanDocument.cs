@@ -134,7 +134,7 @@ namespace TakeOver.Documents
 
         public bool CanApprove(out string reason)
         {
-            if (!StartupListingDocument.isStartup(companies, TargetCompany))
+            if (!StartupListingSource.isStartup(companies, TargetCompany))
             {
                 reason = "이미 폐업했거나 상장한 회사입니다";
                 return false;

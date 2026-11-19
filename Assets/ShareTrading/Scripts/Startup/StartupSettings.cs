@@ -28,16 +28,10 @@ namespace TakeOver.Startups
         [Tooltip("자금 요청 문서의 처리 기한 (턴). 기한이 지나면 하루 넘기기가 막힌다.")]
         [Min(1)] public int fundingDeadlineTurns = 7;
 
-        [Tooltip("매출이 이 값 이상이면 상장 추진 문서가 올라온다. 플레이어에게는 보여 주지 않는다.")]
+        [Tooltip("계약한 스타트업의 매출이 이 값 이상이면 상장 추진 보고서를 보내고 다음 날 상장한다. 플레이어에게는 보여 주지 않는다.")]
         public float listingRevenue = 800f;
-        [Tooltip("기업가치가 이 값 이상이면 상장 추진 문서가 올라온다 (매출 기준과 둘 중 하나만 채우면 된다).")]
+        [Tooltip("기업가치가 이 값 이상이어도 같다 (매출 기준과 둘 중 하나만 채우면 된다).")]
         public float listingCompanyValue = 700f;
-        [Tooltip("상장 추진 문서의 처리 기한 (턴)")]
-        [Min(1)] public int listingDeadlineTurns = 7;
-        [Tooltip("상장 추진을 거절하면 이 턴 수 뒤에 다시 올라온다 (한 달 = 7턴, 1년 84턴 기준)")]
-        [Min(1)] public int listingRetryTurns = 7;
-        [Tooltip("계약 후 이 턴 수가 지나면 상장을 거절할 수 없다 (문서 없이 바로 상장). 계약 이벤트가 없어 지금은 게임 시작부터 센다.")]
-        [Min(0)] public int listingNoRejectTurns = 180;
         [Tooltip("상장하는 순간 넣는 배당 비율 (0.3 = 30%)")]
         [Range(0f, 1f)] public float listedDividendRatio = 0.3f;
 

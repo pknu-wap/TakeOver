@@ -13,7 +13,6 @@ namespace TakeOver.Documents
                     context.companies.getCompany(record.companyId), record.deadlineTurn, context.settings) },
                 { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) },
                 { StartupFundingDocument.typeId, StartupFundingDocument.restore },
-                { StartupListingDocument.typeId, StartupListingDocument.restore },
                 { StartupFollowUpDocument.typeId, StartupFollowUpDocument.restore },
                 { StartupBusinessPlanDocument.typeId, StartupBusinessPlanDocument.restore },
                 { SupportRequestDocument.typeId, (record, context) => new SupportRequestDocument(

@@ -1,50 +1,73 @@
 using System.Collections.Generic;
-using TakeOver.NPC;
 using TakeOver.Startups;
 
 namespace TakeOver.Documents
 {
+    // 계약한 스타트업이 상장 요건(매출 또는 기업가치)을 채우면 읽기 전용 상장 추진 보고서를 보내고, 그다음 날 상장한다.
+    // 승인·거절이 없는 보고서라 플레이어가 막거나 미룰 수 없다. 요건 자체는 보고서에도 보여 주지 않는다.
     public sealed class StartupListingSource : IDocumentSource
     {
+        public const string reportTypeId = "startup-listing-report";
+
         private readonly Companies companies;
         private readonly StartupSystem startupSystem;
-        private readonly GameTurnClock clock;
 
-        public StartupListingSource(Companies companies, StartupSystem startupSystem, GameTurnClock clock)
+        public StartupListingSource(Companies companies, StartupSystem startupSystem)
         {
             this.companies = companies;
             this.startupSystem = startupSystem;
-            this.clock = clock;
         }
 
         public void Generate(int turn, DocumentInbox inbox)
         {
             StartupSettings settings = startupSystem.Settings;
             IReadOnlyList<Company> startups = companies.StartupList;
+            // 상장하면 목록에서 빠지므로 뒤에서부터 돈다
             for (int i = startups.Count - 1; i >= 0; i--)
             {
                 Company startup = startups[i];
-                if (!meetsListing(startup, settings)) continue;
                 if (!startupSystem.tryGetRecord(startup.definition.companyID, out StartupRecord record)) continue;
                 if (!record.contracted) continue;
-                if (turn < record.listingRetryTurn) continue;
 
-                bool noReject = turn >= record.contractTurn + settings.listingNoRejectTurns;
-                if (!noReject)
+                // 보고서를 보낸 다음 날: 조건이 다시 떨어졌어도 보고서대로 상장한다
+                if (record.listingTurn > 0)
                 {
-                    inbox.Add(new StartupListingDocument(startup, record, companies, settings, clock,
-                        turn + settings.listingDeadlineTurns));
+                    if (turn >= record.listingTurn) listNow(companies, startup, settings);
                     continue;
                 }
 
-                if (hasOpenListing(inbox, startup)) continue;
-                if (!StartupListingDocument.listNow(companies, startup, settings)) continue;
-                inbox.Add(new SnapshotDocument(StartupListingDocument.reportTypeId, "상장 완료", "", new[]
-                {
-                    new DocumentInfo("대상 회사", startup.definition.companyName),
-                    new DocumentInfo("내용", "상장 준비를 마쳐 바로 상장했습니다")
-                }, startup.definition.companyID));
+                if (!meetsListing(startup, settings)) continue;
+                record.listingTurn = turn + 1;
+                inbox.Add(new SnapshotDocument(reportTypeId, "상장 추진 보고서",
+                    $"{startup.definition.companyName} 대표", new[]
+                    {
+                        new DocumentInfo("보고일", $"{turn}일"),
+                        new DocumentInfo("회사", startup.definition.companyName),
+                        new DocumentInfo("업종", startup.definition.industry),
+                        new DocumentInfo("내용", "상장 조건을 만족하여 다음 날 상장합니다"),
+                        new DocumentInfo("상장 예정일", $"{record.listingTurn}일"),
+                        new DocumentInfo("현재 매출", $"{startup.state.getBaseStat(CompanyStat.REVENUE):N0}"),
+                        new DocumentInfo("현재 기업가치", $"{startup.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE):N0}"),
+                        new DocumentInfo("내 지분", $"{stakePercent(startup):0.##}%")
+                    }, startup.definition.companyID));
             }
+        }
+
+        // 상장 처리. 배당 비율은 아직 정해지지 않아 임시 값을 넣는다.
+        public static bool listNow(Companies companies, Company startup, StartupSettings settings)
+        {
+            if (!companies.PromoteStartup(startup)) return false;
+            startup.state.addStat(CompanyStat.DIVIDEND_RATIO,
+                settings.listedDividendRatio - startup.state.getBaseStat(CompanyStat.DIVIDEND_RATIO));
+            return true;
+        }
+
+        // 아직 스타트업 목록에 있는지 (폐업하거나 상장하면 false). 다른 스타트업 문서들이 승인 전에 확인한다.
+        public static bool isStartup(Companies companies, Company company)
+        {
+            foreach (Company startup in companies.StartupList)
+                if (startup == company) return true;
+            return false;
         }
 
         private static bool meetsListing(Company startup, StartupSettings settings)
@@ -53,12 +76,11 @@ namespace TakeOver.Documents
                 || startup.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE) >= settings.listingCompanyValue;
         }
 
-        private static bool hasOpenListing(DocumentInbox inbox, Company startup)
+        private static float stakePercent(Company startup)
         {
-            foreach (IDocument document in inbox.Open)
-                if (document.TypeId == StartupListingDocument.typeId
-                    && document.DedupKey == startup.definition.companyID) return true;
-            return false;
+            int totalShares = startup.state.totalShares;
+            if (totalShares <= 0) return 0f;
+            return startup.state.getBaseStat(CompanyStat.PLAYER_SHARES) * 100f / totalShares;
         }
     }
 }
