@@ -49,6 +49,7 @@ namespace TakeOver.Employees
         [SerializeField] private Button appraisalButton;
         [SerializeField] private Button discoveryButton;
         [SerializeField] private Button clearJobButton;
+        [SerializeField] private AppraisalCompanyPicker appraisalPicker;
 
         private Employee currentEmployee;
         private JobService jobService;
@@ -83,11 +84,16 @@ namespace TakeOver.Employees
             }
 
             button.onClick.RemoveAllListeners();
-            // 시세 예측은 지금은 회사 선택 없이 대상 회사 없이 배정한다. 회사 선택 목록은 이 자리에 연결한다.
             button.onClick.AddListener(() =>
             {
                 if (currentEmployee == null || jobService == null)
                 {
+                    return;
+                }
+
+                if (job == JobType.Appraisal && appraisalPicker != null)
+                {
+                    appraisalPicker.open(currentEmployee, Refresh);
                     return;
                 }
 

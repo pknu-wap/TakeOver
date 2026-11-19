@@ -32,6 +32,12 @@ namespace TakeOver.Operations
         private IDocument document;
         private bool readOnly;
         private GameTurnClock clock;
+        private GameObject pagination;
+        private UnityEngine.UI.Button previousPage;
+        private UnityEngine.UI.Button nextPage;
+        private UnityEngine.UI.Text pageLabel;
+        private int currentPage;
+        private int pageCount;
         public event Action<IDocument, bool> Decided;
 
         private void Awake()
@@ -44,6 +50,7 @@ namespace TakeOver.Operations
         public void Clear()
         {
             document = null;
+            if (pagination != null) pagination.SetActive(false);
             documentRoot.SetActive(false);
             emptyMessage.SetActive(true);
         }
@@ -51,6 +58,7 @@ namespace TakeOver.Operations
         // readOnly = 이미 처리한(읽은) 문서. 읽기 전용 문서(approval == null)는 기한·D-day·거절·입력 칸이 없다.
         public void Show(IDocument doc, ResolvedDocument resolved = null, int arrival = 0)
         {
+            if (document != doc) currentPage = 0;
             document = doc;
             readOnly = resolved != null;
             IApprovalDocument approval = doc as IApprovalDocument;
@@ -83,6 +91,7 @@ namespace TakeOver.Operations
             doneButton.SetActive(readOnly);
             if (doc.BodyId != "generic") Debug.LogWarning($"알 수 없는 문서 본문 {doc.BodyId}: 범용 본문을 사용합니다.");
             refreshInfo(doc, resolved);
+            configurePages(doc);
             foreach (var field in fields) { field.SetActive(false); Destroy(field); }
             fields.Clear();
             fieldTemplate.gameObject.SetActive(false);
@@ -128,12 +137,87 @@ namespace TakeOver.Operations
             foreach (var row in infoRows) { row.SetActive(false); Destroy(row); }
             infoRows.Clear();
             infoTemplate.gameObject.SetActive(false);
-            foreach (DocumentInfo info in doc.InfoRows) addInfo(info.label, info.value);
+            var rows = doc.InfoRows;
+            int rowsPerPage = doc is SnapshotDocument snapshot ? snapshot.RowsPerPage : 0;
+            int start = rowsPerPage > 0 ? currentPage * rowsPerPage : 0;
+            int end = rowsPerPage > 0 ? Math.Min(start + rowsPerPage, rows.Count) : rows.Count;
+            for (int i = start; i < end; i++) addInfo(rows[i].label, rows[i].value);
+            if (rowsPerPage > 0)
+            {
+                Canvas.ForceUpdateCanvases();
+                var scroll = infoRoot.GetComponentInParent<UnityEngine.UI.ScrollRect>();
+                if (scroll != null)
+                {
+                    scroll.StopMovement();
+                    scroll.verticalNormalizedPosition = 1f;
+                }
+            }
             if (resolved != null && !resolved.isReadOnly)
             {
                 addInfo("처리 결과", resolved.approved ? "승인" : "거절");
                 addInfo("처리한 턴", resolved.resolvedTurn.ToString());
             }
+        }
+
+        private void configurePages(IDocument doc)
+        {
+            int rowsPerPage = doc is SnapshotDocument snapshot ? snapshot.RowsPerPage : 0;
+            pageCount = rowsPerPage > 0 ? Math.Max(1, (doc.InfoRows.Count + rowsPerPage - 1) / rowsPerPage) : 1;
+            if (pageCount > 1 && pagination == null) createPageControls();
+            if (pagination == null) return;
+            pagination.SetActive(pageCount > 1);
+            refreshPageControls();
+        }
+
+        private void createPageControls()
+        {
+            pagination = new GameObject("Document pages", typeof(RectTransform));
+            pagination.transform.SetParent(fieldsRoot, false);
+            pagination.AddComponent<UnityEngine.UI.LayoutElement>().preferredHeight = 48f;
+            previousPage = createPageButton("Previous page", "이전", 0f, -1);
+            nextPage = createPageButton("Next page", "다음", 310f, 1);
+            pageLabel = Instantiate(sender, pagination.transform, false);
+            pageLabel.name = "Page number";
+            pageLabel.alignment = TextAnchor.MiddleCenter;
+            pageLabel.fontSize = 20;
+            pageLabel.raycastTarget = false;
+            pageLabel.gameObject.SetActive(true);
+            placePageControl(pageLabel.rectTransform, 166f, 108f);
+        }
+
+        private UnityEngine.UI.Button createPageButton(string name, string label, float x, int delta)
+        {
+            var button = Instantiate(approve, pagination.transform, false);
+            button.name = name;
+            button.gameObject.SetActive(true);
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => changePage(delta));
+            button.GetComponentInChildren<UnityEngine.UI.Text>().text = label;
+            button.navigation = new UnityEngine.UI.Navigation { mode = UnityEngine.UI.Navigation.Mode.Automatic };
+            placePageControl((RectTransform)button.transform, x, 132f);
+            return button;
+        }
+
+        private static void placePageControl(RectTransform rect, float x, float width)
+        {
+            rect.anchorMin = rect.anchorMax = new Vector2(0f, 1f);
+            rect.pivot = new Vector2(0f, 1f);
+            rect.anchoredPosition = new Vector2(x, 0f);
+            rect.sizeDelta = new Vector2(width, 48f);
+        }
+
+        private void changePage(int delta)
+        {
+            currentPage += delta;
+            refreshInfo(document, null);
+            refreshPageControls();
+        }
+
+        private void refreshPageControls()
+        {
+            pageLabel.text = $"{currentPage + 1} / {pageCount}";
+            previousPage.interactable = currentPage > 0;
+            nextPage.interactable = currentPage < pageCount - 1;
         }
 
         private void addInfo(string label, string value)
