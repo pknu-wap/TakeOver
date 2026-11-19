@@ -11,6 +11,9 @@ namespace TakeOver.Documents
             {
                 { DividendPolicyDocument.typeId, DividendPolicyDocument.CreateFromSaveRecord },
                 { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) },
+                { StartupFundingDocument.typeId, StartupFundingDocument.restore },
+                { StartupFollowUpDocument.typeId, StartupFollowUpDocument.restore },
+                { StartupBusinessPlanDocument.typeId, StartupBusinessPlanDocument.restore },
                 { SupportRequestDocument.typeId, (record, context) => new SupportRequestDocument(
                     record, context.companies,
                     UnityEngine.Object.FindFirstObjectByType<TakeOver.Employees.EmployeeService>(),
@@ -27,6 +30,7 @@ namespace TakeOver.Documents
                 return null;
             }
             IApprovalDocument document = factory(record, context);
+            if (document == null) return null;
             foreach (NameValue field in record.fields)
             {
                 bool isChoice = false;

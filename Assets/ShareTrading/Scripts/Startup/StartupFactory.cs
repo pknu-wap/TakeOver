@@ -48,7 +48,7 @@ namespace TakeOver.Startups
             definition.initialDebt = record.debt;
             definition.initialTangibleAssets = record.tangibleAssets;
             definition.initialIntangibleAssets = record.intangibleAssets;
-            definition.initialPlayerShares = 0;
+            definition.initialPlayerShares = record.playerShares;
             definition.growthRate = record.growthRate;
             definition.initialEmployeeCount = record.employeeCount;
             definition.dividendRatio = 0f;

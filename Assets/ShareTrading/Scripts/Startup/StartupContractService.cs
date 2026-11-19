@@ -117,6 +117,7 @@ namespace TakeOver.Startups
             {
                 if (!contract.CanApprove(out _)) return;
                 new ChangeApplier(player).Apply(contract.OnApprove(), contract.TargetCompany);
+                FindFirstObjectByType<StartupSystem>()?.markContracted(contract.TargetCompany, clock.CurrentTurn);
                 contract.TargetCompany.calculator.recalculate(contract.TargetCompany, marketData);
                 var startupTab = FindFirstObjectByType<StartupTabView>();
                 if (startupTab != null) startupTab.refreshAfterInvestment();

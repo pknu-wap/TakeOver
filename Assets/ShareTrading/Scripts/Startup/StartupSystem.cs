@@ -197,5 +197,79 @@ namespace TakeOver.Startups
             startup.state.setStat(CompanyStat.INTANGIBLE_ASSTES, 0f);
             Debug.Log($"{startup.definition.companyName}의 매출·현금·자산을 0으로 만듦 (검증용).");
         }
+
+        public bool markContracted(Company startup, int turn)
+        {
+            if (startup == null || !tryGetRecord(startup.definition.companyID, out StartupRecord record)) return false;
+            record.contracted = true;
+            record.contractTurn = turn;
+            return true;
+        }
+
+        [ContextMenu("검증용: 첫 스타트업 계약한 것으로 만들기")]
+        private void contractFirstStartupForTest()
+        {
+            if (companies == null || companies.StartupList.Count == 0) return;
+            Company startup = companies.StartupList[0];
+            TakeOver.NPC.GameTurnClock clock = FindFirstObjectByType<TakeOver.NPC.GameTurnClock>();
+            if (!markContracted(startup, clock != null ? clock.CurrentTurn : 0)) return;
+            if (startup.state.getBaseStat(CompanyStat.PLAYER_SHARES) <= 0f)
+                startup.state.setStat(CompanyStat.PLAYER_SHARES, startup.state.totalShares * 0.2f);
+            Debug.Log($"{startup.definition.companyName}을(를) 계약한 스타트업으로 만듦 (검증용). 지분 {startup.state.getBaseStat(CompanyStat.PLAYER_SHARES) * 100f / startup.state.totalShares:0.##}%");
+        }
+
+        [ContextMenu("검증용: 첫 스타트업 현금만 0으로 (자금 요청 문서 확인)")]
+        private void emptyFirstStartupCashForTest()
+        {
+            if (companies == null || companies.StartupList.Count == 0) return;
+            Company startup = companies.StartupList[0];
+            startup.state.setStat(CompanyStat.CASH, 0f);
+            Debug.Log($"{startup.definition.companyName}의 현금을 0으로 만듦 (검증용). 다음 턴에 자금 요청이 올라온다.");
+        }
+
+        [ContextMenu("검증용: 첫 스타트업 상장 요건 채우기 (상장 추진 문서 확인)")]
+        private void fillFirstStartupListingForTest()
+        {
+            if (companies == null || companies.StartupList.Count == 0) return;
+            Company startup = companies.StartupList[0];
+            startup.state.setStat(CompanyStat.REVENUE, settings.listingRevenue);
+            Debug.Log($"{startup.definition.companyName}의 매출을 상장 기준({settings.listingRevenue:N0})으로 만듦 (검증용). 다음 턴에 상장 추진 보고서가 오고, 그다음 턴에 상장한다.");
+        }
+
+
+        [ContextMenu("검증용: 첫 스타트업 후속 투자 바로 받기 (후속 투자 문서 확인)")]
+        private void triggerFirstStartupFollowUpForTest()
+        {
+            if (companies == null || companies.StartupList.Count == 0) return;
+            Company startup = companies.StartupList[0];
+            if (!tryGetRecord(startup.definition.companyID, out StartupRecord record)) return;
+            record.nextFollowUpTurn = 1;
+
+            float value = startup.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE);
+            float baseValue = startup.state.getBaseStat(CompanyStat.BASE_COMPANY_VALUE);
+            if (value < settings.followUpMinCompanyValue && value > 0f && baseValue > 0f)
+                startup.state.setStat(CompanyStat.BASE_COMPANY_VALUE, baseValue * settings.followUpMinCompanyValue / value * 1.1f);
+            Debug.Log($"{startup.definition.companyName}의 후속 투자 예정일을 당김 (검증용). 1~2턴 뒤에 후속 투자가 올라온다.");
+        }
+
+        // 스타트업용 실적 규칙(CompanyRuleRunner)이 부른다. 지금 턴에 효과가 있는 시설 투자 보너스를 모두 더한다.
+        public float facilityGrowthBonus(Company company, int turn)
+        {
+            if (!tryGetRecord(company.definition.companyID, out StartupRecord record)) return 0f;
+            float bonus = 0f;
+            foreach (StartupFacilityInvestment investment in record.facilityInvestments)
+                if (turn >= investment.startTurn && turn < investment.endTurn) bonus += investment.growthBonus;
+            return bonus;
+        }
+
+        [ContextMenu("검증용: 첫 스타트업 연간 사업 계획 바로 받기")]
+        private void triggerFirstStartupBusinessPlanForTest()
+        {
+            if (companies == null || companies.StartupList.Count == 0) return;
+            Company startup = companies.StartupList[0];
+            if (!tryGetRecord(startup.definition.companyID, out StartupRecord record)) return;
+            record.nextBusinessPlanTurn = 1;
+            Debug.Log($"{startup.definition.companyName}의 연간 사업 계획 예정일을 당김 (검증용). 다음 턴에 올라온다.");
+        }
     }
 }

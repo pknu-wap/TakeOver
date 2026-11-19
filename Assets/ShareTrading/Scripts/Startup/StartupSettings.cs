@@ -22,6 +22,66 @@ namespace TakeOver.Startups
         [Tooltip("순자산(현금 + 유형자산 + 무형자산 - 부채)이 이 값 이하이면 파산 조건을 채운다.")]
         public float bankruptcyNetAssets = 0f;
 
+        [Header("결재 문서 (임시 값, 밸런스 때 조정)")]
+        [Tooltip("자금 요청 금액 범위. 문서가 올라올 때 이 안에서 무작위로 정한다 (x = 최소, y = 최대).")]
+        public Vector2 fundingAmount = new Vector2(200f, 400f);
+        [Tooltip("자금 요청 문서의 처리 기한 (턴). 기한이 지나면 하루 넘기기가 막힌다.")]
+        [Min(1)] public int fundingDeadlineTurns = 7;
+
+        [Tooltip("계약한 스타트업의 매출이 이 값 이상이면 상장 추진 보고서를 보내고 다음 날 상장한다. 플레이어에게는 보여 주지 않는다.")]
+        public float listingRevenue = 800f;
+        [Tooltip("기업가치가 이 값 이상이어도 같다 (매출 기준과 둘 중 하나만 채우면 된다).")]
+        public float listingCompanyValue = 700f;
+        [Tooltip("상장하는 순간 넣는 배당 비율 (0.3 = 30%)")]
+        [Range(0f, 1f)] public float listedDividendRatio = 0.3f;
+
+        [Tooltip("후속 투자 문서가 올라오는 주기 범위 (턴). 스타트업마다 이 안에서 무작위로 다음 날짜를 정한다 (x = 최소, y = 최대).")]
+        public Vector2Int followUpIntervalTurns = new Vector2Int(21, 42);
+        [Tooltip("기업가치가 이 값 이상인 스타트업만 후속 투자를 받는다.")]
+        public float followUpMinCompanyValue = 300f;
+        [Tooltip("후속 투자금 범위. 문서가 올라올 때 이 안에서 무작위로 정한다 (x = 최소, y = 최대).")]
+        public Vector2 followUpAmount = new Vector2(100f, 300f);
+        [Tooltip("후속 투자 문서의 처리 기한 (턴)")]
+        [Min(1)] public int followUpDeadlineTurns = 7;
+
+        [Header("연간 사업 계획 (임시 값, 밸런스 때 조정)")]
+        [Tooltip("연간 사업 계획이 올라오는 주기 (턴). 1년 = 84턴")]
+        [Min(1)] public int businessPlanPeriodTurns = 84;
+        [Tooltip("첫 연간 사업 계획이 올라오는 날짜 범위 (턴). 1 ~ 이 값 사이에서 회사마다 무작위로 정한다")]
+        [Min(1)] public int businessPlanFirstMaxTurns = 21;
+        [Tooltip("연간 사업 계획 문서의 처리 기한 (턴)")]
+        [Min(1)] public int businessPlanDeadlineTurns = 7;
+        [Tooltip("채용 소폭: 지금 직원 수 대비 늘리는 비율 (0.1 = 10%)")]
+        public float hireSmallRatio = 0.1f;
+        [Tooltip("채용 대폭: 지금 직원 수 대비 늘리는 비율")]
+        public float hireLargeRatio = 0.25f;
+        [Tooltip("마케팅 보통: 회사 현금에서 나가는 비용")]
+        public float marketingNormalCost = 50f;
+        [Tooltip("마케팅 집중: 회사 현금에서 나가는 비용")]
+        public float marketingFocusCost = 120f;
+        [Tooltip("마케팅 보통: 평판 0일 때의 소비자 평판 상승량. 평판이 높을수록 덜 오른다")]
+        public float marketingNormalGain = 10f;
+        [Tooltip("마케팅 집중: 평판 0일 때의 소비자 평판 상승량")]
+        public float marketingFocusGain = 25f;
+        [Tooltip("운영 기조 공격: 직원 변화 비율")]
+        public float aggressiveEmployeeRatio = 0.1f;
+        [Tooltip("운영 기조 공격: 소비자 평판 변화")]
+        public float aggressiveReputation = -3f;
+        [Tooltip("운영 기조 보수: 직원 변화 비율")]
+        public float conservativeEmployeeRatio = -0.05f;
+        [Tooltip("운영 기조 보수: 소비자 평판 변화")]
+        public float conservativeReputation = 3f;
+        [Tooltip("시설 투자 중간: 투자금 (고정 금액)")]
+        public float facilityMediumCost = 150f;
+        [Tooltip("시설 투자 대규모: 투자금 (고정 금액)")]
+        public float facilityLargeCost = 400f;
+        [Tooltip("시설 투자 100원당 붙는 실적 주기 성장률 보너스 (0.01 = 1%p)")]
+        public float facilityGrowthPer100 = 0.01f;
+        [Tooltip("시설 투자 후 보너스가 붙기까지 걸리는 턴 (2달 = 14턴)")]
+        [Min(0)] public int facilityBonusDelayTurns = 14;
+        [Tooltip("보너스가 이어지는 턴. 실적은 7턴마다 갱신되므로 이 기간 안에 든 실적 갱신에만 보너스가 붙는다")]
+        [Min(1)] public int facilityBonusDurationTurns = 21;
+
         [Header("화면")]
         [Tooltip("스타트업 탭의 매출 그래프에 보여줄 주 수 (이번 주 + 지난 N주)")]
         [Min(1)] public int revenueHistoryWeeks = 8;
