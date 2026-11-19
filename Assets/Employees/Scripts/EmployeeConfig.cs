@@ -17,6 +17,7 @@ namespace TakeOver.Employees
 
         [Header("Contract & Reveal Settings")]
         public int contractDurationTurns = 120;
+        public int renewalNoticeTurns = 30;
         public int declineGraceTurns = 30;
         public int hiddenStatRevealIntervalTurns = 10;
 
