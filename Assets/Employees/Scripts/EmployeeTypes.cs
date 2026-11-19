@@ -53,4 +53,23 @@ namespace TakeOver.Employees
             IsRevealed = isRevealed;
         }
     }
+
+    [Serializable]
+    public struct EmployeeStatSnapshot
+    {
+        public int Analysis;
+        public int Network;
+        public int Eye;
+        public int Legwork;
+        public int Management;
+
+        public EmployeeStatSnapshot(int analysis, int network, int eye, int legwork, int management)
+        {
+            Analysis = analysis;
+            Network = network;
+            Eye = eye;
+            Legwork = legwork;
+            Management = management;
+        }
+    }
 }

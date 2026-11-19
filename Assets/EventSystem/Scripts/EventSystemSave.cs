@@ -36,6 +36,8 @@ namespace TakeOver.Events
         {
             public string eventId;
             public bool succeeded;
+            // 스토리를 해결한 날. 0이면 기록 없음(이 필드가 생기기 전 저장). 필드가 없어도 0으로 읽혀서 형식 버전은 그대로 둔다.
+            public int resolvedDay;
         }
         [Serializable] public sealed class ChoiceData
         {
@@ -73,7 +75,8 @@ namespace TakeOver.Events
                 campaignDayOffset = campaignDayOffset, lastOccurrenceSerial = lastOccurrenceSerial, politicalFavorGranted = politicalFavorGranted,
                 repeatHistory = repeatHistory.Select(item => new RepeatRecord { eventId = item.eventId, companyId = item.companyId, day = item.day, choice = item.choice, serial = item.serial }).ToList() };
             foreach (var item in storyResults.OrderBy(x => x.Key, StringComparer.Ordinal))
-                data.storyResults.Add(new StoryResultData { eventId = item.Key, succeeded = item.Value });
+                data.storyResults.Add(new StoryResultData { eventId = item.Key, succeeded = item.Value,
+                    resolvedDay = storyResolvedDays.TryGetValue(item.Key, out int knownDay) ? knownDay : 0 });
             foreach (var item in selectedChoices.OrderBy(x => x.Key, StringComparer.Ordinal))
                 data.choices.Add(new ChoiceData { eventId = item.Key, companyId = "", choice = item.Value });
             foreach (var item in companyChoices.OrderBy(x => x.Key.Item1, StringComparer.Ordinal).ThenBy(x => x.Key.Item2, StringComparer.Ordinal))
@@ -201,7 +204,8 @@ namespace TakeOver.Events
             if (data.storyResults == null) throw new InvalidDataException("스토리 결과 목록이 누락됐습니다.");
             foreach (var entry in data.storyResults)
                 if (entry == null || entry.eventId == null || !definitions.TryGetValue(entry.eventId, out var story) ||
-                    !story.IsStory || !choices.ContainsKey(entry.eventId) || !storyIds.Add(entry.eventId))
+                    !story.IsStory || !choices.ContainsKey(entry.eventId) || !storyIds.Add(entry.eventId)
+                    || entry.resolvedDay < 0 || entry.resolvedDay > data.day)
                     throw new InvalidDataException("스토리 결과와 완료 기록이 올바르지 않습니다.");
             var cooldownKeys = new HashSet<(string, string)>();
             foreach (var entry in data.cooldowns)
@@ -248,8 +252,12 @@ namespace TakeOver.Events
             var restoredDefinitions = DefinitionsForCampaign(data.campaignRevision).ToList();
             events.Clear(); events.AddRange(restoredDefinitions);
             selectedChoices.Clear(); companyChoices.Clear(); availableDays.Clear(); occurrences.Clear();
-            storyResults.Clear();
-            foreach (var entry in data.storyResults) storyResults.Add(entry.eventId, entry.succeeded);
+            storyResults.Clear(); storyResolvedDays.Clear();
+            foreach (var entry in data.storyResults)
+            {
+                storyResults.Add(entry.eventId, entry.succeeded);
+                if (entry.resolvedDay > 0) storyResolvedDays.Add(entry.eventId, entry.resolvedDay);
+            }
             tutorialRewardGranted = data.tutorialRewardGranted;
             mandatoryState = data.mandatoryState; mandatoryFailureStake = data.mandatoryFailureStake;
             mandatoryEventId = data.mandatoryEventId; campaignDayOffset = data.campaignDayOffset;

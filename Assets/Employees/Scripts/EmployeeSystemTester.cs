@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace TakeOver.Employees
             Test3_SalaryCalculation();
             Test4_HiddenStatReveal();
             Test5_ContractRenewAndDismiss();
+            Test6_HiddenStatExceptionAndTryGet();
 
             Debug.Log("========== [Employee System] 모든 완료 조건 테스트 종료 ==========");
         }
@@ -150,26 +152,83 @@ namespace TakeOver.Employees
         private void Test5_ContractRenewAndDismiss()
         {
             Employee target = employeeService.Employees[0];
-            int currentTurn = GetCurrentTurn();
-            target.ContractEndTurn = currentTurn + 60;
+            int currentTurn = gameTurnClock.CurrentTurn;
+            int prevEndTurn = currentTurn + 60;
+            target.ContractEndTurn = prevEndTurn;
             target.MonthlySalary = 400;
+            target.HasSentRenewalNotice = false;
+            target.PendingRenewalSalary = null;
 
             int severance = employeeService.GetSeveranceAmount(target);
             bool severanceOk = severance == 800;
 
+            int noticeEvents = 0;
             int expiredEvents = 0;
             int leftEvents = 0;
+            employeeService.OnContractRenewalNotice += (emp) => { noticeEvents++; };
             employeeService.OnContractExpired += (emp) => { expiredEvents++; };
             employeeService.OnEmployeeLeft += (emp) => { leftEvents++; };
 
-            AdvanceTurns(60);
-            bool expiredOk = expiredEvents == 1;
+            // 30턴 진행 -> 만료 30턴 전 시점 도달 -> 알림 이벤트 1회 발생
+            AdvanceTurns(30);
+            bool noticeOk = noticeEvents == 1;
+
+            // 재계약 제시 월급 중복 조회 시 동일 값 유지 확인
+            int proposedSalary1 = employeeService.GetRenewalSalary(target);
+            int proposedSalary2 = employeeService.GetRenewalSalary(target);
+            bool salaryFixedOk = proposedSalary1 == proposedSalary2;
+
+            // 스탯 성장 후 재계약 수락 -> 이전 만료일 + 계약 기간(120)으로 연장, 월급 확정 적용, 시작 스탯 스냅샷 갱신
+            employeeService.RaiseStat(target, AbilityStatType.Analysis, 2f);
+            int expectedNewEndTurn = prevEndTurn + employeeService.Config.contractDurationTurns;
+            employeeService.Renew(target);
+
+            bool renewTurnOk = target.ContractEndTurn == expectedNewEndTurn;
+            bool renewSalaryOk = target.MonthlySalary == proposedSalary1;
+            bool snapshotOk = target.ContractStartStats.Analysis == target.Analysis.Current;
+
+            // 다음 만료 30턴 전 시점으로 이동 후 Decline 중복 호출 테스트
+            int turnsUntilNextNotice = (target.ContractEndTurn - 30) - gameTurnClock.CurrentTurn;
+            AdvanceTurns(turnsUntilNextNotice);
 
             employeeService.Decline(target);
-            AdvanceTurns(30);
-            bool leftOk = leftEvents == 1 && employeeService.Employees.Count == 0;
+            int leaveTurnAfterFirstDecline = target.LeaveTurn;
+            AdvanceTurns(10);
+            employeeService.Decline(target); // 중복 호출 시 퇴사일 밀리지 않아야 함
+            bool declineNoShiftOk = target.LeaveTurn == leaveTurnAfterFirstDecline && target.LeaveTurn == target.ContractEndTurn;
 
-            Debug.Log($"[5. 계약/해고] 60턴 보상금(800): {severanceOk} ({severance}), 만료 이벤트 1회: {expiredOk}, 거절 30턴 후 퇴사: {leftOk}");
+            // 나머지 20턴 진행 -> 원래 계약 만료일에 퇴사
+            AdvanceTurns(20);
+            bool leftOk = leftEvents == 1 && expiredEvents == 0 && employeeService.Employees.Count == 0;
+
+            Debug.Log($"[5. 계약/재계약/거절] 60턴 보상금(800): {severanceOk} ({severance}), 30턴 전 알림 1회: {noticeOk}, 월급 고정: {salaryFixedOk}, 이전만료일 기준 연장: {renewTurnOk}, 월급 반영: {renewSalaryOk}, 스탯 스냅샷 갱신: {snapshotOk}, 거절 중복방어 및 만료일 퇴사: {declineNoShiftOk && leftOk}");
+        }
+
+        private void Test6_HiddenStatExceptionAndTryGet()
+        {
+            Employee unrevealedEmp = new Employee(
+                "미공개사원",
+                5, 10, 5, 10, 5, 10, 5, 10, 5, 10,
+                12, 14, 16,
+                300, 0, 120,
+                employeeService.Config);
+
+            bool tryGetBefore = employeeService.TryGetHiddenStat(unrevealedEmp, HiddenStatType.Diligence, out int valBefore);
+            bool threwWithMessage = false;
+
+            try
+            {
+                employeeService.GetHiddenStat(unrevealedEmp, HiddenStatType.Diligence);
+            }
+            catch (InvalidOperationException ex)
+            {
+                threwWithMessage = !string.IsNullOrEmpty(ex.Message);
+            }
+
+            unrevealedEmp.SetRevealed(HiddenStatType.Diligence, true);
+            bool tryGetAfter = employeeService.TryGetHiddenStat(unrevealedEmp, HiddenStatType.Diligence, out int valAfter);
+
+            Debug.Log($"[6. 히든 스탯 예외/TryGet] 공개 전 TryGet false: {!tryGetBefore && valBefore == 0}, 예외 메시지 포함: {threwWithMessage}, 공개 후 TryGet true(12): {tryGetAfter && valAfter == 12}");
         }
 
         private void AdvanceTurns(int count)
@@ -205,14 +264,6 @@ namespace TakeOver.Employees
                     del.Invoke(cur);
                 }
             }
-        }
-
-        private int GetCurrentTurn()
-        {
-            FieldInfo turnField = typeof(GameTurnClock).GetField("currentTurn", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                ?? typeof(GameTurnClock).GetField("turn", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-            return turnField != null ? (int)turnField.GetValue(gameTurnClock) : 0;
         }
     }
 }

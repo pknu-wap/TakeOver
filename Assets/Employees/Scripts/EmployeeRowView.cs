@@ -77,14 +77,11 @@ namespace TakeOver.Employees
             }
 
             bool revealed = boundService != null
-                ? boundService.IsRevealed(boundEmployee, statType)
-                : boundEmployee.IsHiddenRevealed(statType);
+                ? boundService.TryGetHiddenStat(boundEmployee, statType, out int val)
+                : boundEmployee.TryGetHiddenStat(statType, out val);
 
             if (revealed)
             {
-                int val = boundService != null
-                    ? boundService.GetHiddenStat(boundEmployee, statType)
-                    : boundEmployee.GetHiddenStat(statType);
                 label.text = val.ToString();
                 label.color = new Color32(0xF3, 0xD1, 0x76, 0xFF);
             }

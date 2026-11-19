@@ -4068,6 +4068,7 @@ GameObject:
   - component: {fileID: 1096931700560003625}
   - component: {fileID: 1732267031238747208}
   - component: {fileID: 1894106583780053325}
+  - component: {fileID: 4509535923250358788}
   m_Layer: 0
   m_Name: EmployeeTabPanel
   m_TagString: Untagged
@@ -4176,6 +4177,19 @@ MonoBehaviour:
   detailView: {fileID: 6797372545712627500}
   debugStatusText: {fileID: 0}
   debugAdvanceTurnButton: {fileID: 0}
+--- !u!114 &4509535923250358788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303802040400995491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0e1fac7bff7e94c8f7766629816860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Employees.AppraisalCompanyPicker
+  rowPrefab: {fileID: 7278652486866722749, guid: a36aea721028e8349801fd90c77b6bca, type: 3}
 --- !u!1 &3353874627518492033
 GameObject:
   m_ObjectHideFlags: 0
@@ -6325,6 +6339,7 @@ MonoBehaviour:
   appraisalButton: {fileID: 759425771164268818}
   discoveryButton: {fileID: 7416374508065599326}
   clearJobButton: {fileID: 3909031547585220239}
+  appraisalPicker: {fileID: 4509535923250358788}
 --- !u!1 &4615053641370127450
 GameObject:
   m_ObjectHideFlags: 0

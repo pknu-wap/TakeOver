@@ -825,6 +825,7 @@ MonoBehaviour:
   statusScreen: {fileID: 0}
   eventController: {fileID: 0}
   newsScreen: {fileID: 0}
+  journalScreen: {fileID: 0}
   operationsSelection: {fileID: 2938612969508769465}
   operationsLabel: {fileID: 2841914934031377806}
 --- !u!1 &208187408367745608
@@ -10306,7 +10307,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB85C\uADF8"
+  m_text: "\uC77C\uC9C0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ffcce61cd2828be45a67f220555d888c, type: 2}
   m_sharedMaterial: {fileID: 623819182685503895, guid: ffcce61cd2828be45a67f220555d888c, type: 2}
