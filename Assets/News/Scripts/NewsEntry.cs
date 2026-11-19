@@ -7,5 +7,6 @@ public class NewsEntry
 {
     public int turn;
     public string title;
+    public string description;
     public List<string> companyIDs = new List<string>();
 }

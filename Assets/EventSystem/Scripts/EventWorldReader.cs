@@ -71,6 +71,12 @@ namespace TakeOver.Events
         }
         public float getStake(string companyId) =>
             companies != null && companies.tryGetCompanyStake(companyId, out float stake) ? stake : 0;
+        public float getLiveStake(string companyId)
+        {
+            var company = companies != null ? companies.getCompany(companyId) : null;
+            return company != null && company.state.totalShares > 0
+                ? company.state.getBaseStat(CompanyStat.PLAYER_SHARES) * 100f / company.state.totalShares : 0;
+        }
         public bool tryGetGreenmailStake(string companyId, out float actual, out float required)
         {
             actual = required = 0;

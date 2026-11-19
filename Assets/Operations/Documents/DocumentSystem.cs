@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using TakeOver.CompanyRules;
 using TakeOver.NPC;
+using TakeOver.Startups;
 using UnityEngine;
 
 namespace TakeOver.Documents
 {
-    public sealed class DocumentSystem : MonoBehaviour, ITurnBlocker
+    public sealed partial class DocumentSystem : MonoBehaviour, ITurnBlocker
     {
         [SerializeField] private DocumentSettings settings;
         private CompanyRuleRunner runner;
@@ -21,6 +22,15 @@ namespace TakeOver.Documents
             clock = FindFirstObjectByType<GameTurnClock>();
             Inbox = new DocumentInbox(new ChangeApplier(player), clock, settings.historyLimit);
             sources = new List<IDocumentSource> { new DividendPolicySource(companies, settings) };
+
+            StartupSystem startupSystem = FindFirstObjectByType<StartupSystem>();
+            if (startupSystem != null)
+            {
+                sources.Add(new StartupFundingSource(companies, startupSystem, player));
+                sources.Add(new StartupListingSource(companies, startupSystem));
+                sources.Add(new StartupFollowUpSource(companies, startupSystem));
+                sources.Add(new StartupBusinessPlanSource(companies, startupSystem, clock));
+            }
         }
 
         private void Start()

@@ -165,7 +165,10 @@ public sealed class StoryDeadlineProbe : MonoBehaviour
         game.openEvent(EventSystemController.MandatoryEventId); game.startNegotiation();
         int ap = Object.FindFirstObjectByType<ActionPointService>().Current;
         game.confirmChoice(2); game.closeResult(); yield return null;
-        Check(game.MandatoryState == MandatoryStoryState.Completed && !bar.Bar.gameObject.activeSelf && game.getTodayEvents().Contains(ordinary), "Completing the required event restores original offers and removes the objective");
+        Check(game.MandatoryState == MandatoryStoryState.Completed && bar.Bar.gameObject.activeSelf && game.getTodayEvents().Contains(ordinary), "Completing the required event restores original offers and keeps the empty mission bar visible");
+        Check(bar.Requirement.text == "지금은 투자를 고려할 회사가 없다" && bar.Requirement.alignment == TMPro.TextAlignmentOptions.Center && bar.Requirement.rectTransform.anchorMax == Vector2.one, "No active mission uses one full-width centered message");
+        Check(!bar.Countdown.gameObject.activeSelf && !bar.Bar.Find("Story deadline divider").gameObject.activeSelf && bar.Requirement.preferredWidth < bar.Requirement.rectTransform.rect.width, "Empty mission hides the countdown and divider and fits the original bar");
+        yield return new WaitForEndOfFrame(); ScreenCapture.CaptureScreenshot(Path.GetFullPath(StoryDeadlineVerification.Output + "no-mission-bar.png")); yield return null;
         string restoredTiming = JObject.Parse(game.captureJson())["occurrences"].First(e => (string)e["eventId"] == ordinary.getId()).ToString();
         Check(ordinaryTiming == restoredTiming && Object.FindFirstObjectByType<ActionPointService>().Current == ap, "Restoring ordinary offers preserves their original timing and spends no additional AP");
         Stake(0); clock.AdvanceTurn();
@@ -176,7 +179,7 @@ public sealed class StoryDeadlineProbe : MonoBehaviour
         Stake(0); int earlySignals = 0; game.BadEndingRequested += _ => earlySignals++;
         ToDay(5); yield return null;
         Check(game.MandatoryState == MandatoryStoryState.Completed && earlySignals == 0, "Earlier completion satisfies the obligation even if shares are later sold");
-        Check(!bar.Bar.gameObject.activeSelf && GameObject.Find("Deadline blackout") == null, "Completed story does not show a deadline bar or ending transition");
+        Check(bar.Bar.gameObject.activeSelf && bar.Requirement.text == "지금은 투자를 고려할 회사가 없다" && GameObject.Find("Deadline blackout") == null, "Earlier completion keeps the empty mission message without an ending transition");
         var invalid = JObject.Parse(game.captureJson()); invalid["mandatoryState"] = (int)MandatoryStoryState.Forced;
         rejected = false;
         try { game.prepareLoad(invalid.ToString(), game.saveVersion, new DayStartData(5, 1)); } catch (InvalidDataException) { rejected = true; }

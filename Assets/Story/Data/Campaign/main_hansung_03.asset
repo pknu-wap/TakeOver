@@ -1,0 +1,388 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: main_hansung_03
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: main_hansung_03
+  category: 1
+  linearDialogue: 0
+  tutorialOnly: 0
+  title: "\uD55C\uC131\uACF5\uC5C5 \u2014 \uB2E4\uC74C \uAD50\uB300\uC870\uC758 \uCCAB
+    \uC0DD\uC0B0"
+  image: {fileID: 21300000, guid: e4f06f328acf53c4385995fb1f2c1e65, type: 3}
+  cardImage: {fileID: 21300000, guid: d04aa39026668454991718ef00702904, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uC870\uBBFC\uC11D\uC774 \uB3C4\uBA74\uC5D0 \uCE58\uC218\uB97C \uBC14\uAFBC
+    \uC774\uC720\uAE4C\uC9C0 \uC801\uC5B4\uB480\uB2E4. \uADF8 \uB3C4\uBA74\uC73C\uB85C
+    \uB2E4\uB978 \uAD50\uB300\uC870\uAC00 \uC2E4\uC81C\uB85C \uAC19\uC740 \uBD80\uD488\uC744
+    \uB9CC\uB4E4 \uC218 \uC788\uB294\uC9C0, \uB0A9\uAE30 \uC804\uC5D0 \uBCFC \uC218
+    \uC788\uC744\uAE4C."
+  apCost: 0
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds:
+  - hansung-industry
+  speakerNpcId: npc-hansung-industry-labor-director-choi-mijeong
+  speakerName: "\uCD5C\uBBF8\uC815"
+  speakerRole:
+  dialogue: "\uC774 \uCE58\uC218\uB97C \uC65C \uBC14\uAFE8\uB294\uC9C0 \uC801\uC73C\uB824\uB2C8
+    \uB0B4\uAC00 \uCC98\uC74C\uBD80\uD130 \uB2E4\uC2DC \uC124\uBA85\uD574\uC57C \uD558\uB354\uAD70\uC694."
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uC804\uC218\uB97C \uD655\uC778\uD55C \uB4A4 \uC804\uD658\uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uB2E4\uC74C \uC0AC\uB78C\uC774 \uAC19\uC740 \uD488\uC9C8\uB85C
+      \uB9CC\uB4E4 \uC218 \uC788\uB294\uC9C0 \uD655\uC778\uD55C \uB4A4\uC5D0 \uC0DD\uC0B0\uC744
+      \uC62E\uAE30\uC8E0. \uB204\uAC00 \uBB34\uC5C7\uC744 \uD574\uBCFC\uC9C0 \uACC4\uD68D\uC5D0
+      \uB123\uC5B4\uC8FC\uC2ED\uC2DC\uC624."
+    resultDialogue: "\uC606\uC5D0\uC11C \uBD24\uB2E4\uACE0 \uBC30\uC6E0\uB2E4\uACE0
+      \uCE58\uC9C0\uB294 \uC54A\uC744\uAC8C\uC694. \uC9C1\uC811 \uB9CC\uB4E4\uACE0
+      \uACE0\uCCD0\uBCFC \uC2DC\uAC04\uC744 \uB0A8\uACA8\uB450\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-hansung-industry-labor-director-choi-mijeong
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uC804\uC218
+        \uAC80\uC99D \uD6C4 \uB2E8\uACC4 \uC804\uD658\uC744 \uAC80\uD1A0\uD55C\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uB2E4\uC74C \uC0AC\uB78C\uC774 \uAC19\uC740 \uD488\uC9C8\uB85C \uB9CC\uB4E4
+        \uC218 \uC788\uB294\uC9C0 \uD655\uC778\uD55C \uB4A4\uC5D0 \uC0DD\uC0B0\uC744
+        \uC62E\uAE30\uC8E0. \uB204\uAC00 \uBB34\uC5C7\uC744 \uD574\uBCFC\uC9C0 \uACC4\uD68D\uC5D0
+        \uB123\uC5B4\uC8FC\uC2ED\uC2DC\uC624."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-hansung-industry-labor-director-choi-mijeong
+      text: "\uC606\uC5D0\uC11C \uBD24\uB2E4\uACE0 \uBC30\uC6E0\uB2E4\uACE0 \uCE58\uC9C0\uB294
+        \uC54A\uC744\uAC8C\uC694. \uC9C1\uC811 \uB9CC\uB4E4\uACE0 \uACE0\uCCD0\uBCFC
+        \uC2DC\uAC04\uC744 \uB0A8\uACA8\uB450\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uB0A9\uAE30\uC640 \uC804\uC218\uB97C \uD568\uAED8 \uC810\uAC80\uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uB0A9\uAE30\uB97C \uC9C0\uD0A4\uBA74\uC11C \uAC00\uB974\uCE60 \uC2DC\uAC04\uC774
+      \uC2E4\uC81C\uB85C \uB0A8\uC2B5\uB2C8\uAE4C? \uC77C\uC774 \uB05D\uB09C \uB4A4\uC5D0
+      \uC54C\uC544\uC11C \uD558\uB77C\uB294 \uACC4\uD68D\uC740 \uD53C\uD558\uACE0
+      \uC2F6\uC2B5\uB2C8\uB2E4."
+    resultDialogue: "\uADF8\uB807\uAC8C \uC7A1\uC73C\uBA74 \uB298 \uBC30\uC6B8 \uC2DC\uAC04\uC774
+      \uBA3C\uC800 \uC0AC\uB77C\uC838\uC694. \uC804\uC218 \uC2DC\uAC04\uC744 \uC77C\uC815\uC5D0
+      \uB123\uACE0, \uBE60\uC9C0\uBA74 \uC5B4\uB290 \uB0A9\uAE30\uC640 \uBD80\uB52A\uD788\uB294\uC9C0
+      \uBCF4\uC5EC\uB4DC\uB9B4\uAC8C\uC694."
+    resultValue: answer_1
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-hansung-industry-labor-director-choi-mijeong
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uAE30\uC874
+        \uB0A9\uAE30\uC640 \uC804\uC218 \uBCD1\uD589\uC744 \uC810\uAC80\uD55C\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 1
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uB0A9\uAE30\uB97C \uC9C0\uD0A4\uBA74\uC11C \uAC00\uB974\uCE60 \uC2DC\uAC04\uC774
+        \uC2E4\uC81C\uB85C \uB0A8\uC2B5\uB2C8\uAE4C? \uC77C\uC774 \uB05D\uB09C \uB4A4\uC5D0
+        \uC54C\uC544\uC11C \uD558\uB77C\uB294 \uACC4\uD68D\uC740 \uD53C\uD558\uACE0
+        \uC2F6\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-hansung-industry-labor-director-choi-mijeong
+      text: "\uADF8\uB807\uAC8C \uC7A1\uC73C\uBA74 \uB298 \uBC30\uC6B8 \uC2DC\uAC04\uC774
+        \uBA3C\uC800 \uC0AC\uB77C\uC838\uC694. \uC804\uC218 \uC2DC\uAC04\uC744 \uC77C\uC815\uC5D0
+        \uB123\uACE0, \uBE60\uC9C0\uBA74 \uC5B4\uB290 \uB0A9\uAE30\uC640 \uBD80\uB52A\uD788\uB294\uC9C0
+        \uBCF4\uC5EC\uB4DC\uB9B4\uAC8C\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uC77C\uC815\uACFC \uBE44\uC6A9\uC744 \uB2E4\uC2DC \uB4E3\uB294\uB2E4"
+    choiceDescription:
+    playerLine: "\uD68C\uC0AC\uC5D0\uC11C \uCC45\uC784\uC9C8 \uC77C\uC815\uACFC \uC8FC\uC8FC\uAC00
+      \uD310\uB2E8\uD560 \uBE44\uC6A9\uC744 \uB098\uB220 \uC124\uBA85\uD574\uC8FC\uC2ED\uC2DC\uC624.
+      \uBE60\uB4EF\uD55C \uBD80\uBD84\uB3C4 \uBA3C\uC800 \uB4E3\uACA0\uC2B5\uB2C8\uB2E4."
+    resultDialogue: "\uC88B\uC544\uC694. \uD560 \uC218 \uC788\uB294 \uAC83\uCC98\uB7FC
+      \uBB49\uB6B1\uADF8\uB9AC\uC9C0 \uC54A\uC744\uAC8C\uC694. \uC0AC\uB78C\uACFC
+      \uC2DC\uAC04\uC774 \uBD80\uC871\uD55C \uACF3\uBD80\uD130 \uC9DA\uC5B4\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: answer_2
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-hansung-industry-labor-director-choi-mijeong
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uBE44\uC6A9\uACFC
+        \uC77C\uC815\uC744 \uB2E4\uC2DC \uC124\uBA85\uD574\uB2EC\uB77C \uD55C\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uD68C\uC0AC\uC5D0\uC11C \uCC45\uC784\uC9C8 \uC77C\uC815\uACFC \uC8FC\uC8FC\uAC00
+        \uD310\uB2E8\uD560 \uBE44\uC6A9\uC744 \uB098\uB220 \uC124\uBA85\uD574\uC8FC\uC2ED\uC2DC\uC624.
+        \uBE60\uB4EF\uD55C \uBD80\uBD84\uB3C4 \uBA3C\uC800 \uB4E3\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-hansung-industry-labor-director-choi-mijeong
+      text: "\uC88B\uC544\uC694. \uD560 \uC218 \uC788\uB294 \uAC83\uCC98\uB7FC \uBB49\uB6B1\uADF8\uB9AC\uC9C0
+        \uC54A\uC744\uAC8C\uC694. \uC0AC\uB78C\uACFC \uC2DC\uAC04\uC774 \uBD80\uC871\uD55C
+        \uACF3\uBD80\uD130 \uC9DA\uC5B4\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 0
+  campaignDay: 40
+  missionStartDay: 0
+  prerequisiteEventId:
+  prerequisiteEventIds:
+  - main_pair_b_review
+  failureSignal:
+  openingLines:
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uC774 \uCE58\uC218\uB97C \uC65C \uBC14\uAFE8\uB294\uC9C0 \uC801\uC73C\uB824\uB2C8
+      \uB0B4\uAC00 \uCC98\uC74C\uBD80\uD130 \uB2E4\uC2DC \uC124\uBA85\uD574\uC57C
+      \uD558\uB354\uAD70\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uADF8 \uC124\uBA85\uC744 \uB4E4\uC744 \uC2DC\uAC04\uC744 \uC7A1\uB294
+      \uAC8C \uC774\uBC88 \uACC4\uD68D\uC774\uC5D0\uC694. \uC77C \uB05D\uB098\uACE0
+      \uB0A8\uB294 \uC2DC\uAC04 \uB9D0\uACE0\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uC608\uC804\uC5D4 \uAC80\uC218 \uC77C\uC815\uC774 \uBBF8\uB904\uC9C8
+      \uB54C\uB9C8\uB2E4 \uB300\uD45C\uB2D8\uB9CC \uB2E4\uC2DC \uBD88\uB800\uC5B4\uC694.
+      \uACB0\uAD6D \uADF8\uBD84\uC774 \uB9E1\uB358 \uB2E4\uB978 \uB77C\uC778 \uC0AC\uB78C\uB4E4\uC740
+      \uC774\uC720\uB3C4 \uBAA8\uB974\uACE0 \uAE30\uB2E4\uB838\uACE0\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC774\uBC88\uC5D4 \uB300\uD45C\uB2D8 \uC5C6\uC774 \uB2E4\uC74C \uC870\uAC00
+      \uC2DC\uD5D8 \uC0DD\uC0B0\uC744 \uD558\uBA74 \uC5B4\uB5BB\uC2B5\uB2C8\uAE4C?
+      \uCE58\uC218\uAC00 \uC5B4\uAE0B\uB0AC\uC744 \uB54C \uB3C4\uBA74\uC5D0\uC11C
+      \uC5B4\uB514\uB85C \uB3CC\uC544\uAC00\uB294\uC9C0\uB3C4 \uBCF4\uBA74 \uC88B\uACA0\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uADF8\uB7EC\uC9C0\uC694. \uB9C8\uC9C0\uB9C9 \uACF5\uCC28\uB97C \uC190\uC73C\uB85C
+      \uB9DE\uCDC4\uB358 \uC774\uC720\uBD80\uD130 \uC801\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB2E4\uC74C \uC870\uAC00 \uAC70\uAE30\uC11C \uB9C9\uD788\uBA74, \uB0A9\uAE30\uB97C
+      \uC7A1\uAE30 \uC804\uC5D0 \uB0B4\uAC00 \uD560 \uC77C\uC774 \uBCF4\uC774\uACA0\uC18C."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-hansung-industry-labor-director-choi-mijeong
+    text: "\uB2E4\uC74C \uC870\uAC00 \uC9C1\uC811 \uB9CC\uB4DC\uB294 \uC2DC\uAC04\uC744
+      \uADFC\uBB34\uD45C\uC5D0 \uB123\uC5B4\uB480\uC2B5\uB2C8\uB2E4. \uADF8\uB0A0\uC740
+      \uB2E4\uB978 \uC8FC\uBB38\uBD80\uD130 \uB35C \uBC1B\uC544\uC57C \uD569\uB2C8\uB2E4.
+      \uC601\uC5C5 \uCABD\uC5D0\uB3C4 \uC774\uBBF8 \uC598\uAE30\uD588\uACE0\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uADF8\uB7EC\uBA74 \uB2F9\uC7A5\uC740 \uC0DD\uC0B0 \uC2DC\uAC04\uC774
+      \uC904\uACA0\uAD70\uC694."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-hansung-industry-ceo-jo-minseok
+    text: "\uC904\uC5B4\uB4ED\uB2C8\uB2E4. \uADF8\uB798\uB3C4 \uB098 \uD558\uB098
+      \uBE44\uBA74 \uBA48\uCD94\uB294 \uD68C\uC0AC\uB97C \uAE30\uC220 \uC788\uB2E4\uACE0
+      \uC790\uB791\uD558\uAE34 \uC5B4\uB835\uC9C0 \uC54A\uACA0\uC18C."
+    player: 0
+    narration: 0
+    scene: 0
+  companyVariants: []

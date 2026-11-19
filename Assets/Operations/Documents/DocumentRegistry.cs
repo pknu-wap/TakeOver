@@ -9,10 +9,18 @@ namespace TakeOver.Documents
         private readonly Dictionary<string, Func<DocumentSaveRecord, DocumentContext, IApprovalDocument>> factories
             = new Dictionary<string, Func<DocumentSaveRecord, DocumentContext, IApprovalDocument>>
             {
-                { DividendPolicyDocument.typeId, (record, context) => new DividendPolicyDocument(
-                    context.companies.getCompany(record.companyId), record.deadlineTurn, context.settings) },
-                { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) }
+                { DividendPolicyDocument.typeId, DividendPolicyDocument.CreateFromSaveRecord },
+                { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) },
+                { StartupFundingDocument.typeId, StartupFundingDocument.restore },
+                { StartupFollowUpDocument.typeId, StartupFollowUpDocument.restore },
+                { StartupBusinessPlanDocument.typeId, StartupBusinessPlanDocument.restore },
+                { SupportRequestDocument.typeId, (record, context) => new SupportRequestDocument(
+                    record, context.companies,
+                    UnityEngine.Object.FindFirstObjectByType<TakeOver.Employees.EmployeeService>(),
+                    UnityEngine.Object.FindFirstObjectByType<TakeOver.Employees.JobService>()) }
             };
+
+        public bool IsRegistered(string type) => factories.ContainsKey(type);
 
         public IApprovalDocument Restore(DocumentSaveRecord record, DocumentContext context)
         {
@@ -22,6 +30,7 @@ namespace TakeOver.Documents
                 return null;
             }
             IApprovalDocument document = factory(record, context);
+            if (document == null) return null;
             foreach (NameValue field in record.fields)
             {
                 bool isChoice = false;

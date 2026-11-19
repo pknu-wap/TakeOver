@@ -1,0 +1,365 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: sub_jung_quote_check_01
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: sub_jung_quote_check_01
+  category: 0
+  linearDialogue: 0
+  tutorialOnly: 0
+  title: "\uC815\uC218\uC544 \u2014 \uC778\uD130\uBDF0 \uC778\uC6A9 \uBC94\uC704"
+  image: {fileID: 21300000, guid: e4f06f328acf53c4385995fb1f2c1e65, type: 3}
+  cardImage: {fileID: 21300000, guid: d04aa39026668454991718ef00702904, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uC815\uC218\uC544\uAC00 \uD22C\uC790\uC790\uAC00 \uD68C\uC0AC\uC5D0
+    \uC5B4\uB514\uAE4C\uC9C0 \uC124\uBA85\uC744 \uC694\uAD6C\uD558\uB294\uC9C0 \uB0B4
+    \uC758\uACAC\uC744 \uB4E3\uACE0 \uC2F6\uB2E4\uACE0 \uD588\uB2E4. \uB2F5\uBCC0
+    \uC911 \uC5B4\uB290 \uBD80\uBD84\uC774 \uB0B4 \uC774\uB984\uC73C\uB85C \uAE30\uC0AC\uC5D0
+    \uC2E4\uB9B4 \uC218 \uC788\uB294\uC9C0\uBD80\uD130 \uBB3B\uACA0\uB2E4."
+  apCost: 1
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds: []
+  speakerNpcId: npc-investigative-reporter-jung-sua
+  speakerName: "\uC815\uC218\uC544"
+  speakerRole:
+  dialogue: "\uC624\uB298\uC740 \uC9E7\uAC8C \uC758\uACAC \uD558\uB098\uB9CC \uC5EC\uCB64\uBCFC\uAC8C\uC694.
+    \uD22C\uC790\uC790\uAC00 \uD68C\uC0AC\uC5D0 \uC124\uBA85\uC744 \uC694\uAD6C\uD560
+    \uB54C \uC5B4\uB514\uAE4C\uC9C0 \uC54C\uC544\uC57C \uD55C\uB2E4\uACE0 \uBCF4\uC138\uC694?"
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uC774\uB984\uC744 \uBC1D\uD788\uACE0 \uC758\uACAC\uC744 \uB9D0\uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uACB0\uC815\uC5D0 \uC601\uD5A5\uC744 \uC900 \uC124\uBA85\uC774
+      \uBB34\uC5C7\uC778\uC9C0 \uC54C\uC544\uC57C \uD55C\uB2E4\uACE0 \uC0DD\uAC01\uD569\uB2C8\uB2E4.
+      \uC81C \uC758\uACAC\uC73C\uB85C \uC778\uC6A9\uD574\uB3C4 \uC88B\uC2B5\uB2C8\uB2E4.
+      \uD2B9\uC815 \uD68C\uC0AC\uC5D0 \uC798\uBABB\uC774 \uC788\uB2E4\uB294 \uB73B\uC740
+      \uC544\uB2C8\uACE0\uC694."
+    resultDialogue: "\uB124. \uADF8 \uBC94\uC704\uB85C \uC801\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD2B9\uC815 \uC0AC\uAC74\uC5D0 \uB300\uD55C \uD310\uB2E8\uC73C\uB85C \uBD99\uC774\uC9C0
+      \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uBB38\uB9E5\uC774 \uB2EC\uB77C\uC9C0\uBA74
+      \uB2E4\uC2DC \uD655\uC778\uD560\uAC8C\uC694."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-investigative-reporter-jung-sua
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uC778\uC6A9 \uBC94\uC704\uB97C \uC815\uD55C \uACF5\uAC1C
+        \uC758\uACAC. "
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uACB0\uC815\uC5D0 \uC601\uD5A5\uC744 \uC900 \uC124\uBA85\uC774 \uBB34\uC5C7\uC778\uC9C0
+        \uC54C\uC544\uC57C \uD55C\uB2E4\uACE0 \uC0DD\uAC01\uD569\uB2C8\uB2E4. \uC81C
+        \uC758\uACAC\uC73C\uB85C \uC778\uC6A9\uD574\uB3C4 \uC88B\uC2B5\uB2C8\uB2E4.
+        \uD2B9\uC815 \uD68C\uC0AC\uC5D0 \uC798\uBABB\uC774 \uC788\uB2E4\uB294 \uB73B\uC740
+        \uC544\uB2C8\uACE0\uC694."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-investigative-reporter-jung-sua
+      text: "\uB124. \uADF8 \uBC94\uC704\uB85C \uC801\uACA0\uC2B5\uB2C8\uB2E4. \uD2B9\uC815
+        \uC0AC\uAC74\uC5D0 \uB300\uD55C \uD310\uB2E8\uC73C\uB85C \uBD99\uC774\uC9C0
+        \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uBB38\uB9E5\uC774 \uB2EC\uB77C\uC9C0\uBA74
+        \uB2E4\uC2DC \uD655\uC778\uD560\uAC8C\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uBC30\uACBD \uC758\uACAC\uB9CC \uB9D0\uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uC81C \uC774\uB984\uC73C\uB85C \uC778\uC6A9\uD558\uC9C0 \uC54A\uB294
+      \uC120\uC5D0\uC11C \uC758\uACAC\uC740 \uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD68C\uC0AC\uB9C8\uB2E4 \uD544\uC694\uD55C \uC124\uBA85\uC774 \uB2E4\uB974\uB2C8
+      \uD55C \uBB38\uC7A5\uC73C\uB85C \uBB36\uAE30\uB294 \uC5B4\uB835\uC2B5\uB2C8\uB2E4."
+    resultDialogue: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8 \uB9D0\uC744 \uC775\uBA85
+      \uC778\uC6A9\uC73C\uB85C \uBC14\uAFD4 \uC4F0\uC9C0\uB3C4 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
+      \uCDE8\uC7AC \uBC29\uD5A5\uC744 \uC0DD\uAC01\uD560 \uB54C \uCC38\uACE0\uD558\uB294
+      \uBC94\uC704\uB85C \uB4E4\uC744\uAC8C\uC694."
+    resultValue: answer_1
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-investigative-reporter-jung-sua
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uBC30\uACBD \uC758\uACAC \uAD50\uD658\uC5D0 \uB3D9\uC758. "
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 1
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uC81C \uC774\uB984\uC73C\uB85C \uC778\uC6A9\uD558\uC9C0 \uC54A\uB294
+        \uC120\uC5D0\uC11C \uC758\uACAC\uC740 \uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4.
+        \uD68C\uC0AC\uB9C8\uB2E4 \uD544\uC694\uD55C \uC124\uBA85\uC774 \uB2E4\uB974\uB2C8
+        \uD55C \uBB38\uC7A5\uC73C\uB85C \uBB36\uAE30\uB294 \uC5B4\uB835\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-investigative-reporter-jung-sua
+      text: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8 \uB9D0\uC744 \uC775\uBA85 \uC778\uC6A9\uC73C\uB85C
+        \uBC14\uAFD4 \uC4F0\uC9C0\uB3C4 \uC54A\uACA0\uC2B5\uB2C8\uB2E4. \uCDE8\uC7AC
+        \uBC29\uD5A5\uC744 \uC0DD\uAC01\uD560 \uB54C \uCC38\uACE0\uD558\uB294 \uBC94\uC704\uB85C
+        \uB4E4\uC744\uAC8C\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uC774\uBC88 \uC9C8\uBB38\uC5D0\uB294 \uB2F5\uD558\uC9C0 \uC54A\uB294\uB2E4"
+    choiceDescription:
+    playerLine: "\uC774\uBC88\uC5D0\uB294 \uC758\uACAC\uC744 \uB4DC\uB9AC\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
+      \uAD6C\uCCB4\uC801\uC778 \uC0AC\uC815\uC744 \uBAA8\uB974\uB294 \uC0C1\uD0DC\uC5D0\uC11C
+      \uC81C \uB9D0\uC774 \uBD99\uB294 \uAC8C \uC870\uC2EC\uC2A4\uB7FD\uC2B5\uB2C8\uB2E4."
+    resultDialogue: "\uB124. \uB2F5\uBCC0\uD558\uC9C0 \uC54A\uC73C\uC168\uB2E4\uACE0\uB9CC
+      \uC774\uD574\uD560\uAC8C\uC694. \uC228\uAE30\uB294 \uC77C\uC774 \uC788\uB2E4\uACE0
+      \uD574\uC11D\uD560 \uC774\uC720\uB294 \uC5C6\uACE0\uC694. \uB2E4\uC74C \uC9C8\uBB38\uC740
+      \uB530\uB85C \uC5EC\uCB59\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: answer_2
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-investigative-reporter-jung-sua
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD574\uB2F9 \uC9C8\uBB38 \uB2F5\uBCC0 \uC0AC\uC591. "
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uC774\uBC88\uC5D0\uB294 \uC758\uACAC\uC744 \uB4DC\uB9AC\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4.
+        \uAD6C\uCCB4\uC801\uC778 \uC0AC\uC815\uC744 \uBAA8\uB974\uB294 \uC0C1\uD0DC\uC5D0\uC11C
+        \uC81C \uB9D0\uC774 \uBD99\uB294 \uAC8C \uC870\uC2EC\uC2A4\uB7FD\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-investigative-reporter-jung-sua
+      text: "\uB124. \uB2F5\uBCC0\uD558\uC9C0 \uC54A\uC73C\uC168\uB2E4\uACE0\uB9CC
+        \uC774\uD574\uD560\uAC8C\uC694. \uC228\uAE30\uB294 \uC77C\uC774 \uC788\uB2E4\uACE0
+        \uD574\uC11D\uD560 \uC774\uC720\uB294 \uC5C6\uACE0\uC694. \uB2E4\uC74C \uC9C8\uBB38\uC740
+        \uB530\uB85C \uC5EC\uCB59\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 2
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 1
+  repeatCooldown: 3
+  repeatGroup: npc-investigative-reporter-jung-sua
+  firstContact: 0
+  campaignDay: 0
+  missionStartDay: 0
+  prerequisiteEventId:
+  prerequisiteEventIds: []
+  failureSignal:
+  openingLines:
+  - npcId: npc-investigative-reporter-jung-sua
+    text: "\uC624\uB298\uC740 \uC9E7\uAC8C \uC758\uACAC \uD558\uB098\uB9CC \uC5EC\uCB64\uBCFC\uAC8C\uC694.
+      \uD22C\uC790\uC790\uAC00 \uD68C\uC0AC\uC5D0 \uC124\uBA85\uC744 \uC694\uAD6C\uD560
+      \uB54C \uC5B4\uB514\uAE4C\uC9C0 \uC54C\uC544\uC57C \uD55C\uB2E4\uACE0 \uBCF4\uC138\uC694?"
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uAE30\uC0AC\uC5D0 \uC4F8 \uC9C8\uBB38\uC785\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-investigative-reporter-jung-sua
+    text: "\uC4F8 \uC218\uB3C4 \uC788\uC2B5\uB2C8\uB2E4. \uADF8\uB798\uC11C \uBA3C\uC800
+      \uB9D0\uC500\uB4DC\uB9AC\uB294 \uAC70\uC608\uC694. \uC774\uB984\uC744 \uB123\uB294
+      \uB2F5\uBCC0\uC778\uC9C0, \uC77C\uBC18\uC801\uC778 \uC758\uACAC\uB9CC \uC8FC\uC2E4
+      \uAC74\uC9C0\uB3C4 \uC815\uD558\uACE0\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC544\uC9C1 \uC5B4\uB290 \uD68C\uC0AC \uC774\uC57C\uAE30\uC778\uC9C0\uB3C4
+      \uBAA8\uB974\uACA0\uB294\uB370\uC694."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-investigative-reporter-jung-sua
+    text: "\uD2B9\uC815 \uD68C\uC0AC\uC758 \uB0B4\uBD80 \uC774\uC57C\uAE30\uB97C
+      \uBD80\uD0C1\uB4DC\uB9AC\uB294 \uAC74 \uC544\uB2C8\uC5D0\uC694. \uC9C0\uAE08\uC740
+      \uBCF8\uC778 \uC0DD\uAC01\uC744 \uB4E3\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4. \uB2F5\uD558\uAE30
+      \uC5B4\uB835\uB2E4\uBA74 \uC5EC\uAE30\uC11C \uBA48\uCDB0\uB3C4 \uB418\uACE0\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  companyVariants: []

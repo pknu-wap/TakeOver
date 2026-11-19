@@ -22,6 +22,7 @@ namespace TakeOver.Events
             public string companyId;
             public int firstDay;
             public float greenmailStake;
+            public int serial;
         }
         private sealed class NegotiationChoice
         {
@@ -39,6 +40,9 @@ namespace TakeOver.Events
         private bool tutorialRewardGranted;
         public bool TutorialRewardGranted => tutorialRewardGranted;
         public bool TryGetStoryResult(string eventId, out bool succeeded) => storyResults.TryGetValue(eventId, out succeeded);
+        // 스토리를 해결한 날. 일지가 실제 진행 순서대로 정렬할 때 쓴다. 이전 저장에서 온 기록에는 없다.
+        private readonly Dictionary<string, int> storyResolvedDays = new Dictionary<string, int>();
+        public bool tryGetStoryResolvedDay(string eventId, out int day) => storyResolvedDays.TryGetValue(eventId, out day);
         private readonly Dictionary<(string, string), int> companyChoices = new Dictionary<(string, string), int>();
         private readonly Dictionary<(string, string), int> availableDays = new Dictionary<(string, string), int>();
         private TodayEventInfo activeInfo;
@@ -57,6 +61,14 @@ namespace TakeOver.Events
 
         private void Awake()
         {
+            campaignPlan = EarlyCampaignPlan.Load();
+            var general = Resources.Load<GeneralEventDatabase>("Events/GeneralEventDatabase");
+            if (general != null)
+            {
+                events = general.Events.ToList();
+                if (events.Any(item => item == null || item.IsStory || item.IsTutorialOnly) || events.Select(item => item.getId()).Distinct().Count() != events.Count)
+                    throw new InvalidOperationException("일반 이벤트 DB의 분류·ID·참조를 확인해 주십시오.");
+            }
             if (storyDatabase == null) storyDatabase = Resources.Load<StoryEventDatabase>("Story/StoryEventDatabase");
             if (storyDatabase == null) throw new InvalidOperationException("스토리 이벤트 DB가 없습니다.");
             // 기존 씬의 등록을 남겨도 스토리는 전용 DB가 유일한 공급원이 된다.
@@ -72,6 +84,7 @@ namespace TakeOver.Events
                 }
             var lesson = Resources.Load<EventDefinition>("Story/TutorialVisit");
             if (lesson != null && !events.Contains(lesson)) events.Add(lesson);
+            InitializeMissionList();
             turnClock = FindFirstObjectByType<GameTurnClock>();
             actionPointService = FindFirstObjectByType<ActionPointService>();
             worldReader = new EventWorldReader(FindFirstObjectByType<Companies>(), FindFirstObjectByType<NpcStateRegistry>(), GetComponent<EventTempWorldData>());
@@ -112,25 +125,27 @@ namespace TakeOver.Events
         public bool tryGetChoice(string eventId, string companyId, out int choiceIndex) =>
             companyChoices.TryGetValue((eventId, companyId ?? ""), out choiceIndex);
         private string getKeyCompany(EventDefinition definition, string companyId) => definition.hasCompanyConditions() ? companyId : "";
-        private List<EventCompanyData> getOwnedCompanies()
+        private List<EventCompanyData> getOwnedCompanies(EventDefinition definition = null)
         {
             var companies = new List<EventCompanyData>();
             foreach (EventCompanyData company in worldReader.getCompanies())
-                if (worldReader.getStake(company.companyId) > 0) companies.Add(company);
+                if (worldReader.getStake(company.companyId) > 0 && CompanyStoryStarted(company.companyId) &&
+                    ((definition ?? activeInfo?.definition)?.getId() != "stock_manipulation_01" || worldReader.getConsumerReaction(company.companyId) <= 30)) companies.Add(company);
             return companies;
         }
         private bool hasRequiredHoldings(EventDefinition definition) =>
-            definition.getChoiceGeneration() != EventChoiceGeneration.OwnedCompanies || getOwnedCompanies().Count > 0;
+            definition.getChoiceGeneration() != EventChoiceGeneration.OwnedCompanies || getOwnedCompanies(definition).Count > 0;
         private bool isGreenmailOfferCurrent(EventDefinition definition, string companyId) =>
             !definition.getConditions().Any(condition => condition.kind == EventConditionKind.CompanyGreenmailStake) ||
             meetsConditions(definition, companyId) && occurrences.Exists(item => item.definition == definition && item.companyId == companyId && currentDay < OccurrenceExpiry(definition, item.firstDay));
         private bool canAppear(EventDefinition definition, string companyId)
         {
             var key = (definition.getId(), getKeyCompany(definition, companyId));
-            return !(definition.hasCompanyConditions() && !definition.IsStory ? companyChoices.ContainsKey(key) : selectedChoices.ContainsKey(definition.getId())) && (IsMandatory(definition) || !availableDays.TryGetValue(key, out int day) || currentDay >= day);
+            return (definition.Repeatable || !(definition.hasCompanyConditions() && !definition.IsStory ? companyChoices.ContainsKey(key) : selectedChoices.ContainsKey(definition.getId()))) && (IsMandatory(definition) || !availableDays.TryGetValue(key, out int day) || currentDay >= day);
         }
         private bool meetsConditions(EventDefinition definition, string companyId)
         {
+            if (!PresentationGate(definition, companyId)) return false;
             if (definition.IsTutorialOnly && !TakeOver.Story.StoryDirector.IsRunning) return false;
             if (definition.hasCompanyConditions() && definition.getCompanyIds().Count > 0 && !definition.getCompanyIds().Contains(companyId)) return false;
             float offeredStake = occurrences.Find(item => item.definition == definition && item.companyId == companyId)?.greenmailStake ?? 0;
@@ -170,6 +185,7 @@ namespace TakeOver.Events
                 float threshold = condition.value;
                 if (!string.IsNullOrEmpty(condition.relaxedByEventId))
                 {
+                    if (condition.relaxedByEventId == "political_donation_01" && politicalFavorGranted) threshold = condition.relaxedValue;
                     foreach (var selected in companyChoices)
                         if (selected.Key.Item1 == condition.relaxedByEventId && selected.Value == condition.relaxedByChoiceIndex)
                             threshold = condition.relaxedValue;
@@ -234,6 +250,7 @@ namespace TakeOver.Events
             }
             foreach (EventDefinition definition in events)
             {
+                if (definition.Repeatable || definition.CampaignDay > 0) continue;
                 if (!hasRequiredHoldings(definition) || occurrences.Exists(item => item.definition == definition)) continue;
                 string companyId = "";
                 if (definition.hasCompanyConditions())
@@ -254,6 +271,8 @@ namespace TakeOver.Events
                     worldReader.tryGetGreenmailStake(companyId, out _, out offeredStake);
                 occurrences.Add(new Occurrence { definition = definition, companyId = companyId, firstDay = currentDay, greenmailStake = offeredStake });
             }
+            SpawnFirstContacts();
+            SpawnRepeatableOffers();
             if (turnClock == null || dayNumber != turnClock.CurrentTurn) EvaluateMandatoryDeadline(dayNumber);
             rebuildToday();
             todayEventsChanged?.Invoke();
@@ -261,6 +280,7 @@ namespace TakeOver.Events
         public void refreshAvailability()
         {
             EnsureMandatoryOffer();
+            SpawnFirstContacts();
             if (rebuildToday()) todayEventsChanged?.Invoke();
         }
         private bool rebuildToday()
@@ -274,7 +294,7 @@ namespace TakeOver.Events
                 if (!hasRequiredHoldings(occurrence.definition) || !meetsConditions(occurrence.definition, occurrence.companyId)) continue;
                 todayEvents.Add(occurrence.definition);
                 todayInfos.Add(new TodayEventInfo(occurrence.definition, worldReader.getCompany(occurrence.companyId, occurrence.definition),
-                    IsMandatory(occurrence.definition) ? Mathf.Max(0, MandatoryFailureDay - currentDay) : occurrence.firstDay + occurrence.definition.getValidDays() - currentDay));
+                    IsMandatory(occurrence.definition) ? Mathf.Max(0, DueDay(occurrence.definition) - currentDay) : occurrence.firstDay + occurrence.definition.getValidDays() - currentDay));
             }
             if (previous.Count != todayInfos.Count) return true;
             for (int i = 0; i < previous.Count; i++)
@@ -284,7 +304,9 @@ namespace TakeOver.Events
         }
         public void openEvent(string eventId)
         {
-            if (mandatoryState == MandatoryStoryState.Failed || mandatoryState == MandatoryStoryState.Forced && eventId != MandatoryEventId) return;
+            if (EventSceneTransition.IsBusy) return;
+            if (TakeOver.SaveSystem.GameSessionCoordinator.Active?.IsPersistenceBlocked == true) return;
+            if (mandatoryState == MandatoryStoryState.Failed || mandatoryState == MandatoryStoryState.Forced && !pendingMandatoryEvents.Contains(eventId)) return;
             if (!TakeOver.Story.StoryDirector.CanOpenEvent(eventId)) return;
             if (screenState != ScreenState.Closed) return;
             Occurrence occurrence = occurrences.Find(item => item.definition.getId() == eventId);
@@ -307,6 +329,7 @@ namespace TakeOver.Events
         }
         public void startNegotiation()
         {
+            if (EventSceneTransition.IsBusy) return;
             if (!TakeOver.Story.StoryDirector.CanNegotiate(ActiveEventId)) return;
             if (screenState != ScreenState.Detail) return;
             if(activeInfo==null || !hasRequiredHoldings(activeInfo.definition) || !meetsConditions(activeInfo.definition,activeInfo.companyId) || !isGreenmailOfferCurrent(activeInfo.definition,activeInfo.companyId))
@@ -321,15 +344,19 @@ namespace TakeOver.Events
                 return;
             }
             screenState = ScreenState.Negotiation;
-            detailView.hide();
             negotiationStarted?.Invoke(new NegotiationStartedInfo(activeInfo.definition.getId(), activeInfo.definition.getApCost()));
-            negotiationView.show(activeInfo, this, worldReader.getSpeakerIllustration(activeInfo),
-                worldReader.getSpeakerDimmedIllustration(activeInfo));
+            Action present = () => {
+                detailView.hide();
+                if (ActiveOpening.Count > 0) BeginScriptedNegotiation();
+                else negotiationView.show(activeInfo, this, worldReader.getSpeakerIllustration(activeInfo), worldReader.getSpeakerDimmedIllustration(activeInfo));
+            };
+            if (TakeOver.Story.StoryDirector.IsApplyingWholeSkip) present();
+            else EventSceneTransition.Play(present);
         }
         private void buildNegotiationChoices(bool companies = false)
         {
             negotiationChoices.Clear();
-            IReadOnlyList<EventChoice> choices = activeInfo.definition.getChoices();
+            IReadOnlyList<EventChoice> choices = ActiveChoices;
             if (companies && choices.Count > 0)
             {
                 List<EventCompanyData> ownedCompanies = getOwnedCompanies();
@@ -339,7 +366,7 @@ namespace TakeOver.Events
                 return;
             }
             for (int i = 0; i < choices.Count; i++)
-                negotiationChoices.Add(new NegotiationChoice { choice = choices[i], originalIndex = i });
+                negotiationChoices.Add(new NegotiationChoice { choice = JsonUtility.FromJson<EventChoice>(JsonUtility.ToJson(choices[i])), originalIndex = i });
         }
         private void showCompanyChoices()
         {
@@ -356,9 +383,10 @@ namespace TakeOver.Events
         }
         public void confirmChoice(int choiceIndex)
         {
+            if (EventSceneTransition.IsBusy) return;
             if ((screenState != ScreenState.Negotiation && screenState != ScreenState.CompanyChoice) || choiceIndex < 0 || choiceIndex >= negotiationChoices.Count) return;
             EventDefinition definition = activeInfo.definition;
-            if (!isGreenmailOfferCurrent(definition, activeInfo.companyId))
+            if (!hasRequiredHoldings(definition) || !meetsConditions(definition, activeInfo.companyId) || !isGreenmailOfferCurrent(definition, activeInfo.companyId))
             {
                 negotiationView.hide(); activeInfo = null; negotiationChoices.Clear(); screenState = ScreenState.Closed;
                 refreshAvailability();
@@ -370,6 +398,7 @@ namespace TakeOver.Events
             bool companyChoice = screenState == ScreenState.CompanyChoice;
             if (!companyChoice && definition.getChoiceGeneration() == EventChoiceGeneration.OwnedCompanies && selected.originalIndex == 0)
             {
+                if (ActiveOpening.Count > 0) { ShowScriptedCompanyChoices(choice.getPlayerLine()); return; }
                 screenState = ScreenState.CompanyExchange;
                 negotiationView.showExchange(activeInfo.resolve(definition.getCompanyQuestion()),
                     activeInfo.resolve(choice.getPlayerLine()), showCompanyChoices);
@@ -403,16 +432,21 @@ namespace TakeOver.Events
                 }
             }
             string playerLine = companyChoice ? (definition.getCompanyPlayerLine() ?? "").Replace("{company}", selected.companyName) : choice.getPlayerLine();
-            string companyId = activeInfo.companyId;
+            string companyId = companyChoice ? selected.companyId : activeInfo.companyId;
             screenState = ScreenState.Result;
+            string repeatOccurrence = RecordRepeatChoice(definition, companyId, selected.originalIndex);
             selectedChoices[definition.getId()] = selected.originalIndex;
             companyChoices[(definition.getId(), companyId)] = selected.originalIndex;
-            if (definition.IsStory) storyResults[definition.getId()] = succeeded;
+            if (definition.IsStory)
+            {
+                storyResults[definition.getId()] = succeeded;
+                storyResolvedDays[definition.getId()] = currentDay;
+            }
             occurrences.RemoveAll(item => item.definition == definition);
             rebuildToday();
             var result = new ChoiceConfirmedInfo(definition.getId(), selected.originalIndex, outcome.getResultValue(),
                 currentDay, outcome.getNpcResult(), outcome.getCashDelta(), companyId,
-                selected.companyId, outcome.getStockSurgeMinRatio(), outcome.getStockSurgeMaxRatio(), outcome.getBuybackPremiumRatio());
+                selected.companyId, outcome.getStockSurgeMinRatio(), outcome.getStockSurgeMaxRatio(), outcome.getBuybackPremiumRatio(), repeatOccurrence);
             if (definition.hasCompanyConditions() && result.npcResult != null)
             {
                 result.npcResult.targetNpcIds.RemoveAll(id => worldReader.belongsToOtherCompany(id, companyId));
@@ -423,15 +457,21 @@ namespace TakeOver.Events
             choiceConfirmed?.Invoke(result);
             if (playerMemories != null) playerMemories.NotifyAdded(addedPlayerMemories);
             todayEventsChanged?.Invoke();
-            negotiationView.showResult(activeInfo.resolve(outcome.getResultDialogue()), activeInfo.resolve(playerLine));
+            if (ActiveOpening.Count > 0) ShowScriptedResult(outcome, playerLine, companyChoice ? selected.companyName : null);
+            else negotiationView.showResult(activeInfo.resolve(outcome.getResultDialogue()), activeInfo.resolve(playerLine));
         }
         public void closeResult()
         {
             if (screenState != ScreenState.Result) return;
-            negotiationView.hide();
-            activeInfo = null;
-            screenState = ScreenState.Closed;
-            CompleteMandatoryPresentation();
+            if (EventSceneTransition.IsBusy) return;
+            Action finish = () => {
+                negotiationView.hide();
+                activeInfo = null;
+                screenState = ScreenState.Closed;
+                CompleteMandatoryPresentation();
+            };
+            if (TakeOver.Story.StoryDirector.IsApplyingWholeSkip) finish();
+            else EventSceneTransition.Play(finish);
         }
 
         private bool canAfford(EventOutcome choice)

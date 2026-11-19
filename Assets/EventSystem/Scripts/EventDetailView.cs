@@ -20,6 +20,21 @@ namespace TakeOver.Events
         [SerializeField] private Button closeButton;
         private bool warnedMissingMessage;
 
+        public void CopyInformationPanelStyle(Image target)
+        {
+            CopyActionStyle(target);
+            if (target != null) target.pixelsPerUnitMultiplier = 1.8f;
+        }
+
+        public void CopyActionStyle(Image target)
+        {
+            var source = startButton.GetComponent<Image>();
+            if (source == null || target == null) return;
+            target.sprite = source.sprite; target.type = source.type;
+            target.color = source.color; target.material = source.material;
+            target.pixelsPerUnitMultiplier = 3f;
+        }
+
         public void show(TodayEventInfo info, EventSystemController controller)
         {
             if (hasFloatingMessage()) floatingMessage.Hide();

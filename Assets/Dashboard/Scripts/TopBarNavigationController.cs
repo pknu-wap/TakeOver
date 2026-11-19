@@ -16,6 +16,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
     [SerializeField] private NpcStatusScreen statusScreen;
     [SerializeField] private EventSystemController eventController;
     [SerializeField] private NewsScreen newsScreen;
+    [SerializeField] private TakeOver.Journal.JournalScreen journalScreen;
     private TakeOver.Operations.OperationsScreen operationsScreen;
     [SerializeField] private GameObject operationsSelection;
     [SerializeField] private TMPro.TMP_Text operationsLabel;
@@ -49,6 +50,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
         if (eventController == null) eventController = FindFirstObjectByType<EventSystemController>();
         if (eventController == null) Debug.LogWarning("Top bar could not find EventSystemController.", this);
         if (newsScreen == null) newsScreen = FindFirstObjectByType<NewsScreen>(FindObjectsInactive.Include);
+        if (journalScreen == null) journalScreen = FindFirstObjectByType<TakeOver.Journal.JournalScreen>(FindObjectsInactive.Include);
         operationsScreen = FindFirstObjectByType<TakeOver.Operations.OperationsScreen>(FindObjectsInactive.Include);
         for (int i = 0; i < tabButtons.Length; i++)
         {
@@ -75,16 +77,18 @@ public sealed class TopBarNavigationController : MonoBehaviour
         {
             if (operationsScreen != null) operationsScreen.close();
             if (newsScreen != null) newsScreen.close();
+            if (journalScreen != null) journalScreen.close();
             browser.close(); statusScreen.Close(); help.Open();
             currentTab = index; indicator.OnTabClicked(index); operationsSelection.SetActive(false); operationsLabel.color = Color.white; return;
         }
         help.Close();
-        if ((tab == DashboardTab.News && newsScreen == null) || tab == DashboardTab.Log || (tab == DashboardTab.Operations && operationsScreen == null))
+        if ((tab == DashboardTab.News && newsScreen == null) || (tab == DashboardTab.Log && journalScreen == null) || (tab == DashboardTab.Operations && operationsScreen == null))
         {
             message.Show("준비 중입니다");
             return;
         }
         if (newsScreen != null && tab != DashboardTab.News) newsScreen.close();
+        if (journalScreen != null && tab != DashboardTab.Log) journalScreen.close();
         if (operationsScreen != null && tab != DashboardTab.Operations) operationsScreen.close();
         if (tab == DashboardTab.Operations)
         {
@@ -97,6 +101,12 @@ public sealed class TopBarNavigationController : MonoBehaviour
             browser.close();
             statusScreen.Close();
             newsScreen.open();
+        }
+        else if (tab == DashboardTab.Log)
+        {
+            browser.close();
+            statusScreen.Close();
+            journalScreen.open();
         }
         else if (tab == DashboardTab.Npcs)
         {

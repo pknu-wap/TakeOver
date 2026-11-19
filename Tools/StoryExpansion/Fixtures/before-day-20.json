@@ -1,0 +1,2083 @@
+{
+  "formatVersion": 4,
+  "dayStart": {
+    "day": 19,
+    "seed": 11
+  },
+  "sections": [
+    {
+      "id": "action-points",
+      "version": 1,
+      "data": {
+        "current": 50,
+        "maximum": 50
+      }
+    },
+    {
+      "id": "documents",
+      "version": 1,
+      "data": {
+        "records": [
+          {
+            "type": "qa-pending",
+            "companyId": "",
+            "deadlineTurn": 0,
+            "fields": [],
+            "resolved": false,
+            "approved": false,
+            "resolvedTurn": 0,
+            "arrival": 2,
+            "snapshot": true,
+            "title": "미확인 보고서",
+            "author": "검증",
+            "infoRows": [
+              {
+                "label": "상태",
+                "value": "대기"
+              }
+            ]
+          },
+          {
+            "type": "qa-campaign",
+            "companyId": "",
+            "deadlineTurn": 0,
+            "fields": [],
+            "resolved": true,
+            "approved": false,
+            "resolvedTurn": 1,
+            "arrival": 1,
+            "snapshot": true,
+            "title": "저장 검증 보고서",
+            "author": "검증",
+            "infoRows": [
+              {
+                "label": "기록",
+                "value": "유지"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "events",
+      "version": 6,
+      "data": {
+        "day": 19,
+        "choices": [
+          {
+            "eventId": "inside_info_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_dongbang_contact",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_haneul_01",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_haneul_02",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_haneul_contact",
+            "companyId": "",
+            "choice": 0
+          },
+          {
+            "eventId": "main_mirae_02",
+            "companyId": "",
+            "choice": 0
+          }
+        ],
+        "companyChoices": [
+          {
+            "eventId": "inside_info_01",
+            "companyId": "mirae-construction",
+            "choice": 0
+          },
+          {
+            "eventId": "main_dongbang_contact",
+            "companyId": "dongbang-trading",
+            "choice": 0
+          },
+          {
+            "eventId": "main_haneul_01",
+            "companyId": "haneul-food",
+            "choice": 0
+          },
+          {
+            "eventId": "main_haneul_02",
+            "companyId": "haneul-food",
+            "choice": 0
+          },
+          {
+            "eventId": "main_haneul_contact",
+            "companyId": "haneul-food",
+            "choice": 0
+          },
+          {
+            "eventId": "main_mirae_02",
+            "companyId": "mirae-construction",
+            "choice": 0
+          }
+        ],
+        "cooldowns": [
+          {
+            "eventId": "management_defense_01",
+            "companyId": "mirae-construction",
+            "day": 17,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "press_interview_01",
+            "companyId": "",
+            "day": 21,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "stock_manipulation_01",
+            "companyId": "haneul-food",
+            "day": 26,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_jung_after_article_01",
+            "companyId": "",
+            "day": 21,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_jung_explanation_01",
+            "companyId": "",
+            "day": 25,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_jung_quote_check_01",
+            "companyId": "",
+            "day": 16,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_kim_cash_room_01",
+            "companyId": "",
+            "day": 20,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_kim_pass_reason_01",
+            "companyId": "",
+            "day": 24,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 14,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_lee_field_question_01",
+            "companyId": "",
+            "day": 13,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_lee_headline_check_01",
+            "companyId": "",
+            "day": 16,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_mirae_payment_calendar_01",
+            "companyId": "mirae-construction",
+            "day": 22,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_yoon_introduction_01",
+            "companyId": "",
+            "day": 18,
+            "greenmailStake": 0.0,
+            "serial": 0
+          }
+        ],
+        "occurrences": [
+          {
+            "eventId": "neutral-lee-first-interview",
+            "companyId": "",
+            "day": 1,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "neutral-jung-first-record",
+            "companyId": "",
+            "day": 1,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "neutral-kim-first-review",
+            "companyId": "",
+            "day": 1,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "neutral-park-first-briefing",
+            "companyId": "",
+            "day": 1,
+            "greenmailStake": 0.0,
+            "serial": 0
+          },
+          {
+            "eventId": "sub_kim_seasonality_01",
+            "companyId": "",
+            "day": 18,
+            "greenmailStake": 0.0,
+            "serial": 17
+          },
+          {
+            "eventId": "sub_yoon_fee_scope_01",
+            "companyId": "",
+            "day": 19,
+            "greenmailStake": 0.0,
+            "serial": 18
+          }
+        ],
+        "storyResults": [
+          {
+            "eventId": "inside_info_01",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_dongbang_contact",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_haneul_01",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_haneul_02",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_haneul_contact",
+            "succeeded": true
+          },
+          {
+            "eventId": "main_mirae_02",
+            "succeeded": true
+          }
+        ],
+        "tutorialRewardGranted": true,
+        "mandatoryState": 0,
+        "mandatoryFailureStake": 0.0,
+        "mandatoryEventId": "",
+        "campaignRevision": 2,
+        "campaignRunId": "8ee7c6997a324416a683be5a9438382a",
+        "pendingMandatoryEvents": [],
+        "failureGoals": [],
+        "failedMissionId": "",
+        "failedEndingSignal": "",
+        "endingLineIndex": 0,
+        "campaignDayOffset": 0,
+        "lastOccurrenceSerial": 18,
+        "politicalFavorGranted": false,
+        "repeatHistory": []
+      }
+    },
+    {
+      "id": "news",
+      "version": 1,
+      "data": {
+        "entries": [
+          {
+            "turn": 1,
+            "title": "저장 검증 뉴스",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 2,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 3,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 4,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 4,
+            "title": "내일 시작에 투자 목표 판정: 미래건설 10% 이상  달성 (현재 10%)",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 5,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 6,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 6,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 7,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "blueharbor-retail"
+            ]
+          },
+          {
+            "turn": 8,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 9,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 9,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "sinseong-development"
+            ]
+          },
+          {
+            "turn": 10,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 11,
+            "title": "내일 시작에 투자 목표 판정: 하늘식품 10% 이상  달성 (현재 10%)",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 12,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 13,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "dongbang-trading"
+            ]
+          },
+          {
+            "turn": 13,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 14,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 14,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 15,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "daeseong-industry"
+            ]
+          },
+          {
+            "turn": 16,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "aurora-foodtech"
+            ]
+          },
+          {
+            "turn": 16,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 17,
+            "title": "물류 수요 급증에 창고 자동화 투자 확대",
+            "companyIDs": [
+              "haneul-food"
+            ]
+          },
+          {
+            "turn": 18,
+            "title": "기준금리 0.25%p 인상… 건설 업계 자금 부담 커져",
+            "companyIDs": [
+              "hansung-industry"
+            ]
+          },
+          {
+            "turn": 18,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 19,
+            "title": "소비 심리 회복세, 식품·유통주 강세",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 19,
+            "title": "원자재 가격 상승, 제조업 원가 압박",
+            "companyIDs": [
+              "mirae-construction"
+            ]
+          },
+          {
+            "turn": 19,
+            "title": "내일 시작에 투자 목표 판정: 미래건설 30% 이상  달성 (현재 30%) / 동방물산 10% 이상  달성 (현재 10%)",
+            "companyIDs": [
+              "mirae-construction",
+              "dongbang-trading"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "npc",
+      "version": 1,
+      "data": {
+        "currentTurn": 19,
+        "npcs": [
+          {
+            "npcId": "npc-broker-yoon-hajin",
+            "companyId": "external-network",
+            "relation": {
+              "trust": 0.0,
+              "respect": 1.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 15
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-investigative-reporter-jung-sua",
+            "companyId": "external-network",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-institutional-investor-kim-taeseong",
+            "companyId": "external-network",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-political-lobbyist-park-sanghyeon",
+            "companyId": "external-network",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-mirae-construction-ceo-kang-junhyeok",
+            "companyId": "mirae-construction",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-mirae-construction-cfo-seo-jia",
+            "companyId": "mirae-construction",
+            "relation": {
+              "trust": 10.0,
+              "respect": 1.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 10.0,
+              "lastUpdatedTurn": 6
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-mirae-construction-field-director-park-dosik",
+            "companyId": "mirae-construction",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-economic-reporter-lee-mingyu",
+            "companyId": "external-network",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-haneul-food-ceo-kim-harin",
+            "companyId": "haneul-food",
+            "relation": {
+              "trust": 0.0,
+              "respect": 1.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 12
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-haneul-food-cfo-oh-jaeseong",
+            "companyId": "haneul-food",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-dongbang-trading-ceo-kang-jaehyeon",
+            "companyId": "dongbang-trading",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-dongbang-trading-hr-director-park-minu",
+            "companyId": "dongbang-trading",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-hansung-industry-ceo-jo-minseok",
+            "companyId": "hansung-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-hansung-industry-labor-director-choi-mijeong",
+            "companyId": "hansung-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-polaris-finance-ceo-lim-dohyeon",
+            "companyId": "polaris-finance",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-polaris-finance-risk-director-song-hyeonseok",
+            "companyId": "polaris-finance",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-polaris-finance-ma-director-jung-yura",
+            "companyId": "polaris-finance",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-daeseong-industry-ceo-kim-seongho",
+            "companyId": "daeseong-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-daeseong-industry-cfo-noh-hyeonjeong",
+            "companyId": "daeseong-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-daeseong-industry-business-development-director-oh-jinu",
+            "companyId": "daeseong-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-daeseong-industry-hr-director-choi-eunsu",
+            "companyId": "daeseong-industry",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-sinseong-development-ceo-jung-dohyeon",
+            "companyId": "sinseong-development",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-sinseong-development-planning-director-yoo-jeongmin",
+            "companyId": "sinseong-development",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-sinseong-development-community-director-kang-minji",
+            "companyId": "sinseong-development",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-blueharbor-retail-ceo-seo-yujin",
+            "companyId": "blueharbor-retail",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-blueharbor-retail-data-director-han-dogyeong",
+            "companyId": "blueharbor-retail",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-blueharbor-retail-operations-director-kim-dongseok",
+            "companyId": "blueharbor-retail",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-aurora-foodtech-ceo-kim-seohu",
+            "companyId": "aurora-foodtech",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-aurora-foodtech-chief-scientist-jung-harin",
+            "companyId": "aurora-foodtech",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          },
+          {
+            "npcId": "npc-aurora-foodtech-business-development-director-han-yuna",
+            "companyId": "aurora-foodtech",
+            "relation": {
+              "trust": 0.0,
+              "respect": 0.0,
+              "fear": 0.0,
+              "hostility": 0.0,
+              "dependency": 0.0,
+              "interest": 0.0,
+              "lastUpdatedTurn": 0
+            },
+            "currentGoal": "",
+            "memories": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "player-memories",
+      "version": 1,
+      "data": {
+        "memories": []
+      }
+    },
+    {
+      "id": "trading",
+      "version": 1,
+      "data": {
+        "player": {
+          "money": 9758.095703125,
+          "manPower": 10.0,
+          "information": 5.0,
+          "reputation": 0.0
+        },
+        "market": {
+          "globalMarketScore": 0.027624137699604034,
+          "lastUpdatedTurn": 19
+        },
+        "companies": [
+          {
+            "companyId": "dongbang-trading",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 513.28704833984375
+                },
+                {
+                  "id": "COST",
+                  "value": 609.629638671875
+                },
+                {
+                  "id": "CASH",
+                  "value": 504.93829345703125
+                },
+                {
+                  "id": "DEBT",
+                  "value": 50.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 40.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 160.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 65.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 65.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 60.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 100.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 450.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 98.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 1000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 500.0,
+              "initialCost": 250.0,
+              "initialNetProfit": 250.0,
+              "initialNetMargin": 0.5,
+              "initialDebtRatio": 0.0555555559694767,
+              "initialLiquidityStrength": 2.7999999523162842,
+              "initialAssetValue": 774.0,
+              "tangibleCoefficient": 0.699999988079071,
+              "intangibleCoefficient": 0.60000002384185791
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": 0.0045665237121284008
+            },
+            "history": [
+              {
+                "turn": 14,
+                "revenue": 513.28704833984375,
+                "netProfit": 51.48406982421875,
+                "netMargin": 0.077874757349491119
+              },
+              {
+                "turn": 15,
+                "revenue": 513.28704833984375,
+                "netProfit": 57.1993408203125,
+                "netMargin": 0.086519673466682434
+              },
+              {
+                "turn": 16,
+                "revenue": 513.28704833984375,
+                "netProfit": -23.317626953125,
+                "netMargin": -0.040560755878686905
+              },
+              {
+                "turn": 17,
+                "revenue": 513.28704833984375,
+                "netProfit": -17.60235595703125,
+                "netMargin": -0.030619105324149132
+              },
+              {
+                "turn": 18,
+                "revenue": 513.28704833984375,
+                "netProfit": -73.4814453125,
+                "netMargin": -0.14315858483314514
+              }
+            ]
+          },
+          {
+            "companyId": "haneul-food",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 1817.1402587890625
+                },
+                {
+                  "id": "COST",
+                  "value": 1653.7122802734375
+                },
+                {
+                  "id": "CASH",
+                  "value": 319.9833984375
+                },
+                {
+                  "id": "DEBT",
+                  "value": 500.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 450.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 80.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 25.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 30.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 55.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 100.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 250.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 100.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 1000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 1800.0,
+              "initialCost": 1760.0,
+              "initialNetProfit": 40.0,
+              "initialNetMargin": 0.02222222276031971,
+              "initialDebtRatio": 0.8474576473236084,
+              "initialLiquidityStrength": 0.034090910106897354,
+              "initialAssetValue": -137.99998474121094,
+              "tangibleCoefficient": 0.60000002384185791,
+              "intangibleCoefficient": 0.40000000596046448
+            },
+            "market": {
+              "npcSentiment": 0.0016666667070239782,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": 0.0091585628688335419
+            },
+            "history": [
+              {
+                "turn": 14,
+                "revenue": 1817.1402587890625,
+                "netProfit": 163.427978515625,
+                "netMargin": 0.089936912059783936
+              },
+              {
+                "turn": 15,
+                "revenue": 1817.1402587890625,
+                "netProfit": 163.427978515625,
+                "netMargin": 0.089936912059783936
+              },
+              {
+                "turn": 16,
+                "revenue": 1817.1402587890625,
+                "netProfit": 163.427978515625,
+                "netMargin": 0.089936912059783936
+              },
+              {
+                "turn": 17,
+                "revenue": 1817.1402587890625,
+                "netProfit": 163.427978515625,
+                "netMargin": 0.089936912059783936
+              },
+              {
+                "turn": 18,
+                "revenue": 1817.1402587890625,
+                "netProfit": 163.427978515625,
+                "netMargin": 0.089936912059783936
+              }
+            ]
+          },
+          {
+            "companyId": "mirae-construction",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 1241.7569580078125
+                },
+                {
+                  "id": "COST",
+                  "value": 1193.4056396484375
+                },
+                {
+                  "id": "CASH",
+                  "value": 673.90838623046875
+                },
+                {
+                  "id": "DEBT",
+                  "value": 200.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 1400.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 100.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 55.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 85.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 75.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 300.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 600.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 100.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 1000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 1200.0,
+              "initialCost": 1020.0,
+              "initialNetProfit": 180.0,
+              "initialNetMargin": 0.15000000596046448,
+              "initialDebtRatio": 0.095238097012043,
+              "initialLiquidityStrength": 0.58823531866073608,
+              "initialAssetValue": 1570.0,
+              "tangibleCoefficient": 0.800000011920929,
+              "intangibleCoefficient": 0.5
+            },
+            "market": {
+              "npcSentiment": 0.012222222052514553,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": -0.00410241074860096
+            },
+            "history": [
+              {
+                "turn": 14,
+                "revenue": 1241.7569580078125,
+                "netProfit": 20.411865234375,
+                "netMargin": 0.016816254705190659
+              },
+              {
+                "turn": 15,
+                "revenue": 1241.7569580078125,
+                "netProfit": 20.411865234375,
+                "netMargin": 0.016816254705190659
+              },
+              {
+                "turn": 16,
+                "revenue": 1241.7569580078125,
+                "netProfit": 248.6094970703125,
+                "netMargin": 0.1724042147397995
+              },
+              {
+                "turn": 17,
+                "revenue": 1241.7569580078125,
+                "netProfit": 248.6094970703125,
+                "netMargin": 0.1724042147397995
+              },
+              {
+                "turn": 18,
+                "revenue": 1241.7569580078125,
+                "netProfit": 503.0826416015625,
+                "netMargin": 0.29654353857040405
+              }
+            ]
+          },
+          {
+            "companyId": "hansung-industry",
+            "state": {
+              "status": 1,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 609.8802490234375
+                },
+                {
+                  "id": "COST",
+                  "value": 686.90423583984375
+                },
+                {
+                  "id": "CASH",
+                  "value": 0.0
+                },
+                {
+                  "id": "DEBT",
+                  "value": 426.0869140625
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 50.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 500.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 85.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 35.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 40.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 400.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 98.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 8.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 1000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 600.0,
+              "initialCost": 570.0,
+              "initialNetProfit": 30.0,
+              "initialNetMargin": 0.05000000074505806,
+              "initialDebtRatio": 0.55555558204650879,
+              "initialLiquidityStrength": 0.14035087823867798,
+              "initialAssetValue": 65.000007629394531,
+              "tangibleCoefficient": 0.699999988079071,
+              "intangibleCoefficient": 0.60000002384185791
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": 0.017046650871634483
+            },
+            "history": [
+              {
+                "turn": 14,
+                "revenue": 609.8802490234375,
+                "netProfit": -42.67877197265625,
+                "netMargin": -0.06997893750667572
+              },
+              {
+                "turn": 15,
+                "revenue": 609.8802490234375,
+                "netProfit": -42.67877197265625,
+                "netMargin": -0.06997893750667572
+              },
+              {
+                "turn": 16,
+                "revenue": 609.8802490234375,
+                "netProfit": -42.67877197265625,
+                "netMargin": -0.06997893750667572
+              },
+              {
+                "turn": 17,
+                "revenue": 609.8802490234375,
+                "netProfit": -38.60028076171875,
+                "netMargin": -0.063291572034358978
+              },
+              {
+                "turn": 18,
+                "revenue": 609.8802490234375,
+                "netProfit": -34.52178955078125,
+                "netMargin": -0.056604210287332535
+              }
+            ]
+          },
+          {
+            "companyId": "polaris-finance",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 528.56292724609375
+                },
+                {
+                  "id": "COST",
+                  "value": 621.850341796875
+                },
+                {
+                  "id": "CASH",
+                  "value": 3211.524658203125
+                },
+                {
+                  "id": "DEBT",
+                  "value": 2200.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 500.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 1400.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 50.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 9000.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 98.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 10000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 520.0,
+              "initialCost": 310.0,
+              "initialNetProfit": 210.0,
+              "initialNetMargin": 0.4038461446762085,
+              "initialDebtRatio": 0.41509434580802917,
+              "initialLiquidityStrength": 10.967741966247559,
+              "initialAssetValue": 2625.0,
+              "tangibleCoefficient": 0.75,
+              "intangibleCoefficient": 0.75
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": -0.012241085059940815
+            },
+            "history": [
+              {
+                "turn": 14,
+                "revenue": 528.56292724609375,
+                "netProfit": -93.28741455078125,
+                "netMargin": -0.17649254202842712
+              },
+              {
+                "turn": 15,
+                "revenue": 528.56292724609375,
+                "netProfit": -93.28741455078125,
+                "netMargin": -0.17649254202842712
+              },
+              {
+                "turn": 16,
+                "revenue": 528.56292724609375,
+                "netProfit": -93.28741455078125,
+                "netMargin": -0.17649254202842712
+              },
+              {
+                "turn": 17,
+                "revenue": 528.56292724609375,
+                "netProfit": -93.28741455078125,
+                "netMargin": -0.17649254202842712
+              },
+              {
+                "turn": 18,
+                "revenue": 528.56292724609375,
+                "netProfit": -93.28741455078125,
+                "netMargin": -0.17649254202842712
+              }
+            ]
+          },
+          {
+            "companyId": "daeseong-industry",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 1626.5086669921875
+                },
+                {
+                  "id": "COST",
+                  "value": 1501.2069091796875
+                },
+                {
+                  "id": "CASH",
+                  "value": 2498.24072265625
+                },
+                {
+                  "id": "DEBT",
+                  "value": 4900.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 12500.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 1700.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 50.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 18000.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 100.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 10000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 1600.0,
+              "initialCost": 1220.0,
+              "initialNetProfit": 380.0,
+              "initialNetMargin": 0.23749999701976776,
+              "initialDebtRatio": 0.2969697117805481,
+              "initialLiquidityStrength": 1.8852459192276,
+              "initialAssetValue": 8050.0,
+              "tangibleCoefficient": 0.75,
+              "intangibleCoefficient": 0.75
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": 0.0032584285363554955
+            },
+            "history": [
+              {
+                "turn": 14,
+                "revenue": 1626.5086669921875,
+                "netProfit": 125.3017578125,
+                "netMargin": 0.0770372524857521
+              },
+              {
+                "turn": 15,
+                "revenue": 1626.5086669921875,
+                "netProfit": 125.3017578125,
+                "netMargin": 0.0770372524857521
+              },
+              {
+                "turn": 16,
+                "revenue": 1626.5086669921875,
+                "netProfit": 125.3017578125,
+                "netMargin": 0.0770372524857521
+              },
+              {
+                "turn": 17,
+                "revenue": 1626.5086669921875,
+                "netProfit": 125.3017578125,
+                "netMargin": 0.0770372524857521
+              },
+              {
+                "turn": 18,
+                "revenue": 1626.5086669921875,
+                "netProfit": 125.3017578125,
+                "netMargin": 0.0770372524857521
+              }
+            ]
+          },
+          {
+            "companyId": "sinseong-development",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 772.59161376953125
+                },
+                {
+                  "id": "COST",
+                  "value": 818.07330322265625
+                },
+                {
+                  "id": "CASH",
+                  "value": 1407.705322265625
+                },
+                {
+                  "id": "DEBT",
+                  "value": 4200.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 9400.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 600.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 50.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 11000.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 100.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 10000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 760.0,
+              "initialCost": 590.0,
+              "initialNetProfit": 170.0,
+              "initialNetMargin": 0.22368420660495758,
+              "initialDebtRatio": 0.365217387676239,
+              "initialLiquidityStrength": 2.5423729419708252,
+              "initialAssetValue": 4800.0,
+              "tangibleCoefficient": 0.75,
+              "intangibleCoefficient": 0.75
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": -0.014878856018185616
+            },
+            "history": [
+              {
+                "turn": 14,
+                "revenue": 772.59161376953125,
+                "netProfit": -219.3148193359375,
+                "netMargin": -0.36628261208534241
+              },
+              {
+                "turn": 15,
+                "revenue": 772.59161376953125,
+                "netProfit": -248.2869873046875,
+                "netMargin": -0.43575456738471985
+              },
+              {
+                "turn": 16,
+                "revenue": 772.59161376953125,
+                "netProfit": -277.2591552734375,
+                "netMargin": -0.51266992092132568
+              },
+              {
+                "turn": 17,
+                "revenue": 772.59161376953125,
+                "netProfit": -45.481689453125,
+                "netMargin": -0.058868993073701859
+              },
+              {
+                "turn": 18,
+                "revenue": 772.59161376953125,
+                "netProfit": -45.481689453125,
+                "netMargin": -0.058868993073701859
+              }
+            ]
+          },
+          {
+            "companyId": "blueharbor-retail",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 2439.762939453125
+                },
+                {
+                  "id": "COST",
+                  "value": 2151.810302734375
+                },
+                {
+                  "id": "CASH",
+                  "value": 2257.360595703125
+                },
+                {
+                  "id": "DEBT",
+                  "value": 2600.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 6800.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 2100.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 50.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 13000.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 100.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 10000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 2400.0,
+              "initialCost": 2170.0,
+              "initialNetProfit": 230.0,
+              "initialNetMargin": 0.095833331346511841,
+              "initialDebtRatio": 0.24299065768718719,
+              "initialLiquidityStrength": 0.82949310541152954,
+              "initialAssetValue": 5875.0,
+              "tangibleCoefficient": 0.75,
+              "intangibleCoefficient": 0.75
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": 0.0028431613463908434
+            },
+            "history": [
+              {
+                "turn": 14,
+                "revenue": 2439.762939453125,
+                "netProfit": 287.95263671875,
+                "netMargin": 0.11802484095096588
+              },
+              {
+                "turn": 15,
+                "revenue": 2439.762939453125,
+                "netProfit": 287.95263671875,
+                "netMargin": 0.11802484095096588
+              },
+              {
+                "turn": 16,
+                "revenue": 2439.762939453125,
+                "netProfit": 287.95263671875,
+                "netMargin": 0.11802484095096588
+              },
+              {
+                "turn": 17,
+                "revenue": 2439.762939453125,
+                "netProfit": 287.95263671875,
+                "netMargin": 0.11802484095096588
+              },
+              {
+                "turn": 18,
+                "revenue": 2439.762939453125,
+                "netProfit": 287.95263671875,
+                "netMargin": 0.11802484095096588
+              }
+            ]
+          },
+          {
+            "companyId": "aurora-foodtech",
+            "state": {
+              "status": 0,
+              "stats": [
+                {
+                  "id": "REVENUE",
+                  "value": 630.2095947265625
+                },
+                {
+                  "id": "COST",
+                  "value": 703.16766357421875
+                },
+                {
+                  "id": "CASH",
+                  "value": 1652.01025390625
+                },
+                {
+                  "id": "DEBT",
+                  "value": 900.0
+                },
+                {
+                  "id": "TANGIBLE_ASSETS",
+                  "value": 650.0
+                },
+                {
+                  "id": "INTANGIBLE_ASSTES",
+                  "value": 4200.0
+                },
+                {
+                  "id": "REPUTATION_B2C",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTATION_B2B",
+                  "value": 50.0
+                },
+                {
+                  "id": "REPUTAION_PLAYER",
+                  "value": 0.0
+                },
+                {
+                  "id": "MARKET_POSITION",
+                  "value": 50.0
+                },
+                {
+                  "id": "PLAYER_SHARES",
+                  "value": 0.0
+                },
+                {
+                  "id": "BASE_COMPANY_VALUE",
+                  "value": 7000.0
+                },
+                {
+                  "id": "EMPLOYEE_COUNT",
+                  "value": 98.0
+                },
+                {
+                  "id": "WATCHLIST_REVIEWS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "LIQUIDATION_TURNS_REMAINING",
+                  "value": 0.0
+                },
+                {
+                  "id": "DIVIDEND_RATIO",
+                  "value": 0.20000000298023224
+                }
+              ],
+              "totalShares": 10000,
+              "greenmailBuyBlocked": false,
+              "initialRevenue": 620.0,
+              "initialCost": 580.0,
+              "initialNetProfit": 40.0,
+              "initialNetMargin": 0.064516127109527588,
+              "initialDebtRatio": 0.13533835113048553,
+              "initialLiquidityStrength": 3.1034483909606934,
+              "initialAssetValue": 4537.5,
+              "tangibleCoefficient": 0.75,
+              "intangibleCoefficient": 0.75
+            },
+            "market": {
+              "npcSentiment": 0.0,
+              "eventPriceMultiplier": 1.0,
+              "marketNoise": 0.011213095858693123
+            },
+            "history": [
+              {
+                "turn": 14,
+                "revenue": 630.2095947265625,
+                "netProfit": -72.95806884765625,
+                "netMargin": -0.1157679408788681
+              },
+              {
+                "turn": 15,
+                "revenue": 630.2095947265625,
+                "netProfit": -72.95806884765625,
+                "netMargin": -0.1157679408788681
+              },
+              {
+                "turn": 16,
+                "revenue": 630.2095947265625,
+                "netProfit": -72.95806884765625,
+                "netMargin": -0.1157679408788681
+              },
+              {
+                "turn": 17,
+                "revenue": 630.2095947265625,
+                "netProfit": -72.95806884765625,
+                "netMargin": -0.1157679408788681
+              },
+              {
+                "turn": 18,
+                "revenue": 630.2095947265625,
+                "netProfit": -72.95806884765625,
+                "netMargin": -0.1157679408788681
+              }
+            ]
+          }
+        ],
+        "greenmail": [],
+        "stockManipulation": []
+      }
+    }
+  ]
+}

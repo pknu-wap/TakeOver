@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
   companyName: "\uB300\uC131\uC0B0\uC5C5"
   companyID: daeseong-industry
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: bbf458afe0d41974e93b72aacdebed3b, type: 3}
   industry: "\uC911\uACF5\uC5C5\xB7\uC0B0\uC5C5\uC124\uBE44"
   coreValue: "\uADDC\uBAA8\uC640 \uACF5\uAE09\uB9DD \uD1B5\uD569"
   description: "\uADF8\uB8F9\uC758 \uC81C\uC870\xB7\uC124\uBE44 \uAE30\uBC18\uC744

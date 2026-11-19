@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using TakeOver.NPC;
 using UnityEngine;
 
-// 지금까지 나온 뉴스를 모아 두는 곳. 화면이 닫혀 있어도 하루 마감을 들어야 하므로 항상 켜진 오브젝트에 붙인다.
-public class NewsFeed : MonoBehaviour
+// [최근 5일 뉴스 보관, 화면을 닫아도 날짜 변경 수신]
+public partial class NewsFeed : MonoBehaviour
 {
+    public const int retainedDayCount = 5;
+
     [Tooltip("시장 이벤트를 연결하기 전까지 하루 마감마다 임시 뉴스를 만들지")]
     [SerializeField] private bool useDummyNews = true;
 
@@ -51,9 +53,9 @@ public class NewsFeed : MonoBehaviour
     }
 
     // 시장 이벤트 쪽에서 뉴스를 넣을 때 부르는 함수. 턴 순서대로 넣는다고 가정한다.
-    public void addNews(int turn, string title, IEnumerable<string> companyIDs)
+    public void addNews(int turn, string title, IEnumerable<string> companyIDs, string description)
     {
-        NewsEntry entry = new NewsEntry { turn = turn, title = title };
+        NewsEntry entry = new NewsEntry { turn = turn, title = title, description = description };
         if (companyIDs != null)
         {
             foreach (string id in companyIDs)
@@ -71,10 +73,12 @@ public class NewsFeed : MonoBehaviour
 
     private void handleTurnAdvanced(int newTurn)
     {
+        entries.RemoveAll(entry => entry.turn < newTurn - retainedDayCount + 1);
         if (useDummyNews)
         {
             addDummyNews(newTurn, dummyRandom.Next(0, 3));
         }
+        NewsChanged?.Invoke();
     }
 
     // 에디터 전용: Inspector에서 NewsFeed 컴포넌트 오른쪽 ⋮ 메뉴로 실행
@@ -112,7 +116,7 @@ public class NewsFeed : MonoBehaviour
                 Company company = companies.CompanyList[dummyRandom.Next(companies.CompanyList.Count)];
                 ids.Add(company.definition.companyID);
             }
-            addNews(turn, title, ids);
+            addNews(turn, title, ids, "");
         }
     }
 }

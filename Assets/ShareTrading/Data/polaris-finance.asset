@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
   companyName: "\uD3F4\uB77C\uB9AC\uC2A4\uD30C\uC774\uB0B8\uC2A4"
   companyID: polaris-finance
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: c957edfefd4e559499a3ac717f4f3bea, type: 3}
   industry: "\uAE08\uC735\xB7\uD22C\uC790"
   coreValue: "\uC790\uBCF8\uD6A8\uC728\uACFC \uC218\uC775\uB960"
   description: "\uADF8\uB8F9\uC758 \uC778\uC218 \uC790\uAE08\uC744 \uACF5\uAE09\uD558\uB294

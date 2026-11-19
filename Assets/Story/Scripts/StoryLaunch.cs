@@ -23,9 +23,16 @@ namespace TakeOver.Story
         {
             requested = true;
             skipRequested = skipIntro;
+            TakeOver.SaveSystem.GameSessionCoordinator.RequestNewGame();
+            ShowLaunchCurtain();
+        }
+
+        public static void ShowLaunchCurtain()
+        {
             if (curtain != null) return;
             curtain = new GameObject("New game blackout", typeof(Canvas));
             Object.DontDestroyOnLoad(curtain);
+            curtain.AddComponent<GraphicRaycaster>();
             var canvas = curtain.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = short.MaxValue;
@@ -36,6 +43,8 @@ namespace TakeOver.Story
             rect.offsetMin = rect.offsetMax = Vector2.zero;
             image.GetComponent<Image>().color = Color.black;
         }
+
+        public static void DismissLaunchCurtain() { if (curtain != null) Object.Destroy(curtain); curtain = null; }
 
         private static void Loaded(Scene scene, LoadSceneMode mode)
         {

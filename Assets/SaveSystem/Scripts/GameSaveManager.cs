@@ -7,7 +7,7 @@ using UnityEngine;
 namespace TakeOver.SaveSystem
 {
     /// <summary>등록된 파트의 저장·복원 조정. 날짜 진행과 게임 규칙은 호출자 담당</summary>
-    public class GameSaveManager : MonoBehaviour
+    public partial class GameSaveManager : MonoBehaviour
     {
         [Tooltip("ISaveParticipant 구현 컴포넌트. 복원 후 재구성 순서대로 등록")]
         [SerializeField] private MonoBehaviour[] participants = new MonoBehaviour[0];
@@ -20,8 +20,9 @@ namespace TakeOver.SaveSystem
 
         protected virtual SaveFileStorage storage
         {
-            get { return new SaveFileStorage(Application.persistentDataPath); }
+            get { return new SaveFileStorage(SaveDirectory); }
         }
+        public static string SaveDirectory => string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TAKEOVER_SAVE_DIRECTORY")) ? Application.persistentDataPath : Path.GetFullPath(Environment.GetEnvironmentVariable("TAKEOVER_SAVE_DIRECTORY"));
 
         public bool isBusy { get; private set; }
         public bool hasPendingSave
@@ -47,7 +48,7 @@ namespace TakeOver.SaveSystem
             try
             {
                 SaveFileData data = JsonUtility.FromJson<SaveFileData>(storage.read());
-                if (data == null || (data.formatVersion != SaveFileData.currentFormatVersion && data.formatVersion != 2)
+                if (data == null || (data.formatVersion != SaveFileData.currentFormatVersion && data.formatVersion != 2 && data.formatVersion != 3)
                     || data.dayStart.day < 1)
                     throw new InvalidDataException("저장 파일의 형식 버전·날짜가 올바르지 않습니다.");
                 dayStart = data.dayStart;
@@ -142,7 +143,7 @@ namespace TakeOver.SaveSystem
             try
             {
                 ISaveParticipant[] modules = getParticipants();
-                string json = storage.read();
+                string json = checkpointLoadJson ?? storage.read();
                 SaveFileData data = JsonUtility.FromJson<SaveFileData>(json);
                 upgradeLegacySections(data, modules);
                 validateFile(data, modules);
@@ -218,10 +219,11 @@ namespace TakeOver.SaveSystem
 
         private static void upgradeLegacySections(SaveFileData data, ISaveParticipant[] modules)
         {
-            if (data == null || data.formatVersion != 2 || data.sections == null) return;
+            if (data == null || (data.formatVersion != 2 && data.formatVersion != 3) || data.sections == null) return;
+            int sourceVersion = data.formatVersion;
             foreach (var module in modules)
                 if (!data.sections.Any(savedSection => savedSection != null && savedSection.id == module.saveId) &&
-                    module is ILegacySaveSectionInitializer initializer && initializer.TryCreateLegacySection(2, out var legacySection))
+                    module is ILegacySaveSectionInitializer initializer && initializer.TryCreateLegacySection(sourceVersion, out var legacySection))
                 {
                     if (legacySection == null || legacySection.id != module.saveId) throw new InvalidOperationException("과거 저장 변환의 구역 ID가 올바르지 않습니다.");
                     data.sections.Add(legacySection);

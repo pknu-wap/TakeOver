@@ -1,0 +1,158 @@
+using System.Collections.Generic;
+using TakeOver.CompanyRules;
+using TakeOver.Documents;
+using TakeOver.Events;
+using TakeOver.NPC;
+using TakeOver.Operations;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+namespace TakeOver.Startups
+{
+    public sealed class StartupContractService : MonoBehaviour, ITurnBlocker
+    {
+        [SerializeField] private DocumentDetailView contractPrefab;
+        private readonly Queue<(Company company, int day)> requests = new Queue<(Company, int)>();
+        private Companies companies;
+        private Player player;
+        private Marketdata marketData;
+        private GameTurnClock clock;
+        private EventSystemController events;
+        private EventNegotiationView negotiationTemplate;
+        private EventNegotiationView negotiation;
+        private DocumentDetailView detail;
+        private StartupContractDocument contract;
+        private GameObject previousSelection;
+
+        private void Start()
+        {
+            companies = FindFirstObjectByType<Companies>();
+            player = FindFirstObjectByType<Player>();
+            marketData = FindFirstObjectByType<Marketdata>();
+            clock = FindFirstObjectByType<GameTurnClock>();
+            events = FindFirstObjectByType<EventSystemController>();
+            negotiationTemplate = FindFirstObjectByType<EventNegotiationView>(FindObjectsInactive.Include);
+            clock.RegisterBlocker(this);
+        }
+
+        public bool IsBlocking(out string reason)
+        {
+            reason = "진행 중인 투자 계약을 먼저 처리해 주세요";
+            return contract != null;
+        }
+
+        // 발굴 보고서의 투자 검토 선택에서 호출할 연결 함수
+        public bool requestContract(Company startup)
+        {
+            bool registered = false;
+            foreach (Company company in companies.StartupList)
+                if (company == startup) { registered = true; break; }
+            if (!registered || startup.state.getStat(CompanyStat.PLAYER_SHARES) > 0f) return false;
+            foreach (var request in requests)
+                if (request.company == startup) return false;
+            if (contract != null && contract.TargetCompany == startup) return false;
+            requests.Enqueue((startup, clock.CurrentTurn + 1));
+            return true;
+        }
+
+        private void Update()
+        {
+            if (contract != null || requests.Count == 0 || clock.CurrentTurn < requests.Peek().day) return;
+            if (!events.IsClosed || TakeOver.Story.StoryDirector.IsRunning) return;
+            Company company = requests.Dequeue().company;
+            if (company == null || !containsStartup(company) || company.state.getStat(CompanyStat.PLAYER_SHARES) > 0f) return;
+
+            contract = new StartupContractDocument(company, player, companies, clock.CurrentTurn);
+            previousSelection = EventSystem.current.currentSelectedGameObject;
+            negotiation = Instantiate(negotiationTemplate, negotiationTemplate.transform.parent, false);
+            negotiation.name = "Startup contract negotiation";
+            negotiation.transform.SetAsLastSibling();
+            var canvas = negotiation.gameObject.AddComponent<Canvas>();
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 600;
+            negotiation.gameObject.AddComponent<UnityEngine.UI.GraphicRaycaster>();
+            negotiation.ShowDialogue(new DialoguePresentation
+            {
+                speaker = contract.Author,
+                text = "투자 조건을 확인해 주세요. 지분율을 정하시면 계약을 진행하겠습니다.",
+                showPlayer = false
+            }, showContract, null, showContract, () => true);
+            negotiation.SetDialogueInput(true);
+            negotiation.ContinueButton.Select();
+        }
+
+        private bool containsStartup(Company company)
+        {
+            foreach (Company startup in companies.StartupList)
+                if (startup == company) return true;
+            return false;
+        }
+
+        private void showContract()
+        {
+            negotiation.SetDialogueInput(false);
+            negotiation.ContinueButton.gameObject.SetActive(false);
+            negotiation.SkipButton.gameObject.SetActive(false);
+            if (detail != null) return;
+            detail = Instantiate(contractPrefab, negotiation.transform, false);
+            detail.name = "Startup investment contract";
+            var source = FindFirstObjectByType<OperationsScreen>(FindObjectsInactive.Include).GetComponentInChildren<DocumentDetailView>(true);
+            var sourceRect = (RectTransform)source.transform;
+            var rect = (RectTransform)detail.transform;
+            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(.5f, .5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = sourceRect.rect.size;
+            float sourceScale = source.GetComponentInParent<Canvas>(true).rootCanvas.scaleFactor;
+            float targetScale = negotiation.GetComponentInParent<Canvas>(true).rootCanvas.scaleFactor;
+            rect.localScale = Vector3.one * (sourceScale / targetScale);
+            detail.gameObject.SetActive(true);
+            detail.Decided += decide;
+            detail.Show(contract);
+            detail.GetComponentInChildren<UnityEngine.UI.Button>().Select();
+        }
+
+        private void decide(IDocument document, bool approved)
+        {
+            if (approved)
+            {
+                if (!contract.CanApprove(out _)) return;
+                new ChangeApplier(player).Apply(contract.OnApprove(), contract.TargetCompany);
+                FindFirstObjectByType<StartupSystem>()?.markContracted(contract.TargetCompany, clock.CurrentTurn);
+                contract.TargetCompany.calculator.recalculate(contract.TargetCompany, marketData);
+                var startupTab = FindFirstObjectByType<StartupTabView>();
+                if (startupTab != null) startupTab.refreshAfterInvestment();
+            }
+            close();
+        }
+
+        private void close()
+        {
+            if (negotiation != null)
+            {
+                negotiation.gameObject.SetActive(false);
+                Destroy(negotiation.gameObject);
+                if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(previousSelection);
+            }
+            detail = null;
+            negotiation = null;
+            contract = null;
+            previousSelection = null;
+        }
+
+        private void OnDestroy()
+        {
+            if (clock != null) clock.UnregisterBlocker(this);
+            close();
+        }
+
+        [ContextMenu("검증용: 첫 미투자 스타트업 계약 요청")]
+        private void requestFirstStartup()
+        {
+            foreach (Company startup in companies.StartupList)
+                if (requestContract(startup)) break;
+        }
+
+        [ContextMenu("검증용: 첫 미투자 스타트업 계약 요청", true)]
+        private bool canRequestFirstStartup() => Application.isPlaying;
+    }
+}

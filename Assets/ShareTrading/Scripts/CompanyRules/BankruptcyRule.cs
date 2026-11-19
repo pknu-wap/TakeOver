@@ -29,9 +29,9 @@ namespace TakeOver.CompanyRules
 
         public bool isBankrupt(CompanyState state)
         {
-            float cash = state.getStat(CompanyStat.CASH);
-            float netAssets = cash + state.getStat(CompanyStat.TANGIBLE_ASSETS)
-                + state.getStat(CompanyStat.INTANGIBLE_ASSTES) - state.getStat(CompanyStat.DEBT);
+            float cash = state.getBaseStat(CompanyStat.CASH);
+            float netAssets = cash + state.getBaseStat(CompanyStat.TANGIBLE_ASSETS)
+                + state.getBaseStat(CompanyStat.INTANGIBLE_ASSTES) - state.getBaseStat(CompanyStat.DEBT);
             return cash <= cashThreshold && netAssets <= netAssetsThreshold;
         }
     }
