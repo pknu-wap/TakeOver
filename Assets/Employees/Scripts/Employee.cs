@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace TakeOver.Employees
 {
     public class Employee
     {
+        // EmployeeService가 지원자를 만들 때 붙이는 번호. 1부터 증가하고 재사용하지 않는다(0은 번호 없음).
+        public int Id { get; internal set; }
         public string Name;
 
         public AbilityStat Analysis;
@@ -18,12 +21,17 @@ namespace TakeOver.Employees
         public HiddenStat Ambition;
         public HiddenStat PotentialStat;
 
+        public EmployeeStatSnapshot ContractStartStats { get; private set; }
+
         public int MonthlySalary;
         public int HiredTurn;
         public int ContractEndTurn;
         public int NextRevealTurn;
         public int LeaveTurn;
         public bool IsPendingLeave;
+
+        public bool HasSentRenewalNotice { get; set; }
+        public int? PendingRenewalSalary { get; set; }
 
         private readonly EmployeeConfig config;
 
@@ -87,6 +95,20 @@ namespace TakeOver.Employees
             NextRevealTurn = hiredTurn + (config != null ? config.hiddenStatRevealIntervalTurns : 10);
             LeaveTurn = -1;
             IsPendingLeave = false;
+            HasSentRenewalNotice = false;
+            PendingRenewalSalary = null;
+
+            CaptureContractStartStats();
+        }
+
+        public void CaptureContractStartStats()
+        {
+            ContractStartStats = new EmployeeStatSnapshot(
+                Analysis.Current,
+                Network.Current,
+                Eye.Current,
+                Legwork.Current,
+                Management.Current);
         }
 
         public void RaiseStat(AbilityStatType statType, float delta)
@@ -118,6 +140,29 @@ namespace TakeOver.Employees
         }
 
         public int GetHiddenStat(HiddenStatType statType)
+        {
+            if (!IsHiddenRevealed(statType))
+            {
+                throw new InvalidOperationException(
+                    $"[Employee] 직원 '{Name}'(ID:{Id})의 히든 스탯 '{statType}'이(가) 아직 공개되지 않은 상태에서 조회되었습니다.");
+            }
+
+            return GetHiddenStatRaw(statType);
+        }
+
+        public bool TryGetHiddenStat(HiddenStatType statType, out int value)
+        {
+            if (!IsHiddenRevealed(statType))
+            {
+                value = 0;
+                return false;
+            }
+
+            value = GetHiddenStatRaw(statType);
+            return true;
+        }
+
+        private int GetHiddenStatRaw(HiddenStatType statType)
         {
             switch (statType)
             {
@@ -164,7 +209,7 @@ namespace TakeOver.Employees
                 return false;
             }
 
-            revealedStat = candidates[Random.Range(0, candidates.Count)];
+            revealedStat = candidates[UnityEngine.Random.Range(0, candidates.Count)];
             SetRevealed(revealedStat, true);
             return true;
         }

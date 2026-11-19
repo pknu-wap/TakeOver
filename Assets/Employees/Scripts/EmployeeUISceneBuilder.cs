@@ -665,12 +665,15 @@ namespace TakeOver.Employees.Editor
                 AssetDatabase.CreateAsset(cfg, DataFolder + "/EmployeeConfig.asset");
             }
 
-            // Ensure non-zero applicant count & stat caps for stage 1+
-            if (cfg.GetApplicantCountForStage(1) <= 0 || cfg.GetMaxStatCapForStage(1) <= 0 || cfg.recruitDurationTurns <= 0)
+            // Ensure non-zero applicant count, stat caps, and renewal notice turns
+            if (cfg.GetApplicantCountForStage(1) <= 0 || cfg.GetMaxStatCapForStage(1) <= 0 || cfg.recruitDurationTurns <= 0 || cfg.renewalNoticeTurns <= 0)
             {
                 SerializedObject cfgSo = new SerializedObject(cfg);
                 SerializedProperty durProp = cfgSo.FindProperty("recruitDurationTurns");
                 if (durProp != null && durProp.intValue <= 0) durProp.intValue = 2;
+
+                SerializedProperty noticeProp = cfgSo.FindProperty("renewalNoticeTurns");
+                if (noticeProp != null && noticeProp.intValue <= 0) noticeProp.intValue = 30;
 
                 SerializedProperty it = cfgSo.GetIterator();
                 while (it.NextVisible(true))

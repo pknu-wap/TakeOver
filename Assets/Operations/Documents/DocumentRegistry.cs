@@ -10,7 +10,8 @@ namespace TakeOver.Documents
             = new Dictionary<string, Func<DocumentSaveRecord, DocumentContext, IApprovalDocument>>
             {
                 { DividendPolicyDocument.typeId, (record, context) => new DividendPolicyDocument(
-                    context.companies.getCompany(record.companyId), record.deadlineTurn, context.settings) }
+                    context.companies.getCompany(record.companyId), record.deadlineTurn, context.settings) },
+                { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) }
             };
 
         public IApprovalDocument Restore(DocumentSaveRecord record, DocumentContext context)
@@ -21,7 +22,14 @@ namespace TakeOver.Documents
                 return null;
             }
             IApprovalDocument document = factory(record, context);
-            foreach (NameValue field in record.fields) document.SetField(field.name, field.value);
+            foreach (NameValue field in record.fields)
+            {
+                bool isChoice = false;
+                foreach (DocumentChoiceField choice in document.ChoiceFields)
+                    if (choice.name == field.name) { isChoice = true; break; }
+                if (isChoice) document.SetChoice(field.name, Mathf.RoundToInt(field.value));
+                else document.SetField(field.name, field.value);
+            }
             return document;
         }
     }

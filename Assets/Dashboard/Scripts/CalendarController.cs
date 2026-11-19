@@ -8,6 +8,7 @@ public class CalendarController : MonoBehaviour
 {
     [Header("Top Title UI")]
     [SerializeField] private TextMeshProUGUI dateTitleText;
+    [SerializeField] private TextMeshProUGUI dayCountText;
 
     [Header("Date Grid Items (7개 - 일~토)")]
     [SerializeField] private List<TextMeshProUGUI> dateNumberTexts;
@@ -33,6 +34,7 @@ public class CalendarController : MonoBehaviour
         if (turnClock != null)
         {
             turnClock.TurnAdvanced += HandleTurnAdvanced;
+            turnClock.TurnRestored += HandleTurnAdvanced;
         }
         RefreshFromTurn();
     }
@@ -42,6 +44,7 @@ public class CalendarController : MonoBehaviour
         if (turnClock != null)
         {
             turnClock.TurnAdvanced -= HandleTurnAdvanced;
+            turnClock.TurnRestored -= HandleTurnAdvanced;
         }
     }
 
@@ -53,6 +56,11 @@ public class CalendarController : MonoBehaviour
     private void RefreshFromTurn()
     {
         int turn = turnClock != null ? turnClock.CurrentTurn : 1;
+        if (dayCountText != null)
+        {
+            if (dateTitleText != null && dayCountText.font != dateTitleText.font) dayCountText.font = dateTitleText.font;
+            dayCountText.text = $"{turn}일째";
+        }
         UpdateCalendarUI(new DateTime(startYear, startMonth, startDay).AddDays(turn - 1));
     }
 

@@ -21,6 +21,7 @@ namespace TakeOver.Events
             public EventDefinition definition;
             public string companyId;
             public int firstDay;
+            public float greenmailStake;
         }
         private sealed class NegotiationChoice
         {
@@ -82,12 +83,13 @@ namespace TakeOver.Events
         }
         private void OnEnable()
         {
-            if (turnClock != null) turnClock.TurnAdvanced += onDayStarted;
+            // 회사 실적·시장 이벤트 재계산이 끝난 새 날짜의 값으로 후보를 판정한다.
+            if (turnClock != null) turnClock.DayStarted += onDayStarted;
             if (turnClock != null) turnClock.DayStarted += OnMandatoryDayStarted;
         }
         private void OnDisable()
         {
-            if (turnClock != null) turnClock.TurnAdvanced -= onDayStarted;
+            if (turnClock != null) turnClock.DayStarted -= onDayStarted;
             if (turnClock != null) turnClock.DayStarted -= OnMandatoryDayStarted;
         }
         private System.Collections.IEnumerator Start()
@@ -134,9 +136,10 @@ namespace TakeOver.Events
         {
             if (definition.IsTutorialOnly && !TakeOver.Story.StoryDirector.IsRunning) return false;
             if (definition.hasCompanyConditions() && definition.getCompanyIds().Count > 0 && !definition.getCompanyIds().Contains(companyId)) return false;
-            return meetsConditions(definition.getConditions(), companyId);
+            float offeredStake = occurrences.Find(item => item.definition == definition && item.companyId == companyId)?.greenmailStake ?? 0;
+            return meetsConditions(definition.getConditions(), companyId, offeredStake);
         }
-        private bool meetsConditions(IReadOnlyList<EventCondition> conditions, string eventCompanyId)
+        private bool meetsConditions(IReadOnlyList<EventCondition> conditions, string eventCompanyId, float offeredGreenmailStake = 0)
         {
             foreach (EventCondition condition in conditions)
             {
@@ -178,6 +181,8 @@ namespace TakeOver.Events
                 if (condition.kind == EventConditionKind.CompanyGreenmailStake)
                 {
                     if (condition.comparison != EventComparison.AtLeast || !worldReader.tryGetGreenmailStake(companyId, out actual, out threshold)) return false;
+                    // 발행한 제안의 요구 지분은 유효기간 동안 유지한다. 보유량과 거래 가능 여부는 재검사한다.
+                    if (companyId == eventCompanyId && offeredGreenmailStake > 0) threshold = offeredGreenmailStake;
                 }
                 else if (condition.kind == EventConditionKind.Day) actual = currentDay;
                 else if (condition.kind == EventConditionKind.CompanyStake) actual = worldReader.getStake(companyId);
@@ -247,7 +252,10 @@ namespace TakeOver.Events
                     if (!canAppear(definition, "") || !meetsConditions(definition, "")) continue;
                     if (definition.getCompanyIds().Count > 0) companyId = definition.getCompanyIds()[0];
                 }
-                occurrences.Add(new Occurrence { definition = definition, companyId = companyId, firstDay = currentDay });
+                float offeredStake = 0;
+                if (definition.getConditions().Any(condition => condition.kind == EventConditionKind.CompanyGreenmailStake))
+                    worldReader.tryGetGreenmailStake(companyId, out _, out offeredStake);
+                occurrences.Add(new Occurrence { definition = definition, companyId = companyId, firstDay = currentDay, greenmailStake = offeredStake });
             }
             if (turnClock == null || dayNumber != turnClock.CurrentTurn) EvaluateMandatoryDeadline(dayNumber);
             rebuildToday();

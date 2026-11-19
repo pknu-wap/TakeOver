@@ -101,19 +101,15 @@ public sealed class GreenmailScaleProbe : MonoBehaviour
     IEnumerator Verify()
     {
         yield return Ready(false);
-        var boundary = ScriptableObject.CreateInstance<CompanyDefinition>();
         foreach (var entry in new[] { (999f, CompanyScale.Small, 35f), (1000f, CompanyScale.Medium, 30f), (9999f, CompanyScale.Medium, 30f), (10000f, CompanyScale.Large, 25f) })
         {
-            boundary.initialBaseCompanyValue = entry.Item1;
-            Check(CompanyScaleRules.TryGetScale(boundary, out var scale) && scale == entry.Item2 && CompanyScaleRules.TryGetGreenmailStake(boundary, out float required) && required == entry.Item3, "Value boundary maps to fixed scale and stake: " + entry.Item1);
+            Check(CompanyScaleRules.TryGetScale(entry.Item1, out var scale) && scale == entry.Item2 && CompanyScaleRules.TryGetGreenmailStake(entry.Item1, out float required) && required == entry.Item3, "Value boundary maps to current scale and stake: " + entry.Item1);
         }
         foreach (float invalid in new[] { 0f, -1f, float.NaN, float.PositiveInfinity })
         {
-            boundary.initialBaseCompanyValue = invalid;
-            Check(!CompanyScaleRules.TryGetGreenmailStake(boundary, out _), "Invalid initial value does not silently qualify: " + invalid);
+            Check(!CompanyScaleRules.TryGetGreenmailStake(invalid, out _), "Invalid current value does not silently qualify: " + invalid);
         }
-        Object.Destroy(boundary);
-        Check(!CompanyScaleRules.TryGetGreenmailStake(null, out _), "Missing company definition is rejected");
+        Check(!new EventWorldReader(companies, null).tryGetGreenmailStake("missing-company", out _, out _), "Missing company is rejected");
         string[] ids = companies.CompanyList.Select(c => c.definition.companyID).ToArray();
         Check(ids.Length == 9 && definition.getConditions().Single().kind == EventConditionKind.CompanyGreenmailStake, "Live greenmail asset uses scale condition for all nine registered companies");
         int small = 0, medium = 0, large = 0;
@@ -121,8 +117,8 @@ public sealed class GreenmailScaleProbe : MonoBehaviour
         {
             yield return Ready();
             var company = companies.getCompany(id);
-            Check(CompanyScaleRules.TryGetScale(company.definition, out var scale) && CompanyScaleRules.TryGetGreenmailStake(company.definition, out _), "Registered company has a valid fixed scale: " + id);
-            CompanyScaleRules.TryGetGreenmailStake(company.definition, out float threshold);
+            Check(CompanyScaleRules.TryGetScale(company.state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE), out var scale) && CompanyScaleRules.TryGetGreenmailStake(company.state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE), out _), "Registered company has a valid current scale: " + id);
+            CompanyScaleRules.TryGetGreenmailStake(company.state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE), out float threshold);
             if (scale == CompanyScale.Small) small++; else if (scale == CompanyScale.Medium) medium++; else large++;
             int requiredShares = Mathf.CeilToInt(company.state.totalShares * threshold / 100);
             Shares(company, requiredShares - 1);
@@ -133,20 +129,48 @@ public sealed class GreenmailScaleProbe : MonoBehaviour
             Check(Meets(company), "Exact threshold qualifies: " + id + "/" + threshold);
             Shares(company, requiredShares + 1);
             Check(Meets(company), "One share above threshold qualifies: " + id);
-            company.state.setStat(CompanyStat.BASE_COMPANY_VALUE, 1000000);
-            company.state.setDerivedStat(CompanyDerivedStat.SHARE_PRICE, .01f);
-            Check(CompanyScaleRules.TryGetGreenmailStake(company.definition, out float stable) && stable == threshold && Meets(company), "Runtime value and price cannot change the threshold: " + id);
             Shares(company, requiredShares); clock.AdvanceTurn();
             Check(Offer != null && Offer.companyId == id && !string.IsNullOrEmpty(Offer.speakerNpcId), "Actual event selects the qualified company and its representative: " + id);
         }
-        Check(small == 4 && medium == 2 && large == 3, "Current distribution is four small, two medium and three large companies");
+        Check(small + medium + large == 9, "All nine companies have a valid runtime valuation");
 
-        // 대표 규모별로 실제 수락 효과와 전체 저장을 확인한다.
-        foreach (string id in new[] { "haneul-food", "polaris-finance", "daeseong-industry" })
+        // 신규 5곳을 포함한 모든 회사의 성장·축소를 실제 후보 생성 경로로 검증한다.
+        foreach (string id in ids)
+        {
+            foreach (var entry in new[] { (999f, 35f), (1000f, 30f), (9999f, 30f), (10000f, 25f) })
+            {
+                yield return Ready();
+                var company = companies.getCompany(id);
+                company.state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE, entry.Item1);
+                Shares(company, company.state.totalShares * .30f);
+                Check(new EventWorldReader(companies, null).tryGetGreenmailStake(id, out _, out float required) && required == entry.Item2,
+                    "Current valuation controls threshold regardless of initial scale: " + id + "/" + entry.Item1);
+                game.onDayStarted(clock.CurrentTurn + 1);
+                Check((Offer != null && Offer.companyId == id) == (entry.Item2 <= 30),
+                    "Current value controls actual card at 30 percent holdings: " + id + "/" + entry.Item1);
+                company.state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE, 999);
+                Check(Meets(company) == (entry.Item2 <= 30), "Issued offer keeps its required stake after shrinking: " + id);
+                company.state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE, 10000);
+                Check(Meets(company), "Growth preserves eligibility under the issued or newly evaluated terms: " + id);
+            }
+        }
+
+        // 경제 갱신 구독 순서와 무관하게 모든 갱신이 끝난 뒤 판정한다.
+        yield return Ready();
+        var growing = companies.getCompany("haneul-food");
+        Shares(growing, growing.state.totalShares * .30f);
+        Action<int> growOnTurn = _ => growing.state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE, 10000);
+        clock.TurnAdvanced += growOnTurn;
+        clock.AdvanceTurn();
+        clock.TurnAdvanced -= growOnTurn;
+        Check(Offer != null && Offer.companyId == growing.definition.companyID, "Daily candidate uses valuation after all economic turn updates");
+
+        // 신규 5곳을 포함해 모든 회사의 실제 수락 효과와 전체 저장을 확인한다.
+        foreach (string id in ids)
         {
             yield return Ready();
             var company = companies.getCompany(id);
-            CompanyScaleRules.TryGetGreenmailStake(company.definition, out float threshold);
+            CompanyScaleRules.TryGetGreenmailStake(company.state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE), out float threshold);
             int held = Mathf.CeilToInt(company.state.totalShares * threshold / 100);
             Shares(company, held); clock.AdvanceTurn();
             var player = Object.FindFirstObjectByType<Player>(); var trading = Object.FindFirstObjectByType<ShareTradingSystem>();
@@ -196,6 +220,137 @@ public sealed class GreenmailScaleProbe : MonoBehaviour
         game.openEvent("greenmail_01"); points = Object.FindFirstObjectByType<ActionPointService>(); beforeAp = points.Current;
         clock.AdvanceTurn(); clock.AdvanceTurn(); game.startNegotiation();
         Check(game.IsClosed && points.Current == beforeAp, "Expired detail cannot start a greenmail meeting or consume AP");
+
+        // 발행 시점 기준과 현재 거래 조건을 분리한다.
+        yield return Ready();
+        target = companies.getCompany("sinseong-development");
+        target.state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE, 10001);
+        Shares(target, target.state.totalShares * .25f);
+        clock.RestoreTurn(2); game.onDayStarted(2);
+        Check(Offer != null && Offer.companyId == target.definition.companyID, "Large company issues a 25 percent offer");
+        target.marketState.eventPriceMultiplier = .5f;
+        target.calculator.recalculate(target, Object.FindFirstObjectByType<Marketdata>());
+        game.refreshAvailability();
+        Check(Offer != null && Meets(target), "Price drop after issue cannot withdraw an otherwise valid offer");
+        var snapshot = JsonUtility.FromJson<EventSystemController.EventSaveData>(game.captureJson());
+        Check(snapshot.occurrences.Single(x => x.eventId == "greenmail_01").greenmailStake == 25, "Save captures issued stake rather than current scale");
+        var manager2 = new GameObject("Offer snapshot save verification").AddComponent<GreenmailScaleSaveManager>();
+        Check(manager2.trySaveDayEnd(new DayStartData(3, FixedDaySeed.seed)), "Pending offer saves through whole-game manager");
+        Check(manager2.tryLoad(out _) && Offer != null && Meets(target) && target.state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE) < 10000,
+            "Whole-game reload preserves offer after a persisted scale decrease");
+        game.openEvent("greenmail_01");
+        target.state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE, 999);
+        game.startNegotiation();
+        Check(!game.IsClosed && game.getNegotiationChoiceCount() > 0, "Scale decrease before meeting does not cancel a valid issued offer");
+        actor = Object.FindFirstObjectByType<Player>(); oldCash = actor.state.cash;
+        game.confirmChoice(0); game.confirmChoice(0);
+        Check(target.state.greenmailBuyBlocked && target.state.getBaseStat(CompanyStat.PLAYER_SHARES) == 0 && actor.state.cash > oldCash,
+            "Issued stake remains valid at final confirmation and sale happens once");
+        game.closeResult();
+
+        // 저장 손상은 적용 전에 거부한다. 이전 저장에는 복원 시점 값으로 요구 지분을 채운다.
+        yield return Ready();
+        target = companies.getCompany("sinseong-development");
+        target.state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE, 10001);
+        Shares(target, target.state.totalShares * .25f); clock.RestoreTurn(2); game.onDayStarted(2);
+        string validOfferSave = game.captureJson();
+        var corrupt = JsonUtility.FromJson<EventSystemController.EventSaveData>(validOfferSave);
+        corrupt.occurrences.Single(x => x.eventId == "greenmail_01").greenmailStake = 1;
+        bool rejected = false;
+        try { game.prepareLoad(JsonUtility.ToJson(corrupt), game.saveVersion, new DayStartData(2, FixedDaySeed.seed)); }
+        catch (InvalidDataException) { rejected = true; }
+        Check(rejected && game.captureJson() == validOfferSave, "Corrupt issued stake is rejected without changing the current offer");
+        var missingStake = Newtonsoft.Json.Linq.JObject.Parse(validOfferSave);
+        foreach (var item in missingStake["occurrences"])
+            if ((string)item["eventId"] == "greenmail_01") ((Newtonsoft.Json.Linq.JObject)item).Remove("greenmailStake");
+        rejected = false;
+        try { game.prepareLoad(missingStake.ToString(), game.saveVersion, new DayStartData(2, FixedDaySeed.seed)); }
+        catch (InvalidDataException) { rejected = true; }
+        Check(rejected && game.captureJson() == validOfferSave, "Missing v4 issued stake is rejected without changing the current offer");
+        game.prepareLoad(validOfferSave, 3, new DayStartData(2, FixedDaySeed.seed)); game.applyLoad(); game.rebuildAfterLoad();
+        Check(Offer != null && JsonUtility.FromJson<EventSystemController.EventSaveData>(game.captureJson()).occurrences.Single(x => x.eventId == "greenmail_01").greenmailStake == 25,
+            "Legacy v3 offer initializes its stake after trading state restoration");
+
+        target.marketState.eventPriceMultiplier = .5f;
+        target.calculator.recalculate(target, Object.FindFirstObjectByType<Marketdata>());
+        var randomBeforeLoad = UnityEngine.Random.state;
+        game.prepareLoad(missingStake.ToString(), 3, new DayStartData(2, FixedDaySeed.seed)); game.applyLoad(); game.rebuildAfterLoad();
+        var migrated = JsonUtility.FromJson<EventSystemController.EventSaveData>(game.captureJson());
+        Check(Offer == null && migrated.occurrences.Single(x => x.eventId == "greenmail_01").greenmailStake == 30,
+            "Legacy save without authored stake uses restored current scale rather than the old initial scale");
+        Check(UnityEngine.Random.state.Equals(randomBeforeLoad), "Legacy offer migration consumes no randomness");
+        Shares(target, target.state.totalShares * .30f); game.refreshAvailability();
+        Check(Offer != null, "Migrated pending offer becomes usable when restored required holdings are met");
+        string migratedJson = game.captureJson();
+        game.prepareLoad(migratedJson, game.saveVersion, new DayStartData(2, FixedDaySeed.seed)); game.applyLoad(); game.rebuildAfterLoad();
+        Check(game.captureJson() == migratedJson && Offer != null, "Migrated offer resaves and reloads as v4 without changing its terms");
+
+        foreach (var status in new[] { CompanyStatus.Normal, CompanyStatus.Watchlisted, CompanyStatus.Delisted, CompanyStatus.Liquidation })
+        {
+            target.state.status = status;
+            bool eligible = new EventWorldReader(companies, null).tryGetGreenmailStake(target.definition.companyID, out _, out _);
+            Check(eligible == (status == CompanyStatus.Normal || status == CompanyStatus.Watchlisted), "Company trading status controls greenmail eligibility: " + status);
+        }
+        target.state.status = CompanyStatus.Normal;
+        foreach (float price in new[] { 0, -1, float.NaN, float.PositiveInfinity })
+        {
+            target.state.setDerivedStat(CompanyDerivedStat.SHARE_PRICE, price);
+            Check(!new EventWorldReader(companies, null).tryGetGreenmailStake(target.definition.companyID, out _, out _), "Nontradable price cannot produce a completed greenmail transaction: " + price);
+        }
+        target.state.setDerivedStat(CompanyDerivedStat.SHARE_PRICE, 1);
+        typeof(CompanyState).GetProperty("greenmailBuyBlocked").SetValue(target.state, true);
+        Check(!new EventWorldReader(companies, null).tryGetGreenmailStake(target.definition.companyID, out _, out _), "Already bought-back company cannot issue another offer");
+
+        yield return Ready();
+        target = companies.getCompany("haneul-food"); Shares(target, target.state.totalShares * .35f); clock.AdvanceTurn();
+        game.openEvent("greenmail_01"); game.startNegotiation();
+        target.state.status = CompanyStatus.Liquidation;
+        actor = Object.FindFirstObjectByType<Player>(); oldCash = actor.state.cash;
+        oldShares = target.state.getBaseStat(CompanyStat.PLAYER_SHARES);
+        game.confirmChoice(0);
+        Check(game.IsClosed && actor.state.cash == oldCash && target.state.getBaseStat(CompanyStat.PLAYER_SHARES) == oldShares && !target.state.greenmailBuyBlocked && !game.tryGetChoice("greenmail_01", out _),
+            "Liquidation during a meeting cancels before cash, holdings, completion or buy ban effects");
+
+        // 같은 회사의 무응답 제안은 기한과 재발행 간격을 지키고, 새 제안은 새 규모로 계산한다.
+        yield return Ready();
+        target = companies.getCompany("haneul-food"); Shares(target, target.state.totalShares * .35f);
+        clock.RestoreTurn(2); game.onDayStarted(2);
+        Check(Offer != null, "Small company offer starts its two-day validity window");
+        target.state.setDerivedStat(CompanyDerivedStat.MARKET_VALUE, 10000);
+        Shares(target, target.state.totalShares * .30f);
+        Check(!Meets(target), "Growing company cannot weaken the required stake of an already issued offer");
+        Shares(target, target.state.totalShares * .35f);
+        clock.RestoreTurn(3); game.onDayStarted(3);
+        Check(Offer != null && Offer.remainingDays == 1, "Unanswered offer survives only through its second day");
+        clock.RestoreTurn(4); game.onDayStarted(4);
+        Check(Offer == null, "Offer expires exactly after its two-day validity window");
+        Shares(target, target.state.totalShares * .25f);
+        for (int day = 5; day < 11; day++)
+        {
+            clock.RestoreTurn(day); game.onDayStarted(day);
+            Check(Offer == null, "Same-company offer stays absent during seven-day expiry cooldown: day " + day);
+        }
+        clock.RestoreTurn(11); game.onDayStarted(11);
+        Check(Offer != null && JsonUtility.FromJson<EventSystemController.EventSaveData>(game.captureJson()).occurrences.Single(x => x.eventId == "greenmail_01").greenmailStake == 25,
+            "First reissue after cooldown uses the new current company scale");
+
+        foreach (string id in ids)
+        {
+            yield return Ready();
+            target = companies.getCompany(id);
+            CompanyScaleRules.TryGetGreenmailStake(target.state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE), out float threshold);
+            Shares(target, Mathf.CeilToInt(target.state.totalShares * threshold / 100)); clock.AdvanceTurn();
+            actor = Object.FindFirstObjectByType<Player>(); oldCash = actor.state.cash;
+            oldShares = target.state.getBaseStat(CompanyStat.PLAYER_SHARES);
+            int notifications = 0; game.choiceConfirmed += _ => notifications++;
+            game.openEvent("greenmail_01"); game.startNegotiation(); game.confirmChoice(1); game.confirmChoice(1); game.closeResult();
+            Check(notifications == 1 && actor.state.cash == oldCash && target.state.getBaseStat(CompanyStat.PLAYER_SHARES) == oldShares && !target.state.greenmailBuyBlocked,
+                "Reject preserves holdings, cash and buying rights and notifies exactly once: " + id);
+            Check(game.tryGetChoice("greenmail_01", id, out int rejectedChoice) && rejectedChoice == 1,
+                "Reject records completion only for the offered company: " + id);
+            clock.AdvanceTurn();
+            Check(Offer == null, "Completed rejection cannot reissue another offer for the same company: " + id);
+        }
         File.AppendAllText(GreenmailScaleVerification.Output + "results.txt", "COMPLETE\n");
     }
 }

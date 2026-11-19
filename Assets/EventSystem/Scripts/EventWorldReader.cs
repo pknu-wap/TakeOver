@@ -75,7 +75,11 @@ namespace TakeOver.Events
         {
             actual = required = 0;
             var company = companies != null ? companies.getCompany(companyId) : null;
-            if (company == null || company.state.totalShares <= 0 || !CompanyScaleRules.TryGetGreenmailStake(company.definition, out required)) return false;
+            if (company == null || company.state == null || company.state.totalShares <= 0 ||
+                !CompanyScaleRules.TryGetGreenmailStake(company.state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE), out required)) return false;
+            if (company.state.greenmailBuyBlocked || company.state.status == CompanyStatus.Delisted || company.state.status == CompanyStatus.Liquidation) return false;
+            float price = company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
+            if (float.IsNaN(price) || float.IsInfinity(price) || price <= 0) return false;
             // 소유권은 시세나 파생 수치 갱신 순서와 무관하게 실제 보유 주식으로 판정한다.
             actual = company.state.getBaseStat(CompanyStat.PLAYER_SHARES) * 100f / company.state.totalShares;
             return !float.IsNaN(actual) && !float.IsInfinity(actual) && actual >= 0 && actual <= 100;

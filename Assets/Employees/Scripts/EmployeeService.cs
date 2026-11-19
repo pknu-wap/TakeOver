@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using TakeOver.NPC;
 
@@ -18,10 +17,11 @@ namespace TakeOver.Employees
         private readonly List<Employee> employees = new List<Employee>();
         private readonly List<Employee> applicants = new List<Employee>();
 
+        // 직원 정수 ID용 다음 번호. 재사용하지 않는다. 저장 기능이 생기면 이 값도 저장해야 한다.
+        private int nextEmployeeId = 1;
+
         private bool isRecruiting;
         private int recruitRemainingTurns;
-        private int lastSeenClockTurn;
-        private bool hasSeenClockTurn;
 
         public EmployeeConfig Config => config;
         public IReadOnlyList<Employee> Employees => employees;
@@ -43,20 +43,29 @@ namespace TakeOver.Employees
         public event Action OnApplicantsArrived;
         public event Action<Employee, HiddenStatType> OnStatRevealed;
         public event Action<Employee> OnGradeChanged;
+        public event Action<Employee> OnContractRenewalNotice;
         public event Action<Employee> OnContractExpired;
         public event Action<Employee> OnEmployeeLeft;
 
         private void OnEnable()
         {
-            if (gameTurnClock != null)
+            if (config == null)
             {
-                if (TryReadClockTurn(out int initialTurn))
-                {
-                    lastSeenClockTurn = initialTurn;
-                    hasSeenClockTurn = true;
-                }
-                gameTurnClock.TurnAdvanced += HandleTurnAdvanced;
+                Debug.LogWarning("[EmployeeService] EmployeeConfig 참조가 비어 있습니다. 인스펙터에서 연결해 주세요.", this);
             }
+
+            if (actionPointService == null)
+            {
+                Debug.LogWarning("[EmployeeService] ActionPointService 참조가 비어 있습니다. 인스펙터에서 연결해 주세요.", this);
+            }
+
+            if (gameTurnClock == null)
+            {
+                Debug.LogWarning("[EmployeeService] GameTurnClock 참조가 비어 있습니다. 턴 진행 및 계약 만료가 동작하지 않습니다.", this);
+                return;
+            }
+
+            gameTurnClock.TurnAdvanced += HandleTurnAdvanced;
         }
 
         private void OnDisable()
@@ -71,19 +80,23 @@ namespace TakeOver.Employees
         {
             if (config == null)
             {
-                Debug.LogWarning("[EmployeeService] 모집 실패: Config(EmployeeConfig)가 할당되지 않았습니다.");
+                Debug.LogWarning("[EmployeeService] 모집 실패: Config(EmployeeConfig)가 할당되지 않았습니다.", this);
                 return false;
             }
 
             if (isRecruiting)
             {
-                Debug.LogWarning($"[EmployeeService] 모집 실패: 이미 모집이 진행 중입니다. (남은 턴: {recruitRemainingTurns})");
+                Debug.LogWarning($"[EmployeeService] 모집 실패: 이미 모집이 진행 중입니다. (남은 턴: {recruitRemainingTurns})", this);
                 return false;
             }
 
-            if (actionPointService != null && !actionPointService.TryConsume(config.recruitApCost))
+            if (actionPointService == null)
             {
-                Debug.LogWarning($"[EmployeeService] 모집 실패: AP가 부족합니다. (필요 AP: {config.recruitApCost})");
+                Debug.LogWarning("[EmployeeService] ActionPointService 참조가 비어 있어 AP 차감 없이 모집을 진행합니다.", this);
+            }
+            else if (!actionPointService.TryConsume(config.recruitApCost))
+            {
+                Debug.LogWarning($"[EmployeeService] 모집 실패: AP가 부족합니다. (필요 AP: {config.recruitApCost})", this);
                 return false;
             }
 
@@ -115,7 +128,10 @@ namespace TakeOver.Employees
             applicant.HiredTurn = nowTurn;
             applicant.ContractEndTurn = nowTurn + (config != null ? config.contractDurationTurns : 120);
             applicant.SetPendingLeave(-1);
+            applicant.HasSentRenewalNotice = false;
+            applicant.PendingRenewalSalary = null;
             applicant.NextRevealTurn = nowTurn + (config != null ? config.hiddenStatRevealIntervalTurns : 10);
+            applicant.CaptureContractStartStats();
 
             employees.Add(applicant);
             return true;
@@ -144,14 +160,22 @@ namespace TakeOver.Employees
                 return 1f;
             }
 
-            float diligenceFactor = Mathf.Lerp(0.5f, 1.5f, Mathf.Clamp01(emp.Diligence.Value / 20f));
-            float potentialFactor = Mathf.Lerp(0.5f, 1.5f, Mathf.Clamp01(emp.Potential / 100f));
-            return diligenceFactor * potentialFactor;
+            return Mathf.Lerp(0.7f, 1.5f, Mathf.Clamp01(emp.Ambition.Value / 20f));
         }
 
         public int GetRenewalSalary(Employee emp)
         {
-            return CalculateMonthlySalary(emp);
+            if (emp == null)
+            {
+                return 0;
+            }
+
+            if (!emp.PendingRenewalSalary.HasValue)
+            {
+                emp.PendingRenewalSalary = CalculateMonthlySalary(emp);
+            }
+
+            return emp.PendingRenewalSalary.Value;
         }
 
         public void Renew(Employee emp)
@@ -161,11 +185,13 @@ namespace TakeOver.Employees
                 return;
             }
 
-            int nowTurn = GetCurrentTurn();
             int duration = config != null ? config.contractDurationTurns : 120;
-            emp.ContractEndTurn = nowTurn + duration;
-            emp.SetPendingLeave(-1);
             emp.MonthlySalary = GetRenewalSalary(emp);
+            emp.ContractEndTurn = emp.ContractEndTurn + duration;
+            emp.SetPendingLeave(-1);
+            emp.HasSentRenewalNotice = false;
+            emp.PendingRenewalSalary = null;
+            emp.CaptureContractStartStats();
         }
 
         public void Decline(Employee emp)
@@ -175,9 +201,12 @@ namespace TakeOver.Employees
                 return;
             }
 
-            int nowTurn = GetCurrentTurn();
-            int graceTurns = config != null ? config.declineGraceTurns : 30;
-            emp.SetPendingLeave(nowTurn + graceTurns);
+            if (emp.IsPendingLeave)
+            {
+                return;
+            }
+
+            emp.SetPendingLeave(emp.ContractEndTurn);
         }
 
         public void Dismiss(Employee emp)
@@ -213,10 +242,21 @@ namespace TakeOver.Employees
         {
             if (emp == null)
             {
-                return 0;
+                throw new ArgumentNullException(nameof(emp), "[EmployeeService] 직원이 null인 상태에서 히든 스탯을 조회할 수 없습니다.");
             }
 
             return emp.GetHiddenStat(statType);
+        }
+
+        public bool TryGetHiddenStat(Employee emp, HiddenStatType statType, out int value)
+        {
+            if (emp == null)
+            {
+                value = 0;
+                return false;
+            }
+
+            return emp.TryGetHiddenStat(statType, out value);
         }
 
         public int CalculateMonthlySalary(Employee emp)
@@ -240,9 +280,6 @@ namespace TakeOver.Employees
 
         private void HandleTurnAdvanced(int newTurn)
         {
-            lastSeenClockTurn = newTurn;
-            hasSeenClockTurn = true;
-
             if (isRecruiting)
             {
                 recruitRemainingTurns--;
@@ -254,6 +291,8 @@ namespace TakeOver.Employees
                     OnApplicantsArrived?.Invoke();
                 }
             }
+
+            int noticeTurns = config != null ? config.renewalNoticeTurns : 30;
 
             for (int i = employees.Count - 1; i >= 0; i--)
             {
@@ -275,6 +314,14 @@ namespace TakeOver.Employees
                     }
                 }
 
+                int remainingTurns = emp.ContractEndTurn - newTurn;
+                if (!emp.IsPendingLeave && !emp.HasSentRenewalNotice && remainingTurns <= noticeTurns && remainingTurns > 0)
+                {
+                    emp.HasSentRenewalNotice = true;
+                    GetRenewalSalary(emp);
+                    OnContractRenewalNotice?.Invoke(emp);
+                }
+
                 if (!emp.IsPendingLeave && newTurn >= emp.ContractEndTurn)
                 {
                     OnContractExpired?.Invoke(emp);
@@ -287,6 +334,7 @@ namespace TakeOver.Employees
             applicants.Clear();
             if (config == null)
             {
+                Debug.LogWarning("[EmployeeService] 지원자 생성 실패: EmployeeConfig 참조가 비어 있습니다.", this);
                 return;
             }
 
@@ -334,45 +382,20 @@ namespace TakeOver.Employees
                 0, 0, config.contractDurationTurns,
                 config);
 
+            candidate.Id = nextEmployeeId++;
             candidate.MonthlySalary = CalculateMonthlySalary(candidate);
             return candidate;
         }
 
         private int GetCurrentTurn()
         {
-            if (TryReadClockTurn(out int turn))
-            {
-                return turn;
-            }
-
-            return hasSeenClockTurn ? lastSeenClockTurn : 0;
-        }
-
-        private bool TryReadClockTurn(out int turn)
-        {
-            turn = 0;
             if (gameTurnClock == null)
             {
-                return false;
+                Debug.LogWarning("[EmployeeService] GameTurnClock 참조가 비어 있어 현재 턴을 0으로 반환합니다.", this);
+                return 0;
             }
 
-            PropertyInfo prop = typeof(GameTurnClock).GetProperty("CurrentTurn", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            if (prop != null && prop.PropertyType == typeof(int))
-            {
-                turn = (int)prop.GetValue(gameTurnClock);
-                return true;
-            }
-
-            FieldInfo field = typeof(GameTurnClock).GetField("currentTurn", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                ?? typeof(GameTurnClock).GetField("turn", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-            if (field != null && field.FieldType == typeof(int))
-            {
-                turn = (int)field.GetValue(gameTurnClock);
-                return true;
-            }
-
-            return false;
+            return gameTurnClock.CurrentTurn;
         }
     }
 }
