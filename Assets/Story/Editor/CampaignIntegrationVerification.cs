@@ -245,7 +245,7 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
             var report = new SnapshotDocument("qa-campaign", "저장 검증 보고서", "검증", new[] { new DocumentInfo("기록", "유지") });
             documents.Inbox.Add(report); documents.Inbox.MarkRead(report);
             documents.Inbox.Add(new SnapshotDocument("qa-pending", "미확인 보고서", "검증", new[] { new DocumentInfo("상태", "대기") }));
-            Object.FindFirstObjectByType<NewsFeed>().addNews(1, "저장 검증 뉴스", new[] { "mirae-construction" });
+            Object.FindFirstObjectByType<NewsFeed>().addNews(1, "저장 검증 뉴스", new[] { "mirae-construction" }, string.Empty);
             yield return PlayTo(42, -1, seed == 11);
             Check(companyIds.All(game.CompanyStoryCompleted) && game.MandatoryState == MandatoryStoryState.Completed, "All four company stories complete with distinct gates, seed " + seed);
             Check(player.state.cash > 0, "Four investment objectives leave positive cash, seed " + seed + ": " + player.state.cash);
