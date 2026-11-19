@@ -21,3 +21,5 @@ MonoBehaviour:
   - 0.7
   takeoverRatio: 0.51
   historyLimit: 20
+  supportRequestDeadlineTurns: 7
+  supportRequestRetryTurns: 7

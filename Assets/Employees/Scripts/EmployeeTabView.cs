@@ -94,6 +94,21 @@ namespace TakeOver.Employees
                 actionPointService = FindFirstObjectByType<ActionPointService>();
             }
 
+            if (employeeService == null)
+            {
+                Debug.LogWarning("[EmployeeTabView] EmployeeService 참조가 비어 있습니다.", this);
+            }
+
+            if (gameTurnClock == null)
+            {
+                Debug.LogWarning("[EmployeeTabView] GameTurnClock 참조가 비어 있습니다.", this);
+            }
+
+            if (actionPointService == null)
+            {
+                Debug.LogWarning("[EmployeeTabView] ActionPointService 참조가 비어 있습니다.", this);
+            }
+
             AutoRecoverReferences();
             BindButtons();
 
@@ -437,8 +452,11 @@ namespace TakeOver.Employees
 
         private int GetSortableHidden(Employee emp, HiddenStatType type)
         {
-            if (emp == null || employeeService == null) return -1;
-            return employeeService.IsRevealed(emp, type) ? employeeService.GetHiddenStat(emp, type) : -1;
+            if (emp == null) return -1;
+            bool revealed = employeeService != null
+                ? employeeService.TryGetHiddenStat(emp, type, out int val)
+                : emp.TryGetHiddenStat(type, out val);
+            return revealed ? val : -1;
         }
 
         private void HandleRecruitClicked()
@@ -610,23 +628,7 @@ namespace TakeOver.Employees
 
         private int GetCurrentTurn()
         {
-            if (gameTurnClock != null)
-            {
-                PropertyInfo prop = typeof(GameTurnClock).GetProperty("CurrentTurn", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                if (prop != null && prop.PropertyType == typeof(int))
-                {
-                    return (int)prop.GetValue(gameTurnClock);
-                }
-
-                FieldInfo field = typeof(GameTurnClock).GetField("currentTurn", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                    ?? typeof(GameTurnClock).GetField("turn", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-                if (field != null && field.FieldType == typeof(int))
-                {
-                    return (int)field.GetValue(gameTurnClock);
-                }
-            }
-
-            return fallbackTurn;
+            return gameTurnClock != null ? gameTurnClock.CurrentTurn : fallbackTurn;
         }
 
         private string ReadActionPointText()

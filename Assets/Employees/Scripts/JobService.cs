@@ -22,6 +22,21 @@ namespace TakeOver.Employees
         {
             if (employeeService == null) employeeService = FindFirstObjectByType<EmployeeService>();
             if (gameTurnClock == null) gameTurnClock = FindFirstObjectByType<GameTurnClock>();
+
+            if (employeeService == null)
+            {
+                Debug.LogWarning("[JobService] EmployeeService 참조가 비어 있습니다. 인스펙터에서 연결해 주세요.", this);
+            }
+
+            if (gameTurnClock == null)
+            {
+                Debug.LogWarning("[JobService] GameTurnClock 참조가 비어 있습니다. 턴 진행이 동작하지 않습니다.", this);
+            }
+
+            if (settings == null)
+            {
+                Debug.LogWarning("[JobService] JobSettings 참조가 비어 있습니다. 인스펙터에서 연결해 주세요.", this);
+            }
         }
 
         private void OnEnable()
@@ -112,7 +127,7 @@ namespace TakeOver.Employees
 
         private void ApplyGrowth(Employee emp, JobType job)
         {
-            if (settings == null) return;
+            if (settings == null || employeeService == null) return;
             float rate = employeeService.GetGrowthRate(emp);
             foreach (JobStatGain gain in settings.statGains)
             {

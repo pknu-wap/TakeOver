@@ -15,7 +15,11 @@ namespace TakeOver.Documents
                 { StartupFundingDocument.typeId, StartupFundingDocument.restore },
                 { StartupListingDocument.typeId, StartupListingDocument.restore },
                 { StartupFollowUpDocument.typeId, StartupFollowUpDocument.restore },
-                { StartupBusinessPlanDocument.typeId, StartupBusinessPlanDocument.restore }
+                { StartupBusinessPlanDocument.typeId, StartupBusinessPlanDocument.restore },
+                { SupportRequestDocument.typeId, (record, context) => new SupportRequestDocument(
+                    record, context.companies,
+                    UnityEngine.Object.FindFirstObjectByType<TakeOver.Employees.EmployeeService>(),
+                    UnityEngine.Object.FindFirstObjectByType<TakeOver.Employees.JobService>()) }
             };
 
         public IApprovalDocument Restore(DocumentSaveRecord record, DocumentContext context)
