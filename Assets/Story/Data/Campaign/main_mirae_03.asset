@@ -1,0 +1,438 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: main_mirae_03
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: main_mirae_03
+  category: 1
+  linearDialogue: 0
+  tutorialOnly: 0
+  title: "\uBBF8\uB798\uAC74\uC124 \u2014 \uC900\uACF5 \uB4A4\uC758 \uC7A5\uBE44
+    \uC784\uCC28\uB8CC"
+  image: {fileID: 21300000, guid: e4f06f328acf53c4385995fb1f2c1e65, type: 3}
+  cardImage: {fileID: 21300000, guid: d04aa39026668454991718ef00702904, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uAC15\uC900\uD601\uC740 \uC900\uACF5\uC73C\uB85C \uD604\uC7A5 \uC77C\uC774
+    \uB05D\uB0AC\uB2E4\uACE0 \uC0DD\uAC01\uD588\uB2E4. \uBC15\uB3C4\uC2DD\uC740 \uADF8
+    \uB4A4\uB85C\uB3C4 \uC7A5\uBE44\uB97C \uBE7C\uC9C0 \uBABB\uD588\uB2E4\uACE0 \uD55C\uB2E4.
+    \uC778\uC218\uC778\uACC4\uAC00 \uBA48\uCD98 \uB0A0\uBD80\uD130 \uCCAD\uAD6C\uC11C\uB97C
+    \uB2E4\uC2DC \uB9DE\uCDB0\uBCF4\uC790."
+  apCost: 0
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds:
+  - mirae-construction
+  speakerNpcId: npc-mirae-construction-cfo-seo-jia
+  speakerName: "\uC11C\uC9C0\uC544"
+  speakerRole:
+  dialogue: "\uB3D9\uBC29 \uCABD\uB3C4 \uBCF4\uC2E0\uB2E4\uC9C0\uC694. \uC6B0\uB9AC
+    \uACF5\uC0AC\uAC00 \uB05D\uB098\uBA74 \uADF8\uCABD \uC6B4\uC601\uC774 \uC2DC\uC791\uB420
+    \uAC70\uB77C\uB358 \uB54C\uAC00 \uC788\uC5C8\uC2B5\uB2C8\uB2E4. \uB09C \uACF5\uC0AC\uB9CC
+    \uB05D\uB0B4\uBA74 \uC6B0\uB9AC \uC77C\uC740 \uB05D\uC778 \uC904 \uC54C\uC558\uC18C."
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uB0A8\uC740 \uC815\uB9AC \uBE44\uC6A9\uBD80\uD130 \uB098\uB208\uB2E4"
+    choiceDescription:
+    playerLine: "\uB05D\uB09C \uD604\uC7A5\uC5D0\uC11C \uC544\uC9C1 \uB098\uAC08
+      \uB3C8\uBD80\uD130 \uB530\uB85C \uBCF4\uC8E0. \uC0C8 \uACF5\uC0AC \uC218\uC775\uC73C\uB85C
+      \uBA54\uC6B8 \uC218 \uC788\uB2E4\uACE0 \uC7A1\uC9C0\uB294 \uB9D0\uC544\uC8FC\uC2ED\uC2DC\uC624."
+    resultDialogue: "\uADF8\uAC8C \uB9DE\uC544\uC694. \uC815\uB9AC \uBE44\uC6A9\uC744
+      \uAC00\uB824\uB193\uC73C\uBA74 \uB2E4\uC74C \uD604\uC7A5\uB3C4 \uAC19\uC740
+      \uBD80\uB2F4\uC744 \uB5A0\uC548\uAC8C \uB418\uB2C8\uAE4C\uC694. \uC9C0\uAE09
+      \uC2DC\uAE30\uBD80\uD130 \uB098\uB220\uBCFC\uAC8C\uC694."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-mirae-construction-cfo-seo-jia
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uC794\uC5EC
+        \uC815\uB9AC \uBE44\uC6A9\uC744 \uBA3C\uC800 \uBD84\uB9AC\uD55C\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uB05D\uB09C \uD604\uC7A5\uC5D0\uC11C \uC544\uC9C1 \uB098\uAC08 \uB3C8\uBD80\uD130
+        \uB530\uB85C \uBCF4\uC8E0. \uC0C8 \uACF5\uC0AC \uC218\uC775\uC73C\uB85C \uBA54\uC6B8
+        \uC218 \uC788\uB2E4\uACE0 \uC7A1\uC9C0\uB294 \uB9D0\uC544\uC8FC\uC2ED\uC2DC\uC624."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-mirae-construction-cfo-seo-jia
+      text: "\uADF8\uAC8C \uB9DE\uC544\uC694. \uC815\uB9AC \uBE44\uC6A9\uC744 \uAC00\uB824\uB193\uC73C\uBA74
+        \uB2E4\uC74C \uD604\uC7A5\uB3C4 \uAC19\uC740 \uBD80\uB2F4\uC744 \uB5A0\uC548\uAC8C
+        \uB418\uB2C8\uAE4C\uC694. \uC9C0\uAE09 \uC2DC\uAE30\uBD80\uD130 \uB098\uB220\uBCFC\uAC8C\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uC0C8 \uC218\uC8FC\uB3C4 \uD568\uAED8 \uAC80\uD1A0\uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uB2E4\uC74C \uC218\uC8FC\uB97C \uB193\uCE60 \uD544\uC694\uB294
+      \uC5C6\uACA0\uC2B5\uB2C8\uB2E4. \uB300\uC2E0 \uC9C0\uB09C \uD604\uC7A5 \uBE44\uC6A9\uACFC
+      \uC0C8 \uACF5\uC0AC\uC758 \uC218\uC775\uC740 \uB530\uB85C \uC124\uBA85\uD574\uC8FC\uC2ED\uC2DC\uC624."
+    resultDialogue: "\uB450 \uC7A5\uC73C\uB85C \uC900\uBE44\uD560\uAC8C\uC694. \uC0C8
+      \uC77C\uC774 \uB4E4\uC5B4\uC628\uB2E4\uB294 \uB9D0\uB9CC\uC73C\uB85C \uC9C0\uB09C
+      \uBE44\uC6A9\uC744 \uB36E\uC9C0\uB294 \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+    resultValue: answer_1
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-mirae-construction-cfo-seo-jia
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uC0C8
+        \uC218\uC8FC\uB3C4 \uAC80\uD1A0\uD558\uB418 \uBD80\uB2F4\uC744 \uD569\uC0B0\uD558\uC9C0
+        \uC54A\uB294\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 1
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uB2E4\uC74C \uC218\uC8FC\uB97C \uB193\uCE60 \uD544\uC694\uB294 \uC5C6\uACA0\uC2B5\uB2C8\uB2E4.
+        \uB300\uC2E0 \uC9C0\uB09C \uD604\uC7A5 \uBE44\uC6A9\uACFC \uC0C8 \uACF5\uC0AC\uC758
+        \uC218\uC775\uC740 \uB530\uB85C \uC124\uBA85\uD574\uC8FC\uC2ED\uC2DC\uC624."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-mirae-construction-cfo-seo-jia
+      text: "\uB450 \uC7A5\uC73C\uB85C \uC900\uBE44\uD560\uAC8C\uC694. \uC0C8 \uC77C\uC774
+        \uB4E4\uC5B4\uC628\uB2E4\uB294 \uB9D0\uB9CC\uC73C\uB85C \uC9C0\uB09C \uBE44\uC6A9\uC744
+        \uB36E\uC9C0\uB294 \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uC591\uC0AC \uB0A0\uC9DC\uB97C \uBA3C\uC800 \uB9DE\uCD98\uB2E4"
+    choiceDescription:
+    playerLine: "\uACF5\uAC1C\uD560 \uC218 \uC788\uB294 \uB0A0\uC9DC\uBD80\uD130
+      \uB9DE\uCDB0\uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uACF5\uC0AC\uAC00 \uB05D\uB0AC\uB2E4\uB294
+      \uB0A0\uACFC \uBB3C\uB7C9\uC744 \uAE30\uB2E4\uB838\uB2E4\uB294 \uB0A0\uC774
+      \uC5B4\uB5BB\uAC8C \uC774\uC5B4\uC9C0\uB294\uC9C0 \uBCF4\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4."
+    resultDialogue: "\uACF5\uC720 \uAC00\uB2A5\uD55C \uC77C\uC815\uC740 \uC81C\uAC00
+      \uBB36\uC5B4\uBCFC\uAC8C\uC694. \uD68C\uC0AC \uC548\uC5D0\uC11C \uACB0\uC7AC\uD55C
+      \uB0A0\uACFC \uBC16\uC5D0 \uD1B5\uBCF4\uD55C \uB0A0\uB3C4 \uB098\uB220\uC11C\uC694."
+    resultValue: answer_2
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-mirae-construction-cfo-seo-jia
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uACF5\uC720
+        \uAC00\uB2A5\uD55C \uB0A0\uC9DC\uBD80\uD130 \uD655\uC778\uD55C\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uACF5\uAC1C\uD560 \uC218 \uC788\uB294 \uB0A0\uC9DC\uBD80\uD130 \uB9DE\uCDB0\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.
+        \uACF5\uC0AC\uAC00 \uB05D\uB0AC\uB2E4\uB294 \uB0A0\uACFC \uBB3C\uB7C9\uC744
+        \uAE30\uB2E4\uB838\uB2E4\uB294 \uB0A0\uC774 \uC5B4\uB5BB\uAC8C \uC774\uC5B4\uC9C0\uB294\uC9C0
+        \uBCF4\uACE0 \uC2F6\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-mirae-construction-cfo-seo-jia
+      text: "\uACF5\uC720 \uAC00\uB2A5\uD55C \uC77C\uC815\uC740 \uC81C\uAC00 \uBB36\uC5B4\uBCFC\uAC8C\uC694.
+        \uD68C\uC0AC \uC548\uC5D0\uC11C \uACB0\uC7AC\uD55C \uB0A0\uACFC \uBC16\uC5D0
+        \uD1B5\uBCF4\uD55C \uB0A0\uB3C4 \uB098\uB220\uC11C\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 0
+  campaignDay: 20
+  missionStartDay: 0
+  prerequisiteEventId:
+  prerequisiteEventIds:
+  - main_dongbang_contact
+  failureSignal:
+  openingLines:
+  - npcId: npc-mirae-construction-ceo-kang-junhyeok
+    text: "\uB3D9\uBC29 \uCABD\uB3C4 \uBCF4\uC2E0\uB2E4\uC9C0\uC694. \uC6B0\uB9AC
+      \uACF5\uC0AC\uAC00 \uB05D\uB098\uBA74 \uADF8\uCABD \uC6B4\uC601\uC774 \uC2DC\uC791\uB420
+      \uAC70\uB77C\uB358 \uB54C\uAC00 \uC788\uC5C8\uC2B5\uB2C8\uB2E4. \uB09C \uACF5\uC0AC\uB9CC
+      \uB05D\uB0B4\uBA74 \uC6B0\uB9AC \uC77C\uC740 \uB05D\uC778 \uC904 \uC54C\uC558\uC18C."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-mirae-construction-cfo-seo-jia
+    text: "\uC900\uACF5 \uCC98\uB9AC\uC640 \uB3C8\uC774 \uC815\uB9AC\uB418\uB294
+      \uB0A0\uC740 \uB2EC\uB790\uC5B4\uC694. \uD604\uC7A5\uC744 \uB118\uAE34 \uB4A4\uC5D0
+      \uB0A8\uC740 \uC7A5\uBE44\uC640 \uC791\uC5C5\uC744 \uB204\uAC00 \uBD80\uB2F4\uD560\uC9C0\uAC00
+      \uACC4\uC18D \uBC14\uB00C\uC5C8\uC8E0."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-mirae-construction-field-director-park-dosik
+    text: "\uC0AC\uB78C\uC740 \uCCA0\uC218\uD588\uB294\uB370 \uC7A5\uBE44\uB97C \uBABB
+      \uBE90\uC2B5\uB2C8\uB2E4. \uBC1B\uC744 \uC0AC\uB78C\uC774 \uC5C6\uC5C8\uC73C\uB2C8\uAE4C\uC694.
+      \uC77C \uB05D\uB0AC\uB2E4\uACE0 \uC885\uC774 \uD55C \uC7A5 \uBC1B\uC73C\uBA74
+      \uC7A5\uBE44\uB3C4 \uC800\uC808\uB85C \uB098\uC624\uB294 \uC904 \uC544\uB294
+      \uC0AC\uB78C\uC774 \uB9CE\uC544\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC6B4\uC601\uD558\uB294 \uCABD\uC774 \uC548 \uBC1B\uC558\uC2B5\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-mirae-construction-field-director-park-dosik
+    text: "\uADF8\uCABD\uB3C4 \uC544\uC9C1 \uBC1B\uC73C\uB780 \uD1B5\uBCF4\uAC00
+      \uC5C6\uB2E4\uACE0 \uD588\uC2B5\uB2C8\uB2E4. \uB204\uAD6C \uC798\uBABB\uC778\uC9C0
+      \uBB3B\uAE30 \uC804\uC5D0, \uADF8\uB0A0 \uB204\uAD6C\uD55C\uD14C \uBB58 \uB4E4\uC5C8\uB294\uC9C0\uBD80\uD130
+      \uC801\uC5B4\uC57C \uD569\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-mirae-construction-ceo-kang-junhyeok
+    text: "\uADF8\uB798\uC11C \uC0C8 \uACF5\uC0AC\uBD80\uD130 \uB530\uC790\uB294
+      \uB9D0\uC774 \uB9C8\uC74C \uD3B8\uD588\uC744\uC9C0\uB3C4 \uBAA8\uB974\uACA0\uC18C.
+      \uB05D\uB09C \uAC83 \uBD99\uC7A1\uACE0 \uC788\uB290\uB2C8 \uC55E\uC73C\uB85C
+      \uAC00\uC790\uACE0."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-mirae-construction-cfo-seo-jia
+    text: "\uC55E\uC73C\uB85C \uAC00\uB294 \uB3C8\uC73C\uB85C \uB4A4\uB97C \uACC4\uC18D
+      \uBA54\uC6B0\uBA74, \uB2E4\uC74C \uACF5\uC0AC\uB3C4 \uAC19\uC740 \uC790\uB9AC\uC5D0\uC11C
+      \uC2DC\uC791\uD574\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC774\uBC88\uC5D0\uB294 \uB0A8\uC740 \uC815\uB9AC \uBE44\uC6A9\uACFC
+      \uC0C8 \uC218\uC8FC\uC758 \uC218\uC775\uC744 \uB098\uB220\uBCF4\uC8E0. \uB3D9\uBC29\uC758
+      \uB2F9\uC2DC \uC778\uC218\uC778\uACC4 \uC124\uBA85\uB3C4 \uAC19\uC740 \uB0A0\uC9DC\uB85C
+      \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-mirae-construction-field-director-park-dosik
+    text: "\uD06C\uB808\uC778 \uD55C \uB300\uB294 \uC0C8 \uD604\uC7A5\uC73C\uB85C
+      \uAC00\uC838\uAC00\uAE30\uB85C \uD588\uC2B5\uB2C8\uB2E4. \uBABB \uBE7C\uB294
+      \uB3D9\uC548 \uAC70\uAE30\uC120 \uB530\uB85C \uBE4C\uB838\uC8E0. \uAC19\uC740
+      \uC8FC\uC5D0 \uB450 \uACF3\uC5D0\uC11C \uB611\uAC19\uC740 \uC7A5\uBE44 \uB3C8\uC774
+      \uB098\uAC04 \uAC81\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC900\uACF5 \uB2E4\uC74C\uB0A0\uC758 \uBA54\uC77C\uC5D0\uB294 \uC778\uACC4
+      \uB0A0\uC9DC\uAC00 \uC801\uD600 \uC788\uC2B5\uB2C8\uAE4C? \uB3D9\uBC29 \uCABD\uC774
+      \uBC1B\uC73C\uB77C\uB294 \uC5F0\uB77D\uC744 \uAE30\uB2E4\uB838\uB2E4\uACE0
+      \uD55C \uB0A0\uACFC \uB9DE\uCDB0\uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-mirae-construction-cfo-seo-jia
+    text: "\uB0A0\uC9DC \uB300\uC2E0 \u2018\uC6B4\uC601 \uC77C\uC815 \uC7AC\uC548\uB0B4\uAE4C\uC9C0
+      \uB300\uAE30\u2019\uB77C\uACE0\uB9CC \uC654\uC5B4\uC694. \uACC4\uC57D\uC11C\uC5D0
+      \uC788\uB294 \uBC1C\uC8FC \uB2F4\uB2F9\uC774 \uC544\uB2C8\uB77C \uB098\uC911\uC5D0
+      \uC815\uC0B0\uC744 \uBC1B\uB358 \uACF3\uC5D0\uC11C\uC694. \uADF8 \uD68C\uC2E0
+      \uC2DC\uAC01\uC740 \uB0A8\uC544 \uC788\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-mirae-construction-ceo-kang-junhyeok
+    text: "\uADF8\uB54C\uB294 \uB2E4\uC74C \uC8FC\uBA74 \uB05D\uB0A0 \uC904 \uC54C\uC558\uC18C.
+      \uC7A5\uBE44\uAC00 \uC5B8\uC81C \uBE60\uC9C0\uB294\uC9C0\uB3C4 \uBAA8\uB978
+      \uCC44 \uC0C8 \uACF5\uC0AC\uC5D0 \uB4E4\uC5B4\uAC00\uC790\uACE0 \uD55C \uB0B4
+      \uC11C\uBA85\uB3C4 \uB0A8\uC544 \uC788\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC900\uACF5\uC77C \uC606\uC5D0 \uB9C8\uC9C0\uB9C9 \uC784\uCC28\uB8CC\uAC00
+      \uB098\uC628 \uB0A0\uC744 \uBD99\uC5EC \uC37C\uB2E4. \uADF8 \uC0AC\uC774\uC758
+      \uB0A0\uC9DC\uAC00 \uB2E4\uC74C \uD604\uC7A5\uC758 \uC2DC\uC791\uACFC \uACB9\uCCE4\uB2E4."
+    player: 0
+    narration: 1
+    scene: 0
+  - npcId: npc-mirae-construction-cfo-seo-jia
+    text: "\uC9C0\uAE08 \uC900\uBE44 \uC911\uC778 \uC218\uC8FC\uC548\uB3C4 \uB4DC\uB9B4\uAC8C\uC694.
+      \uC774\uC804 \uD604\uC7A5 \uC7A5\uBD80\uC640 \uB450\uACE0 \uBCF4\uBA74 \uC5B4\uB290
+      \uCABD\uBD80\uD130 \uD480\uC5B4\uC57C \uD560 \uAC83 \uAC19\uC73C\uC138\uC694?"
+    player: 0
+    narration: 0
+    scene: 0
+  companyVariants: []

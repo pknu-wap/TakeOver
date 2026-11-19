@@ -1,0 +1,393 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: main_dongbang_03
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: main_dongbang_03
+  category: 1
+  linearDialogue: 0
+  tutorialOnly: 0
+  title: "\uB3D9\uBC29\uBB3C\uC0B0 \u2014 \uD655\uC815 \uBB3C\uB7C9\uACFC \uADFC\uBB34\uD45C"
+  image: {fileID: 21300000, guid: e4f06f328acf53c4385995fb1f2c1e65, type: 3}
+  cardImage: {fileID: 21300000, guid: d04aa39026668454991718ef00702904, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uBC15\uBBFC\uC6B0\uAC00 \uACC4\uC57D\uC774 \uC7A1\uD78C \uBB3C\uB7C9\uB9CC\uC73C\uB85C
+    \uC0C8 \uADFC\uBB34\uD45C\uB97C \uC9F0\uB2E4. \uAC15\uC7AC\uD604\uC774 \uCC3D\uACE0
+    \uD655\uC7A5 \uACC4\uD68D\uC744 \uC5B4\uB514\uAE4C\uC9C0 \uB2A6\uCD9C \uC218
+    \uC788\uB294\uC9C0 \uC9C1\uC811 \uB4E3\uACE0 \uC2F6\uB2E4."
+  apCost: 0
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds:
+  - dongbang-trading
+  speakerNpcId: npc-dongbang-trading-ceo-kang-jaehyeon
+  speakerName: "\uAC15\uC7AC\uD604"
+  speakerRole:
+  dialogue: "\uACC4\uD68D\uC5D0 \uBE48\uCE78\uC744 \uB0A8\uACBC\uC18C. \uC804\uC5D0\uB294
+    \uBE48\uCE78\uC774 \uC788\uC73C\uBA74 \uB0B4\uAC00 \uC77C\uC744 \uC548 \uD55C
+    \uAC83 \uAC19\uC558\uB294\uB370."
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uB2E8\uACC4\uC801\uC73C\uB85C \uC6B4\uC601\uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uC7A1\uD78C \uBB3C\uB7C9\uBD80\uD130 \uC6B4\uC601\uD558\uACE0,
+      \uB2E4\uC74C \uB2E8\uACC4\uB294 \uC2E4\uC81C \uBC18\uC785\uC744 \uBCF4\uACE0
+      \uC5EC\uB294 \uCABD\uC744 \uC9C0\uC9C0\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBE48
+      \uCC3D\uACE0\uB97C \uC608\uC0C1 \uBB3C\uB7C9\uC73C\uB85C \uCC44\uC6B0\uC9C0\uB294
+      \uB9D0\uC8E0."
+    resultDialogue: "\uAE30\uB2E4\uB9AC\uB294 \uC0AC\uC774 \uB2E4\uB978 \uAE30\uD68C\uB97C
+      \uB193\uCE60 \uC218\uB294 \uC788\uACA0\uC9C0. \uADF8\uB798\uB3C4 \uC5C6\uB294
+      \uBB3C\uB7C9\uC73C\uB85C \uC0AC\uB78C\uBD80\uD130 \uC62E\uAE30\uB294 \uC77C\uC740
+      \uBC18\uBCF5\uD558\uC9C0 \uC54A\uACA0\uC18C."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-dongbang-trading-ceo-kang-jaehyeon
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uB2E8\uACC4\uC801
+        \uC6B4\uC601\uC548\uC744 \uC9C0\uC9C0\uD55C\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uC7A1\uD78C \uBB3C\uB7C9\uBD80\uD130 \uC6B4\uC601\uD558\uACE0, \uB2E4\uC74C
+        \uB2E8\uACC4\uB294 \uC2E4\uC81C \uBC18\uC785\uC744 \uBCF4\uACE0 \uC5EC\uB294
+        \uCABD\uC744 \uC9C0\uC9C0\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBE48 \uCC3D\uACE0\uB97C
+        \uC608\uC0C1 \uBB3C\uB7C9\uC73C\uB85C \uCC44\uC6B0\uC9C0\uB294 \uB9D0\uC8E0."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-dongbang-trading-ceo-kang-jaehyeon
+      text: "\uAE30\uB2E4\uB9AC\uB294 \uC0AC\uC774 \uB2E4\uB978 \uAE30\uD68C\uB97C
+        \uB193\uCE60 \uC218\uB294 \uC788\uACA0\uC9C0. \uADF8\uB798\uB3C4 \uC5C6\uB294
+        \uBB3C\uB7C9\uC73C\uB85C \uC0AC\uB78C\uBD80\uD130 \uC62E\uAE30\uB294 \uC77C\uC740
+        \uBC18\uBCF5\uD558\uC9C0 \uC54A\uACA0\uC18C."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uACE0\uAC1D \uB2E4\uBCC0\uD654\uB97C \uC911\uAC04 \uC810\uAC80\uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uAC70\uB798\uCC98\uB97C \uB298\uB9AC\uB294 \uB3D9\uC548 \uC911\uAC04
+      \uC810\uAC80\uC744 \uB123\uC8E0. \uC5B4\uB290 \uACE0\uAC1D\uC758 \uBB3C\uB7C9\uC774
+      \uBE60\uC9C0\uBA74 \uBB34\uC5C7\uC744 \uBA48\uCD9C\uC9C0\uB3C4 \uC815\uD574\uC8FC\uC2ED\uC2DC\uC624."
+    resultDialogue: "\uBA48\uCD9C \uAE30\uC900\uAE4C\uC9C0 \uC801\uC73C\uB77C\uB294
+      \uB9D0\uC774\uAD70. \uC88B\uC18C. \uB298\uB9AC\uB294 \uACC4\uD68D\uB9CC\uD07C
+      \uC904\uC77C \uC21C\uC11C\uB3C4 \uAC19\uC774 \uAC00\uC838\uC624\uACA0\uC18C."
+    resultValue: answer_1
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-dongbang-trading-ceo-kang-jaehyeon
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uACE0\uAC1D
+        \uB2E4\uBCC0\uD654\uC758 \uC911\uAC04 \uC810\uAC80\uC744 \uB354\uD55C\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 1
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uAC70\uB798\uCC98\uB97C \uB298\uB9AC\uB294 \uB3D9\uC548 \uC911\uAC04
+        \uC810\uAC80\uC744 \uB123\uC8E0. \uC5B4\uB290 \uACE0\uAC1D\uC758 \uBB3C\uB7C9\uC774
+        \uBE60\uC9C0\uBA74 \uBB34\uC5C7\uC744 \uBA48\uCD9C\uC9C0\uB3C4 \uC815\uD574\uC8FC\uC2ED\uC2DC\uC624."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-dongbang-trading-ceo-kang-jaehyeon
+      text: "\uBA48\uCD9C \uAE30\uC900\uAE4C\uC9C0 \uC801\uC73C\uB77C\uB294 \uB9D0\uC774\uAD70.
+        \uC88B\uC18C. \uB298\uB9AC\uB294 \uACC4\uD68D\uB9CC\uD07C \uC904\uC77C \uC21C\uC11C\uB3C4
+        \uAC19\uC774 \uAC00\uC838\uC624\uACA0\uC18C."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uC218\uC775\uACFC \uC778\uB825 \uC804\uD658\uC744 \uB2E4\uC2DC
+      \uBCF8\uB2E4"
+    choiceDescription:
+    playerLine: "\uAC70\uC810\uC774 \uB298\uC5B4\uB3C4 \uC0AC\uB78C\uC744 \uC62E\uAE30\uB294
+      \uBE44\uC6A9\uAE4C\uC9C0 \uBE7C\uBA74 \uB0A8\uB294 \uAC8C \uC788\uB294\uC9C0
+      \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uC778\uC6D0 \uBC30\uCE58\uC548\uB3C4 \uD568\uAED8
+      \uBCFC \uC218 \uC788\uC744\uAE4C\uC694?"
+    resultDialogue: "\uBC15 \uBD80\uC7A5\uACFC \uB2E4\uC2DC \uB9DE\uCDB0\uBCF4\uACA0\uC18C.
+      \uBE60\uB974\uAC8C \uB298\uB838\uB2E4\uB294 \uB9D0\uBCF4\uB2E4, \uC6C0\uC9C1\uC778
+      \uB4A4\uC5D0\uB3C4 \uBC84\uD2F8 \uC218 \uC788\uB2E4\uB294 \uC22B\uC790\uAC00
+      \uD544\uC694\uD558\uACA0\uC9C0."
+    resultValue: answer_2
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-dongbang-trading-ceo-kang-jaehyeon
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uD22C\uC790 \uAC80\uD1A0 \uB300\uD654\uC5D0\uC11C \uC218\uC775\uC131\uACFC
+        \uC778\uB825 \uC804\uD658\uC744 \uC7AC\uAC80\uD1A0\uD55C\uB2E4"
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uAC70\uC810\uC774 \uB298\uC5B4\uB3C4 \uC0AC\uB78C\uC744 \uC62E\uAE30\uB294
+        \uBE44\uC6A9\uAE4C\uC9C0 \uBE7C\uBA74 \uB0A8\uB294 \uAC8C \uC788\uB294\uC9C0
+        \uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uC778\uC6D0 \uBC30\uCE58\uC548\uB3C4 \uD568\uAED8
+        \uBCFC \uC218 \uC788\uC744\uAE4C\uC694?"
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-dongbang-trading-ceo-kang-jaehyeon
+      text: "\uBC15 \uBD80\uC7A5\uACFC \uB2E4\uC2DC \uB9DE\uCDB0\uBCF4\uACA0\uC18C.
+        \uBE60\uB974\uAC8C \uB298\uB838\uB2E4\uB294 \uB9D0\uBCF4\uB2E4, \uC6C0\uC9C1\uC778
+        \uB4A4\uC5D0\uB3C4 \uBC84\uD2F8 \uC218 \uC788\uB2E4\uB294 \uC22B\uC790\uAC00
+        \uD544\uC694\uD558\uACA0\uC9C0."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 0
+  campaignDay: 32
+  missionStartDay: 0
+  prerequisiteEventId:
+  prerequisiteEventIds:
+  - main_hansung_02
+  failureSignal:
+  openingLines:
+  - npcId: npc-dongbang-trading-ceo-kang-jaehyeon
+    text: "\uACC4\uD68D\uC5D0 \uBE48\uCE78\uC744 \uB0A8\uACBC\uC18C. \uC804\uC5D0\uB294
+      \uBE48\uCE78\uC774 \uC788\uC73C\uBA74 \uB0B4\uAC00 \uC77C\uC744 \uC548 \uD55C
+      \uAC83 \uAC19\uC558\uB294\uB370."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId: npc-dongbang-trading-hr-director-park-minu
+    text: "\uC774\uBC88 \uBE48\uCE78\uC740 \uAD6C\uBA4D\uC774 \uC544\uB2C8\uB77C
+      \uC790\uB9AC\uC608\uC694. \uC77C \uB4E4\uC5B4\uC624\uBA74 \uCC44\uC6B8 \uC790\uB9AC.
+      \uC544\uC9C1 \uC548 \uB4E4\uC5B4\uC628 \uC77C\uB85C \uC0AC\uB78C\uBD80\uD130
+      \uC62E\uAE30\uC9C4 \uC54A\uACE0\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC608\uC804\uCC98\uB7FC \uC0C1\uB300\uAC00 \uC57D\uC18D\uC744 \uBC14\uAFB8\uBA74\uC694?"
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-dongbang-trading-hr-director-park-minu
+    text: "\uD55C \uACE0\uAC1D \uBB3C\uB7C9\uC774 \uB2A6\uC73C\uBA74 \uC57C\uAC04\uC870\uBD80\uD130
+      \uB298\uB9AC\uC9C0 \uC54A\uC73C\uB824\uACE0\uC694. \uC9C0\uB09C\uBC88\uC5D4
+      \uAC70\uC810 \uAC1C\uC2DC\uB97C \uC55E\uB2F9\uAE34\uB2E4\uB294 \uC5F0\uB77D
+      \uD55C \uD1B5\uC5D0 \uCD9C\uADFC\uC9C0\uBD80\uD130 \uBC14\uAFE8\uC796\uC544\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uCCAB \uCC28\uAC00 \uB4E4\uC5B4\uC624\uB294 \uB0A0\uC744 \uB204\uAC00
+      \uD655\uC778\uD569\uB2C8\uAE4C? \uADF8 \uC804\uC5D0 \uC784\uCC28 \uAD6C\uC5ED\uC744
+      \uB354 \uB298\uB9AC\uB294 \uACB0\uC7AC\uAC00 \uC62C\uB77C\uC624\uBA74 \uBA48\uCD9C
+      \uC218 \uC788\uC2B5\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-dongbang-trading-ceo-kang-jaehyeon
+    text: "\uC785\uACE0 \uAE30\uB85D\uC774 \uC5C6\uC73C\uBA74 \uB0B4\uAC00 \uACB0\uC7AC\uB97C
+      \uC548 \uD558\uACA0\uC18C. \uAE30\uC874 \uACE0\uAC1D \uCC28\uB97C \uBA3C\uC800
+      \uBC1B\uB294 \uB3D9\uC548, \uC0C8 \uAD6C\uC5ED \uC784\uCC28\uB294 \uC11C\uB958\uB97C
+      \uC950\uACE0 \uC788\uC5B4\uB3C4 \uC5F4\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uBCBD\uC5D0 \uBD99\uC740 \uADFC\uBB34\uD45C\uC5D0 \uC8FC\uC18C\uAC00
+      \uB450 \uAC1C\uC600\uB2E4. \uBC15\uBBFC\uC6B0\uB294 \uB450 \uBC88\uC9F8 \uC8FC\uC18C\uC758
+      \uC2DC\uC791\uC77C\uC744 \uBE44\uC6CC\uB480\uB2E4. \uC9C0\uB09C\uBC88\uC5D0\uB294
+      \uBB3C\uB7C9\uC774 \uC624\uAE30\uB3C4 \uC804\uC5D0 \uAC70\uAE30\uBD80\uD130
+      \uC801\uD600 \uC788\uC5C8\uB2E4."
+    player: 0
+    narration: 1
+    scene: 0
+  - npcId: npc-dongbang-trading-ceo-kang-jaehyeon
+    text: "\uC5B4\uB290 \uBB3C\uB7C9\uC774 \uBE60\uC9C0\uBA74 \uC5B4\uB290 \uACB0\uC815\uC744
+      \uBA48\uCD9C\uC9C0 \uC774\uBC88\uC5D0\uB294 \uC801\uC5B4\uB1A8\uC2B5\uB2C8\uB2E4.
+      \uB0B4\uAC00 \uC2EB\uC5B4\uD55C\uB2E4\uACE0 \uC5C6\uC5B4\uC9C0\uB294 \uC704\uD5D8\uC740
+      \uC544\uB2C8\uB2C8\uAE4C."
+    player: 0
+    narration: 0
+    scene: 0
+  companyVariants: []

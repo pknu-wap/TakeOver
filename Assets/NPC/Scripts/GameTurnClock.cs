@@ -55,6 +55,14 @@ namespace TakeOver.NPC
         public void AdvanceTurn()
         {
             if (!TakeOver.Story.StoryDirector.CanAdvanceTurn) return;
+            // A failed save also locks event entry. Recover it before a document or
+            // mandatory-story guard can ask the player to enter that locked UI.
+            var session = TakeOver.SaveSystem.GameSessionCoordinator.Active;
+            if (session != null && session.IsPersistenceBlocked)
+            {
+                session.OnTurnAdvanceBlocked();
+                return;
+            }
             foreach (ITurnBlocker blocker in blockers)
             {
                 if (blocker.IsBlocking(out string reason))

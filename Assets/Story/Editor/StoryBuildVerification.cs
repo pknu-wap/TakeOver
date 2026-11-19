@@ -52,9 +52,29 @@ namespace TakeOver.Story.Editor
                     .Where(s=>!string.IsNullOrWhiteSpace(s.npcId)).ToArray();
                 var ids=new HashSet<string>(profiles.Select(p=>p.npcId));
                 Check(ids.Count==30 && profiles.Length==30,"No duplicate or empty registered NPC IDs");
+                var campaign=Resources.Load<StoryEventDatabase>("Story/StoryEventDatabase");
+                var legacy=Resources.Load<StoryEventDatabase>("Story/LegacyStoryEventDatabase");
+                Check(campaign!=null && campaign.Events.Count==21 && legacy!=null && legacy.Events.Count==11,"Current and legacy campaign resource databases are included");
+                var plan=EarlyCampaignPlan.Load();
+                foreach(var mission in plan.missions)
+                {
+                    Check(mission.eventIds.All(id=>campaign.Events.Any(e=>e.getId()==id)),"Mission bundle refers to registered story events: "+mission.id);
+                    Check(mission.goals.All(g=>profiles.Any(p=>p.companyId==g.companyId)),"Mission companies have registered profiles: "+mission.id);
+                }
+                foreach(var ending in plan.endings)
+                {
+                    Check(!string.IsNullOrWhiteSpace(ending.title) && !string.IsNullOrWhiteSpace(ending.companyOutcome),"Ending includes protagonist company outcome: "+ending.signal);
+                    foreach(var line in ending.lines) Check(!string.IsNullOrWhiteSpace(line.text) && (string.IsNullOrEmpty(line.npcId)||ids.Contains(line.npcId)),"Ending dialogue reference: "+ending.signal);
+                }
+                foreach(var story in campaign.Events)
+                {
+                    Check(story.IsStory && !story.IsTutorialOnly,"Campaign event classification: "+story.getId());
+                    foreach(var line in story.OpeningLines.Concat(story.getChoices().SelectMany(c=>c.ResultLines))) Check(string.IsNullOrEmpty(line.npcId)||ids.Contains(line.npcId),"Campaign dialogue reference: "+story.getId());
+                    Check(story.PrerequisiteEventIds.All(id=>campaign.Events.Any(e=>e.getId()==id)),"Campaign prerequisites registered: "+story.getId());
+                }
                 var sequence=AssetDatabase.LoadAssetAtPath<StorySequence>("Assets/Story/Data/IntroSequence.asset");
                 Check(sequence!=null && sequence.font!=null && sequence.playerStanding!=null,"Intro visual dependencies available in build");
-                Check(sequence.beats.Count==136 && sequence.beats.Select(b=>b.id).Distinct().Count()==136,"All 136 beat IDs unique");
+                Check(sequence.beats.Count==237 && sequence.beats.Select(b=>b.id).Distinct().Count()==237,"All 237 expanded beat IDs unique");
                 int choiceCount=0;
                 foreach(var beat in sequence.beats)
                 {
@@ -69,7 +89,7 @@ namespace TakeOver.Story.Editor
                         Check(choice.memoryType==NpcMemoryType.Custom,"Intro promise/intent does not imply completed good faith: "+beat.id);
                     }
                 }
-                Check(choiceCount==9,"All nine conversation branches authored");
+                Check(choiceCount==21,"All twenty-one expanded conversation branches authored");
                 Check(sequence.beats.Where(b=>b.goal!=StoryGoal.None).Select(b=>b.goal).SequenceEqual(new[]{StoryGoal.SelectCompany,StoryGoal.BuyShares,StoryGoal.ViewRepresentative,StoryGoal.ViewMemory,StoryGoal.EndDay,
                     StoryGoal.OpenEvent,StoryGoal.CompleteEvent,StoryGoal.ViewEventMemory,StoryGoal.ViewCompany,StoryGoal.CompareCompany,StoryGoal.ViewStake,StoryGoal.BuyMore,StoryGoal.SellShares,StoryGoal.ViewStake}),"All mandatory tutorial goals in approved order");
                 foreach(var id in StoryContentBuilder.RivalIds)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using TakeOver.CompanyRules;
 
 namespace TakeOver.Documents
@@ -42,6 +43,15 @@ namespace TakeOver.Documents
                 new DocumentField("dividendRatio", "배당 비율",
                     company.state.getBaseStat(CompanyStat.DIVIDEND_RATIO), settings.dividendRatioOptions)
             };
+        }
+
+        internal static DividendPolicyDocument CreateFromSaveRecord(DocumentSaveRecord record, DocumentContext context)
+        {
+            if (string.IsNullOrEmpty(record.companyId) || record.fields.Count != 1 ||
+                record.fields[0].name != "dividendRatio" || record.fields[0].value < 0 || record.fields[0].value > 1)
+                throw new InvalidDataException("배당 정책 문서의 회사 또는 배당 비율이 올바르지 않습니다.");
+
+            return new DividendPolicyDocument(context.companies.getCompany(record.companyId), record.deadlineTurn, context.settings);
         }
 
         public void SetField(string name, float value)

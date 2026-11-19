@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Greenmail
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
   eventId: greenmail_01
-  title: "\uADF8\uB9B0\uBA54\uC77C \uC81C\uC548"
+  title: "보유 지분 매입 제안"
   image: {fileID: 21300000, guid: 882da01850b2e1740968eed1fada016d, type: 3}
   cardImage: {fileID: 21300000, guid: c587f566e59824f4c83b1bd47e865b60, type: 3}
   npcArts:
@@ -22,19 +22,18 @@ MonoBehaviour:
     popupImage: {fileID: 21300000, guid: e4c7fba1a221735409f619bd3ea46484, type: 3}
   highlightImage: {fileID: 0}
   negotiationBackground: {fileID: 21300000, guid: f1ded8a9014741346bd4239f25c97159, type: 3}
-  description: "{company} {speaker} \uB300\uD45C\uAC00 \uC6C3\uB3C8\uC744 \uC5B9\uC5B4
-    \uC9C0\uBD84\uC744 \uB418\uC0AC\uACA0\uB2E4\uACE0 \uC81C\uC548\uD588\uB2E4."
+  description: "{company}의 {speaker} 대표가 내 지분을 시세보다 비싸게 사겠다고 했다. 얼마를 받을 수 있는지, 주주로서 무엇을 내려놓아야 하는지 조건부터 듣겠다."
   apCost: 1
   startButtonText: "\uC81C\uC548\uC744 \uB4E3\uB294\uB2E4"
   companyIds: []
-  speakerNpcId: 
-  speakerName: 
-  speakerRole: 
+  speakerNpcId:
+  speakerName:
+  speakerRole:
   dialogue: "\uC2DC\uC138\uBCF4\uB2E4 \uB109\uB109\uD788 \uCCD0 \uB4DC\uB9AC\uC8E0.
     \uC9C0\uBD84\uC744 \uB118\uAE30\uACE0 \uC6B0\uB9AC \uD68C\uC0AC\uC5D0\uC11C \uC190\uC744
     \uB5BC \uC8FC\uC2ED\uC2DC\uC624."
-  companyQuestion: 
-  companyPlayerLine: 
+  companyQuestion:
+  companyPlayerLine:
   choices:
   - choiceText: "\uBC1B\uC544\uB4E4\uC778\uB2E4"
     choiceDescription: "\uc6c3\ub3c8\uc744 \ubc1b\uace0 \ubcf4\uc720 \uc8fc\uc2dd\uc744 \ubaa8\ub450 \ub9e4\ub3c4\ud569\ub2c8\ub2e4. \uc774 \ud68c\uc0ac\uc758 \uc8fc\uc2dd\uc740 \uc774\ud6c4 \ub2e4\uc2dc \ub9e4\uc218\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4."
@@ -43,10 +42,10 @@ MonoBehaviour:
       \uBCF4\uB0B4\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
     resultValue: accept
     npcResult:
-      eventId: 
-      companyId: 
-      actorId: 
-      actionId: 
+      eventId:
+      companyId:
+      actorId:
+      actionId:
       targetNpcIds:
       - npc-mirae-construction-ceo-kang-junhyeok
       - npc-haneul-food-ceo-kim-harin
@@ -65,7 +64,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags:
         - greenmail_accept
         relationDelta:
@@ -82,7 +81,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags:
         - greenmail_accept
         relationDelta:
@@ -99,7 +98,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags:
         - greenmail_accept
         relationDelta:
@@ -116,7 +115,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags:
         - greenmail_accept
         relationDelta:
@@ -222,7 +221,7 @@ MonoBehaviour:
       permanent: 0
       durationTurns: 3
       reliability: 1
-      interpretation: 
+      interpretation:
       tags:
       - greenmail_accept
       relationDelta:
@@ -243,10 +242,10 @@ MonoBehaviour:
     resultDialogue: "\uD6C4\uD68C\uD558\uC2E4 \uAC81\uB2C8\uB2E4."
     resultValue: reject
     npcResult:
-      eventId: 
-      companyId: 
-      actorId: 
-      actionId: 
+      eventId:
+      companyId:
+      actorId:
+      actionId:
       targetNpcIds:
       - npc-mirae-construction-ceo-kang-junhyeok
       - npc-haneul-food-ceo-kim-harin
@@ -265,7 +264,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 0
@@ -281,7 +280,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 0
@@ -297,7 +296,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 0
@@ -313,7 +312,7 @@ MonoBehaviour:
         permanent: 0
         durationTurns: 3
         reliability: 1
-        interpretation: 
+        interpretation:
         tags: []
         relationDelta:
           trust: 0
@@ -413,7 +412,7 @@ MonoBehaviour:
       permanent: 0
       durationTurns: 3
       reliability: 1
-      interpretation: 
+      interpretation:
       tags: []
       relationDelta:
         trust: 0
@@ -428,11 +427,11 @@ MonoBehaviour:
     buybackPremiumRatio: 0
   conditions:
   - kind: 9
-    npcId: 
+    npcId:
     relationAxis: 0
     comparison: 0
     value: 0
-    relaxedByEventId: 
+    relaxedByEventId:
     relaxedByChoiceIndex: 0
     relaxedValue: 0
   validDays: 2

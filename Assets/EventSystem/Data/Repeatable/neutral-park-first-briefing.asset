@@ -1,0 +1,467 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: neutral-park-first-briefing
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: neutral-park-first-briefing
+  category: 0
+  linearDialogue: 0
+  tutorialOnly: 0
+  title: "\uBC15\uC0C1\uD604 \u2014 \uACF5\uAC1C \uC124\uBA85\uD68C \uCD08\uB300"
+  image: {fileID: 21300000, guid: 1c5908734a77d9f4488050a3b459f7d0, type: 3}
+  cardImage: {fileID: 21300000, guid: 1b70266e1c827944cb88275fc484e6eb, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uBC15\uC0C1\uD604\uC774 \uACF5\uAC1C \uC124\uBA85\uD68C \uC548\uB0B4\uBB38\uC744
+    \uBCF4\uB0C8\uB2E4. \uD68C\uC0AC \uC774\uB984\uC73C\uB85C \uC2E0\uCCAD\uD558\uAE30
+    \uC804\uC5D0 \uCC38\uC11D \uC790\uACA9\uACFC \uB0B4\uAC00 \uB4E4\uC744 \uC218
+    \uC788\uB294 \uB0B4\uC6A9\uC744 \uC54C\uC544\uB450\uC790."
+  apCost: 1
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds: []
+  speakerNpcId: npc-political-lobbyist-park-sanghyeon
+  speakerName: "\uBC15\uC0C1\uD604"
+  speakerRole:
+  dialogue: "\uC774\uCABD\uC785\uB2C8\uB2E4. \uC548\uB0B4\uBB38 \uBCF4\uC168\uC5B4\uC694?
+    \uC81C\uC77C \uD070 \uAE00\uC528\uBCF4\uB2E4 \uC2E0\uCCAD \uC790\uACA9\uBD80\uD130
+    \uBCF4\uC168\uC73C\uBA74 \uC624\uB298\uC740 \uC808\uBC18 \uB05D\uB0AC\uC2B5\uB2C8\uB2E4."
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uACF5\uAC1C \uC808\uCC28 \uC790\uB8CC\uB9CC \uD68C\uC0AC\uC5D0
+      \uC804\uB2EC\uD560 \uC0DD\uAC01\uC774\uB77C\uACE0 \uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uC624\uB298 \uC790\uB8CC\uB9CC \uBC1B\uC544\uC11C \uD68C\uC0AC
+      \uB2F4\uB2F9\uC790\uC5D0\uAC8C \uD655\uC778\uC744 \uAD8C\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC2E0\uCCAD\uD560\uC9C0\uB294 \uADF8\uCABD \uD310\uB2E8\uC774\uACE0\uC694."
+    resultDialogue: "\uC88B\uC2B5\uB2C8\uB2E4. \uC804\uB2EC\uD558\uC2E4 \uB54C \uC81C\uAC00
+      \uC2E0\uCCAD\uC744 \uBCF4\uC7A5\uD588\uB2E4\uACE0 \uBD99\uC774\uC9C0\uB294
+      \uB9C8\uC138\uC694. \uC548\uB0B4\uD55C \uBC94\uC704\uB294 \uC5EC\uAE30\uAE4C\uC9C0\uC785\uB2C8\uB2E4.\n\n\uADF8\uB7EC\uBA74
+      \uAC04\uB2E8\uD558\uC8E0. \uD544\uC694\uD558\uBA74 \uB2E4\uC74C\uC5D0 \uC815\uC2DD\uC73C\uB85C
+      \uC774\uC57C\uAE30\uD569\uC2DC\uB2E4."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-political-lobbyist-park-sanghyeon
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uACF5\uAC1C \uC815\uBCF4 \uD655\uC778. \uC2E4\uC81C \uC804\uB2EC\xB7\uC2E0\uCCAD\xB7\uC9C0\uC6D0\uAE08
+        \uC218\uB839\uC740 \uC544\uC9C1 \uC544\uB2C8\uB2E4."
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uC624\uB298 \uC790\uB8CC\uB9CC \uBC1B\uC544\uC11C \uD68C\uC0AC \uB2F4\uB2F9\uC790\uC5D0\uAC8C
+        \uD655\uC778\uC744 \uAD8C\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC2E0\uCCAD\uD560\uC9C0\uB294
+        \uADF8\uCABD \uD310\uB2E8\uC774\uACE0\uC694."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-political-lobbyist-park-sanghyeon
+      text: "\uC88B\uC2B5\uB2C8\uB2E4. \uC804\uB2EC\uD558\uC2E4 \uB54C \uC81C\uAC00
+        \uC2E0\uCCAD\uC744 \uBCF4\uC7A5\uD588\uB2E4\uACE0 \uBD99\uC774\uC9C0\uB294
+        \uB9C8\uC138\uC694. \uC548\uB0B4\uD55C \uBC94\uC704\uB294 \uC5EC\uAE30\uAE4C\uC9C0\uC785\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+      scene: 0
+    - npcId:
+      text: "\uC800\uB3C4 \uD68C\uC0AC\uB97C \uB300\uC2E0\uD574 \uC815\uD55C \uC77C\uCC98\uB7FC
+        \uB9D0\uD558\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-political-lobbyist-park-sanghyeon
+      text: "\uADF8\uB7EC\uBA74 \uAC04\uB2E8\uD558\uC8E0. \uD544\uC694\uD558\uBA74
+        \uB2E4\uC74C\uC5D0 \uC815\uC2DD\uC73C\uB85C \uC774\uC57C\uAE30\uD569\uC2DC\uB2E4."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uD5A5\uD6C4 \uC790\uBB38 \uC870\uAC74\uC744 \uAD6C\uCCB4\uC801\uC73C\uB85C
+      \uBB3B\uB294\uB2E4"
+    choiceDescription:
+    playerLine: "\uB098\uC911\uC5D0 \uC9C8\uC758 \uC900\uBE44\uB97C \uB9E1\uAE34\uB2E4\uBA74
+      \uBE44\uC6A9\uACFC \uC0B0\uCD9C\uBB3C\uC744 \uBA3C\uC800 \uC801\uC5B4\uC8FC\uC138\uC694.
+      \uC81C\uAC00 \uC9C0\uC2DC\uD560 \uC218 \uC788\uB294 \uBC94\uC704\uB3C4 \uD655\uC778\uD558\uACE0\uC694."
+    resultDialogue: "\uB124. \uC790\uB8CC \uAC80\uD1A0\uC778\uC9C0 \uB300\uD589\uC778\uC9C0\uBD80\uD130
+      \uB098\uB204\uACA0\uC2B5\uB2C8\uB2E4. \uC624\uB298 \uBD80\uD0C1\uD558\uC2E0
+      \uAC74 \uACAC\uC801\uC758 \uBC94\uC704\uB85C \uC774\uD574\uD560\uAC8C\uC694.
+      \uCC29\uC218\uD55C \uAC78\uB85C \uCC98\uB9AC\uD558\uC9C0\uB294 \uC54A\uACE0\uC694.\n\n\uC54C\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC77C\uC744 \uB9E1\uAE30\uC2E4 \uB54C\uB3C4 \uADF8 \uC870\uAC74 \uADF8\uB300\uB85C
+      \uC801\uC8E0."
+    resultValue: answer_1
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-political-lobbyist-park-sanghyeon
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uC5C5\uBB34 \uBC94\uC704\xB7\uACAC\uC801 \uC694\uCCAD \uC758\uC0AC.
+        \uACC4\uC57D \uCCB4\uACB0\xB7\uD604\uAE08 \uC9C0\uCD9C \uC5C6\uC74C."
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uB098\uC911\uC5D0 \uC9C8\uC758 \uC900\uBE44\uB97C \uB9E1\uAE34\uB2E4\uBA74
+        \uBE44\uC6A9\uACFC \uC0B0\uCD9C\uBB3C\uC744 \uBA3C\uC800 \uC801\uC5B4\uC8FC\uC138\uC694.
+        \uC81C\uAC00 \uC9C0\uC2DC\uD560 \uC218 \uC788\uB294 \uBC94\uC704\uB3C4 \uD655\uC778\uD558\uACE0\uC694."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-political-lobbyist-park-sanghyeon
+      text: "\uB124. \uC790\uB8CC \uAC80\uD1A0\uC778\uC9C0 \uB300\uD589\uC778\uC9C0\uBD80\uD130
+        \uB098\uB204\uACA0\uC2B5\uB2C8\uB2E4. \uC624\uB298 \uBD80\uD0C1\uD558\uC2E0
+        \uAC74 \uACAC\uC801\uC758 \uBC94\uC704\uB85C \uC774\uD574\uD560\uAC8C\uC694.
+        \uCC29\uC218\uD55C \uAC78\uB85C \uCC98\uB9AC\uD558\uC9C0\uB294 \uC54A\uACE0\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    - npcId:
+      text: "\uD2B9\uC815 \uACB0\uACFC\uB97C \uC5BB\uB294 \uBE44\uC6A9\uC73C\uB85C
+        \uBB36\uC9C0\uB294 \uB9C8\uC2ED\uC2DC\uC624."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-political-lobbyist-park-sanghyeon
+      text: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uC77C\uC744 \uB9E1\uAE30\uC2E4 \uB54C\uB3C4
+        \uADF8 \uC870\uAC74 \uADF8\uB300\uB85C \uC801\uC8E0."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uB354 \uBE60\uB978 \uBE44\uACF5\uC2DD \uACBD\uB85C\uAC00 \uC788\uB294\uC9C0
+      \uB5A0\uBCF8\uB2E4"
+    choiceDescription:
+    playerLine: "\uACF5\uC2DD \uC808\uCC28\uBCF4\uB2E4 \uBE68\uB9AC \uD655\uC778\uD560
+      \uBC29\uBC95\uC740 \uC5C6\uC2B5\uB2C8\uAE4C? \uC5C5\uACC4\uC5D0\uC11C\uB294
+      \uB2E4\uB4E4 \uB530\uB85C \uC0AC\uB78C\uC744 \uCC3E\uB294 \uAC83 \uAC19\uB358\uB370\uC694."
+    resultDialogue: "\uC0AC\uB78C\uC744 \uD1B5\uD574 \uBB38\uC758\uD560 \uC218\uB294
+      \uC788\uC2B5\uB2C8\uB2E4. \uC815\uD574\uC9C4 \uC2EC\uC0AC\uB97C \uB6F0\uC5B4\uB118\uB294
+      \uBD80\uD0C1\uAE4C\uC9C0 \uAC19\uC740 \uB9D0\uB85C \uBD80\uB974\uBA74 \uACE4\uB780\uD558\uC8E0.
+      \uC9C0\uAE08 \uC5B4\uB290 \uCABD\uC744 \uBB3C\uC73C\uC2DC\uB294 \uAC81\uB2C8\uAE4C?\n\n\uC624\uB298\uC740
+      \uACF5\uAC1C\uB41C \uB0B4\uC6A9\uB9CC \uB2F5\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uAD8C\uD55C\uB3C4 \uC815\uD574\uC9C0\uC9C0 \uC54A\uC740 \uBD84\uAED8 \uACB0\uACFC\uB97C
+      \uC57D\uC18D\uD588\uB2E4\uAC00\uB294 \uC81C\uAC00 \uBA3C\uC800 \uACE4\uB780\uD574\uC838\uC694.
+      \uAE09\uD558\uC2E4\uC218\uB85D \uBD80\uD0C1\uC758 \uBC94\uC704\uBD80\uD130
+      \uC815\uD558\uC138\uC694."
+    resultValue: answer_2
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-political-lobbyist-park-sanghyeon
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uBE44\uACF5\uC2DD \uACBD\uB85C\uC758 \uAC00\uB2A5\uC131\uC744
+        \uC9C8\uBB38\uD588\uB2E4. \uB1CC\uBB3C\xB7\uC815\uCE58 \uACB0\uD0C1\xB7\uBD80\uC815
+        \uCCAD\uD0C1\uC744 \uC2E4\uD589\uD558\uAC70\uB098 \uD655\uC57D\uD55C \uAC83\uC73C\uB85C
+        \uAE30\uB85D\uD558\uC9C0 \uC54A\uB294\uB2E4. \uBC15\uC0C1\uD604\uC740 \uACBD\uACC4\uB97C
+        \uC0B4\uD53C\uBA70 \uD5A5\uD6C4 \uACE0\uC704\uD5D8 \uC81C\uC548\uC758 \uC811\uC810\uC774
+        \uB420 \uC218 \uC788\uB2E4."
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uACF5\uC2DD \uC808\uCC28\uBCF4\uB2E4 \uBE68\uB9AC \uD655\uC778\uD560
+        \uBC29\uBC95\uC740 \uC5C6\uC2B5\uB2C8\uAE4C? \uC5C5\uACC4\uC5D0\uC11C\uB294
+        \uB2E4\uB4E4 \uB530\uB85C \uC0AC\uB78C\uC744 \uCC3E\uB294 \uAC83 \uAC19\uB358\uB370\uC694."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-political-lobbyist-park-sanghyeon
+      text: "\uC0AC\uB78C\uC744 \uD1B5\uD574 \uBB38\uC758\uD560 \uC218\uB294 \uC788\uC2B5\uB2C8\uB2E4.
+        \uC815\uD574\uC9C4 \uC2EC\uC0AC\uB97C \uB6F0\uC5B4\uB118\uB294 \uBD80\uD0C1\uAE4C\uC9C0
+        \uAC19\uC740 \uB9D0\uB85C \uBD80\uB974\uBA74 \uACE4\uB780\uD558\uC8E0. \uC9C0\uAE08
+        \uC5B4\uB290 \uCABD\uC744 \uBB3C\uC73C\uC2DC\uB294 \uAC81\uB2C8\uAE4C?"
+      player: 0
+      narration: 0
+      scene: 0
+    - npcId:
+      text: "\uC5B4\uB514\uAE4C\uC9C0 \uAC00\uB2A5\uD55C\uC9C0 \uBB3B\uB294 \uAC81\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-political-lobbyist-park-sanghyeon
+      text: "\uC624\uB298\uC740 \uACF5\uAC1C\uB41C \uB0B4\uC6A9\uB9CC \uB2F5\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+        \uAD8C\uD55C\uB3C4 \uC815\uD574\uC9C0\uC9C0 \uC54A\uC740 \uBD84\uAED8 \uACB0\uACFC\uB97C
+        \uC57D\uC18D\uD588\uB2E4\uAC00\uB294 \uC81C\uAC00 \uBA3C\uC800 \uACE4\uB780\uD574\uC838\uC694.
+        \uAE09\uD558\uC2E4\uC218\uB85D \uBD80\uD0C1\uC758 \uBC94\uC704\uBD80\uD130
+        \uC815\uD558\uC138\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 10000
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 0
+  repeatCooldown: 3
+  repeatGroup:
+  firstContact: 1
+  campaignDay: 0
+  missionStartDay: 0
+  prerequisiteEventId:
+  prerequisiteEventIds: []
+  failureSignal:
+  openingLines:
+  - npcId: npc-political-lobbyist-park-sanghyeon
+    text: "\uC774\uCABD\uC785\uB2C8\uB2E4. \uC548\uB0B4\uBB38 \uBCF4\uC168\uC5B4\uC694?
+      \uC81C\uC77C \uD070 \uAE00\uC528\uBCF4\uB2E4 \uC2E0\uCCAD \uC790\uACA9\uBD80\uD130
+      \uBCF4\uC168\uC73C\uBA74 \uC624\uB298\uC740 \uC808\uBC18 \uB05D\uB0AC\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC544\uC9C1 \uC5B4\uB290 \uD68C\uC0AC \uB300\uC2E0 \uC2E0\uCCAD\uD558\uB7EC
+      \uC628 \uAC74 \uC544\uB2D9\uB2C8\uB2E4."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-political-lobbyist-park-sanghyeon
+    text: "\uADF8\uB7FC \uB4A4\uC5D0\uC11C \uC124\uBA85\uB9CC \uB4E4\uC73C\uC2DC\uBA74
+      \uB418\uC8E0. \uD68C\uC0AC\uB97C \uB300\uD45C\uD574 \uB2F5\uBCC0\uD560 \uC77C\uB3C4
+      \uC5C6\uACE0\uC694."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uADF8\uB7F0\uB370 \uC65C \uC800\uD55C\uD14C \uC5F0\uB77D\uD558\uC168\uC2B5\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-political-lobbyist-park-sanghyeon
+    text: "\uD68C\uC0AC \uC0AC\uC815\uC744 \uC54C\uC544\uBCF4\uB294 \uBD84\uB4E4\uC740
+      \uACB0\uAD6D \uC808\uCC28\uB3C4 \uC54C\uC544\uC57C \uD558\uB2C8\uAE4C\uC694.
+      \uB098\uC911\uC5D0 \uC77C\uC774 \uC0DD\uAE30\uBA74 \uC81C \uC790\uBB38\uC744
+      \uC4F0\uC2E4 \uC218\uB3C4 \uC788\uACE0. \uC18C\uAC1C\uD55C \uC0AC\uB78C\uC774
+      \uB3C4\uC6C0\uC774 \uB410\uB2E4\uB294 \uAE30\uC5B5\uC740 \uC800\uD55C\uD14C\uB3C4
+      \uC774\uC775\uC785\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uAF64 \uC194\uC9C1\uD558\uC2DC\uB124\uC694."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-political-lobbyist-park-sanghyeon
+    text: "\uACF5\uC9DC \uC548\uB0B4\uC5D0 \uC544\uBB34 \uBAA9\uC801\uB3C4 \uC5C6\uB2E4\uACE0
+      \uD558\uBA74 \uB354 \uC758\uC2EC\uD558\uC2DC\uC9C0 \uC54A\uACA0\uC2B5\uB2C8\uAE4C."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC124\uBA85\uD68C\uAC00 \uB05D\uB09C \uB4A4, \uBC15\uC0C1\uD604\uC774
+      \uC9C8\uBB38\uC744 \uC815\uB9AC\uD574 \uB454 \uBA54\uBAA8\uB97C \uBC00\uC5B4\uC8FC\uC5C8\uB2E4.
+      \uACF5\uAC1C \uC77C\uC815\uACFC \uBB38\uC758 \uCC3D\uAD6C\uAC00 \uC801\uD600
+      \uC788\uC5C8\uB2E4."
+    player: 0
+    narration: 1
+    scene: 0
+  - npcId: npc-political-lobbyist-park-sanghyeon
+    text: "\uC774 \uB450 \uD56D\uBAA9\uC740 \uD68C\uC0AC \uB2F4\uB2F9\uC790\uAC00
+      \uC9C1\uC811 \uBB3C\uC5B4\uBCF4\uB294 \uAC8C \uC88B\uACA0\uC5B4\uC694. \uC11C\uB958
+      \uD558\uB098 \uBE60\uC9C0\uBA74 \uAC80\uD1A0 \uC790\uCCB4\uAC00 \uBC00\uB9B4
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uB2F4\uB2F9\uC790\uC5D0\uAC8C \uACF5\uAC1C \uBB38\uC758\uB85C \uD655\uC778\uD558\uBA74
+      \uB429\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-political-lobbyist-park-sanghyeon
+    text: "\uB124. \uC6D0\uD558\uC2DC\uBA74 \uC81C\uAC00 \uACF5\uAC1C \uC808\uCC28
+      \uC548\uC5D0\uC11C \uC9C8\uC758 \uBAA9\uB85D\uC744 \uC900\uBE44\uD574\uB4DC\uB9B4
+      \uC218 \uC788\uACE0\uC694. \uC720\uB8CC \uC5C5\uBB34\uB97C \uB9E1\uAE30\uC2E4
+      \uAC70\uBA74 \uBC94\uC704\uB97C \uB530\uB85C \uC801\uACA0\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uC0AC\uB78C\uC744 \uC18C\uAC1C\uD574\uC8FC\uB294 \uC77C\uB3C4 \uD558\uC2DC\uACA0\uC8E0?"
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-political-lobbyist-park-sanghyeon
+    text: "\uC18C\uAC1C\uB294 \uD558\uC8E0. \uADF8\uB7F0\uB370 \uB204\uAD74 \uC54C\uBA74
+      \uACB0\uACFC\uAE4C\uC9C0 \uC815\uD574\uC9C4\uB2E4\uB294 \uB9D0\uC740 \uB4E3\uC9C0
+      \uB9C8\uC138\uC694. \uC800\uB3C4 \uADF8\uB807\uAC8C \uB9D0\uD558\uB294 \uC0AC\uB78C\uD55C\uD14C
+      \uB3C8 \uB9E1\uAE30\uC9C0\uB294 \uC54A\uC2B5\uB2C8\uB2E4."
+    player: 0
+    narration: 0
+    scene: 0
+  companyVariants: []

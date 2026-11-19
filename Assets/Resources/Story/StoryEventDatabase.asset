@@ -14,3 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.StoryEventDatabase
   events:
   - {fileID: 11400000, guid: 22995f2b4d8a7c5439045e94e8072ca0, type: 2}
+  - {fileID: 11400000, guid: b132f9607c411ed4c8fcd2aa246cbfb8, type: 2}
+  - {fileID: 11400000, guid: ad98d77f64d8b5448b492319b881a845, type: 2}
+  - {fileID: 11400000, guid: 61c7690dcedc23c49b21a87140928c82, type: 2}
+  - {fileID: 11400000, guid: 4c0581c3b6cf500499e202f81fbdcf19, type: 2}
+  - {fileID: 11400000, guid: 8bfdc4a1a0dc9f8458cb613a6e2d7365, type: 2}
+  - {fileID: 11400000, guid: 036130f4088d31f4e88f3121d49c45ab, type: 2}
+  - {fileID: 11400000, guid: d31cb80d05736ca468f84213732f1d90, type: 2}
+  - {fileID: 11400000, guid: 78ccbfd8796c5f341a5bd528d022a494, type: 2}
+  - {fileID: 11400000, guid: f45983d4a9c08924ba3772c483780b15, type: 2}
+  - {fileID: 11400000, guid: 22ad5135f84be464a98e0c6a7b44a829, type: 2}
+  - {fileID: 11400000, guid: 9170bca9665235748a967c59943faed8, type: 2}
+  - {fileID: 11400000, guid: fb705d6a0e93972429fc7076c445b65a, type: 2}
+  - {fileID: 11400000, guid: 9ee8002469d383b4b8c6ec3a920254c2, type: 2}
+  - {fileID: 11400000, guid: 1f43a8063259ecc4a8f220021b730433, type: 2}
+  - {fileID: 11400000, guid: 036c298657e88164483953b2152b9c3e, type: 2}
+  - {fileID: 11400000, guid: 7f2692744a850d54ca0f38a551425a03, type: 2}
+  - {fileID: 11400000, guid: bd1da6f5f9e66b240959b3f1ed53c30a, type: 2}
+  - {fileID: 11400000, guid: 0d56adca5bf097347815a3d6f3abe396, type: 2}
+  - {fileID: 11400000, guid: 96b9eba09ab96be478498cb6f1781e36, type: 2}
+  - {fileID: 11400000, guid: e81fc3b571591db42a1689f80900dd47, type: 2}

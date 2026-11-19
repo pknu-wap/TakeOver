@@ -4,7 +4,7 @@ using TakeOver.NPC;
 using UnityEngine;
 
 // [최근 5일 뉴스 보관, 화면을 닫아도 날짜 변경 수신]
-public class NewsFeed : MonoBehaviour
+public partial class NewsFeed : MonoBehaviour
 {
     public const int retainedDayCount = 5;
 

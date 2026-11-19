@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TakeOver.Documents
 {
-    public sealed class DocumentSystem : MonoBehaviour, ITurnBlocker
+    public sealed partial class DocumentSystem : MonoBehaviour, ITurnBlocker
     {
         [SerializeField] private DocumentSettings settings;
         private CompanyRuleRunner runner;

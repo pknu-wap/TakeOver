@@ -81,7 +81,7 @@ namespace TakeOver.Help
         private void Select(int index)
         {
             var topic=HelpTopics.Items[index];
-            body.text=topic.title+"\n\n"+topic.text+(string.IsNullOrEmpty(topic.image)?"":"\n\n사진은 설명을 위한 예시 화면입니다. 자금·날짜·회사 수치는 현재 플레이 상황과 다를 수 있습니다.");
+            body.text=topic.title+"\n\n"+topic.text;
             photo.sprite=string.IsNullOrEmpty(topic.image)?null:Resources.Load<Sprite>("HelpImages/"+topic.image);
             photo.gameObject.SetActive(photo.sprite!=null);
             panel.transform.Find("Photo caption").gameObject.SetActive(photo.sprite!=null);
@@ -149,7 +149,7 @@ namespace TakeOver.Help
             if(noticeBackground!=null){var color=noticeBackground.color;color.a=1;noticeBackground.color=color;}
             Place((RectTransform)notice.transform,280,200,720,320);
             title.text="게임 기능이 기억나지 않을 때";
-            text.text="화면 위쪽 메뉴의 ‘도움말’을 선택하면 게임 기능과 용어에 대한 설명을 볼 수 있습니다.\n\n주식 거래, 하루 진행, 이벤트와 협상, 인물 관계와 기억 등을 항목별로 정리해 두었습니다. 오랜만에 돌아오셨을 때도 언제든 다시 확인해 주십시오.\n\n설명이 길면 본문 위에서 마우스 휠로 내려 읽을 수 있습니다.";
+            text.text="게임 진행이 궁금할 때는 상단의 ‘도움말’을 열어보세요. 거래와 하루 진행, 대화와 미션을 간단히 확인할 수 있습니다.";
             var open=template.CreateActionButton(notice.transform,"Open help","도움말 열기",()=>{Destroy(introduction);FindFirstObjectByType<TopBarNavigationController>().OpenHelp();});
             Place((RectTransform)open.transform,18,16,330,38);
             var confirm=template.CreateActionButton(notice.transform,"Confirm help notice","확인",()=>Destroy(introduction));

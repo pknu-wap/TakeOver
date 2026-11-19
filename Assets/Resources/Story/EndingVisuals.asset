@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb8c26bf4a637449ace20fce2cb48dd, type: 3}
+  m_Name: EndingVisuals
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.CampaignEndingVisuals
+  backgrounds:
+  - {fileID: 21300000, guid: cd737e0de23899c4b9fc897defc1bbbb, type: 3}
+  - {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+  - {fileID: 21300000, guid: 974e87b52bad3034dbc93184f2f6b396, type: 3}
+  - {fileID: 21300000, guid: 3da8335e8f928b04ea9542177aaee968, type: 3}

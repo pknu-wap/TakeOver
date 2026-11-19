@@ -13,7 +13,7 @@ namespace TakeOver.NPC.Editor
     public static class NpcUnityVerification
     {
         private const string Key = "TakeOver.NPC.Verification";
-        private static string Output => Path.GetFullPath(Path.Combine(Application.dataPath, "../../psm/unity-verification"));
+        private static string Output => Path.GetFullPath(Environment.GetEnvironmentVariable("TAKEOVER_NPC_QA_OUTPUT") ?? Path.Combine(Application.dataPath, "../../psm/unity-verification"));
         private static readonly List<string> results = new List<string>();
         private static double readyAt;
         private static int phase;

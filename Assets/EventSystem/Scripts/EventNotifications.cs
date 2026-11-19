@@ -33,14 +33,14 @@ namespace TakeOver.Events
 
         public ChoiceConfirmedInfo(string eventId, int choiceIndex, string resultValue,
             int currentDay, NpcEventPayload npcResult, float cashDelta, string companyId = "",
-            string stockSurgeCompanyId = "", float stockSurgeMinRatio = 0, float stockSurgeMaxRatio = 0, float buybackPremiumRatio = 0)
+            string stockSurgeCompanyId = "", float stockSurgeMinRatio = 0, float stockSurgeMaxRatio = 0, float buybackPremiumRatio = 0, string suppliedOccurrenceId = null)
         {
             this.eventId = eventId;
             this.choiceIndex = choiceIndex;
             this.resultValue = resultValue;
             this.currentDay = currentDay;
             this.companyId = companyId;
-            occurrenceId = $"day{currentDay}:{eventId}";
+            occurrenceId = suppliedOccurrenceId ?? $"day{currentDay}:{eventId}";
             this.cashDelta = cashDelta;
             this.stockSurgeCompanyId = stockSurgeCompanyId;
             this.stockSurgeMinRatio = stockSurgeMinRatio;
