@@ -301,6 +301,7 @@ namespace TakeOver.Events
         }
         public void openEvent(string eventId)
         {
+            if (EventSceneTransition.IsBusy) return;
             if (TakeOver.SaveSystem.GameSessionCoordinator.Active?.IsPersistenceBlocked == true) return;
             if (mandatoryState == MandatoryStoryState.Failed || mandatoryState == MandatoryStoryState.Forced && !pendingMandatoryEvents.Contains(eventId)) return;
             if (!TakeOver.Story.StoryDirector.CanOpenEvent(eventId)) return;
@@ -325,6 +326,7 @@ namespace TakeOver.Events
         }
         public void startNegotiation()
         {
+            if (EventSceneTransition.IsBusy) return;
             if (!TakeOver.Story.StoryDirector.CanNegotiate(ActiveEventId)) return;
             if (screenState != ScreenState.Detail) return;
             if(activeInfo==null || !hasRequiredHoldings(activeInfo.definition) || !meetsConditions(activeInfo.definition,activeInfo.companyId) || !isGreenmailOfferCurrent(activeInfo.definition,activeInfo.companyId))
@@ -339,10 +341,14 @@ namespace TakeOver.Events
                 return;
             }
             screenState = ScreenState.Negotiation;
-            detailView.hide();
             negotiationStarted?.Invoke(new NegotiationStartedInfo(activeInfo.definition.getId(), activeInfo.definition.getApCost()));
-            if (ActiveOpening.Count > 0) BeginScriptedNegotiation();
-            else negotiationView.show(activeInfo, this, worldReader.getSpeakerIllustration(activeInfo), worldReader.getSpeakerDimmedIllustration(activeInfo));
+            Action present = () => {
+                detailView.hide();
+                if (ActiveOpening.Count > 0) BeginScriptedNegotiation();
+                else negotiationView.show(activeInfo, this, worldReader.getSpeakerIllustration(activeInfo), worldReader.getSpeakerDimmedIllustration(activeInfo));
+            };
+            if (TakeOver.Story.StoryDirector.IsApplyingWholeSkip) present();
+            else EventSceneTransition.Play(present);
         }
         private void buildNegotiationChoices(bool companies = false)
         {
@@ -374,6 +380,7 @@ namespace TakeOver.Events
         }
         public void confirmChoice(int choiceIndex)
         {
+            if (EventSceneTransition.IsBusy) return;
             if ((screenState != ScreenState.Negotiation && screenState != ScreenState.CompanyChoice) || choiceIndex < 0 || choiceIndex >= negotiationChoices.Count) return;
             EventDefinition definition = activeInfo.definition;
             if (!hasRequiredHoldings(definition) || !meetsConditions(definition, activeInfo.companyId) || !isGreenmailOfferCurrent(definition, activeInfo.companyId))
@@ -449,10 +456,15 @@ namespace TakeOver.Events
         public void closeResult()
         {
             if (screenState != ScreenState.Result) return;
-            negotiationView.hide();
-            activeInfo = null;
-            screenState = ScreenState.Closed;
-            CompleteMandatoryPresentation();
+            if (EventSceneTransition.IsBusy) return;
+            Action finish = () => {
+                negotiationView.hide();
+                activeInfo = null;
+                screenState = ScreenState.Closed;
+                CompleteMandatoryPresentation();
+            };
+            if (TakeOver.Story.StoryDirector.IsApplyingWholeSkip) finish();
+            else EventSceneTransition.Play(finish);
         }
 
         private bool canAfford(EventOutcome choice)

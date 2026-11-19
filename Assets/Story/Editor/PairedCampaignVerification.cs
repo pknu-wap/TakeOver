@@ -21,7 +21,7 @@ public sealed partial class CampaignIntegrationProbe
         var registry = Object.FindFirstObjectByType<NpcStateRegistry>();
         foreach (var ending in plan.endings)
         {
-            Check(ending.lines.Any(line => line.narration && line.text.Contains("주인공 투자회사")) && !string.IsNullOrEmpty(ending.companyOutcome), "Ending includes the protagonist company's actual fate: " + ending.signal);
+            Check(ending.lines.Count >= 13 && ending.lines.All(line => line.narration && !line.player && string.IsNullOrEmpty(line.npcId)) && ending.lines.Select(line => line.scene).Distinct().Count() == 3 && !string.IsNullOrEmpty(ending.companyOutcome), "Ending has three background-only acts and a full company outcome: " + ending.signal);
             foreach (var line in ending.lines)
                 Check(string.IsNullOrEmpty(line.npcId) || registry.TryGetProfile(line.npcId, out _), "Ending speaker registered: " + line.npcId);
         }
@@ -61,15 +61,21 @@ public sealed partial class CampaignIntegrationProbe
             while (!game.IsMandatoryFailureReady) yield return null;
             Check(signalCount == 2 && game.EndingLineIndex == index && game.LastDeadlineFailure.endingSignalId == failure.endingSignalId, "Failure load resumes same ending and redelivers once");
             var presenter = Object.FindFirstObjectByType<CampaignEndingPresenter>();
-            int guard = 400;
+            int guard = 20000;
             bool capturedCompany = false;
             while (!presenter.AtEnd && --guard > 0)
             {
-                if (!capturedCompany && branches == 13 && game.CurrentEnding.lines[game.EndingLineIndex].text.Contains("주인공 투자회사"))
+                if (EventSceneTransition.IsBusy) { yield return null; continue; }
+                Check(!presenter.View.NpcImage.gameObject.activeInHierarchy && !presenter.View.PlayerImage.gameObject.activeInHierarchy && !presenter.View.CurrentSpeaker.gameObject.activeInHierarchy,
+                    "Ending page shows only background and narration: " + mission.signals[mask - 1] + "/" + game.EndingLineIndex);
+                if (!Application.isBatchMode && !capturedCompany && branches == 13 && game.CurrentEnding.lines[game.EndingLineIndex].scene == 1)
                 { capturedCompany = true; yield return new WaitForEndOfFrame(); ScreenCapture.CaptureScreenshot(Path.GetFullPath(CampaignIntegrationVerification.Output + "ending-company-scene.png")); yield return null; }
                 presenter.View.ContinueButton.onClick.Invoke(); yield return null;
             }
+            while (EventSceneTransition.IsBusy) yield return null;
             Check(guard > 0 && presenter.AtEnd, "Every authored ending reaches final company outcome: " + mission.signals[mask - 1]);
+            Check(presenter.View.CurrentDialogue.text == $"엔딩 {branches + 1}: {game.CurrentEnding.title}",
+                "Final ending card displays the planned number and title: " + mission.signals[mask - 1]);
             Check(player.state.cash == cash && Object.FindFirstObjectByType<NpcStateRegistry>().States.Sum(s => s.memories.Count) == memoryCount && clock.CurrentTurn == day,
                 "Reading an ending does not duplicate money, memory or settlement");
             Check(saves.HasCampaignCheckpoint(game.CampaignRunId, mission.id), "A separate mission preparation snapshot survives the failure save");
