@@ -10,7 +10,11 @@ namespace TakeOver.Documents
             = new Dictionary<string, Func<DocumentSaveRecord, DocumentContext, IApprovalDocument>>
             {
                 { DividendPolicyDocument.typeId, DividendPolicyDocument.CreateFromSaveRecord },
-                { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) }
+                { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) },
+                { SupportRequestDocument.typeId, (record, context) => new SupportRequestDocument(
+                    record, context.companies,
+                    UnityEngine.Object.FindFirstObjectByType<TakeOver.Employees.EmployeeService>(),
+                    UnityEngine.Object.FindFirstObjectByType<TakeOver.Employees.JobService>()) }
             };
 
         public bool IsRegistered(string type) => factories.ContainsKey(type);

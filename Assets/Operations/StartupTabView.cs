@@ -99,6 +99,8 @@ namespace TakeOver.Operations
             refresh();
         }
 
+        public void refreshAfterInvestment() => refresh();
+
         private void refresh()
         {
             if (!built) return;

@@ -40,6 +40,9 @@ namespace TakeOver.Events
         private bool tutorialRewardGranted;
         public bool TutorialRewardGranted => tutorialRewardGranted;
         public bool TryGetStoryResult(string eventId, out bool succeeded) => storyResults.TryGetValue(eventId, out succeeded);
+        // 스토리를 해결한 날. 일지가 실제 진행 순서대로 정렬할 때 쓴다. 이전 저장에서 온 기록에는 없다.
+        private readonly Dictionary<string, int> storyResolvedDays = new Dictionary<string, int>();
+        public bool tryGetStoryResolvedDay(string eventId, out int day) => storyResolvedDays.TryGetValue(eventId, out day);
         private readonly Dictionary<(string, string), int> companyChoices = new Dictionary<(string, string), int>();
         private readonly Dictionary<(string, string), int> availableDays = new Dictionary<(string, string), int>();
         private TodayEventInfo activeInfo;
@@ -427,7 +430,11 @@ namespace TakeOver.Events
             string repeatOccurrence = RecordRepeatChoice(definition, companyId, selected.originalIndex);
             selectedChoices[definition.getId()] = selected.originalIndex;
             companyChoices[(definition.getId(), companyId)] = selected.originalIndex;
-            if (definition.IsStory) storyResults[definition.getId()] = succeeded;
+            if (definition.IsStory)
+            {
+                storyResults[definition.getId()] = succeeded;
+                storyResolvedDays[definition.getId()] = currentDay;
+            }
             occurrences.RemoveAll(item => item.definition == definition);
             rebuildToday();
             var result = new ChoiceConfirmedInfo(definition.getId(), selected.originalIndex, outcome.getResultValue(),

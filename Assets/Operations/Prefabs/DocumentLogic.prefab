@@ -10,6 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 411283211373624676}
   - component: {fileID: 1981586824814468822}
+  - component: {fileID: 1488863588342282177}
+  - component: {fileID: 7903410507147142951}
+  - component: {fileID: 2910756264199271956}
+  - component: {fileID: 1877916178896998377}
   m_Layer: 0
   m_Name: DocumentLogic
   m_TagString: Untagged
@@ -45,3 +49,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Documents.DocumentSystem
   settings: {fileID: 11400000, guid: b3c1c1066f4f57945b994cad25693a00, type: 2}
+--- !u!114 &1488863588342282177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8257256701946248524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078d0a50eb035124cb26d3d244544378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Employees.EmployeeService
+  config: {fileID: 11400000, guid: 30304d82211ca8a4a97255fd049ff274, type: 2}
+  gameTurnClock: {fileID: 0}
+  actionPointService: {fileID: 0}
+  companyScaleStage: 1
+  capacity: 5
+--- !u!114 &7903410507147142951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8257256701946248524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65726e63b9fca2341b2aae632cce2555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Employees.JobService
+  employeeService: {fileID: 1488863588342282177}
+  gameTurnClock: {fileID: 0}
+  settings: {fileID: 11400000, guid: 96568b13a034cff419f74842a4a69bfc, type: 2}
+--- !u!114 &2910756264199271956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8257256701946248524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe98b4eb2f1955a42ba99a995c395890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Employees.MarketAppraisalService
+--- !u!114 &1877916178896998377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8257256701946248524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201bcee28f2f769479de096b7aff1aa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Startups.StartupContractService
+  contractPrefab: {fileID: 2028595210925890348, guid: 3f85a2d6d6698cc4ea62b5f3abb73157, type: 3}
