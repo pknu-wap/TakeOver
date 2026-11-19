@@ -23,6 +23,7 @@ namespace TakeOver.Documents
             {
                 if (startup.state.getBaseStat(CompanyStat.CASH) > settings.bankruptcyCash) continue;
                 if (!startupSystem.tryGetRecord(startup.definition.companyID, out StartupRecord record)) continue;
+                if (!record.contracted) continue;
                 if (record.fundingRejected) continue;
 
                 float amount = Mathf.Round(Random.Range(settings.fundingAmount.x, settings.fundingAmount.y));

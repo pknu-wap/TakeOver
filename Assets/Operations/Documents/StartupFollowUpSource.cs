@@ -20,6 +20,7 @@ namespace TakeOver.Documents
             foreach (Company startup in companies.StartupList)
             {
                 if (!startupSystem.tryGetRecord(startup.definition.companyID, out StartupRecord record)) continue;
+                if (!record.contracted) continue;
 
                 if (record.nextFollowUpTurn <= 0)
                 {

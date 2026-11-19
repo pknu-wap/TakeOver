@@ -28,6 +28,7 @@ namespace TakeOver.Startups
 
         public bool fundingRejected;
 
+        public bool contracted;
         public int contractTurn;
         public int listingRetryTurn;
 

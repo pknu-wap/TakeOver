@@ -26,6 +26,7 @@ namespace TakeOver.Documents
                 Company startup = startups[i];
                 if (!meetsListing(startup, settings)) continue;
                 if (!startupSystem.tryGetRecord(startup.definition.companyID, out StartupRecord record)) continue;
+                if (!record.contracted) continue;
                 if (turn < record.listingRetryTurn) continue;
 
                 bool noReject = turn >= record.contractTurn + settings.listingNoRejectTurns;

@@ -24,6 +24,7 @@ namespace TakeOver.Documents
             foreach (Company startup in companies.StartupList)
             {
                 if (!startupSystem.tryGetRecord(startup.definition.companyID, out StartupRecord record)) continue;
+                if (!record.contracted) continue;
 
                 // 처음 보는 스타트업은 첫 날짜를 1~21턴(설정값) 안에서 무작위로 정해 회사마다 엇갈리게 한다
                 if (record.nextBusinessPlanTurn <= 0)

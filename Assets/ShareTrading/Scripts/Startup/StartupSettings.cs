@@ -49,8 +49,6 @@ namespace TakeOver.Startups
         public Vector2 followUpAmount = new Vector2(100f, 300f);
         [Tooltip("후속 투자 문서의 처리 기한 (턴)")]
         [Min(1)] public int followUpDeadlineTurns = 7;
-        [Tooltip("스타트업이 처음 만들어질 때 플레이어가 가진 주식 수 (확인용). 벤처 캐피탈 계약 이벤트가 생기면 그쪽에서 정한다.")]
-        [Min(0)] public int testPlayerShares = 200;
 
         [Header("연간 사업 계획 (임시 값, 밸런스 때 조정)")]
         [Tooltip("연간 사업 계획이 올라오는 주기 (턴). 1년 = 84턴")]

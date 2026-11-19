@@ -198,6 +198,26 @@ namespace TakeOver.Startups
             Debug.Log($"{startup.definition.companyName}의 매출·현금·자산을 0으로 만듦 (검증용).");
         }
 
+        public bool markContracted(Company startup, int turn)
+        {
+            if (startup == null || !tryGetRecord(startup.definition.companyID, out StartupRecord record)) return false;
+            record.contracted = true;
+            record.contractTurn = turn;
+            return true;
+        }
+
+        [ContextMenu("검증용: 첫 스타트업 계약한 것으로 만들기")]
+        private void contractFirstStartupForTest()
+        {
+            if (companies == null || companies.StartupList.Count == 0) return;
+            Company startup = companies.StartupList[0];
+            TakeOver.NPC.GameTurnClock clock = FindFirstObjectByType<TakeOver.NPC.GameTurnClock>();
+            if (!markContracted(startup, clock != null ? clock.CurrentTurn : 0)) return;
+            if (startup.state.getBaseStat(CompanyStat.PLAYER_SHARES) <= 0f)
+                startup.state.setStat(CompanyStat.PLAYER_SHARES, startup.state.totalShares * 0.2f);
+            Debug.Log($"{startup.definition.companyName}을(를) 계약한 스타트업으로 만듦 (검증용). 지분 {startup.state.getBaseStat(CompanyStat.PLAYER_SHARES) * 100f / startup.state.totalShares:0.##}%");
+        }
+
         [ContextMenu("검증용: 첫 스타트업 현금만 0으로 (자금 요청 문서 확인)")]
         private void emptyFirstStartupCashForTest()
         {

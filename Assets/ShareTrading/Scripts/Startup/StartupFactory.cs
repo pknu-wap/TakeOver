@@ -27,8 +27,7 @@ namespace TakeOver.Startups
                 intangibleAssets = Mathf.Round(pick(random, template.intangibleAssets)),
                 growthRate = pick(random, template.growthRate),
                 employeeCount = pick(random, template.employees),
-                revenueHistory = new List<float> { revenue },
-                playerShares = settings.testPlayerShares
+                revenueHistory = new List<float> { revenue }
             };
         }
 
