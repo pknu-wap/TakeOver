@@ -9,10 +9,11 @@ namespace TakeOver.Documents
         private readonly Dictionary<string, Func<DocumentSaveRecord, DocumentContext, IApprovalDocument>> factories
             = new Dictionary<string, Func<DocumentSaveRecord, DocumentContext, IApprovalDocument>>
             {
-                { DividendPolicyDocument.typeId, (record, context) => new DividendPolicyDocument(
-                    context.companies.getCompany(record.companyId), record.deadlineTurn, context.settings) },
+                { DividendPolicyDocument.typeId, DividendPolicyDocument.CreateFromSaveRecord },
                 { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) }
             };
+
+        public bool IsRegistered(string type) => factories.ContainsKey(type);
 
         public IApprovalDocument Restore(DocumentSaveRecord record, DocumentContext context)
         {
