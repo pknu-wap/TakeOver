@@ -34,6 +34,7 @@ namespace TakeOver.Events
         public bool IsMandatoryFailureReady { get; private set; }
         public StoryDeadlineFailureInfo LastDeadlineFailure { get; private set; }
         public CampaignEnding CurrentEnding => ResolveEnding();
+        public int CurrentEndingNumber => campaignPlan.endings.IndexOf(CurrentEnding) + 1;
         public int EndingLineIndex => endingLineIndex;
         public string CompanyMandateStatus => mandatoryState == MandatoryStoryState.Failed ? CurrentEnding?.companyOutcome ?? "독립 운용 종료" : "독립 투자 검토 진행";
         private EarlyCampaignPlan campaignPlan;
@@ -111,6 +112,7 @@ namespace TakeOver.Events
         }
         private void InterruptForMandatoryDeadline()
         {
+            EventSceneTransition.Cancel();
             detailView.hide(); negotiationView.hide(); activeInfo = null; negotiationChoices.Clear(); screenState = ScreenState.Closed;
         }
         private void CompleteMandatoryPresentation()
@@ -160,6 +162,7 @@ namespace TakeOver.Events
         public void AdvanceEnding(bool skip)
         {
             if (mandatoryState != MandatoryStoryState.Failed || CurrentEnding == null) return;
+            if (EventSceneTransition.IsBusy) return;
             if (skip && endingLineIndex < CurrentEnding.lines.Count)
             {
                 int scene = CurrentEnding.lines[endingLineIndex].scene;
@@ -174,6 +177,7 @@ namespace TakeOver.Events
         }
         private void RestoreMandatoryPresentation()
         {
+            EventSceneTransition.Cancel();
             if (deadlineTransition != null) StopCoroutine(deadlineTransition);
             deadlineTransition = null;
             if (endingPresenter != null) Destroy(endingPresenter.gameObject); endingPresenter = null;

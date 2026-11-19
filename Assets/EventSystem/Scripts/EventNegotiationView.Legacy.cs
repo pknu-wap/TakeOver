@@ -1,0 +1,253 @@
+using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace TakeOver.Events
+{
+    public sealed partial class EventNegotiationView
+    {
+        public void show(TodayEventInfo info, EventSystemController controller, Sprite speakerIllustration = null,
+            Sprite speakerDimmedIllustration = null)
+        {
+            initialize();
+            dialogueMode = false;
+            configureBodyLayout(false);
+            questionBlock.transform.parent.parent.gameObject.SetActive(true);
+            skipButton.gameObject.SetActive(true);
+            cancelSkip();
+            this.controller = controller;
+            skipTarget = null;
+            ensureSkipButton();
+            stopResultRoutine();
+            choiceSubmitted = false;
+            if (defaultBackground == null) defaultBackground = roomBackground.sprite;
+            Sprite background = info.definition.getNegotiationBackground();
+            roomBackground.sprite = background != null ? background : defaultBackground;
+            ((RectTransform)questionBlock.transform).anchoredPosition = questionPosition;
+            ((RectTransform)playerBlock.transform).anchoredPosition = playerPosition;
+            ((RectTransform)responseBlock.transform).anchoredPosition = responsePosition;
+            setBlock(questionBlock, true);
+            setBlock(playerBlock, false);
+            setBlock(responseBlock, false);
+            speakerText.text = info.speakerLabel;
+            responseSpeakerText.text = speakerText.text;
+            dialogueText.text = info.dialogue;
+            npcIllustration.sprite = speakerIllustration;
+            npcStandingIllustration = speakerIllustration;
+            npcDimmedIllustration = speakerDimmedIllustration;
+            npcIllustration.gameObject.SetActive(speakerIllustration != null);
+            playerIllustration.sprite = playerStandingIllustration;
+            currentPlayerIllustration = playerStandingIllustration;
+            setPlayerFrame(playerInitialFrame);
+            playerIllustration.gameObject.SetActive(playerStandingIllustration != null);
+            highlightPlayer(false);
+            closeButton.onClick.RemoveAllListeners();
+            gameObject.SetActive(true);
+            transform.SetAsLastSibling();
+            Canvas.ForceUpdateCanvases();
+            currentDialogue = dialogueText;
+            paginate(info.dialogue ?? "");
+            page = 0;
+            showEventIntroductionPage(info);
+        }
+
+        private void showEventIntroductionPage(TodayEventInfo info)
+        {
+            dialogueText.text = pages[page];
+            if (!HasMorePages)
+            {
+                showChoices(info, controller);
+                closeButton.gameObject.SetActive(false);
+                return;
+            }
+            clearChoices();
+            choicesRoot.gameObject.SetActive(false);
+            closeButton.GetComponentInChildren<Text>(true).text = "계속";
+            closeButton.onClick.RemoveAllListeners();
+            closeButton.onClick.AddListener(() => { if (HasMorePages) { page++; showEventIntroductionPage(info); } });
+            closeButton.interactable = true;
+            closeButton.gameObject.SetActive(true);
+            skipTarget = () => { page = pages.Count - 1; showEventIntroductionPage(info); };
+            refreshSkipButton();
+        }
+
+        public void showCompanyChoices(TodayEventInfo info, EventSystemController controller) => showChoices(info, controller);
+
+        private void showChoices(TodayEventInfo info, EventSystemController controller)
+        {
+            skipTarget = null;
+            choiceSubmitted = false;
+            clearChoices();
+            choicesRoot.gameObject.SetActive(true);
+            choiceTemplate.gameObject.SetActive(false);
+            int choiceCount = controller.getNegotiationChoiceCount();
+            for (int i = 0; i < choiceCount; i++)
+            {
+                int choiceIndex = i;
+                createChoice(i, choiceCount, info.resolve(controller.getNegotiationChoiceText(i)),
+                    info.resolve(controller.getNegotiationChoiceDescription(i)), () => submitChoice(controller, choiceIndex));
+            }
+            refreshSkipButton();
+        }
+
+        private void submitChoice(EventSystemController controller, int choiceIndex)
+        {
+            if (choiceSubmitted) return;
+            choiceSubmitted = true;
+            foreach (Button button in choices) button.interactable = false;
+            controller.confirmChoice(choiceIndex);
+        }
+
+        public void showChoiceFailure(string message)
+        {
+            choiceSubmitted = false;
+            foreach (Button button in choices) button.interactable = true;
+            var notice = FindFirstObjectByType<FloatingMessage>();
+            if (notice != null) notice.Show(message);
+            else dialogueText.text = message;
+        }
+
+        public void showResult(string dialogue, string playerLine = "") =>
+            beginExchange(dialogue, playerLine, showEventResultPage, false);
+
+        private void showEventResultPage()
+        {
+            responseText.text = pages[page];
+            closeButton.GetComponentInChildren<Text>(true).text = HasMorePages ? "계속" : "확인";
+            closeButton.onClick.RemoveAllListeners();
+            closeButton.onClick.AddListener(() =>
+            {
+                if (HasMorePages) { page++; showEventResultPage(); }
+                else controller.closeResult();
+            });
+            closeButton.interactable = true;
+            closeButton.gameObject.SetActive(true);
+        }
+
+        public void showExchange(string dialogue, string playerLine, Action completed) =>
+            beginExchange(dialogue, playerLine, completed, true);
+
+        private void beginExchange(string dialogue, string playerLine, Action completed, bool companyQuestion)
+        {
+            stopResultRoutine();
+            // Only presentation is skipped. The controller still owns every choice and effect.
+            skipTarget = companyQuestion ? (Action)(() =>
+            {
+                showCompanyQuestionImmediately(dialogue);
+                completed?.Invoke();
+            }) : controller.closeResult;
+            choiceSubmitted = true;
+            foreach (Button button in choices) button.interactable = false;
+            choicesRoot.gameObject.SetActive(false);
+            closeButton.gameObject.SetActive(false);
+            resultRoutine = StartCoroutine(animateExchange(dialogue, playerLine, completed, companyQuestion));
+            refreshSkipButton();
+        }
+
+        private IEnumerator animateExchange(string dialogue, string playerLine, Action completed, bool companyQuestion)
+        {
+            Vector2 previousResponsePosition = ((RectTransform)responseBlock.transform).anchoredPosition;
+            for (float elapsed = 0; elapsed < 0.3f; elapsed += Time.unscaledDeltaTime)
+            {
+                float progress = Mathf.SmoothStep(0, 1, elapsed / 0.3f);
+                fadeUp(questionBlock, questionPosition, progress);
+                fadeUp(playerBlock, playerPosition, progress);
+                fadeUp(responseBlock, previousResponsePosition, progress);
+                yield return null;
+            }
+            setBlock(questionBlock, false);
+            setBlock(playerBlock, false);
+            setBlock(responseBlock, false);
+            ((RectTransform)playerBlock.transform).anchoredPosition = playerPosition;
+            playerLineText.text = playerLine;
+            currentDialogue = responseText;
+            paginate(dialogue ?? "");
+            page = 0;
+            responseText.text = pages[0];
+            bool hasPlayerLine = !string.IsNullOrWhiteSpace(playerLine);
+            ((RectTransform)responseBlock.transform).anchoredPosition = responsePosition + (hasPlayerLine ? Vector2.zero :
+                Vector2.up * (speakerText.rectTransform.localPosition.y - responseSpeakerText.rectTransform.localPosition.y));
+            playerIllustration.sprite = playerReplyIllustration;
+            currentPlayerIllustration = playerReplyIllustration;
+            setPlayerFrame(playerReplyFrame);
+            if (hasPlayerLine)
+            {
+                highlightPlayer(true);
+                yield return fadeIn(playerBlock);
+                yield return new WaitForSecondsRealtime(responseDelay);
+            }
+            if (companyQuestion)
+            {
+                if (hasPlayerLine)
+                {
+                    for (float elapsed = 0; elapsed < 0.3f; elapsed += Time.unscaledDeltaTime)
+                    {
+                        fadeUp(playerBlock, playerPosition, Mathf.SmoothStep(0, 1, elapsed / 0.3f));
+                        yield return null;
+                    }
+                    setBlock(playerBlock, false);
+                }
+                ((RectTransform)questionBlock.transform).anchoredPosition = questionPosition;
+                dialogueText.text = dialogue;
+                highlightPlayer(false);
+                yield return fadeIn(questionBlock);
+            }
+            else
+            {
+                highlightPlayer(false);
+                yield return fadeIn(responseBlock);
+            }
+            resultRoutine = null;
+            if (companyQuestion) skipTarget = null;
+            completed?.Invoke();
+            refreshSkipButton();
+        }
+
+        private IEnumerator skipToTarget(Action target)
+        {
+            if (skipCurtain == null)
+            {
+                var canvasObject = new GameObject("Event skip blackout", typeof(Canvas), typeof(GraphicRaycaster));
+                skipCanvas = canvasObject.GetComponent<Canvas>();
+                skipCanvas.renderMode = RenderMode.ScreenSpaceOverlay; skipCanvas.sortingOrder = 32760;
+                var image = new GameObject("Black", typeof(RectTransform), typeof(Image));
+                image.transform.SetParent(canvasObject.transform, false);
+                skipCurtain = image.GetComponent<Image>();
+                skipCurtain.rectTransform.anchorMin = Vector2.zero; skipCurtain.rectTransform.anchorMax = Vector2.one;
+                skipCurtain.rectTransform.offsetMin = skipCurtain.rectTransform.offsetMax = Vector2.zero;
+            }
+            skipCanvas.gameObject.SetActive(true);
+            yield return fadeSkipCurtain(0, 1);
+            completingSkip = true;
+            try { target(); }
+            finally { completingSkip = false; }
+            yield return fadeSkipCurtain(1, 0);
+            skipCanvas.gameObject.SetActive(false);
+            skipRoutine = null; skipping = false;
+            if (closeButton != null) closeButton.interactable = true;
+            refreshSkipButton();
+        }
+
+        private IEnumerator fadeSkipCurtain(float from, float to)
+        {
+            const float seconds = .35f;
+            for (float elapsed = 0; elapsed < seconds; elapsed += Time.unscaledDeltaTime)
+            {
+                skipCurtain.color = new Color(0, 0, 0, Mathf.Lerp(from, to, Mathf.SmoothStep(0, 1, elapsed / seconds)));
+                yield return null;
+            }
+            skipCurtain.color = new Color(0, 0, 0, to);
+        }
+
+        private void showCompanyQuestionImmediately(string dialogue)
+        {
+            setBlock(playerBlock, false); setBlock(responseBlock, false);
+            ((RectTransform)questionBlock.transform).anchoredPosition = questionPosition;
+            dialogueText.text = dialogue;
+            currentPlayerIllustration = playerReplyIllustration;
+            setPlayerFrame(playerReplyFrame); highlightPlayer(false);
+            setBlock(questionBlock, true);
+        }
+    }
+}

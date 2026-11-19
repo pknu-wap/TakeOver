@@ -45,7 +45,7 @@ public sealed class HelpProbe:MonoBehaviour
         {
             var help=UnityEngine.Object.FindFirstObjectByType<HelpScreen>();
             Check(help!=null,"Help component initialized");
-            Check(HelpTopics.Items.Length==11 && HelpTopics.Items.All(t=>t.title!="다시 시작하기"),"Removed artificial introductory topic");
+            Check(HelpTopics.Items.Length==12 && HelpTopics.Items.All(t=>t.title!="다시 시작하기"),"All concise help topics are available");
             var tab=UnityEngine.Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b=>b.name=="HelpTab");
             var template=UnityEngine.Object.FindFirstObjectByType<TakeOver.Events.EventNegotiationView>(FindObjectsInactive.Include);
             var question=(CanvasGroup)typeof(TakeOver.Events.EventNegotiationView).GetField("questionBlock",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(template);
@@ -62,7 +62,11 @@ public sealed class HelpProbe:MonoBehaviour
             Check(lineCorners[2].y<closeCorners[0].y-4,"Help close button has clear space above divider");
             Check(title.transform.parent==headerClose.transform.parent,"Help header uses one independent layout frame");
             questionRect.anchoredPosition=initialPosition;
-            foreach(var topic in HelpTopics.Items)Check(topic.text.Length>150,"Detailed content: "+topic.title);
+            foreach(var topic in HelpTopics.Items)Check(topic.text.Length<320 && !System.Text.RegularExpressions.Regex.IsMatch(topic.text,@"\d+일차|\d+%"),"Brief system explanation without schedule spoilers: "+topic.title);
+            var panelImage = headerClose.transform.parent.GetComponent<Image>();
+            Check(panelImage != null && panelImage.sprite != null && panelImage.type == Image.Type.Sliced, "Help reuses the rounded event panel artwork");
+            var actionImage = headerClose.targetGraphic as Image;
+            Check(actionImage != null && actionImage.sprite != null && actionImage.type == Image.Type.Sliced, "Help actions reuse the existing neon event button artwork");
             foreach(var name in new[]{"company","buy","sell","day","event","profile","memory"})Check(Resources.Load<Sprite>("HelpImages/"+name)!=null,"Screenshot: "+name);
         }
         catch(Exception e){File.AppendAllText(HelpVerification.Output+"results.txt","FAIL: "+e+"\n");EditorApplication.isPlaying=false;yield break;}

@@ -1,0 +1,358 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7da03deb064604fb53361c699a5309, type: 3}
+  m_Name: sub_kim_pass_reason_01
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Events.EventDefinition
+  eventId: sub_kim_pass_reason_01
+  category: 0
+  linearDialogue: 0
+  tutorialOnly: 0
+  title: "\uAE40\uD0DC\uC131 \u2014 \uB9E4\uC218\uB97C \uBBF8\uB8EC \uC774\uC720"
+  image: {fileID: 21300000, guid: e4f06f328acf53c4385995fb1f2c1e65, type: 3}
+  cardImage: {fileID: 21300000, guid: d04aa39026668454991718ef00702904, type: 3}
+  npcArts: []
+  highlightImage: {fileID: 0}
+  negotiationBackground: {fileID: 0}
+  description: "\uAE40\uD0DC\uC131\uC740 \uB0B4\uAC00 \uACE0\uB978 \uC885\uBAA9\uBCF4\uB2E4
+    \uC544\uC9C1 \uC0AC\uC9C0 \uC54A\uC740 \uC885\uBAA9\uC774 \uAD81\uAE08\uD558\uB2E4\uACE0
+    \uD55C\uB2E4. \uC8FC\uAC00\uAC00 \uC2F8 \uBCF4\uC5EC\uB3C4 \uC190\uC744 \uBA48\uCD98
+    \uC774\uC720\uB97C \uC124\uBA85\uD560 \uC790\uB9AC\uB2E4."
+  apCost: 1
+  startButtonText: "\uB9CC\uB098\uAE30"
+  companyIds: []
+  speakerNpcId: npc-institutional-investor-kim-taeseong
+  speakerName: "\uAE40\uD0DC\uC131"
+  speakerRole:
+  dialogue: "\uC88B\uC544 \uBCF4\uC774\uB294 \uD68C\uC0AC\uB97C \uCC3E\uC73C\uC168\uC2B5\uB2C8\uAE4C?"
+  companyQuestion:
+  companyPlayerLine:
+  choices:
+  - choiceText: "\uC774\uD574\uD558\uC9C0 \uBABB\uD55C \uBD80\uBD84\uC774 \uB0A8\uC558\uB2E4\uACE0
+      \uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uC774\uC775\uC774 \uB098\uB294 \uC774\uC720\uB97C \uC544\uC9C1
+      \uCDA9\uBD84\uD788 \uC774\uD574\uD558\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4.
+      \uC124\uBA85\uC744 \uB354 \uB4E4\uC5B4\uBCF4\uACE0 \uD310\uB2E8\uD560 \uC0DD\uAC01\uC785\uB2C8\uB2E4."
+    resultDialogue: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8\uB7FC \uBB34\uC5C7\uC744
+      \uB4E4\uC73C\uBA74 \uC774\uD574\uD588\uB2E4\uACE0 \uD560 \uC218 \uC788\uB294\uC9C0
+      \uC801\uC5B4\uBCF4\uC138\uC694. \uB9C9\uC5F0\uD788 \uB354 \uC54C\uC544\uBCF4\uACA0\uB2E4\uACE0\uB9CC
+      \uD558\uBA74 \uACB0\uC815\uC740 \uACC4\uC18D \uB4A4\uB85C \uAC11\uB2C8\uB2E4."
+    resultValue: answer_0
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-institutional-investor-kim-taeseong
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uC774\uD574 \uBC94\uC704\uB97C \uD655\uC778\uD55C \uB4A4
+        \uD310\uB2E8 \uC758\uC0AC. "
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 1
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uC774\uC775\uC774 \uB098\uB294 \uC774\uC720\uB97C \uC544\uC9C1 \uCDA9\uBD84\uD788
+        \uC774\uD574\uD558\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4. \uC124\uBA85\uC744
+        \uB354 \uB4E4\uC5B4\uBCF4\uACE0 \uD310\uB2E8\uD560 \uC0DD\uAC01\uC785\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-institutional-investor-kim-taeseong
+      text: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \uADF8\uB7FC \uBB34\uC5C7\uC744 \uB4E4\uC73C\uBA74
+        \uC774\uD574\uD588\uB2E4\uACE0 \uD560 \uC218 \uC788\uB294\uC9C0 \uC801\uC5B4\uBCF4\uC138\uC694.
+        \uB9C9\uC5F0\uD788 \uB354 \uC54C\uC544\uBCF4\uACA0\uB2E4\uACE0\uB9CC \uD558\uBA74
+        \uACB0\uC815\uC740 \uACC4\uC18D \uB4A4\uB85C \uAC11\uB2C8\uB2E4."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uD604\uC7AC \uAC00\uACA9\uC774 \uAE30\uB300\uB97C \uB108\uBB34
+      \uBC18\uC601\uD588\uB2E4\uACE0 \uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uD68C\uC0AC\uAC00 \uB098\uC058\uB2E4\uAE30\uBCF4\uB2E4 \uC9C0\uAE08
+      \uAC00\uACA9\uC5D0\uC11C\uB294 \uC81C\uAC00 \uAE30\uB300\uD560 \uC5EC\uC9C0\uAC00
+      \uC791\uB2E4\uACE0 \uBD05\uB2C8\uB2E4."
+    resultDialogue: "\uADF8\uB7F4 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uB2E4\uB9CC \uAC00\uACA9\uC774
+      \uB0B4\uB824\uC624\uBA74 \uC790\uB3D9\uC73C\uB85C \uC88B\uC740 \uD22C\uC790\uAC00
+      \uB418\uB294\uC9C0\uB294 \uB2E4\uC2DC \uD655\uC778\uD558\uC138\uC694. \uAC00\uACA9\uACFC
+      \uD568\uAED8 \uD68C\uC0AC \uC0AC\uC815\uB3C4 \uB2EC\uB77C\uC9C8 \uC218 \uC788\uC73C\uB2C8\uAE4C\uC694."
+    resultValue: answer_1
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-institutional-investor-kim-taeseong
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uAC00\uACA9\uACFC \uAE30\uC5C5 \uD3C9\uAC00\uB97C \uAD6C\uBD84\uD55C
+        \uC758\uACAC. "
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 1
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uD68C\uC0AC\uAC00 \uB098\uC058\uB2E4\uAE30\uBCF4\uB2E4 \uC9C0\uAE08
+        \uAC00\uACA9\uC5D0\uC11C\uB294 \uC81C\uAC00 \uAE30\uB300\uD560 \uC5EC\uC9C0\uAC00
+        \uC791\uB2E4\uACE0 \uBD05\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-institutional-investor-kim-taeseong
+      text: "\uADF8\uB7F4 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uB2E4\uB9CC \uAC00\uACA9\uC774
+        \uB0B4\uB824\uC624\uBA74 \uC790\uB3D9\uC73C\uB85C \uC88B\uC740 \uD22C\uC790\uAC00
+        \uB418\uB294\uC9C0\uB294 \uB2E4\uC2DC \uD655\uC778\uD558\uC138\uC694. \uAC00\uACA9\uACFC
+        \uD568\uAED8 \uD68C\uC0AC \uC0AC\uC815\uB3C4 \uB2EC\uB77C\uC9C8 \uC218 \uC788\uC73C\uB2C8\uAE4C\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  - choiceText: "\uB2E4\uB978 \uC120\uD0DD\uC744 \uD560 \uC790\uAE08\uC744 \uB0A8\uAE30\uACA0\uB2E4\uACE0
+      \uD55C\uB2E4"
+    choiceDescription:
+    playerLine: "\uC9C0\uAE08 \uD22C\uC790\uD558\uBA74 \uB2E4\uB978 \uAE30\uD68C\uAC00
+      \uC640\uB3C4 \uC6C0\uC9C1\uC77C \uC5EC\uC720\uAC00 \uC904\uC5B4\uB4ED\uB2C8\uB2E4.
+      \uC774\uBC88\uC5D0\uB294 \uADF8 \uC5EC\uC720\uB97C \uB0A8\uAE30\uACA0\uC2B5\uB2C8\uB2E4."
+    resultDialogue: "\uADF8\uB7EC\uBA74 \uAE30\uB2E4\uB9AC\uB294 \uC120\uD0DD\uC744
+      \uD558\uC2E0 \uAC70\uAD70\uC694. \uB098\uC911\uC5D0 \uC624\uB978 \uAC00\uACA9\uC744
+      \uBD10\uB3C4 \uB2F9\uC2DC \uB0A8\uAE30\uB824\uB358 \uC5EC\uC720\uAC00 \uBB34\uC5C7\uC774\uC5C8\uB294\uC9C0
+      \uD568\uAED8 \uBCF4\uC138\uC694."
+    resultValue: answer_2
+    npcResult:
+      eventId:
+      companyId:
+      actorId:
+      actionId:
+      targetNpcIds:
+      - npc-institutional-investor-kim-taeseong
+      targetReactions: []
+      memoryType: 8
+      strength: 1
+      publicity: 0
+      permanent: 0
+      durationTurns: 3
+      reliability: 1
+      interpretation: "\uC790\uAE08 \uC120\uD0DD\uAD8C\uC744 \uB0A8\uAE30\uB824\uB294
+        \uD310\uB2E8. "
+      tags: []
+      relationDelta:
+        trust: 0
+        respect: 0
+        fear: 0
+        hostility: 0
+        dependency: 0
+        interest: 0
+    cashDelta: 0
+    stockSurgeMinRatio: 0
+    stockSurgeMaxRatio: 0
+    buybackPremiumRatio: 0
+    playerMemories: []
+    resultLines:
+    - npcId:
+      text: "\uC9C0\uAE08 \uD22C\uC790\uD558\uBA74 \uB2E4\uB978 \uAE30\uD68C\uAC00
+        \uC640\uB3C4 \uC6C0\uC9C1\uC77C \uC5EC\uC720\uAC00 \uC904\uC5B4\uB4ED\uB2C8\uB2E4.
+        \uC774\uBC88\uC5D0\uB294 \uADF8 \uC5EC\uC720\uB97C \uB0A8\uAE30\uACA0\uC2B5\uB2C8\uB2E4."
+      player: 1
+      narration: 0
+      scene: 0
+    - npcId: npc-institutional-investor-kim-taeseong
+      text: "\uADF8\uB7EC\uBA74 \uAE30\uB2E4\uB9AC\uB294 \uC120\uD0DD\uC744 \uD558\uC2E0
+        \uAC70\uAD70\uC694. \uB098\uC911\uC5D0 \uC624\uB978 \uAC00\uACA9\uC744 \uBD10\uB3C4
+        \uB2F9\uC2DC \uB0A8\uAE30\uB824\uB358 \uC5EC\uC720\uAC00 \uBB34\uC5C7\uC774\uC5C8\uB294\uC9C0
+        \uD568\uAED8 \uBCF4\uC138\uC694."
+      player: 0
+      narration: 0
+      scene: 0
+    resultConditions: []
+    failureOutcome:
+      choiceText:
+      choiceDescription:
+      playerLine:
+      resultDialogue:
+      resultValue:
+      npcResult:
+        eventId:
+        companyId:
+        actorId:
+        actionId:
+        targetNpcIds: []
+        targetReactions: []
+        memoryType: 0
+        strength: 1
+        publicity: 0
+        permanent: 0
+        durationTurns: 3
+        reliability: 1
+        interpretation:
+        tags: []
+        relationDelta:
+          trust: 0
+          respect: 0
+          fear: 0
+          hostility: 0
+          dependency: 0
+          interest: 0
+      cashDelta: 0
+      stockSurgeMinRatio: 0
+      stockSurgeMaxRatio: 0
+      buybackPremiumRatio: 0
+      playerMemories: []
+      resultLines: []
+  conditions: []
+  validDays: 2
+  speakerSource: 0
+  choiceGeneration: 0
+  restructuringSpeakers: []
+  repeatable: 1
+  repeatCooldown: 3
+  repeatGroup: npc-institutional-investor-kim-taeseong
+  firstContact: 0
+  campaignDay: 0
+  missionStartDay: 0
+  prerequisiteEventId:
+  prerequisiteEventIds: []
+  failureSignal:
+  openingLines:
+  - npcId: npc-institutional-investor-kim-taeseong
+    text: "\uC88B\uC544 \uBCF4\uC774\uB294 \uD68C\uC0AC\uB97C \uCC3E\uC73C\uC168\uC2B5\uB2C8\uAE4C?"
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uBCF4\uB294 \uACF3\uC740 \uC788\uC2B5\uB2C8\uB2E4. \uC544\uC9C1 \uACB0\uC815\uD558\uC9C0
+      \uC54A\uC740 \uACF3\uB3C4 \uC788\uACE0\uC694."
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-institutional-investor-kim-taeseong
+    text: "\uC624\uB298\uC740 \uADF8\uCABD \uC774\uC57C\uAE30\uAC00 \uAD81\uAE08\uD569\uB2C8\uB2E4.
+      \uC65C \uC544\uC9C1 \uACB0\uC815\uD558\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uAE4C?"
+    player: 0
+    narration: 0
+    scene: 0
+  - npcId:
+    text: "\uD22C\uC790\uD558\uC9C0 \uC54A\uC740 \uAC83\uAE4C\uC9C0 \uC124\uBA85\uD574\uC57C
+      \uD569\uB2C8\uAE4C?"
+    player: 1
+    narration: 0
+    scene: 0
+  - npcId: npc-institutional-investor-kim-taeseong
+    text: "\uB0A8\uC5D0\uAC8C\uB294 \uC548 \uD558\uC154\uB3C4 \uB429\uB2C8\uB2E4.
+      \uBCF8\uC778\uC5D0\uAC8C\uB3C4 \uC774\uC720\uAC00 \uC5C6\uC73C\uBA74 \uB098\uC911\uC5D0
+      \uAC00\uACA9\uC774 \uC6C0\uC9C1\uC778 \uB4A4 \uC774\uC720\uB97C \uC0C8\uB85C
+      \uB9CC\uB4E4\uAE30 \uC27D\uC8E0."
+    player: 0
+    narration: 0
+    scene: 0
+  companyVariants: []

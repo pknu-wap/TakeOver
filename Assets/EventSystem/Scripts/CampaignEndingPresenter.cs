@@ -11,11 +11,14 @@ namespace TakeOver.Events
     {
         private EventSystemController owner;
         private EventNegotiationView view;
+        private int shownScene = -1;
+        private CampaignEndingVisuals visuals;
         public EventNegotiationView View => view;
         public bool AtEnd => owner != null && owner.EndingLineIndex >= owner.CurrentEnding.lines.Count;
         public void Build(EventSystemController controller, EventNegotiationView template)
         {
             owner = controller;
+            visuals = Resources.Load<CampaignEndingVisuals>("Story/EndingVisuals");
             var canvas = gameObject.AddComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 32500;
             var scaler = gameObject.AddComponent<CanvasScaler>();
             var source = template.GetComponentInParent<CanvasScaler>();
@@ -32,12 +35,26 @@ namespace TakeOver.Events
         {
             var ending = owner.CurrentEnding;
             if (ending == null) throw new System.InvalidOperationException("실패 신호에 맞는 엔딩이 없습니다.");
+            int scene = AtEnd ? 4 : ending.lines[owner.EndingLineIndex].scene;
+            if (scene != shownScene)
+            {
+                bool first = shownScene < 0;
+                if (EventSceneTransition.IsBusy) return;
+                EventSceneTransition.Play(() => { shownScene = scene; Render(); }, first, .65f);
+            }
+            else Render();
+        }
+        private void Render()
+        {
+            var ending = owner.CurrentEnding;
+            Sprite background = visuals != null && visuals.backgrounds.Length > 0
+                ? visuals.backgrounds[Mathf.Clamp(shownScene, 0, visuals.backgrounds.Length - 1)] : null;
             if (AtEnd)
             {
                 var saves = FindFirstObjectByType<GameSaveManager>();
                 bool retry = owner.CampaignRevision == 2 && saves != null && saves.HasCampaignCheckpoint(owner.CampaignRunId, owner.LastDeadlineFailure.missionId);
-                view.ShowDialogue(new DialoguePresentation { narration = true, showPlayer = false,
-                    text = ending.title + "\n\n" + ending.companyOutcome + (retry ? "\n\n재도전하면 이 미션의 준비 시작 시점으로 돌아갑니다." : "\n\n복원 가능한 미션 준비 저장이 없습니다."),
+                view.ShowDialogue(new DialoguePresentation { narration = true, showPlayer = false, background = background, backgroundTint = new Color(.25f,.28f,.34f,1),
+                    text = $"엔딩 {owner.CurrentEndingNumber}: {ending.title}",
                     choices = retry ? new[] { "재도전", "타이틀" } : new[] { "타이틀" } }, null, choice => {
                         if (retry && choice == 0) { GameSessionCoordinator.RequestRetry(owner.CampaignRunId, owner.LastDeadlineFailure.missionId); SceneManager.LoadScene("Game"); }
                         else SceneManager.LoadScene("MainMenu");
@@ -46,13 +63,8 @@ namespace TakeOver.Events
             else
             {
                 var line = ending.lines[owner.EndingLineIndex];
-                var registry = FindFirstObjectByType<NpcStateRegistry>();
-                var profile = !string.IsNullOrEmpty(line.npcId) && registry.TryGetProfile(line.npcId, out var seed) ? seed.profile : null;
-                string details = owner.EndingLineIndex == 0 ? string.Join(" / ", owner.LastDeadlineFailure.goals.Select(g =>
-                    (FindFirstObjectByType<Companies>().getCompany(g.companyId)?.definition.companyName ?? g.companyId) + " " + g.actual.ToString("0.#") + "% (목표 " + g.required.ToString("0.#") + "%)")) + "\n\n" : "";
-                view.ShowDialogue(new DialoguePresentation { speaker = line.player ? "주인공" : profile?.displayName ?? "",
-                    text = details + line.text, player = line.player, narration = line.narration, showPlayer = !line.narration,
-                    npcStanding = profile?.standingIllustration, npcDimmed = profile?.dimmedStandingIllustration },
+                view.ShowDialogue(new DialoguePresentation { background = background, backgroundTint = new Color(.6f,.65f,.72f,1),
+                    text = line.text, narration = true, showPlayer = false },
                     () => owner.AdvanceEnding(false), null, () => owner.AdvanceEnding(true), () => true);
             }
             view.SetDialogueInput(true);

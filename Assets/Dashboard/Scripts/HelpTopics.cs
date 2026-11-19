@@ -4,8 +4,8 @@ namespace TakeOver.Help
     {
         public sealed class Topic
         {
-            public readonly string title,text,image;
-            public Topic(string title,string text,string image=""){this.title=title;this.text=text;this.image=image;}
+            public readonly string title, text, image;
+            public Topic(string title, string text, string image = "") { this.title = title; this.text = text; this.image = image; }
         }
         // 신규 기능을 추가할 때 실제 동작과 함께 갱신한다. 미구현 기능을 사용 가능한 것처럼 안내하지 않는다.
         public static readonly Topic[] Items={

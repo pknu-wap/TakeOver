@@ -81,7 +81,7 @@ namespace TakeOver.Story
             objectives = template.CreateInformationPanel(root, out objective, out detail);
             confirm = template.CreateActionButton(objectives.transform,"Confirm profile","확인",()=>director.Continue());
             reopen = template.CreateActionButton(objectives.transform,"Reopen profile","인물 정보",()=>director.OpenProfile());
-            skip = template.CreateActionButton(root,"Skip to choice","스킵",()=>director.SkipToNextChoice());
+            skip = template.CreateActionButton(root,"Skip to choice","스킵",()=>director.SkipToNextChoice(), useInformationStyle: false);
             PlaceSkip();
             fade = Image("Fade curtain", transform, Color.black); Stretch(fade.rectTransform); fade.raycastTarget = true;
             objectives.SetActive(false); SetMasks(false); stage.SetActive(false);
