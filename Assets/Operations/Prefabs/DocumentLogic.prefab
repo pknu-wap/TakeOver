@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7903410507147142951}
   - component: {fileID: 2910756264199271956}
   - component: {fileID: 1877916178896998377}
+  - component: {fileID: 1191368133544195838}
   m_Layer: 0
   m_Name: DocumentLogic
   m_TagString: Untagged
@@ -106,3 +107,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Startups.StartupContractService
   contractPrefab: {fileID: 2028595210925890348, guid: 3f85a2d6d6698cc4ea62b5f3abb73157, type: 3}
+--- !u!114 &1191368133544195838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8257256701946248524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad64cd84bcabea34c94d5f5bfdd667fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Startups.StartupDiscoveryService
+  settings: {fileID: 11400000, guid: c061d0fd03f48f54d89c1ffc181304d0, type: 2}
+  testLegwork: 10
+  testEye: 10
+  testAnalysis: 10
