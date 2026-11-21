@@ -137,13 +137,13 @@ namespace TakeOver.NPC.Editor
                 harness.ResetAllNpcStates();
                 var amount = index == 0 || index == 4 ? 0 : index == 3 ? 100 : 65;
                 harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = values[index], respect = -values[index],
-                    fear = amount, hostility = amount, dependency = amount, interest = amount });
+                    closeness = amount });
                 ui.ShowTestUI = true;
                 ui.ShowNpcInfo = true;
                 var state = harness.RuntimeState.relation;
                 Check(state.trust == values[index] && state.respect == -values[index], "Signed values: " + names[index]);
-                Check(state.fear == amount && state.hostility == amount && state.dependency == amount && state.interest == amount,
-                    "Unsigned values: " + names[index]);
+                Check(state.closeness == amount,
+                    "Closeness value: " + names[index]);
             }
             else
                 ScreenCapture.CaptureScreenshot(Path.Combine(Path.GetDirectoryName(Output), names[index] + ".png"));
@@ -196,9 +196,8 @@ namespace TakeOver.NPC.Editor
                                 registry.ApplyProfileEventBias(target, type, delta), out _);
                             var expected = new NpcRelationState(); expected.Apply(delta, 1);
                             Check(state.relation.trust == expected.trust && state.relation.respect == expected.respect
-                                && state.relation.fear == expected.fear && state.relation.hostility == expected.hostility
-                                && state.relation.dependency == expected.dependency && state.relation.interest == expected.interest,
-                                "Preview applies all six relation axes for " + target);
+                                && state.relation.closeness == expected.closeness,
+                                "Preview applies all three relation axes for " + target);
                         }
                         Check(harness.ActualEventPreviewReport.Contains("처리 완료"), "Preview reports processing result");
                         Check(!HasPlaceholder(harness.ActualEventPreviewReport + previewInfo.resolve(related.getChoices()[i].getText())),
@@ -247,7 +246,8 @@ namespace TakeOver.NPC.Editor
                     var expectedTrust = id == "inside_info_01" ? new[] { 10, 4, 0 }[index] : index == 0 ? 13 : index == 1 ? -10 : 0;
                     Check(Mathf.Approximately(state.relation.trust, expectedTrust), "Actual trust = " + expectedTrust);
                     Check(Mathf.Approximately(state.relation.respect, id == "press_interview_01" && index == 0 ? 13 : 0), "Actual respect matches Memory-balanced event");
-                    Check(Mathf.Approximately(state.relation.interest, id == "inside_info_01" ? new[] { 10, 5, 0 }[index] : 0), "Actual interest matches authored observation memory");
+                    var expectedCloseness = id == "inside_info_01" ? new[] { 10, 5, 0 }[index] : index == 1 ? -1 : 0;
+                    Check(Mathf.Approximately(state.relation.closeness, expectedCloseness), "Actual closeness matches authored observation memory");
                     Check(state.memories.Count == (id == "inside_info_01" || index != 2 ? 1 : 0), "Memory count matches authored choice");
                     if (id == "inside_info_01" && index == 1)
                         Check(!state.memories[0].interpretation.Contains("인수") && !state.memories[0].interpretation.Contains("가장"), "NPC memory does not reveal the player's private takeover intent");

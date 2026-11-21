@@ -93,9 +93,9 @@ namespace TakeOver.NPC
             GUI.Label(new Rect(20f, 228f, 1160f, 25f),
                 "관계 버튼은 직접 조작 · 사건은 각 NPC SO의 프로필/호불호 보너스 설정을 적용합니다.", profileTextStyle);
             GUI.Label(new Rect(20f, 255f, 1160f, 27f),
-                $"신뢰 {relation.trust:0}   존중 {relation.respect:0}   두려움 {relation.fear:0}", labelStyle);
+                $"신뢰–적대감 {relation.trust:0}   존중–두려움 {relation.respect:0}", labelStyle);
             GUI.Label(new Rect(20f, 282f, 1160f, 27f),
-                $"적대감 {relation.hostility:0}   의존도 {relation.dependency:0}   관심 {relation.interest:0}", labelStyle);
+                $"친밀–경계 {relation.closeness:0}", labelStyle);
 
             // 중앙의 관계/기억 조작 영역만 스크롤한다. 하단 동작은 별도 고정 영역에 둔다.
             bodyTab = GUI.Toolbar(new Rect(20f, 314f, 1160f, 30f), bodyTab,
@@ -113,8 +113,8 @@ namespace TakeOver.NPC
                 DrawActionButton("존중 올리기", bridge.ApplyRespectTestDelta, buttonStyle);
                 DrawActionButton("두려움 올리기", bridge.ApplyFearTestDelta, buttonStyle);
                 DrawActionButton("적대감 올리기", bridge.ApplyHostilityTestDelta, buttonStyle);
-                DrawActionButton("의존도 올리기", bridge.ApplyDependencyTestDelta, buttonStyle);
-                DrawActionButton("관심 올리기", bridge.ApplyInterestTestDelta, buttonStyle);
+                DrawActionButton("경계 올리기", bridge.ApplyCautionTestDelta, buttonStyle);
+                DrawActionButton("친밀 올리기", bridge.ApplyClosenessTestDelta, buttonStyle);
                 GUILayout.EndVertical();
 
                 GUILayout.Space(30f);

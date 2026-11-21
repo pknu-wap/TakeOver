@@ -106,10 +106,7 @@ namespace TakeOver.NPC
         {
             left.trust += right.trust;
             left.respect += right.respect;
-            left.fear += right.fear;
-            left.hostility += right.hostility;
-            left.dependency += right.dependency;
-            left.interest += right.interest;
+            left.closeness += right.closeness;
             return left;
         }
 

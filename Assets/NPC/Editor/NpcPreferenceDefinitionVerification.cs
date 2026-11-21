@@ -119,7 +119,7 @@ namespace TakeOver.NPC.Editor
             var b = Definition(Seed("npc-investigative-reporter-jung-sua", 1.25f, -1));
             try
             {
-                var input = new NpcRelationDelta { trust = 4, respect = 4, fear = -2, hostility = -4, dependency = 4 };
+                var input = new NpcRelationDelta { trust = 4, respect = 4, closeness = 4 };
                 var result = a.PreviewPreference("GoodFaith", NpcMemoryType.GoodFaith, input);
                 Near(result.relationDelta.trust, 9, "SO A custom multiplier and bonus work with default response disabled");
                 Near(b.PreviewPreference("GoodFaith", NpcMemoryType.GoodFaith, input).relationDelta.trust, 4, "SO B owns a different bonus for the same action");
@@ -148,11 +148,11 @@ namespace TakeOver.NPC.Editor
                 seed.actionPreferences[0].disposition = NpcActionDisposition.Likes;
                 var effect = seed.actionPreferences[0].effect;
                 effect.mode = NpcPreferenceEffectMode.Custom; effect.multiplier = 2;
-                effect.affectedAxes = NpcPreferenceAxes.Fear | NpcPreferenceAxes.Dependency;
+                effect.affectedAxes = NpcPreferenceAxes.Respect | NpcPreferenceAxes.Closeness;
                 JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(new Wrapper { seed = seed }), a);
                 var optional = a.PreviewPreference("GoodFaith", NpcMemoryType.Custom, input);
-                Near(optional.relationDelta.fear, -4, "Optional fear axis scales a decrease on liked action");
-                Near(optional.relationDelta.dependency, 8, "Optional dependency axis scales an increase on liked action");
+                Near(optional.relationDelta.respect, 8, "Selected respect axis scales a positive change");
+                Near(optional.relationDelta.closeness, 8, "Selected closeness axis scales a positive change");
                 effect.affectedAxes = NpcPreferenceAxes.None; effect.relationBonus.trust = 3;
                 JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(new Wrapper { seed = seed }), a);
                 Near(a.PreviewPreference("GoodFaith", NpcMemoryType.Custom, input).relationDelta.trust, 7, "No axes selected supports fixed-bonus-only effects");

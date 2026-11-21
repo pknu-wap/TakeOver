@@ -14,7 +14,7 @@ namespace TakeOver.NPC.Editor
         private string previewAction = "GoodFaith";
         private bool showStory;
         private NpcMemoryType previewMemory;
-        private NpcRelationDelta previewDelta = new NpcRelationDelta { trust = 4, hostility = -4 };
+        private NpcRelationDelta previewDelta = new NpcRelationDelta { trust = 4 };
 
         private void OnEnable()
         {
@@ -64,7 +64,7 @@ namespace TakeOver.NPC.Editor
             Field(seed, "preferenceResponse", "이 NPC의 기본 호불호 보너스");
             if (seed.FindPropertyRelative("preferenceResponse").FindPropertyRelative("source").intValue == (int)NpcPreferenceSource.MemoryOnly)
                 EditorGUILayout.HelpBox("현재 이 NPC는 Memory에만 보너스를 적용합니다. 아래 행동별 분류·개별 보너스는 계산에서 제외됩니다.", MessageType.Info);
-            EditorGUILayout.HelpBox("배율은 선호 시 유리한 방향, 불호 시 불리한 방향만 증폭합니다. 증가 기준: 신뢰·존중·의존도·관심 / 감소 기준: 두려움·적대감. 고정 변화량은 부호 그대로 더합니다.", MessageType.Info);
+            EditorGUILayout.HelpBox("배율은 선호 시 유리한 방향, 불호 시 불리한 방향만 증폭합니다. 각 관계 축의 양수는 긍정, 음수는 부정 방향입니다. 고정 변화량은 부호 그대로 더합니다.", MessageType.Info);
             showActions = EditorGUILayout.Foldout(showActions, "행동별 호불호 · 개별 보너스", true);
             if (showActions) DrawList(actions, seed.FindPropertyRelative("actionPreferences"));
             showMemories = EditorGUILayout.Foldout(showMemories, "기억 유형별 호불호 · 개별 보너스", true);
@@ -136,10 +136,7 @@ namespace TakeOver.NPC.Editor
             previewMemory = (NpcMemoryType)EditorGUILayout.EnumPopup("결과 기억 유형", previewMemory);
             previewDelta.trust = EditorGUILayout.FloatField("입력 신뢰", previewDelta.trust);
             previewDelta.respect = EditorGUILayout.FloatField("입력 존중", previewDelta.respect);
-            previewDelta.fear = EditorGUILayout.FloatField("입력 두려움", previewDelta.fear);
-            previewDelta.hostility = EditorGUILayout.FloatField("입력 적대감", previewDelta.hostility);
-            previewDelta.dependency = EditorGUILayout.FloatField("입력 의존도", previewDelta.dependency);
-            previewDelta.interest = EditorGUILayout.FloatField("입력 관심", previewDelta.interest);
+            previewDelta.closeness = EditorGUILayout.FloatField("입력 친밀–경계", previewDelta.closeness);
             var definition = (NpcDefinition)target;
             if (NpcConfigurationDiagnostics.Definition(definition).Count != 0)
             { EditorGUILayout.HelpBox("위의 설정 오류를 먼저 수정하세요.", MessageType.Warning); return; }
@@ -150,8 +147,8 @@ namespace TakeOver.NPC.Editor
                 EditorGUILayout.HelpBox($"{NpcEditorLabels.Dispositions[(int)result.disposition]} · "
                     + (result.usedOverride ? "항목 개별 설정" : "NPC 기본 설정")
                     + (result.enabled ? " · 보너스 활성" : " · 보너스 없음")
-                    + $" · 배율 ×{result.multiplier:0.##}\n최종 신뢰 {r.trust:0.##}, 존중 {r.respect:0.##}, 두려움 {r.fear:0.##}"
-                    + $", 적대감 {r.hostility:0.##}, 의존도 {r.dependency:0.##}, 관심 {r.interest:0.##}", MessageType.Info);
+                    + $" · 배율 ×{result.multiplier:0.##}\n최종 신뢰–적대감 {r.trust:0.##}, 존중–두려움 {r.respect:0.##}"
+                    + $", 친밀–경계 {r.closeness:0.##}", MessageType.Info);
                 EditorGUILayout.LabelField("프로필 고정 보정·관계 상한/하한은 이 미리보기에 포함하지 않습니다.", EditorStyles.wordWrappedMiniLabel);
             }
             catch (ArgumentException error) { EditorGUILayout.HelpBox(error.Message, MessageType.Error); }

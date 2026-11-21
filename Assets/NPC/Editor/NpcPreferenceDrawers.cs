@@ -8,8 +8,8 @@ namespace TakeOver.NPC.Editor
         internal static readonly string[] Dispositions = { "미지정 (기억 선호 사용)", "선호", "불호" };
         internal static readonly string[] Modes = { "이 NPC의 기본값 사용", "이 항목만 개별 설정", "이 항목은 보너스 없음" };
         internal static readonly string[] Sources = { "행동 우선 · 기억 대체", "기억 (Memory)만" };
-        internal static readonly string[] Axes = { "신뢰", "존중", "두려움", "적대감", "의존도", "관심" };
-        internal static readonly string[] Fields = { "trust", "respect", "fear", "hostility", "dependency", "interest" };
+        internal static readonly string[] Axes = { "신뢰–적대감", "존중–두려움", "친밀–경계" };
+        internal static readonly string[] Fields = { "trust", "respect", "closeness" };
         internal const float Gap = 3f;
         internal static float Line => EditorGUIUtility.singleLineHeight;
         internal static Rect Next(ref Rect area, float height = -1)
@@ -52,20 +52,9 @@ namespace TakeOver.NPC.Editor
             property.isExpanded = EditorGUI.Foldout(NpcEditorLabels.Next(ref area), property.isExpanded, label, true);
             if (property.isExpanded)
             {
-                var oldWidth = EditorGUIUtility.labelWidth;
-                EditorGUIUtility.labelWidth = 68f;
-                for (var row = 0; row < 3; row++)
-                {
-                    var line = NpcEditorLabels.Next(ref area);
-                    var width = (line.width - 12) / 2;
-                    for (var column = 0; column < 2; column++)
-                    {
-                        var i = row * 2 + column;
-                        EditorGUI.PropertyField(new Rect(line.x + column * (width + 12), line.y, width, line.height),
-                            property.FindPropertyRelative(NpcEditorLabels.Fields[i]), new GUIContent(NpcEditorLabels.Axes[i]));
-                    }
-                }
-                EditorGUIUtility.labelWidth = oldWidth;
+                for (var i = 0; i < NpcEditorLabels.Fields.Length; i++)
+                    EditorGUI.PropertyField(NpcEditorLabels.Next(ref area),
+                        property.FindPropertyRelative(NpcEditorLabels.Fields[i]), new GUIContent(NpcEditorLabels.Axes[i]));
             }
             EditorGUI.EndProperty();
         }

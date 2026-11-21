@@ -58,13 +58,10 @@ namespace TakeOver.NPC
             GUILayout.Space(18);
             GUILayout.Label("현재 관계", heading);
             var r = state.relation;
-            var grid = GUILayoutUtility.GetRect(640, 138);
-            Stat(new Rect(grid.x, grid.y, 300, 42), "신뢰", r.trust, -100, 100, text);
-            Stat(new Rect(grid.x + 330, grid.y, 300, 42), "존중", r.respect, -100, 100, text);
-            Stat(new Rect(grid.x, grid.y + 46, 300, 42), "두려움", r.fear, 0, 100, text, NegativeBar);
-            Stat(new Rect(grid.x + 330, grid.y + 46, 300, 42), "적대감", r.hostility, 0, 100, text, NegativeBar);
-            Stat(new Rect(grid.x, grid.y + 92, 300, 42), "의존도", r.dependency, 0, 100, text, PositiveBar);
-            Stat(new Rect(grid.x + 330, grid.y + 92, 300, 42), "관심", r.interest, 0, 100, text, PositiveBar);
+            var grid = GUILayoutUtility.GetRect(640, 92);
+            Stat(new Rect(grid.x, grid.y, 300, 42), "신뢰–적대감", r.trust, -100, 100, text);
+            Stat(new Rect(grid.x + 330, grid.y, 300, 42), "존중–두려움", r.respect, -100, 100, text);
+            Stat(new Rect(grid.x, grid.y + 46, 300, 42), "친밀–경계", r.closeness, -100, 100, text);
             GUILayout.Space(18);
             GUILayout.Label("인물 소개", heading);
             GUILayout.Label(profile?.personalitySummary ?? "설정 미등록", text);

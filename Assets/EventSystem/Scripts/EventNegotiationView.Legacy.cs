@@ -49,26 +49,22 @@ namespace TakeOver.Events
             currentDialogue = dialogueText;
             paginate(info.dialogue ?? "");
             page = 0;
-            showEventIntroductionPage(info);
+            showLegacyQuestionPage(() => showChoices(info, controller));
         }
 
-        private void showEventIntroductionPage(TodayEventInfo info)
+        private void showLegacyQuestionPage(Action showAnswers)
         {
             dialogueText.text = pages[page];
             if (!HasMorePages)
             {
-                showChoices(info, controller);
                 closeButton.gameObject.SetActive(false);
+                showAnswers();
                 return;
             }
             clearChoices();
             choicesRoot.gameObject.SetActive(false);
-            closeButton.GetComponentInChildren<Text>(true).text = "계속";
-            closeButton.onClick.RemoveAllListeners();
-            closeButton.onClick.AddListener(() => { if (HasMorePages) { page++; showEventIntroductionPage(info); } });
-            closeButton.interactable = true;
-            closeButton.gameObject.SetActive(true);
-            skipTarget = () => { page = pages.Count - 1; showEventIntroductionPage(info); };
+            showLegacyAction("계속", () => { page++; showLegacyQuestionPage(showAnswers); });
+            skipTarget = () => { page = pages.Count - 1; showLegacyQuestionPage(showAnswers); };
             refreshSkipButton();
         }
 
@@ -86,7 +82,7 @@ namespace TakeOver.Events
             {
                 int choiceIndex = i;
                 createChoice(i, choiceCount, info.resolve(controller.getNegotiationChoiceText(i)),
-                    info.resolve(controller.getNegotiationChoiceDescription(i)), () => submitChoice(controller, choiceIndex));
+                    controller.getNegotiationChoiceDescription(i), () => submitChoice(controller, choiceIndex));
             }
             refreshSkipButton();
         }
@@ -114,13 +110,18 @@ namespace TakeOver.Events
         private void showEventResultPage()
         {
             responseText.text = pages[page];
-            closeButton.GetComponentInChildren<Text>(true).text = HasMorePages ? "계속" : "확인";
-            closeButton.onClick.RemoveAllListeners();
-            closeButton.onClick.AddListener(() =>
+            showLegacyAction(HasMorePages ? "계속" : "확인", () =>
             {
                 if (HasMorePages) { page++; showEventResultPage(); }
                 else controller.closeResult();
             });
+        }
+
+        private void showLegacyAction(string label, Action clicked)
+        {
+            closeButton.GetComponentInChildren<Text>(true).text = label;
+            closeButton.onClick.RemoveAllListeners();
+            closeButton.onClick.AddListener(() => clicked());
             closeButton.interactable = true;
             closeButton.gameObject.SetActive(true);
         }
@@ -134,8 +135,9 @@ namespace TakeOver.Events
             // Only presentation is skipped. The controller still owns every choice and effect.
             skipTarget = companyQuestion ? (Action)(() =>
             {
-                showCompanyQuestionImmediately(dialogue);
-                completed?.Invoke();
+                prepareCompanyQuestion(dialogue);
+                page = pages.Count - 1;
+                showLegacyQuestionPage(completed);
             }) : controller.closeResult;
             choiceSubmitted = true;
             foreach (Button button in choices) button.interactable = false;
@@ -160,11 +162,6 @@ namespace TakeOver.Events
             setBlock(playerBlock, false);
             setBlock(responseBlock, false);
             ((RectTransform)playerBlock.transform).anchoredPosition = playerPosition;
-            playerLineText.text = playerLine;
-            currentDialogue = responseText;
-            paginate(dialogue ?? "");
-            page = 0;
-            responseText.text = pages[0];
             bool hasPlayerLine = !string.IsNullOrWhiteSpace(playerLine);
             ((RectTransform)responseBlock.transform).anchoredPosition = responsePosition + (hasPlayerLine ? Vector2.zero :
                 Vector2.up * (speakerText.rectTransform.localPosition.y - responseSpeakerText.rectTransform.localPosition.y));
@@ -174,8 +171,22 @@ namespace TakeOver.Events
             if (hasPlayerLine)
             {
                 highlightPlayer(true);
+                currentDialogue = playerLineText;
+                paginate(playerLine);
+                page = 0;
+                playerLineText.text = pages[page];
+                bool advance = false;
+                showLegacyAction("계속", () =>
+                {
+                    if (HasMorePages) playerLineText.text = pages[++page];
+                    else
+                    {
+                        advance = true;
+                        closeButton.gameObject.SetActive(false);
+                    }
+                });
                 yield return fadeIn(playerBlock);
-                yield return new WaitForSecondsRealtime(responseDelay);
+                while (!advance) yield return null;
             }
             if (companyQuestion)
             {
@@ -188,19 +199,21 @@ namespace TakeOver.Events
                     }
                     setBlock(playerBlock, false);
                 }
-                ((RectTransform)questionBlock.transform).anchoredPosition = questionPosition;
-                dialogueText.text = dialogue;
-                highlightPlayer(false);
+                prepareCompanyQuestion(dialogue);
                 yield return fadeIn(questionBlock);
             }
             else
             {
+                currentDialogue = responseText;
+                paginate(dialogue ?? "");
+                page = 0;
+                responseText.text = pages[page];
                 highlightPlayer(false);
                 yield return fadeIn(responseBlock);
             }
             resultRoutine = null;
-            if (companyQuestion) skipTarget = null;
-            completed?.Invoke();
+            if (companyQuestion) showLegacyQuestionPage(completed);
+            else completed();
             refreshSkipButton();
         }
 
@@ -240,11 +253,14 @@ namespace TakeOver.Events
             skipCurtain.color = new Color(0, 0, 0, to);
         }
 
-        private void showCompanyQuestionImmediately(string dialogue)
+        private void prepareCompanyQuestion(string dialogue)
         {
             setBlock(playerBlock, false); setBlock(responseBlock, false);
             ((RectTransform)questionBlock.transform).anchoredPosition = questionPosition;
-            dialogueText.text = dialogue;
+            currentDialogue = dialogueText;
+            paginate(dialogue ?? "");
+            page = 0;
+            dialogueText.text = pages[page];
             currentPlayerIllustration = playerReplyIllustration;
             setPlayerFrame(playerReplyFrame); highlightPlayer(false);
             setBlock(questionBlock, true);

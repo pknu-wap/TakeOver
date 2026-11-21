@@ -8,9 +8,9 @@ namespace TakeOver.NPC
     [Flags]
     public enum NpcPreferenceAxes
     {
-        None = 0, Trust = 1, Respect = 2, Fear = 4, Hostility = 8, Dependency = 16, Interest = 32,
-        Default = Trust | Respect | Hostility | Interest,
-        All = Trust | Respect | Fear | Hostility | Dependency | Interest
+        None = 0, Trust = 1, Respect = 2, Closeness = 4,
+        All = Trust | Respect | Closeness,
+        Default = All
     }
 
     /// <summary>한 NPC의 행동/기억 항목에만 적용하는 선택적 보너스다. 기본 모드는 기존 NPC 설정을 따른다.</summary>

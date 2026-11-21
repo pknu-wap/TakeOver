@@ -200,7 +200,7 @@ namespace TakeOver.NPC.Editor
 
         private static void Delta(SerializedProperty delta, List<string> errors, string label)
         {
-            foreach (var field in new[] { "trust", "respect", "fear", "hostility", "dependency", "interest" })
+            foreach (var field in new[] { "trust", "respect", "closeness" })
             {
                 var value = delta.FindPropertyRelative(field).floatValue;
                 if (float.IsNaN(value) || float.IsInfinity(value)) errors.Add($"{label}: {field}에 NaN 또는 무한대가 있습니다.");

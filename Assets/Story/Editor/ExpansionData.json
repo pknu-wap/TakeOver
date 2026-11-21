@@ -86,8 +86,9 @@
                 "reliability": 1,
                 "interpretation": "현재 투자 검토 범위를 설명함. 경영진 유지·보유 기간을 약속하지 않음. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 1,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             },
@@ -130,8 +131,9 @@
                 "reliability": 1,
                 "interpretation": "인수 관심을 공개함. 협상·인수 실행 없음. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 1
+                  "closeness": 1
                 }
               }
             }
@@ -208,8 +210,9 @@
                 "reliability": 1,
                 "interpretation": "투자 판단 중이라고 설명. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 1,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             },
@@ -252,8 +255,9 @@
                 "reliability": 1,
                 "interpretation": "인수 관심과 브랜드 조건 논의 의사. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 1
+                  "closeness": 1
                 }
               }
             }
@@ -325,8 +329,9 @@
                 "reliability": 1,
                 "interpretation": "현재 투자 범위 설명. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 1,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             },
@@ -369,8 +374,9 @@
                 "reliability": 1,
                 "interpretation": "인수 관심 공개. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 1
+                  "closeness": 1
                 }
               }
             }
@@ -447,8 +453,9 @@
                 "reliability": 1,
                 "interpretation": "투자 검토 범위 설명. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 1,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             },
@@ -491,8 +498,9 @@
                 "reliability": 1,
                 "interpretation": "인수 관심과 운영 계획 검토 의사. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 1
+                  "closeness": 1
                 }
               }
             }
@@ -578,8 +586,9 @@
                 "reliability": 1,
                 "interpretation": "큰 감축안 검토 의사. 실제 해고 없음. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 1,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             },
@@ -622,8 +631,9 @@
                 "reliability": 1,
                 "interpretation": "단계적 조정의 실제 일정 검토. 전환·고용 유지 확약 없음. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 1
+                  "closeness": 1
                 }
               }
             },
@@ -666,8 +676,9 @@
                 "reliability": 1,
                 "interpretation": "해당 회차에서 감축 제외 의견. 평생 고용 보장으로 저장하지 않음. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             }
@@ -734,8 +745,9 @@
                 "reliability": 1,
                 "interpretation": "대규모 감축안 비교 요청. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 1,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             },
@@ -768,8 +780,9 @@
                 "reliability": 1,
                 "interpretation": "전환 시간과 유지 비용을 함께 검토. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 1
+                  "closeness": 1
                 }
               }
             },
@@ -802,8 +815,9 @@
                 "reliability": 1,
                 "interpretation": "해당 회차 감축 제외 의견. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             }
@@ -870,8 +884,9 @@
                 "reliability": 1,
                 "interpretation": "큰 감축안 검토 의사. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 1,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             },
@@ -904,8 +919,9 @@
                 "reliability": 1,
                 "interpretation": "단계적 배치 검토 요청. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 1
+                  "closeness": 1
                 }
               }
             },
@@ -938,8 +954,9 @@
                 "reliability": 1,
                 "interpretation": "이번 안의 감축 제외 의견. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             }
@@ -1006,8 +1023,9 @@
                 "reliability": 1,
                 "interpretation": "대규모 감축안 우선 검토. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 1,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             },
@@ -1040,8 +1058,9 @@
                 "reliability": 1,
                 "interpretation": "단계별 조건 검토. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 1
+                  "closeness": 1
                 }
               }
             },
@@ -1074,8 +1093,9 @@
                 "reliability": 1,
                 "interpretation": "이번 감축 제외 의견. ",
                 "relationDelta": {
+                  "trust": 0,
                   "respect": 0,
-                  "interest": 0
+                  "closeness": 0
                 }
               }
             }
@@ -1166,8 +1186,9 @@
             "reliability": 1,
             "interpretation": "회수 지연의 영향 확인 요청. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -1200,8 +1221,9 @@
             "reliability": 1,
             "interpretation": "지급의 확정·조정 범위 확인 요청. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -1234,8 +1256,9 @@
             "reliability": 1,
             "interpretation": "단계적인 자료 설명 요청. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -1325,8 +1348,9 @@
             "reliability": 1,
             "interpretation": "소비자의 해석을 기준으로 문구 재검토 제안. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -1359,8 +1383,9 @@
             "reliability": 1,
             "interpretation": "구체적인 제품 설명 검토 제안. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -1393,8 +1418,9 @@
             "reliability": 1,
             "interpretation": "추가 확인 후 판단 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -1484,8 +1510,9 @@
             "reliability": 1,
             "interpretation": "제한된 선확인 절차 검토. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -1518,8 +1545,9 @@
             "reliability": 1,
             "interpretation": "예외 업무 담당·인계 검토. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -1552,8 +1580,9 @@
             "reliability": 1,
             "interpretation": "자료 확인 후 절차 판단. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -1643,8 +1672,9 @@
             "reliability": 1,
             "interpretation": "결과의 적용 범위 확인 요청. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -1677,8 +1707,9 @@
             "reliability": 1,
             "interpretation": "재현성과 생산 능력 질문. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -1711,8 +1742,9 @@
             "reliability": 1,
             "interpretation": "정보 범위를 인정하고 판단 한계 설명. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -1799,8 +1831,9 @@
             "reliability": 1,
             "interpretation": "해당 회차의 위험한 제안 수락. 기존 `accept`와 종목 선택 결과 유지. 기존 에셋의 다음 턴 급등 30~40% 효과를 연결할 경우 그대로 명시하고, 매도·현금 수익·회사 실적 개선을 자동 보장하지 않는다. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           },
           "stockSurgeMinRatio": 0.3,
@@ -1840,8 +1873,9 @@
             "reliability": 1,
             "interpretation": "해당 회차 제안 거절. 주가 효과·종목 변경 없음. 윤하진과 영구 관계 단절이나 메인 조사 거부로 처리하지 않음.",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         }
@@ -1919,8 +1953,9 @@
             "reliability": 1,
             "interpretation": "역할 범위 확인 요청. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -1953,8 +1988,9 @@
             "reliability": 1,
             "interpretation": "중단·불성사 비용 확인. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -1987,8 +2023,9 @@
             "reliability": 1,
             "interpretation": "조건 합의 보류. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -2070,8 +2107,9 @@
             "reliability": 1,
             "interpretation": "검토 목적 소개 허용. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -2104,8 +2142,9 @@
             "reliability": 1,
             "interpretation": "정보 교환 범위의 소개 요청. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -2138,8 +2177,9 @@
             "reliability": 1,
             "interpretation": "해당 소개 보류. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -2221,8 +2261,9 @@
             "reliability": 1,
             "interpretation": "인용 범위를 정한 공개 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -2255,8 +2296,9 @@
             "reliability": 1,
             "interpretation": "배경 의견 교환에 동의. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -2289,8 +2331,9 @@
             "reliability": 1,
             "interpretation": "해당 질문 답변 사양. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -2372,8 +2415,9 @@
             "reliability": 1,
             "interpretation": "조치의 범위와 잔여 영향 확인 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -2406,8 +2450,9 @@
             "reliability": 1,
             "interpretation": "설명 근거를 구분하자는 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -2440,8 +2485,9 @@
             "reliability": 1,
             "interpretation": "요약과 상세 설명의 병행 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -2523,8 +2569,9 @@
             "reliability": 1,
             "interpretation": "당사자의 현재 생활에 관심. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -2557,8 +2604,9 @@
             "reliability": 1,
             "interpretation": "당사자의 선택과 부담을 존중하는 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -2591,8 +2639,9 @@
             "reliability": 1,
             "interpretation": "개인 회복과 반복되는 문제를 구분하는 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -2674,8 +2723,9 @@
             "reliability": 1,
             "interpretation": "이해 범위를 확인한 뒤 판단 의사. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -2708,8 +2758,9 @@
             "reliability": 1,
             "interpretation": "가격과 기업 평가를 구분한 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -2742,8 +2793,9 @@
             "reliability": 1,
             "interpretation": "자금 선택권을 남기려는 판단. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -2825,8 +2877,9 @@
             "reliability": 1,
             "interpretation": "예정 지출을 고려한 자금 계획. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -2859,8 +2912,9 @@
             "reliability": 1,
             "interpretation": "유동성 확보 시 판단 기준 검토. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -2893,8 +2947,9 @@
             "reliability": 1,
             "interpretation": "현재 추가 투자 유보 의사. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -2976,8 +3031,9 @@
             "reliability": 1,
             "interpretation": "계절과 비교 기준을 확인하는 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -3010,8 +3066,9 @@
             "reliability": 1,
             "interpretation": "비용 감소의 원인과 지속성 질문. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -3044,8 +3101,9 @@
             "reliability": 1,
             "interpretation": "회수 구조 확인 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -3127,8 +3185,9 @@
             "reliability": 1,
             "interpretation": "편의를 기대한 정치 후원 수락, 현금 -100. 기존 게임의 경영진 면담 조건 완화 연결은 유지 검토하되 메인 지분 미션·법률·공시 의무 변경 효과라고 설명하지 않음. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           },
           "cashDelta": -100
@@ -3162,8 +3221,9 @@
             "reliability": 1,
             "interpretation": "공개 기부 경로, 현금 -50. 면담 기준 완화 없음. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           },
           "cashDelta": -50
@@ -3197,8 +3257,9 @@
             "reliability": 1,
             "interpretation": "해당 회차 제안 거절, 현금 0. 정치 거래 사실·기부 사실 없음. 영구 적대·메인 실패 없음.",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           },
           "cashDelta": 0
@@ -3281,8 +3342,9 @@
             "reliability": 1,
             "interpretation": "공개 조건 확인 요청. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -3315,8 +3377,9 @@
             "reliability": 1,
             "interpretation": "준비 비용·시간 검토. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -3349,8 +3412,9 @@
             "reliability": 1,
             "interpretation": "독립적인 공개 절차 확인. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -3432,8 +3496,9 @@
             "reliability": 1,
             "interpretation": "정보 확인과 협상 권한 구분. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -3466,8 +3531,9 @@
             "reliability": 1,
             "interpretation": "비용·중단 기준 확인. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -3500,8 +3566,9 @@
             "reliability": 1,
             "interpretation": "대외 문의 보류. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -3593,8 +3660,9 @@
             "reliability": 1,
             "interpretation": "공개 범위를 정한 설명. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -3638,7 +3706,8 @@
             "interpretation": "인터뷰에서 성과를 강조하고 자금 설명을 유보함. ",
             "relationDelta": {
               "trust": -2,
-              "interest": 1
+              "respect": 0,
+              "closeness": -1
             }
           }
         }
@@ -3720,8 +3789,9 @@
             "reliability": 1,
             "interpretation": "결정 상태의 정확성을 우선한 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -3754,8 +3824,9 @@
             "reliability": 1,
             "interpretation": "간결함과 문맥의 균형 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -3788,8 +3859,9 @@
             "reliability": 1,
             "interpretation": "발언 주체와 확인 범위 구분 의견. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -3871,8 +3943,9 @@
             "reliability": 1,
             "interpretation": "관찰 시점과 운영 차이 질문 제안. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -3905,8 +3978,9 @@
             "reliability": 1,
             "interpretation": "여러 업무 관점 확인 제안. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -3939,8 +4013,9 @@
             "reliability": 1,
             "interpretation": "개선의 전 비용·업무 범위 질문 제안. ",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -8276,8 +8351,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 확인",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -8810,8 +8886,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 잔여 정리 비용을 먼저 분리한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -8842,8 +8919,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 새 수주도 검토하되 부담을 합산하지 않는다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -8874,8 +8952,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 공유 가능한 날짜부터 확인한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -8977,8 +9056,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 확인",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -9096,8 +9176,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 확인",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -9665,8 +9746,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 핵심 제품을 정하고 전환 비용을 계산한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -9697,8 +9779,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 회수 조건과 제품 구성을 함께 비교한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -9729,8 +9812,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 판매 유지안과 전환안을 병렬 검토한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -9846,8 +9930,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 확인",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -9979,8 +10064,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 범위를 정해 비용 설명안을 검토한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -10011,8 +10097,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 신규 수주의 심사 기준을 보강한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -10043,8 +10130,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 경영진의 수정안을 먼저 요청한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -10160,8 +10248,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 단계적 운영안을 지지한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -10192,8 +10281,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 고객 다변화의 중간 점검을 더한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -10224,8 +10314,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 수익성과 인력 전환을 재검토한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -10327,8 +10418,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 확인",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -10432,8 +10524,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 확인",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -10550,8 +10643,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 핵심 제품과 재구매 기준을 본다",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -10582,8 +10676,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 현금 회수 기준을 먼저 점검한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -10614,8 +10709,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 단계적 품목 전환을 검토한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -10731,8 +10827,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 전수 검증 후 단계 전환을 검토한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -10763,8 +10860,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 기존 납기와 전수 병행을 점검한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -10795,8 +10893,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 비용과 일정을 다시 설명해달라 한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -10891,8 +10990,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 확인",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         }
@@ -11017,8 +11117,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 미래건설 관련 거래를 우선 검토한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 1,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -11049,8 +11150,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 하늘식품 관련 거래를 우선 검토한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 1
+              "closeness": 1
             }
           }
         },
@@ -11081,8 +11183,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 동방물산 관련 거래를 우선 검토한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         },
@@ -11113,8 +11216,9 @@
             "reliability": 1,
             "interpretation": "투자 검토 대화에서 한성공업 관련 거래를 우선 검토한다",
             "relationDelta": {
+              "trust": 0,
               "respect": 0,
-              "interest": 0
+              "closeness": 0
             }
           }
         }

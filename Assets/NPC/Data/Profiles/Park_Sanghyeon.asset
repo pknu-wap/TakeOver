@@ -26,7 +26,7 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.15
-        affectedAxes: 33
+        affectedAxes: 5
         relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     - memoryType: 1
       disposition: 2
@@ -42,7 +42,7 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.15
-        affectedAxes: 40
+        affectedAxes: 5
         relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-political-lobbyist-park-sanghyeon
     companyId: external-network
@@ -62,27 +62,18 @@ MonoBehaviour:
       anyEventRelationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
       eventRelationBiases:
       - memoryType: 0
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 1
+          closeness: 1
       - memoryType: 7
         relationDelta:
-          trust: 0
+          trust: -2
           respect: 0
-          fear: 0
-          hostility: 2
-          dependency: 0
-          interest: -1
+          closeness: -1
     actionPreferences:
     - actionId: GoodFaith
       disposition: 1

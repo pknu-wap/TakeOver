@@ -9,12 +9,9 @@ namespace TakeOver.NPC
         [SerializeField] private NpcStateRegistry registry;
         [SerializeField] private NpcProfilePanelView profilePanel;
 
-        private string selectedNpcId = "";
-        private Vector2 selectorScroll;
-        private Vector2 infoScroll;
-        private string selectorProfileId;
-
-        public string SelectedNpcId => selectedNpcId;
+        public string SelectedNpcId => profilePanel != null ? profilePanel.SelectedNpcId : "";
+        public RectTransform ProfileRect => profilePanel != null && profilePanel.gameObject.activeInHierarchy
+            ? (RectTransform)profilePanel.transform : null;
         public int NpcCount => registry != null ? registry.Profiles.Count : 0;
 
         public void Open()
@@ -33,7 +30,6 @@ namespace TakeOver.NPC
         public void Configure(NpcStateRegistry stateRegistry)
         {
             registry = stateRegistry;
-            selectedNpcId = "";
             ResolveRegistry();
             SyncProfilePanel(gameObject.activeInHierarchy);
         }
@@ -41,10 +37,10 @@ namespace TakeOver.NPC
         public void SelectNpc(string npcId)
         {
             ResolveRegistry();
-            if (registry == null || !registry.TryGetProfile(npcId, out var profile) || profile.profile == null) return;
-            if (selectedNpcId != npcId) infoScroll = Vector2.zero;
-            selectedNpcId = npcId;
+            profilePanel?.SelectNpc(npcId);
         }
+
+        public void FocusMemories() => profilePanel?.FocusMemories();
 
         private void OnEnable()
         {
@@ -62,10 +58,6 @@ namespace TakeOver.NPC
         {
             if (registry == null) registry = FindFirstObjectByType<NpcStateRegistry>();
             if (profilePanel == null) profilePanel = GetComponentInChildren<NpcProfilePanelView>(true);
-            if (registry == null) return;
-            if (registry.TryGetProfile(selectedNpcId, out var selected) && selected.profile != null) return;
-            foreach (var profile in registry.Profiles)
-                if (profile != null && profile.profile != null) { selectedNpcId = profile.npcId; break; }
         }
 
         private void SyncProfilePanel(bool open)
@@ -74,19 +66,10 @@ namespace TakeOver.NPC
             if (profilePanel == null) return;
 
             RectTransform panelRect = profilePanel.GetComponent<RectTransform>();
-            if (panelRect != null)
+            if (panelRect != null && !TakeOver.Story.StoryDirector.IsInspectingProfile)
             {
-                bool tutorial = TakeOver.Story.StoryDirector.IsInspectingProfile;
-                if (tutorial)
-                {
-                    panelRect.localScale = new Vector3(0.70f, 0.70f, 1f);
-                    panelRect.anchoredPosition = new Vector2(356f, -40f);
-                }
-                else
-                {
-                    panelRect.localScale = Vector3.one;
-                    panelRect.anchoredPosition = Vector2.zero;
-                }
+                panelRect.localScale = Vector3.one;
+                panelRect.anchoredPosition = Vector2.zero;
             }
 
             if (open) profilePanel.Open();

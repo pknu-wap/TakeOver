@@ -16,6 +16,7 @@ namespace TakeOver.Story
     public sealed class StoryChoice
     {
         public string title;
+        public string description;
         [TextArea(2, 5)] public string playerLine;
         [TextArea(2, 5)] public string response;
         public string targetNpcId;

@@ -20,7 +20,7 @@ MonoBehaviour:
       likedMultiplier: 1.2
       dislikedMultiplier: 1.2
       useCustomAxes: 0
-      affectedAxes: 43
+      affectedAxes: 7
     memoryPreferences:
     - memoryType: 0
       disposition: 1
@@ -34,10 +34,7 @@ MonoBehaviour:
         relationBonus:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
     - memoryType: 1
       disposition: 2
       rationale: "\uD655\uC815\uD55C \uC7A5\uAE30 \uACC4\uD68D\uC758 \uC77C\uBC29\uC801
@@ -45,14 +42,11 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.3
-        affectedAxes: 9
+        affectedAxes: 1
         relationBonus:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
     - memoryType: 4
       disposition: 1
       rationale: "\uC7A5\uAE30 \uC0AC\uC5C5 \uAE30\uBC18\uC744 \uBCF4\uC874\uD55C
@@ -64,10 +58,7 @@ MonoBehaviour:
         relationBonus:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
     npcId: npc-sinseong-development-planning-director-yoo-jeongmin
     companyId: sinseong-development
     profile:
@@ -99,10 +90,7 @@ MonoBehaviour:
       anyEventRelationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
       eventRelationBiases: []
     actionPreferences: []
   storyDesign:

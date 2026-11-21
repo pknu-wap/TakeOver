@@ -68,12 +68,9 @@ MonoBehaviour:
         tags:
         - greenmail_accept
         relationDelta:
-          trust: 0
+          trust: 10
           respect: 0
-          fear: 0
-          hostility: -10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-haneul-food-ceo-kim-harin
         memoryType: 8
         strength: 2
@@ -85,12 +82,9 @@ MonoBehaviour:
         tags:
         - greenmail_accept
         relationDelta:
-          trust: 0
+          trust: 10
           respect: 0
-          fear: 0
-          hostility: -10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-hansung-industry-ceo-jo-minseok
         memoryType: 8
         strength: 2
@@ -102,12 +96,9 @@ MonoBehaviour:
         tags:
         - greenmail_accept
         relationDelta:
-          trust: 0
+          trust: 10
           respect: 0
-          fear: 0
-          hostility: -10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-dongbang-trading-ceo-kang-jaehyeon
         memoryType: 8
         strength: 2
@@ -119,12 +110,9 @@ MonoBehaviour:
         tags:
         - greenmail_accept
         relationDelta:
-          trust: 0
+          trust: 10
           respect: 0
-          fear: 0
-          hostility: -10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-polaris-finance-ceo-lim-dohyeon
         memoryType: 8
         strength: 2
@@ -137,12 +125,9 @@ MonoBehaviour:
         tags:
         - greenmail_accept
         relationDelta:
-          trust: 0
+          trust: 10
           respect: 0
-          fear: 0
-          hostility: -10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-daeseong-industry-ceo-kim-seongho
         memoryType: 8
         strength: 2
@@ -155,12 +140,9 @@ MonoBehaviour:
         tags:
         - greenmail_accept
         relationDelta:
-          trust: 0
+          trust: 10
           respect: 0
-          fear: 0
-          hostility: -10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-sinseong-development-ceo-jung-dohyeon
         memoryType: 8
         strength: 2
@@ -173,12 +155,9 @@ MonoBehaviour:
         tags:
         - greenmail_accept
         relationDelta:
-          trust: 0
+          trust: 10
           respect: 0
-          fear: 0
-          hostility: -10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-blueharbor-retail-ceo-seo-yujin
         memoryType: 8
         strength: 2
@@ -191,12 +170,9 @@ MonoBehaviour:
         tags:
         - greenmail_accept
         relationDelta:
-          trust: 0
+          trust: 10
           respect: 0
-          fear: 0
-          hostility: -10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-aurora-foodtech-ceo-kim-seohu
         memoryType: 8
         strength: 2
@@ -209,12 +185,9 @@ MonoBehaviour:
         tags:
         - greenmail_accept
         relationDelta:
-          trust: 0
+          trust: 10
           respect: 0
-          fear: 0
-          hostility: -10
-          dependency: 0
-          interest: 0
+          closeness: 0
       memoryType: 8
       strength: 2
       publicity: 1
@@ -227,10 +200,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
     cashDelta: 0
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
@@ -267,12 +237,9 @@ MonoBehaviour:
         interpretation:
         tags: []
         relationDelta:
-          trust: 0
-          respect: 0
-          fear: 10
-          hostility: 10
-          dependency: 0
-          interest: 0
+          trust: -10
+          respect: -10
+          closeness: 0
       - targetNpcId: npc-haneul-food-ceo-kim-harin
         memoryType: 3
         strength: 2
@@ -283,12 +250,9 @@ MonoBehaviour:
         interpretation:
         tags: []
         relationDelta:
-          trust: 0
-          respect: 0
-          fear: 10
-          hostility: 10
-          dependency: 0
-          interest: 0
+          trust: -10
+          respect: -10
+          closeness: 0
       - targetNpcId: npc-hansung-industry-ceo-jo-minseok
         memoryType: 3
         strength: 2
@@ -299,12 +263,9 @@ MonoBehaviour:
         interpretation:
         tags: []
         relationDelta:
-          trust: 0
-          respect: 0
-          fear: 10
-          hostility: 10
-          dependency: 0
-          interest: 0
+          trust: -10
+          respect: -10
+          closeness: 0
       - targetNpcId: npc-dongbang-trading-ceo-kang-jaehyeon
         memoryType: 3
         strength: 2
@@ -315,12 +276,9 @@ MonoBehaviour:
         interpretation:
         tags: []
         relationDelta:
-          trust: 0
-          respect: 10
-          fear: 10
-          hostility: 10
-          dependency: 0
-          interest: 0
+          trust: -10
+          respect: 0
+          closeness: 0
       - targetNpcId: npc-polaris-finance-ceo-lim-dohyeon
         memoryType: 3
         strength: 2
@@ -332,12 +290,9 @@ MonoBehaviour:
           \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
-          respect: 0
-          fear: 10
-          hostility: 10
-          dependency: 0
-          interest: 0
+          trust: -10
+          respect: -10
+          closeness: 0
       - targetNpcId: npc-daeseong-industry-ceo-kim-seongho
         memoryType: 3
         strength: 2
@@ -349,12 +304,9 @@ MonoBehaviour:
           \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
-          respect: 0
-          fear: 10
-          hostility: 10
-          dependency: 0
-          interest: 0
+          trust: -10
+          respect: -10
+          closeness: 0
       - targetNpcId: npc-sinseong-development-ceo-jung-dohyeon
         memoryType: 3
         strength: 2
@@ -366,12 +318,9 @@ MonoBehaviour:
           \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
-          respect: 0
-          fear: 10
-          hostility: 10
-          dependency: 0
-          interest: 0
+          trust: -10
+          respect: -10
+          closeness: 0
       - targetNpcId: npc-blueharbor-retail-ceo-seo-yujin
         memoryType: 3
         strength: 2
@@ -383,12 +332,9 @@ MonoBehaviour:
           \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
-          respect: 0
-          fear: 10
-          hostility: 10
-          dependency: 0
-          interest: 0
+          trust: -10
+          respect: -10
+          closeness: 0
       - targetNpcId: npc-aurora-foodtech-ceo-kim-seohu
         memoryType: 3
         strength: 2
@@ -400,12 +346,9 @@ MonoBehaviour:
           \uD655\uC815\uB41C \uACBD\uC601 \uC120\uD0DD\uC744 \uAE30\uC5B5\uD55C\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
-          respect: 0
-          fear: 10
-          hostility: 10
-          dependency: 0
-          interest: 0
+          trust: -10
+          respect: -10
+          closeness: 0
       memoryType: 3
       strength: 2
       publicity: 1
@@ -417,10 +360,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
     cashDelta: 0
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0

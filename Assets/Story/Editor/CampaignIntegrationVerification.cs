@@ -12,20 +12,34 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 [InitializeOnLoad]
 public static class CampaignIntegrationVerification
 {
-    public static string Output => SessionState.GetBool("Campaign.RepeatTailOnly", false)
+    public static string Output => Environment.GetEnvironmentVariable("TAKEOVER_QA_OUTPUT") is string output
+        ? output.TrimEnd('/', '\\') + "/" : SessionState.GetBool("Campaign.RepeatTailOnly", false)
         ? "../QA_MainStoryPolish/RepeatTail/" : "../QA_PairedCampaign/";
     static CampaignIntegrationVerification() { EditorApplication.playModeStateChanged += Changed; }
     public static void Run() => Run(false);
     public static void RunRepeatTail() => Run(true);
+    public static void RunVisibleControls()
+    {
+        Run(false);
+        SessionState.SetBool("Campaign.VisibleControls", true);
+    }
+    public static void RunFirstContactControls()
+    {
+        Run(false);
+        SessionState.SetBool("Campaign.FirstContactControls", true);
+    }
     private static void Run(bool repeatTailOnly)
     {
         SessionState.SetBool("Campaign.RepeatTailOnly", repeatTailOnly);
         SessionState.SetBool("Campaign.EndingsOnly", false);
+        SessionState.SetBool("Campaign.VisibleControls", false);
+        SessionState.SetBool("Campaign.FirstContactControls", false);
         SessionState.SetString("Campaign.PreviousSaveRoot", Environment.GetEnvironmentVariable("TAKEOVER_SAVE_DIRECTORY") ?? "");
         Environment.SetEnvironmentVariable("TAKEOVER_SAVE_DIRECTORY", Path.GetFullPath(Output + "save"));
         Directory.CreateDirectory(Output); File.WriteAllText(Output + "results.txt", "RUNNING\n");
@@ -91,6 +105,8 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
             Application.runInBackground = true;
             stack.Push(VerifyRepeatTail());
         }
+        else if (SessionState.GetBool("Campaign.FirstContactControls", false)) stack.Push(VerifyFirstContactControls());
+        else if (SessionState.GetBool("Campaign.VisibleControls", false)) stack.Push(VerifyVisibleControls());
         else stack.Push(SessionState.GetBool("Campaign.EndingsOnly", false) ? VerifyEndingsOnly() : Verify());
         while (stack.Count > 0)
         {
@@ -107,6 +123,109 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
         yield return Ready(11);
         yield return VerifyPairedFailures();
         File.AppendAllText(CampaignIntegrationVerification.Output + "results.txt", $"COMPLETE {assertions} PASS\n");
+    }
+
+    private IEnumerator VerifyVisibleControls()
+    {
+        yield return Ready(11, false);
+        yield return VerifyFirstContacts();
+        yield return PlayTo(42);
+        foreach (var id in companyIds) Buy(id, 55);
+        for (int day = 0; day < 20 && game.getTodayEvents().All(item => item.getId() != "greenmail_01"); day++)
+        {
+            var inbox = Object.FindFirstObjectByType<DocumentSystem>().Inbox;
+            foreach (var document in inbox.Open.OfType<IApprovalDocument>().ToArray()) inbox.Resolve(document, false);
+            clock.AdvanceTurn();
+            yield return null;
+        }
+        Check(game.getTodayEvents().Any(item => item.getId() == "greenmail_01"), "Post-campaign greenmail appears");
+        Check(saves.trySaveDayEnd(new DayStartData(clock.CurrentTurn, FixedDaySeed.seed)), "Save before greenmail answers: " + saves.lastError);
+        string greenmailSave = File.ReadAllText(saves.savePath);
+        yield return CompleteThroughVisibleControls("greenmail_01", 0);
+        File.WriteAllText(saves.savePath, greenmailSave);
+        Check(saves.tryLoad(out _), "Restore greenmail before testing its other answer: " + saves.lastError);
+        yield return null;
+        yield return CompleteThroughVisibleControls("greenmail_01", 1);
+        yield return VerifyRepeatChoices();
+        File.AppendAllText(CampaignIntegrationVerification.Output + "results.txt", $"COMPLETE {assertions} PASS\n");
+    }
+
+    private IEnumerator VerifyFirstContactControls()
+    {
+        yield return Ready(11, false);
+        yield return VerifyFirstContacts();
+        File.AppendAllText(CampaignIntegrationVerification.Output + "results.txt", $"COMPLETE {assertions} PASS\n");
+    }
+
+    private IEnumerator VerifyFirstContacts()
+    {
+        var contacts = Resources.Load<GeneralEventDatabase>("Events/GeneralEventDatabase").Events.Where(item => item.FirstContact).ToArray();
+        Check(contacts.Length == 4, "All four first contacts are registered");
+        Check(saves.trySaveDayEnd(new DayStartData(clock.CurrentTurn, FixedDaySeed.seed)), "Save before first-contact choices: " + saves.lastError);
+        foreach (var contact in contacts)
+        for (int choice = 0; choice < contact.getChoices().Count; choice++)
+        {
+            Check(saves.tryLoad(out _), "Restore first-contact offer before testing each answer: " + saves.lastError);
+            yield return null;
+            yield return CompleteThroughVisibleControls(contact.getId(), choice);
+        }
+        Check(saves.tryLoad(out _), "Restore initial campaign after first contacts: " + saves.lastError);
+        yield return null;
+    }
+
+    private IEnumerator CompleteThroughVisibleControls(string id, int choice)
+    {
+        var detail = (EventDetailView)typeof(EventSystemController).GetField("detailView", Private).GetValue(game);
+        var view = (EventNegotiationView)typeof(EventSystemController).GetField("negotiationView", Private).GetValue(game);
+        var start = (Button)typeof(EventDetailView).GetField("startButton", Private).GetValue(detail);
+        var choices = (List<Button>)typeof(EventNegotiationView).GetField("choices", Private).GetValue(view);
+        var playerLine = (CanvasGroup)typeof(EventNegotiationView).GetField("playerBlock", Private).GetValue(view);
+        var npcReply = (CanvasGroup)typeof(EventNegotiationView).GetField("responseBlock", Private).GetValue(view);
+        game.openEvent(id);
+        yield return null;
+        TakeOver.Story.Editor.StoryPlayProbe.Click(start);
+        float deadline = Time.realtimeSinceStartup + 5;
+        int pages = 0, selections = 0;
+        bool advancedPlayerLine = false;
+        while (!game.IsClosed)
+        {
+            yield return null;
+            if (game.IsClosed) break;
+            if (Time.realtimeSinceStartup > deadline || pages > 200 || selections > 2)
+                throw new InvalidOperationException($"Unable to finish {id}/{choice} after {pages} visible pages and {selections} choices: {view.CurrentDialogue.text}");
+            if (EventSceneTransition.IsBusy) continue;
+            var next = view.ContinueButton;
+            if (next.gameObject.activeInHierarchy && next.IsInteractable())
+            {
+                yield return null;
+                Canvas.ForceUpdateCanvases();
+                TakeOver.Story.Editor.StoryPlayProbe.Click(next);
+                pages++;
+                advancedPlayerLine |= playerLine.gameObject.activeInHierarchy && !npcReply.gameObject.activeInHierarchy;
+            }
+            else if (choices.Any(button => button.gameObject.activeInHierarchy && button.IsInteractable()))
+            {
+                yield return null;
+                Canvas.ForceUpdateCanvases();
+                foreach (var button in choices)
+                {
+                    var description = button.transform.Find("Description").GetComponent<Text>();
+                    Check(description.IsActive() && !string.IsNullOrWhiteSpace(description.text),
+                        "Visible event choice has a summary: " + id + "/" + button.name);
+                }
+                TakeOver.Story.Editor.StoryPlayProbe.Click(choices[selections++ == 0 ? choice : 0]);
+                advancedPlayerLine = false;
+            }
+            else if (!advancedPlayerLine && playerLine.gameObject.activeInHierarchy && playerLine.alpha >= .999f && !npcReply.gameObject.activeInHierarchy)
+            {
+                throw new InvalidOperationException($"{id}/{choice}: visible player line has neither Continue nor a choice");
+            }
+            else continue;
+            deadline = Time.realtimeSinceStartup + 5;
+        }
+        while (EventSceneTransition.IsBusy) yield return null;
+        Check(game.tryGetChoice(id, out var committed) && committed == choice,
+            $"Visible controls completed {id}/{choice}: {pages} advance/confirm clicks, {selections} selections");
     }
     private IEnumerator Ready(int seed, bool reload = true)
     {
@@ -128,6 +247,11 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
     }
     private IEnumerator Complete(string id, int choice = 0, bool capture = false)
     {
+        if (SessionState.GetBool("Campaign.VisibleControls", false))
+        {
+            yield return CompleteThroughVisibleControls(id, choice);
+            yield break;
+        }
         var info = game.getTodayEventInfos().Single(item => item.definition.getId() == id);
         int before = Object.FindFirstObjectByType<ActionPointService>().Current;
         game.openEvent(id); game.startNegotiation(); yield return null;
@@ -152,7 +276,7 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
             int guard = 100;
             while (view.HasMorePages && --guard > 0) { view.ContinueButton.onClick.Invoke(); yield return null; }
         }
-        if (capture) { yield return new WaitForEndOfFrame(); ScreenCapture.CaptureScreenshot(Path.GetFullPath(CampaignIntegrationVerification.Output + id + ".png")); yield return null; }
+        if (capture && !Application.isBatchMode) { yield return new WaitForEndOfFrame(); ScreenCapture.CaptureScreenshot(Path.GetFullPath(CampaignIntegrationVerification.Output + id + ".png")); yield return null; }
         game.confirmChoice(choice); yield return null;
         if (info.definition.getChoiceGeneration() == EventChoiceGeneration.OwnedCompanies && choice == 0)
         {
@@ -178,7 +302,7 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
             if (paired) {
                 Check(!trading.sellShares(companies.getCompany(companyIds[0]), 1), "Mandatory bundle blocks real share trading");
                 Check(!game.CanAdvanceTurn(clock.CurrentTurn), "Mandatory bundle blocks day advance");
-                if (capture) { yield return new WaitForEndOfFrame(); ScreenCapture.CaptureScreenshot(Path.GetFullPath(CampaignIntegrationVerification.Output + "bundle-" + clock.CurrentTurn + ".png")); yield return null; }
+                if (capture && !Application.isBatchMode) { yield return new WaitForEndOfFrame(); ScreenCapture.CaptureScreenshot(Path.GetFullPath(CampaignIntegrationVerification.Output + "bundle-" + clock.CurrentTurn + ".png")); yield return null; }
             }
             var id = (FixedDaySeed.seed % 2 == 0 ? game.getTodayEvents().First() : game.getTodayEvents().Last()).getId();
             int choice = Mathf.Abs(FixedDaySeed.seed - 11) % game.getTodayEvents().Single(e => e.getId() == id).getChoices().Count;
@@ -245,8 +369,11 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
             var report = new SnapshotDocument("qa-campaign", "저장 검증 보고서", "검증", new[] { new DocumentInfo("기록", "유지") });
             documents.Inbox.Add(report); documents.Inbox.MarkRead(report);
             documents.Inbox.Add(new SnapshotDocument("qa-pending", "미확인 보고서", "검증", new[] { new DocumentInfo("상태", "대기") }));
-            Object.FindFirstObjectByType<NewsFeed>().addNews(1, "저장 검증 뉴스", new[] { "mirae-construction" }, string.Empty);
+            Object.FindFirstObjectByType<NewsFeed>().addNews(1, "보관 기간 검증 뉴스", new[] { "mirae-construction" }, string.Empty);
             yield return PlayTo(42, -1, seed == 11);
+            var news = Object.FindFirstObjectByType<NewsFeed>();
+            Check(!news.Entries.Any(item => item.title == "보관 기간 검증 뉴스"), "News from outside the retention window expires");
+            news.addNews(clock.CurrentTurn, "저장 검증 뉴스", new[] { "mirae-construction" }, "본문 검증");
             Check(companyIds.All(game.CompanyStoryCompleted) && game.MandatoryState == MandatoryStoryState.Completed, "All four company stories complete with distinct gates, seed " + seed);
             Check(player.state.cash > 0, "Four investment objectives leave positive cash, seed " + seed + ": " + player.state.cash);
             File.AppendAllText(CampaignIntegrationVerification.Output + "balance.txt", $"seed={seed} day=42 cash={player.state.cash}\n");
@@ -256,7 +383,8 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
             Check(saves.tryLoad(out _), "Fresh-scene continue restores the whole game: " + saves.lastError); yield return null;
             Check(clock.CurrentTurn == 42 && before == game.captureJson(), "Fresh-scene load restores exact campaign, choices, pending offers and cooldowns");
             Check(Object.FindFirstObjectByType<DocumentSystem>().Inbox.History.Any(item => item.document.TypeId == "qa-campaign") && Object.FindFirstObjectByType<DocumentSystem>().Inbox.Open.Any(item => item.TypeId == "qa-pending"), "Document history and unread documents survive fresh-scene continue");
-            Check(Object.FindFirstObjectByType<NewsFeed>().Entries.Any(item => item.title == "저장 검증 뉴스"), "News survives fresh-scene continue");
+            Check(Object.FindFirstObjectByType<NewsFeed>().Entries.Any(item => item.turn == clock.CurrentTurn &&
+                item.title == "저장 검증 뉴스" && item.description == "본문 검증"), "Recent news and its description survive fresh-scene continue");
         }
         yield return VerifyPairedFailures();
         yield return VerifyRepeatChoices();
