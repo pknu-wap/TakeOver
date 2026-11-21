@@ -196,108 +196,63 @@ MonoBehaviour:
     relationDelta:
       trust: 8
       respect: 4
-      fear: 0
-      hostility: 0
-      dependency: 3
-      interest: 2
+      closeness: -1
   trustTestDelta:
     trust: 10
     respect: 0
-    fear: 0
-    hostility: 0
-    dependency: 0
-    interest: 0
+    closeness: 0
   respectTestDelta:
     trust: 0
     respect: 10
-    fear: 0
-    hostility: 0
-    dependency: 0
-    interest: 0
+    closeness: 0
   fearTestDelta:
     trust: 0
-    respect: 0
-    fear: 10
-    hostility: 0
-    dependency: 0
-    interest: 0
+    respect: -10
+    closeness: 0
   hostilityTestDelta:
+    trust: -10
+    respect: 0
+    closeness: 0
+  cautionTestDelta:
     trust: 0
     respect: 0
-    fear: 0
-    hostility: 10
-    dependency: 0
-    interest: 0
-  dependencyTestDelta:
+    closeness: -10
+  closenessTestDelta:
     trust: 0
     respect: 0
-    fear: 0
-    hostility: 0
-    dependency: 10
-    interest: 0
-  interestTestDelta:
-    trust: 0
-    respect: 0
-    fear: 0
-    hostility: 0
-    dependency: 0
-    interest: 10
+    closeness: 10
   goodFaithMemoryDelta:
     trust: 5
     respect: 3
-    fear: 0
-    hostility: 0
-    dependency: 0
-    interest: 1
+    closeness: 1
   contractBreachMemoryDelta:
     trust: -10
     respect: 0
-    fear: 0
-    hostility: 8
-    dependency: 0
-    interest: 0
+    closeness: 0
   massLayoffMemoryDelta:
-    trust: 0
+    trust: -10
     respect: 2
-    fear: 0
-    hostility: 10
-    dependency: 0
-    interest: 0
+    closeness: 0
   hostileTakeoverMemoryDelta:
-    trust: 0
-    respect: -4
-    fear: 8
-    hostility: 4
-    dependency: 0
-    interest: 0
+    trust: -4
+    respect: -8
+    closeness: 0
   savedCompanyMemoryDelta:
     trust: 8
     respect: 2
-    fear: 0
-    hostility: 0
-    dependency: 5
-    interest: 0
+    closeness: 5
   publicHumiliationMemoryDelta:
-    trust: 0
+    trust: -12
     respect: -6
-    fear: 0
-    hostility: 12
-    dependency: 0
-    interest: 0
+    closeness: 0
   leakedInfoMemoryDelta:
     trust: -7
     respect: 0
-    fear: 0
-    hostility: 3
-    dependency: 0
-    interest: 4
+    closeness: 4
   briberyMemoryDelta:
     trust: -6
     respect: 0
-    fear: 0
-    hostility: 5
-    dependency: 4
-    interest: 0
+    closeness: -4
   onTestEventRecorded:
     m_PersistentCalls:
       m_Calls: []

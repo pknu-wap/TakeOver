@@ -42,7 +42,7 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.3
-        affectedAxes: 34
+        affectedAxes: 6
         relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     - memoryType: 7
       disposition: 2
@@ -50,7 +50,7 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.2
-        affectedAxes: 9
+        affectedAxes: 1
         relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     npcId: npc-haneul-food-cfo-oh-jaeseong
     companyId: haneul-food
@@ -70,9 +70,6 @@ MonoBehaviour:
       anyEventRelationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
       eventRelationBiases: []
     actionPreferences: []

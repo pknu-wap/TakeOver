@@ -23,8 +23,8 @@ namespace TakeOver.NPC
         private static string FormatDelta(NpcRelationDelta delta)
         {
             var parts = new System.Collections.Generic.List<string>();
-            var names = new[] { "신뢰", "존중", "두려움", "적대감", "의존도", "관심" };
-            var values = new[] { delta.trust, delta.respect, delta.fear, delta.hostility, delta.dependency, delta.interest };
+            var names = new[] { "신뢰–적대감", "존중–두려움", "친밀–경계" };
+            var values = new[] { delta.trust, delta.respect, delta.closeness };
             for (var i = 0; i < names.Length; i++)
                 if (values[i] != 0) parts.Add($"{names[i]} {values[i]:+0.##;-0.##;0}");
             return parts.Count == 0 ? "변화 없음" : string.Join(" · ", parts);

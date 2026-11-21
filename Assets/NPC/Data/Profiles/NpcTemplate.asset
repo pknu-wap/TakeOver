@@ -20,7 +20,7 @@ MonoBehaviour:
       likedMultiplier: 1.5
       dislikedMultiplier: 1.5
       useCustomAxes: 0
-      affectedAxes: 43
+      affectedAxes: 7
     memoryPreferences: []
     npcId:
     companyId:

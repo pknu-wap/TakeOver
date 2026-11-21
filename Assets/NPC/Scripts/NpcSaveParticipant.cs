@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Newtonsoft.Json.Linq;
 using TakeOver.SaveSystem;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace TakeOver.NPC
     {
         private SaveData preparedGameSave;
         public string saveId => "npc";
-        public int saveVersion => 1;
+        public int saveVersion => 2;
 
         public string captureJson()
         {
@@ -21,8 +22,7 @@ namespace TakeOver.NPC
         public void prepareLoad(string json, int savedVersion, DayStartData dayStart)
         {
             preparedGameSave = null;
-            if (savedVersion != saveVersion) throw new InvalidDataException("지원하지 않는 NPC 저장 버전입니다.");
-            var data = JsonUtility.FromJson<SaveData>(json);
+            var data = ReadSaveData(JObject.Parse(json), savedVersion);
             Validate(data);
             if (data.currentTurn > dayStart.day || dayStart.day - data.currentTurn > 1)
                 throw new InvalidDataException("NPC 저장 날짜가 다른 파트와 일치하지 않습니다.");

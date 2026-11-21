@@ -34,7 +34,7 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.25
-        affectedAxes: 9
+        affectedAxes: 1
         relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     - memoryType: 2
       disposition: 2
@@ -42,7 +42,7 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.25
-        affectedAxes: 8
+        affectedAxes: 1
         relationBonus: {trust: 0, respect: 0, fear: 0, hostility: 0, dependency: 0, interest: 0}
     - memoryType: 4
       disposition: 1
@@ -71,9 +71,6 @@ MonoBehaviour:
       anyEventRelationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
       eventRelationBiases: []
     actionPreferences: []

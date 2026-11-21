@@ -71,7 +71,7 @@ namespace TakeOver.NPC
                 count += memories.Length;
                 registry.TryGetProfile(state.npcId, out var seed);
                 var delta = NpcRelationDelta.Between(state.relation, before[state.npcId].relation);
-                report.AppendLine($"{seed?.profile?.displayName}: 신뢰 {delta.trust:+0.##;-0.##;0}, 존중 {delta.respect:+0.##;-0.##;0}, 두려움 {delta.fear:+0.##;-0.##;0}, 적대감 {delta.hostility:+0.##;-0.##;0}, 의존도 {delta.dependency:+0.##;-0.##;0}, 관심 {delta.interest:+0.##;-0.##;0}");
+                report.AppendLine($"{seed?.profile?.displayName}: 신뢰–적대감 {delta.trust:+0.##;-0.##;0}, 존중–두려움 {delta.respect:+0.##;-0.##;0}, 친밀–경계 {delta.closeness:+0.##;-0.##;0}");
                 foreach (var memory in memories) report.AppendLine("생성 Memory: " + memory.memoryType + " / " + memory.memoryId);
             }
             report.AppendLine(count == 0 ? "새 Memory 없음 (효과 없는 선택 또는 수신 실패 여부를 확인하세요)." : $"생성 Memory 총 {count}개");

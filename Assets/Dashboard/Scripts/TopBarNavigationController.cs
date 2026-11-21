@@ -58,6 +58,18 @@ public sealed class TopBarNavigationController : MonoBehaviour
             tabButtons[i].onClick.RemoveAllListeners();
             tabButtons[i].onClick.AddListener(() => onTabClicked(index));
         }
+        SelectHomeIndicator();
+    }
+
+    private void SelectHomeIndicator()
+    {
+        currentTab = System.Array.IndexOf(tabKinds, DashboardTab.Home);
+        indicator.OnTabClicked(currentTab, false);
+    }
+
+    public void ReturnHome()
+    {
+        if (Navigate(DashboardTab.Home)) SelectHomeIndicator();
     }
 
     public bool Navigate(DashboardTab tab)
@@ -137,9 +149,8 @@ public sealed class TopBarNavigationController : MonoBehaviour
     private void LateUpdate()
     {
         if(currentTab == helpTab && help != null && !help.IsOpen)
-        { currentTab=System.Array.IndexOf(tabKinds, DashboardTab.Home); indicator.OnTabClicked(currentTab); }
+            SelectHomeIndicator();
         if (help == null || tabKinds[currentTab] != DashboardTab.Npcs || statusScreen.gameObject.activeInHierarchy) return;
-        currentTab = System.Array.IndexOf(tabKinds, DashboardTab.Home);
-        indicator.OnTabClicked(currentTab);
+        SelectHomeIndicator();
     }
 }

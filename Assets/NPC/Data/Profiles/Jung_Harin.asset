@@ -20,7 +20,7 @@ MonoBehaviour:
       likedMultiplier: 1.2
       dislikedMultiplier: 1.2
       useCustomAxes: 0
-      affectedAxes: 43
+      affectedAxes: 7
     memoryPreferences:
     - memoryType: 0
       disposition: 1
@@ -33,10 +33,7 @@ MonoBehaviour:
         relationBonus:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
     - memoryType: 1
       disposition: 2
       rationale: "\uAC80\uC99D \uD569\uC758\uB97C \uAE68\uAC70\uB098 \uACB0\uACFC\uB97C
@@ -44,14 +41,11 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.4
-        affectedAxes: 9
+        affectedAxes: 1
         relationBonus:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
     - memoryType: 6
       disposition: 2
       rationale: "\uD1B5\uC81C\uB418\uC9C0 \uC54A\uC740 \uC5F0\uAD6C \uC815\uBCF4
@@ -60,14 +54,11 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.35
-        affectedAxes: 9
+        affectedAxes: 1
         relationBonus:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
     npcId: npc-aurora-foodtech-chief-scientist-jung-harin
     companyId: aurora-foodtech
     profile:
@@ -99,10 +90,7 @@ MonoBehaviour:
       anyEventRelationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
       eventRelationBiases: []
     actionPreferences: []
   storyDesign:

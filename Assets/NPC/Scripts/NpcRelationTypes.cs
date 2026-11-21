@@ -18,8 +18,7 @@ namespace TakeOver.NPC
 
         internal static void ValidateDelta(NpcRelationDelta delta)
         {
-            if (!Finite(delta.trust) || !Finite(delta.respect) || !Finite(delta.fear)
-                || !Finite(delta.hostility) || !Finite(delta.dependency) || !Finite(delta.interest))
+            if (!Finite(delta.trust) || !Finite(delta.respect) || !Finite(delta.closeness))
                 throw new ArgumentException("관계 변화량에 NaN 또는 무한대가 포함돼 있습니다.");
         }
 
@@ -82,14 +81,10 @@ namespace TakeOver.NPC
             if (float.IsNaN(multiplier) || float.IsInfinity(multiplier) || multiplier < 1f)
                 throw new ArgumentException("선호 반응 배율은 1 이상의 유한한 값이어야 합니다.");
             if ((axes & ~NpcPreferenceAxes.All) != 0) throw new ArgumentException("배율 적용 관계 항목이 올바르지 않습니다.");
-            // 기존 기본 4축을 유지한다. 제작자가 선택한 경우 두려움 감소·의존도 증가도 호의 방향에 포함한다.
             var likes = disposition == NpcActionDisposition.Likes;
             if ((axes & NpcPreferenceAxes.Trust) != 0) delta.trust = Scale(delta.trust, likes, multiplier);
             if ((axes & NpcPreferenceAxes.Respect) != 0) delta.respect = Scale(delta.respect, likes, multiplier);
-            if ((axes & NpcPreferenceAxes.Interest) != 0) delta.interest = Scale(delta.interest, likes, multiplier);
-            if ((axes & NpcPreferenceAxes.Hostility) != 0) delta.hostility = -Scale(-delta.hostility, likes, multiplier);
-            if ((axes & NpcPreferenceAxes.Fear) != 0) delta.fear = -Scale(-delta.fear, likes, multiplier);
-            if ((axes & NpcPreferenceAxes.Dependency) != 0) delta.dependency = Scale(delta.dependency, likes, multiplier);
+            if ((axes & NpcPreferenceAxes.Closeness) != 0) delta.closeness = Scale(delta.closeness, likes, multiplier);
             return delta;
         }
 
@@ -124,10 +119,7 @@ namespace TakeOver.NPC
         // 변화량은 모든 축에서 음수일 수 있다. 현재 상태의 하한/상한은 NpcRelationState.Apply가 적용한다.
         public float trust;
         public float respect;
-        public float fear;
-        public float hostility;
-        public float dependency;
-        public float interest;
+        public float closeness;
 
         public static NpcRelationDelta Zero => default;
 
@@ -135,15 +127,13 @@ namespace TakeOver.NPC
         public static NpcRelationDelta Subtract(NpcRelationDelta after, NpcRelationDelta before) => new NpcRelationDelta
         {
             trust = after.trust - before.trust, respect = after.respect - before.respect,
-            fear = after.fear - before.fear, hostility = after.hostility - before.hostility,
-            dependency = after.dependency - before.dependency, interest = after.interest - before.interest
+            closeness = after.closeness - before.closeness
         };
 
         public static NpcRelationDelta Between(NpcRelationState after, NpcRelationState before) => new NpcRelationDelta
         {
             trust = after.trust - before.trust, respect = after.respect - before.respect,
-            fear = after.fear - before.fear, hostility = after.hostility - before.hostility,
-            dependency = after.dependency - before.dependency, interest = after.interest - before.interest
+            closeness = after.closeness - before.closeness
         };
     }
 
@@ -154,13 +144,10 @@ namespace TakeOver.NPC
     [Serializable]
     public struct NpcRelationState
     {
-        // 신뢰·존중은 -100~100, 두려움·적대감·의존도·관심은 0~100이다.
+        // 각 축은 -100~100이다. 음수는 각각 적대감·두려움·경계다.
         public float trust;
         public float respect;
-        public float fear;
-        public float hostility;
-        public float dependency;
-        public float interest;
+        public float closeness;
         public int lastUpdatedTurn;
 
         /// <summary>효과를 누적하고 허용 범위에 맞춘 뒤 마지막 변경 턴을 기록한다.</summary>
@@ -168,10 +155,7 @@ namespace TakeOver.NPC
         {
             trust = Mathf.Clamp(trust + delta.trust, -100f, 100f);
             respect = Mathf.Clamp(respect + delta.respect, -100f, 100f);
-            fear = Mathf.Clamp(fear + delta.fear, 0f, 100f);
-            hostility = Mathf.Clamp(hostility + delta.hostility, 0f, 100f);
-            dependency = Mathf.Clamp(dependency + delta.dependency, 0f, 100f);
-            interest = Mathf.Clamp(interest + delta.interest, 0f, 100f);
+            closeness = Mathf.Clamp(closeness + delta.closeness, -100f, 100f);
             lastUpdatedTurn = turn;
         }
     }

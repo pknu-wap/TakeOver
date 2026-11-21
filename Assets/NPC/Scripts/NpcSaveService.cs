@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace TakeOver.NPC
@@ -13,6 +15,7 @@ namespace TakeOver.NPC
         {
             // 필수 항목 누락을 정상 초기 상태로 오인하지 않도록 기본값을 두지 않는다.
             public int currentTurn;
+            public int formatVersion;
             public List<NpcRuntimeState> npcs;
         }
 
@@ -50,6 +53,7 @@ namespace TakeOver.NPC
                 var data = new SaveData
                 {
                     currentTurn = turnClock == null ? 1 : turnClock.CurrentTurn,
+                    formatVersion = saveVersion,
                     npcs = registry.CreateSnapshot()
                 };
                 Validate(data);
@@ -81,16 +85,14 @@ namespace TakeOver.NPC
                     LastError = "저장 파일이 없습니다.";
                     return false;
                 }
-                data = JsonUtility.FromJson<SaveData>(File.ReadAllText(SavePath));
+                var root = JObject.Parse(File.ReadAllText(SavePath));
+                data = ReadSaveData(root, (int?)root["formatVersion"] ?? 1);
                 Validate(data);
                 // 저장 데이터도 현재 SO의 ID를 그대로 사용해야 한다. 별칭이나 구 ID 변환은 하지 않는다.
                 foreach (var state in data.npcs)
                 {
                     if (!registry.TryGetProfile(state.npcId, out var seed) || seed.companyId != state.companyId)
                         throw new InvalidDataException($"현재 NPC 정의와 일치하지 않는 저장 ID입니다: {state.npcId}");
-                    // 이전 저장의 적대감·관심도 새 범위로 맞춘다. 과거 Memory 계산 로그는 보존한다.
-                    state.relation.hostility = Mathf.Clamp(state.relation.hostility, 0f, 100f);
-                    state.relation.interest = Mathf.Clamp(state.relation.interest, 0f, 100f);
                 }
             }
             catch (Exception error) when (IsStorageError(error))
@@ -107,7 +109,47 @@ namespace TakeOver.NPC
         private static bool IsStorageError(Exception error) => error is IOException || error is InvalidDataException
             || error is UnauthorizedAccessException || error is ArgumentException
             || error is InvalidOperationException || error is NotSupportedException
-            || error is System.Security.SecurityException;
+            || error is System.Security.SecurityException || error is Newtonsoft.Json.JsonException;
+
+        private SaveData ReadSaveData(JObject root, int version)
+        {
+            if (version != 1 && version != saveVersion)
+                throw new InvalidDataException("지원하지 않는 NPC 저장 버전입니다.");
+            if (version == 1 && root["npcs"] is JArray states)
+                foreach (var state in states.OfType<JObject>())
+                {
+                    if (state["relation"] is JObject relation) MigrateAxes(relation, true);
+                    if (!(state["memories"] is JArray memories)) continue;
+                    foreach (var memory in memories.OfType<JObject>())
+                    {
+                        if (memory["relationDelta"] is JObject delta) MigrateAxes(delta, false);
+                        if (!(memory["effectLog"] is JObject log)) continue;
+                        foreach (var key in new[] { "beforePreference", "preferenceBonus", "actuallyApplied", "configuredBonus" })
+                            if (log[key] is JObject entry) MigrateAxes(entry, false);
+                    }
+                }
+            return JsonUtility.FromJson<SaveData>(root.ToString(Newtonsoft.Json.Formatting.None));
+        }
+
+        private static void MigrateAxes(JObject value, bool state)
+        {
+            float Axis(string name)
+            {
+                float number = (float?)value[name] ?? 0f;
+                if (!IsFinite(number)) throw new InvalidDataException("NPC 관계 수치가 올바르지 않습니다.");
+                return number;
+            }
+
+            float trust = Axis("trust") - Axis("hostility");
+            float respect = Axis("respect") - Axis("fear");
+            float closeness = Axis("interest") - Axis("dependency");
+            if (!IsFinite(trust) || !IsFinite(respect) || !IsFinite(closeness))
+                throw new InvalidDataException("NPC 관계 수치가 올바르지 않습니다.");
+            value["trust"] = state ? Mathf.Clamp(trust, -100f, 100f) : trust;
+            value["respect"] = state ? Mathf.Clamp(respect, -100f, 100f) : respect;
+            value["closeness"] = state ? Mathf.Clamp(closeness, -100f, 100f) : closeness;
+            foreach (var key in new[] { "fear", "hostility", "dependency", "interest" }) value.Remove(key);
+        }
 
         /// <summary>기획 수치를 새로 제한하지 않고 식별자·목록·수치의 기본 무결성을 검사한다.</summary>
         private static void Validate(SaveData data)
@@ -119,7 +161,7 @@ namespace TakeOver.NPC
             {
                 if (state == null || string.IsNullOrWhiteSpace(state.npcId) || !ids.Add(state.npcId)
                     || state.memories == null || state.relation.lastUpdatedTurn < 0
-                    || state.relation.lastUpdatedTurn > data.currentTurn || !IsFinite(state.relation))
+                    || state.relation.lastUpdatedTurn > data.currentTurn || !IsValidState(state.relation))
                     throw new InvalidDataException("NPC 식별자 또는 상태가 올바르지 않습니다.");
                 var memoryIds = new HashSet<string>(StringComparer.Ordinal);
                 foreach (var memory in state.memories)
@@ -142,9 +184,10 @@ namespace TakeOver.NPC
 
         private static bool IsFinite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
         private static bool IsUnitValue(float value) => IsFinite(value) && value >= 0f && value <= 1f;
-        private static bool IsFinite(NpcRelationState value) => IsFinite(value.trust) && IsFinite(value.respect)
-            && IsFinite(value.fear) && IsFinite(value.hostility) && IsFinite(value.dependency) && IsFinite(value.interest);
+        private static bool IsRelationValue(float value) => IsFinite(value) && value >= -100f && value <= 100f;
+        private static bool IsValidState(NpcRelationState value) => IsRelationValue(value.trust)
+            && IsRelationValue(value.respect) && IsRelationValue(value.closeness);
         private static bool IsFinite(NpcRelationDelta value) => IsFinite(value.trust) && IsFinite(value.respect)
-            && IsFinite(value.fear) && IsFinite(value.hostility) && IsFinite(value.dependency) && IsFinite(value.interest);
+            && IsFinite(value.closeness);
     }
 }

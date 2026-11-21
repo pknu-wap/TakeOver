@@ -18,6 +18,7 @@ namespace TakeOver.Events
 
     public sealed partial class EventNegotiationView : MonoBehaviour
     {
+        internal static readonly Vector2 LayoutSize = new Vector2(1280, 720);
         [SerializeField] private Text speakerText;
         [SerializeField] private Text dialogueText;
         [SerializeField] private CanvasGroup questionBlock;
@@ -37,7 +38,6 @@ namespace TakeOver.Events
         [SerializeField] private RectTransform playerInitialFrame;
         [SerializeField] private RectTransform playerReplyFrame;
         [SerializeField] private Button closeButton;
-        [SerializeField, Min(0)] private float responseDelay = 0.8f;
         private readonly List<Button> choices = new List<Button>();
         private Vector2 questionPosition;
         private Vector2 responsePosition;
@@ -80,6 +80,7 @@ namespace TakeOver.Events
 
         private void initialize()
         {
+            FitLayout();
             if (initialized) return;
             initialized = true;
             if (defaultBackground == null) defaultBackground = roomBackground.sprite;
@@ -89,6 +90,25 @@ namespace TakeOver.Events
             configureBodyLayout(false);
             ensureSkipButton();
             AlignButtonCenters(closeButton, skipButton);
+        }
+
+        internal static float LayoutScale(Vector2 viewport) =>
+            Mathf.Min(1, Mathf.Min(viewport.x / LayoutSize.x, viewport.y / LayoutSize.y));
+
+        private void LateUpdate() => FitLayout();
+
+        private void FitLayout()
+        {
+            var rect = (RectTransform)transform;
+            if (!(rect.parent is RectTransform parent)) return;
+            Vector2 viewport = parent.rect.size;
+            float scale = LayoutScale(viewport);
+            if (scale <= 0) return;
+
+            // Keep the authored control positions inside the viewport while the stage still fills it.
+            Vector2 extraSize = viewport / scale - viewport;
+            if (rect.sizeDelta != extraSize) rect.sizeDelta = extraSize;
+            if (rect.localScale.x != scale) rect.localScale = new Vector3(scale, scale, 1);
         }
 
         private void configureBodyLayout(bool narration)
@@ -153,9 +173,10 @@ namespace TakeOver.Events
             Vector3 targetCenter = target.transform.TransformPoint(((RectTransform)target.transform).rect.center);
             Vector3 targetPivot = parent.InverseTransformPoint(targetCenter) +
                 Vector3.Scale(rect.rect.size, rect.pivot - new Vector2(.5f, .5f));
-            Vector2 anchor = parent.rect.min + Vector2.Scale(parent.rect.size, rect.anchorMin);
             Vector2 position = rect.anchoredPosition;
-            position.y = targetPivot.y - anchor.y;
+            position.x += (rect.anchorMin.x - 1) * LayoutSize.x;
+            rect.anchorMin = rect.anchorMax = new Vector2(1, 0);
+            position.y = targetPivot.y - parent.rect.yMin;
             rect.anchoredPosition = position;
         }
 
@@ -315,9 +336,9 @@ namespace TakeOver.Events
             Button button = Instantiate(choiceTemplate, choicesRoot);
             button.name = $"Choice{index}";
             RectTransform buttonRect = (RectTransform)button.transform;
-            buttonRect.anchorMin = buttonRect.anchorMax = new Vector2(0, 1);
+            buttonRect.anchorMin = buttonRect.anchorMax = new Vector2(1, 0);
             buttonRect.pivot = new Vector2(0, 1);
-            buttonRect.anchoredPosition = new Vector2(1249, -(628 - (count - 1 - index) * 88)) * (2f / 3f);
+            buttonRect.anchoredPosition = new Vector2(1249 * (2f / 3f) - LayoutSize.x, LayoutSize.y - (628 - (count - 1 - index) * 88) * (2f / 3f));
             buttonRect.sizeDelta = new Vector2(454, 70) * (2f / 3f);
             Text title = button.transform.Find("Title").GetComponent<Text>();
             Text description = button.transform.Find("Description").GetComponent<Text>();
@@ -329,6 +350,7 @@ namespace TakeOver.Events
             title.rectTransform.sizeDelta = new Vector2(-41, 25) * (2f / 3f);
             description.text = detail;
             description.gameObject.SetActive(!string.IsNullOrWhiteSpace(detail));
+            description.rectTransform.sizeDelta = new Vector2(-33f, 23f);
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => selected?.Invoke());
             button.interactable = true;
@@ -339,7 +361,16 @@ namespace TakeOver.Events
         private void ensureSkipButton()
         {
             if (skipButton != null) return;
-            skipButton = CreateActionButton(transform, "Skip to choice", "스킵", SkipToNextChoice, useInformationStyle: false);
+            const string name = "Skip to choice";
+            skipButton = transform.Find(name)?.GetComponent<Button>();
+            if (skipButton == null) skipButton = CreateActionButton(transform, name, "스킵", SkipToNextChoice, useInformationStyle: false);
+            else
+            {
+                skipButton.onClick.RemoveAllListeners();
+                skipButton.onClick.AddListener(SkipToNextChoice);
+                refreshSkipButton();
+                return;
+            }
             var rect = (RectTransform)skipButton.transform;
             rect.anchorMin = rect.anchorMax = Vector2.zero; rect.pivot = Vector2.zero;
             rect.anchoredPosition = new Vector2(56, 248); rect.sizeDelta = new Vector2(164, 42);

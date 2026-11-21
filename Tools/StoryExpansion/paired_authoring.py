@@ -30,7 +30,7 @@ def compile_paired_campaign(legacy):
         answers = simple_answers(speaker, [(t, r) for t, r in (titles or [('확인', '오늘 확인한 범위에서 정리하겠습니다.')])])
         for i, answer in enumerate(answers):
             answer['npcResult'] = {'targetNpcIds': [NPC[speaker]], 'memoryType': 8, 'durationTurns': 3, 'strength': 1, 'publicity': 0, 'reliability': 1,
-                'interpretation': '투자 검토 대화에서 ' + answer['choiceText'], 'relationDelta': {'respect': 1 if i == 0 else 0, 'interest': 1 if i == 1 else 0}}
+                'interpretation': '투자 검토 대화에서 ' + answer['choiceText'], 'relationDelta': {'respect': 1 if i == 0 else 0, 'closeness': 1 if i == 1 else 0}}
         if not opening or opening[-1].get('player') or opening[-1].get('narration'):
             opening.append(spoken(speaker, '어떤 방향으로 검토하실지 말씀해주시겠어요?' if len(answers) > 1 else '확인하셨으면 말씀해주세요.'))
         item = definition(event_id, title or event_id, speaker, opening, answers, company, category=1, campaignDay=day,
@@ -180,7 +180,6 @@ def expand_company_intro():
     text = read('PROTAGONIST_COMPANY_STAKES_KO.md')
     _, block = heading_block(text, '## 3.')
     additions = lines(block)
-    additions.append(narrated('첫 투자 계획은 회사의 초기 사업 검토 대상이다. 기한에 목표를 달성하지 못하면 후속 출자와 대표의 독립 운용이 재검토되어 회사의 종료 서사로 이어진다. 잔여 현금과 회사 경영권은 별개다.'))
     result=[]
     for beat in beats:
         result.append(beat)
