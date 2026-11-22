@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class CompanyHistory
 {
-    private const int MAX_HISTORY = 5;
+    internal const int MAX_HISTORY = 5;
 
     private CompanyState state;
     private List<CompanyHistoryEntry> history

@@ -70,7 +70,7 @@ namespace TakeOver.Events
             var mission = ActiveMission;
             if (mission != null && mission.dueDay + campaignDayOffset - day == 1)
             {
-                string note = "내일 시작에 투자 목표 판정: " + MissionRequirement.Replace("\n", " / ");
+                string note = NewsFeed.MissionNewsPrefix + MissionRequirement.Replace("\n", " / ");
                 FindFirstObjectByType<FloatingMessage>()?.Show("내일 시작에 투자 목표를 판정합니다.");
                 FindFirstObjectByType<NewsFeed>()?.addNews(day, note, mission.goals.Select(g => g.companyId).ToArray(), string.Empty);
             }

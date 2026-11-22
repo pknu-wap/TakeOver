@@ -20,13 +20,13 @@ namespace TakeOver.NPC
                 + $"\n기록 ID: {memory.memoryId}";
         }
 
-        private static string FormatDelta(NpcRelationDelta delta)
+        internal static string FormatDelta(NpcRelationDelta delta)
         {
             var parts = new System.Collections.Generic.List<string>();
-            var names = new[] { "신뢰–적대감", "존중–두려움", "친밀–경계" };
+            var names = new[] { "신뢰", "존중", "친밀" };
             var values = new[] { delta.trust, delta.respect, delta.closeness };
             for (var i = 0; i < names.Length; i++)
-                if (values[i] != 0) parts.Add($"{names[i]} {values[i]:+0.##;-0.##;0}");
+                if (values[i] != 0) parts.Add($"{names[i]} {System.Math.Abs(values[i]):0.##} {(values[i] > 0 ? "증가" : "감소")}");
             return parts.Count == 0 ? "변화 없음" : string.Join(" · ", parts);
         }
 

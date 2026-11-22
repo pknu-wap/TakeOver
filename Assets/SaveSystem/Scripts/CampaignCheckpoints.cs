@@ -21,7 +21,7 @@ namespace TakeOver.SaveSystem
         {
             string json = CheckpointStorage(run, mission).read();
             var data = JsonUtility.FromJson<SaveFileData>(json);
-            if (data == null || data.formatVersion != SaveFileData.currentFormatVersion || data.sections == null) throw new InvalidDataException("준비 저장 형식이 다릅니다.");
+            if (data == null || !IsReadableFormat(data.formatVersion) || data.sections == null) throw new InvalidDataException("준비 저장 형식이 다릅니다.");
             var events = data.sections.Single(s => s.id == "events");
             var payload = JsonUtility.FromJson<EventSystemController.EventSaveData>(events.json);
             var plan = EarlyCampaignPlan.Load().missions.Single(m => m.id == mission);
@@ -35,8 +35,8 @@ namespace TakeOver.SaveSystem
             try
             {
                 var data = JsonUtility.FromJson<SaveFileData>(ReadCheckpoint(run, mission));
-                var modules = getParticipants(); validateFile(data, modules);
-                foreach (var module in modules)
+                var modules = getParticipants(); upgradeLegacySections(data, modules); validateFile(data, modules);
+                foreach (var module in PrepareOrder(modules))
                 {
                     var section = data.sections.Single(s => s.id == module.saveId);
                     module.prepareLoad(section.json, section.version, data.dayStart);

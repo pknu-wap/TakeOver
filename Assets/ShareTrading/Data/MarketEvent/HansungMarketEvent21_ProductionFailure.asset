@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HansungMarketEvent21_ProductionFailure
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "생산라인 고장"
-  description: "{targetCompany}의 생산라인에 고장이 발생했습니다."
+  description: "{targetCompany}의 주요 설비가 고장으로 멈췄다. 회사는 수리 인력을 부르고, 당장 납기가 임박한 물량을 다른 라인으로 돌리고 있다."
   MarketEventID: 21
   applyType: 2
   duration: 3

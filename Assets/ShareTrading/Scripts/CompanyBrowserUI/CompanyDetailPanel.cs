@@ -74,7 +74,7 @@ public class CompanyDetailPanel : MonoBehaviour
         if (turnClock != null) turnClock.TurnAdvanced += handleTurnAdvanced;
         gameObject.SetActive(true);
 
-        if (blurBackground != null)
+        if (blurBackground != null && SystemInfo.graphicsDeviceType != UnityEngine.Rendering.GraphicsDeviceType.Null)
         {
             StartCoroutine(openWithBlur());
         }
@@ -120,8 +120,8 @@ public class CompanyDetailPanel : MonoBehaviour
     {
         setVisible(false);
         yield return new WaitForEndOfFrame();   // 이번 프레임 그리기가 끝날 때까지 기다림
-        blurBackground.captureAndBlur();
-        setVisible(true);
+        try { blurBackground.captureAndBlur(); }
+        finally { setVisible(true); }
     }
 
     // CanvasGroup : 자식 UI 전체의 투명도와 클릭 여부를 한 번에 정하는 컴포넌트

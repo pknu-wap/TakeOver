@@ -14,6 +14,9 @@ namespace TakeOver.Operations
         [SerializeField] private Sprite[] panelSprites;
         [SerializeField] private Vector2 selectedLabelOffset;
         private TopBarNavigationController navigation;
+        public RectTransform TutorialContent => (RectTransform)System.Array.Find(subTabs, tab => tab.activeSelf).transform.parent;
+        public GameObject OtherTutorialContent => System.Array.Find(subTabs,
+            tab => tab.transform.parent != TutorialContent).transform.parent.gameObject;
 
         private void Awake()
         {
@@ -32,6 +35,18 @@ namespace TakeOver.Operations
         }
 
         public void close() => gameObject.SetActive(false);
+
+        public void ShowTutorialPage(bool employees, bool startups)
+        {
+            gameObject.SetActive(true);
+            for (int i = 0; i < subTabs.Length; i++)
+            {
+                if (employees && subTabs[i].GetComponentInChildren<TakeOver.Employees.EmployeeTabView>(true) != null ||
+                    startups && subTabs[i].GetComponentInChildren<StartupTabView>(true) != null ||
+                    !employees && !startups && subTabs[i] == documentsTab)
+                { Show(i); return; }
+            }
+        }
 
         public void Show(int index)
         {

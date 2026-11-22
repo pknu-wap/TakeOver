@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllMarketEvent205_OilPriceSurge
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "국제 유가 급등"
-  description: "국제 유가가 급등했습니다."
+  description: "원유 수급이 불안해지자 선사들은 다음 달 연료 할증료를 다시 계산하고 있다. 장기 배송 계약을 맺은 업체들도 비용 조건을 검토 중이다."
   MarketEventID: 205
   applyType: 2
   duration: 6

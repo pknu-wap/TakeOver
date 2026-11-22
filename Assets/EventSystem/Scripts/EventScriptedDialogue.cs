@@ -31,14 +31,16 @@ namespace TakeOver.Events
             bool choosing = !scriptedResult && scriptIndex == scriptLines.Count - 1 && !activeInfo.definition.IsLinearDialogue;
             negotiationView.ShowDialogue(new DialoguePresentation
             {
-                speaker = line.player ? "주인공" : line.narration ? "" : profile?.displayName ?? activeInfo.speakerName,
+                speaker = line.player ? EventNegotiationView.ProtagonistName() : line.narration ? "" : profile?.displayName ?? activeInfo.speakerName,
                 text = activeInfo.resolve(line.text), player = line.player, narration = line.narration,
                 npcStanding = profile?.standingIllustration ?? (profile != null ? NpcInfoPanel.FallbackStanding : null),
                 npcDimmed = profile?.dimmedStandingIllustration,
                 background = activeInfo.definition.getNegotiationBackground(),
                 choices = choosing ? Enumerable.Range(0, negotiationChoices.Count).Select(getNegotiationChoiceText).ToList() : null,
                 choiceDescriptions = choosing ? Enumerable.Range(0, negotiationChoices.Count).Select(getNegotiationChoiceDescription).ToList() : null
-            }, AdvanceScriptLine, confirmChoice, SkipScriptLine, () => activeInfo != null && !choosing && (!activeInfo.definition.IsLinearDialogue || scriptedResult || scriptIndex < scriptLines.Count - 1));
+            }, AdvanceScriptLine, confirmChoice, SkipScriptLine,
+                () => activeInfo != null && !choosing && (!activeInfo.definition.IsLinearDialogue || scriptedResult || scriptIndex < scriptLines.Count - 1),
+                fadeSkip: true);
             negotiationView.SetDialogueInput(true);
         }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HaneulMarketEvent14_MaterialCostReduction
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "원재료 매입원가 절감"
-  description: "{targetCompany}이 원재료 매입원가 절감에 성공했습니다."
+  description: "{targetCompany} 측이 주요 원재료의 새 공급 계약을 맺었다. 업체는 기존 제품 가격을 유지하고 다음 생산분부터 새 계약 단가를 적용할 계획이다."
   MarketEventID: 14
   applyType: 2
   duration: 6

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllMarketEvent201_InterestRateIncrease
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "기준금리 인상"
-  description: "기준금리가 인상되었습니다."
+  description: "은행권이 새 대출 금리를 검토하자 기업 재무팀들은 만기가 돌아오는 차입금과 미뤄 둔 투자 일정을 다시 살피고 있다."
   MarketEventID: 201
   applyType: 2
   duration: 6

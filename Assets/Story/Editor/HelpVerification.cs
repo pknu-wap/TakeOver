@@ -93,6 +93,7 @@ public sealed class HelpProbe:MonoBehaviour
         TakeOver.Story.StoryLaunch.RequestNewGame(true);
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
         yield return null;yield return null;
+        yield return SessionSaveVerification.EnterProtagonistName("한서윤");
         float until=Time.realtimeSinceStartup+45;
         while((TakeOver.Story.StoryDirector.IsRunning || GameObject.Find("Tutorial completion notice")==null) && Time.realtimeSinceStartup<until)yield return null;
         UnityEngine.Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b=>b.name=="Confirm tutorial reward").onClick.Invoke();

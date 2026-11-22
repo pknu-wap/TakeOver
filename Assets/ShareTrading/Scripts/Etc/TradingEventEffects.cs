@@ -20,7 +20,8 @@ public class TradingEventEffects : MonoBehaviour
                 break;
 
             case "stock_manipulation_01":
-                float value = FixedDaySeed.range(FixedDaySeed.seed, info.stockSurgeMinRatio, info.stockSurgeMaxRatio);
+                float roll = (float)(FixedDaySeed.StableOrder(info.currentDay, "surge:" + info.occurrenceId + ":" + info.stockSurgeCompanyId) / 4294967296d);
+                float value = Mathf.Lerp(info.stockSurgeMinRatio, info.stockSurgeMaxRatio, roll);
                 stockManipulationAccept.applyEventEffect(info.stockSurgeCompanyId, 1, value);
                 break;
 

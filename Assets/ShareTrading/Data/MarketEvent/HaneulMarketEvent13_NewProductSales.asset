@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HaneulMarketEvent13_NewProductSales
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "신제품 판매 흥행"
-  description: "{targetCompany}의 신제품이 판매 호조를 보이고 있습니다."
+  description: "{targetCompany}의 신제품을 들여온 일부 매장이 추가 물량을 요청했다. 회사는 다음 생산분을 어느 매장에 먼저 보낼지 조율 중이다."
   MarketEventID: 13
   applyType: 3
   duration: 6

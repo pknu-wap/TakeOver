@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using TakeOver.Events;
 using TakeOver.NPC;
+using TakeOver.Story;
 
 namespace TakeOver.Journal
 {
@@ -10,13 +11,13 @@ namespace TakeOver.Journal
     public static class JournalEntryBuilder
     {
         
-        private static readonly string[] axisNames = { "신뢰–적대감", "존중–두려움", "친밀–경계" };
+        private static readonly string[] axisNames = { "신뢰", "존중", "친밀" };
 
         
         public static List<JournalEntry> buildStoryEntries(EventSystemController events, NpcStateRegistry npcs)
         {
-            var entries = new List<JournalEntry>();
-            if (events == null) return entries;
+            if (events == null) return new List<JournalEntry>();
+            var entries = buildTutorialEntries(events, npcs);
 
             foreach (EventDefinition definition in events.StoryEvents)
             {
@@ -38,6 +39,45 @@ namespace TakeOver.Journal
                 .ThenBy(item => item.order)
                 .Select(item => item.entry)
                 .ToList();
+        }
+
+        private static List<JournalEntry> buildTutorialEntries(EventSystemController events, NpcStateRegistry npcs)
+        {
+            var entries = new List<JournalEntry>();
+            JournalEntry visit = null;
+            var definition = events.TutorialVisit;
+            if (definition != null && events.tryGetChoice(definition.getId(), out int choiceIndex))
+            {
+                visit = buildEntry(definition, definition.getChoices()[choiceIndex], events, npcs);
+                visit.resolvedDay = events.TutorialVisitResolvedDay;
+            }
+
+            var decisions = events.TutorialDecisions.ToDictionary(item => item.beatId);
+            var sequence = StoryLaunch.IntroPrefab?.GetComponent<StoryDirector>()?.Sequence;
+            if (sequence != null)
+                foreach (var beat in sequence.beats)
+                {
+                    if (beat.goal == StoryGoal.CompleteEvent && visit != null)
+                    {
+                        entries.Add(visit);
+                        visit = null;
+                    }
+                    if (!decisions.TryGetValue(beat.id, out var decision)) continue;
+                    var choice = beat.choices[decision.choice];
+                    var entry = new JournalEntry
+                    {
+                        eventId = "tutorial:" + beat.id,
+                        title = string.Join(" · ", beat.sceneTitle.Split('/').Select(part => part.Trim())),
+                        summary = choice.interpretation,
+                        photo = beat.background,
+                        resolvedDay = decision.day
+                    };
+                    entry.keyPoints.Add("나의 선택: " + choice.title);
+                    addPerson(entry, choice.targetNpcId, null, npcs);
+                    entries.Add(entry);
+                }
+            if (visit != null) entries.Add(visit);
+            return entries;
         }
 
         private static JournalEntry buildEntry(EventDefinition definition, EventChoice choice,
@@ -104,7 +144,7 @@ namespace TakeOver.Journal
             for (int i = 0; i < values.Length; i++)
             {
                 if (Mathf.Abs(values[i]) < 0.05f) continue;
-                parts.Add(axisNames[i] + " " + values[i].ToString("+0.#;-0.#"));
+                parts.Add(axisNames[i] + " " + Mathf.Abs(values[i]).ToString("0.#") + (values[i] > 0 ? " 증가" : " 감소"));
             }
             return parts.Count == 0 ? null : string.Join(" · ", parts);
         }

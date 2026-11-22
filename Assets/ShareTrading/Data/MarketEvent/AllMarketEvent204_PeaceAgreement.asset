@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllMarketEvent204_PeaceAgreement
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "종전 및 평화협정 체결"
-  description: "종전 및 평화협정 체결 소식이 전해졌습니다."
+  description: "협정 체결 소식에 선사들이 중단했던 항로의 재개를 검토하고 있다. 현지 바이어들도 보류해 둔 발주 일정을 다시 문의했다."
   MarketEventID: 204
   applyType: 3
   duration: 8

@@ -25,6 +25,7 @@ public class ShareTradingSystem : MonoBehaviour
         company.calculator.calculateAboutShares(company);
         Debug.Log($"{company}, {buyAmount} 구매");
         player.printLog();
+        TakeOver.SaveSystem.GameSessionCoordinator.Active?.SaveSettledState();
         // company.printLog();
         return true;
     }
@@ -45,6 +46,7 @@ public class ShareTradingSystem : MonoBehaviour
         company.calculator.calculateAboutShares(company);
         Debug.Log($"{company}, {sellAmount} 판매");
         player.printLog();
+        TakeOver.SaveSystem.GameSessionCoordinator.Active?.SaveSettledState();
         // company.printLog();
         return true;
     }

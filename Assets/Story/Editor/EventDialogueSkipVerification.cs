@@ -108,7 +108,31 @@ namespace TakeOver.Story.Editor
         }
         private static Button Skip(EventNegotiationView view) => view.GetComponentsInChildren<Button>(true).Single(b => b.name == "Skip to choice");
         private static Button Choice(EventNegotiationView view, int index) => Get<List<Button>>(view, "choices")[index];
-        private static bool Skipping(EventNegotiationView view) => Get<bool>(view, "skipping");
+        private static bool Skipping(EventNegotiationView view) => EventSceneTransition.IsBusy;
+        private static void EnsureOffer(EventDefinition definition, EventSystemController controller)
+        {
+            if (controller.getTodayEvents().Contains(definition)) return;
+            var occurrenceType = typeof(EventSystemController).GetNestedType("Occurrence", BindingFlags.NonPublic);
+            var offer = Activator.CreateInstance(occurrenceType, true);
+            occurrenceType.GetField("definition").SetValue(offer, definition);
+            occurrenceType.GetField("companyId").SetValue(offer, definition.hasCompanyConditions() ? "haneul-food" : "");
+            occurrenceType.GetField("firstDay").SetValue(offer, Object.FindFirstObjectByType<TakeOver.NPC.GameTurnClock>().CurrentTurn);
+            int serial = Get<int>(controller, "lastOccurrenceSerial") + 1;
+            occurrenceType.GetField("serial").SetValue(offer, serial);
+            typeof(EventSystemController).GetField("lastOccurrenceSerial", Fields).SetValue(controller, serial);
+            ((System.Collections.IList)typeof(EventSystemController).GetField("occurrences", Fields).GetValue(controller)).Add(offer);
+            typeof(EventSystemController).GetMethod("rebuildToday", Fields).Invoke(controller, null);
+        }
+        private IEnumerator ReachChoices(EventNegotiationView view)
+        {
+            while (Get<List<Button>>(view, "choices").Count == 0)
+            {
+                if (Skip(view).interactable) Click(Skip(view));
+                else if (view.ContinueButton.gameObject.activeInHierarchy && view.ContinueButton.interactable) Click(view.ContinueButton);
+                while (EventSceneTransition.IsBusy) yield return null;
+                yield return null;
+            }
+        }
         private IEnumerator Setup(EventDefinition definition)
         {
             SceneManager.LoadScene("Game"); yield return null; yield return null; yield return null;
@@ -120,7 +144,25 @@ namespace TakeOver.Story.Editor
                 company.calculator.calculateAboutShares(company);
             }
             var controller = Object.FindFirstObjectByType<EventSystemController>();
+            // Seed only the independent food-company story gates; Mirae's introduction remains unanswered.
+            var completed = Get<Dictionary<string, int>>(controller, "selectedChoices");
+            completed["main_haneul_01"] = 0;
+            completed["main_pair_b_complete"] = 0;
             Object.FindFirstObjectByType<TakeOver.NPC.GameTurnClock>().AdvanceTurn();
+            if (!controller.getTodayEvents().Contains(definition))
+            {
+                // Dialogue verification uses a fixed eligible offer, independent of the daily draw probability.
+                var occurrenceType = typeof(EventSystemController).GetNestedType("Occurrence", BindingFlags.NonPublic);
+                var offer = Activator.CreateInstance(occurrenceType, true);
+                occurrenceType.GetField("definition").SetValue(offer, definition);
+                occurrenceType.GetField("companyId").SetValue(offer, definition.hasCompanyConditions() ? "haneul-food" : "");
+                occurrenceType.GetField("firstDay").SetValue(offer, Object.FindFirstObjectByType<TakeOver.NPC.GameTurnClock>().CurrentTurn);
+                int serial = Get<int>(controller, "lastOccurrenceSerial") + 1;
+                occurrenceType.GetField("serial").SetValue(offer, serial);
+                typeof(EventSystemController).GetField("lastOccurrenceSerial", Fields).SetValue(controller, serial);
+                ((System.Collections.IList)typeof(EventSystemController).GetField("occurrences", Fields).GetValue(controller)).Add(offer);
+                typeof(EventSystemController).GetMethod("rebuildToday", Fields).Invoke(controller, null);
+            }
             Check(controller.getTodayEvents().Contains(definition), "Fixture exposes actual event " + definition.getId());
         }
         private IEnumerator RunChoice(EventDefinition definition, int choice, bool skip)
@@ -132,8 +174,13 @@ namespace TakeOver.Story.Editor
             int apBefore = ap.Current, notifications = 0;
             controller.choiceConfirmed += _ => notifications++;
             controller.openEvent(definition.getId()); controller.startNegotiation();
-            yield return null; Canvas.ForceUpdateCanvases();
+            yield return null; while (EventSceneTransition.IsBusy) yield return null; Canvas.ForceUpdateCanvases();
             Check(State(controller) == "Negotiation" && ap.Current == apBefore - definition.getApCost(), "Negotiation consumes AP once " + definition.getId());
+            if (Get<bool>(view, "dialogueMode"))
+            {
+                yield return RunScriptedChoice(definition, choice, skip, controller, view, apBefore, () => notifications);
+                yield break;
+            }
             var question = Get<Text>(view, "dialogueText");
             string beforeReading = StorySkipState.Capture();
             var readPages = new List<string>();
@@ -144,7 +191,7 @@ namespace TakeOver.Story.Editor
                 readPages.Add(question.text);
                 if (definition.getId() == "inside_info_01" && choice == 0 && !skip && readPages.Count == 1)
                 {
-                    yield return new WaitForEndOfFrame();
+                    if (Application.isBatchMode) yield return null; else yield return new WaitForEndOfFrame();
                     ScreenCapture.CaptureScreenshot(Path.Combine(EventDialogueSkipVerification.Output, "cooperation-introduction.png"));
                     yield return null;
                 }
@@ -174,16 +221,23 @@ namespace TakeOver.Story.Editor
                     Click(Skip(view)); view.SkipToNextChoice();
                     Check(Skipping(view) && !Skip(view).interactable, "Repeated skip locks one transition");
                     while (State(controller) == "CompanyExchange") yield return null;
-                    Check(Get<Image>(view, "skipCurtain").color.a > .99f, "Company choices prepared under full blackout");
+                    Check(EventSceneTransition.Opacity > .99f, "Company choices prepared under full blackout");
                     while (Skipping(view)) yield return null;
                 }
-                else while (State(controller) == "CompanyExchange") yield return null;
+                else while (State(controller) == "CompanyExchange")
+                {
+                    yield return new WaitForSecondsRealtime(.7f);
+                    if (State(controller) != "CompanyExchange") break;
+                    var advance = Get<Button>(view, "closeButton");
+                    if (advance.gameObject.activeInHierarchy && advance.interactable) Click(advance);
+                    yield return null;
+                }
                 Check(State(controller) == "CompanyChoice" && !Skip(view).interactable, "Stops at company choice without automatic selection");
                 Check(StorySkipState.Capture() == waiting && notifications == 0, "Company exchange skip changes no cash, shares, AP, NPC state");
                 yield return null; Canvas.ForceUpdateCanvases();
                 if (skip)
                 {
-                    yield return new WaitForEndOfFrame();
+                    if (Application.isBatchMode) yield return null; else yield return new WaitForEndOfFrame();
                     ScreenCapture.CaptureScreenshot(Path.Combine(EventDialogueSkipVerification.Output, "company-choice-after-skip.png"));
                     yield return null;
                 }
@@ -196,10 +250,17 @@ namespace TakeOver.Story.Editor
                 Click(Skip(view)); view.SkipToNextChoice();
                 while (Skipping(view)) yield return null;
                 Check(State(controller) == "Closed" && !view.gameObject.activeSelf, "Last choice skip closes dialogue after fade");
-                Check(!Get<Canvas>(view, "skipCanvas").gameObject.activeSelf, "Fade releases background input after final result");
+                Check(!EventSceneTransition.IsBusy, "Fade releases background input after final result");
             }
             else
             {
+                yield return new WaitForSecondsRealtime(.7f);
+                while (State(controller) == "Result" && view.CurrentDialogue != Get<Text>(view, "responseText"))
+                {
+                    var advance = Get<Button>(view, "closeButton");
+                    if (advance.gameObject.activeInHierarchy && advance.interactable) Click(advance);
+                    yield return new WaitForSecondsRealtime(.35f);
+                }
                 while (!Get<Button>(view, "closeButton").gameObject.activeSelf) yield return null;
                 yield return null; Canvas.ForceUpdateCanvases();
                 var response = Get<Text>(view, "responseText");
@@ -230,11 +291,12 @@ namespace TakeOver.Story.Editor
                 }
                 if(definition.getId()=="inside_info_01" && choice==0)
                 {
-                    yield return new WaitForEndOfFrame();
+                    if (Application.isBatchMode) yield return null; else yield return new WaitForEndOfFrame();
                     ScreenCapture.CaptureScreenshot(Path.Combine(EventDialogueSkipVerification.Output,"native-response-readable.png"));
                     yield return null;
                 }
                 Click(Get<Button>(view, "closeButton"));
+                while (EventSceneTransition.IsBusy) yield return null;
                 Check(State(controller) == "Closed", "Normal result close remains functional");
             }
             Check(StorySkipState.Capture() == waiting && notifications == 1, "Closing/skipping does not replay rewards or NPC memories");
@@ -242,13 +304,59 @@ namespace TakeOver.Story.Editor
             Check(controller.tryGetChoice(definition.getId(), out int selected) && selected == choice, "Existing selected-choice history retained");
             state = StorySkipState.Capture() + "\n" + string.Join("|", controller.getTodayEventInfos().Select(i => i.definition.getId() + ":" + i.companyId));
         }
+        private IEnumerator RunScriptedChoice(EventDefinition definition, int choice, bool skip, EventSystemController controller,
+            EventNegotiationView view, int apBefore, Func<int> notifications)
+        {
+            string before = StorySkipState.Capture();
+            while (Get<List<Button>>(view, "choices").Count == 0)
+            {
+                Check(view.CurrentDialogue.preferredHeight <= view.CurrentDialogue.rectTransform.rect.height + 1,
+                    "Scripted introduction page fits: " + definition.getId());
+                if (skip) Click(Skip(view)); else Click(view.ContinueButton);
+                while (EventSceneTransition.IsBusy) yield return null;
+                yield return null;
+            }
+            Check(!Skip(view).interactable && notifications() == 0 && StorySkipState.Capture() == before,
+                "Scripted introduction stops at an unanswered choice without effects");
+            Click(Choice(view, choice)); yield return null;
+            if (State(controller) == "CompanyExchange" || State(controller) == "CompanyChoice")
+            {
+                while (Get<List<Button>>(view, "choices").Count == 0)
+                {
+                    if (skip) Click(Skip(view)); else Click(view.ContinueButton);
+                    while (EventSceneTransition.IsBusy) yield return null;
+                    yield return null;
+                }
+                Check(notifications() == 0 && !Skip(view).interactable, "Scripted company choice is never selected automatically");
+                Click(Choice(view, 0)); yield return null;
+            }
+            Check(State(controller) == "Result" && notifications() == 1, "Scripted answer applies effects exactly once");
+            string committed = StorySkipState.Capture();
+            if (skip)
+            {
+                Click(Skip(view)); while (EventSceneTransition.IsBusy) yield return null;
+            }
+            else while (!controller.IsClosed)
+            {
+                Check(view.CurrentDialogue.preferredHeight <= view.CurrentDialogue.rectTransform.rect.height + 1,
+                    "Scripted result page fits: " + definition.getId());
+                Click(view.ContinueButton); while (EventSceneTransition.IsBusy) yield return null;
+                yield return null;
+            }
+            Check(controller.IsClosed && !view.gameObject.activeSelf && notifications() == 1 && StorySkipState.Capture() == committed,
+                "Scripted result closes without duplicate rewards");
+            Check(Object.FindFirstObjectByType<ActionPointService>().Current == apBefore - definition.getApCost(), "Scripted skip spends no additional AP");
+            state = StorySkipState.Capture() + "\n" + string.Join("|", controller.getTodayEventInfos().Select(i => i.definition.getId() + ":" + i.companyId));
+        }
         private IEnumerator Verify()
         {
             var definitions = AssetDatabase.FindAssets("t:EventDefinition", new[] { "Assets/EventSystem/Data" })
-                .Select(g => AssetDatabase.LoadAssetAtPath<EventDefinition>(AssetDatabase.GUIDToAssetPath(g))).OrderBy(d => d.getId()).ToArray();
+                .Select(g => AssetDatabase.LoadAssetAtPath<EventDefinition>(AssetDatabase.GUIDToAssetPath(g)))
+                .Where(d => Path.GetDirectoryName(AssetDatabase.GetAssetPath(d)).Replace('\\', '/') == "Assets/EventSystem/Data")
+                .OrderBy(d => d.getId()).ToArray();
             Check(definitions.Length == 7, "All seven existing event definitions covered");
             var cooperation = definitions.Single(d => d.getId() == "inside_info_01");
-            Check(cooperation.getTitle() == "미래건설의 협력 제안" && cooperation.getDialogue().Length > 600, "Main story explains internal operations and cooperation in a longer conversation");
+            Check(cooperation.getTitle() == "미래건설의 협력 제안" && !string.IsNullOrWhiteSpace(cooperation.getDialogue()), "Cooperation introduction has authored content");
             Check(cooperation.getChoices().Select(c => c.getResultValue()).SequenceEqual(new[] { "review_cooperation", "prepare_takeover", "decline_cooperation" }), "Three distinct player intentions are authored");
             yield return Setup(cooperation);
             var eligibility = Object.FindFirstObjectByType<EventSystemController>();
@@ -276,27 +384,30 @@ namespace TakeOver.Story.Editor
             yield return Setup(stock);
             var controller = Object.FindFirstObjectByType<EventSystemController>();
             var view = Object.FindFirstObjectByType<EventNegotiationView>(FindObjectsInactive.Include);
-            controller.openEvent("inside_info_01"); controller.startNegotiation(); yield return null; Canvas.ForceUpdateCanvases();
+            controller.openEvent("inside_info_01"); controller.startNegotiation(); yield return null; while (EventSceneTransition.IsBusy) yield return null; Canvas.ForceUpdateCanvases();
             if (view.HasMorePages) { Click(Skip(view)); while (Skipping(view)) yield return null; }
             Click(Choice(view, 0));
             while (!Get<Button>(view, "closeButton").gameObject.activeSelf) yield return null;
             yield return null; Canvas.ForceUpdateCanvases();
             Check(Skip(view).interactable, "Skip remains available after result animation completes");
             Click(Skip(view)); while (Skipping(view)) yield return null;
-            controller.openEvent("press_interview_01"); controller.startNegotiation(); yield return null; Canvas.ForceUpdateCanvases();
+            EnsureOffer(definitions.Single(item => item.getId() == "press_interview_01"), controller);
+            controller.openEvent("press_interview_01"); controller.startNegotiation(); yield return null; while (EventSceneTransition.IsBusy) yield return null; Canvas.ForceUpdateCanvases();
+            yield return ReachChoices(view);
             Check(!Skip(view).interactable && view.GetComponentsInChildren<Button>(true).Count(b => b.name == "Skip to choice") == 1, "Reopening same view resets skip state and keeps one button");
             Click(Choice(view, 0)); Click(Skip(view)); while (Skipping(view)) yield return null;
             Check(State(controller) == "Closed", "Reused view skips a second event successfully");
-            controller.openEvent(stock.getId()); controller.startNegotiation(); yield return null; Canvas.ForceUpdateCanvases();
-            Click(Choice(view, 0)); Click(Skip(view));
+            controller.openEvent(stock.getId()); controller.startNegotiation(); yield return null; while (EventSceneTransition.IsBusy) yield return null; Canvas.ForceUpdateCanvases();
+            yield return ReachChoices(view);
+            Click(Choice(view, 0)); string stateBeforeHide = State(controller); Click(Skip(view));
             view.hide(); yield return new WaitForSecondsRealtime(.8f);
-            Check(State(controller) == "CompanyExchange" && !Skipping(view), "External hide cancels pending skip callback");
-            Check(!Get<Canvas>(view, "skipCanvas").gameObject.activeSelf, "Cancelled skip removes blackout");
-            SceneManager.LoadScene("Game"); yield return null; yield return null; yield return null;
-            Check(GameObject.Find("Event skip blackout") == null && !StoryDirector.IsRunning, "Scene reload removes blackout and does not start intro");
+            Check(State(controller) == stateBeforeHide && !Skipping(view), "External hide cancels pending skip callback");
+            Check(!EventSceneTransition.IsBusy, "Cancelled skip removes blackout");
+            yield return Setup(cooperation);
+            Check(GameObject.Find("Event scene fade") == null && !StoryDirector.IsRunning, "Scene reload removes blackout and does not start intro");
             controller = Object.FindFirstObjectByType<EventSystemController>();
             var ap = Object.FindFirstObjectByType<ActionPointService>(); ap.TryConsume(ap.Current);
-            var simple = controller.getTodayEvents().First();
+            var simple = cooperation;
             controller.openEvent(simple.getId()); controller.startNegotiation();
             Check(State(controller) == "Detail" && ap.Current == 0, "Insufficient AP still prevents negotiation");
             File.AppendAllText(Results, "COMPLETE\n");

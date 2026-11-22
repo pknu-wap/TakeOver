@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -165,13 +166,9 @@ public class DashboardCardSlide : MonoBehaviour
         currentIndex = 0;
         if (infos != null && infos.Count > 0)
         {
-            List<TodayEventInfo> shuffledInfos = ShuffleList(infos);
-            if (TakeOver.Story.StoryDirector.IsGuidingEvent)
-                shuffledInfos.RemoveAll(info => info.definition.getId() != TakeOver.Story.StoryDirector.TutorialEventId);
-            for (int i = 0; i < shuffledInfos.Count; i++)
-            {
-                displayEventList.Add(shuffledInfos[i]);
-            }
+            bool tutorial = TakeOver.Story.StoryDirector.IsGuidingEvent;
+            displayEventList.AddRange(infos.Where(info => !tutorial || info.definition.getId() == TakeOver.Story.StoryDirector.TutorialEventId)
+                .OrderBy(eventController.CardOrder).ThenBy(info => info.definition.getId(), StringComparer.Ordinal));
         }
         SetAllCardsUI();
     }
@@ -430,20 +427,4 @@ public class DashboardCardSlide : MonoBehaviour
         return (cardUIList.Count - VisibleCardCount) / 2;
     }
 
-    private List<T> ShuffleList<T>(IReadOnlyList<T> list)
-    {
-        List<T> result = new List<T>(list);
-        var random = new System.Random(unchecked(TakeOver.SaveSystem.FixedDaySeed.seed ^ eventController.getCurrentDay() * 397));
-
-        for (int i = result.Count - 1; i > 0; i--)
-        {
-            int randomIndex = random.Next(i + 1);
-
-            T temp = result[i];
-            result[i] = result[randomIndex];
-            result[randomIndex] = temp;
-        }
-
-        return result;
-    }
 }

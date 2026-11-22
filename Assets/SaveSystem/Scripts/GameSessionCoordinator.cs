@@ -11,32 +11,39 @@ namespace TakeOver.SaveSystem
     {
         private static int requestedMode;
         private static string requestedRun, requestedMission;
+        private static int requestedSlot;
+        private int manualSlot;
         private GameSaveManager manager;
         private EventSystemController events;
         private GameTurnClock clock;
+        private TakeOver.Employees.EmployeeService employees;
+        private TakeOver.Documents.DocumentInbox documents;
         private bool loading = true, failed, dirty;
         private int mode;
         private string retryRun, retryMission;
         private bool checkpointPending;
         public static GameSessionCoordinator Active { get; private set; }
         public bool Ready => !loading && !failed;
+        internal bool IsRestoring => loading && mode != 1;
         public bool IsPersistenceBlocked => checkpointPending || manager != null && manager.hasPendingSave;
         public string LastError => manager != null ? manager.lastError : "저장 연결이 없습니다.";
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void Reset()
         {
-            requestedMode = 0; requestedRun = requestedMission = null; Active = null;
+            requestedMode = 0; requestedSlot = 0; requestedRun = requestedMission = null; Active = null;
             SceneManager.sceneLoaded -= Loaded; SceneManager.sceneLoaded += Loaded;
         }
         public static void RequestNewGame() => requestedMode = 1;
         public static void RequestContinue() { requestedMode = 2; StoryLaunch.ShowLaunchCurtain(); }
+        public static void RequestManualLoad(int slot) { requestedMode = 4; requestedSlot = slot; StoryLaunch.ShowLaunchCurtain(); }
         public static void RequestRetry(string run, string mission) { requestedMode = 3; requestedRun = run; requestedMission = mission; StoryLaunch.ShowLaunchCurtain(); }
         private static void Loaded(Scene scene, LoadSceneMode loadMode)
         {
             if (scene.name != "Game" || requestedMode == 0) return;
             var session = new GameObject("Game save session").AddComponent<GameSessionCoordinator>();
             session.mode = requestedMode; session.retryRun = requestedRun; session.retryMission = requestedMission; requestedMode = 0;
+            session.manualSlot = requestedSlot;
         }
         private void Awake()
         {
@@ -50,7 +57,8 @@ namespace TakeOver.SaveSystem
             manager = FindFirstObjectByType<GameSaveManager>();
             if (manager == null) manager = gameObject.AddComponent<GameSaveManager>();
             clock = FindFirstObjectByType<GameTurnClock>(); events = FindFirstObjectByType<EventSystemController>();
-            if (mode == 2 && !manager.tryLoad(out _) || mode == 3 && !manager.TryLoadCampaignCheckpoint(retryRun, retryMission, out _))
+            if (mode == 2 && !manager.tryLoad(out _) || mode == 3 && !manager.TryLoadCampaignCheckpoint(retryRun, retryMission, out _) ||
+                mode == 4 && !manager.TryLoadManualSlot(manualSlot, out _))
             {
                 failed = true; loading = false; StoryLaunch.DismissLaunchCurtain();
                 var view = FindFirstObjectByType<EventNegotiationView>(FindObjectsInactive.Include);
@@ -59,20 +67,51 @@ namespace TakeOver.SaveSystem
                     null, _ => SceneManager.LoadScene("MainMenu"), null, () => false);
                 view.SetDialogueInput(true); yield break;
             }
-            loading = false; dirty = mode == 1 || mode == 3;
+            if (mode == 1 && StoryLaunch.ShowNamePrompt(FinishLoading)) yield break;
+            FinishLoading();
+        }
+
+        private void FinishLoading()
+        {
+            loading = false; dirty = mode == 1 || mode == 3 || mode == 4;
             if (events != null) events.todayEventsChanged += MarkDirty;
-            if (clock != null) clock.DayStarted += DayStarted;
+            employees = FindFirstObjectByType<TakeOver.Employees.EmployeeService>();
+            if (employees != null) employees.Changed += MarkDirty;
+            documents = FindFirstObjectByType<TakeOver.Documents.DocumentSystem>()?.Inbox;
+            if (documents != null) documents.Changed += MarkDirty;
             StoryLaunch.DismissLaunchCurtain();
         }
         private void MarkDirty() => dirty = true;
-        private void DayStarted(int day) => dirty = true;
-        private void LateUpdate()
+        public bool CanUseManualSaves => Ready && !IsPersistenceBlocked && !StoryDirector.IsRunning &&
+            events != null && events.IsClosed && !EventSceneTransition.IsBusy &&
+            !(FindFirstObjectByType<TakeOver.Startups.StartupContractService>()?.IsBlocking(out _) ?? false);
+        public bool SaveManualSlot(int slot) => CanUseManualSaves &&
+            manager.TrySaveManualSlot(slot, new DayStartData(clock.CurrentTurn, FixedDaySeed.seed));
+        private static bool SavingEnabled => !Application.isBatchMode ||
+            !string.IsNullOrEmpty(System.Environment.GetEnvironmentVariable("TAKEOVER_SAVE_DIRECTORY"));
+
+        internal bool SaveBeforeEvent()
+        {
+            if (!SavingEnabled || StoryDirector.IsRunning) return true;
+            return Ready && !IsPersistenceBlocked &&
+                manager.TrySaveBeforeEvent(new DayStartData(clock.CurrentTurn, FixedDaySeed.seed));
+        }
+
+        internal void SaveSettledState()
+        {
+            dirty = true;
+            WriteIfReady();
+        }
+
+        private void LateUpdate() => WriteIfReady();
+
+        private void WriteIfReady()
         {
             // Automated editor runs use isolated managers in their probes; never overwrite a player's save.
-            if (Application.isBatchMode && string.IsNullOrEmpty(System.Environment.GetEnvironmentVariable("TAKEOVER_SAVE_DIRECTORY")) || !Ready || !dirty || StoryDirector.IsRunning || events == null || !events.IsClosed ||
+            if (!SavingEnabled || !Ready || !dirty || StoryDirector.IsRunning || events == null || !events.IsClosed ||
                 events.MandatoryState == MandatoryStoryState.Failed && !events.IsMandatoryFailureReady) return;
-            dirty = false;
             if (manager.hasPendingSave) return;
+            dirty = false;
             if (!manager.trySaveDayEnd(new DayStartData(clock.CurrentTurn, FixedDaySeed.seed)))
                 FindFirstObjectByType<FloatingMessage>()?.Show("자동 저장에 실패했습니다. 하루 마감에서 다시 시도합니다.");
             else
@@ -100,7 +139,8 @@ namespace TakeOver.SaveSystem
         private void OnDestroy()
         {
             if (events != null) events.todayEventsChanged -= MarkDirty;
-            if (clock != null) clock.DayStarted -= DayStarted;
+            if (employees != null) employees.Changed -= MarkDirty;
+            if (documents != null) documents.Changed -= MarkDirty;
             if (Active == this) Active = null;
         }
     }

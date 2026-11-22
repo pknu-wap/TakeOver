@@ -79,6 +79,7 @@ namespace TakeOver.NPC
                 foreach (var state in registry.States) memoryService.AdvanceTurn(state, currentTurn);
             TurnAdvanced?.Invoke(currentTurn);
             DayStarted?.Invoke(currentTurn);
+            session?.SaveSettledState();
         }
 
         /// <summary>저장 데이터에서 턴을 복원한다. 잘못된 0 이하 값은 1턴으로 보정한다.</summary>

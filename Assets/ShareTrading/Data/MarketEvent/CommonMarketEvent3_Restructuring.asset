@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "\uB300\uADDC\uBAA8 \uAD6C\uC870\uC870\uC815"
   MarketEventID: 3
-  description: "{targetCompany}이 대규모 구조조정을 발표했습니다."
+  description: "{targetCompany} 측이 일부 사업의 통합안을 내놓았다. 주요 거래처들은 담당 조직과 납품 일정이 어떻게 바뀔지 회사에 문의하고 있다."
   applyType: 0
   duration: 6
   delayTurns: 2

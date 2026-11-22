@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiraeMarketEvent9_ConstructionCertification
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "첨단시공기술 인증"
-  description: "{targetCompany}이 첨단시공기술 인증을 획득했습니다."
+  description: "{targetCompany}의 시공 공법이 공인 평가를 통과했다. 발주처들은 예정된 공사에 해당 공법을 적용할 수 있는지 문의하고 있다."
   MarketEventID: 9
   applyType: 0
   duration: 8

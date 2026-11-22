@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "\uB300\uD615 \uAC70\uB798 \uACC4\uC57D \uCCB4\uACB0"
   MarketEventID: 2
-  description: "{targetCompany}이 대형 거래 계약을 체결했습니다."
+  description: "{targetCompany} 측은 새 거래처와 납품 일정에 합의했다고 밝혔다. 첫 물량을 준비하기 위해 협력사에도 발주 계획을 전달했다."
   applyType: 2
   duration: 6
   delayTurns: 3

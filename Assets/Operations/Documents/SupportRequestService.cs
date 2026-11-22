@@ -45,7 +45,7 @@ namespace TakeOver.Documents
             cancelUnavailableRequests();
             foreach (Company company in companies.StartupList)
             {
-                if (!needsSupport(company)) continue;
+                if (!needsSupport(company) || jobs.HasSupportFor(company)) continue;
                 if (nextRequestTurns.TryGetValue(company.definition.companyID, out int nextTurn) && turn < nextTurn) continue;
                 issueRequest(company);
             }

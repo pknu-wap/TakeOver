@@ -173,8 +173,8 @@ namespace TakeOver.Journal
                 photo = photoImage.sprite
             };
             first.keyPoints.Add("나의 선택: 제안을 거절한다");
-            first.keyPoints.Add("윤하진  신뢰 +10 · 관심 +5");
-            first.keyPoints.Add("서지아  적대감 +3");
+            first.keyPoints.Add("윤하진  신뢰 10 증가 · 친밀 5 증가");
+            first.keyPoints.Add("서지아  신뢰 3 감소");
             first.people.Add(new JournalPerson { npcId = "sample-a", displayName = "윤하진" });
             first.people.Add(new JournalPerson { npcId = "sample-b", displayName = "서지아" });
 

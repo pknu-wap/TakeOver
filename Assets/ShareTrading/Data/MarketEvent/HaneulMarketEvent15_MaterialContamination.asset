@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HaneulMarketEvent15_MaterialContamination
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "원재료 오염사고"
-  description: "{targetCompany}의 원재료에서 오염이 확인되었습니다."
+  description: "검사 과정에서 {targetCompany}의 일부 원재료가 기준에 맞지 않는 것으로 드러났다. 회사는 해당 물량을 격리하고 대체 재료를 긴급 수배하고 있다."
   MarketEventID: 15
   applyType: 2
   duration: 3

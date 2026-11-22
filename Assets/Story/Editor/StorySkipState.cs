@@ -14,6 +14,17 @@ namespace TakeOver.Story.Editor
             if(scene.name!="Game")return;
             FixedDaySeed.changeSeed(90210);
             Random.InitState(90210);
+            var startups = Object.FindFirstObjectByType<TakeOver.Startups.StartupSystem>();
+            if (startups != null)
+            {
+                var field = typeof(TakeOver.Startups.StartupSystem).GetField("settings", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                var original = (TakeOver.Startups.StartupSettings)field.GetValue(startups);
+                if (original != null)
+                {
+                    var fixture = Object.Instantiate(original); fixture.hideFlags = HideFlags.DontSave;
+                    fixture.randomSeed = 90210; field.SetValue(startups, fixture);
+                }
+            }
         }
         internal static string Capture()
         {

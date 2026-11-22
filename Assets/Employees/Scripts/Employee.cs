@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace TakeOver.Employees
 {
+    [Serializable]
     public class Employee
     {
         // EmployeeService가 지원자를 만들 때 붙이는 번호. 1부터 증가하고 재사용하지 않는다(0은 번호 없음).
-        public int Id { get; internal set; }
+        [field: SerializeField] public int Id { get; internal set; }
         public string Name;
 
         public AbilityStat Analysis;
@@ -21,7 +22,7 @@ namespace TakeOver.Employees
         public HiddenStat Ambition;
         public HiddenStat PotentialStat;
 
-        public EmployeeStatSnapshot ContractStartStats { get; private set; }
+        [field: SerializeField] public EmployeeStatSnapshot ContractStartStats { get; private set; }
 
         public int MonthlySalary;
         public int HiredTurn;
@@ -30,10 +31,13 @@ namespace TakeOver.Employees
         public int LeaveTurn;
         public bool IsPendingLeave;
 
-        public bool HasSentRenewalNotice { get; set; }
-        public int? PendingRenewalSalary { get; set; }
-
-        private readonly EmployeeConfig config;
+        [field: SerializeField] public bool HasSentRenewalNotice { get; set; }
+        [SerializeField] private int pendingRenewalSalary = -1;
+        public int? PendingRenewalSalary
+        {
+            get => pendingRenewalSalary < 0 ? (int?)null : pendingRenewalSalary;
+            set => pendingRenewalSalary = value ?? -1;
+        }
 
         public int Potential => Analysis.Max + Network.Max + Eye.Max + Legwork.Max + Management.Max;
 
@@ -76,7 +80,6 @@ namespace TakeOver.Employees
             EmployeeConfig employeeConfig)
         {
             Name = name;
-            config = employeeConfig;
 
             Analysis = new AbilityStat(analysisCur, analysisMax, 0f);
             Network = new AbilityStat(networkCur, networkMax, 0f);
@@ -92,7 +95,7 @@ namespace TakeOver.Employees
             MonthlySalary = monthlySalary;
             HiredTurn = hiredTurn;
             ContractEndTurn = contractEndTurn;
-            NextRevealTurn = hiredTurn + (config != null ? config.hiddenStatRevealIntervalTurns : 10);
+            NextRevealTurn = hiredTurn + (employeeConfig != null ? employeeConfig.hiddenStatRevealIntervalTurns : 10);
             LeaveTurn = -1;
             IsPendingLeave = false;
             HasSentRenewalNotice = false;

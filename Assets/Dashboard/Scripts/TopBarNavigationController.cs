@@ -52,6 +52,17 @@ public sealed class TopBarNavigationController : MonoBehaviour
         if (newsScreen == null) newsScreen = FindFirstObjectByType<NewsScreen>(FindObjectsInactive.Include);
         if (journalScreen == null) journalScreen = FindFirstObjectByType<TakeOver.Journal.JournalScreen>(FindObjectsInactive.Include);
         operationsScreen = FindFirstObjectByType<TakeOver.Operations.OperationsScreen>(FindObjectsInactive.Include);
+        var dialogueTemplate = FindFirstObjectByType<EventNegotiationView>(FindObjectsInactive.Include);
+        if (dialogueTemplate != null)
+        {
+            var saves = dialogueTemplate.CreateActionButton(source.transform.parent, "SaveMenuButton", "저장",
+                () => TakeOver.SaveSystem.SaveSlotWindow.Show(dialogueTemplate));
+            var layout = saves.GetComponent<LayoutElement>() ?? saves.gameObject.AddComponent<LayoutElement>();
+            layout.minWidth = layout.preferredWidth = 64;
+            layout.minHeight = layout.preferredHeight = 32;
+            saves.GetComponentInChildren<Text>().fontSize = 18;
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)source.transform.parent);
+        }
         for (int i = 0; i < tabButtons.Length; i++)
         {
             int index = i;

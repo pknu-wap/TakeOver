@@ -3867,8 +3867,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -200, y: 0}
+  m_SizeDelta: {x: -400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1853795407117554763
 CanvasRenderer:
@@ -3952,7 +3952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapZoom
   content: {fileID: 3628015765113062683}
   zoomText: {fileID: 0}
-  minZoom: 1
+  minZoom: 0.75
   maxZoom: 2
   zoomStep: 0.1
 --- !u!114 &4925127012043447213

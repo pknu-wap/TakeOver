@@ -27,7 +27,8 @@ namespace TakeOver.Documents
         public string RejectLabel => "거절";
         public string DoneLabel => isCancelled ? "취소 완료" : "";
         public bool isCancelled { get; private set; }
-        public IReadOnlyList<string> BodyLines => Array.Empty<string>();
+        public IReadOnlyList<string> BodyLines => new[] { "선택한 직원은 이 회사의 지원 업무를 맡습니다. 기존 조사 업무는 중단됩니다.",
+            "직원 상세에서 직무를 바꾸거나 해제할 수 있습니다. 회사가 상장되거나 폐업하면 지원 업무를 마칩니다." };
         public IReadOnlyList<DocumentField> Fields => Array.Empty<DocumentField>();
         public IReadOnlyList<DocumentChoiceField> ChoiceFields { get; }
         public IReadOnlyList<DocumentInfo> InfoRows => isCancelled
@@ -49,7 +50,7 @@ namespace TakeOver.Documents
                 new DocumentInfo("매출 성장", $"{company.state.getDerivedStat(CompanyDerivedStat.REVENUE_GROWTH):P1}"),
                 new DocumentInfo("순이익", $"{company.state.getDerivedStat(CompanyDerivedStat.NET_PROFIT):N0}"),
                 new DocumentInfo("요청 인원", "1명"),
-                new DocumentInfo("직원 배치", "현재는 승인 기록만 처리")
+                new DocumentInfo("직원 배치", "승인 시 선택한 직원을 지원 업무에 배치")
             };
             employee = new DocumentChoiceField("employee", "직원", getEmployeeChoices);
             ChoiceFields = new[] { employee };
@@ -68,7 +69,8 @@ namespace TakeOver.Documents
             foreach (NameText row in record.infoRows)
             {
                 if (row.label == "employee-label") employeeLabel = row.value;
-                else infoRows.Add(new DocumentInfo(row.label, row.value));
+                else infoRows.Add(new DocumentInfo(row.label, !record.resolved && row.label == "직원 배치"
+                    ? "승인 시 선택한 직원을 지원 업무에 배치" : row.value));
             }
             isResolved = record.resolved;
             employee = new DocumentChoiceField("employee", "직원", getEmployeeChoices);
@@ -131,14 +133,18 @@ namespace TakeOver.Documents
 
         public RuleResult OnApprove()
         {
+            if (!CanApprove(out string reason)) throw new InvalidOperationException(reason);
+            var selected = System.Linq.Enumerable.Single(employees.Employees, candidate => candidate.Id == employee.value.Value);
+            if (!jobs.AssignSupport(selected, TargetCompany)) throw new InvalidOperationException("직원을 배치하지 못했습니다.");
             rememberEmployee();
-            assignEmployee(TargetCompany, employee.value.Value);
             return new RuleResult();
         }
 
         // 지원 인원 배치 담당자가 연결할 함수
         public void assignEmployee(Company company, int employeeId)
         {
+            var selected = System.Linq.Enumerable.FirstOrDefault(employees.Employees, candidate => candidate.Id == employeeId);
+            if (!jobs.AssignSupport(selected, company)) throw new InvalidOperationException("직원을 배치하지 못했습니다.");
         }
 
         public void cancel() => isCancelled = true;

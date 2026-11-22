@@ -60,6 +60,25 @@ public class Companies : MonoBehaviour
         return true;
     }
 
+    internal void RemoveGeneratedCompanies()
+    {
+        foreach (var company in startups) removeGeneratedCompany(company);
+        startups.Clear();
+        for (int i = companies.Count - 1; i >= 0; i--)
+        {
+            if (!companies[i].createdFromCode) continue;
+            removeGeneratedCompany(companies[i]);
+            companies.RemoveAt(i);
+        }
+    }
+
+    private void removeGeneratedCompany(Company company)
+    {
+        companiesByID.Remove(company.definition.companyID);
+        company.gameObject.SetActive(false);
+        Destroy(company.gameObject);
+    }
+
     public bool tryGetCompany(string companyID, out Company company)
     {
         return companiesByID.TryGetValue(companyID ?? string.Empty, out company);
