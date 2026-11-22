@@ -43,9 +43,11 @@ namespace TakeOver.Documents
         private void generateRequests(int turn)
         {
             cancelUnavailableRequests();
+            releaseUnavailableSupport();
             foreach (Company company in companies.StartupList)
             {
                 if (!needsSupport(company)) continue;
+                if (jobs != null && jobs.hasSupport(company)) continue;
                 if (nextRequestTurns.TryGetValue(company.definition.companyID, out int nextTurn) && turn < nextTurn) continue;
                 issueRequest(company);
             }
@@ -63,6 +65,19 @@ namespace TakeOver.Documents
             {
                 request.cancel();
                 documents.Inbox.Resolve(request, false);
+            }
+        }
+
+        private void releaseUnavailableSupport()
+        {
+            if (employees == null || jobs == null) return;
+            foreach (Employee employee in employees.Employees)
+            {
+                if (jobs.GetJob(employee) != JobType.Support) continue;
+                Company target = jobs.getSupportTarget(employee);
+                if (target != null && containsStartup(target)) continue;
+                jobs.Clear(employee);
+                Debug.Log($"[SupportRequest] 배치된 회사가 스타트업 목록에서 빠져 {employee.Name}의 지원 직무를 해제함");
             }
         }
 

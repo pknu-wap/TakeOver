@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TakeOver.CompanyRules;
+using TakeOver.Employees;
 using UnityEngine;
 
 namespace TakeOver.Startups
@@ -13,6 +14,7 @@ namespace TakeOver.Startups
         [SerializeField] private CompanyRuleRunner ruleRunner;
 
         private readonly List<StartupRecord> records = new List<StartupRecord>();
+        private JobService jobs;
         private Transform startupRoot;
         private int lastIdNumber;
 
@@ -24,6 +26,7 @@ namespace TakeOver.Startups
             if (companies == null) companies = FindFirstObjectByType<Companies>();
             if (marketData == null) marketData = FindFirstObjectByType<Marketdata>();
             if (ruleRunner == null) ruleRunner = FindFirstObjectByType<CompanyRuleRunner>();
+            jobs = FindFirstObjectByType<JobService>();
         }
 
         private void Start()
@@ -260,6 +263,22 @@ namespace TakeOver.Startups
             foreach (StartupFacilityInvestment investment in record.facilityInvestments)
                 if (turn >= investment.startTurn && turn < investment.endTurn) bonus += investment.growthBonus;
             return bonus;
+        }
+
+        public float extraGrowthBonus(Company company, int turn) =>
+            facilityGrowthBonus(company, turn) + supportGrowthBonus(company);
+
+        public float supportGrowthBonus(Company company)
+        {
+            if (jobs == null || settings == null) return 0f;
+            return jobs.getSupportManagement(company) * settings.supportGrowthPerManagement;
+        }
+
+        public float supportCostReduction(Company company)
+        {
+            if (jobs == null || settings == null) return 0f;
+            float reduction = jobs.getSupportManagement(company) * settings.supportCostReductionPerManagement;
+            return Mathf.Clamp(reduction, 0f, settings.supportMaxCostReduction);
         }
 
         [ContextMenu("검증용: 첫 스타트업 연간 사업 계획 바로 받기")]

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TakeOver.CompanyRules;
 using TakeOver.Documents;
+using TakeOver.Employees;
 using TakeOver.Events;
 using TakeOver.NPC;
 using TakeOver.Operations;
@@ -17,6 +18,8 @@ namespace TakeOver.Startups
         private Player player;
         private Marketdata marketData;
         private GameTurnClock clock;
+        private EmployeeService employees;
+        private JobService jobs;
         private EventSystemController events;
         private EventNegotiationView negotiationTemplate;
         private EventNegotiationView negotiation;
@@ -30,6 +33,8 @@ namespace TakeOver.Startups
             player = FindFirstObjectByType<Player>();
             marketData = FindFirstObjectByType<Marketdata>();
             clock = FindFirstObjectByType<GameTurnClock>();
+            employees = FindFirstObjectByType<EmployeeService>();
+            jobs = FindFirstObjectByType<JobService>();
             events = FindFirstObjectByType<EventSystemController>();
             negotiationTemplate = FindFirstObjectByType<EventNegotiationView>(FindObjectsInactive.Include);
             clock.RegisterBlocker(this);
@@ -62,7 +67,7 @@ namespace TakeOver.Startups
             Company company = requests.Dequeue().company;
             if (company == null || !containsStartup(company) || company.state.getStat(CompanyStat.PLAYER_SHARES) > 0f) return;
 
-            contract = new StartupContractDocument(company, player, companies, clock.CurrentTurn);
+            contract = new StartupContractDocument(company, player, companies, clock.CurrentTurn, employees, jobs);
             previousSelection = EventSystem.current.currentSelectedGameObject;
             negotiation = Instantiate(negotiationTemplate, negotiationTemplate.transform.parent, false);
             negotiation.name = "Startup contract negotiation";

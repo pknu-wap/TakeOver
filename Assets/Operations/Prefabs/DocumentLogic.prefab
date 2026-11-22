@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2910756264199271956}
   - component: {fileID: 1877916178896998377}
   - component: {fileID: 1191368133544195838}
+  - component: {fileID: 8732911391507077291}
   m_Layer: 0
   m_Name: DocumentLogic
   m_TagString: Untagged
@@ -123,3 +124,16 @@ MonoBehaviour:
   testLegwork: 10
   testEye: 10
   testAnalysis: 10
+--- !u!114 &8732911391507077291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8257256701946248524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0f7dbf7193c624cb3558d5a13c7908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Documents.SupportRequestService
+  settings: {fileID: 11400000, guid: b3c1c1066f4f57945b994cad25693a00, type: 2}

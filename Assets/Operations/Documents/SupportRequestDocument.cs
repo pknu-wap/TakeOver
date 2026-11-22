@@ -49,7 +49,7 @@ namespace TakeOver.Documents
                 new DocumentInfo("매출 성장", $"{company.state.getDerivedStat(CompanyDerivedStat.REVENUE_GROWTH):P1}"),
                 new DocumentInfo("순이익", $"{company.state.getDerivedStat(CompanyDerivedStat.NET_PROFIT):N0}"),
                 new DocumentInfo("요청 인원", "1명"),
-                new DocumentInfo("직원 배치", "현재는 승인 기록만 처리")
+                new DocumentInfo("직원 배치", "승인하면 선택한 직원이 이 회사에 배치됨")
             };
             employee = new DocumentChoiceField("employee", "직원", getEmployeeChoices);
             ChoiceFields = new[] { employee };
@@ -79,11 +79,7 @@ namespace TakeOver.Documents
         {
             if (isResolved && employee.value.HasValue && employeeLabel != null)
                 return new[] { new DocumentChoice { key = employee.value.Value, label = employeeLabel } };
-            var choices = new List<DocumentChoice>();
-            foreach (Employee candidate in employees.Employees)
-                if (jobs.GetJob(candidate) != JobType.Support)
-                    choices.Add(new DocumentChoice { key = candidate.Id, label = $"{candidate.Name} · 관리 {candidate.Management.Current}" });
-            return choices;
+            return SupportStaffing.getChoices(employees, jobs, false);
         }
 
         public void SetField(string name, float value)
@@ -119,14 +115,7 @@ namespace TakeOver.Documents
                 reason = "직원을 선택해 주세요";
                 return false;
             }
-            foreach (Employee candidate in employees.Employees)
-            {
-                if (candidate.Id != employee.value.Value) continue;
-                reason = jobs.GetJob(candidate) == JobType.Support ? "이미 배치된 직원입니다" : "";
-                return reason.Length == 0;
-            }
-            reason = "선택한 직원이 현재 재직 중이 아닙니다";
-            return false;
+            return SupportStaffing.canAssign(employee.value.Value, employees, jobs, out reason);
         }
 
         public RuleResult OnApprove()
@@ -136,9 +125,10 @@ namespace TakeOver.Documents
             return new RuleResult();
         }
 
-        // 지원 인원 배치 담당자가 연결할 함수
         public void assignEmployee(Company company, int employeeId)
         {
+            if (!SupportStaffing.assign(company, employeeId, employees, jobs))
+                UnityEngine.Debug.LogWarning($"[SupportRequest] 직원 배치 실패: 직원 번호 {employeeId}");
         }
 
         public void cancel() => isCancelled = true;
