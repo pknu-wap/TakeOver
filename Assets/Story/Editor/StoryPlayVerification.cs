@@ -20,11 +20,17 @@ namespace TakeOver.Story.Editor
     public static class StoryPlayVerification
     {
         private const string Key = "TakeOver.Story.Verify";
+        public static bool DashboardOnly => SessionState.GetBool(Key + ".DashboardOnly", false);
         public static bool SkipRegression => SessionState.GetBool("TakeOver.StorySkip.Normal", false);
         public static string Output => Path.GetFullPath(Path.Combine(Environment.GetEnvironmentVariable("TAKEOVER_QA_OUTPUT") ?? "../QA_NarrativeRevision", SkipRegression ? "Normal" : "."));
         public static void RunSkipRegression()
         {
             SessionState.SetBool("TakeOver.StorySkip.Normal", true);
+            Run();
+        }
+        public static void RunDashboard()
+        {
+            SessionState.SetBool(Key + ".DashboardOnly", true);
             Run();
         }
         static StoryPlayVerification() { EditorApplication.playModeStateChanged += Changed; }
@@ -34,7 +40,7 @@ namespace TakeOver.Story.Editor
             Directory.CreateDirectory(Output);
             File.WriteAllText(Path.Combine(Output,"play-results.txt"),"RUNNING\n");
             SessionState.SetBool(Key,true);
-            EditorSceneManager.OpenScene("Assets/Scenes/MainMenu.unity",OpenSceneMode.Single);
+            EditorSceneManager.OpenScene(DashboardOnly ? "Assets/Scenes/Game.unity" : "Assets/Scenes/MainMenu.unity",OpenSceneMode.Single);
             var game = EditorWindow.GetWindow(Type.GetType("UnityEditor.GameView,UnityEditor"));
             game.position=new Rect(40,40,1280,780); game.Show(); game.Focus();
             EditorApplication.isPlaying=true;
@@ -52,6 +58,7 @@ namespace TakeOver.Story.Editor
                 SessionState.SetBool(Key,false);
                 bool failed=File.ReadAllText(Path.Combine(Output,"play-results.txt")).Contains("FAIL");
                 SessionState.SetBool("TakeOver.StorySkip.Normal",false);
+                SessionState.SetBool(Key + ".DashboardOnly", false);
                 if(Application.isBatchMode) EditorApplication.Exit(failed?1:0);
             }
         }
@@ -105,13 +112,14 @@ namespace TakeOver.Story.Editor
         }
         private IEnumerator Capture(string name)
         {
-            if(!captures.Add(name)) yield break;
-            yield return new WaitForEndOfFrame();
+            if ((Application.isBatchMode && Environment.GetEnvironmentVariable("TAKEOVER_QA_CAPTURE") != "1") || !captures.Add(name)) yield break;
+            if (Application.isBatchMode) yield return null;
+            else yield return new WaitForEndOfFrame();
             ScreenCapture.CaptureScreenshot(Path.Combine(StoryPlayVerification.Output,name+".png"));
             yield return null;
         }
         private static Button Named(Transform root,string name) => root.GetComponentsInChildren<Button>(true).First(b=>b.name==name && b.gameObject.activeInHierarchy);
-        private static void Click(Button button)
+        internal static void Click(Button button)
         {
             if(!button.gameObject.activeInHierarchy || !button.interactable) throw new Exception("Button not available: "+button.name);
             var canvas=button.GetComponentInParent<Canvas>();
@@ -121,7 +129,7 @@ namespace TakeOver.Story.Editor
             var data=new PointerEventData(EventSystem.current){position=point,button=PointerEventData.InputButton.Left};
             var hits=new List<RaycastResult>(); EventSystem.current.RaycastAll(data,hits);
             if(hits.Count==0 || !(hits[0].gameObject==button.gameObject || hits[0].gameObject.transform.IsChildOf(button.transform)))
-                throw new Exception("Button occluded: "+button.name+" by "+(hits.Count>0?hits[0].gameObject.name:"nothing"));
+                throw new Exception("Button occluded: "+button.name+" by "+(hits.Count>0?hits[0].gameObject.transform.parent?.name+"/"+hits[0].gameObject.name:"nothing"));
             ExecuteEvents.Execute(button.gameObject,data,ExecuteEvents.pointerClickHandler);
         }
         private static Button Persistent(Transform root,string method)
@@ -131,10 +139,122 @@ namespace TakeOver.Story.Editor
                     if(button.onClick.GetPersistentMethodName(i)==method) return button;
             throw new Exception("No button for "+method);
         }
+
+        private IEnumerator VerifyDialogueLayout()
+        {
+            var overlay = new GameObject("Dialogue layout verification", typeof(Canvas), typeof(GraphicRaycaster));
+            var canvas = overlay.GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 31000;
+            var viewport = new GameObject("Dialogue QA viewport", typeof(RectTransform));
+            var frame = (RectTransform)viewport.transform;
+            frame.SetParent(overlay.transform, false);
+            var template = AssetDatabase.LoadAssetAtPath<EventNegotiationView>("Assets/EventSystem/Prefabs/EventNegotiation.prefab");
+            var dialogue = Instantiate(template, frame, false);
+            try
+            {
+                foreach (var size in new[] { new Vector2(1280, 720), new Vector2(800, 900), new Vector2(1600, 560) })
+                {
+                    frame.sizeDelta = size;
+                    int advances = 0;
+                    dialogue.ShowDialogue(new DialoguePresentation { narration = true, text = "대화 진행 확인" },
+                        () => advances++, null, null, null);
+                    dialogue.SetDialogueInput(true);
+                    yield return null;
+                    CheckButtonInside(frame, dialogue.ContinueButton, size);
+                    Click(dialogue.ContinueButton);
+                    Check(advances == 1, "Continue advances once in dialogue viewport " + size);
+
+                    int choice = -1;
+                    dialogue.ShowDialogue(new DialoguePresentation { text = "선택 확인", choices = new[] { "첫 번째", "두 번째" } },
+                        null, index => choice = index, null, null);
+                    Check(!dialogue.ContinueButton.gameObject.activeSelf, "Choices take over after the final page " + size);
+                    dialogue.SetDialogueInput(true);
+                    yield return null;
+                    var answer = Named(dialogue.transform, "Choice1");
+                    CheckButtonInside(frame, answer, size);
+                    Click(answer);
+                    Check(choice == 1, "Choice reaches its callback in dialogue viewport " + size);
+                }
+            }
+            finally
+            {
+                overlay.SetActive(false);
+                Destroy(overlay);
+            }
+        }
+
+        private void CheckButtonInside(RectTransform frame, Button button, Vector2 size)
+        {
+            var corners = new Vector3[4];
+            ((RectTransform)button.transform).GetWorldCorners(corners);
+            var bounds = frame.rect;
+            bounds.min -= Vector2.one;
+            bounds.max += Vector2.one;
+            var localCorners = corners.Select(frame.InverseTransformPoint).ToArray();
+            Check(button.IsActive() && localCorners.All(corner => bounds.Contains(corner)),
+                $"{button.name} is fully visible in dialogue viewport {size} ({localCorners[0]} to {localCorners[2]} in {bounds})");
+        }
+
+        private void CheckTopBar(DashboardTab tab)
+        {
+            var navigation = Object.FindFirstObjectByType<TopBarNavigationController>();
+            var kinds = (DashboardTab[])typeof(TopBarNavigationController).GetField("tabKinds", Fields).GetValue(navigation);
+            var buttons = (Button[])typeof(TopBarNavigationController).GetField("tabButtons", Fields).GetValue(navigation);
+            var indicator = Object.FindFirstObjectByType<TopBarIndicatorController>();
+            var mark = (RectTransform)typeof(TopBarIndicatorController).GetField("markCurrentTap", Fields).GetValue(indicator);
+            var button = (RectTransform)buttons[Array.IndexOf(kinds, tab)].transform;
+            var center = mark.TransformPoint(mark.rect.center);
+            float centerError = Mathf.Abs(button.InverseTransformPoint(center).x - button.rect.center.x);
+            Check(mark.gameObject.activeInHierarchy && centerError < 6f, "Top bar highlight follows " + tab + " (" + centerError + ")");
+        }
+
+        private IEnumerator VerifyOperations()
+        {
+            var nav = Object.FindFirstObjectByType<TopBarNavigationController>();
+            var tabButtons = (Button[])typeof(TopBarNavigationController).GetField("tabButtons", Fields).GetValue(nav);
+            var tabKinds = (DashboardTab[])typeof(TopBarNavigationController).GetField("tabKinds", Fields).GetValue(nav);
+            Click(tabButtons[Array.IndexOf(tabKinds, DashboardTab.Operations)]);
+            yield return null;
+            Canvas.ForceUpdateCanvases();
+            var operations = Object.FindFirstObjectByType<TakeOver.Operations.OperationsScreen>();
+            var panel = (Image)typeof(TakeOver.Operations.OperationsScreen).GetField("panel", Fields).GetValue(operations);
+            var panelCorners = new Vector3[4];
+            panel.rectTransform.GetWorldCorners(panelCorners);
+            Check(panelCorners.All(corner => new Rect(-1f, -1f, Screen.width + 2f, Screen.height + 2f)
+                .Contains(RectTransformUtility.WorldToScreenPoint(null, corner))), "Operations panel stays within the viewport");
+            var subTabs = (Button[])typeof(TakeOver.Operations.OperationsScreen).GetField("subTabButtons", Fields).GetValue(operations);
+            for (int i = 0; i < subTabs.Length; i++)
+            {
+                var tab = subTabs[(i + 1) % subTabs.Length];
+                Click(tab);
+                float ready = Time.unscaledTime + .2f;
+                while (Time.unscaledTime < ready) yield return null;
+                var labels = operations.GetComponentsInChildren<Text>();
+                Check(labels.Any(label => label.text.Any(character => character >= '가' && character <= '힣')),
+                    "Operations panel renders Korean labels: " + tab.name);
+                foreach (var label in labels)
+                    Check(label.text.Where(character => character >= '가' && character <= '힣').All(character => label.font != null && label.font.HasCharacter(character)),
+                        "Operations font covers the visible Korean text: " + label.name);
+                var screenshot = Await(Capture("operations-" + tab.name)); while (screenshot.MoveNext()) yield return null;
+            }
+            CheckTopBar(DashboardTab.Operations);
+            nav.ReturnHome();
+            yield return null;
+            CheckTopBar(DashboardTab.Home);
+        }
+
         private IEnumerator Run()
         {
             // Drive nested waits explicitly: this iterator is ticked once per editor Play frame.
             yield return null; yield return null;
+            if (StoryPlayVerification.DashboardOnly)
+            {
+                CheckTopBar(DashboardTab.Home);
+                var operations = VerifyOperations(); while (operations.MoveNext()) yield return null;
+                File.AppendAllText(Results, "COMPLETE\n");
+                yield break;
+            }
             Check(!StoryDirector.IsRunning,"Main menu has no active intro");
             if(StoryPlayVerification.SkipRegression)
             {
@@ -153,6 +273,8 @@ namespace TakeOver.Story.Editor
             var detail=Object.FindFirstObjectByType<CompanyDetailPanel>(FindObjectsInactive.Include);
             var events=Object.FindFirstObjectByType<EventSystemController>();
             var sequence=AssetDatabase.LoadAssetAtPath<StorySequence>("Assets/Story/Data/IntroSequence.asset");
+            var layout = VerifyDialogueLayout();
+            while (layout.MoveNext()) yield return null;
             Check(registry.Profiles.Count==30 && registry.States.Count==30,"All 30 NPC profiles initialized");
             Check(companies.CompanyList.Count==9,"All 9 companies indexed");
             foreach(var id in StoryContentBuilder.RivalIds)
@@ -188,6 +310,9 @@ namespace TakeOver.Story.Editor
                     }
                     if(beat.goal==StoryGoal.None && beat.speaker==StorySpeaker.Npc)
                         Check(director.View.Speaker.text.Contains(registry.Profiles.First(p=>p.npcId==beat.npcId).profile.displayName),"NPC label matches profile: "+beat.id);
+                    if (beat.id == "intro-033" || beat.id == "neutral-intro-T1-6" || beat.id == "neutral-intro-T4-tail-1")
+                        Check(beat.speaker == StorySpeaker.Player && director.View.NpcImage.gameObject.activeSelf,
+                            "NPC standing remains visible for the player's reply: " + beat.id);
                     if(StoryPlayVerification.SkipRegression)
                     {
                         if (beat.goal != StoryGoal.CompleteEvent && beat.goal != StoryGoal.OpenEvent)
@@ -294,9 +419,14 @@ namespace TakeOver.Story.Editor
                     Click(buttons[chosen]); events.confirmChoice((chosen+1)%3);
                     Check(events.tryGetChoice(StoryDirector.TutorialEventId,out int answer) && answer==chosen,"Player-selected event answer committed once");
                     Check(player.state.cash==cash && Object.FindFirstObjectByType<ActionPointService>().Current==ap-cost,"Event answer has actual financial effects and no second AP charge");
-                    var close=(Button)typeof(EventNegotiationView).GetField("closeButton",Fields).GetValue(negotiation);
-                    while(!close.gameObject.activeInHierarchy)yield return null;
-                    Click(close);
+                    var close=negotiation.ContinueButton;
+                    while (!events.IsClosed)
+                    {
+                        if (close.gameObject.activeInHierarchy && close.IsInteractable() && !EventSceneTransition.IsBusy)
+                            Click(close);
+                        yield return null;
+                    }
+                    while (EventSceneTransition.IsBusy) yield return null;
                 }
                 else if(beat.goal==StoryGoal.ViewCompany || beat.goal==StoryGoal.CompareCompany || beat.goal==StoryGoal.ViewStake)
                 {
@@ -307,13 +437,43 @@ namespace TakeOver.Story.Editor
                 }
                 else if(beat.goal==StoryGoal.ViewRepresentative || beat.goal==StoryGoal.ViewMemory || beat.goal==StoryGoal.ViewEventMemory)
                 {
-                    var cap=Await(Capture(beat.goal==StoryGoal.ViewEventMemory?"14-event-memory":beat.goal==StoryGoal.ViewMemory?"07-memory":"06-profile")); while(cap.MoveNext()) yield return null;
+                    var status = Object.FindFirstObjectByType<NpcStatusScreen>();
+                    var profile = status.GetComponentInChildren<NpcProfilePanelView>();
+                    string target = beat.goal == StoryGoal.ViewRepresentative ? StoryDirector.Representative
+                        : beat.goal == StoryGoal.ViewMemory ? StoryDirector.FieldDirector : StoryDirector.TutorialContact;
+                    Check(status.SelectedNpcId == target, "Profile shows the tutorial NPC: " + target);
+                    var detailText = profile.transform.Find("RightProfileCard/Profile details/DescriptionText").GetComponent<TMPro.TMP_Text>();
+                    Check(detailText.text.Contains("기억") && detailText.text.Contains("호불호 단서"), "Profile exposes memory and preferences");
+                    var other = profile.GetComponentsInChildren<NpcListItemView>()
+                        .First(item => item.GetComponentsInChildren<TMPro.TMP_Text>().Any(label => label.text == "윤하진"));
+                    Click(other.GetComponent<Button>() ?? other.GetComponentInChildren<Button>());
+                    Check(status.SelectedNpcId == "npc-broker-yoon-hajin", "Tutorial layer allows native profile clicks");
+                    status.SelectNpc(target);
+                    if (beat.goal != StoryGoal.ViewRepresentative) status.FocusMemories();
                     if(beat.goal==StoryGoal.ViewMemory)
                     {
                         registry.TryGet(StoryDirector.FieldDirector,out var state);
                         Check(state.memories.Any(m=>m.sourceEventId.StartsWith("intro-")),"Field conversation has real Memory");
+                        Check(detailText.text.Contains("남은 기간"), "Field conversation displays the memory duration");
+                        var scroll = detailText.GetComponentInParent<ScrollRect>();
+                        Check(scroll.content.rect.height > scroll.viewport.rect.height && scroll.verticalNormalizedPosition < .999f,
+                            "Tutorial memory is brought into the scrollable profile viewport");
+                        var memory = state.memories.First();
+                        bool permanent = memory.permanent;
+                        try
+                        {
+                            memory.permanent = true;
+                            registry.NotifyStateChanged(state);
+                            Check(detailText.text.Contains("영구 기억"), "Permanent memory label updates in the active profile");
+                        }
+                        finally
+                        {
+                            memory.permanent = permanent;
+                            registry.NotifyStateChanged(state);
+                        }
                         Check(state.memories.All(m=>m.memoryType!=NpcMemoryType.SavedCompany && m.memoryType!=NpcMemoryType.GoodFaith),"Promise not recorded as fulfilled good faith");
                     }
+                    var cap=Await(Capture(beat.goal==StoryGoal.ViewEventMemory?"14-event-memory":beat.goal==StoryGoal.ViewMemory?"07-memory":"06-profile")); while(cap.MoveNext()) yield return null;
                     Click(Named(director.transform,"Confirm profile"));
                 }
                 else if(beat.goal==StoryGoal.EndDay)
@@ -328,6 +488,12 @@ namespace TakeOver.Story.Editor
                 }
                 else if(beat.choices.Count>0)
                 {
+                    for (int i = 0; i < beat.choices.Count; i++)
+                    {
+                        var label = Named(director.transform, "Choice" + i).transform.Find("Description").GetComponent<Text>();
+                        Check(label.IsActive() && label.text == beat.choices[i].description && label.preferredHeight <= label.rectTransform.rect.height + 1f,
+                            "Choice summary renders inside its button: " + beat.id + "/" + i);
+                    }
                     var cap=Await(Capture("05-dialogue-choices")); while(cap.MoveNext()) yield return null;
                     int before=director.Decisions.Count;
                     int chosen=StoryPlayVerification.SkipRegression ? 0 : choices%3;
@@ -336,6 +502,7 @@ namespace TakeOver.Story.Editor
                     director.Choose((chosen+1)%3);
                     Check(director.Decisions.Count==before+1,"Choice double submission rejected: "+beat.id);
                     Check(director.View.Dialogue.alignment==TextAnchor.UpperRight,"Player reply uses shared player dialogue block");
+                    Check(director.View.NpcImage.gameObject.activeSelf, "NPC remains present during the selected reply");
                     Check(director.View.SharedDialogue.CurrentDialogue.preferredHeight <= director.View.SharedDialogue.CurrentDialogue.rectTransform.rect.height + 1 && director.View.Dialogue.rectTransform.rect.width>=600,"Player reply page fits a readable body");
                     var rule=director.View.SharedDialogue.PlayerImage.transform.parent.parent;
                     var playerBlock=(CanvasGroup)typeof(EventNegotiationView).GetField("playerBlock",Fields).GetValue(director.View.SharedDialogue);
@@ -366,6 +533,7 @@ namespace TakeOver.Story.Editor
                 yield return null;
             }
             while(StoryDirector.Active!=null) yield return null;
+            CheckTopBar(DashboardTab.Home);
             Check(visited==sequence.beats.Count,"Every authored beat visited without skip");
             Check(choices==sequence.beats.Count(item => item.choices.Count > 0),"All authored conversations completed");
             Check(clock.CurrentTurn==startTurn+1,"Only one real turn consumed");
@@ -375,6 +543,13 @@ namespace TakeOver.Story.Editor
             Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b=>b.name=="Confirm tutorial reward"));
             yield return null;
             Check(GameObject.Find("Help introduction")!=null,"Reward confirmation opens help location notice");
+            if (!StoryPlayVerification.SkipRegression)
+            {
+                Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b => b.name == "Confirm help notice"));
+                yield return null;
+                var home = Await(Capture("home-after-tutorial")); while (home.MoveNext()) yield return null;
+                var operations = VerifyOperations(); while (operations.MoveNext()) yield return null;
+            }
             events.refreshAvailability(); Check(events.getTodayEventInfos().Count>0,"Normal events available after intro");
             if(StoryPlayVerification.SkipRegression)
             {

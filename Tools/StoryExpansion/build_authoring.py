@@ -52,7 +52,7 @@ def choices(body, speaker, values=None, repeat=True):
         player = next((x["text"] for x in response if x.get("player")), match[2])
         npc = "\n\n".join(x["text"] for x in response if x.get("npcId"))
         interpretation = re.search(r"(?:결과·기억|기록|관찰 기록 제안)[:：]\s*([^\n]+)", match[3])
-        delta = {"respect": 1 if i == 0 else 0, "interest": 1 if i == 1 else 0}
+        delta = {"respect": 1 if i == 0 else 0, "closeness": 1 if i == 1 else 0}
         if not repeat:
             delta = {"respect": 1 if i == 0 else 0}
         result.append({"choiceText": match[2], "choiceDescription": "이번 답변을 관계와 기억에 반영합니다. 현금·지분 변화 없음.",
@@ -111,7 +111,7 @@ def compile_general():
             data["validDays"] = 3
         if key == "L1":
             data["validDays"] = 3
-            data["choices"][1]["npcResult"]["relationDelta"] = {"trust": -2, "interest": 1}
+            data["choices"][1]["npcResult"]["relationDelta"] = {"trust": -2, "closeness": -1}
         definitions[event_id] = data
     first = sections(read("EARLY_STORY_NEUTRAL_SCRIPT_KO.md"))
     for key, event_id, speaker in [("N1", "neutral-lee-first-interview", "이민규"), ("N2", "neutral-jung-first-record", "정수아"), ("N3", "neutral-kim-first-review", "김태성"), ("N4", "neutral-park-first-briefing", "박상현")]:
@@ -212,6 +212,11 @@ def compile_campaign():
 def compile_intro():
     path = ROOT / "Assets/Story/Editor/AuthoringData.json"
     authoring = json.loads(path.read_text(encoding="utf-8-sig"))
+    reviewed_descriptions = {
+        (beat["id"], choice["title"]): choice["description"]
+        for beat in authoring["beats"] for choice in beat.get("choices", [])
+        if choice.get("description")
+    }
     beats = [b for b in authoring["beats"] if not b["id"].startswith(("neutral-intro-", "company-premise-"))]
     tutorial = sections(read("EARLY_STORY_NEUTRAL_SCRIPT_KO.md"))
     insertions = {"intro-074": ("T1", "이민규"), "intro-088": ("T2", "정수아"), "lesson-033": ("T3", "김태성"), "intro-090": ("T4", "박상현")}
@@ -229,7 +234,8 @@ def compile_intro():
                 expanded.append(beat_from_line(key, title, n, line))
             expanded.append({"id": f"neutral-intro-{key}-choice", "sceneTitle": title, "backgroundPath": "Assets/Story/Art/HotelLounge.png", "speaker": 2,
                              "npcId": NPC[speaker], "text": "어떤 생각이신지 듣고 싶습니다.", "showPlayer": True, "goal": 0, "skipDefaultChoice": 0,
-                             "choices": [{"title": a["choiceText"], "playerLine": a["playerLine"], "response": a["resultDialogue"], "targetNpcId": NPC[speaker], "memoryType": 8,
+                             "choices": [{"title": a["choiceText"], "description": reviewed_descriptions.get((f"neutral-intro-{key}-choice", a["choiceText"]), a["choiceDescription"]),
+                                          "playerLine": a["playerLine"], "response": a["resultDialogue"], "targetNpcId": NPC[speaker], "memoryType": 8,
                                           "interpretation": a["npcResult"]["interpretation"], "relationDelta": a["npcResult"]["relationDelta"]} for a in answers]})
             tail = body.split("### 공통 마무리")[1]
             for n, line in enumerate(lines(tail)):

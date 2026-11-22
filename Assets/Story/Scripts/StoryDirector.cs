@@ -60,6 +60,26 @@ namespace TakeOver.Story
             Goal == StoryGoal.None && !(Current.choices.Count > 0 && !choiceCommitted);
         public int BeatIndex => index;
         public StoryBeat Current => sequence != null && index >= 0 && index < sequence.beats.Count ? sequence.beats[index] : null;
+        internal string DialogueNpcId
+        {
+            get
+            {
+                var beat = Current;
+                if (beat == null) return null;
+                if (exchangeStage > 0) return selectedChoice?.targetNpcId ?? beat.npcId;
+                if (beat.speaker == StorySpeaker.Npc) return beat.npcId;
+                if (beat.speaker != StorySpeaker.Player) return null;
+                for (int i = index - 1; i >= 0; i--)
+                {
+                    var previous = sequence.beats[i];
+                    if (previous.sceneTitle != beat.sceneTitle || previous.background != beat.background ||
+                        previous.goal != StoryGoal.None || previous.speaker == StorySpeaker.System)
+                        break;
+                    if (previous.speaker == StorySpeaker.Npc) return previous.npcId;
+                }
+                return null;
+            }
+        }
         public StoryGoal Goal => Current?.goal ?? StoryGoal.None;
         public IReadOnlyList<StoryDecision> Decisions => decisions;
         public StoryView View => view;
@@ -254,6 +274,7 @@ namespace TakeOver.Story
                 yield break;
             }
             Completed = true;
+            FindFirstObjectByType<TopBarNavigationController>()?.ReturnHome();
             var events = FindFirstObjectByType<EventSystemController>();
             if (events != null) events.refreshAvailability();
             FindFirstObjectByType<DashboardCardSlide>()?.RefreshCards();
@@ -339,7 +360,10 @@ namespace TakeOver.Story
         public void OpenProfile()
         {
             if (!IsProfile) return;
-            status.Open(); status.SelectNpc(Goal == StoryGoal.ViewRepresentative ? Representative : Goal == StoryGoal.ViewMemory ? FieldDirector : TutorialContact);
+            status.SelectNpc(Goal == StoryGoal.ViewRepresentative ? Representative : Goal == StoryGoal.ViewMemory ? FieldDirector : TutorialContact);
+            status.Open();
+            if (Goal != StoryGoal.ViewRepresentative) status.FocusMemories();
+            view.SpotlightProfile(status.ProfileRect);
         }
 
         private void Update()
@@ -386,7 +410,7 @@ namespace TakeOver.Story
                 case StoryGoal.ViewRepresentative:
                 case StoryGoal.ViewMemory:
                 case StoryGoal.ViewEventMemory:
-                    view.Spotlight(null);
+                    view.SpotlightProfile(status.ProfileRect);
                     string target = Goal == StoryGoal.ViewRepresentative ? Representative : Goal == StoryGoal.ViewMemory ? FieldDirector : TutorialContact;
                     goalObserved |= status.gameObject.activeInHierarchy && status.SelectedNpcId == target;
                     view.SetGoalReady(goalObserved);
@@ -441,8 +465,8 @@ namespace TakeOver.Story
             if (!hasEventSnapshot || !registry.TryGet(TutorialContact, out var state)) return "";
             var a = beforeEventRelation; var b = state.relation;
             return $"면담 결과를 반영하였습니다.\n행동 포인트 {beforeEventAp} → {actionPoints.Current} · 자금 {beforeEventCash:N0} → {player.state.cash:N0}\n" +
-                $"신뢰 {a.trust:0.#} → {b.trust:0.#} · 존중 {a.respect:0.#} → {b.respect:0.#} · 두려움 {a.fear:0.#} → {b.fear:0.#}\n" +
-                $"적대감 {a.hostility:0.#} → {b.hostility:0.#} · 의존도 {a.dependency:0.#} → {b.dependency:0.#} · 관심 {a.interest:0.#} → {b.interest:0.#}";
+                $"신뢰–적대감 {a.trust:0.#} → {b.trust:0.#} · 존중–두려움 {a.respect:0.#} → {b.respect:0.#}\n" +
+                $"친밀–경계 {a.closeness:0.#} → {b.closeness:0.#}";
         }
 
         private string TradeResultSummary()

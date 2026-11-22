@@ -9,7 +9,7 @@ namespace TakeOver.Events
     public enum EventConditionKind { NpcRelation, CompanyConsumerReaction, CompanyStake, CompanyProfitDeteriorating, Day, EventCompleted, EventChoice, StorySucceeded, StoryFailed, CompanyGreenmailStake, PlayerHasMemory, PlayerLacksMemory }
     public enum EventCategory { General, Story }
     public enum EventComparison { AtLeast, AtMost }
-    public enum EventRelationAxis { trust, respect, fear, hostility, dependency, interest }
+    public enum EventRelationAxis { trust, respect, closeness }
     public enum EventSpeakerSource { Fixed, CompanyCeo, CompanyRestructuring }
     public enum EventChoiceGeneration { Fixed, OwnedCompanies }
 

@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using Newtonsoft.Json.Linq;
+using TakeOver.Events;
+using TakeOver.SaveSystem;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -181,12 +185,10 @@ namespace TakeOver.NPC.Editor
             Near(harness.LastRecordedMemory.effectLog.beforePreference.trust, 4, "Last-event log keeps pre-preference base");
             Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 0, "Action-only log records no preference bonus");
             Require(NpcFeatureTestScene.FormatLastMemoryLog(harness.LastRecordedMemory).Contains("보정 비활성"), "Footer log identifies inactive action bonus");
-            Near(harness.RuntimeState.relation.hostility, 0, "Hostility reduction stops at zero");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(1);
             Near(harness.RuntimeState.relation.trust, -4, "Disliked action alone does not receive a bonus");
             Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 0, "Action-only negative log has no bonus");
-            Near(harness.RuntimeState.relation.hostility, 4, "Action-only hostility keeps base effect");
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(2);
             Near(harness.RuntimeState.relation.trust, 4, "Unspecified action keeps base effect");
@@ -197,14 +199,12 @@ namespace TakeOver.NPC.Editor
             harness.ResetSelectedNpcState();
             harness.PreviewPreferenceAction(4);
             Near(harness.RuntimeState.relation.trust, -5.6f, "Seo ContractBreach Memory applies individual multiplier 1.4");
-            var mixed = new NpcRelationDelta { trust = 4, respect = -4, hostility = 4, fear = 4, dependency = 4 };
+            var mixed = new NpcRelationDelta { trust = -4, respect = -4, closeness = -4 };
             var result = registry.EvaluatePreference(seo, "ClearFundingPlan", NpcMemoryType.ContractBreach, mixed, out var disposition);
             Require(disposition == NpcActionDisposition.Dislikes, "Memory-only policy ignores conflicting liked action");
-            Near(result.trust, 4, "Disliked Memory leaves positive trust unchanged");
+            Near(result.trust, -5.6f, "Contract breach scales negative trust once");
             Near(result.respect, -4, "Unselected respect axis remains unchanged");
-            Near(result.hostility, 5.6f, "Contract breach increases defensive hostility by 1.4");
-            Near(result.fear, 4, "Fear is not treated as affection");
-            Near(result.dependency, 4, "Dependency is not treated as affection");
+            Near(result.closeness, -4, "Unselected closeness axis remains unchanged");
             var channel = harness.GetComponent<NpcEventChannel>();
             var payload = new NpcEventPayload { eventId = "unity-duplicate-check", actionId = "ClearFundingPlan",
                 targetNpcIds = new List<string> { seo }, memoryType = NpcMemoryType.Custom, relationDelta = new NpcRelationDelta { trust = 4 } };
@@ -234,6 +234,7 @@ namespace TakeOver.NPC.Editor
             Require(!saver.Load(), "Unregistered saved ID is rejected instead of creating an orphan NPC");
             Require(registry.TryGet(seo, out var unchanged) && unchanged.memories.Count == 1, "Rejected save leaves runtime state intact");
             File.WriteAllText(saver.SavePath, canonicalSave);
+            VerifyLegacySave(saver, registry, seo, canonicalSave);
             harness.SelectNpcProfile(seo);
             harness.ResetSelectedNpcState();
             harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = 99 });
@@ -243,26 +244,117 @@ namespace TakeOver.NPC.Editor
             var cloned = harness.LastRecordedMemory.Clone();
             cloned.effectLog.preferenceBonus.trust = 999;
             Near(harness.LastRecordedMemory.effectLog.preferenceBonus.trust, 0, "Copied logs do not mutate original Memory details");
-            // 이번에 바뀐 스탯 하한/상한과 이전 저장의 음수 값 보정을 함께 확인한다.
             harness.ResetSelectedNpcState();
-            harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = -200, respect = -200, fear = -200,
-                hostility = -200, dependency = -200, interest = -200 });
+            var neutral = harness.RuntimeState.relation;
+            Require(neutral.trust == 0 && neutral.respect == 0 && neutral.closeness == 0, "All three axes start at zero");
+            harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = -200, respect = -200, closeness = -200 });
             var ranges = harness.RuntimeState.relation;
-            Require(ranges.trust == -100 && ranges.respect == -100 && ranges.fear == 0
-                && ranges.hostility == 0 && ranges.dependency == 0 && ranges.interest == 0, "All six lower limits match current rules");
-            harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = 400, respect = 400, fear = 400,
-                hostility = 400, dependency = 400, interest = 400 });
+            Require(ranges.trust == -100 && ranges.respect == -100 && ranges.closeness == -100, "All three axes clamp at -100");
+            harness.ApplyTestRelationDelta(new NpcRelationDelta { trust = 400, respect = 400, closeness = 400 });
             ranges = harness.RuntimeState.relation;
-            Require(ranges.trust == 100 && ranges.respect == 100 && ranges.fear == 100
-                && ranges.hostility == 100 && ranges.dependency == 100 && ranges.interest == 100, "All six upper limits remain 100");
-            harness.RuntimeState.relation.hostility = -25;
-            harness.RuntimeState.relation.interest = -50;
-            Require(saver.TrySave(), "Write isolated legacy negative-stat fixture");
-            Require(saver.Load(), "Load legacy negative-stat save");
-            Require(registry.TryGet(seo, out var normalized) && normalized.relation.hostility == 0
-                && normalized.relation.interest == 0 && normalized.relation.trust == 100 && normalized.relation.respect == 100,
-                "Load normalizes hostility and interest without changing signed axes");
+            Require(ranges.trust == 100 && ranges.respect == 100 && ranges.closeness == 100, "All three axes clamp at +100");
+            VerifyCautiousInterview(channel, registry);
+            VerifyProfileGauges(registry);
             NpcPreferenceDefinitionVerification.VerifyRuntime();
+        }
+
+        private static void VerifyCautiousInterview(NpcEventChannel channel, NpcStateRegistry registry)
+        {
+            const string reporter = "npc-economic-reporter-lee-mingyu";
+            var interview = AssetDatabase.LoadAssetAtPath<EventDefinition>("Assets/EventSystem/Data/PressInterview.asset");
+            var authored = interview.getChoices().Single(choice => choice.getResultValue() == "evade").getNpcResult();
+            var payload = JsonUtility.FromJson<NpcEventPayload>(JsonUtility.ToJson(authored));
+            payload.eventId = "unity-cautious-interview";
+            Require(registry.TryGet(reporter, out var state), "Interview reporter is registered");
+            var before = state.relation.closeness;
+            channel.Publish(payload);
+            Near(state.relation.closeness - before, -1f, "Actual evasive interview increases the reporter's caution by one");
+        }
+
+        private static void VerifyProfileGauges(NpcStateRegistry registry)
+        {
+            const BindingFlags fields = BindingFlags.Instance | BindingFlags.NonPublic;
+            var view = UnityEngine.Object.FindFirstObjectByType<NpcProfilePanelView>(FindObjectsInactive.Include);
+            Require(view != null, "Dashboard profile panel exists in the Game scene");
+            view.Refresh();
+            var entries = (System.Collections.IList)typeof(NpcProfilePanelView).GetField("_entries", fields).GetValue(view);
+            Require(entries.Count > 0, "Dashboard profile panel has NPC entries");
+            var first = entries[0];
+            var npcId = (string)first.GetType().GetField("id").GetValue(first);
+            Require(registry.TryGet(npcId, out var state), "Dashboard entry resolves to the canonical NPC state");
+            var select = typeof(NpcProfilePanelView).GetMethod("SelectIndex", fields);
+            RectTransform Tick(string fieldName) => (RectTransform)typeof(NpcRelationGaugeView)
+                .GetField("indicatorTickRect", fields).GetValue(typeof(NpcProfilePanelView).GetField(fieldName, fields).GetValue(view));
+            var trust = Tick("hostilityTrustGauge");
+            var respect = Tick("fearRespectGauge");
+            var closeness = Tick("dependencyInterestGauge");
+            var original = state.relation;
+            try
+            {
+                state.relation = default;
+                select.Invoke(view, new object[] { 0 });
+                Require(trust.anchorMin.x == .5f && respect.anchorMin.x == .5f && closeness.anchorMin.x == .5f,
+                    "All dashboard relation gauges place zero at the midpoint");
+                state.relation.Apply(new NpcRelationDelta { trust = -100f, respect = 100f, closeness = 1f }, 1);
+                select.Invoke(view, new object[] { 0 });
+                Near(trust.anchorMin.x, 0f, "Hostility appears at the left limit");
+                Near(respect.anchorMin.x, 1f, "Respect appears at the right limit");
+                Near(closeness.anchorMin.x, .505f, "Closeness +1 appears just right of the midpoint");
+                state.relation.Apply(new NpcRelationDelta { closeness = -3f }, 1);
+                select.Invoke(view, new object[] { 0 });
+                Near(closeness.anchorMin.x, .49f, "Caution -2 appears just left of the midpoint");
+            }
+            finally
+            {
+                state.relation = original;
+                select.Invoke(view, new object[] { 0 });
+            }
+        }
+
+        private static void VerifyLegacySave(NpcSaveService saver, NpcStateRegistry registry, string npcId, string canonicalSave)
+        {
+            var legacy = JObject.Parse(canonicalSave);
+            legacy.Remove("formatVersion");
+            var state = ((JArray)legacy["npcs"]).OfType<JObject>().Single(entry => (string)entry["npcId"] == npcId);
+            var relation = (JObject)state["relation"];
+            relation.Remove("closeness");
+            relation["hostility"] = 7;
+            relation["respect"] = 8;
+            relation["fear"] = 3;
+            relation["interest"] = 1;
+            relation["dependency"] = 0;
+            var memory = (JObject)((JArray)state["memories"])[0];
+            var delta = (JObject)memory["relationDelta"];
+            delta.Remove("closeness");
+            delta["interest"] = 1;
+            delta["dependency"] = 3;
+            var beforePreference = (JObject)memory["effectLog"]["beforePreference"];
+            beforePreference["hostility"] = 2;
+            try
+            {
+                File.WriteAllText(saver.SavePath, legacy.ToString());
+                Require(saver.Load() && registry.TryGet(npcId, out _), "Load legacy six-stat NPC save: " + saver.LastError);
+                registry.TryGet(npcId, out var restored);
+                Near(restored.relation.trust, -3, "Legacy hostility offsets trust");
+                Near(restored.relation.respect, 5, "Legacy fear offsets respect");
+                Near(restored.relation.closeness, 1, "Legacy interest of one restores as closeness +1");
+                Near(restored.memories[0].relationDelta.closeness, -2, "Legacy memory delta preserves net closeness");
+                Near(restored.memories[0].effectLog.beforePreference.trust, 2, "Legacy effect log converts to signed trust");
+                Require(saver.TrySave() && (int)JObject.Parse(File.ReadAllText(saver.SavePath))["formatVersion"] == 2,
+                    "Migrated relation is saved as version 2");
+                Require(saver.Load() && registry.TryGet(npcId, out restored), "Migrated save round-trips");
+                Near(restored.relation.closeness, 1, "Reloading version 2 preserves closeness");
+                saver.prepareLoad(legacy.ToString(), 1, new DayStartData((int)legacy["currentTurn"], 1));
+                saver.applyLoad();
+                saver.rebuildAfterLoad();
+                Require(registry.TryGet(npcId, out restored), "Game save participant loads NPC section version 1");
+                Near(restored.relation.closeness, 1, "Game save participant preserves migrated closeness");
+            }
+            finally
+            {
+                File.WriteAllText(saver.SavePath, canonicalSave);
+            }
+            Require(saver.Load(), "Restore the canonical test save");
         }
 
         private static void VerifyPreferenceRegistration(NpcStateRegistry registry)

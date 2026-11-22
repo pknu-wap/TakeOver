@@ -139,10 +139,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -153,14 +150,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -171,14 +165,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.2,
-              "affectedAxes": 32,
+              "affectedAxes": 4,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -233,10 +224,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -247,14 +235,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.4,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -265,14 +250,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.35,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -327,10 +309,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -341,14 +320,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -359,14 +335,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.25,
-              "affectedAxes": 10,
+              "affectedAxes": 3,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -421,10 +394,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -435,14 +405,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -453,14 +420,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.2,
-              "affectedAxes": 34,
+              "affectedAxes": 6,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -471,14 +435,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.2,
-              "affectedAxes": 10,
+              "affectedAxes": 3,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -533,10 +494,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -547,14 +505,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.4,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -565,14 +520,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.2,
-              "affectedAxes": 34,
+              "affectedAxes": 6,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -627,10 +579,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -641,14 +590,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -663,10 +609,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -721,10 +664,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -735,14 +675,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -753,14 +690,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.4,
-              "affectedAxes": 10,
+              "affectedAxes": 3,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -775,10 +709,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -833,10 +764,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -847,14 +775,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -865,14 +790,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.2,
-              "affectedAxes": 32,
+              "affectedAxes": 4,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -927,10 +849,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -941,14 +860,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -963,10 +879,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -1021,10 +934,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1035,14 +945,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.4,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1057,10 +964,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -1115,10 +1019,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1129,14 +1030,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1147,14 +1045,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.2,
-              "affectedAxes": 10,
+              "affectedAxes": 3,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1165,14 +1060,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.35,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -1227,10 +1119,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1241,14 +1130,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1259,14 +1145,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.35,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -1321,10 +1204,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1335,14 +1215,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1353,14 +1230,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.4,
-              "affectedAxes": 10,
+              "affectedAxes": 3,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1375,10 +1249,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -1433,10 +1304,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1447,14 +1315,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1465,14 +1330,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.2,
-              "affectedAxes": 32,
+              "affectedAxes": 4,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -1527,10 +1389,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1541,14 +1400,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.4,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1559,14 +1415,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.35,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -1621,10 +1474,7 @@
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1635,14 +1485,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.3,
-              "affectedAxes": 9,
+              "affectedAxes": 1,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           },
@@ -1653,14 +1500,11 @@
             "effect": {
               "mode": 1,
               "multiplier": 1.2,
-              "affectedAxes": 34,
+              "affectedAxes": 6,
               "relationBonus": {
                 "trust": 0,
                 "respect": 0,
-                "fear": 0,
-                "hostility": 0,
-                "dependency": 0,
-                "interest": 0
+                "closeness": 0
               }
             }
           }
@@ -2033,7 +1877,7 @@
       "backgroundPath": "Assets/Story/Art/FamilyOffice.png",
       "speaker": 0,
       "npcId": "",
-      "text": "등록 서류 옆에는 출자 합의서가 놓여 있었다. 내 이름은 대표자 칸에 있었다. 주주명부에는 다른 이름들도 있었다.",
+      "text": "등록 서류 옆에 출자 약정서가 있었다. 대표자 칸엔 내 이름이, 주주명부엔 다른 이름들도 있었다.",
       "showPlayer": false,
       "goal": 0,
       "choices": []
@@ -2042,10 +1886,10 @@
       "id": "company-premise-1",
       "sceneTitle": "내 회사의 다음 장",
       "backgroundPath": "Assets/Story/Art/FamilyOffice.png",
-      "speaker": 2,
-      "npcId": "npc-broker-yoon-hajin",
-      "text": "회사를 세우신 건 맞아요. 혼자 마음대로 할 수 있는 돈을 전부 마련하신 건 아니고요.",
-      "showPlayer": true,
+      "speaker": 0,
+      "npcId": "",
+      "text": "내 돈만으로 꾸린 회사는 아니야. 첫 투자는 내가 맡기로 했지.",
+      "showPlayer": false,
       "goal": 0,
       "choices": []
     },
@@ -2053,10 +1897,10 @@
       "id": "company-premise-2",
       "sceneTitle": "내 회사의 다음 장",
       "backgroundPath": "Assets/Story/Art/FamilyOffice.png",
-      "speaker": 1,
+      "speaker": 0,
       "npcId": "",
-      "text": "처음 계획을 맡을 권한은 받았습니다. 결과를 보여주면 다음 투자도 검토하기로 했고요.",
-      "showPlayer": true,
+      "text": "결과를 보여주면 다음에도 돈을 보태겠다고 했다.",
+      "showPlayer": false,
       "goal": 0,
       "choices": []
     },
@@ -2064,10 +1908,10 @@
       "id": "company-premise-3",
       "sceneTitle": "내 회사의 다음 장",
       "backgroundPath": "Assets/Story/Art/FamilyOffice.png",
-      "speaker": 2,
-      "npcId": "npc-broker-yoon-hajin",
-      "text": "그분들이 보고 싶은 건 회사가 할 수 있는 사업이겠죠. 대표님이 개인적으로 끝내고 싶은 일하고 늘 같지는 않을 거예요.",
-      "showPlayer": true,
+      "speaker": 0,
+      "npcId": "",
+      "text": "저 사람들이 보고 싶은 건 내가 왜 시작했느냐가 아니야. 이 회사로 뭘 할 수 있느냐지.",
+      "showPlayer": false,
       "goal": 0,
       "choices": []
     },
@@ -2075,10 +1919,10 @@
       "id": "company-premise-4",
       "sceneTitle": "내 회사의 다음 장",
       "backgroundPath": "Assets/Story/Art/FamilyOffice.png",
-      "speaker": 1,
+      "speaker": 0,
       "npcId": "",
-      "text": "그래서 실제로 가치가 남아 있는 회사를 찾으려는 겁니다. 제 목적만 앞세워서는 오래 못 가니까요.",
-      "showPlayer": true,
+      "text": "그러려면 내가 사고 싶은 회사부터 고르면 안 돼. 살 만한 회사를 찾아야 해.",
+      "showPlayer": false,
       "goal": 0,
       "choices": []
     },
@@ -2086,10 +1930,10 @@
       "id": "company-premise-5",
       "sceneTitle": "내 회사의 다음 장",
       "backgroundPath": "Assets/Story/Art/FamilyOffice.png",
-      "speaker": 2,
-      "npcId": "npc-broker-yoon-hajin",
-      "text": "첫 검토 일정이 지나면 회사 쪽에도 보고해야 합니다. 못 맞췄을 때는 방향을 다시 정하기로 했다는 것도 기억하시고요.",
-      "showPlayer": true,
+      "speaker": 0,
+      "npcId": "",
+      "text": "첫 보고 날짜에 밑줄을 그었다. 그날까지 내가 뭘 봤고 왜 돈을 넣었는지 설명해야 한다.",
+      "showPlayer": false,
       "goal": 0,
       "choices": []
     },
@@ -2099,7 +1943,7 @@
       "backgroundPath": "Assets/Story/Art/FamilyOffice.png",
       "speaker": 0,
       "npcId": "",
-      "text": "첫 투자 계획은 회사의 초기 사업 검토 대상이다. 기한에 목표를 달성하지 못하면 후속 출자와 대표의 독립 운용이 재검토되어 회사의 종료 서사로 이어진다. 잔여 현금과 회사 경영권은 별개다.",
+      "text": "결과를 못 보여주면 다음 출자는 어려울 거야. 그때도 내게 회사를 맡겨 줄지는 모르겠고.",
       "showPlayer": false,
       "goal": 0,
       "choices": []
@@ -2509,9 +2353,11 @@
           "memoryType": 8,
           "interpretation": "첫 면담에서 자금 지급과 회수 시점을 확인했다.",
           "relationDelta": {
+            "trust": 0,
             "respect": 2,
-            "interest": 1
-          }
+            "closeness": 1
+          },
+          "description": "당장 갚아야 할 돈과 현금 사정을 살핍니다."
         },
         {
           "title": "성장 가능성을 묻는다",
@@ -2521,8 +2367,11 @@
           "memoryType": 8,
           "interpretation": "첫 면담에서 정상화와 성장의 조건을 물었다.",
           "relationDelta": {
-            "interest": 2
-          }
+            "trust": 0,
+            "respect": 0,
+            "closeness": 2
+          },
+          "description": "회사가 다시 성장할 여지가 있는지 묻습니다."
         },
         {
           "title": "가격과 부담을 묻는다",
@@ -2532,8 +2381,11 @@
           "memoryType": 8,
           "interpretation": "첫 소개 자리에서 투자 가격과 회사의 부담을 물었다. 인수 계약을 체결한 것은 아니다.",
           "relationDelta": {
-            "interest": 1
-          }
+            "trust": 0,
+            "respect": 0,
+            "closeness": 1
+          },
+          "description": "현재 가격에 어떤 부담이 반영됐는지 살핍니다."
         }
       ]
     },
@@ -2698,9 +2550,9 @@
       "id": "neutral-intro-T1-6",
       "sceneTitle": "이민규 — 주주님이라고 불러도 되나요",
       "backgroundPath": "Assets/Story/Art/HotelLounge.png",
-      "speaker": 2,
-      "npcId": "npc-economic-reporter-lee-mingyu",
-      "text": "투자 쪽이시군요. 혹시 미래건설 인수를 검토하십니까?",
+      "speaker": 1,
+      "npcId": "",
+      "text": "여기 제 명함입니다. 얼마 전에 미래건설 주식을 조금 샀어요.",
       "showPlayer": true,
       "goal": 0,
       "choices": []
@@ -2709,9 +2561,9 @@
       "id": "neutral-intro-T1-7",
       "sceneTitle": "이민규 — 주주님이라고 불러도 되나요",
       "backgroundPath": "Assets/Story/Art/HotelLounge.png",
-      "speaker": 1,
-      "npcId": "",
-      "text": "주식을 조금 샀다고 바로 인수 이야기가 나옵니까?",
+      "speaker": 2,
+      "npcId": "npc-economic-reporter-lee-mingyu",
+      "text": "아, 주주셨군요. 혹시 인수까지 생각하고 계십니까?",
       "showPlayer": true,
       "goal": 0,
       "choices": []
@@ -2720,9 +2572,9 @@
       "id": "neutral-intro-T1-8",
       "sceneTitle": "이민규 — 주주님이라고 불러도 되나요",
       "backgroundPath": "Assets/Story/Art/HotelLounge.png",
-      "speaker": 2,
-      "npcId": "npc-economic-reporter-lee-mingyu",
-      "text": "회사 앞에서 새 투자자가 나타나면 제일 먼저 나오는 질문이 그거라서요. 그런데 답은 다 달라요. 어떤 분은 주주고, 어떤 분은 주인이 될 생각이고, 어떤 분은 가격만 보고 왔죠.",
+      "speaker": 1,
+      "npcId": "",
+      "text": "주식을 조금 샀다고 바로 인수 이야기가 나옵니까?",
       "showPlayer": true,
       "goal": 0,
       "choices": []
@@ -2791,7 +2643,8 @@
           "interpretation": "첫 방문에서 회수 일정과 공개 자료를 확인 중이라고 설명했다. 회사 정상화나 경영 참여를 약속하지 않았다.",
           "relationDelta": {
             "respect": 1
-          }
+          },
+          "description": "확인한 사실과 판단을 구분해 답합니다."
         },
         {
           "title": "저평가 가능성을 보고 있다고 말한다",
@@ -2802,7 +2655,8 @@
           "interpretation": "저평가 가능성을 검토한다고 말했다. 주가 상승 보장이나 추천 발언은 하지 않았다.",
           "relationDelta": {
             "respect": 0
-          }
+          },
+          "description": "현재 주가를 어떻게 보고 있는지 밝힙니다."
         },
         {
           "title": "지금은 취재에 답하지 않는다",
@@ -2813,7 +2667,8 @@
           "interpretation": "첫 만남에서 취재 답변을 정중히 유보했다. 비협조·허위 해명·관계 단절로 기록하지 않는다.",
           "relationDelta": {
             "respect": 0
-          }
+          },
+          "description": "취재 요청을 정중히 보류합니다."
         }
       ]
     },
@@ -2924,9 +2779,11 @@
           "memoryType": 8,
           "interpretation": "첫 소개 자리에서 장기 투자에 관심을 보였다. 보유 기간이나 경영 참여를 확약한 것은 아니다.",
           "relationDelta": {
-            "interest": 2,
-            "respect": 1
-          }
+            "trust": 0,
+            "respect": 1,
+            "closeness": 2
+          },
+          "description": "회사를 오래 지켜볼 의향을 밝힙니다."
         },
         {
           "title": "수익 중심의 투자",
@@ -2937,7 +2794,8 @@
           "interpretation": "수익 목표와 매각 가능성을 솔직히 알렸다.",
           "relationDelta": {
             "respect": 1
-          }
+          },
+          "description": "수익을 기준으로 판단하겠다고 말합니다."
         },
         {
           "title": "장차 인수를 검토한다",
@@ -2947,8 +2805,11 @@
           "memoryType": 8,
           "interpretation": "장래 인수에 관심을 표현했다. 현재 경영권이나 운영 권한을 얻은 것은 아니다.",
           "relationDelta": {
-            "interest": 2
-          }
+            "trust": 0,
+            "respect": 0,
+            "closeness": 2
+          },
+          "description": "장기적으로 인수도 검토할 수 있다고 알립니다."
         }
       ]
     },
@@ -3050,7 +2911,8 @@
           "interpretation": "인원을 약속하기 전에 작업량과 실제 투입 여건을 확인하겠다고 했다.",
           "relationDelta": {
             "respect": 2
-          }
+          },
+          "description": "현장에서 감당할 작업량과 일정을 묻습니다."
         },
         {
           "title": "고용 안정을 중요하게 본다",
@@ -3060,8 +2922,11 @@
           "memoryType": 8,
           "interpretation": "첫 현장 방문에서 고용 안정에 관심을 표현했다. 채용 유지 약속이나 인사 결정은 하지 않았다.",
           "relationDelta": {
-            "interest": 1
-          }
+            "trust": 0,
+            "respect": 0,
+            "closeness": 1
+          },
+          "description": "고용을 지키는 일을 우선한다고 밝힙니다."
         },
         {
           "title": "현장 상황과 비용을 함께 검토한다",
@@ -3071,8 +2936,11 @@
           "memoryType": 8,
           "interpretation": "비용을 검토하되 현장 상황을 듣고 판단하겠다고 했다.",
           "relationDelta": {
-            "interest": 1
-          }
+            "trust": 0,
+            "respect": 0,
+            "closeness": 1
+          },
+          "description": "현장 부담과 비용을 함께 살피겠다고 답합니다."
         }
       ]
     },
@@ -3307,7 +3175,8 @@
           "interpretation": "회사가 버티기 어려운 이유를 알아보고 있다고 말했다. 자금 지원·취재 협조를 확약하지 않았다.",
           "relationDelta": {
             "respect": 1
-          }
+          },
+          "description": "회사가 버티는 데 필요한 조건을 짚습니다."
         },
         {
           "title": "남은 사람들의 이야기도 듣고 싶다고 한다",
@@ -3318,7 +3187,8 @@
           "interpretation": "과거 거래 중단 뒤 남은 사람들의 사정에 관심을 보였다. 피해 구제·고용 약속 없음.",
           "relationDelta": {
             "respect": 0
-          }
+          },
+          "description": "남아 있는 사람들의 이야기를 더 듣습니다."
         },
         {
           "title": "아직은 투자 판단에 집중하겠다고 한다",
@@ -3329,7 +3199,8 @@
           "interpretation": "투자 검토를 우선하고 대화를 마쳤다. 피해 외면·은폐·적대 효과를 부여하지 않는다.",
           "relationDelta": {
             "respect": 0
-          }
+          },
+          "description": "지금은 투자 판단에 필요한 사실만 확인합니다."
         }
       ]
     },
@@ -3620,7 +3491,8 @@
           "interpretation": "공개 절차 자료를 요청했다. 자문 계약·신청 대행·정치 거래는 성립하지 않았다.",
           "relationDelta": {
             "respect": 1
-          }
+          },
+          "description": "공개 설명회 자료와 공식 절차만 확인합니다."
         },
         {
           "title": "자문의 대가와 공개 범위를 묻는다",
@@ -3631,7 +3503,8 @@
           "interpretation": "자문 범위·비용·기록을 질문했다. 자문을 발주하지 않았다.",
           "relationDelta": {
             "respect": 0
-          }
+          },
+          "description": "자문료와 공유할 수 있는 정보의 범위를 묻습니다."
         },
         {
           "title": "소개는 받되 제안은 보류한다",
@@ -3642,7 +3515,8 @@
           "interpretation": "추가 자문을 보류했다. 적대·고발·거래 파기로 처리하지 않는다.",
           "relationDelta": {
             "respect": 0
-          }
+          },
+          "description": "소개는 받아 두고 구체적인 제안은 보류합니다."
         }
       ]
     },
@@ -3661,8 +3535,8 @@
       "id": "neutral-intro-T4-tail-1",
       "sceneTitle": "박상현 — 안내해 드릴 수 있는 것",
       "backgroundPath": "Assets/Story/Art/HotelLounge.png",
-      "speaker": 2,
-      "npcId": "npc-broker-yoon-hajin",
+      "speaker": 1,
+      "npcId": "",
       "text": "박 선생님 길도요?",
       "showPlayer": true,
       "goal": 0,
@@ -4519,7 +4393,8 @@
           "interpretation": "투자 전 유동성 여유를 정하겠다고 말했다. 실제 현금 확보나 자산 배분 완료는 아니다.",
           "relationDelta": {
             "respect": 1
-          }
+          },
+          "description": "투자한 뒤에도 남겨 둘 현금을 먼저 정합니다."
         },
         {
           "title": "성장 기회를 놓치는 것도 위험이라고 말한다",
@@ -4530,7 +4405,8 @@
           "interpretation": "성장 기회와 보유 현금 사이의 비용을 질문했다. 무리한 투자 성향으로 단정하지 않는다.",
           "relationDelta": {
             "respect": 0
-          }
+          },
+          "description": "기다리는 동안 놓칠 성장 기회를 짚습니다."
         },
         {
           "title": "회사의 회수 계획부터 묻겠다고 한다",
@@ -4541,7 +4417,8 @@
           "interpretation": "현금 회수 계획과 지연 시 대응을 확인하겠다고 말했다. 자금 지원 합의는 아니다.",
           "relationDelta": {
             "respect": 0
-          }
+          },
+          "description": "언제 어떤 방식으로 자금을 회수할지 묻습니다."
         }
       ]
     },

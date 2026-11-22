@@ -115,8 +115,26 @@ namespace TakeOver.Events
         public int getNegotiationChoiceCount() => negotiationChoices.Count;
         public string getNegotiationChoiceText(int choiceIndex) => screenState == ScreenState.CompanyChoice ?
             negotiationChoices[choiceIndex].companyName : negotiationChoices[choiceIndex].choice.getText();
-        public string getNegotiationChoiceDescription(int choiceIndex) => screenState == ScreenState.CompanyChoice ?
-            "" : negotiationChoices[choiceIndex].choice.getDescription();
+        public string getNegotiationChoiceDescription(int choiceIndex)
+        {
+            var option = negotiationChoices[choiceIndex];
+            if (screenState == ScreenState.CompanyChoice)
+                return $"현재 보유 지분 {worldReader.getStake(option.companyId):0.##}%";
+            var choice = option.choice;
+            if (!string.IsNullOrWhiteSpace(choice.getDescription()))
+                return activeInfo.resolve(choice.getDescription());
+            string reply = choice.getPlayerLine();
+            if (string.IsNullOrWhiteSpace(reply))
+                reply = choice.ResultLines.FirstOrDefault(line => line.player)?.text;
+            if (string.IsNullOrWhiteSpace(reply) || reply == choice.getText()) return "";
+            reply = activeInfo.resolve(reply).Trim();
+            int sentence = reply.IndexOfAny(new[] { '.', '?', '!', '\n' });
+            if (sentence >= 0) reply = reply.Substring(0, sentence + 1).Trim();
+            const int maxLength = 42;
+            if (reply.Length <= maxLength) return reply;
+            int lastSpace = reply.LastIndexOf(' ', maxLength - 1);
+            return reply.Substring(0, lastSpace >= maxLength / 2 ? lastSpace : maxLength - 1) + "…";
+        }
         public bool tryGetChoice(string eventId, out int choiceIndex)
         {
             choiceIndex = -1;
@@ -210,10 +228,8 @@ namespace TakeOver.Events
                     {
                         case EventRelationAxis.trust: actual = relation.trust; break;
                         case EventRelationAxis.respect: actual = relation.respect; break;
-                        case EventRelationAxis.fear: actual = relation.fear; break;
-                        case EventRelationAxis.hostility: actual = relation.hostility; break;
-                        case EventRelationAxis.dependency: actual = relation.dependency; break;
-                        default: actual = relation.interest; break;
+                        case EventRelationAxis.closeness: actual = relation.closeness; break;
+                        default: return false;
                     }
                 }
                 if (condition.comparison == EventComparison.AtLeast ? actual < threshold : actual > threshold) return false;

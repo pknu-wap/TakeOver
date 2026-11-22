@@ -51,20 +51,20 @@ namespace TakeOver.NPC
         [Header("테스트 관계 버튼 변화량")]
         [SerializeField] private NpcRelationDelta trustTestDelta = new NpcRelationDelta { trust = 10f };
         [SerializeField] private NpcRelationDelta respectTestDelta = new NpcRelationDelta { respect = 10f };
-        [SerializeField] private NpcRelationDelta fearTestDelta = new NpcRelationDelta { fear = 10f };
-        [SerializeField] private NpcRelationDelta hostilityTestDelta = new NpcRelationDelta { hostility = 10f };
-        [SerializeField] private NpcRelationDelta dependencyTestDelta = new NpcRelationDelta { dependency = 10f };
-        [SerializeField] private NpcRelationDelta interestTestDelta = new NpcRelationDelta { interest = 10f };
+        [SerializeField] private NpcRelationDelta fearTestDelta = new NpcRelationDelta { respect = -10f };
+        [SerializeField] private NpcRelationDelta hostilityTestDelta = new NpcRelationDelta { trust = -10f };
+        [SerializeField] private NpcRelationDelta cautionTestDelta = new NpcRelationDelta { closeness = -10f };
+        [SerializeField] private NpcRelationDelta closenessTestDelta = new NpcRelationDelta { closeness = 10f };
         // 테스트용 기억 유형별 효과. 프로토타입에서 관계 변화 흐름을 눈으로 확인하기 위한 예시값이다.
         [Header("테스트 Memory 관계 변화량")]
-        [SerializeField] private NpcRelationDelta goodFaithMemoryDelta = new NpcRelationDelta { trust = 5f, respect = 3f, interest = 1f };
-        [SerializeField] private NpcRelationDelta contractBreachMemoryDelta = new NpcRelationDelta { trust = -10f, hostility = 8f };
-        [SerializeField] private NpcRelationDelta massLayoffMemoryDelta = new NpcRelationDelta { respect = 2f, hostility = 10f };
-        [SerializeField] private NpcRelationDelta hostileTakeoverMemoryDelta = new NpcRelationDelta { respect = -4f, fear = 8f, hostility = 4f };
-        [SerializeField] private NpcRelationDelta savedCompanyMemoryDelta = new NpcRelationDelta { trust = 8f, dependency = 5f, respect = 2f };
-        [SerializeField] private NpcRelationDelta publicHumiliationMemoryDelta = new NpcRelationDelta { hostility = 12f, respect = -6f };
-        [SerializeField] private NpcRelationDelta leakedInfoMemoryDelta = new NpcRelationDelta { trust = -7f, interest = 4f, hostility = 3f };
-        [SerializeField] private NpcRelationDelta briberyMemoryDelta = new NpcRelationDelta { trust = -6f, dependency = 4f, hostility = 5f };
+        [SerializeField] private NpcRelationDelta goodFaithMemoryDelta = new NpcRelationDelta { trust = 5f, respect = 3f, closeness = 1f };
+        [SerializeField] private NpcRelationDelta contractBreachMemoryDelta = new NpcRelationDelta { trust = -10f };
+        [SerializeField] private NpcRelationDelta massLayoffMemoryDelta = new NpcRelationDelta { respect = 2f, trust = -10f };
+        [SerializeField] private NpcRelationDelta hostileTakeoverMemoryDelta = new NpcRelationDelta { respect = -8f, trust = -4f };
+        [SerializeField] private NpcRelationDelta savedCompanyMemoryDelta = new NpcRelationDelta { trust = 8f, closeness = 5f, respect = 2f };
+        [SerializeField] private NpcRelationDelta publicHumiliationMemoryDelta = new NpcRelationDelta { trust = -12f, respect = -6f };
+        [SerializeField] private NpcRelationDelta leakedInfoMemoryDelta = new NpcRelationDelta { trust = -7f, closeness = -4f };
+        [SerializeField] private NpcRelationDelta briberyMemoryDelta = new NpcRelationDelta { trust = -6f, closeness = -4f };
         // Unity Inspector 연결점과 코드 구독자를 위한 이벤트 알림.
         [SerializeField] private UnityEvent onTestEventRecorded;
         // 기존 테스트 씬 Inspector 연결을 유지하는 호환 진입점이다.
@@ -105,10 +105,10 @@ namespace TakeOver.NPC
                 actionId = memoryOnly ? null : kind == 0 ? "ClearFundingPlan" : kind == 1 ? "FinancialMisrepresentation" : "NeutralGreeting",
                 memoryType = memoryOnly ? negative ? NpcMemoryType.ContractBreach : NpcMemoryType.GoodFaith : NpcMemoryType.Custom,
                 interpretation = memoryOnly ? "테스트용 이벤트 결과" : "테스트용 이벤트 도중 행동",
-                relationDelta = new NpcRelationDelta { trust = negative ? -4 : 4, hostility = negative ? 4 : -4 }
+                relationDelta = new NpcRelationDelta { trust = negative ? -4 : 4 }
             });
             var after = RuntimeState.relation;
-            PreferencePreviewReport = $"실제 변화: 신뢰 {after.trust - before.trust:+0.##;-0.##;0}, 적대감 {after.hostility - before.hostility:+0.##;-0.##;0} / {LastRecordedMemory?.actionDisposition} · 누적 한계에서는 적용량이 줄어듭니다.";
+            PreferencePreviewReport = $"실제 변화: 신뢰–적대감 {after.trust - before.trust:+0.##;-0.##;0} / {LastRecordedMemory?.actionDisposition} · 누적 한계에서는 적용량이 줄어듭니다.";
         }
 
         /// <summary>기존 수신 경로로 수동 발행하고, 전후 상태를 비교해 실제 적용 결과를 보여준다.</summary>
@@ -149,7 +149,7 @@ namespace TakeOver.NPC
                     var a = previous.relation;
                     var b = current.relation;
                     report.AppendLine($"대상: {name} ({target})");
-                    report.AppendLine($"실제 변화: 신뢰 {b.trust - a.trust:+0.##;-0.##;0}, 존중 {b.respect - a.respect:+0.##;-0.##;0}, 두려움 {b.fear - a.fear:+0.##;-0.##;0}, 적대감 {b.hostility - a.hostility:+0.##;-0.##;0}, 의존도 {b.dependency - a.dependency:+0.##;-0.##;0}, 관심 {b.interest - a.interest:+0.##;-0.##;0}");
+                    report.AppendLine($"실제 변화: 신뢰–적대감 {b.trust - a.trust:+0.##;-0.##;0}, 존중–두려움 {b.respect - a.respect:+0.##;-0.##;0}, 친밀–경계 {b.closeness - a.closeness:+0.##;-0.##;0}");
                     var created = 0;
                     foreach (var memory in current.memories)
                     {
@@ -301,8 +301,8 @@ namespace TakeOver.NPC
         public void ApplyRespectTestDelta() => ApplyTestRelationDelta(respectTestDelta);
         public void ApplyFearTestDelta() => ApplyTestRelationDelta(fearTestDelta);
         public void ApplyHostilityTestDelta() => ApplyTestRelationDelta(hostilityTestDelta);
-        public void ApplyDependencyTestDelta() => ApplyTestRelationDelta(dependencyTestDelta);
-        public void ApplyInterestTestDelta() => ApplyTestRelationDelta(interestTestDelta);
+        public void ApplyCautionTestDelta() => ApplyTestRelationDelta(cautionTestDelta);
+        public void ApplyClosenessTestDelta() => ApplyTestRelationDelta(closenessTestDelta);
 
         /// <summary>
         /// 선택한 기억 유형에 맞는 테스트 ID·해석·효과를 채운 뒤 공통 이벤트 처리 경로를 호출한다.

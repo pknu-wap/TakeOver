@@ -1,8 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -175,14 +175,15 @@ namespace TakeOver.NPC
             public float standingHeight;
             public float standingOffsetY;
             public float standingOffsetX;
-            public float hostilityTrust;
-            public float fearRespect;
-            public float dependencyInterest;
         }
 
         private readonly List<NpcEntryData> _entries = new List<NpcEntryData>();
         private readonly List<NpcListItemView> _spawnedItems = new List<NpcListItemView>();
         private int _selectedIndex;
+        private string requestedNpcId;
+        private ScrollRect profileDetailsScroll;
+        private float memorySectionOffset;
+        public string SelectedNpcId => _entries.Count > _selectedIndex ? _entries[_selectedIndex].id : requestedNpcId;
 
         #endregion
 
@@ -199,6 +200,18 @@ namespace TakeOver.NPC
         {
             ApplyCanvasScaler();
             Refresh();
+            if (registry != null) registry.StateChanged += OnStateChanged;
+        }
+
+        private void OnDisable()
+        {
+            if (registry != null) registry.StateChanged -= OnStateChanged;
+        }
+
+        private void OnStateChanged(NpcRuntimeState state)
+        {
+            if (_entries.Count > _selectedIndex && state.npcId == SelectedNpcId)
+                UpdateSelectedDetails(_entries[_selectedIndex], false);
         }
 
         private void LateUpdate()
@@ -244,8 +257,25 @@ namespace TakeOver.NPC
             else Open();
         }
 
+        public void SelectNpc(string npcId)
+        {
+            if (string.IsNullOrEmpty(npcId)) return;
+            requestedNpcId = npcId;
+            int index = _entries.FindIndex(entry => entry.id == npcId);
+            if (index >= 0 && isActiveAndEnabled) SelectIndex(index);
+        }
+
+        public void FocusMemories()
+        {
+            if (profileDetailsScroll == null) return;
+            float scrollableHeight = profileDetailsScroll.content.rect.height - profileDetailsScroll.viewport.rect.height;
+            if (scrollableHeight > 0f)
+                profileDetailsScroll.verticalNormalizedPosition = 1f - Mathf.Clamp01(memorySectionOffset / scrollableHeight);
+        }
+
         public void Refresh()
         {
+            string preferredNpcId = requestedNpcId ?? SelectedNpcId;
             EnsureReferences();
             ApplyLayout();
             BuildEntries();
@@ -253,7 +283,8 @@ namespace TakeOver.NPC
 
             if (_entries.Count > 0)
             {
-                SelectIndex(Mathf.Clamp(_selectedIndex, 0, _entries.Count - 1));
+                int index = _entries.FindIndex(entry => entry.id == preferredNpcId);
+                SelectIndex(Mathf.Max(0, index));
             }
         }
 
@@ -505,14 +536,36 @@ namespace TakeOver.NPC
 
             if (descriptionText != null)
             {
-                PlaceTopCenter(descriptionText, 540f, 185f, -528f);
+                if (profileDetailsScroll == null) ConfigureProfileDetailsScroll();
                 descriptionText.alignment = TextAlignmentOptions.Top;
                 descriptionText.textWrappingMode = TextWrappingModes.Normal;
                 descriptionText.overflowMode = TextOverflowModes.Overflow;
                 descriptionText.fontSize = 19f;
-                descriptionText.lineSpacing = 12f;
+                descriptionText.lineSpacing = 5f;
                 descriptionText.color = new Color(0.20f, 0.24f, 0.31f, 1f);
             }
+        }
+
+        private void ConfigureProfileDetailsScroll()
+        {
+            var viewport = new GameObject("Profile details", typeof(RectTransform), typeof(Image),
+                typeof(RectMask2D), typeof(ScrollRect));
+            var rect = (RectTransform)viewport.transform;
+            rect.SetParent(descriptionText.transform.parent, false);
+            SetRect(rect, new Vector2(.5f, 1f), new Vector2(.5f, 1f),
+                new Vector2(564f, 220f), new Vector2(0f, -522f));
+            viewport.GetComponent<Image>().color = Color.clear;
+            var details = descriptionText.rectTransform;
+            details.SetParent(rect, false);
+            SetRect(details, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(.5f, 1f),
+                new Vector2(-24f, 220f), Vector2.zero);
+            descriptionText.raycastTarget = false;
+            profileDetailsScroll = viewport.GetComponent<ScrollRect>();
+            profileDetailsScroll.viewport = rect;
+            profileDetailsScroll.content = details;
+            profileDetailsScroll.horizontal = false;
+            profileDetailsScroll.movementType = ScrollRect.MovementType.Clamped;
+            profileDetailsScroll.scrollSensitivity = 35f;
         }
 
         private static void GetGaugeParts(NpcRelationGaugeView gauge, out RectTransform fill, out RectTransform tick)
@@ -573,37 +626,6 @@ namespace TakeOver.NPC
             {
                 label.fontSize = 16f;
                 label.color = GaugeLabel;
-            }
-        }
-
-        private static void UpdateGauge(NpcRelationGaugeView gauge, float normalizedValue)
-        {
-            if (gauge == null) return;
-            Type t = gauge.GetType();
-
-            MethodInfo setVal = t.GetMethod("SetValue", AnyInstance) ?? t.GetMethod("SetNormalizedValue", AnyInstance);
-            if (setVal != null && setVal.GetParameters().Length == 1)
-            {
-                setVal.Invoke(gauge, new object[] { normalizedValue });
-            }
-
-            GetGaugeParts(gauge, out RectTransform fill, out RectTransform tick);
-            float anchorX = 0.5f + Mathf.Clamp(normalizedValue, -1f, 1f) * 0.5f;
-
-            if (fill != null)
-            {
-                fill.anchorMin = new Vector2(Mathf.Min(0.5f, anchorX), 0f);
-                fill.anchorMax = new Vector2(Mathf.Max(0.5f, anchorX), 1f);
-                fill.offsetMin = Vector2.zero;
-                fill.offsetMax = Vector2.zero;
-            }
-
-            if (tick != null)
-            {
-                tick.anchorMin = new Vector2(anchorX, 0.5f);
-                tick.anchorMax = new Vector2(anchorX, 0.5f);
-                tick.anchoredPosition = Vector2.zero;
-                StyleGaugeTick(tick);
             }
         }
 
@@ -880,8 +902,6 @@ namespace TakeOver.NPC
         {
             if (source.Profiles == null) return;
 
-            Dictionary<string, object> stateMap = BuildStateMap(source);
-
             foreach (var entry in source.Profiles)
             {
                 if (entry == null || entry.profile == null) continue;
@@ -915,11 +935,6 @@ namespace TakeOver.NPC
                     sprite = ReadObjectMember(prof, "standingSprite", "portraitSprite", "sprite", "portrait", "StandingSprite", "Sprite", "Portrait") as Sprite
                 };
 
-                if (!string.IsNullOrEmpty(id) && stateMap.TryGetValue(id, out object state) && state != null)
-                {
-                    ReadRelationAxes(state, data);
-                }
-
                 output.Add(data);
             }
         }
@@ -935,62 +950,6 @@ namespace TakeOver.NPC
             }
             return hasRole ? role : (affiliation ?? string.Empty);
         }
-
-        private static void ReadRelationAxes(object state, NpcEntryData data)
-        {
-            object rel = ReadObjectMember(state, "relation", "relationState", "relationship", "Relation", "RelationState") ?? state;
-            data.hostilityTrust = NormalizeAxis(ReadFloatMember(rel, "hostilityTrust", "trust", "affinity", "HostilityTrust", "Trust"));
-            data.fearRespect = NormalizeAxis(ReadFloatMember(rel, "fearRespect", "respect", "fear", "FearRespect", "Respect"));
-            data.dependencyInterest = NormalizeAxis(ReadFloatMember(rel, "dependencyInterest", "interest", "dependency", "DependencyInterest", "Interest"));
-        }
-
-        private static float NormalizeAxis(float raw)
-            => Mathf.Abs(raw) > 1.001f ? Mathf.Clamp(raw / 100f, -1f, 1f) : Mathf.Clamp(raw, -1f, 1f);
-
-        private static Dictionary<string, object> BuildStateMap(NpcStateRegistry source)
-        {
-            var map = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-            Type t = source.GetType();
-
-            IEnumerable<IEnumerable> collections = t.GetProperties(AnyInstance)
-                .Where(p => p.Name != "Profiles" && IsEnumerableNonString(p.PropertyType))
-                .Select(p => p.GetValue(source) as IEnumerable)
-                .Concat(t.GetFields(AnyInstance)
-                    .Where(f => IsEnumerableNonString(f.FieldType))
-                    .Select(f => f.GetValue(source) as IEnumerable))
-                .Where(e => e != null);
-
-            foreach (IEnumerable collection in collections)
-            {
-                foreach (object item in collection)
-                {
-                    if (item == null) continue;
-
-                    string key;
-                    object value = item;
-                    Type itemType = item.GetType();
-
-                    if (itemType.IsGenericType && itemType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
-                    {
-                        key = itemType.GetProperty("Key")?.GetValue(item) as string;
-                        value = itemType.GetProperty("Value")?.GetValue(item);
-                    }
-                    else
-                    {
-                        key = ReadFirstString(item, "npcId", "id", "Id", "NpcId");
-                    }
-
-                    if (!string.IsNullOrEmpty(key) && value != null && !map.ContainsKey(key))
-                    {
-                        map[key] = value;
-                    }
-                }
-            }
-            return map;
-        }
-
-        private static bool IsEnumerableNonString(Type type)
-            => type != typeof(string) && typeof(IEnumerable).IsAssignableFrom(type);
 
         #endregion
 
@@ -1155,17 +1114,6 @@ namespace TakeOver.NPC
             return null;
         }
 
-        private static float ReadFloatMember(object target, params string[] names)
-        {
-            switch (ReadObjectMember(target, names))
-            {
-                case float f: return f;
-                case int i: return i;
-                case double d: return (float)d;
-                default: return 0f;
-            }
-        }
-
         /// <summary>대상의 모든 필드 값 → 읽기 가능한 프로퍼티 값 순으로 열거한다.</summary>
         private static IEnumerable<object> EnumerateMemberValues(object target)
         {
@@ -1252,6 +1200,7 @@ namespace TakeOver.NPC
         {
             if (index < 0 || index >= _entries.Count) return;
             _selectedIndex = index;
+            requestedNpcId = null;
             NpcEntryData data = _entries[index];
 
             for (int i = 0; i < _spawnedItems.Count; i++)
@@ -1270,16 +1219,68 @@ namespace TakeOver.NPC
             if (nameText != null) nameText.text = data.displayName;
             if (subtitleText != null) subtitleText.text = data.subtitle;
             if (introHeaderText != null) introHeaderText.text = "인물 소개";
+            UpdateSelectedDetails(data, true);
+        }
+
+        private void UpdateSelectedDetails(NpcEntryData data, bool resetScroll)
+        {
+            NpcRuntimeState state = null;
+            NpcStateRegistry.NpcSeed seed = null;
+            if (registry != null)
+            {
+                registry.TryGet(data.id, out state);
+                registry.TryGetProfile(data.id, out seed);
+            }
             if (descriptionText != null)
             {
                 descriptionText.gameObject.SetActive(true);
                 descriptionText.enabled = true;
-                descriptionText.text = data.description;
+                var text = new StringBuilder(data.description ?? "");
+                text.Append("\n\n<b>기억</b>");
+                if (state == null || state.memories.Count == 0) text.Append("\n아직 기록된 기억이 없습니다.");
+                else
+                    for (int i = state.memories.Count - 1; i >= 0; i--)
+                    {
+                        var memory = state.memories[i];
+                        if (memory == null) continue;
+                        string term = memory.permanent ? "영구 기억" : $"남은 기간 {memory.remainingTurns}일";
+                        text.Append("\n").Append(memory.turn).Append("일차 · ").Append(term).Append('\n')
+                            .Append(string.IsNullOrWhiteSpace(memory.interpretation)
+                                ? NpcMemoryPresentation.GetMemoryLabel(memory.memoryType) : memory.interpretation).Append('\n');
+                    }
+                text.Append("\n\n<b>호불호 단서</b>");
+                bool hasClue = false;
+                if (seed?.memoryPreferences != null)
+                    foreach (var preference in seed.memoryPreferences)
+                    {
+                        if (preference == null || preference.disposition == NpcActionDisposition.Unspecified) continue;
+                        hasClue = true;
+                        text.Append('\n').Append(preference.disposition == NpcActionDisposition.Likes ? "선호 · " : "불호 · ")
+                            .Append(NpcMemoryPresentation.GetMemoryLabel(preference.memoryType));
+                        if (!string.IsNullOrWhiteSpace(preference.rationale)) text.Append(" — ").Append(preference.rationale);
+                    }
+                if (!hasClue) text.Append("\n아직 표시할 단서가 없습니다.");
+                descriptionText.text = text.ToString();
+                if (profileDetailsScroll != null)
+                {
+                    var details = descriptionText.rectTransform;
+                    memorySectionOffset = string.IsNullOrWhiteSpace(data.description) ? 0f
+                        : descriptionText.GetPreferredValues(data.description + "\n\n ", details.rect.width, 0f).y;
+                    float height = descriptionText.GetPreferredValues(descriptionText.text, details.rect.width, 0f).y;
+                    details.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,
+                        Mathf.Max(profileDetailsScroll.viewport.rect.height, height + 12f));
+                    if (resetScroll)
+                    {
+                        profileDetailsScroll.StopMovement();
+                        details.anchoredPosition = Vector2.zero;
+                    }
+                }
             }
 
-            UpdateGauge(hostilityTrustGauge, data.hostilityTrust);
-            UpdateGauge(fearRespectGauge, data.fearRespect);
-            UpdateGauge(dependencyInterestGauge, data.dependencyInterest);
+            var relation = state?.relation ?? default;
+            hostilityTrustGauge?.SetBipolarValue(relation.trust);
+            fearRespectGauge?.SetBipolarValue(relation.respect);
+            dependencyInterestGauge?.SetBipolarValue(relation.closeness);
         }
 
         private static T GetItemField<T>(NpcListItemView item, string fieldName) where T : class

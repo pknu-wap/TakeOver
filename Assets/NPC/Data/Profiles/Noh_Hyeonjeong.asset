@@ -20,7 +20,7 @@ MonoBehaviour:
       likedMultiplier: 1.2
       dislikedMultiplier: 1.2
       useCustomAxes: 0
-      affectedAxes: 43
+      affectedAxes: 7
     memoryPreferences:
     - memoryType: 0
       disposition: 1
@@ -33,10 +33,7 @@ MonoBehaviour:
         relationBonus:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
     - memoryType: 1
       disposition: 2
       rationale: "\uBD80\uCC44\uC640 \uC9C0\uC6D0 \uC870\uAC74\uC744 \uC228\uAE30\uAC70\uB098
@@ -44,14 +41,11 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.4
-        affectedAxes: 9
+        affectedAxes: 1
         relationBonus:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
     - memoryType: 4
       disposition: 1
       rationale: "\uD604\uAE08 \uC0DD\uC874\uC774 \uD655\uC778\uB41C \uD68C\uC0DD
@@ -59,14 +53,11 @@ MonoBehaviour:
       effect:
         mode: 1
         multiplier: 1.2
-        affectedAxes: 34
+        affectedAxes: 6
         relationBonus:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
     npcId: npc-daeseong-industry-cfo-noh-hyeonjeong
     companyId: daeseong-industry
     profile:
@@ -99,10 +90,7 @@ MonoBehaviour:
       anyEventRelationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
       eventRelationBiases: []
     actionPreferences: []
   storyDesign:

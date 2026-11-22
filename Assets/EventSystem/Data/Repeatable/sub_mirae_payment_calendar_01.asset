@@ -73,10 +73,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 1
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
     cashDelta: 0
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
@@ -124,10 +121,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -165,10 +159,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 1
+        closeness: 1
     cashDelta: 0
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
@@ -215,10 +206,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -255,10 +243,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
     cashDelta: 0
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
@@ -305,10 +290,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0

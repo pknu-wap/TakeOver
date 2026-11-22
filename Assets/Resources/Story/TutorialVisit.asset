@@ -53,10 +53,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 2
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
   - choiceText: "\ub9e4\ucd9c\uacfc \uc774\uc775\uc744 \ubb3b\ub294\ub2e4"
     choiceDescription: "\uacf5\uac1c \uc790\ub8cc\ub97c \uc0b4\ud3b4\ubd05\ub2c8\ub2e4. \uacc4\uc57d\uc774\ub098 \ucd94\uac00 \uac70\ub798\ub294 \ubc1c\uc0dd\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
     playerLine: "\ub9e4\ucd9c\uc774 \ub298\uc5b4\ub09c \ub9cc\ud07c \ud68c\uc0ac\uc5d0\ub3c4 \ub3c8\uc774 \ub0a8\uace0 \uc788\uc2b5\ub2c8\uae4c?"
@@ -79,10 +76,7 @@ MonoBehaviour:
       relationDelta:
         trust: 2
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
   - choiceText: "\ubd80\ucc44 \ub0b4\uc5ed\uc744 \ubb3b\ub294\ub2e4"
     choiceDescription: "\uacf5\uac1c \uc790\ub8cc\ub97c \uc0b4\ud3b4\ubd05\ub2c8\ub2e4. \uacc4\uc57d\uc774\ub098 \ucd94\uac00 \uac70\ub798\ub294 \ubc1c\uc0dd\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
     playerLine: "\uac1a\uc544\uc57c \ud560 \ub3c8\uc740 \uc5b4\ub290 \uc815\ub3c4\uc778\uc9c0 \uba3c\uc800 \uc54c\uace0 \uc2f6\uc2b5\ub2c8\ub2e4."
@@ -105,10 +99,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 2
+        closeness: 2
   conditions: []
   validDays: 2
   speakerSource: 0

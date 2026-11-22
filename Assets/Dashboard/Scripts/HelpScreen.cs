@@ -56,11 +56,16 @@ namespace TakeOver.Help
             var caption=Instantiate(heading,panel.transform,false);caption.text="사진 선택: 크게 보기";caption.fontSize=14;
             Place(caption.rectTransform,846,130,360,30);
             caption.gameObject.name="Photo caption";
+            const float topicListTop = 542;
+            const float topicListBottom = 24;
+            const float topicGap = 4;
+            float topicStep = Mathf.Min(38, (topicListTop - topicListBottom + topicGap) / HelpTopics.Items.Length);
             for (int i=0;i<HelpTopics.Items.Length;i++)
             {
                 int index=i;
                 var button=template.CreateActionButton(panel.transform,"Help topic "+i,HelpTopics.Items[i].title,()=>Select(index));
-                Place((RectTransform)button.transform,24,508-i*38,204,34);
+                float height = topicStep - topicGap;
+                Place((RectTransform)button.transform,24,topicListTop-i*topicStep-height,204,height);
             }
             var close=template.CreateActionButton(panel.transform,"Close help","닫기",Close);
             Place((RectTransform)close.transform,1020,556,180,36);

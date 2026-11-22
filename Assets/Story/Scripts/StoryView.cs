@@ -87,6 +87,12 @@ namespace TakeOver.Story
             objectives.SetActive(false); SetMasks(false); stage.SetActive(false);
         }
 
+        private void LateUpdate()
+        {
+            float scale = EventNegotiationView.LayoutScale(((RectTransform)transform).rect.size);
+            if (scale > 0 && root.localScale.x != scale) root.localScale = new Vector3(scale, scale, 1);
+        }
+
         public void Show(StoryBeat beat, NpcStateRegistry registry)
         {
             informationOnly = beat.goal == StoryGoal.None && beat.speaker == StorySpeaker.System;
@@ -124,9 +130,15 @@ namespace TakeOver.Story
             bool narration = speaking == StorySpeaker.Narration || speaking == StorySpeaker.System;
             bool player = speaking == StorySpeaker.Player;
             NpcStateRegistry.NpcSeed profile = null;
-            if (!string.IsNullOrEmpty(beat.npcId)) registry.TryGetProfile(beat.npcId, out profile);
+            string npcId = director.DialogueNpcId;
+            if (!string.IsNullOrEmpty(npcId)) registry.TryGetProfile(npcId, out profile);
             var titles = new List<string>();
-            if (includeChoices) foreach (var choice in beat.choices) titles.Add(choice.title);
+            var descriptions = new List<string>();
+            if (includeChoices) foreach (var choice in beat.choices)
+            {
+                titles.Add(choice.title);
+                descriptions.Add(choice.description);
+            }
             sharedDialogue.ShowDialogue(new DialoguePresentation
             {
                 background = beat.background, backgroundTint = beat.backgroundTint,
@@ -136,7 +148,7 @@ namespace TakeOver.Story
                 showPlayer = beat.showPlayer,
                 npcStanding = profile?.profile.standingIllustration ?? (profile != null ? NpcInfoPanel.FallbackStanding : null),
                 npcDimmed = profile?.profile.dimmedStandingIllustration,
-                choices = titles
+                choices = titles, choiceDescriptions = descriptions
             }, director.Continue, director.Choose, director.SkipToNextChoice, () => director.CanSkipToChoice);
         }
 
@@ -225,6 +237,28 @@ namespace TakeOver.Story
         {
             var day = FindFirstObjectByType<DaySkipController>();
             Spotlight(day != null && day.DaySkipButton != null ? day.DaySkipButton.GetComponent<RectTransform>() : null);
+        }
+
+        public void SpotlightProfile(RectTransform profile)
+        {
+            if (profile != null && profile.parent is RectTransform parent && profile.rect.width > 0f && profile.rect.height > 0f)
+            {
+                var canvas = profile.GetComponentInParent<Canvas>();
+                var camera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+                Vector2 ToParent(Vector2 point)
+                {
+                    var screen = RectTransformUtility.WorldToScreenPoint(null, root.TransformPoint(point));
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, screen, camera, out var local);
+                    return local;
+                }
+                var lower = ToParent(new Vector2(-286f, -322f));
+                var upper = ToParent(new Vector2(622f, 308f));
+                var size = upper - lower;
+                float scale = Mathf.Min(size.x / profile.rect.width, size.y / profile.rect.height);
+                profile.localScale = new Vector3(scale, scale, 1f);
+                profile.position = parent.TransformPoint((lower + upper) * .5f - profile.rect.center * scale);
+            }
+            Spotlight(profile);
         }
         public void Spotlight(RectTransform target)
         {

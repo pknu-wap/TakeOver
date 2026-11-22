@@ -22,7 +22,7 @@ namespace TakeOver.NPC.Editor
             void Near(float actual, float expected, string name)
                 => Check(Mathf.Abs(actual - expected) < .001f, name + $" ({actual}/{expected})");
 
-            var mixed = new NpcRelationDelta { trust = 4, respect = -4, fear = 2, hostility = 4, dependency = 3, interest = -2 };
+            var mixed = new NpcRelationDelta { trust = 4, respect = -4, closeness = -2 };
             foreach (var profile in registry.Profiles)
             {
                 var id = profile.npcId;
@@ -47,34 +47,32 @@ namespace TakeOver.NPC.Editor
                     var withoutAction = registry.EvaluatePreferenceDetails(id, null, preference.memoryType, mixed);
                     Check(JsonUtility.ToJson(withAction) == JsonUtility.ToJson(withoutAction),
                         "Action cannot override Memory bonus: " + id + "/" + preference.memoryType);
-                    Near(withAction.relationDelta.fear, mixed.fear, "Fear unchanged: " + id + "/" + preference.memoryType);
-                    Near(withAction.relationDelta.dependency, mixed.dependency, "Dependency unchanged: " + id + "/" + preference.memoryType);
                 }
             }
             Near(Apply("npc-mirae-construction-field-director-park-dosik", NpcMemoryType.MassLayoff,
-                new NpcRelationDelta { hostility = 20 }).hostility, 28, "Park Dosik strongly opposes mass layoffs");
+                new NpcRelationDelta { trust = -20 }).trust, -28, "Park Dosik strongly opposes mass layoffs");
             Near(Apply("npc-hansung-industry-labor-director-choi-mijeong", NpcMemoryType.MassLayoff,
-                new NpcRelationDelta { hostility = 20 }).hostility, 28, "Choi Mijeong strongly opposes mass layoffs");
+                new NpcRelationDelta { trust = -20 }).trust, -28, "Choi Mijeong strongly opposes mass layoffs");
             Near(Apply("npc-dongbang-trading-hr-director-park-minu", NpcMemoryType.MassLayoff,
-                new NpcRelationDelta { hostility = 10 }).hostility, 12.5f, "Park Minu opposes disruptive mass layoffs");
+                new NpcRelationDelta { trust = -10 }).trust, -12.5f, "Park Minu opposes disruptive mass layoffs");
             Near(Apply("npc-haneul-food-cfo-oh-jaeseong", NpcMemoryType.MassLayoff,
                 new NpcRelationDelta { respect = 10 }).respect, 10, "Oh Jaeseong has no blanket layoff preference");
             Near(Apply("npc-haneul-food-cfo-oh-jaeseong", NpcMemoryType.GoodFaith,
                 new NpcRelationDelta { respect = -10 }).respect, -10, "Oh's cost-based respect loss is not reversed");
             var competitive = Apply("npc-dongbang-trading-ceo-kang-jaehyeon", NpcMemoryType.HostileTakeover,
-                new NpcRelationDelta { respect = 10, hostility = 10 });
+                new NpcRelationDelta { respect = 10, trust = -10 });
             Near(competitive.respect, 10, "Competitive CEO's respect remains contextual");
-            Near(competitive.hostility, 10, "Competitive CEO has no blanket takeover aversion");
+            Near(competitive.trust, -10, "Competitive CEO has no blanket takeover aversion");
             Near(Apply("npc-economic-reporter-lee-mingyu", NpcMemoryType.GoodFaith,
                 new NpcRelationDelta { trust = 10 }).trust, 13, "Lee Mingyu values transparent disclosure");
             var journalist = Apply("npc-investigative-reporter-jung-sua", NpcMemoryType.Bribery,
-                new NpcRelationDelta { trust = -10, interest = 10 });
+                new NpcRelationDelta { trust = -10, closeness = 10 });
             Near(journalist.trust, -14, "Jung Sua strongly distrusts bribery");
-            Near(journalist.interest, 10, "Investigative interest is not treated as liking bribery");
+            Near(journalist.closeness, 10, "Disliked action does not amplify a positive closeness input");
             var source = Apply("npc-mirae-construction-cfo-seo-jia", NpcMemoryType.LeakedInfo,
-                new NpcRelationDelta { trust = 10, interest = 10 });
+                new NpcRelationDelta { trust = 10, closeness = 10 });
             Near(source.trust, 12, "Seo values the current documented information agreement");
-            Near(source.interest, 12, "Seo values useful financial information");
+            Near(source.closeness, 12, "Seo values useful financial information");
             var output = Path.GetFullPath("../QA_NpcMemoryBalance");
             Directory.CreateDirectory(output);
             File.WriteAllLines(Path.Combine(output, "balance-results.txt"), results);

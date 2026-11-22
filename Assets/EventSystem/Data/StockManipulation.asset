@@ -78,12 +78,9 @@ MonoBehaviour:
         tags:
         - stock_manipulation
         relationDelta:
-          trust: 0
+          trust: 20
           respect: 0
-          fear: 0
-          hostility: -20
-          dependency: 10
-          interest: 0
+          closeness: -10
       memoryType: 8
       strength: 1
       publicity: 0
@@ -101,10 +98,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 1
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
     cashDelta: 0
     stockSurgeMinRatio: 0.3
     stockSurgeMaxRatio: 0.4
@@ -149,10 +143,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -190,10 +181,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 1
+        closeness: 1
     cashDelta: 0
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
@@ -244,10 +232,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -269,9 +254,9 @@ MonoBehaviour:
     playerMemoryKey:
   - kind: 0
     npcId: npc-broker-yoon-hajin
-    relationAxis: 3
-    comparison: 1
-    value: 10
+    relationAxis: 0
+    comparison: 0
+    value: -10
     relaxedByEventId:
     relaxedByChoiceIndex: 0
     relaxedValue: 0

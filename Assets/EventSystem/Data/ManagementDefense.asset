@@ -82,10 +82,7 @@ MonoBehaviour:
         relationDelta:
           trust: 10
           respect: 10
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-haneul-food-ceo-kim-harin
         memoryType: 8
         strength: 2
@@ -100,10 +97,7 @@ MonoBehaviour:
         relationDelta:
           trust: 10
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-hansung-industry-ceo-jo-minseok
         memoryType: 8
         strength: 2
@@ -118,10 +112,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 10
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-polaris-finance-ceo-lim-dohyeon
         memoryType: 8
         strength: 2
@@ -136,10 +127,7 @@ MonoBehaviour:
         relationDelta:
           trust: 10
           respect: 10
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-daeseong-industry-ceo-kim-seongho
         memoryType: 8
         strength: 2
@@ -154,10 +142,7 @@ MonoBehaviour:
         relationDelta:
           trust: 10
           respect: 10
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-sinseong-development-ceo-jung-dohyeon
         memoryType: 8
         strength: 2
@@ -172,10 +157,7 @@ MonoBehaviour:
         relationDelta:
           trust: 10
           respect: 10
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-blueharbor-retail-ceo-seo-yujin
         memoryType: 8
         strength: 2
@@ -190,10 +172,7 @@ MonoBehaviour:
         relationDelta:
           trust: 10
           respect: 10
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-aurora-foodtech-ceo-kim-seohu
         memoryType: 8
         strength: 2
@@ -208,10 +187,7 @@ MonoBehaviour:
         relationDelta:
           trust: 10
           respect: 10
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       memoryType: 8
       strength: 2
       publicity: 1
@@ -225,10 +201,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
     cashDelta: 0
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
@@ -260,10 +233,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -307,12 +277,9 @@ MonoBehaviour:
           \uCDE8\uB4DD\uC774 \uC644\uB8CC\uB41C \uAC83\uC740 \uC544\uB2C8\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
+          trust: -10
           respect: 0
-          fear: 0
-          hostility: 10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-haneul-food-ceo-kim-harin
         memoryType: 8
         strength: 2
@@ -325,12 +292,9 @@ MonoBehaviour:
           \uCDE8\uB4DD\uC774 \uC644\uB8CC\uB41C \uAC83\uC740 \uC544\uB2C8\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
+          trust: -10
           respect: 0
-          fear: 0
-          hostility: 10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-hansung-industry-ceo-jo-minseok
         memoryType: 8
         strength: 2
@@ -343,12 +307,9 @@ MonoBehaviour:
           \uCDE8\uB4DD\uC774 \uC644\uB8CC\uB41C \uAC83\uC740 \uC544\uB2C8\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
+          trust: -10
           respect: 0
-          fear: 0
-          hostility: 10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-dongbang-trading-ceo-kang-jaehyeon
         memoryType: 8
         strength: 2
@@ -362,11 +323,8 @@ MonoBehaviour:
         tags: []
         relationDelta:
           trust: 0
-          respect: 10
-          fear: 10
-          hostility: 0
-          dependency: 0
-          interest: 0
+          respect: 0
+          closeness: 0
       - targetNpcId: npc-polaris-finance-ceo-lim-dohyeon
         memoryType: 8
         strength: 2
@@ -379,12 +337,9 @@ MonoBehaviour:
           \uCDE8\uB4DD\uC774 \uC644\uB8CC\uB41C \uAC83\uC740 \uC544\uB2C8\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
+          trust: -10
           respect: 0
-          fear: 0
-          hostility: 10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-daeseong-industry-ceo-kim-seongho
         memoryType: 8
         strength: 2
@@ -397,12 +352,9 @@ MonoBehaviour:
           \uCDE8\uB4DD\uC774 \uC644\uB8CC\uB41C \uAC83\uC740 \uC544\uB2C8\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
+          trust: -10
           respect: 0
-          fear: 0
-          hostility: 10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-sinseong-development-ceo-jung-dohyeon
         memoryType: 8
         strength: 2
@@ -415,12 +367,9 @@ MonoBehaviour:
           \uCDE8\uB4DD\uC774 \uC644\uB8CC\uB41C \uAC83\uC740 \uC544\uB2C8\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
+          trust: -10
           respect: 0
-          fear: 0
-          hostility: 10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-blueharbor-retail-ceo-seo-yujin
         memoryType: 8
         strength: 2
@@ -433,12 +382,9 @@ MonoBehaviour:
           \uCDE8\uB4DD\uC774 \uC644\uB8CC\uB41C \uAC83\uC740 \uC544\uB2C8\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
+          trust: -10
           respect: 0
-          fear: 0
-          hostility: 10
-          dependency: 0
-          interest: 0
+          closeness: 0
       - targetNpcId: npc-aurora-foodtech-ceo-kim-seohu
         memoryType: 8
         strength: 2
@@ -451,12 +397,9 @@ MonoBehaviour:
           \uCDE8\uB4DD\uC774 \uC644\uB8CC\uB41C \uAC83\uC740 \uC544\uB2C8\uB2E4."
         tags: []
         relationDelta:
-          trust: 0
+          trust: -10
           respect: 0
-          fear: 0
-          hostility: 10
-          dependency: 0
-          interest: 0
+          closeness: 0
       memoryType: 8
       strength: 2
       publicity: 1
@@ -470,10 +413,7 @@ MonoBehaviour:
       relationDelta:
         trust: 0
         respect: 0
-        fear: 0
-        hostility: 0
-        dependency: 0
-        interest: 0
+        closeness: 0
     cashDelta: 0
     stockSurgeMinRatio: 0
     stockSurgeMaxRatio: 0
@@ -505,10 +445,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -635,10 +572,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 1
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -696,10 +630,7 @@ MonoBehaviour:
           relationDelta:
             trust: 0
             respect: 0
-            fear: 0
-            hostility: 0
-            dependency: 0
-            interest: 0
+            closeness: 0
         cashDelta: 0
         stockSurgeMinRatio: 0
         stockSurgeMaxRatio: 0
@@ -741,10 +672,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 1
+          closeness: 1
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -805,10 +733,7 @@ MonoBehaviour:
           relationDelta:
             trust: 0
             respect: 0
-            fear: 0
-            hostility: 0
-            dependency: 0
-            interest: 0
+            closeness: 0
         cashDelta: 0
         stockSurgeMinRatio: 0
         stockSurgeMaxRatio: 0
@@ -891,10 +816,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 1
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -954,10 +876,7 @@ MonoBehaviour:
           relationDelta:
             trust: 0
             respect: 0
-            fear: 0
-            hostility: 0
-            dependency: 0
-            interest: 0
+            closeness: 0
         cashDelta: 0
         stockSurgeMinRatio: 0
         stockSurgeMaxRatio: 0
@@ -999,10 +918,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 1
+          closeness: 1
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -1063,10 +979,7 @@ MonoBehaviour:
           relationDelta:
             trust: 0
             respect: 0
-            fear: 0
-            hostility: 0
-            dependency: 0
-            interest: 0
+            closeness: 0
         cashDelta: 0
         stockSurgeMinRatio: 0
         stockSurgeMaxRatio: 0
@@ -1145,10 +1058,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 1
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -1200,10 +1110,7 @@ MonoBehaviour:
           relationDelta:
             trust: 0
             respect: 0
-            fear: 0
-            hostility: 0
-            dependency: 0
-            interest: 0
+            closeness: 0
         cashDelta: 0
         stockSurgeMinRatio: 0
         stockSurgeMaxRatio: 0
@@ -1241,10 +1148,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 1
+          closeness: 1
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -1302,10 +1206,7 @@ MonoBehaviour:
           relationDelta:
             trust: 0
             respect: 0
-            fear: 0
-            hostility: 0
-            dependency: 0
-            interest: 0
+            closeness: 0
         cashDelta: 0
         stockSurgeMinRatio: 0
         stockSurgeMaxRatio: 0
@@ -1387,10 +1288,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 1
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 0
+          closeness: 0
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -1449,10 +1347,7 @@ MonoBehaviour:
           relationDelta:
             trust: 0
             respect: 0
-            fear: 0
-            hostility: 0
-            dependency: 0
-            interest: 0
+            closeness: 0
         cashDelta: 0
         stockSurgeMinRatio: 0
         stockSurgeMaxRatio: 0
@@ -1493,10 +1388,7 @@ MonoBehaviour:
         relationDelta:
           trust: 0
           respect: 0
-          fear: 0
-          hostility: 0
-          dependency: 0
-          interest: 1
+          closeness: 1
       cashDelta: 0
       stockSurgeMinRatio: 0
       stockSurgeMaxRatio: 0
@@ -1555,10 +1447,7 @@ MonoBehaviour:
           relationDelta:
             trust: 0
             respect: 0
-            fear: 0
-            hostility: 0
-            dependency: 0
-            interest: 0
+            closeness: 0
         cashDelta: 0
         stockSurgeMinRatio: 0
         stockSurgeMaxRatio: 0

@@ -10,7 +10,7 @@ namespace TakeOver.Journal
     public static class JournalEntryBuilder
     {
         
-        private static readonly string[] axisNames = { "신뢰", "존중", "두려움", "적대감", "의존도", "관심" };
+        private static readonly string[] axisNames = { "신뢰–적대감", "존중–두려움", "친밀–경계" };
 
         
         public static List<JournalEntry> buildStoryEntries(EventSystemController events, NpcStateRegistry npcs)
@@ -99,7 +99,7 @@ namespace TakeOver.Journal
        
         private static string formatDelta(NpcRelationDelta delta)
         {
-            float[] values = { delta.trust, delta.respect, delta.fear, delta.hostility, delta.dependency, delta.interest };
+            float[] values = { delta.trust, delta.respect, delta.closeness };
             var parts = new List<string>();
             for (int i = 0; i < values.Length; i++)
             {

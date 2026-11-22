@@ -23,7 +23,7 @@ namespace TakeOver.NPC
                         eventRelationBiases = new List<NpcEventRelationBias>
                         {
                             Bias(NpcMemoryType.GoodFaith, new NpcRelationDelta { trust = 1f }),
-                            Bias(NpcMemoryType.ContractBreach, new NpcRelationDelta { trust = -2f, hostility = 1f })
+                            Bias(NpcMemoryType.ContractBreach, new NpcRelationDelta { trust = -2f })
                         }
                     },
                     actionPreferences = Preferences(
@@ -39,11 +39,10 @@ namespace TakeOver.NPC
                         displayName = "정수아", role = "탐사보도 기자", affiliation = "외부 인물",
                         personalitySummary = "공익 사건을 오래 추적한다. 한 번의 비위보다 정보 유출·뇌물·정치 결탁 같은 사건의 연결고리를 중시한다.",
                         gameplayRoleSummary = "정치 거래나 뇌물 등 공개된 사건을 추적해 조사·폭로 분기로 이어질 수 있다.",
-                        anyEventRelationDelta = new NpcRelationDelta { interest = 1f },
                         eventRelationBiases = new List<NpcEventRelationBias>
                         {
-                            Bias(NpcMemoryType.LeakedInfo, new NpcRelationDelta { interest = 1f }),
-                            Bias(NpcMemoryType.Bribery, new NpcRelationDelta { interest = 1f })
+                            Bias(NpcMemoryType.LeakedInfo, new NpcRelationDelta { closeness = -1f }),
+                            Bias(NpcMemoryType.Bribery, new NpcRelationDelta { closeness = -1f })
                         }
                     },
                     actionPreferences = Preferences(
@@ -66,10 +65,10 @@ namespace TakeOver.NPC
                         gameplayRoleSummary = "예측 가능한 성장과 투명한 재무를 기준으로 투자금 배분을 판단하는 외부 자본 주체다.",
                         eventRelationBiases = new List<NpcEventRelationBias>
                         {
-                            Bias(NpcMemoryType.GoodFaith, new NpcRelationDelta { interest = 1f }),
-                            Bias(NpcMemoryType.SavedCompany, new NpcRelationDelta { trust = 1f, interest = 1f }),
-                            Bias(NpcMemoryType.HostileTakeover, new NpcRelationDelta { hostility = 1f }),
-                            Bias(NpcMemoryType.MassLayoff, new NpcRelationDelta { interest = -1f })
+                            Bias(NpcMemoryType.GoodFaith, new NpcRelationDelta { closeness = 1f }),
+                            Bias(NpcMemoryType.SavedCompany, new NpcRelationDelta { trust = 1f, closeness = 1f }),
+                            Bias(NpcMemoryType.HostileTakeover, new NpcRelationDelta { trust = -1f }),
+                            Bias(NpcMemoryType.MassLayoff, new NpcRelationDelta { closeness = -1f })
                         }
                     },
                     actionPreferences = Preferences(
@@ -88,8 +87,8 @@ namespace TakeOver.NPC
                         gameplayRoleSummary = "정부 계약과 규제 환경 관련 기회를 연결하며 정치 결탁 사건의 접점이 될 수 있다.",
                         eventRelationBiases = new List<NpcEventRelationBias>
                         {
-                            Bias(NpcMemoryType.GoodFaith, new NpcRelationDelta { interest = 1f }),
-                            Bias(NpcMemoryType.Bribery, new NpcRelationDelta { interest = -1f, hostility = 2f })
+                            Bias(NpcMemoryType.GoodFaith, new NpcRelationDelta { closeness = 1f }),
+                            Bias(NpcMemoryType.Bribery, new NpcRelationDelta { closeness = -1f, trust = -2f })
                         }
                     },
                     actionPreferences = Preferences(
@@ -107,9 +106,9 @@ namespace TakeOver.NPC
                         eventRelationBiases = new List<NpcEventRelationBias>
                         {
                             Bias(NpcMemoryType.GoodFaith, new NpcRelationDelta { trust = 2f, respect = 1f }),
-                            Bias(NpcMemoryType.ContractBreach, new NpcRelationDelta { trust = -2f, hostility = 2f }),
-                            Bias(NpcMemoryType.MassLayoff, new NpcRelationDelta { respect = -1f, hostility = 2f }),
-                            Bias(NpcMemoryType.HostileTakeover, new NpcRelationDelta { trust = -1f, hostility = 2f })
+                            Bias(NpcMemoryType.ContractBreach, new NpcRelationDelta { trust = -2f }),
+                            Bias(NpcMemoryType.MassLayoff, new NpcRelationDelta { respect = -1f, trust = -2f }),
+                            Bias(NpcMemoryType.HostileTakeover, new NpcRelationDelta { trust = -2f })
                         }
                     },
                     actionPreferences = Preferences(
