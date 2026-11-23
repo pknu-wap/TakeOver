@@ -72,6 +72,7 @@ public sealed class CampaignReviewProbe : MonoBehaviour
     {
         yield return null; yield return null;
         Object.FindFirstObjectByType<MainMenuController>().startContinue();
+        SessionSaveVerification.SelectAutomaticSave();
         while (GameSessionCoordinator.Active == null || !GameSessionCoordinator.Active.Ready) yield return null;
         yield return null;
         var clock = Object.FindFirstObjectByType<GameTurnClock>(); var game = Object.FindFirstObjectByType<EventSystemController>();

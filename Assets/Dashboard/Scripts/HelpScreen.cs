@@ -38,12 +38,14 @@ namespace TakeOver.Help
             Place(rule, 24, 540, 1184, 2);
             var viewport = new GameObject("Reading viewport", typeof(RectTransform), typeof(Image), typeof(Mask));
             viewport.transform.SetParent(panel.transform, false);
-            Place((RectTransform)viewport.transform, 250, 24, 570, 508);
+            Place((RectTransform)viewport.transform, 250, 170, 570, 340);
             viewport.GetComponent<Mask>().showMaskGraphic = false;
             body.transform.SetParent(viewport.transform, false);
             var rect = body.rectTransform; rect.anchorMin = new Vector2(0,1); rect.anchorMax = Vector2.one; rect.pivot = new Vector2(0,1);
             rect.anchoredPosition = Vector2.zero; rect.sizeDelta = Vector2.zero;
             body.verticalOverflow = VerticalWrapMode.Overflow; body.horizontalOverflow = HorizontalWrapMode.Wrap;
+            body.alignment = TextAnchor.MiddleLeft;
+            var readingLayout = body.gameObject.AddComponent<LayoutElement>(); readingLayout.minHeight = 340;
             var fit = body.gameObject.AddComponent<ContentSizeFitter>(); fit.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
             scroll = viewport.AddComponent<ScrollRect>(); scroll.viewport = (RectTransform)viewport.transform; scroll.content = rect;
             scroll.horizontal = false; scroll.movementType = ScrollRect.MovementType.Clamped; scroll.scrollSensitivity = 30;
