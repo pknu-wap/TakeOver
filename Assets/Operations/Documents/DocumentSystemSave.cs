@@ -31,6 +31,7 @@ namespace TakeOver.Documents
             foreach (var record in data.records)
             {
                 if (record == null || string.IsNullOrWhiteSpace(record.type) || record.arrival < 1 || !arrivals.Add(record.arrival) ||
+                    record.arrivalTurn < 0 || record.arrivalTurn > day.day ||
                     record.fields == null || record.fields.Any(field => string.IsNullOrWhiteSpace(field.name) || float.IsNaN(field.value) || float.IsInfinity(field.value)) ||
                     record.resolved && (record.resolvedTurn < 1 || record.resolvedTurn > day.day) ||
                     record.snapshot && (record.infoRows == null || string.IsNullOrWhiteSpace(record.title)) ||

@@ -21,8 +21,8 @@ namespace TakeOver.Documents
         public int DeadlineTurn { get; }
         public string BodyId => "generic";
         public string DedupKey => TargetCompany.definition.companyID;
-        public string Title => "자금 요청";
-        public string Author => "";
+        public string Title => "운영 자금 지원 요청";
+        public string Author => $"{TargetCompany.definition.companyName} 대표";
         public string ApproveLabel => "";
         public string RejectLabel => "";
         public string DoneLabel => "";
@@ -30,13 +30,13 @@ namespace TakeOver.Documents
         public IReadOnlyList<DocumentInfo> InfoRows => new[]
         {
             new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
-            new DocumentInfo("요청 금액", $"{Amount:N0}원")
+            new DocumentInfo("회사 현금", $"{TargetCompany.state.getBaseStat(CompanyStat.CASH):N0}원"),
+            new DocumentInfo("요청 금액", $"{Amount:N0}원"),
+            new DocumentInfo("내 보유자금", $"{player.state.cash:N0}원 → {player.state.cash - Amount:N0}원")
         };
 
         public IReadOnlyList<string> BodyLines => new[]
         {
-            $"{TargetCompany.definition.companyName}의 현금이 바닥났습니다.",
-            $"{Amount:N0}원을 지원하면 회사 현금이 같은 금액만큼 늘어납니다.",
             "거절하면 이 회사는 다시 자금을 요청하지 않습니다."
         };
 

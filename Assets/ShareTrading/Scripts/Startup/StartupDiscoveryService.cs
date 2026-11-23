@@ -84,11 +84,8 @@ namespace TakeOver.Startups
             List<Company> pool = collectCandidatePool(turn);
             if (pool.Count == 0)
             {
-                documents.Inbox.Add(new SnapshotDocument(emptyReportTypeId, "발굴 보고", author, new[]
-                {
-                    new DocumentInfo("발굴일", $"{turn}일"),
-                    new DocumentInfo("결과", "투자할 만한 스타트업을 찾지 못했습니다")
-                }));
+                documents.Inbox.Add(new SnapshotDocument(emptyReportTypeId, "투자 후보 없음 보고", author,
+                    System.Array.Empty<DocumentInfo>()));
                 return;
             }
 

@@ -34,8 +34,8 @@ namespace TakeOver.Documents
         public int DeadlineTurn { get; }
         public string BodyId => "generic";
         public string DedupKey => TargetCompany.definition.companyID;
-        public string Title => "연간 사업 계획";
-        public string Author => "";
+        public string Title => "연간 사업 계획 승인";
+        public string Author => $"{TargetCompany.definition.companyName} 대표";
         public string ApproveLabel => "";
         public string RejectLabel => "";
         public string DoneLabel => "";
@@ -62,8 +62,6 @@ namespace TakeOver.Documents
 
         public IReadOnlyList<string> BodyLines => new[]
         {
-            $"{TargetCompany.definition.companyName}의 올해 사업 계획입니다.",
-            "빈칸 4개를 모두 골라 승인하세요.",
             "비용은 회사 현금에서 나가고, 모자라면 부족한 금액을 대출로 충당합니다."
         };
 

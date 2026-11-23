@@ -14,8 +14,8 @@ namespace TakeOver.Documents
         public int DeadlineTurn { get; }
         public string BodyId => "generic";
         public string DedupKey => TargetCompany.definition.companyID;
-        public string Title => "배당 정책";
-        public string Author => "";
+        public string Title => "배당 비율 결정";
+        public string Author => $"{TargetCompany.definition.companyName} 이사회";
         public string ApproveLabel => "";
         public string RejectLabel => "";
         public string DoneLabel => "";
@@ -23,16 +23,12 @@ namespace TakeOver.Documents
         {
             new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
             new DocumentInfo("현재 배당 비율", $"{TargetCompany.state.getBaseStat(CompanyStat.DIVIDEND_RATIO):P0}"),
-            new DocumentInfo("선택한 비율", $"{fields[0].value:P0}")
+            new DocumentInfo("내 지분", $"{stake():P2}"),
+            new DocumentInfo("예상 배당금", $"{DividendRule.TotalDividend(TargetCompany.state, fields[0].value) * stake():N0}원")
         };
         public IReadOnlyList<DocumentField> Fields => fields;
         public IReadOnlyList<DocumentChoiceField> ChoiceFields => Array.Empty<DocumentChoiceField>();
-        public IReadOnlyList<string> BodyLines => new[]
-        {
-            TargetCompany.definition.companyName,
-            $"현재 배당 비율: {TargetCompany.state.getBaseStat(CompanyStat.DIVIDEND_RATIO):P0}",
-            $"선택한 비율: {fields[0].value:P0}"
-        };
+        public IReadOnlyList<string> BodyLines => Array.Empty<string>();
 
         public DividendPolicyDocument(Company company, int deadlineTurn, DocumentSettings settings)
         {
@@ -41,9 +37,13 @@ namespace TakeOver.Documents
             fields = new List<DocumentField>
             {
                 new DocumentField("dividendRatio", "배당 비율",
-                    company.state.getBaseStat(CompanyStat.DIVIDEND_RATIO), settings.dividendRatioOptions)
+                    company.state.getBaseStat(CompanyStat.DIVIDEND_RATIO), settings.dividendRatioOptions,
+                    initialOptionLabel: $"유지 ({company.state.getBaseStat(CompanyStat.DIVIDEND_RATIO):0%})")
             };
         }
+
+        private float stake() => TargetCompany.state.totalShares > 0
+            ? TargetCompany.state.getBaseStat(CompanyStat.PLAYER_SHARES) / TargetCompany.state.totalShares : 0f;
 
         internal static DividendPolicyDocument CreateFromSaveRecord(DocumentSaveRecord record, DocumentContext context)
         {
@@ -58,6 +58,7 @@ namespace TakeOver.Documents
         {
             if (name != fields[0].name) throw new ArgumentException("알 수 없는 문서 입력 칸입니다.", nameof(name));
             fields[0].value = value;
+            fields[0].initialSelected = false;
         }
 
         public void SetChoice(string name, int key)

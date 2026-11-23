@@ -106,7 +106,7 @@ namespace TakeOver.Startups
             negotiation.ContinueButton.gameObject.SetActive(false);
             negotiation.SkipButton.gameObject.SetActive(false);
             if (detail != null) return;
-            detail = Instantiate(contractPrefab, negotiation.transform, false);
+            detail = Instantiate(contractPrefab, negotiation.transform.parent, false);
             detail.name = "Startup investment contract";
             var source = FindFirstObjectByType<OperationsScreen>(FindObjectsInactive.Include).GetComponentInChildren<DocumentDetailView>(true);
             var sourceRect = (RectTransform)source.transform;
@@ -119,7 +119,12 @@ namespace TakeOver.Startups
             rect.localScale = Vector3.one * (sourceScale / targetScale);
             detail.gameObject.SetActive(true);
             detail.Decided += decide;
-            detail.Show(contract);
+            var overlay = detail.gameObject.AddComponent<Canvas>();
+            overlay.overrideSorting = true;
+            overlay.sortingOrder = 601;
+            detail.gameObject.AddComponent<UnityEngine.UI.GraphicRaycaster>();
+            detail.Show(contract, arrivalTurn: clock.CurrentTurn);
+            negotiation.gameObject.SetActive(false);
             detail.GetComponentInChildren<UnityEngine.UI.Button>().Select();
         }
 
@@ -147,6 +152,11 @@ namespace TakeOver.Startups
 
         private void close()
         {
+            if (detail != null)
+            {
+                detail.gameObject.SetActive(false);
+                Destroy(detail.gameObject);
+            }
             if (negotiation != null)
             {
                 negotiation.gameObject.SetActive(false);
