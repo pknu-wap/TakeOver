@@ -191,7 +191,7 @@ namespace TakeOver.Employees.Editor
             empHdrLayout.childForceExpandWidth = true;
             empHdrLayout.childForceExpandHeight = true;
 
-            string[] empHeaders = { "이름", "등급", "분석", "인맥", "안목", "발품", "관리", "월급", "성실", "충성", "야망", "잠재력" };
+            string[] empHeaders = { "이름", "연차", "분석", "인맥", "안목", "발품", "관리", "월급", "성실", "충성", "야망", "잠재력" };
             Button[] sortBtns = new Button[empHeaders.Length];
             for (int i = 0; i < empHeaders.Length; i++)
             {
@@ -244,7 +244,7 @@ namespace TakeOver.Employees.Editor
             appHdrLayout.childForceExpandWidth = true;
             appHdrLayout.childForceExpandHeight = true;
 
-            string[] appHeaders = { "이름", "등급", "분석", "인맥", "안목", "발품", "관리", "월급", "성실", "충성", "야망", "잠재력", "채용" };
+            string[] appHeaders = { "이름", "연차", "분석", "인맥", "안목", "발품", "관리", "월급", "성실", "충성", "야망", "잠재력", "채용" };
             for (int i = 0; i < appHeaders.Length; i++)
             {
                 CreateCellLabel(appHeaderRow.transform, $"Hdr_{appHeaders[i]}", appHeaders[i], AppColWeights[i], ColLightBg, 14, TextAlignmentOptions.Center);

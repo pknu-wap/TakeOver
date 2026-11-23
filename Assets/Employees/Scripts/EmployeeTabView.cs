@@ -655,16 +655,11 @@ namespace TakeOver.Employees
 
         public static string FormatGrade(CareerGrade grade)
         {
-            switch (grade.ToString())
+            switch (grade)
             {
-                case "Intern": return "인턴";
-                case "Junior":
-                case "Staff": return "사원";
-                case "Senior":
-                case "AssistantManager": return "대리";
-                case "Manager": return "과장";
-                case "Director": return "부장";
-                case "Executive": return "임원";
+                case CareerGrade.Rookie: return "신입";
+                case CareerGrade.Mid: return "중견";
+                case CareerGrade.Veteran: return "베테랑";
                 default: return grade.ToString();
             }
         }

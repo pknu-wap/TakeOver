@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace TakeOver.Operations
 {
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class StartupLineGraph : MaskableGraphic
     {
         [SerializeField] private float thickness = 3f;

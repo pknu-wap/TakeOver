@@ -49,8 +49,8 @@ namespace TakeOver.Employees
             question.Find("Underline").gameObject.SetActive(false);
             heading.fontSize = 26;
             explanation.fontSize = 20;
-            explanation.rectTransform.sizeDelta = new Vector2(explanation.rectTransform.sizeDelta.x, 70f);
-            explanation.text = "회사를 선택하고 확인하면 같은 회사들을 반복 조사합니다.\n분석력이 높을수록 살피는 지표가 늘어납니다. 보고서는 주가 상승을 보장하지 않습니다.";
+            explanation.rectTransform.sizeDelta = new Vector2(explanation.rectTransform.sizeDelta.x, 100f);
+            explanation.text = "회사를 선택하고 확인하면 같은 회사들을 반복 조사합니다.\n분석력이 높을수록 살피는 지표가 늘어납니다. 보고서는 주가 상승을 보장하지 않습니다.\n로고 · 회사 · 업종 · 보유 지분 · 주가 · 부채비율";
 
             RectTransform scroll = createRect("Company list", panel.transform);
             scroll.anchorMin = Vector2.zero;
