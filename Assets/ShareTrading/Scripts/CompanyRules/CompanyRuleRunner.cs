@@ -44,7 +44,8 @@ namespace TakeOver.CompanyRules
                 startupRules = new List<ICompanyRule>
                 {
                     new PerformanceRule(settings.performance,
-                        startupSystem != null ? new Func<Company, int, float>(startupSystem.facilityGrowthBonus) : null),
+                        startupSystem != null ? new Func<Company, int, float>(startupSystem.extraGrowthBonus) : null,
+                        startupSystem != null ? new Func<Company, float>(startupSystem.supportCostReduction) : null),
                     new EmployeeRule(settings.employees),
                     bankruptcyRule
                 };
