@@ -19,7 +19,7 @@ namespace TakeOver.Startups
         private const int noStaffKey = 0;
 
         public string TypeId => "startup-investment";
-        public string Title => "벤처 캐피탈 투자 계약서";
+        public string Title => "투자 계약 체결";
         public string Author => $"{TargetCompany.definition.companyName} 대표";
         public string BodyId => "generic";
         public string DedupKey => TargetCompany.definition.companyID;
@@ -36,7 +36,8 @@ namespace TakeOver.Startups
         {
             new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
             new DocumentInfo("기업가치", $"{companyValue:N0}"),
-            new DocumentInfo("투자금", $"{investment:N0}")
+            new DocumentInfo("투자금", $"{investment:N0}"),
+            new DocumentInfo("내 보유자금", $"{player.state.cash:N0} → {player.state.cash - investment:N0}")
         };
 
         public Employee SelectedStaff => staff.value.HasValue ? findEmployee(staff.value.Value) : null;

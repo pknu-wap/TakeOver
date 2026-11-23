@@ -9,14 +9,10 @@ public class DayPanel : MonoBehaviour
     [Header("날짜")]
     [SerializeField] private TMP_Text dayCountText;
     [SerializeField] private TMP_Text dateText;
-    [SerializeField] private int startYear = 2026;
-    [SerializeField] private int startMonth = 1;
-    [SerializeField] private int startDay = 1;
 
     [Header("하루 마감")]
     [SerializeField] private Button endDayButton;
 
-    private static readonly string[] DayNames = { "일", "월", "화", "수", "목", "금", "토" };
 
     private GameTurnClock turnClock;
 
@@ -66,7 +62,6 @@ public class DayPanel : MonoBehaviour
     private void refresh()
     {
         int turn = turnClock != null ? turnClock.CurrentTurn : 1;
-        DateTime today = new DateTime(startYear, startMonth, startDay).AddDays(turn - 1);
 
         if (dayCountText != null)
         {
@@ -74,7 +69,7 @@ public class DayPanel : MonoBehaviour
         }
         if (dateText != null)
         {
-            dateText.text = $"{today:yyyy.MM.dd} ({DayNames[(int)today.DayOfWeek]})";
+            dateText.text = GameCalendar.Format(turn);
         }
     }
 }

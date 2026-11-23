@@ -28,8 +28,6 @@ namespace TakeOver.Documents
 
         public IReadOnlyList<string> BodyLines => new[]
         {
-            $"{CompanyName}을(를) 투자 후보로 찾았습니다.",
-            "투자 검토를 고르면 다음 날 투자 계약을 진행합니다.",
             "넘기면 다른 투자자가 가져가 다시 후보로 나오지 않습니다."
         };
 
@@ -45,10 +43,11 @@ namespace TakeOver.Documents
             CompanyName = startup.definition.companyName;
             Author = author ?? "";
             DeadlineTurn = deadlineTurn;
-            Title = isLastShow ? $"발굴 보고 · {CompanyName} (마지막)" : $"발굴 보고 · {CompanyName}";
+            Title = isLastShow ? $"투자 후보 보고 · {CompanyName} (마지막)" : $"투자 후보 보고 · {CompanyName}";
 
             infoRows = new List<DocumentInfo>
             {
+                new DocumentInfo("대상 회사", CompanyName),
                 new DocumentInfo("업종", startup.definition.industry),
                 new DocumentInfo("매출", $"{CompanyUIUtil.getStat(startup, CompanyStat.REVENUE):N0}원"),
                 new DocumentInfo("보유 자금", $"{CompanyUIUtil.getStat(startup, CompanyStat.CASH):N0}원"),

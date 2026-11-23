@@ -110,7 +110,7 @@ namespace TakeOver.Operations
         {
             selected = doc;
             for (int i = 0; i < cards.Count; i++) cards[i].SetSelected(cardDocuments[i] == doc);
-            detail.Show(doc, resolved, inbox.GetArrival(doc));
+            detail.Show(doc, resolved, inbox.GetArrival(doc), inbox.GetArrivalTurn(doc));
         }
     }
 }
