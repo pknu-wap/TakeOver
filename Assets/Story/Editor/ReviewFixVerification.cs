@@ -174,10 +174,10 @@ public sealed class ReviewFixProbe : MonoBehaviour
         startupSystem.tryGetRecord(contractCompany, out var restoredContract);
         Check(restoredContract.pendingContractDay == contractDay, "Continue preserves the requested contract's due day");
         SceneManager.LoadScene("MainMenu"); yield return Frames(); yield return Capture("title-manual-load");
-        StoryPlayProbe.Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(button => button.name == "LoadGameButton")); yield return Frames();
+        StoryPlayProbe.Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(button => button.name == "ContinueButton")); yield return Frames();
         StoryPlayProbe.Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(button => button.name == "Save slot 1 load")); yield return Frames();
         StoryPlayProbe.Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(button => button.name == "Confirm save action")); yield return Frames();
         while (GameSessionCoordinator.Active == null || !GameSessionCoordinator.Active.Ready) yield return null;
-        Check(Object.FindFirstObjectByType<GameTurnClock>().CurrentTurn == 2, "The title load button restores the selected earlier day");
+        Check(Object.FindFirstObjectByType<GameTurnClock>().CurrentTurn == 2, "The title continue picker restores the selected earlier day");
     }
 }

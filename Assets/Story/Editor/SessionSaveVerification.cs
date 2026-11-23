@@ -66,6 +66,14 @@ public static class SessionSaveVerification
         if (Object.FindFirstObjectByType<Player>().ProtagonistName != name.Trim())
             throw new InvalidOperationException("The confirmed protagonist name was not applied.");
     }
+
+    internal static void SelectAutomaticSave()
+    {
+        var load = Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(button => button.name == "Automatic save load");
+        if (!load.interactable) throw new InvalidOperationException("Automatic save is unavailable in the continue picker.");
+        load.onClick.Invoke();
+        Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(button => button.name == "Confirm save action").onClick.Invoke();
+    }
 }
 public sealed class SessionSaveProbe : MonoBehaviour
 {
@@ -182,6 +190,7 @@ public sealed class SessionSaveProbe : MonoBehaviour
             .Single(button => button.name == "ContinueButton");
         Check(continueButton.interactable, "Title Continue button is enabled when an automatic save exists");
         continueButton.onClick.Invoke();
+        SessionSaveVerification.SelectAutomaticSave();
         while (GameSessionCoordinator.Active == null || !GameSessionCoordinator.Active.Ready)
         {
             if (GameSessionCoordinator.Active != null && !string.IsNullOrEmpty(GameSessionCoordinator.Active.LastError))
@@ -303,6 +312,7 @@ public sealed class SessionSaveProbe : MonoBehaviour
 
         SceneManager.LoadScene("MainMenu"); yield return null; yield return null;
         Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(button => button.name == "ContinueButton").onClick.Invoke();
+        SessionSaveVerification.SelectAutomaticSave();
         while (GameSessionCoordinator.Active == null || !GameSessionCoordinator.Active.Ready) yield return null;
         yield return null;
         game = Object.FindFirstObjectByType<EventSystemController>();
@@ -327,6 +337,7 @@ public sealed class SessionSaveProbe : MonoBehaviour
 
         SceneManager.LoadScene("MainMenu"); yield return null; yield return null;
         Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(button => button.name == "ContinueButton").onClick.Invoke();
+        SessionSaveVerification.SelectAutomaticSave();
         while (GameSessionCoordinator.Active == null || !GameSessionCoordinator.Active.Ready) yield return null;
         yield return null;
         game = Object.FindFirstObjectByType<EventSystemController>();

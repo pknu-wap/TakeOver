@@ -13,18 +13,21 @@ namespace TakeOver.SaveSystem
             return new SaveFileStorage(Path.Combine(SaveDirectory, "manual", slot.ToString()));
         }
         public static bool HasManualSlot(int slot) => ManualStorage(slot).exists();
+        public static bool HasAutomaticSlot() => new SaveFileStorage(SaveDirectory).exists();
+        public static string DescribeAutomaticSlot() => DescribeSlot(new SaveFileStorage(SaveDirectory), "자동저장");
         public static string DescribeManualSlot(int slot)
+            => DescribeSlot(ManualStorage(slot), "수동저장 " + slot);
+        private static string DescribeSlot(SaveFileStorage file, string label)
         {
-            var file = ManualStorage(slot);
-            if (!file.exists()) return slot + "번 · 빈 저장";
+            if (!file.exists()) return label + " · 빈 저장";
             try
             {
                 var data = JsonUtility.FromJson<SaveFileData>(file.read());
                 if (data == null || !IsReadableFormat(data.formatVersion) || data.dayStart.day < 1)
                     throw new InvalidDataException();
-                return $"{slot}번 · {data.dayStart.day}일차\n{File.GetLastWriteTime(file.savePath):yyyy.MM.dd HH:mm}";
+                return $"{label} · {data.dayStart.day}일차\n{File.GetLastWriteTime(file.savePath):yyyy.MM.dd HH:mm}";
             }
-            catch { return slot + "번 · 읽을 수 없는 저장"; }
+            catch { return label + " · 읽을 수 없는 저장"; }
         }
         public bool TrySaveManualSlot(int slot, DayStartData day)
         {

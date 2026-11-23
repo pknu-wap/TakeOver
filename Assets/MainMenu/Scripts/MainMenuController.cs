@@ -17,6 +17,7 @@ namespace TakeOver.MainMenu
         [SerializeField] private Toggle skipIntroToggle;
         [SerializeField] private GameObject tutorialPrompt;
         [SerializeField] private EventNegotiationView eventUi;
+        [SerializeField] private EventDetailView informationStyle;
         public Toggle SkipIntroToggle => skipIntroToggle;
         private bool starting;
 
@@ -31,25 +32,7 @@ namespace TakeOver.MainMenu
             {
                 continueButton.onClick.RemoveAllListeners();
                 continueButton.onClick.AddListener(startContinue);
-                continueButton.interactable = new SaveFileStorage(GameSaveManager.SaveDirectory).exists();
-                if (eventUi != null)
-                {
-                    var load = eventUi.CreateActionButton(continueButton.transform.parent, "LoadGameButton", "불러오기",
-                        () => { if (!starting && !tutorialPrompt.activeSelf) SaveSlotWindow.Show(eventUi, true); });
-                    var source = (RectTransform)continueButton.transform;
-                    var rect = (RectTransform)load.transform;
-                    rect.anchorMin = source.anchorMin; rect.anchorMax = source.anchorMax; rect.pivot = source.pivot;
-                    rect.sizeDelta = source.sizeDelta; rect.anchoredPosition = source.anchoredPosition + Vector2.down * 136;
-                    if (continueButton.targetGraphic is Image sourceImage && load.targetGraphic is Image loadImage)
-                    { loadImage.sprite = sourceImage.sprite; loadImage.type = sourceImage.type; loadImage.color = sourceImage.color; }
-                    load.colors = continueButton.colors;
-                    var sourceLabel = continueButton.GetComponentInChildren<TMPro.TMP_Text>();
-                    if (sourceLabel != null)
-                    {
-                        var loadLabel = load.GetComponentInChildren<Text>();
-                        loadLabel.color = sourceLabel.color; loadLabel.fontSize = Mathf.RoundToInt(sourceLabel.fontSize);
-                    }
-                }
+                continueButton.interactable = eventUi != null;
             }
         }
 
@@ -87,10 +70,8 @@ namespace TakeOver.MainMenu
 
         public void startContinue()
         {
-            if (starting || !new SaveFileStorage(GameSaveManager.SaveDirectory).exists()) return;
-            starting = true;
-            GameSessionCoordinator.RequestContinue();
-            LoadGameScene();
+            if (starting || tutorialPrompt.activeSelf) return;
+            SaveSlotWindow.Show(eventUi, true, informationStyle);
         }
 
         private void LoadGameScene()
