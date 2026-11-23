@@ -122,6 +122,7 @@ public sealed partial class CampaignIntegrationProbe
         var menu = Object.FindFirstObjectByType<TakeOver.MainMenu.MainMenuController>();
         Check(menu != null, "Title scene opens after the campaign");
         menu.startContinue();
+        SessionSaveVerification.SelectAutomaticSave();
         while (SceneManager.GetActiveScene().name != "Game" || GameSessionCoordinator.Active == null || !GameSessionCoordinator.Active.Ready) yield return null;
         game = Object.FindFirstObjectByType<EventSystemController>(); clock = Object.FindFirstObjectByType<GameTurnClock>();
         Check(!TakeOver.Story.StoryDirector.IsRunning && clock.CurrentTurn == continuedDay && continuedEvents == game.captureJson(), "Actual title continue loads the saved scene without replaying tutorial or events");

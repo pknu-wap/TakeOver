@@ -3952,7 +3952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapZoom
   content: {fileID: 3628015765113062683}
   zoomText: {fileID: 0}
-  minZoom: 0.75
+  minZoom: 1
   maxZoom: 2
   zoomStep: 0.1
 --- !u!114 &4925127012043447213

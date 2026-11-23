@@ -10,7 +10,7 @@ public class MapZoom : MonoBehaviour, IScrollHandler
     [Tooltip("현재 배율을 보여줄 글자 (예: 100%). 없으면 비워둬도 됨")]
     [SerializeField] private TMP_Text zoomText;
 
-    [Tooltip("지도 영역을 빈틈없이 꽉 채우는 배율보다 더 작아지지는 않습니다.")]
+    [Tooltip("지도가 화면을 다 덮는 배율보다 작으면 그 배율이 대신 최소값이 됨")]
     [SerializeField] private float minZoom = 1f;
     [SerializeField] private float maxZoom = 2f;
 
@@ -19,11 +19,12 @@ public class MapZoom : MonoBehaviour, IScrollHandler
 
     private float currentZoom = 1f;
 
-    private float fitZoom = 1f;
+    // 지도가 화면(Viewport)을 빈틈없이 덮기 위한 최소 배율
+    private float coverZoom = 1f;
     private float userZoomRatio = 1f;
     private Vector2 lastViewportSize;
 
-    private float effectiveMinZoom => Mathf.Max(minZoom, fitZoom);
+    private float effectiveMinZoom => Mathf.Max(minZoom, coverZoom);
     private float effectiveMaxZoom => Mathf.Max(maxZoom, effectiveMinZoom);
 
     void Start()
@@ -76,9 +77,9 @@ public class MapZoom : MonoBehaviour, IScrollHandler
             return;
         }
 
-        fitZoom = Mathf.Max(viewportSize.x / contentSize.x, viewportSize.y / contentSize.y);
+        coverZoom = Mathf.Max(viewportSize.x / contentSize.x, viewportSize.y / contentSize.y);
 
-        float targetZoom = Mathf.Clamp(fitZoom * userZoomRatio, effectiveMinZoom, effectiveMaxZoom);
+        float targetZoom = Mathf.Clamp(coverZoom * userZoomRatio, effectiveMinZoom, effectiveMaxZoom);
         if (!Mathf.Approximately(targetZoom, currentZoom))
         {
             setZoom(targetZoom);
@@ -123,7 +124,7 @@ public class MapZoom : MonoBehaviour, IScrollHandler
 
         content.anchoredPosition += (after - before) * currentZoom;
 
-        userZoomRatio = currentZoom / fitZoom;
+        userZoomRatio = currentZoom / coverZoom;
     }
 
     private void setZoom(float zoom)
