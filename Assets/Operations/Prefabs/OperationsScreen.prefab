@@ -1832,7 +1832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Operations.StartupTabView
   templateText: {fileID: 0}
-  emptyMessage: "\uC2A4\uD0C0\uD2B8\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4"
+  emptyMessage: "\uACC4\uC57D\uD55C \uC2A4\uD0C0\uD2B8\uC5C5\uC774 \uC5C6\uC2B5\uB2C8\uB2E4."
 --- !u!223 &6316617533895955263
 Canvas:
   m_ObjectHideFlags: 0

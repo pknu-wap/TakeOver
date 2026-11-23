@@ -139,8 +139,15 @@ namespace TakeOver.Startups
                     Debug.LogWarning($"[StartupContract] {staff.Name} 배치에 실패해 계약을 확정하지 않았습니다.", this);
                     return;
                 }
-                new ChangeApplier(player).Apply(contract.OnApprove(), contract.TargetCompany);
-                FindFirstObjectByType<StartupSystem>()?.markContracted(contract.TargetCompany, clock.CurrentTurn);
+                var result = contract.OnApprove();
+                new ChangeApplier(player).Apply(result, contract.TargetCompany);
+                var startupSystem = FindFirstObjectByType<StartupSystem>();
+                if (startupSystem != null)
+                {
+                    startupSystem.markContracted(contract.TargetCompany, clock.CurrentTurn);
+                    if (startupSystem.tryGetRecord(contract.TargetCompany.definition.companyID, out var investmentRecord))
+                        investmentRecord.cumulativeInvestment -= result.playerCash;
+                }
                 contract.TargetCompany.calculator.recalculate(contract.TargetCompany, marketData);
                 var startupTab = FindFirstObjectByType<StartupTabView>();
                 if (startupTab != null) startupTab.refreshAfterInvestment();

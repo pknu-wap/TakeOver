@@ -92,6 +92,7 @@ namespace TakeOver.Documents
 
         public RuleResult OnApprove()
         {
+            if (record != null) record.cumulativeInvestment += Amount;
             RuleResult result = new RuleResult();
             result.stats.Add(new StatChange(CompanyStat.CASH, Amount));
             result.playerCash = -Amount;
