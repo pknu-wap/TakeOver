@@ -15,6 +15,7 @@ namespace TakeOver.Startups
 
         private readonly List<StartupRecord> records = new List<StartupRecord>();
         private JobService jobs;
+        private bool warnedMissingJobs;
         private Transform startupRoot;
         private int lastIdNumber;
 
@@ -45,7 +46,6 @@ namespace TakeOver.Startups
             if (companies == null) companies = FindFirstObjectByType<Companies>();
             if (marketData == null) marketData = FindFirstObjectByType<Marketdata>();
             if (ruleRunner == null) ruleRunner = FindFirstObjectByType<CompanyRuleRunner>();
-            jobs = FindFirstObjectByType<JobService>();
         }
 
         private void Start()
@@ -280,15 +280,28 @@ namespace TakeOver.Startups
 
         public float supportGrowthBonus(Company company)
         {
-            if (jobs == null || settings == null) return 0f;
-            return jobs.getSupportManagement(company) * settings.supportGrowthPerManagement;
+            JobService service = findJobs();
+            if (service == null || settings == null) return 0f;
+            return service.SupportManagementFor(company) * settings.supportGrowthPerManagement;
         }
 
         public float supportCostReduction(Company company)
         {
-            if (jobs == null || settings == null) return 0f;
-            float reduction = jobs.getSupportManagement(company) * settings.supportCostReductionPerManagement;
+            JobService service = findJobs();
+            if (service == null || settings == null) return 0f;
+            float reduction = service.SupportManagementFor(company) * settings.supportCostReductionPerManagement;
             return Mathf.Clamp(reduction, 0f, settings.supportMaxCostReduction);
+        }
+
+        private JobService findJobs()
+        {
+            if (jobs == null) jobs = FindFirstObjectByType<JobService>();
+            if (jobs == null && !warnedMissingJobs)
+            {
+                warnedMissingJobs = true;
+                Debug.LogWarning("[StartupSystem] JobService를 찾지 못해 지원 인원 효과를 적용하지 않습니다.", this);
+            }
+            return jobs;
         }
 
         [ContextMenu("검증용: 첫 스타트업 연간 사업 계획 바로 받기")]

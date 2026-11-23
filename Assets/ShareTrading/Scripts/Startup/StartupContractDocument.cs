@@ -16,6 +16,7 @@ namespace TakeOver.Startups
         private readonly EmployeeService employees;
         private readonly JobService jobs;
         private readonly DocumentChoiceField staff;
+        private const int noStaffKey = 0;
 
         public string TypeId => "startup-investment";
         public string Title => "벤처 캐피탈 투자 계약서";
@@ -38,6 +39,8 @@ namespace TakeOver.Startups
             new DocumentInfo("투자금", $"{investment:N0}")
         };
 
+        public Employee SelectedStaff => staff.value.HasValue ? findEmployee(staff.value.Value) : null;
+
         public StartupContractDocument(Company company, Player player, Companies companies, int turn,
             EmployeeService employees, JobService jobs)
         {
@@ -50,9 +53,26 @@ namespace TakeOver.Startups
             Fields = new[] { stake };
             this.employees = employees;
             this.jobs = jobs;
-            staff = new DocumentChoiceField("staff", "직원 배치",
-                () => SupportStaffing.getChoices(employees, jobs, true), SupportStaffing.noEmployeeKey);
+            staff = new DocumentChoiceField("staff", "직원 배치", getStaffChoices, noStaffKey);
             ChoiceFields = new[] { staff };
+        }
+
+        private IReadOnlyList<DocumentChoice> getStaffChoices()
+        {
+            var choices = new List<DocumentChoice> { new DocumentChoice { key = noStaffKey, label = "배치하지 않음" } };
+            if (employees == null || jobs == null) return choices;
+            foreach (Employee candidate in employees.Employees)
+                if (jobs.GetJob(candidate) != JobType.Support)
+                    choices.Add(new DocumentChoice { key = candidate.Id, label = $"{candidate.Name} · 관리 {candidate.Management.Current}" });
+            return choices;
+        }
+
+        private Employee findEmployee(int id)
+        {
+            if (id == noStaffKey || employees == null) return null;
+            foreach (Employee candidate in employees.Employees)
+                if (candidate.Id == id) return candidate;
+            return null;
         }
 
         public static float calculateInvestment(float companyValue, float stakeRatio) =>
@@ -70,8 +90,6 @@ namespace TakeOver.Startups
             if (name != staff.name) throw new ArgumentException("알 수 없는 직원 선택 칸입니다.", nameof(name));
             staff.value = key;
         }
-
-        private bool isStaffNone => !staff.value.HasValue || staff.value.Value == SupportStaffing.noEmployeeKey;
 
         public bool CanApprove(out string reason)
         {
@@ -93,15 +111,26 @@ namespace TakeOver.Startups
                 reason = "보유자금이 부족합니다";
                 return false;
             }
-            if (!isStaffNone) return SupportStaffing.canAssign(staff.value.Value, employees, jobs, out reason);
+            if (staff.value.HasValue && staff.value.Value != noStaffKey)
+            {
+                Employee selected = SelectedStaff;
+                if (selected == null)
+                {
+                    reason = "선택한 직원이 현재 재직 중이 아닙니다";
+                    return false;
+                }
+                if (jobs == null || jobs.GetJob(selected) == JobType.Support)
+                {
+                    reason = "이미 배치된 직원입니다";
+                    return false;
+                }
+            }
             reason = "";
             return true;
         }
 
         public RuleResult OnApprove()
         {
-            if (!isStaffNone && !SupportStaffing.assign(TargetCompany, staff.value.Value, employees, jobs))
-                UnityEngine.Debug.LogWarning($"[StartupContract] 직원 배치 실패: 직원 번호 {staff.value.Value}");
             var result = new RuleResult { playerCash = -investment };
             result.stats.Add(new StatChange(CompanyStat.CASH, investment));
             result.stats.Add(new StatChange(CompanyStat.PLAYER_SHARES, TargetCompany.state.totalShares * stake.value));

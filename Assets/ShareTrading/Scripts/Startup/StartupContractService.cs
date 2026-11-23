@@ -128,6 +128,12 @@ namespace TakeOver.Startups
             if (approved)
             {
                 if (!contract.CanApprove(out _)) return;
+                Employee staff = contract.SelectedStaff;
+                if (staff != null && (jobs == null || !jobs.AssignSupport(staff, contract.TargetCompany)))
+                {
+                    Debug.LogWarning($"[StartupContract] {staff.Name} 배치에 실패해 계약을 확정하지 않았습니다.", this);
+                    return;
+                }
                 new ChangeApplier(player).Apply(contract.OnApprove(), contract.TargetCompany);
                 FindFirstObjectByType<StartupSystem>()?.markContracted(contract.TargetCompany, clock.CurrentTurn);
                 contract.TargetCompany.calculator.recalculate(contract.TargetCompany, marketData);
