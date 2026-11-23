@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllMarketEvent203_WarOutbreak
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "국제 전쟁 발발"
-  description: "국제 전쟁이 발발해 시장의 불확실성이 커지고 있습니다."
+  description: "전투가 시작된 지역을 지나는 선박들이 항로를 돌렸다. 해상 보험사와 수입업체들은 새 운송 조건을 검토하고 있다."
   MarketEventID: 203
   applyType: 2
   duration: 6

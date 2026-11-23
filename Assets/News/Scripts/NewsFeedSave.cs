@@ -22,7 +22,17 @@ public partial class NewsFeed : ISaveParticipant, ILegacySaveSectionInitializer
         if (all != null && data.entries.SelectMany(item => item.companyIDs).Any(id => all.getCompany(id) == null)) throw new InvalidDataException("뉴스 회사 참조가 올바르지 않습니다.");
         preparedNews = data;
     }
-    public void applyLoad() { entries.Clear(); entries.AddRange(preparedNews.entries); preparedNews = null; }
+    public void applyLoad()
+    {
+        entries.Clear();
+        foreach (var entry in preparedNews.entries)
+        {
+            entry.description = describeNews(entry.title, entry.description);
+            if (entry.title == FormerMarketHeadline) entry.title = MarketBriefingHeadline;
+            entries.Add(entry);
+        }
+        preparedNews = null;
+    }
     public void rebuildAfterLoad() => NewsChanged?.Invoke();
     public bool TryCreateLegacySection(int version, out SaveSectionData section)
     {

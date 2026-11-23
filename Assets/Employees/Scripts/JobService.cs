@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TakeOver.NPC;
 
@@ -14,6 +15,49 @@ namespace TakeOver.Employees
         [SerializeField] private JobSettings settings;
 
         private readonly Dictionary<int, JobAssignment> assignments = new Dictionary<int, JobAssignment>();
+
+        [Serializable]
+        internal sealed class SavedJob
+        {
+            public int employeeId, days;
+            public JobType job;
+            public List<string> targets;
+        }
+
+        internal List<SavedJob> CaptureJobs()
+        {
+            PruneSupportAssignments();
+            return assignments.Values.Select(assignment => new SavedJob
+            {
+                employeeId = assignment.EmployeeId, job = assignment.Job, days = assignment.RemainingDays,
+                targets = assignment.Targets.Where(company => company != null).Select(company => company.definition.companyID).ToList()
+            }).ToList();
+        }
+
+        private readonly List<int> endedSupport = new List<int>();
+        private void LateUpdate() => PruneSupportAssignments();
+        private void PruneSupportAssignments()
+        {
+            endedSupport.Clear();
+            var companies = FindFirstObjectByType<Companies>();
+            if (companies == null) return;
+            foreach (var pair in assignments)
+                if (pair.Value.Job == JobType.Support && (pair.Value.Targets.Count != 1 ||
+                    pair.Value.Targets[0] == null || !companies.StartupList.Contains(pair.Value.Targets[0]))) endedSupport.Add(pair.Key);
+            foreach (int id in endedSupport) assignments.Remove(id);
+            if (endedSupport.Count > 0) employeeService?.MarkChanged();
+        }
+
+        internal void RestoreJobs(List<SavedJob> jobs)
+        {
+            var companies = FindFirstObjectByType<Companies>();
+            assignments.Clear();
+            foreach (var job in jobs)
+            {
+                var targets = job.targets.Select(id => companies?.getCompany(id)).Where(company => company != null).ToList();
+                assignments.Add(job.employeeId, new JobAssignment(job.employeeId, job.job, job.days, targets));
+            }
+        }
 
         public JobSettings Settings => settings;
         public event Action<JobCompletion> OnJobCompleted;
@@ -51,7 +95,7 @@ namespace TakeOver.Employees
             if (employeeService != null) employeeService.OnEmployeeLeft -= HandleEmployeeLeft;
         }
 
-        // None은 해제. Support는 targets에 스타트업 1곳을 넣어야 하며 업무 주기 없이 계속 유지된다.
+        // 직접 배정은 조사 직무만 받는다. 지원은 대상 회사를 지정하는 AssignSupport를 사용한다.
         // 이미 직무가 있으면 바꾸고 남은 일수를 기본 기간으로 다시 시작한다.
         public bool Assign(Employee emp, JobType job, IReadOnlyList<Company> targets = null)
         {
@@ -60,6 +104,7 @@ namespace TakeOver.Employees
                 Debug.LogWarning("[JobService] 배정 실패: 존재하지 않는 직원입니다.");
                 return false;
             }
+            if (!employeeService.CanChangeRoster()) return false;
 
             if (job == JobType.None)
             {
@@ -67,21 +112,10 @@ namespace TakeOver.Employees
                 return true;
             }
 
-            if (GetJob(emp) == JobType.Support && job != JobType.Support)
-            {
-                Debug.LogWarning("[JobService] 배정 실패: 지원 인원으로 배치된 직원은 직무를 바꿀 수 없습니다. 먼저 직무를 해제해 주세요.");
-                return false;
-            }
-
             if (job == JobType.Support)
             {
-                if (targets == null || targets.Count != 1 || targets[0] == null)
-                {
-                    Debug.LogWarning("[JobService] 배정 실패: 지원 인원 배치는 대상 회사 1곳이 필요합니다.");
-                    return false;
-                }
-                assignments[emp.Id] = new JobAssignment(emp.Id, job, 0, targets);
-                return true;
+                Debug.LogWarning("[JobService] 배정 실패: 지원 인원 배치는 이 서비스에서 배정하지 않습니다.");
+                return false;
             }
 
             if (settings == null)
@@ -91,13 +125,31 @@ namespace TakeOver.Employees
             }
 
             assignments[emp.Id] = new JobAssignment(emp.Id, job, settings.GetDuration(emp.Diligence.Value), targets);
+            employeeService.MarkChanged();
             return true;
         }
 
         public void Clear(Employee emp)
         {
-            if (emp != null) assignments.Remove(emp.Id);
+            if (emp != null && employeeService?.CanChangeRoster() != false && assignments.Remove(emp.Id))
+                employeeService?.MarkChanged();
         }
+
+        public bool AssignSupport(Employee emp, Company company)
+        {
+            var companies = FindFirstObjectByType<Companies>();
+            if (emp == null || !Contains(emp) || !employeeService.CanChangeRoster() || company == null ||
+                companies == null || !companies.StartupList.Contains(company) || GetJob(emp) == JobType.Support) return false;
+            assignments[emp.Id] = new JobAssignment(emp.Id, JobType.Support, 0, new[] { company });
+            employeeService.MarkChanged();
+            return true;
+        }
+        public bool HasSupportFor(Company company) => assignments.Values.Any(job => job.Job == JobType.Support && job.Targets.Contains(company));
+        public string SupportTargetName(Employee emp) => emp != null && assignments.TryGetValue(emp.Id, out var job) &&
+            job.Job == JobType.Support ? job.Targets.FirstOrDefault()?.definition.companyName ?? "" : "";
+        public int SupportManagementFor(Company company) => assignments.Values
+            .Where(job => job.Job == JobType.Support && job.Targets.Contains(company))
+            .Select(job => Find(job.EmployeeId)).Where(emp => emp != null).Sum(emp => emp.Management.Current);
 
         public JobType GetJob(Employee emp)
         {
@@ -109,36 +161,6 @@ namespace TakeOver.Employees
         {
             return emp != null && assignments.TryGetValue(emp.Id, out JobAssignment assignment)
                 ? assignment.RemainingDays : 0;
-        }
-
-        public Company getSupportTarget(Employee emp)
-        {
-            if (emp == null || !assignments.TryGetValue(emp.Id, out JobAssignment assignment)) return null;
-            if (assignment.Job != JobType.Support || assignment.Targets.Count == 0) return null;
-            return assignment.Targets[0];
-        }
-
-        public int getSupportManagement(Company company)
-        {
-            int total = 0;
-            if (company == null) return total;
-            foreach (JobAssignment assignment in assignments.Values)
-            {
-                if (assignment.Job != JobType.Support || assignment.Targets.Count == 0) continue;
-                if (assignment.Targets[0] != company) continue;
-                Employee emp = Find(assignment.EmployeeId);
-                if (emp != null) total += emp.Management.Current;
-            }
-            return total;
-        }
-
-        public bool hasSupport(Company company)
-        {
-            if (company == null) return false;
-            foreach (JobAssignment assignment in assignments.Values)
-                if (assignment.Job == JobType.Support && assignment.Targets.Count > 0 && assignment.Targets[0] == company)
-                    return true;
-            return false;
         }
 
         private void HandleTurnAdvanced(int turn)
@@ -153,7 +175,12 @@ namespace TakeOver.Employees
                     continue;
                 }
 
-                if (assignment.Job == JobType.Support) continue;
+                if (assignment.Job == JobType.Support)
+                {
+                    var company = assignment.Targets.FirstOrDefault();
+                    if (company == null || !FindFirstObjectByType<Companies>().StartupList.Contains(company)) Clear(emp);
+                    continue;
+                }
 
                 assignment.RemainingDays--;
                 if (assignment.RemainingDays > 0) continue;

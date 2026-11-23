@@ -30,6 +30,7 @@ namespace TakeOver.Startups
 
         public bool contracted;
         public int contractTurn;
+        public int pendingContractDay;
         // 상장 추진 보고서를 보낸 뒤 상장할 턴. 0이면 아직 보고서를 보내지 않은 상태다.
         public int listingTurn;
 

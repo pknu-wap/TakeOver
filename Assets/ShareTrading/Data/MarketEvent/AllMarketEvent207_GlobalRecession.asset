@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllMarketEvent207_GlobalRecession
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "글로벌 경기침체"
-  description: "글로벌 경기침체 조짐이 확산되고 있습니다."
+  description: "해외 바이어들이 발주를 보류하고 신규 설비 계약을 다시 검토하고 있다. 수출업체들은 기존 주문의 납품 일정부터 확인 중이다."
   MarketEventID: 207
   applyType: 3
   duration: 8

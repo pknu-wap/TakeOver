@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,12 +51,11 @@ namespace TakeOver.Events
         private Sprite defaultBackground;
         private EventSystemController controller;
         private Button skipButton;
-        private Image skipCurtain;
-        private Canvas skipCanvas;
-        private Coroutine skipRoutine;
         private Action skipTarget;
-        private bool skipping, completingSkip;
+        private bool skipping, completingSkip, fadeDialogueSkip;
         private bool initialized, dialogueMode, dialogueInput;
+        private bool playerNameMeasured;
+        private float playerNameWidth, playerNameRight, playerRuleWidth, playerRuleRight;
         private Action dialogueAdvance, dialogueSkip;
         private Func<bool> dialogueCanSkip;
         private Action<int> dialogueChoose;
@@ -154,6 +154,31 @@ namespace TakeOver.Events
             return button;
         }
 
+        internal static string ProtagonistName() => FindFirstObjectByType<Player>()?.ProtagonistName ?? Player.DefaultName;
+
+        private Text PlayerSpeaker => playerBlock.GetComponentsInChildren<Text>(true)
+            .First(label => label != playerLineText);
+
+        private void FitPlayerName()
+        {
+            var label = PlayerSpeaker;
+            var rect = label.rectTransform;
+            var rule = (RectTransform)playerBlock.transform.Find("Underline");
+            if (!playerNameMeasured)
+            {
+                playerNameWidth = rect.rect.width; playerRuleWidth = rule.rect.width;
+                playerNameRight = rect.anchoredPosition.x + (1 - rect.pivot.x) * playerNameWidth;
+                playerRuleRight = rule.anchoredPosition.x + (1 - rule.pivot.x) * playerRuleWidth;
+                playerNameMeasured = true;
+            }
+            float width = Mathf.Clamp(label.preferredWidth + 8, playerNameWidth, 520);
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            rect.anchoredPosition = new Vector2(playerNameRight - (1 - rect.pivot.x) * width, rect.anchoredPosition.y);
+            float lineWidth = Mathf.Max(playerRuleWidth, width);
+            rule.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lineWidth);
+            rule.anchoredPosition = new Vector2(playerRuleRight - (1 - rule.pivot.x) * lineWidth, rule.anchoredPosition.y);
+        }
+
         public static void ApplySkipButtonStyle(Button button)
         {
             if (button == null) return;
@@ -189,8 +214,11 @@ namespace TakeOver.Events
             var content = panel.transform.Find("Content");
             content.Find("PlayerBlock").gameObject.SetActive(false);
             content.Find("ResponseBlock").gameObject.SetActive(false);
-            var question = content.Find("QuestionBlock");
+            var question = (RectTransform)content.Find("QuestionBlock");
             question.gameObject.SetActive(true);
+            question.anchorMin = Vector2.zero;
+            question.anchorMax = Vector2.one;
+            question.offsetMin = question.offsetMax = Vector2.zero;
             question.GetComponent<CanvasGroup>().alpha = 1;
             question.GetComponent<CanvasGroup>().blocksRaycasts = false;
             heading = question.Find("Speaker").GetComponent<Text>();
@@ -198,8 +226,8 @@ namespace TakeOver.Events
             heading.gameObject.SetActive(true);
             var rule = (RectTransform)question.Find("Underline");
             rule.gameObject.SetActive(true);
-            placeInformationText(heading.rectTransform, 18, 16, 26);
-            placeInformationText(rule, 18, 50, 1.3333334f);
+            placeInformationText(heading.rectTransform, 18, 22, 26);
+            placeInformationText(rule, 18, 53, 1.3333334f);
             placeInformationText(body.rectTransform, 18, 66, 200);
             body.alignment = TextAnchor.UpperLeft;
             panel.SetActive(true);
@@ -228,13 +256,15 @@ namespace TakeOver.Events
 
         // Story and event dialogue share this serialized UI and the same choice layout.
         // Only content/callbacks differ; the event prefab geometry, fonts and art are not changed.
-        public void ShowDialogue(DialoguePresentation line, Action advance, Action<int> choose, Action skip, Func<bool> canSkip)
+        public void ShowDialogue(DialoguePresentation line, Action advance, Action<int> choose, Action skip, Func<bool> canSkip,
+            bool fadeSkip = false)
         {
             initialize();
             cancelSkip(); stopResultRoutine(); clearChoices();
             dialogueMode = true; dialogueInput = false; controller = null;
             presentation = line; dialogueAdvance = advance; dialogueChoose = choose;
             dialogueSkip = skip; dialogueCanSkip = canSkip;
+            fadeDialogueSkip = fadeSkip;
             configureBodyLayout(line.narration);
             questionBlock.transform.parent.parent.gameObject.SetActive(true);
             skipButton.gameObject.SetActive(true);
@@ -247,13 +277,11 @@ namespace TakeOver.Events
             setBlock(playerBlock, line.player);
             setBlock(responseBlock, line.response);
             currentDialogue = line.player ? playerLineText : line.response ? responseText : dialogueText;
-            if (line.player)
-            {
-                foreach (var label in playerBlock.GetComponentsInChildren<Text>(true))
-                    if (label != playerLineText) { currentSpeaker = label; break; }
-            }
+            if (line.player) currentSpeaker = PlayerSpeaker;
             else currentSpeaker = line.response ? responseSpeakerText : speakerText;
+            if (line.player) currentSpeaker.supportRichText = false;
             currentSpeaker.text = line.speaker;
+            if (line.player) FitPlayerName();
             currentSpeaker.gameObject.SetActive(!line.narration);
             currentDialogue.alignment = line.narration ? TextAnchor.MiddleCenter : line.player ? TextAnchor.UpperRight : TextAnchor.UpperLeft;
             npcStandingIllustration = line.npcStanding; npcDimmedIllustration = line.npcDimmed;
@@ -388,7 +416,15 @@ namespace TakeOver.Events
             if (EventSceneTransition.IsBusy) return;
             if (dialogueMode)
             {
-                if (isActiveAndEnabled && dialogueInput && dialogueCanSkip != null && dialogueCanSkip()) dialogueSkip?.Invoke();
+                if (isActiveAndEnabled && dialogueInput && dialogueCanSkip != null && dialogueCanSkip())
+                {
+                    if (fadeDialogueSkip)
+                    {
+                        var dialogueTarget = dialogueSkip;
+                        EventSceneTransition.Play(() => { if (isActiveAndEnabled) dialogueTarget?.Invoke(); });
+                    }
+                    else dialogueSkip?.Invoke();
+                }
                 return;
             }
             if (!isActiveAndEnabled || skipping || skipTarget == null || controller == null) return;
@@ -398,14 +434,30 @@ namespace TakeOver.Events
             stopResultRoutine();
             closeButton.interactable = false;
             // The controller keeps the fade alive when the final target closes this view.
-            skipRoutine = controller.StartCoroutine(skipToTarget(target));
+            if (!EventSceneTransition.Play(() =>
+            {
+                if (!isActiveAndEnabled) return;
+                completingSkip = true;
+                try { target(); }
+                finally { completingSkip = false; }
+            }, completed: finishSkip))
+            {
+                skipping = false;
+                refreshSkipButton();
+            }
+        }
+
+        private void finishSkip()
+        {
+            skipping = false;
+            skipTarget = null;
+            if (closeButton != null) closeButton.interactable = true;
+            refreshSkipButton();
         }
 
         private void cancelSkip()
         {
-            if (skipRoutine != null && controller != null) controller.StopCoroutine(skipRoutine);
-            skipRoutine = null; skipping = false; skipTarget = null;
-            if (skipCanvas != null) skipCanvas.gameObject.SetActive(false);
+            skipping = false; skipTarget = null;
             if (closeButton != null) closeButton.interactable = true;
             refreshSkipButton();
         }
@@ -419,7 +471,6 @@ namespace TakeOver.Events
         private void OnDestroy()
         {
             cancelSkip();
-            if (skipCanvas != null) Destroy(skipCanvas.gameObject);
         }
 
         private void fadeUp(CanvasGroup block, Vector2 position, float progress)

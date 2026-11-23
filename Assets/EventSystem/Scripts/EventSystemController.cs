@@ -14,6 +14,7 @@ namespace TakeOver.Events
         [SerializeField] private List<EventDefinition> events = new List<EventDefinition>();
         [SerializeField] private StoryEventDatabase storyDatabase;
         public IReadOnlyList<EventDefinition> StoryEvents => events.Where(item => item.IsStory).ToList().AsReadOnly();
+        internal EventDefinition TutorialVisit => events.Find(item => item.IsTutorialOnly);
         [SerializeField] private EventDetailView detailView;
         [SerializeField] private EventNegotiationView negotiationView;
         private sealed class Occurrence
@@ -106,6 +107,7 @@ namespace TakeOver.Events
         {
             // 지분매입팀 Start의 첫 STAKE 계산이 끝난 뒤 첫날을 판정한다.
             yield return null;
+            if (TakeOver.SaveSystem.GameSessionCoordinator.Active?.IsRestoring == true) yield break;
             if (currentDay == 0) onDayStarted(turnClock != null ? turnClock.CurrentTurn : 1);
             EvaluateMandatoryDeadline(currentDay);
         }
@@ -275,7 +277,8 @@ namespace TakeOver.Events
                     foreach (EventCompanyData company in worldReader.getCompanies())
                         if (canAppear(definition, company.companyId) && meetsConditions(definition, company.companyId)) candidates.Add(company.companyId);
                     if (candidates.Count == 0) continue;
-                    companyId = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+                    companyId = candidates.OrderBy(id => DailyOrder("company:" + definition.getId() + ":" + id))
+                        .ThenBy(id => id, StringComparer.Ordinal).First();
                 }
                 else
                 {
@@ -346,15 +349,28 @@ namespace TakeOver.Events
         public void startNegotiation()
         {
             if (EventSceneTransition.IsBusy) return;
+            var session = TakeOver.SaveSystem.GameSessionCoordinator.Active;
+            if (session?.IsPersistenceBlocked == true) return;
             if (!TakeOver.Story.StoryDirector.CanNegotiate(ActiveEventId)) return;
             if (screenState != ScreenState.Detail) return;
             if(activeInfo==null || !hasRequiredHoldings(activeInfo.definition) || !meetsConditions(activeInfo.definition,activeInfo.companyId) || !isGreenmailOfferCurrent(activeInfo.definition,activeInfo.companyId))
             {closeDetail();refreshAvailability();return;}
             buildNegotiationChoices();
             if (negotiationChoices.Count == 0) return;
+            int cost = activeInfo.definition.getApCost();
+            if (actionPointService != null && actionPointService.Current < cost)
+            {
+                detailView.showInsufficientEnergy();
+                return;
+            }
+            if (session != null && !session.SaveBeforeEvent())
+            {
+                FindFirstObjectByType<FloatingMessage>()?.Show("사건 시작 전 저장에 실패했습니다. 다시 시도해 주세요.");
+                return;
+            }
             if (actionPointService == null)
                 Debug.LogWarning("ActionPointService was not found; starting negotiation without an AP check.");
-            else if (!actionPointService.TryConsume(activeInfo.definition.getApCost()))
+            else if (!actionPointService.TryConsume(cost))
             {
                 detailView.showInsufficientEnergy();
                 return;
@@ -375,8 +391,9 @@ namespace TakeOver.Events
             IReadOnlyList<EventChoice> choices = ActiveChoices;
             if (companies && choices.Count > 0)
             {
-                List<EventCompanyData> ownedCompanies = getOwnedCompanies();
-                while (ownedCompanies.Count > 3) ownedCompanies.RemoveAt(UnityEngine.Random.Range(0, ownedCompanies.Count));
+                var ownedCompanies = getOwnedCompanies()
+                    .OrderBy(company => DailyOrder("choice:" + ActiveEventId + ":" + company.companyId))
+                    .ThenBy(company => company.companyId, StringComparer.Ordinal).Take(3);
                 foreach (EventCompanyData company in ownedCompanies)
                     negotiationChoices.Add(new NegotiationChoice { choice = choices[0].createForCompany(company.companyName), originalIndex = 0, companyId = company.companyId, companyName = company.companyName });
                 return;
@@ -453,6 +470,7 @@ namespace TakeOver.Events
             string repeatOccurrence = RecordRepeatChoice(definition, companyId, selected.originalIndex);
             selectedChoices[definition.getId()] = selected.originalIndex;
             companyChoices[(definition.getId(), companyId)] = selected.originalIndex;
+            if (definition.IsTutorialOnly) tutorialVisitDay = currentDay;
             if (definition.IsStory)
             {
                 storyResults[definition.getId()] = succeeded;
@@ -479,14 +497,15 @@ namespace TakeOver.Events
         public void closeResult()
         {
             if (screenState != ScreenState.Result) return;
-            if (EventSceneTransition.IsBusy) return;
+            if (EventSceneTransition.IsBusy && !EventSceneTransition.IsChangingScene) return;
             Action finish = () => {
                 negotiationView.hide();
                 activeInfo = null;
                 screenState = ScreenState.Closed;
                 CompleteMandatoryPresentation();
+                TakeOver.SaveSystem.GameSessionCoordinator.Active?.SaveSettledState();
             };
-            if (TakeOver.Story.StoryDirector.IsApplyingWholeSkip) finish();
+            if (TakeOver.Story.StoryDirector.IsApplyingWholeSkip || EventSceneTransition.IsChangingScene) finish();
             else EventSceneTransition.Play(finish);
         }
 

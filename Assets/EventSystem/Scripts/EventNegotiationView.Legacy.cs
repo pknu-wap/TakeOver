@@ -171,6 +171,10 @@ namespace TakeOver.Events
             if (hasPlayerLine)
             {
                 highlightPlayer(true);
+                var label = PlayerSpeaker;
+                label.supportRichText = false;
+                label.text = ProtagonistName();
+                FitPlayerName();
                 currentDialogue = playerLineText;
                 paginate(playerLine);
                 page = 0;
@@ -215,42 +219,6 @@ namespace TakeOver.Events
             if (companyQuestion) showLegacyQuestionPage(completed);
             else completed();
             refreshSkipButton();
-        }
-
-        private IEnumerator skipToTarget(Action target)
-        {
-            if (skipCurtain == null)
-            {
-                var canvasObject = new GameObject("Event skip blackout", typeof(Canvas), typeof(GraphicRaycaster));
-                skipCanvas = canvasObject.GetComponent<Canvas>();
-                skipCanvas.renderMode = RenderMode.ScreenSpaceOverlay; skipCanvas.sortingOrder = 32760;
-                var image = new GameObject("Black", typeof(RectTransform), typeof(Image));
-                image.transform.SetParent(canvasObject.transform, false);
-                skipCurtain = image.GetComponent<Image>();
-                skipCurtain.rectTransform.anchorMin = Vector2.zero; skipCurtain.rectTransform.anchorMax = Vector2.one;
-                skipCurtain.rectTransform.offsetMin = skipCurtain.rectTransform.offsetMax = Vector2.zero;
-            }
-            skipCanvas.gameObject.SetActive(true);
-            yield return fadeSkipCurtain(0, 1);
-            completingSkip = true;
-            try { target(); }
-            finally { completingSkip = false; }
-            yield return fadeSkipCurtain(1, 0);
-            skipCanvas.gameObject.SetActive(false);
-            skipRoutine = null; skipping = false;
-            if (closeButton != null) closeButton.interactable = true;
-            refreshSkipButton();
-        }
-
-        private IEnumerator fadeSkipCurtain(float from, float to)
-        {
-            const float seconds = .35f;
-            for (float elapsed = 0; elapsed < seconds; elapsed += Time.unscaledDeltaTime)
-            {
-                skipCurtain.color = new Color(0, 0, 0, Mathf.Lerp(from, to, Mathf.SmoothStep(0, 1, elapsed / seconds)));
-                yield return null;
-            }
-            skipCurtain.color = new Color(0, 0, 0, to);
         }
 
         private void prepareCompanyQuestion(string dialogue)

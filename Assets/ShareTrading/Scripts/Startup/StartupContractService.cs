@@ -53,15 +53,22 @@ namespace TakeOver.Startups
             foreach (Company company in companies.StartupList)
                 if (company == startup) { registered = true; break; }
             if (!registered || startup.state.getStat(CompanyStat.PLAYER_SHARES) > 0f) return false;
+            var system = FindFirstObjectByType<StartupSystem>();
+            if (!system.tryGetRecord(startup.definition.companyID, out var record) || record.pendingContractDay > 0) return false;
             foreach (var request in requests)
                 if (request.company == startup) return false;
             if (contract != null && contract.TargetCompany == startup) return false;
             requests.Enqueue((startup, clock.CurrentTurn + 1));
+            record.pendingContractDay = clock.CurrentTurn + 1;
             return true;
         }
 
         private void Update()
         {
+            if (contract == null && requests.Count == 0 && companies != null)
+                foreach (var candidate in companies.StartupList)
+                    if (FindFirstObjectByType<StartupSystem>().tryGetRecord(candidate.definition.companyID, out var record) && record.pendingContractDay > 0)
+                        requests.Enqueue((candidate, record.pendingContractDay));
             if (contract != null || requests.Count == 0 || clock.CurrentTurn < requests.Peek().day) return;
             if (!events.IsClosed || TakeOver.Story.StoryDirector.IsRunning) return;
             Company company = requests.Dequeue().company;
@@ -127,7 +134,9 @@ namespace TakeOver.Startups
                 var startupTab = FindFirstObjectByType<StartupTabView>();
                 if (startupTab != null) startupTab.refreshAfterInvestment();
             }
+            if (FindFirstObjectByType<StartupSystem>().tryGetRecord(contract.TargetCompany.definition.companyID, out var record)) record.pendingContractDay = 0;
             close();
+            TakeOver.SaveSystem.GameSessionCoordinator.Active?.SaveSettledState();
         }
 
         private void close()

@@ -8,6 +8,16 @@ namespace TakeOver.SaveSystem
 
         public static int seed { get; private set; }
 
+        internal static uint StableOrder(int day, string key)
+        {
+            unchecked
+            {
+                uint hash = 2166136261;
+                foreach (char value in seed + ":" + day + ":" + key) hash = (hash ^ value) * 16777619;
+                return hash;
+            }
+        }
+
         /// <summary>새 게임 시작 시 현재 시분초로 시드 생성</summary>
         public static int generateSeed()
         {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HansungMarketEvent19_OverseasSupply
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "해외 부품 공급계약"
-  description: "{targetCompany}이 해외 부품 공급계약을 체결했습니다."
+  description: "해외 제조사가 {targetCompany}의 부품을 다음 생산분에 쓰기로 했다. 두 회사는 첫 선적 일정과 현지 검수 절차를 협의 중이다."
   MarketEventID: 19
   applyType: 2
   duration: 6

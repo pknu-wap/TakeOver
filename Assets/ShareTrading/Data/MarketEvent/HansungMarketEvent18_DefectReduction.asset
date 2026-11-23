@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HansungMarketEvent18_DefectReduction
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "생산 불량률 개선"
-  description: "{targetCompany}의 생산 불량률이 개선되고 있습니다."
+  description: "{targetCompany} 측이 새 검사 공정을 적용하자 재작업에 들어가던 부품 상당수가 첫 검수에서 통과했다. 회사는 다른 생산라인에도 같은 방식을 시험할 예정이다."
   MarketEventID: 18
   applyType: 1
   duration: 8

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DongbangMarketEvent23_WarehouseAutomation
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "자동화 창고 가동"
-  description: "{targetCompany}의 자동화 창고가 가동을 시작했습니다."
+  description: "{targetCompany}의 창고에서 새 분류 설비가 야간 물량을 처리하기 시작했다. 현장에서는 수작업으로 재분류하던 단계를 줄이는 시험을 하고 있다."
   MarketEventID: 23
   applyType: 1
   duration: 8

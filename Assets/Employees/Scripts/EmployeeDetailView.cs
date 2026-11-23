@@ -196,24 +196,9 @@ namespace TakeOver.Employees
 
             if (jobRemainingText != null)
             {
-                if (job == JobType.None)
-                {
-                    jobRemainingText.text = "";
-                }
-                else if (job == JobType.Support)
-                {
-                    Company target = jobService.getSupportTarget(currentEmployee);
-                    jobRemainingText.text = target != null ? target.definition.companyName : "";
-                }
-                else
-                {
-                    jobRemainingText.text = $"D-{jobService.GetRemainingDays(currentEmployee)}";
-                }
+                jobRemainingText.text = job == JobType.None ? "" : job == JobType.Support
+                    ? jobService.SupportTargetName(currentEmployee) + " 지원 중" : $"D-{jobService.GetRemainingDays(currentEmployee)}";
             }
-
-            bool canChangeJob = job != JobType.Support;
-            if (appraisalButton != null) appraisalButton.interactable = canChangeJob;
-            if (discoveryButton != null) discoveryButton.interactable = canChangeJob;
         }
 
         private static string FormatJob(JobType job)

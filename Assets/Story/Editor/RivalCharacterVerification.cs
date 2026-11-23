@@ -82,7 +82,9 @@ namespace TakeOver.Story.Editor
                 foreach(var field in typeof(NpcStoryDesign).GetFields(BindingFlags.Instance|BindingFlags.Public).Where(f=>f.FieldType==typeof(string)))
                     Check(!string.IsNullOrWhiteSpace((string)field.GetValue(story)),"Complete story field: "+prior.file+"/"+field.Name);
                 Check(registry.TryGetProfile(prior.id,out var runtime) && runtime.profile.personalitySummary==seed.profile.personalitySummary && runtime.profile.gameplayRoleSummary==seed.profile.gameplayRoleSummary,"Expanded public text reaches runtime profile: "+prior.file);
-                Check(runtime.profile.personalitySummary.Contains("행동 양식:") && runtime.profile.gameplayRoleSummary.Contains("선호:") && runtime.profile.gameplayRoleSummary.Contains("기피:"),"Public personality/behavior/preferences/role readable: "+prior.file);
+                Check(new[] { runtime.profile.personalitySummary, runtime.profile.gameplayRoleSummary }.All(text =>
+                    !string.IsNullOrWhiteSpace(text) && !new[] { "행동 양식:", "역할:", "선호:", "기피:" }.Any(text.Contains)),
+                    "Public profile and preferences use narrative prose: "+prior.file);
                 var publicJson=JsonUtility.ToJson(runtime);
                 Check(!publicJson.Contains("cooperationTrigger")&&!publicJson.Contains("informationScope")&&!publicJson.Contains("storyDesign"),"Hidden plot conditions excluded from registry public profile: "+prior.file);
                 string goal=story.personalGoal;story.personalGoal="edited verification copy";

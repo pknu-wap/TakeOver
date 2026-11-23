@@ -48,7 +48,7 @@ namespace TakeOver.SaveSystem
             try
             {
                 SaveFileData data = JsonUtility.FromJson<SaveFileData>(storage.read());
-                if (data == null || (data.formatVersion != SaveFileData.currentFormatVersion && data.formatVersion != 2 && data.formatVersion != 3)
+                if (data == null || !IsReadableFormat(data.formatVersion)
                     || data.dayStart.day < 1)
                     throw new InvalidDataException("저장 파일의 형식 버전·날짜가 올바르지 않습니다.");
                 dayStart = data.dayStart;
@@ -71,25 +71,7 @@ namespace TakeOver.SaveSystem
             lastError = "";
             try
             {
-                ISaveParticipant[] modules = getParticipants();
-                SaveFileData data = new SaveFileData
-                {
-                    formatVersion = SaveFileData.currentFormatVersion,
-                    dayStart = nextDay,
-                    sections = new List<SaveSectionData>()
-                };
-                foreach (ISaveParticipant module in modules)
-                {
-                    SaveSectionData section = new SaveSectionData
-                    {
-                        id = module.saveId,
-                        version = module.saveVersion,
-                        json = module.captureJson()
-                    };
-                    data.sections.Add(section);
-                }
-                validateFile(data, modules);
-                pendingSave = data;
+                pendingSave = CaptureSnapshot(nextDay);
                 writePending();
                 return true;
             }
@@ -101,6 +83,31 @@ namespace TakeOver.SaveSystem
             {
                 isBusy = false;
             }
+        }
+
+        private SaveFileData CaptureSnapshot(DayStartData day)
+        {
+            var modules = getParticipants();
+            var data = new SaveFileData { formatVersion = SaveFileData.currentFormatVersion, dayStart = day,
+                sections = modules.Select(module => new SaveSectionData {
+                    id = module.saveId, version = module.saveVersion, json = module.captureJson()
+                }).ToList() };
+            validateFile(data, modules);
+            return data;
+        }
+
+        internal bool TrySaveBeforeEvent(DayStartData day)
+        {
+            if (isBusy || hasPendingSave) return false;
+            isBusy = true;
+            lastError = "";
+            try
+            {
+                storage.write(JsonUtility.ToJson(CaptureSnapshot(day)));
+                return true;
+            }
+            catch (Exception error) { return fail(error.Message); }
+            finally { isBusy = false; }
         }
 
         /// <summary>실패 당시 저장 사본만 재기록. 하루 마감 재실행 제외</summary>
@@ -149,7 +156,7 @@ namespace TakeOver.SaveSystem
                 validateFile(data, modules);
 
                 // 모든 파트의 검증 완료 후 실제 상태 적용
-                foreach (ISaveParticipant module in modules)
+                foreach (ISaveParticipant module in PrepareOrder(modules))
                 {
                     foreach (SaveSectionData section in data.sections)
                     {
@@ -160,6 +167,7 @@ namespace TakeOver.SaveSystem
                         }
                     }
                 }
+                FixedDaySeed.changeSeed(data.dayStart.seed);
                 foreach (ISaveParticipant module in modules)
                 {
                     module.applyLoad();
@@ -168,7 +176,6 @@ namespace TakeOver.SaveSystem
                 {
                     module.rebuildAfterLoad();
                 }
-                FixedDaySeed.changeSeed(data.dayStart.seed);
                 dayStart = data.dayStart;
                 return true;
             }
@@ -217,9 +224,14 @@ namespace TakeOver.SaveSystem
             return modules;
         }
 
+        private static bool IsReadableFormat(int version) => version >= 2 && version <= SaveFileData.currentFormatVersion;
+
+        private static IEnumerable<ISaveParticipant> PrepareOrder(ISaveParticipant[] modules) =>
+            modules.OrderBy(module => module is TradingSaveAdapter ? 0 : 1);
+
         private static void upgradeLegacySections(SaveFileData data, ISaveParticipant[] modules)
         {
-            if (data == null || (data.formatVersion != 2 && data.formatVersion != 3) || data.sections == null) return;
+            if (data == null || !IsReadableFormat(data.formatVersion) || data.formatVersion == SaveFileData.currentFormatVersion || data.sections == null) return;
             int sourceVersion = data.formatVersion;
             foreach (var module in modules)
                 if (!data.sections.Any(savedSection => savedSection != null && savedSection.id == module.saveId) &&

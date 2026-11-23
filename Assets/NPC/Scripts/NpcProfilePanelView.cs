@@ -29,7 +29,6 @@ namespace TakeOver.NPC
 
         [Header("Data Source")]
         [SerializeField] private NpcStateRegistry registry;
-        [SerializeField] private List<Sprite> standingSprites = new List<Sprite>();
         [SerializeField] private List<NpcSpriteOverride> manualSpriteOverrides = new List<NpcSpriteOverride>();
 
         [Header("Left NPC List")]
@@ -119,39 +118,18 @@ namespace TakeOver.NPC
         private static readonly Color GaugeTick = new Color(0.06f, 0.17f, 0.34f, 1f);
         private static readonly Color GaugeLabel = new Color(0.36f, 0.42f, 0.50f, 1f);
 
-        private readonly struct CharacterIdentity
+        // Array order controls the first characters shown in the list.
+        private static readonly string[][] Identities =
         {
-            public readonly bool IsFemale;
-            public readonly string[] IdTokens;
-            public readonly string[] SpriteTokens;
-
-            public CharacterIdentity(bool isFemale, string[] idTokens, string[] spriteTokens)
-            {
-                IsFemale = isFemale;
-                IdTokens = idTokens;
-                SpriteTokens = spriteTokens;
-            }
-        }
-
-        // 배열 순서 = 목록 표시 순서
-        private static readonly CharacterIdentity[] Identities =
-        {
-            new(true,  new[] { "hajin", "윤하진", "하진" },                new[] { "hajin", "yoonhajin", "yunhajin" }),
-            new(true,  new[] { "sua", "sooah", "정수아", "수아" },          new[] { "sua", "sooah", "jungsua", "jeongsua" }),
-            new(false, new[] { "junhyuk", "junhyeok", "강준혁", "준혁" },   new[] { "junhyuk", "junhyeok", "kangjunhyuk" }),
-            new(false, new[] { "sanghyun", "sanghyeon", "박상현", "상현" }, new[] { "sanghyun", "sanghyeon", "parksanghyun" }),
-            new(false, new[] { "taeseong", "taesung", "김태성", "태성" },   new[] { "taeseong", "taesung", "kimtaeseong", "kimtaesung" }),
-            new(false, new[] { "mingyu", "이민규", "민규" },                new[] { "mingyu", "leemingyu" }),
-            new(true,  new[] { "jia", "jiah", "서지아", "지아" },           new[] { "jia", "jiah", "seojia", "suhjia" }),
-            new(true,  new[] { "harin", "김하린", "하린" },                 new[] { "harin", "kimharin" }),
-            new(false, new[] { "dosik", "doshik", "박도식", "도식" },       new[] { "dosik", "doshik", "parkdosik" })
-        };
-
-        // 스프라이트 매칭 시 무시할 일반 토큰
-        private static readonly HashSet<string> IgnoredNameTokens = new HashSet<string>
-        {
-            "npc", "ceo", "cfo", "cto", "broker", "investor", "institutional", "politician",
-            "kim", "park", "lee", "kang", "jung", "yoon", "seo"
+            new[] { "hajin", "윤하진", "하진" },
+            new[] { "sua", "sooah", "정수아", "수아" },
+            new[] { "junhyuk", "junhyeok", "강준혁", "준혁" },
+            new[] { "sanghyun", "sanghyeon", "박상현", "상현" },
+            new[] { "taeseong", "taesung", "김태성", "태성" },
+            new[] { "mingyu", "이민규", "민규" },
+            new[] { "jia", "jiah", "서지아", "지아" },
+            new[] { "harin", "김하린", "하린" },
+            new[] { "dosik", "doshik", "박도식", "도식" },
         };
 
         private static Sprite _circleSprite;
@@ -183,6 +161,7 @@ namespace TakeOver.NPC
         private string requestedNpcId;
         private ScrollRect profileDetailsScroll;
         private float memorySectionOffset;
+        private readonly Dictionary<TMP_Text, float> tutorialFontSizes = new Dictionary<TMP_Text, float>();
         public string SelectedNpcId => _entries.Count > _selectedIndex ? _entries[_selectedIndex].id : requestedNpcId;
 
         #endregion
@@ -200,12 +179,47 @@ namespace TakeOver.NPC
         {
             ApplyCanvasScaler();
             Refresh();
+            EnsureTextReady();
             if (registry != null) registry.StateChanged += OnStateChanged;
         }
 
         private void OnDisable()
         {
+            foreach (var entry in tutorialFontSizes) if (entry.Key != null) entry.Key.fontSize = entry.Value;
+            tutorialFontSizes.Clear();
             if (registry != null) registry.StateChanged -= OnStateChanged;
+        }
+
+        public void SetTutorialReadable()
+        {
+            bool changed = false;
+            foreach (var text in GetComponentsInChildren<TMP_Text>(true))
+            {
+                if (!tutorialFontSizes.ContainsKey(text)) tutorialFontSizes[text] = text.fontSize;
+                float size = Mathf.Max(tutorialFontSizes[text], 14f / Mathf.Max(.01f, text.transform.lossyScale.y));
+                if (Mathf.Abs(text.fontSize - size) > .1f) { text.fontSize = size; changed = true; }
+                if (text.GetComponentInParent<NpcListItemView>() != null)
+                {
+                    var rect = text.rectTransform;
+                    rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Mathf.Max(rect.rect.width, text.preferredWidth + 8));
+                    rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Max(rect.rect.height, size * 1.5f));
+                }
+            }
+            if (changed && _entries.Count > _selectedIndex)
+            {
+                UpdateSelectedDetails(_entries[_selectedIndex], false);
+                EnsureTextReady();
+            }
+        }
+
+        private void EnsureTextReady()
+        {
+            foreach (var text in GetComponentsInChildren<TMP_Text>(true))
+            {
+                if (text.font != null) text.font.TryAddCharacters(text.text, out _);
+                text.ForceMeshUpdate(true, true);
+            }
+            Canvas.ForceUpdateCanvases();
         }
 
         private void OnStateChanged(NpcRuntimeState state)
@@ -279,6 +293,10 @@ namespace TakeOver.NPC
             EnsureReferences();
             ApplyLayout();
             BuildEntries();
+            var names = string.Concat(_entries.Select(entry => entry.displayName + entry.subtitle));
+            var fonts = GetComponentsInChildren<TMP_Text>(true).Select(text => text.font);
+            if (npcListItemPrefab != null) fonts = fonts.Concat(npcListItemPrefab.GetComponentsInChildren<TMP_Text>(true).Select(text => text.font));
+            foreach (var font in fonts.Where(font => font != null).Distinct()) font.TryAddCharacters(names, out _);
             RebuildListUI();
 
             if (_entries.Count > 0)
@@ -817,10 +835,6 @@ namespace TakeOver.NPC
             {
                 npcListItemPrefab = AssetDatabase.LoadAssetAtPath<NpcListItemView>("Assets/NPC/Prefabs/NpcListItemPrefab.prefab");
             }
-            if (standingSprites == null || standingSprites.Count == 0 || standingSprites.Any(s => s != null && IsDimSprite(s.name)))
-            {
-                LoadStandingSpritesInEditor();
-            }
 #endif
         }
 
@@ -847,52 +861,28 @@ namespace TakeOver.NPC
             ExtractEntriesFromRegistry(registry, _entries);
             _entries.Sort((a, b) => GetDisplayOrder(a).CompareTo(GetDisplayOrder(b)));
 
-            var usedSprites = new HashSet<Sprite>();
-            foreach (NpcEntryData entry in _entries)
-            {
-                if (TryApplyManualOverride(entry, out Sprite overrideSprite))
-                {
-                    usedSprites.Add(overrideSprite);
-                    continue;
-                }
-
-                Sprite match = FindMatchingStandingSprite(entry, usedSprites);
-                if (match != null)
-                {
-                    entry.sprite = match;
-                    usedSprites.Add(match);
-                }
-            }
+            foreach (NpcEntryData entry in _entries) ApplyManualOverride(entry);
         }
 
-        private bool TryApplyManualOverride(NpcEntryData entry, out Sprite matchedSprite)
+        private void ApplyManualOverride(NpcEntryData entry)
         {
-            matchedSprite = null;
-            if (manualSpriteOverrides == null) return false;
+            if (manualSpriteOverrides == null) return;
 
             string normId = NormalizeToken(entry.id);
             string normName = NormalizeToken(entry.displayName);
-
             foreach (NpcSpriteOverride ov in manualSpriteOverrides)
             {
                 if (string.IsNullOrWhiteSpace(ov.npcNameOrId)) continue;
-
                 string key = NormalizeToken(ov.npcNameOrId);
-                bool isMatch = IsLooseMatch(normId, key) || IsLooseMatch(normName, key);
-                if (!isMatch) continue;
+                if (!IsLooseMatch(normId, key) && !IsLooseMatch(normName, key)) continue;
 
-                if (ov.sprite != null)
-                {
-                    entry.sprite = ov.sprite;
-                    matchedSprite = ov.sprite;
-                }
+                if (ov.sprite != null) entry.sprite = ov.sprite;
                 entry.portraitOffsetY = ov.portraitOffsetY;
                 entry.standingHeight = ov.standingHeight;
                 entry.standingOffsetY = ov.standingOffsetY;
                 entry.standingOffsetX = ov.standingOffsetX;
-                return ov.sprite != null;
+                return;
             }
-            return false;
         }
 
         private static bool IsLooseMatch(string value, string key)
@@ -906,36 +896,17 @@ namespace TakeOver.NPC
             {
                 if (entry == null || entry.profile == null) continue;
 
-                string id = entry.npcId;
-                object prof = entry.profile;
-
-                string displayName = ReadFirstString(prof, "displayName", "koreanName", "npcName", "titleName", "name", "DisplayName", "Name");
-                string affiliation = ReadFirstString(prof, "affiliation", "organization", "company", "faction", "group", "department", "Affiliation", "Organization", "Company");
-                string role = ReadFirstString(prof, "subtitle", "role", "roleTitle", "position", "job", "title", "Role", "Subtitle", "Position");
-                string description = ReadFirstString(prof,
-                    "description", "summary", "bio", "biography", "profileText", "introText",
-                    "introduction", "intro", "overview", "background", "detail", "details",
-                    "personality", "note", "notes", "Description", "Summary", "Bio", "Introduction", "Overview");
-
-                if (string.IsNullOrEmpty(displayName))
+                var profile = entry.profile;
+                string displayName = string.IsNullOrWhiteSpace(profile.displayName) ? entry.npcId : profile.displayName;
+                output.Add(new NpcEntryData
                 {
-                    displayName = ReadAnyKoreanString(prof, 20) ?? id;
-                }
-                if (string.IsNullOrWhiteSpace(description))
-                {
-                    description = ReadLongestKoreanDescription(prof, displayName, role, affiliation);
-                }
-
-                var data = new NpcEntryData
-                {
-                    id = string.IsNullOrEmpty(id) ? displayName : id,
-                    displayName = string.IsNullOrEmpty(displayName) ? id : displayName,
-                    subtitle = BuildSubtitle(affiliation, role),
-                    description = description ?? string.Empty,
-                    sprite = ReadObjectMember(prof, "standingSprite", "portraitSprite", "sprite", "portrait", "StandingSprite", "Sprite", "Portrait") as Sprite
-                };
-
-                output.Add(data);
+                    id = string.IsNullOrEmpty(entry.npcId) ? displayName : entry.npcId,
+                    displayName = displayName,
+                    subtitle = BuildSubtitle(profile.affiliation, profile.role),
+                    description = string.IsNullOrWhiteSpace(profile.personalitySummary)
+                        ? profile.gameplayRoleSummary ?? string.Empty : profile.personalitySummary,
+                    sprite = profile.standingIllustration
+                });
             }
         }
 
@@ -953,13 +924,13 @@ namespace TakeOver.NPC
 
         #endregion
 
-        #region Character Identity / Sprite Matching
+        #region Character Identity
 
         private static int FindIdentityIndex(string combinedNorm)
         {
             for (int i = 0; i < Identities.Length; i++)
             {
-                if (ContainsAnyToken(combinedNorm, Identities[i].IdTokens)) return i;
+                if (ContainsAnyToken(combinedNorm, Identities[i])) return i;
             }
             return -1;
         }
@@ -976,100 +947,6 @@ namespace TakeOver.NPC
         private static string CombineNormalized(NpcEntryData entry)
             => $"{NormalizeToken(entry.id)} {NormalizeToken(entry.displayName)}";
 
-        private static bool? DetectSpriteIsFemale(string spriteName)
-        {
-            string norm = NormalizeToken(spriteName);
-            foreach (CharacterIdentity identity in Identities)
-            {
-                if (ContainsAnyToken(norm, identity.SpriteTokens)) return identity.IsFemale;
-            }
-            return null;
-        }
-
-        private static bool IsDimSprite(string spriteName) => NameContains(spriteName, "dim");
-        private static bool IsStandingSprite(string spriteName) => NameContains(spriteName, "standing");
-
-        private static bool NameContains(string name, string part)
-            => !string.IsNullOrEmpty(name) && name.IndexOf(part, StringComparison.OrdinalIgnoreCase) >= 0;
-
-        private static readonly char[] WordSeparators = { '-', '_', ' ' };
-
-        private static string[] SplitWords(string raw)
-            => raw.Split(WordSeparators, StringSplitOptions.RemoveEmptyEntries);
-
-        private Sprite FindMatchingStandingSprite(NpcEntryData entry, HashSet<Sprite> usedSprites)
-        {
-            if (standingSprites == null || standingSprites.Count == 0) return null;
-
-            string combined = CombineNormalized(entry);
-            int identityIndex = FindIdentityIndex(combined);
-            bool? entryIsFemale = identityIndex >= 0 ? Identities[identityIndex].IsFemale : (bool?)null;
-
-            HashSet<string> candidateTokens = BuildCandidateTokens(entry, combined);
-
-            bool IsUsable(Sprite s)
-            {
-                if (s == null || usedSprites.Contains(s) || IsDimSprite(s.name)) return false;
-                if (!entryIsFemale.HasValue) return true;
-                bool? spriteGender = DetectSpriteIsFemale(s.name);
-                return !spriteGender.HasValue || spriteGender.Value == entryIsFemale.Value;
-            }
-
-            List<Sprite> usableAny = standingSprites.Where(IsUsable).ToList();
-            List<Sprite> usableStanding = usableAny.Where(s => IsStandingSprite(s.name)).ToList();
-
-            bool ContainsCandidate(Sprite s)
-            {
-                string normSprite = NormalizeToken(s.name);
-                return candidateTokens.Any(normSprite.Contains);
-            }
-
-            // 1) standing 스프라이트 중 단어가 정확히 일치
-            Sprite exact = usableStanding.FirstOrDefault(s =>
-                SplitWords(s.name).Select(NormalizeToken).Any(candidateTokens.Contains));
-            if (exact != null) return exact;
-
-            // 2) standing 스프라이트 중 부분 일치
-            Sprite partialStanding = usableStanding.FirstOrDefault(ContainsCandidate);
-            if (partialStanding != null) return partialStanding;
-
-            // 3) 전체 스프라이트 중 부분 일치
-            Sprite partialAny = usableAny.FirstOrDefault(ContainsCandidate);
-            if (partialAny != null) return partialAny;
-
-            // 4) 남은 것 중 아무거나
-            return usableStanding.FirstOrDefault() ?? usableAny.FirstOrDefault();
-        }
-
-        private static HashSet<string> BuildCandidateTokens(NpcEntryData entry, string combinedNorm)
-        {
-            var tokens = new HashSet<string>();
-
-            string normId = NormalizeToken(entry.id);
-            string normName = NormalizeToken(entry.displayName);
-            if (!string.IsNullOrEmpty(normId)) tokens.Add(normId);
-            if (!string.IsNullOrEmpty(normName)) tokens.Add(normName);
-
-            foreach (CharacterIdentity identity in Identities)
-            {
-                if (!ContainsAnyToken(combinedNorm, identity.IdTokens)) continue;
-                foreach (string spriteToken in identity.SpriteTokens)
-                {
-                    tokens.Add(NormalizeToken(spriteToken));
-                }
-            }
-
-            foreach (string word in SplitWords($"{entry.id}_{entry.displayName}"))
-            {
-                string token = NormalizeToken(word);
-                if (token.Length >= 2 && !IgnoredNameTokens.Contains(token))
-                {
-                    tokens.Add(token);
-                }
-            }
-            return tokens;
-        }
-
         private static string NormalizeToken(string raw)
         {
             if (string.IsNullOrEmpty(raw)) return string.Empty;
@@ -1077,96 +954,6 @@ namespace TakeOver.NPC
                       .Replace("_", string.Empty)
                       .Replace(" ", string.Empty)
                       .ToLowerInvariant();
-        }
-
-        #endregion
-
-        #region Reflection Readers
-
-        private static object ReadObjectMember(object target, params string[] names)
-        {
-            if (target == null) return null;
-            Type t = target.GetType();
-            foreach (string n in names)
-            {
-                PropertyInfo p = t.GetProperty(n, AnyInstance);
-                if (p != null) return p.GetValue(target);
-                FieldInfo f = t.GetField(n, AnyInstance);
-                if (f != null) return f.GetValue(target);
-            }
-            return null;
-        }
-
-        private static string ReadFirstString(object target, params string[] names)
-        {
-            if (target == null) return null;
-            Type t = target.GetType();
-            foreach (string n in names)
-            {
-                PropertyInfo p = t.GetProperty(n, AnyInstance);
-                if (p != null && p.PropertyType == typeof(string) && p.GetValue(target) is string ps && !string.IsNullOrWhiteSpace(ps))
-                    return ps;
-
-                FieldInfo f = t.GetField(n, AnyInstance);
-                if (f != null && f.FieldType == typeof(string) && f.GetValue(target) is string fs && !string.IsNullOrWhiteSpace(fs))
-                    return fs;
-            }
-            return null;
-        }
-
-        /// <summary>대상의 모든 필드 값 → 읽기 가능한 프로퍼티 값 순으로 열거한다.</summary>
-        private static IEnumerable<object> EnumerateMemberValues(object target)
-        {
-            Type t = target.GetType();
-
-            foreach (FieldInfo f in t.GetFields(AnyInstance))
-            {
-                yield return f.GetValue(target);
-            }
-
-            foreach (PropertyInfo p in t.GetProperties(AnyInstance))
-            {
-                if (!p.CanRead || p.GetIndexParameters().Length > 0) continue;
-                yield return p.GetValue(target);
-            }
-        }
-
-        private static bool ContainsHangul(string s) => s.Any(c => c >= '\uAC00' && c <= '\uD7A3');
-
-        private static string ReadAnyKoreanString(object target, int maxLength)
-        {
-            if (target == null) return null;
-
-            return EnumerateMemberValues(target)
-                .OfType<string>()
-                .FirstOrDefault(v => !string.IsNullOrWhiteSpace(v) && v.Length <= maxLength && ContainsHangul(v));
-        }
-
-        private static string ReadLongestKoreanDescription(object target, params string[] excludeValues)
-        {
-            if (target == null) return string.Empty;
-
-            var candidates = new List<string>();
-            foreach (object value in EnumerateMemberValues(target))
-            {
-                if (value is string s)
-                {
-                    if (!string.IsNullOrWhiteSpace(s)) candidates.Add(s.Trim());
-                }
-                else if (value is IEnumerable<string> lines)
-                {
-                    string joined = string.Join("\n", lines.Where(l => !string.IsNullOrWhiteSpace(l)));
-                    if (!string.IsNullOrWhiteSpace(joined)) candidates.Add(joined);
-                }
-            }
-
-            bool IsExcluded(string c) => excludeValues.Any(ex =>
-                !string.IsNullOrEmpty(ex) && string.Equals(c, ex.Trim(), StringComparison.OrdinalIgnoreCase));
-
-            return candidates
-                       .Where(c => c.Length >= 15 && ContainsHangul(c) && !IsExcluded(c))
-                       .OrderByDescending(c => c.Length)
-                       .FirstOrDefault() ?? string.Empty;
         }
 
         #endregion
@@ -1579,31 +1366,5 @@ namespace TakeOver.NPC
 
         #endregion
 
-#if UNITY_EDITOR
-        #region Editor
-
-        private void OnValidate()
-        {
-            LoadStandingSpritesInEditor();
-        }
-
-        private void LoadStandingSpritesInEditor()
-        {
-            const string folder = "Assets/NPC/Art/Standing";
-            if (!AssetDatabase.IsValidFolder(folder)) return;
-
-            string[] guids = AssetDatabase.FindAssets("t:Sprite", new[] { folder });
-            if (guids.Length == 0) return;
-
-            standingSprites = guids
-                .Select(g => AssetDatabase.LoadAssetAtPath<Sprite>(AssetDatabase.GUIDToAssetPath(g)))
-                .Where(s => s != null && !IsDimSprite(s.name))
-                .OrderByDescending(s => IsStandingSprite(s.name))
-                .ThenBy(s => s.name, StringComparer.OrdinalIgnoreCase)
-                .ToList();
-        }
-
-        #endregion
-#endif
     }
 }

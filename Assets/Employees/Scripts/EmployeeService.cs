@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Linq;
+using TakeOver.SaveSystem;
 using TakeOver.NPC;
 
 namespace TakeOver.Employees
 {
-    public class EmployeeService : MonoBehaviour
+    public class EmployeeService : MonoBehaviour, ISaveParticipant, ILegacySaveSectionInitializer, ISaveRebuildOrder
     {
         [SerializeField] private EmployeeConfig config;
         [SerializeField] private GameTurnClock gameTurnClock;
@@ -17,7 +20,7 @@ namespace TakeOver.Employees
         private readonly List<Employee> employees = new List<Employee>();
         private readonly List<Employee> applicants = new List<Employee>();
 
-        // 직원 정수 ID용 다음 번호. 재사용하지 않는다. 저장 기능이 생기면 이 값도 저장해야 한다.
+        // 직원 정수 ID용 다음 번호. 재사용하지 않는다.
         private int nextEmployeeId = 1;
 
         private bool isRecruiting;
@@ -46,6 +49,82 @@ namespace TakeOver.Employees
         public event Action<Employee> OnContractRenewalNotice;
         public event Action<Employee> OnContractExpired;
         public event Action<Employee> OnEmployeeLeft;
+        public event Action Changed;
+
+        [Serializable]
+        private sealed class SavedEmployees
+        {
+            public List<Employee> employees = new List<Employee>();
+            public List<Employee> applicants = new List<Employee>();
+            public List<JobService.SavedJob> jobs = new List<JobService.SavedJob>();
+            public int nextId = 1, recruitTurns;
+        }
+
+        private SavedEmployees prepared;
+        public string saveId => "employees";
+        public int saveVersion => 1;
+        public int rebuildOrder => 60;
+
+        public string captureJson() => JsonUtility.ToJson(new SavedEmployees
+        {
+            employees = employees, applicants = applicants, nextId = nextEmployeeId,
+            recruitTurns = recruitRemainingTurns,
+            jobs = FindFirstObjectByType<JobService>()?.CaptureJobs() ?? new List<JobService.SavedJob>()
+        });
+
+        public void prepareLoad(string json, int version, DayStartData day)
+        {
+            prepared = null;
+            var data = JsonUtility.FromJson<SavedEmployees>(json);
+            if (version != saveVersion || data?.employees == null || data.applicants == null || data.jobs == null ||
+                data.nextId < 1 || data.recruitTurns < 0)
+                throw new InvalidDataException("직원 저장 형식이 올바르지 않습니다.");
+            var ids = new HashSet<int>();
+            foreach (var employee in data.employees.Concat(data.applicants))
+                if (employee == null || employee.Id < 1 || employee.Id >= data.nextId || !ids.Add(employee.Id))
+                    throw new InvalidDataException("직원 저장의 ID가 올바르지 않습니다.");
+            var employed = new HashSet<int>(data.employees.Select(employee => employee.Id));
+            ids.Clear();
+            foreach (var job in data.jobs)
+                if (job == null || !employed.Contains(job.employeeId) || !ids.Add(job.employeeId) ||
+                    (job.job != JobType.Appraisal && job.job != JobType.Discovery && job.job != JobType.Support) ||
+                    (job.job == JobType.Support ? job.days != 0 || job.targets == null || job.targets.Count != 1 : job.days < 1) || job.targets == null)
+                    throw new InvalidDataException("직무 저장 내용이 올바르지 않습니다.");
+            prepared = data;
+        }
+
+        public void applyLoad()
+        {
+            employees.Clear();
+            employees.AddRange(prepared.employees);
+            applicants.Clear();
+            applicants.AddRange(prepared.applicants);
+            nextEmployeeId = prepared.nextId;
+            recruitRemainingTurns = prepared.recruitTurns;
+            isRecruiting = recruitRemainingTurns > 0;
+        }
+
+        public void rebuildAfterLoad()
+        {
+            FindFirstObjectByType<JobService>()?.RestoreJobs(prepared.jobs);
+            prepared = null;
+            foreach (var view in FindObjectsByType<EmployeeTabView>(FindObjectsSortMode.None)) view.RefreshAll();
+        }
+
+        public bool TryCreateLegacySection(int version, out SaveSectionData section)
+        {
+            section = new SaveSectionData { id = saveId, version = saveVersion, json = JsonUtility.ToJson(new SavedEmployees()) };
+            return version >= 2 && version <= 4;
+        }
+
+        internal void MarkChanged() => Changed?.Invoke();
+
+        internal bool CanChangeRoster()
+        {
+            if (GameSessionCoordinator.Active?.IsPersistenceBlocked != true) return true;
+            FindFirstObjectByType<FloatingMessage>()?.Show("저장 재시도 후 처리해 주세요.");
+            return false;
+        }
 
         private void OnEnable()
         {
@@ -78,6 +157,7 @@ namespace TakeOver.Employees
 
         public bool StartRecruit()
         {
+            if (!CanChangeRoster()) return false;
             if (config == null)
             {
                 Debug.LogWarning("[EmployeeService] 모집 실패: Config(EmployeeConfig)가 할당되지 않았습니다.", this);
@@ -102,17 +182,20 @@ namespace TakeOver.Employees
 
             isRecruiting = true;
             recruitRemainingTurns = Mathf.Max(1, config.recruitDurationTurns);
+            MarkChanged();
             return true;
         }
 
         public void CloseApplicants()
         {
+            if (!CanChangeRoster()) return;
             applicants.Clear();
+            MarkChanged();
         }
 
         public bool Hire(Employee applicant)
         {
-            if (applicant == null || !applicants.Contains(applicant))
+            if (applicant == null || !applicants.Contains(applicant) || !CanChangeRoster())
             {
                 return false;
             }
@@ -134,6 +217,7 @@ namespace TakeOver.Employees
             applicant.CaptureContractStartStats();
 
             employees.Add(applicant);
+            MarkChanged();
             return true;
         }
 
@@ -180,7 +264,7 @@ namespace TakeOver.Employees
 
         public void Renew(Employee emp)
         {
-            if (emp == null || !employees.Contains(emp))
+            if (emp == null || !employees.Contains(emp) || !CanChangeRoster())
             {
                 return;
             }
@@ -192,11 +276,12 @@ namespace TakeOver.Employees
             emp.HasSentRenewalNotice = false;
             emp.PendingRenewalSalary = null;
             emp.CaptureContractStartStats();
+            MarkChanged();
         }
 
         public void Decline(Employee emp)
         {
-            if (emp == null || !employees.Contains(emp))
+            if (emp == null || !employees.Contains(emp) || !CanChangeRoster())
             {
                 return;
             }
@@ -207,17 +292,19 @@ namespace TakeOver.Employees
             }
 
             emp.SetPendingLeave(emp.ContractEndTurn);
+            MarkChanged();
         }
 
         public void Dismiss(Employee emp)
         {
-            if (emp == null || !employees.Contains(emp))
+            if (emp == null || !employees.Contains(emp) || !CanChangeRoster())
             {
                 return;
             }
 
             employees.Remove(emp);
             OnEmployeeLeft?.Invoke(emp);
+            MarkChanged();
         }
 
         public int GetSeveranceAmount(Employee emp)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DongbangMarketEvent25_DeliveryErrors
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "대규모 배송 오류"
-  description: "{targetCompany}의 물류 서비스에서 대규모 배송 오류가 발생했습니다."
+  description: "{targetCompany}의 배송망에서 여러 화물이 다른 거점으로 보내졌다. 쇼핑몰들은 배송 보상 조건을 확인하고 일부 접수 물량을 다른 업체에 맡겼다."
   MarketEventID: 25
   applyType: 2
   duration: 4

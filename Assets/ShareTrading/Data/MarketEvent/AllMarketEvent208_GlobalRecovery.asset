@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllMarketEvent208_GlobalRecovery
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "글로벌 경기회복"
-  description: "글로벌 경기가 회복세를 보이고 있습니다."
+  description: "해외 바이어들이 보류했던 견적 문의를 다시 보내기 시작했다. 제조업체들은 다음 분기 물량을 소화할 생산 일정을 짜고 있다."
   MarketEventID: 208
   applyType: 3
   duration: 8

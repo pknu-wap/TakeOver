@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllMarketEvent206_OilPricePlunge
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "국제 유가 급락"
-  description: "국제 유가가 급락했습니다."
+  description: "정유사와 운송업체들이 새 연료 견적을 받아 들었다. 주요 화주들은 다음 계약에서 달라진 연료 사정을 반영할 수 있을지 살피고 있다."
   MarketEventID: 206
   applyType: 2
   duration: 6

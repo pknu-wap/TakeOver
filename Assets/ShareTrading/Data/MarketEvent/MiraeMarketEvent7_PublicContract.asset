@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiraeMarketEvent7_PublicContract
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "대형 공공공사 수주"
-  description: "{targetCompany}이 대형 공공공사를 수주했습니다."
+  description: "발주기관이 {targetCompany}의 시공안을 채택했다. 회사는 착공 준비에 들어갔고 협력사들은 현장별 작업 일정을 협의하고 있다."
   MarketEventID: 7
   applyType: 2
   duration: 6

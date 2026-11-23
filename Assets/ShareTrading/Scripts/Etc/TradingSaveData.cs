@@ -8,13 +8,17 @@ public class TradingSaveData
 {
     public PlayerData player;
     public MarketData market;
+    public MarketEventManager.SaveData marketEvents;
     public List<CompanyData> companies;
     public List<ScheduledEffectData> greenmail;
     public List<ScheduledEffectData> stockManipulation;
+    public bool hasStartupRoster;
+    public int lastStartupId;
 
     [Serializable]
     public class PlayerData
     {
+        public string name;
         public float money, manPower, information, reputation;
     }
 
@@ -29,6 +33,8 @@ public class TradingSaveData
     public class CompanyData
     {
         public string companyId;
+        public TakeOver.Startups.StartupRecord startup;
+        public bool generated, listed;
         public CompanyStateData state;
         public CompanyMarketData market;
         public List<CompanyHistoryEntry> history;

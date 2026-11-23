@@ -20,6 +20,25 @@ namespace TakeOver.Startups
 
         public IReadOnlyList<StartupRecord> Records => records;
         public StartupSettings Settings => settings;
+        internal int LastId => lastIdNumber;
+
+        internal bool IsStartupId(string id) => settings != null && !string.IsNullOrEmpty(settings.idPrefix) &&
+            id.StartsWith(settings.idPrefix, System.StringComparison.Ordinal);
+
+        internal void RestoreCompanies(IEnumerable<TradingSaveData.CompanyData> saved, int lastId)
+        {
+            companies.RemoveGeneratedCompanies();
+            records.Clear();
+            lastIdNumber = lastId;
+            foreach (var entry in saved)
+            {
+                if (!entry.generated) continue;
+                Company company = StartupFactory.createCompany(entry.startup, startupRoot);
+                companies.RegisterStartup(company);
+                records.Add(entry.startup);
+                if (entry.listed) companies.PromoteStartup(company);
+            }
+        }
 
         private void Awake()
         {
@@ -168,17 +187,8 @@ namespace TakeOver.Startups
         {
             for (int i = records.Count - 1; i >= 0; i--)
             {
-                if (!isInStartupList(records[i].companyId)) records.RemoveAt(i);
+                if (!companies.tryGetCompany(records[i].companyId, out _)) records.RemoveAt(i);
             }
-        }
-
-        private bool isInStartupList(string companyId)
-        {
-            foreach (Company startup in companies.StartupList)
-            {
-                if (startup.definition.companyID == companyId) return true;
-            }
-            return false;
         }
 
         [ContextMenu("검증용: 첫 스타트업 상장 (PromoteStartup)")]

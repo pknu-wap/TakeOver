@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HansungMarketEvent17_ComponentCertification
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "고정밀 부품 인증 획득"
-  description: "{targetCompany}이 고정밀 부품 인증을 획득했습니다."
+  description: "{targetCompany}의 부품이 고객사의 정밀도 심사를 통과했다. 구매 담당자들은 시험 납품에 이어 양산 물량을 논의하고 있다."
   MarketEventID: 17
   applyType: 0
   duration: 8

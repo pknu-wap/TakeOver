@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TakeOver.Documents;
 using TakeOver.NPC;
 using UnityEngine;
@@ -132,6 +133,20 @@ namespace TakeOver.Operations
             reject.gameObject.SetActive(!readOnly && approval != null);
         }
 
+        // Only called on the tutorial's disposable clone, after Show.
+        public void ShowTutorialPreview()
+        {
+            readOnly = true;
+            title.text = document.Title + " · 설명용 미리보기";
+            deadline.text = "미리보기";
+            deadline.color = sender.color;
+            documentNumber.text = "설명용 예시";
+            approve.gameObject.SetActive(false);
+            reject.gameObject.SetActive(false);
+            doneButton.SetActive(false);
+            foreach (var input in fieldsRoot.GetComponentsInChildren<Selectable>()) input.interactable = false;
+        }
+
         private void refreshInfo(IDocument doc, ResolvedDocument resolved)
         {
             foreach (var row in infoRows) { row.SetActive(false); Destroy(row); }
@@ -142,6 +157,9 @@ namespace TakeOver.Operations
             int start = rowsPerPage > 0 ? currentPage * rowsPerPage : 0;
             int end = rowsPerPage > 0 ? Math.Min(start + rowsPerPage, rows.Count) : rows.Count;
             for (int i = start; i < end; i++) addInfo(rows[i].label, rows[i].value);
+            if (doc is IApprovalDocument approval)
+                foreach (var line in approval.BodyLines)
+                    if (!string.IsNullOrWhiteSpace(line) && !rows.Any(row => row.value == line || row.label + ": " + row.value == line)) addInfo("", line);
             if (rowsPerPage > 0)
             {
                 Canvas.ForceUpdateCanvases();

@@ -120,7 +120,8 @@ public class CompanyStatCalculator
                 * state.getDerivedStat(CompanyDerivedStat.MARKET_EVALUATION) * liquidityPriceFactor
                 * company.marketState.eventPriceMultiplier));
         state.setDerivedStat(CompanyDerivedStat.SHARE_PRICE,
-            CompanyCalculationMath.safeDivide(state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE), state.totalShares));
+            state.totalShares > 0 ? Mathf.Max(1f, Mathf.Round(CompanyCalculationMath.safeDivide(
+                state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE), state.totalShares))) : 0f);
     }
 
     public void calculateAboutShares(Company company)

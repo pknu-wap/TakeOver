@@ -2481,22 +2481,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcProfilePanelView
   registry: {fileID: 0}
-  standingSprites:
-  - {fileID: 21300000, guid: 003cdb8d751f12f4d9c9859e00e29726, type: 3}
-  - {fileID: 21300000, guid: 8298786505bf66c4194b3f550818e3d4, type: 3}
-  - {fileID: 21300000, guid: d8d3f113a14a1de47b97d1e11657d5d6, type: 3}
-  - {fileID: 21300000, guid: 1888bf53b7e9aac4e88f7363a0da552b, type: 3}
-  - {fileID: 21300000, guid: 1ee2409856f7f1e44bfd7c21245a1f7a, type: 3}
-  - {fileID: 21300000, guid: 78c838ba73b33d84589843d32505324c, type: 3}
-  - {fileID: 21300000, guid: 19c4990f7686f4d49b8c0ca95d675ea4, type: 3}
-  - {fileID: 21300000, guid: 3d012b8fc14f0b34d8210473f3b16567, type: 3}
-  - {fileID: 21300000, guid: 7c3d63bbfa82cce408e7bd709624fe68, type: 3}
-  - {fileID: 21300000, guid: 25338d5afcc75e14bac3d24afb5ea544, type: 3}
-  - {fileID: 21300000, guid: c14fff8faf593184c926460e35759051, type: 3}
-  - {fileID: 21300000, guid: ad98133a1108cd347803017d85e4c90c, type: 3}
-  - {fileID: 21300000, guid: 2e26f4928160a7d429af82e49f52d353, type: 3}
-  - {fileID: 21300000, guid: 452a5a10a14dcaa40af28f5ccb302b71, type: 3}
-  - {fileID: 21300000, guid: 7924ed62abf368541b0b2394a4a9d55a, type: 3}
   manualSpriteOverrides: []
   npcListContent: {fileID: 1538239973791934069}
   npcListItemPrefab: {fileID: 0}

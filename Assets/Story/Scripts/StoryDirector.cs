@@ -16,12 +16,13 @@ namespace TakeOver.Story
     }
 
     /// <summary>대본·화면과 기존 게임 조작의 완료 조건을 연결한다. 이벤트·관계 규칙은 공용 서비스를 사용한다.</summary>
-    public sealed class StoryDirector : MonoBehaviour
+    public sealed partial class StoryDirector : MonoBehaviour
     {
         public const string CompanyId = "mirae-construction";
         public const string Representative = "npc-mirae-construction-ceo-kang-junhyeok";
         public const string FieldDirector = "npc-mirae-construction-field-director-park-dosik";
         public const string TutorialEventId = "tutorial_materials_01";
+        internal const int TutorialVisitDay = 2;
         public const string TutorialContact = "npc-mirae-construction-cfo-seo-jia";
         public const string FinancialDirector = "npc-mirae-construction-cfo-seo-jia";
         [SerializeField] private StorySequence sequence;
@@ -39,7 +40,7 @@ namespace TakeOver.Story
         private bool IsTrading => IsBuying || Goal == StoryGoal.SellShares;
         private bool IsCompanyReading => Goal == StoryGoal.ViewCompany || Goal == StoryGoal.CompareCompany || Goal == StoryGoal.ViewStake;
         private bool IsProfile => Goal == StoryGoal.ViewRepresentative || Goal == StoryGoal.ViewMemory || Goal == StoryGoal.ViewEventMemory;
-        private bool NeedsConfirmation => IsProfile || IsCompanyReading;
+        private bool NeedsConfirmation => IsProfile || IsCompanyReading || IsOperationsReading;
         private Company GoalCompany => string.IsNullOrEmpty(Current?.companyId) ? company : FindFirstObjectByType<Companies>()?.getCompany(Current.companyId);
         public static bool CanTrade(Company company, bool buy) => FindFirstObjectByType<EventSystemController>()?.IsCampaignTradeLocked != true &&
             TakeOver.SaveSystem.GameSessionCoordinator.Active?.IsPersistenceBlocked != true && (!IsRunning ||
@@ -82,12 +83,14 @@ namespace TakeOver.Story
         }
         public StoryGoal Goal => Current?.goal ?? StoryGoal.None;
         public IReadOnlyList<StoryDecision> Decisions => decisions;
+        internal StorySequence Sequence => sequence;
         public StoryView View => view;
         private readonly List<StoryDecision> decisions = new List<StoryDecision>();
         private StoryView view;
         private NpcStateRegistry registry;
         private Company company;
         private Player player;
+        public string ProtagonistName => player != null ? player.ProtagonistName : Player.DefaultName;
         private GameTurnClock clock;
         private CompanyDetailPanel detail;
         private CompanyBrowserScreen browser;
@@ -175,6 +178,7 @@ namespace TakeOver.Story
         {
             selectedChoice = Current.choices[choice];
             decisions.Add(new StoryDecision { beatId = Current.id, choice = choice, interpretation = selectedChoice.interpretation });
+            eventController.RecordTutorialDecision(Current.id, choice, clock.CurrentTurn);
             if (!string.IsNullOrEmpty(selectedChoice.targetNpcId))
                 FindFirstObjectByType<NpcEventChannel>().Publish(new NpcEventPayload
                 {
@@ -258,6 +262,7 @@ namespace TakeOver.Story
 
         private void CloseGamePanels()
         {
+            CloseOperationsLesson();
             if (eventController != null && eventController.IsDetailOpen) eventController.closeDetail();
             if (detail != null && detail.gameObject.activeInHierarchy) detail.hide();
             if (status != null) status.Close();
@@ -344,6 +349,12 @@ namespace TakeOver.Story
                 if (Goal == StoryGoal.OpenEvent) SnapshotEvent();
             }
             view.ShowObjective(Current.text, NeedsConfirmation, IsProfile, IsGuidingEvent);
+            if (IsOperationsReading)
+            {
+                OpenOperationsLesson();
+                goalObserved = true;
+                view.SetGoalReady(true);
+            }
         }
 
         private void SnapshotEvent()
@@ -465,8 +476,8 @@ namespace TakeOver.Story
             if (!hasEventSnapshot || !registry.TryGet(TutorialContact, out var state)) return "";
             var a = beforeEventRelation; var b = state.relation;
             return $"면담 결과를 반영하였습니다.\n행동 포인트 {beforeEventAp} → {actionPoints.Current} · 자금 {beforeEventCash:N0} → {player.state.cash:N0}\n" +
-                $"신뢰–적대감 {a.trust:0.#} → {b.trust:0.#} · 존중–두려움 {a.respect:0.#} → {b.respect:0.#}\n" +
-                $"친밀–경계 {a.closeness:0.#} → {b.closeness:0.#}";
+                NpcMemoryPresentation.FormatDelta(new NpcRelationDelta {
+                    trust = b.trust - a.trust, respect = b.respect - a.respect, closeness = b.closeness - a.closeness });
         }
 
         private string TradeResultSummary()
@@ -478,6 +489,6 @@ namespace TakeOver.Story
             return $"{company.definition.companyName} 주식 {quantity:N0}주를 {action}하였습니다. 현재 보유 주식은 {shares:N0}주이며, 지분율은 {company.state.getDerivedStat(CompanyDerivedStat.STAKE):0.##}%입니다.\n남은 자금은 {player.state.cash:N0}원입니다.";
         }
 
-        private void OnDestroy() { if (Active == this) Active = null; }
+        private void OnDestroy() { CloseOperationsLesson(); if (Active == this) Active = null; }
     }
 }
