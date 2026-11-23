@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiraeMarketEvent11_PermitDelay
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "사업 인허가 지연"
-  description: "{targetCompany}의 사업 인허가가 지연되고 있습니다."
+  description: "관할 기관이 {targetCompany}의 사업 심사에 추가 서류를 요청했다. 회사는 허가 절차가 끝날 때까지 착공 일정을 확정하기 어렵다고 밝혔다."
   MarketEventID: 11
   applyType: 2
   duration: 4

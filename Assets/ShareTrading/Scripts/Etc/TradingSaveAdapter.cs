@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TakeOver.SaveSystem;
 using TakeOver.CompanyRules;
+using TakeOver.Startups;
 using UnityEngine;
 
 /// <summary>거래 상태와 저장 형식 사이의 변환·검증·복원 담당</summary>
@@ -13,6 +15,12 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
     [SerializeField] private Marketdata marketData;
     [SerializeField] private TradingEventEffects eventEffects;
     private TradingSaveData prepared;
+    private StartupSystem startups;
+    private MarketEventManager marketEvents;
+    private HashSet<string> preparedCompanyIds;
+
+    internal bool HasSavedStartupRoster => prepared?.hasStartupRoster == true;
+    internal bool ContainsSavedCompany(string id) => preparedCompanyIds?.Contains(id) == true;
 
     public string saveId
     {
@@ -31,7 +39,7 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         {
             player = new TradingSaveData.PlayerData
             {
-                money = player.state.cash, manPower = player.state.manPower,
+                name = player.ProtagonistName, money = player.state.cash, manPower = player.state.manPower,
                 information = player.state.information, reputation = player.state.reputation
             },
             market = new TradingSaveData.MarketData
@@ -39,23 +47,26 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
                 globalMarketScore = marketData.globalMarketScore, lastUpdatedTurn = marketData.LastUpdatedTurn
             },
             companies = new List<TradingSaveData.CompanyData>(),
+            marketEvents = marketEvents?.captureState(),
             greenmail = captureEffects(eventEffects.GreenmailAccept.ScheduledEffects),
             stockManipulation = captureEffects(eventEffects.StockManipulationAccept.ScheduledEffects)
         };
-        foreach (Company company in companies.CompanyList)
-        {
-            data.companies.Add(captureCompany(company));
-        }
+        data.hasStartupRoster = startups != null;
+        data.lastStartupId = startups != null ? startups.LastId : 0;
+        foreach (Company company in companies.CompanyList) data.companies.Add(captureCompany(company, listed: true));
+        foreach (Company company in companies.StartupList) data.companies.Add(captureCompany(company, listed: false));
         return JsonUtility.ToJson(data);
     }
 
-    private static TradingSaveData.CompanyData captureCompany(Company company)
+    private TradingSaveData.CompanyData captureCompany(Company company, bool listed)
     {
         CompanyState state = company.state;
         CompanyMarketState market = company.marketState;
         TradingSaveData.CompanyData data = new TradingSaveData.CompanyData
         {
             companyId = company.definition.companyID,
+            generated = company.createdFromCode,
+            listed = listed,
             state = new TradingSaveData.CompanyStateData
             {
                 status = state.status,
@@ -74,6 +85,8 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
             },
             history = new List<CompanyHistoryEntry>(company.history.History)
         };
+        if (company.createdFromCode && (startups == null || !startups.tryGetRecord(data.companyId, out data.startup)))
+            throw new InvalidDataException("스타트업 원본 기록을 찾을 수 없습니다.");
         foreach (CompanyStat stat in Enum.GetValues(typeof(CompanyStat)))
         {
             data.state.stats.Add(new TradingSaveData.StatData { id = stat.ToString(), value = state.getBaseStat(stat) });
@@ -97,6 +110,7 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
     public void prepareLoad(string json, int savedVersion, DayStartData dayStart)
     {
         prepared = null;
+        preparedCompanyIds = null;
         resolveReferences();
         if (savedVersion != saveVersion)
         {
@@ -113,7 +127,9 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         {
             throw new InvalidDataException("거래 저장 데이터의 필수 상태 또는 턴이 올바르지 않습니다.");
         }
-        if (data.companies.Count != companies.CompanyList.Count)
+        var fixedCompanies = new HashSet<string>(companies.CompanyList.Where(company => !company.createdFromCode)
+            .Select(company => company.definition.companyID), StringComparer.Ordinal);
+        if (data.hasStartupRoster && (startups == null || data.lastStartupId < 0))
         {
             throw new InvalidDataException("거래 저장 데이터의 필수 상태 또는 턴이 올바르지 않습니다.");
         }
@@ -126,12 +142,30 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         int statCount = Enum.GetValues(typeof(CompanyStat)).Length;
         foreach (TradingSaveData.CompanyData entry in data.companies)
         {
-            if (entry == null || ids.Contains(entry.companyId))
+            if (entry == null || string.IsNullOrWhiteSpace(entry.companyId) || !ids.Add(entry.companyId))
             {
                 throw new InvalidDataException("회사 ID·원본 수치·시장 효과·이력을 확인하세요.");
             }
-            ids.Add(entry.companyId);
+            if (entry.generated)
+            {
+                if (!data.hasStartupRoster || entry.startup == null || fixedCompanies.Contains(entry.companyId) || !startups.IsStartupId(entry.companyId) ||
+                    entry.startup.companyId != entry.companyId || string.IsNullOrWhiteSpace(entry.startup.companyName) ||
+                    entry.startup.totalShares < 1 || entry.startup.revenueHistory == null || entry.startup.facilityInvestments == null)
+                    throw new InvalidDataException("스타트업 원본 기록이 올바르지 않습니다.");
+            }
+            else if (!fixedCompanies.Remove(entry.companyId))
+            {
+                // 과거 저장에 상장 스타트업의 수치는 있어도 회사 원본은 없었다.
+                if (!data.hasStartupRoster && startups != null && startups.IsStartupId(entry.companyId)) continue;
+                throw new InvalidDataException("등록되지 않은 회사가 저장되어 있습니다.");
+            }
             validateCompany(entry, dayStart.day, statCount);
+        }
+        if (fixedCompanies.Count != 0) throw new InvalidDataException("일부 기본 회사가 저장에서 누락됐습니다.");
+        if (data.marketEvents?.recorded == true)
+        {
+            if (marketEvents == null) throw new InvalidDataException("시장 사건 저장을 복원할 연결이 없습니다.");
+            marketEvents.validateState(data.marketEvents, dayStart.day, ids);
         }
         if (!finite(data.player.money) || !finite(data.player.manPower) || !finite(data.player.information)
             || !finite(data.player.reputation) || !finite(data.market.globalMarketScore))
@@ -140,22 +174,18 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         }
         foreach (TradingSaveData.ScheduledEffectData effect in data.greenmail)
         {
-            validateScheduledEffect(effect, dayStart.day);
+            validateScheduledEffect(effect, dayStart.day, ids, !data.hasStartupRoster);
         }
         foreach (TradingSaveData.ScheduledEffectData effect in data.stockManipulation)
         {
-            validateScheduledEffect(effect, dayStart.day);
+            validateScheduledEffect(effect, dayStart.day, ids, !data.hasStartupRoster);
         }
         prepared = data;
+        preparedCompanyIds = ids;
     }
 
     private void validateCompany(TradingSaveData.CompanyData entry, int day, int statCount)
     {
-        Company company;
-        if (!companies.tryGetCompany(entry.companyId, out company))
-        {
-            throw new InvalidDataException("회사 ID·원본 수치·시장 효과·이력을 확인하세요.");
-        }
         if (entry.state == null || entry.market == null || entry.history == null)
         {
             throw new InvalidDataException("회사 ID·원본 수치·시장 효과·이력을 확인하세요.");
@@ -166,7 +196,7 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         }
         if (!Enum.IsDefined(typeof(CompanyStatus), entry.state.status)
             || entry.state.totalShares < 1 || entry.state.stats.Count != statCount
-            || entry.history.Count > company.history.getMaxHistory())
+            || entry.history.Count > CompanyHistory.MAX_HISTORY)
         {
             throw new InvalidDataException("회사 ID·원본 수치·시장 효과·이력을 확인하세요.");
         }
@@ -209,6 +239,8 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
             throw new InvalidOperationException("prepareLoad를 먼저 완료해야 합니다.");
         }
         TradingSaveData data = prepared;
+        if (data.hasStartupRoster) startups.RestoreCompanies(data.companies, data.lastStartupId);
+        player.SetName(data.player.name);
         player.state.cash = data.player.money;
         player.state.manPower = data.player.manPower;
         player.state.information = data.player.information;
@@ -217,8 +249,10 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         marketData.LastUpdatedTurn = data.market.lastUpdatedTurn;
         foreach (TradingSaveData.CompanyData entry in data.companies)
         {
+            if (!data.hasStartupRoster && startups != null && startups.IsStartupId(entry.companyId)) continue;
             applyCompany(entry);
         }
+        marketEvents?.restoreState(data.marketEvents);
         applyEffects(data.greenmail, eventEffects.GreenmailAccept.ScheduledEffects);
         applyEffects(data.stockManipulation, eventEffects.StockManipulationAccept.ScheduledEffects);
         eventEffects.GreenmailAccept.RefreshScheduleSubscription();
@@ -260,13 +294,15 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         effects.Clear();
         foreach (TradingSaveData.ScheduledEffectData effect in data)
         {
-            effects.Add((companies.getCompany(effect.companyId), effect.executionDay, effect.value));
+            var company = companies.getCompany(effect.companyId);
+            if (company != null && (prepared.hasStartupRoster || !company.createdFromCode))
+                effects.Add((company, effect.executionDay, effect.value));
         }
     }
 
     public void rebuildAfterLoad()
     {
-        foreach (Company company in companies.CompanyList)
+        foreach (Company company in companies.CompanyList.Concat(companies.StartupList))
         {
             company.calculator.recalculate(company, marketData);
         }
@@ -274,6 +310,8 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
 
     private void resolveReferences()
     {
+        if (startups == null) startups = FindFirstObjectByType<StartupSystem>();
+        if (marketEvents == null) marketEvents = FindFirstObjectByType<MarketEventManager>();
         if (player == null)
         {
             player = FindFirstObjectByType<Player>();
@@ -297,14 +335,13 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         }
     }
 
-    private void validateScheduledEffect(TradingSaveData.ScheduledEffectData effect, int day)
+    private void validateScheduledEffect(TradingSaveData.ScheduledEffectData effect, int day, HashSet<string> ids, bool legacy)
     {
         if (effect == null)
         {
             throw new InvalidDataException("예약 효과의 회사·실행 날짜·수치가 올바르지 않습니다.");
         }
-        Company company;
-        bool companyExists = companies.tryGetCompany(effect.companyId, out company);
+        bool companyExists = ids.Contains(effect.companyId) || legacy && startups != null && effect.companyId != null && startups.IsStartupId(effect.companyId);
         if (!companyExists || effect.executionDay < day || !finite(effect.value))
         {
             throw new InvalidDataException("예약 효과의 회사·실행 날짜·수치가 올바르지 않습니다.");

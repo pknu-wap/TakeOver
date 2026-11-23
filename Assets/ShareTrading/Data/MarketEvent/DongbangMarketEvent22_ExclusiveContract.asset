@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DongbangMarketEvent22_ExclusiveContract
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "대형 물류 독점계약"
-  description: "{targetCompany}이 대형 물류 독점계약을 체결했습니다."
+  description: "대형 화주가 주력 배송 노선을 {targetCompany}에 맡기기로 했다. 회사는 첫 운행에 앞서 차량과 기사 배치를 조율하고 있다."
   MarketEventID: 22
   applyType: 2
   duration: 6

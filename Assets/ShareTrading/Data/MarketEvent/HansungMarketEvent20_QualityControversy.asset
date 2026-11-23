@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HansungMarketEvent20_QualityControversy
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "납품 부품 품질 논란"
-  description: "{targetCompany}이 납품한 부품의 품질 논란이 불거졌습니다."
+  description: "일부 고객사가 {targetCompany} 부품의 규격 편차를 지적했다. 다음 물량을 받기 전에 기존 납품분부터 다시 검사해 달라는 요청이 이어졌다."
   MarketEventID: 20
   applyType: 2
   duration: 5

@@ -63,14 +63,11 @@ namespace TakeOver.Events
             return cooldowns;
         }
         private uint DailyOrder(string key)
-        {
-            unchecked
-            {
-                uint hash = 2166136261;
-                foreach (char value in FixedDaySeed.seed + ":" + currentDay + ":" + key) hash = (hash ^ value) * 16777619;
-                return hash;
-            }
-        }
+            => FixedDaySeed.StableOrder(currentDay, key);
+
+        internal uint CardOrder(TodayEventInfo info)
+            => DailyOrder("card:" + info.definition.getId() + ":" + info.companyId);
+
         private void SpawnRepeatableOffers()
         {
             var candidates = new List<(EventDefinition definition, string company)>();

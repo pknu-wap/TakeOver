@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DongbangMarketEvent24_DeliveryNetwork
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "전국 배송망 확장"
-  description: "{targetCompany}이 전국 배송망을 확장합니다."
+  description: "{targetCompany} 측이 새 지역 거점을 열고 기존 노선에 연결했다. 이전에는 배송이 어려웠던 지역의 판매점들도 계약을 문의하고 있다."
   MarketEventID: 24
   applyType: 2
   duration: 8

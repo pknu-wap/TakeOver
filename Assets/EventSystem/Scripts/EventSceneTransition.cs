@@ -9,6 +9,8 @@ namespace TakeOver.Events
     {
         private static EventSceneTransition active;
         public static bool IsBusy => active != null;
+        public static float Opacity => active != null && active.curtain != null ? active.curtain.color.a : 0f;
+        internal static bool IsChangingScene { get; private set; }
         private Image curtain;
         public static void Cancel()
         {
@@ -18,7 +20,7 @@ namespace TakeOver.Events
             previous.StopAllCoroutines();
             Destroy(previous.gameObject);
         }
-        public static bool Play(Action change, bool fromBlack = false, float seconds = .35f)
+        public static bool Play(Action change, bool fromBlack = false, float seconds = .35f, Action completed = null)
         {
             if (IsBusy) return false;
             var root = new GameObject("Event scene fade", typeof(Canvas), typeof(GraphicRaycaster));
@@ -31,14 +33,17 @@ namespace TakeOver.Events
             var rect = active.curtain.rectTransform;
             rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one; rect.offsetMin = rect.offsetMax = Vector2.zero;
             active.curtain.color = new Color(0, 0, 0, fromBlack ? 1 : 0);
-            active.StartCoroutine(active.Sequence(change, fromBlack, seconds));
+            active.StartCoroutine(active.Sequence(change, fromBlack, seconds, completed));
             return true;
         }
-        private IEnumerator Sequence(Action change, bool fromBlack, float seconds)
+        private IEnumerator Sequence(Action change, bool fromBlack, float seconds, Action completed)
         {
             if (!fromBlack) yield return Fade(0, 1, seconds);
+            IsChangingScene = true;
             try { change(); } catch { Destroy(gameObject); throw; }
+            finally { IsChangingScene = false; }
             yield return Fade(1, 0, seconds);
+            completed?.Invoke();
             Destroy(gameObject);
         }
         private IEnumerator Fade(float from, float to, float seconds)

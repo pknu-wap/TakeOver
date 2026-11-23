@@ -74,7 +74,7 @@ namespace TakeOver.Story.Editor
                 }
                 var sequence=AssetDatabase.LoadAssetAtPath<StorySequence>("Assets/Story/Data/IntroSequence.asset");
                 Check(sequence!=null && sequence.font!=null && sequence.playerStanding!=null,"Intro visual dependencies available in build");
-                Check(sequence.beats.Count==237 && sequence.beats.Select(b=>b.id).Distinct().Count()==237,"All 237 expanded beat IDs unique");
+                Check(sequence.beats.Count==252 && sequence.beats.Select(b=>b.id).Distinct().Count()==252,"All 252 expanded beat IDs unique");
                 int choiceCount=0;
                 foreach(var beat in sequence.beats)
                 {
@@ -91,7 +91,8 @@ namespace TakeOver.Story.Editor
                 }
                 Check(choiceCount==21,"All twenty-one expanded conversation branches authored");
                 Check(sequence.beats.Where(b=>b.goal!=StoryGoal.None).Select(b=>b.goal).SequenceEqual(new[]{StoryGoal.SelectCompany,StoryGoal.BuyShares,StoryGoal.ViewRepresentative,StoryGoal.ViewMemory,StoryGoal.EndDay,
-                    StoryGoal.OpenEvent,StoryGoal.CompleteEvent,StoryGoal.ViewEventMemory,StoryGoal.ViewCompany,StoryGoal.CompareCompany,StoryGoal.ViewStake,StoryGoal.BuyMore,StoryGoal.SellShares,StoryGoal.ViewStake}),"All mandatory tutorial goals in approved order");
+                    StoryGoal.OpenEvent,StoryGoal.CompleteEvent,StoryGoal.ViewEventMemory,StoryGoal.ViewCompany,StoryGoal.CompareCompany,StoryGoal.ViewStake,StoryGoal.BuyMore,StoryGoal.SellShares,StoryGoal.ViewStake,
+                    StoryGoal.ViewEmployees,StoryGoal.ViewEmployees,StoryGoal.ViewDiscovery,StoryGoal.ViewContract,StoryGoal.ViewApproval,StoryGoal.ViewStartups}),"All mandatory tutorial goals in approved order");
                 foreach(var id in StoryContentBuilder.RivalIds)
                 {
                     var rival=AssetDatabase.LoadAssetAtPath<RivalCompanyDefinition>("Assets/Story/Data/Rivals/"+id+".asset");
@@ -103,7 +104,9 @@ namespace TakeOver.Story.Editor
                     {
                         var seed=member.CreateRuntimeSeed();
                         Check(seed.npcId.StartsWith("npc-"+id+"-") && seed.memoryPreferences.Count>=3,"Canonical new NPC with individual Memory settings: "+seed.npcId);
-                        Check(seed.profile.gameplayRoleSummary.Contains("선호:") && seed.profile.gameplayRoleSummary.Contains("기피:"),"Behavior preferences visible in NPC info: "+seed.npcId);
+                        Check(new[] { seed.profile.personalitySummary, seed.profile.gameplayRoleSummary }.All(text =>
+                            !string.IsNullOrWhiteSpace(text) && !new[] { "행동 양식:", "역할:", "선호:", "기피:" }.Any(text.Contains)),
+                            "NPC profile and preferences use narrative prose: "+seed.npcId);
                     }
                 }
                 foreach(var guid in AssetDatabase.FindAssets("t:EventDefinition",new[]{"Assets/EventSystem/Data","Assets/Resources/Story"}))

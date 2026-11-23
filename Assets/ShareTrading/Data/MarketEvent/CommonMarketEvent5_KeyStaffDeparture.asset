@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "\uD575\uC2EC \uC778\uB825 \uC774\uD0C8"
   MarketEventID: 5
-  description: "{targetCompany}의 핵심 인력이 이탈했습니다."
+  description: "{targetCompany}에서 주요 계약을 맡아 온 인력들이 잇따라 사직했다. 거래처들은 예정된 납품과 이후 지원을 누가 맡을지 확인하고 있다."
   applyType: 3
   duration: 8
   delayTurns: 0

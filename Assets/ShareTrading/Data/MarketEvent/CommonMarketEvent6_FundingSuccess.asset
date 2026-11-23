@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "\uB300\uADDC\uBAA8 \uC790\uAE08 \uC870\uB2EC \uC131\uACF5"
   MarketEventID: 6
-  description: "{targetCompany}이 대규모 자금 조달에 성공했습니다."
+  description: "{targetCompany} 측은 기관투자자들과 자금 조달 조건에 합의했다. 회사는 이번 자금을 기존 차입금 정리와 사업 준비에 쓸 계획이라고 밝혔다."
   applyType: 0
   duration: 6
   delayTurns: 0

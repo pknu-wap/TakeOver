@@ -9,7 +9,8 @@ namespace TakeOver.Story
     public enum StoryGoal
     {
         None, SelectCompany, BuyShares, ViewRepresentative, ViewMemory, EndDay,
-        OpenEvent, CompleteEvent, ViewEventMemory, ViewCompany, CompareCompany, BuyMore, SellShares, ViewStake
+        OpenEvent, CompleteEvent, ViewEventMemory, ViewCompany, CompareCompany, BuyMore, SellShares, ViewStake,
+        ViewEmployees, ViewDiscovery, ViewContract, ViewApproval, ViewStartups
     }
 
     [Serializable]

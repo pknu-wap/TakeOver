@@ -10,6 +10,9 @@ public class MarketEventEffectControl : MonoBehaviour
     private readonly Dictionary<(string companyID, MarketEventTargetType type, int stat),
         (float multiplier, float normalValue)> appliedEffects
         = new Dictionary<(string, MarketEventTargetType, int), (float, float)>();
+    internal IReadOnlyList<MarketEventManager.ActiveMarketEvent> AppliedEntries => inApplyList;
+
+    internal void clearEffects() => inApplyList.Clear();
 
     public void addEffects(MarketEventManager.ActiveMarketEvent entry)
     {
@@ -44,6 +47,7 @@ public class MarketEventEffectControl : MonoBehaviour
         foreach (var entry in appliedEffects)
         {
             Company company = companies.getCompany(entry.Key.companyID);
+            if (company == null) continue;
             if (entry.Key.type == MarketEventTargetType.Stat)
             {
                 company.state.setMarketEventEffect((CompanyStat)entry.Key.stat,

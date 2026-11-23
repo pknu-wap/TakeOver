@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TakeOver.SaveSystem;
+using TakeOver.Story;
 using UnityEngine;
 
 namespace TakeOver.Events
@@ -17,6 +18,8 @@ namespace TakeOver.Events
             public List<TimingData> cooldowns = new List<TimingData>();
             public List<TimingData> occurrences = new List<TimingData>();
             public List<StoryResultData> storyResults = new List<StoryResultData>();
+            public List<TutorialDecisionData> tutorialDecisions = new List<TutorialDecisionData>();
+            public int tutorialVisitDay;
             public bool tutorialRewardGranted;
             public MandatoryStoryState mandatoryState;
             public float mandatoryFailureStake;
@@ -44,6 +47,11 @@ namespace TakeOver.Events
             public string eventId, companyId;
             public int choice;
         }
+        [Serializable] public sealed class TutorialDecisionData
+        {
+            public string beatId;
+            public int choice, day;
+        }
         [Serializable] public sealed class TimingData
         {
             public string eventId, companyId;
@@ -52,6 +60,16 @@ namespace TakeOver.Events
             public int serial;
         }
         private EventSaveData preparedEventSave;
+        private readonly List<TutorialDecisionData> tutorialDecisions = new List<TutorialDecisionData>();
+        private int tutorialVisitDay;
+        internal IReadOnlyList<TutorialDecisionData> TutorialDecisions => tutorialDecisions;
+        internal int TutorialVisitResolvedDay => tutorialVisitDay > 0 ? tutorialVisitDay : StoryDirector.TutorialVisitDay;
+
+        internal void RecordTutorialDecision(string beatId, int choice, int day)
+        {
+            if (tutorialDecisions.Any(item => item.beatId == beatId)) return;
+            tutorialDecisions.Add(new TutorialDecisionData { beatId = beatId, choice = choice, day = day });
+        }
         public string saveId => "events";
         public int saveVersion => 6;
         public int rebuildOrder => 100;
@@ -62,11 +80,12 @@ namespace TakeOver.Events
             if (mandatoryState == MandatoryStoryState.Failed && !IsMandatoryFailureReady)
                 throw new InvalidOperationException("엔딩 전환이 끝난 뒤 저장해 주십시오.");
             // 결과는 이미 적용됐지만 미응답 면담은 AP만 소비된 상태이므로 저장하지 않는다.
-            if (screenState != ScreenState.Closed && screenState != ScreenState.Result)
+            if (screenState != ScreenState.Closed && screenState != ScreenState.Detail && screenState != ScreenState.Result)
                 throw new InvalidOperationException("진행 중인 만남을 마친 뒤 저장해 주십시오.");
             if (mandatoryState == MandatoryStoryState.Forced && screenState == ScreenState.Result)
                 throw new InvalidOperationException("필수 사건의 결과 대사를 마친 뒤 저장해 주십시오.");
             var data = new EventSaveData { day = currentDay, tutorialRewardGranted = tutorialRewardGranted,
+                tutorialDecisions = tutorialDecisions, tutorialVisitDay = tutorialVisitDay,
                 mandatoryState = MandatoryState, mandatoryFailureStake = mandatoryFailureStake,
                 mandatoryEventId = MandatoryState == MandatoryStoryState.Completed ? "" : mandatoryEventId,
                 campaignRevision = campaignRevision, campaignRunId = campaignRunId,
@@ -134,6 +153,22 @@ namespace TakeOver.Events
                 var definition = Definition(entry.eventId, entry.companyId);
                 if (entry.companyId != "" || entry.choice < 0 || entry.choice >= definition.getChoices().Count || !choices.TryAdd(entry.eventId, entry.choice))
                     throw new InvalidDataException("이벤트 선택 번호가 잘못됐거나 기록이 중복됐습니다.");
+            }
+            if (data.tutorialVisitDay < 0 || data.tutorialVisitDay > data.day ||
+                data.tutorialVisitDay > 0 && !choices.ContainsKey(StoryDirector.TutorialEventId) ||
+                fields["tutorialDecisions"] != null && fields["tutorialDecisions"].Type != Newtonsoft.Json.Linq.JTokenType.Array)
+                throw new InvalidDataException("튜토리얼 일지 날짜 또는 기록 형식이 올바르지 않습니다.");
+            data.tutorialDecisions ??= new List<TutorialDecisionData>();
+            if (data.tutorialDecisions.Count > 0)
+            {
+                var beats = StoryLaunch.IntroPrefab?.GetComponent<StoryDirector>()?.Sequence?.beats
+                    .Where(beat => beat.choices.Count > 0).ToDictionary(beat => beat.id);
+                var seen = new HashSet<string>();
+                foreach (var entry in data.tutorialDecisions)
+                    if (entry == null || string.IsNullOrWhiteSpace(entry.beatId) || !seen.Add(entry.beatId) ||
+                        beats == null || !beats.TryGetValue(entry.beatId, out var beat) ||
+                        entry.choice < 0 || entry.choice >= beat.choices.Count || entry.day < 1 || entry.day > data.day)
+                        throw new InvalidDataException("튜토리얼 일지의 대사·선택·날짜가 올바르지 않습니다.");
             }
             foreach (var entry in data.companyChoices)
             {
@@ -253,6 +288,9 @@ namespace TakeOver.Events
             events.Clear(); events.AddRange(restoredDefinitions);
             selectedChoices.Clear(); companyChoices.Clear(); availableDays.Clear(); occurrences.Clear();
             storyResults.Clear(); storyResolvedDays.Clear();
+            tutorialDecisions.Clear();
+            tutorialDecisions.AddRange(data.tutorialDecisions);
+            tutorialVisitDay = data.tutorialVisitDay;
             foreach (var entry in data.storyResults)
             {
                 storyResults.Add(entry.eventId, entry.succeeded);

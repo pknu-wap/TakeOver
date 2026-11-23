@@ -196,7 +196,8 @@ namespace TakeOver.Employees
 
             if (jobRemainingText != null)
             {
-                jobRemainingText.text = job == JobType.None ? "" : $"D-{jobService.GetRemainingDays(currentEmployee)}";
+                jobRemainingText.text = job == JobType.None ? "" : job == JobType.Support
+                    ? jobService.SupportTargetName(currentEmployee) + " 지원 중" : $"D-{jobService.GetRemainingDays(currentEmployee)}";
             }
         }
 

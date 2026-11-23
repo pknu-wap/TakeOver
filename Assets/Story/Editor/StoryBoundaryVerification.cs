@@ -112,6 +112,7 @@ namespace TakeOver.Story.Editor
             yield return null; yield return null;
             var menu = Object.FindFirstObjectByType<MainMenuController>();
             menu.startNewGame(); menu.startNewGame();
+            yield return SessionSaveVerification.EnterProtagonistName("한서윤");
             yield return Ready();
             Check(Object.FindObjectsByType<StoryDirector>(FindObjectsSortMode.None).Length == 1, "Rapid new-game calls create one director");
             var d = StoryDirector.Active;
@@ -140,11 +141,15 @@ namespace TakeOver.Story.Editor
             yield return Ready();
             Check(StoryDirector.IsRunning && clock.CurrentTurn == day + 1, "Second-day lessons remain required after end-day skip");
             var registry = Object.FindFirstObjectByType<NpcStateRegistry>();
-            Check(registry.States.Sum(n => n.memories.Count) == 3, "Boundary recovery retains the three introductory choices exactly once");
+            int expectedMemories = AssetDatabase.LoadAssetAtPath<StorySequence>("Assets/Story/Data/IntroSequence.asset").beats.TakeWhile(beat => beat.goal != StoryGoal.EndDay)
+                .Count(beat => beat.choices.Count > 0);
+            Check(registry.States.Sum(n => n.memories.Count) == expectedMemories, "Boundary recovery retains each introductory choice exactly once");
 
             // Scene interruption must not leave the static intro guard locked.
             SceneManager.LoadScene("MainMenu"); yield return null; yield return null;
-            Object.FindFirstObjectByType<MainMenuController>().startNewGame(); yield return Ready();
+            Object.FindFirstObjectByType<MainMenuController>().startNewGame();
+            yield return SessionSaveVerification.EnterProtagonistName("한서윤");
+            yield return Ready();
             SceneManager.LoadScene("Game"); yield return null; yield return null; yield return null;
             Check(!StoryDirector.IsRunning && StoryDirector.CanAdvanceTurn, "Reloading Game directly clears interrupted intro guards");
             File.AppendAllText(StoryBoundaryVerification.Output, "COMPLETE\n");

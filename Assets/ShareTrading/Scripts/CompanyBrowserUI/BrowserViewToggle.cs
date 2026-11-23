@@ -29,6 +29,7 @@ public class BrowserViewToggle : MonoBehaviour
 
         setActiveAll(mapObjects, showMap);
         setActiveAll(listObjects, !showMap);
+        GetComponent<CompanyBrowserScreen>()?.CoverDashboardBackground();
 
     }
 

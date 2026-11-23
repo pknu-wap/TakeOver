@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiraeMarketEvent10_SiteCollapse
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "공사현장 붕괴 사고"
-  description: "{targetCompany}의 공사현장에서 붕괴 사고가 발생했습니다."
+  description: "{targetCompany}의 사고 현장에서 작업이 중단됐다. 감독기관이 안전 점검에 착수했고, 발주처는 준공 일정을 다시 협의하고 있다."
   MarketEventID: 10
   applyType: 2
   duration: 6

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiraeMarketEvent8_ApartmentSales
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "신규 아파트 분양 흥행"
-  description: "{targetCompany}의 신규 아파트 분양이 흥행하고 있습니다."
+  description: "{targetCompany}의 견본주택에 방문객이 몰렸다. 분양 사무소는 이번 주 청약 당첨자들과 정식 계약 일정을 잡고 있다."
   MarketEventID: 8
   applyType: 3
   duration: 6

@@ -3,6 +3,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public PlayerState state { get; private set; }
+    public const string DefaultName = "주인공";
+    public string ProtagonistName { get; private set; } = DefaultName;
+
+    public void SetName(string name)
+    {
+        ProtagonistName = string.IsNullOrWhiteSpace(name) ? DefaultName : name.Trim();
+    }
 
     private void Awake()
     {

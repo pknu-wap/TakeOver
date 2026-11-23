@@ -142,7 +142,7 @@ namespace TakeOver.Story
             sharedDialogue.ShowDialogue(new DialoguePresentation
             {
                 background = beat.background, backgroundTint = beat.backgroundTint,
-                speaker = narration ? "" : player ? "주인공" : speaking == StorySpeaker.UnregisteredVoice ? beat.voiceLabel :
+                speaker = narration ? "" : player ? director.ProtagonistName : speaking == StorySpeaker.UnregisteredVoice ? beat.voiceLabel :
                     profile != null ? profile.profile.affiliation+" · "+profile.profile.role+"  "+profile.profile.displayName : "",
                 text = line, player = player, narration = narration, response = response,
                 showPlayer = beat.showPlayer,
@@ -184,6 +184,25 @@ namespace TakeOver.Story
             if(!nativeEvent) detail.text=informationInstruction+"\n\n"+informationExplanation+"\n\n"+text;
         }
         public void SetGoalReady(bool ready)=>confirm.interactable=ready;
+
+        public void ShowOperationsFocus(RectTransform screen)
+        {
+            // Fit the actual inner content; moving an overlay Canvas does not move its UI.
+            Canvas.ForceUpdateCanvases();
+            var corners = new Vector3[4];
+            screen.GetWorldCorners(corners);
+            Vector3 lower = root.InverseTransformPoint(corners[0]);
+            Vector3 upper = root.InverseTransformPoint(corners[2]);
+            var area = new Rect(-280, -290, 896, 600);
+            float fit = Mathf.Min(area.width / (upper.x - lower.x), area.height / (upper.y - lower.y));
+            screen.localScale *= fit;
+            screen.GetWorldCorners(corners);
+            Vector3 center = root.InverseTransformPoint((corners[0] + corners[2]) * .5f);
+            screen.position += root.TransformVector(new Vector3(area.center.x - center.x, area.center.y - center.y, 0));
+            Spotlight(screen);
+            // The focused screen is a read-only preview; the only required action is confirmation.
+            confirm.interactable = true;
+        }
         public void HideContent()
         {
             stage.SetActive(false); objectives.SetActive(false); SetMasks(false);
@@ -257,6 +276,7 @@ namespace TakeOver.Story
                 float scale = Mathf.Min(size.x / profile.rect.width, size.y / profile.rect.height);
                 profile.localScale = new Vector3(scale, scale, 1f);
                 profile.position = parent.TransformPoint((lower + upper) * .5f - profile.rect.center * scale);
+                profile.GetComponent<TakeOver.NPC.NpcProfilePanelView>()?.SetTutorialReadable();
             }
             Spotlight(profile);
         }

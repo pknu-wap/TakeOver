@@ -262,6 +262,9 @@ namespace TakeOver.Story.Editor
                 UnityEngine.SceneManagement.SceneManager.sceneLoaded += StorySkipState.Seed;
             }
             Object.FindFirstObjectByType<MainMenuController>().startNewGame();
+            var namePrompt = SessionSaveVerification.EnterProtagonistName("한서윤");
+            while (namePrompt.MoveNext()) yield return null;
+            Check(true, "Playing the tutorial requires a name against the launch blackout");
             int watchdog=0;
             while(StoryDirector.Active==null || StoryDirector.Active.Current==null || StoryDirector.Active.Busy) { if(watchdog++>10000) throw new Exception("Intro did not start"); yield return null; }
             var registry=Object.FindFirstObjectByType<NpcStateRegistry>();
@@ -310,6 +313,8 @@ namespace TakeOver.Story.Editor
                     }
                     if(beat.goal==StoryGoal.None && beat.speaker==StorySpeaker.Npc)
                         Check(director.View.Speaker.text.Contains(registry.Profiles.First(p=>p.npcId==beat.npcId).profile.displayName),"NPC label matches profile: "+beat.id);
+                    if (beat.goal == StoryGoal.None && beat.speaker == StorySpeaker.Player)
+                        Check(director.View.Speaker.text == player.ProtagonistName, "Player label uses the entered name: " + beat.id);
                     if (beat.id == "intro-033" || beat.id == "neutral-intro-T1-6" || beat.id == "neutral-intro-T4-tail-1")
                         Check(beat.speaker == StorySpeaker.Player && director.View.NpcImage.gameObject.activeSelf,
                             "NPC standing remains visible for the player's reply: " + beat.id);
@@ -486,6 +491,54 @@ namespace TakeOver.Story.Editor
                     clock.AdvanceTurn();
                     Check(clock.CurrentTurn==startTurn+1,"Day end progresses exactly once");
                 }
+                else if((int)beat.goal >= (int)StoryGoal.ViewEmployees)
+                {
+                    var ops = Object.FindFirstObjectByType<TakeOver.Operations.OperationsScreen>();
+                    Check(ops != null && !ops.GetComponent<CanvasGroup>().interactable,
+                        "Operations explanation shows a read-only real screen: " + beat.id);
+                    Check(director.View.InformationBody.preferredHeight <= director.View.InformationBody.rectTransform.rect.height + 1,
+                        "Operations explanation fits its shared panel: " + beat.id);
+                    var contentCorners = new Vector3[4];
+                    var explanationCorners = new Vector3[4];
+                    ops.TutorialContent.GetWorldCorners(contentCorners);
+                    director.View.InformationRect.GetWorldCorners(explanationCorners);
+                    Check(contentCorners[0].x > explanationCorners[2].x + 4,
+                        "Operations content stays beside the explanation: " + beat.id);
+                    Check(contentCorners[0].x >= 0 && contentCorners[0].y >= 0 &&
+                        contentCorners[2].x <= Screen.width && contentCorners[2].y <= Screen.height,
+                        "Whole operations content remains on screen: " + beat.id);
+                    if (beat.goal == StoryGoal.ViewEmployees)
+                    {
+                        var staff = ops.GetComponentInChildren<TakeOver.Employees.EmployeeTabView>();
+                        var recruit = (Button)typeof(TakeOver.Employees.EmployeeTabView).GetField("recruitButton", Fields).GetValue(staff);
+                        var buttonCorners = new Vector3[4];
+                        ((RectTransform)recruit.transform).GetWorldCorners(buttonCorners);
+                        Check(recruit.gameObject.activeInHierarchy && buttonCorners[0].x > explanationCorners[2].x + 4 &&
+                            buttonCorners[0].y >= 0 && buttonCorners[2].x <= Screen.width && buttonCorners[2].y <= Screen.height,
+                            "Actual recruitment button is visible beside the explanation: " + beat.id);
+                    }
+                    var preview = ops.GetComponentsInChildren<TakeOver.Operations.DocumentDetailView>()
+                        .FirstOrDefault(item => item.name == "Tutorial document preview");
+                    if (preview != null)
+                    {
+                        Check(!((Button)typeof(TakeOver.Operations.DocumentDetailView).GetField("approve", Fields).GetValue(preview)).gameObject.activeSelf &&
+                            !((Button)typeof(TakeOver.Operations.DocumentDetailView).GetField("reject", Fields).GetValue(preview)).gameObject.activeSelf,
+                            "Tutorial preview has no decision buttons: " + beat.id);
+                        Check(((Text)typeof(TakeOver.Operations.DocumentDetailView).GetField("deadline", Fields).GetValue(preview)).text == "미리보기",
+                            "Tutorial preview does not imply a real deadline: " + beat.id);
+                        if (beat.goal == StoryGoal.ViewContract)
+                            Check(preview.GetComponentsInChildren<Text>().Any(label => label.text.Contains("예시 회사")),
+                                "Contract preview uses a fictional example company");
+                    }
+                    float currentCash = Object.FindFirstObjectByType<Player>().state.cash;
+                    int currentDay = clock.CurrentTurn;
+                    int currentAp = Object.FindFirstObjectByType<ActionPointService>().Current;
+                    var cap=Await(Capture(beat.id)); while(cap.MoveNext()) yield return null;
+                    Click(Named(director.transform,"Confirm profile"));
+                    Check(Object.FindFirstObjectByType<Player>().state.cash == currentCash && clock.CurrentTurn == currentDay &&
+                        Object.FindFirstObjectByType<ActionPointService>().Current == currentAp,
+                        "Operations confirmation does not spend cash, AP or days: " + beat.id);
+                }
                 else if(beat.choices.Count>0)
                 {
                     for (int i = 0; i < beat.choices.Count; i++)
@@ -551,6 +604,9 @@ namespace TakeOver.Story.Editor
                 var operations = VerifyOperations(); while (operations.MoveNext()) yield return null;
             }
             events.refreshAvailability(); Check(events.getTodayEventInfos().Count>0,"Normal events available after intro");
+            var journal = TakeOver.Journal.JournalEntryBuilder.buildStoryEntries(events, registry);
+            Check(journal.Count == 8 && journal.All(entry => entry.people.Count > 0 && entry.keyPoints.Count > 0),
+                "Played tutorial records its seven meetings and the financial review with choices and people");
             if(StoryPlayVerification.SkipRegression)
             {
                 File.WriteAllText(Path.Combine(StorySkipVerification.Output,"normal-completed-state.json"),StorySkipState.Capture());

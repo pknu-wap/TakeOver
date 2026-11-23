@@ -220,7 +220,7 @@ namespace TakeOver.Story.Editor
                 yield return null;
             }
             while (StoryDirector.Active != null) yield return null;
-            Check(goals.Count == 14,"Dialogue skipping still requires all 14 learning objectives");
+            Check(goals.Count == 19,"Dialogue skipping still requires all 19 learning objectives");
             Check(choices == sequence.beats.Count(beat => beat.choices.Count > 0),"No introductory choice was auto-selected");
             var clock=Object.FindFirstObjectByType<GameTurnClock>();
             Check(clock.CurrentTurn==2,"Dialogue skipping advances the actual day once");

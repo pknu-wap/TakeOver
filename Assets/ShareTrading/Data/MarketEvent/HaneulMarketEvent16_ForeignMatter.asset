@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HaneulMarketEvent16_ForeignMatter
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "제품 이물질 발견"
-  description: "{targetCompany}의 제품에서 이물질이 발견되었습니다."
+  description: "이물질 신고를 받은 유통사가 {targetCompany} 관련 제품을 진열대에서 내렸다. 관할 기관은 같은 생산분의 유통 경로를 확인하고 있다."
   MarketEventID: 16
   applyType: 2
   duration: 5

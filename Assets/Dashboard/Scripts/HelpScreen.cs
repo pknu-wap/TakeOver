@@ -34,8 +34,8 @@ namespace TakeOver.Help
             // Do not inherit the source dialogue block's live animation offset.
             heading.transform.SetParent(panel.transform,false);
             rule.SetParent(panel.transform,false);
-            Place(heading.rectTransform, 24, 558, 1000, 30); heading.text = "도움말 · 게임 기능과 용어";
-            Place(rule, 24, 548, 1184, 2);
+            Place(heading.rectTransform, 24, 550, 1000, 30); heading.text = "도움말 · 게임 기능과 용어";
+            Place(rule, 24, 540, 1184, 2);
             var viewport = new GameObject("Reading viewport", typeof(RectTransform), typeof(Image), typeof(Mask));
             viewport.transform.SetParent(panel.transform, false);
             Place((RectTransform)viewport.transform, 250, 24, 570, 508);
@@ -56,7 +56,7 @@ namespace TakeOver.Help
             var caption=Instantiate(heading,panel.transform,false);caption.text="사진 선택: 크게 보기";caption.fontSize=14;
             Place(caption.rectTransform,846,130,360,30);
             caption.gameObject.name="Photo caption";
-            const float topicListTop = 542;
+            const float topicListTop = 536;
             const float topicListBottom = 24;
             const float topicGap = 4;
             float topicStep = Mathf.Min(38, (topicListTop - topicListBottom + topicGap) / HelpTopics.Items.Length);
@@ -68,7 +68,7 @@ namespace TakeOver.Help
                 Place((RectTransform)button.transform,24,topicListTop-i*topicStep-height,204,height);
             }
             var close=template.CreateActionButton(panel.transform,"Close help","닫기",Close);
-            Place((RectTransform)close.transform,1020,556,180,36);
+            Place((RectTransform)close.transform,1020,550,180,36);
             panel.SetActive(false);
         }
         public void Open() { EnsureBuilt(); panel.SetActive(true); Select(0); }

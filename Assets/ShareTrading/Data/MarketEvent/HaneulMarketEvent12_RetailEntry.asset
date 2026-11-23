@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HaneulMarketEvent12_RetailEntry
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "대형마트 신규 입점"
-  description: "{targetCompany}의 제품이 대형마트에 새로 입점합니다."
+  description: "대형마트가 {targetCompany} 제품의 전국 진열 일정을 확정했다. 물류센터에는 첫 행사에 맞춘 납품 요청이 접수됐다."
   MarketEventID: 12
   applyType: 2
   duration: 6

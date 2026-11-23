@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DongbangMarketEvent26_WarehouseFire
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "물류창고 화재"
-  description: "{targetCompany}의 물류창고에서 화재가 발생했습니다."
+  description: "화재가 난 {targetCompany}의 창고에서 보관 물량과 설비 피해를 조사 중이다. 인근 거점들은 기존 배송분을 나누어 처리하고 있다."
   MarketEventID: 26
   applyType: 2
   duration: 4

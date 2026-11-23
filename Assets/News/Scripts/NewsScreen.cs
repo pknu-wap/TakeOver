@@ -46,6 +46,19 @@ public class NewsScreen : MonoBehaviour
         secretTabButton.onClick.AddListener(showSecretNews);
         nextDateButton.onClick.AddListener(showNextDate);
         previousDateButton.onClick.AddListener(showPreviousDate);
+        var layout = cardsRoot.GetComponent<HorizontalLayoutGroup>();
+        if (layout != null && newsCards.Length > 0)
+        {
+            float width = Mathf.Min(320, (((RectTransform)cardsRoot.transform).rect.width - layout.spacing * (newsCards.Length - 1)) / newsCards.Length);
+            layout.childForceExpandWidth = false;
+            layout.childAlignment = TextAnchor.MiddleCenter;
+            foreach (var card in newsCards)
+            {
+                var size = card.GetComponent<LayoutElement>() ?? card.gameObject.AddComponent<LayoutElement>();
+                size.minWidth = size.preferredWidth = Mathf.Max(160, width);
+                size.flexibleWidth = 0;
+            }
+        }
     }
 
     private void OnDestroy()
@@ -123,7 +136,7 @@ public class NewsScreen : MonoBehaviour
         cardsRoot.SetActive(!isSecretNews);
         if (isSecretNews) return;
 
-        foreach (NewsRow card in newsCards) card.setup("", "", "뉴스가 없습니다");
+        foreach (NewsRow card in newsCards) card.gameObject.SetActive(false);
 
         int cardIndex = 0;
         IReadOnlyList<NewsEntry> entries = feed.Entries;
@@ -132,8 +145,14 @@ public class NewsScreen : MonoBehaviour
             NewsEntry entry = entries[i];
             if (entry.turn != selectedTurn) continue;
 
+            newsCards[cardIndex].gameObject.SetActive(true);
             newsCards[cardIndex].setup(entry.title, getCompanyNames(entry), entry.description);
             cardIndex++;
+        }
+        if (cardIndex == 0 && newsCards.Length > 0)
+        {
+            newsCards[0].gameObject.SetActive(true);
+            newsCards[0].setup("", "", "이 날짜에는 뉴스가 없습니다.");
         }
     }
 

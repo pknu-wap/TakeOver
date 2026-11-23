@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllMarketEvent202_InterestRateDecrease
   m_EditorClassIdentifier: Assembly-CSharp::MarketEventDefinition
   MarketEventName: "기준금리 인하"
-  description: "기준금리가 인하되었습니다."
+  description: "은행들이 새 대출 조건을 안내하면서 기업들은 미뤄 두었던 설비 계약과 차환 협상을 다시 꺼내 들었다."
   MarketEventID: 202
   applyType: 2
   duration: 6
