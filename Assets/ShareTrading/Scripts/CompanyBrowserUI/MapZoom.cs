@@ -10,7 +10,7 @@ public class MapZoom : MonoBehaviour, IScrollHandler
     [Tooltip("현재 배율을 보여줄 글자 (예: 100%). 없으면 비워둬도 됨")]
     [SerializeField] private TMP_Text zoomText;
 
-    [Tooltip("누를 수 있는 지도 영역에 전체 지도가 들어가는 배율을 기본으로 사용합니다.")]
+    [Tooltip("지도 영역을 빈틈없이 꽉 채우는 배율보다 더 작아지지는 않습니다.")]
     [SerializeField] private float minZoom = 1f;
     [SerializeField] private float maxZoom = 2f;
 
@@ -20,7 +20,8 @@ public class MapZoom : MonoBehaviour, IScrollHandler
     private float currentZoom = 1f;
 
     private float fitZoom = 1f;
-    private bool zoomAdjusted;
+    private float userZoomRatio = 1f;
+    private Vector2 lastViewportSize;
 
     private float effectiveMinZoom => Mathf.Max(minZoom, fitZoom);
     private float effectiveMaxZoom => Mathf.Max(maxZoom, effectiveMinZoom);
@@ -32,42 +33,55 @@ public class MapZoom : MonoBehaviour, IScrollHandler
 
     void OnEnable()
     {
-        fitToViewport();
+        lastViewportSize = Vector2.zero;
     }
 
-    // 화면 크기(해상도·창 크기)가 바뀌면 Unity가 자동으로 호출
-    void OnRectTransformDimensionsChange()
+    void LateUpdate()
     {
-        fitToViewport();
-    }
-
-    private void fitToViewport()
-    {
-        if (content == null)
-        {
-            return;
-        }
-
-        RectTransform viewport = content.parent as RectTransform;
+        RectTransform viewport = getViewport();
         if (viewport == null)
         {
             return;
         }
 
         Vector2 viewportSize = viewport.rect.size;
+
+        if (viewportSize == lastViewportSize)
+        {
+            return;
+        }
+
+        lastViewportSize = viewportSize;
+        fitToViewport(viewportSize);
+    }
+
+    private RectTransform getViewport()
+    {
+        if (content == null)
+        {
+            return null;
+        }
+        return content.parent as RectTransform;
+    }
+
+    private void fitToViewport(Vector2 viewportSize)
+    {
         Vector2 contentSize = content.rect.size;
         if (contentSize.x <= 0f || contentSize.y <= 0f)
         {
             return;
         }
-
-        if (viewportSize.x <= 0f || viewportSize.y <= 0f) return;
-        fitZoom = Mathf.Min(viewportSize.x / contentSize.x, viewportSize.y / contentSize.y);
-
-        float fixedZoom = zoomAdjusted ? Mathf.Clamp(currentZoom, effectiveMinZoom, effectiveMaxZoom) : effectiveMinZoom;
-        if (!Mathf.Approximately(fixedZoom, currentZoom))
+        if (viewportSize.x <= 0f || viewportSize.y <= 0f)
         {
-            setZoom(fixedZoom);
+            return;
+        }
+
+        fitZoom = Mathf.Max(viewportSize.x / contentSize.x, viewportSize.y / contentSize.y);
+
+        float targetZoom = Mathf.Clamp(fitZoom * userZoomRatio, effectiveMinZoom, effectiveMaxZoom);
+        if (!Mathf.Approximately(targetZoom, currentZoom))
+        {
+            setZoom(targetZoom);
         }
     }
 
@@ -101,7 +115,6 @@ public class MapZoom : MonoBehaviour, IScrollHandler
             return;
         }
 
-        zoomAdjusted = true;
         Vector2 before = content.InverseTransformPoint(pivotWorld);
 
         setZoom(newZoom);
@@ -109,6 +122,8 @@ public class MapZoom : MonoBehaviour, IScrollHandler
         Vector2 after = content.InverseTransformPoint(pivotWorld);
 
         content.anchoredPosition += (after - before) * currentZoom;
+
+        userZoomRatio = currentZoom / fitZoom;
     }
 
     private void setZoom(float zoom)
