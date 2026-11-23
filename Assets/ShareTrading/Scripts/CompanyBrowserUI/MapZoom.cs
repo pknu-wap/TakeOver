@@ -21,6 +21,8 @@ public class MapZoom : MonoBehaviour, IScrollHandler
 
     // 지도가 화면(Viewport)을 빈틈없이 덮기 위한 최소 배율
     private float coverZoom = 1f;
+    private float userZoomRatio = 1f;
+    private Vector2 lastViewportSize;
 
     private float effectiveMinZoom => Mathf.Max(minZoom, coverZoom);
     private float effectiveMaxZoom => Mathf.Max(maxZoom, effectiveMinZoom);
@@ -32,41 +34,55 @@ public class MapZoom : MonoBehaviour, IScrollHandler
 
     void OnEnable()
     {
-        fitToViewport();
+        lastViewportSize = Vector2.zero;
     }
 
-    // 화면 크기(해상도·창 크기)가 바뀌면 Unity가 자동으로 호출
-    void OnRectTransformDimensionsChange()
+    void LateUpdate()
     {
-        fitToViewport();
-    }
-
-    private void fitToViewport()
-    {
-        if (content == null)
-        {
-            return;
-        }
-
-        RectTransform viewport = content.parent as RectTransform;
+        RectTransform viewport = getViewport();
         if (viewport == null)
         {
             return;
         }
 
         Vector2 viewportSize = viewport.rect.size;
+
+        if (viewportSize == lastViewportSize)
+        {
+            return;
+        }
+
+        lastViewportSize = viewportSize;
+        fitToViewport(viewportSize);
+    }
+
+    private RectTransform getViewport()
+    {
+        if (content == null)
+        {
+            return null;
+        }
+        return content.parent as RectTransform;
+    }
+
+    private void fitToViewport(Vector2 viewportSize)
+    {
         Vector2 contentSize = content.rect.size;
         if (contentSize.x <= 0f || contentSize.y <= 0f)
+        {
+            return;
+        }
+        if (viewportSize.x <= 0f || viewportSize.y <= 0f)
         {
             return;
         }
 
         coverZoom = Mathf.Max(viewportSize.x / contentSize.x, viewportSize.y / contentSize.y);
 
-        float fixedZoom = Mathf.Clamp(currentZoom, effectiveMinZoom, effectiveMaxZoom);
-        if (!Mathf.Approximately(fixedZoom, currentZoom))
+        float targetZoom = Mathf.Clamp(coverZoom * userZoomRatio, effectiveMinZoom, effectiveMaxZoom);
+        if (!Mathf.Approximately(targetZoom, currentZoom))
         {
-            setZoom(fixedZoom);
+            setZoom(targetZoom);
         }
     }
 
@@ -107,6 +123,8 @@ public class MapZoom : MonoBehaviour, IScrollHandler
         Vector2 after = content.InverseTransformPoint(pivotWorld);
 
         content.anchoredPosition += (after - before) * currentZoom;
+
+        userZoomRatio = currentZoom / coverZoom;
     }
 
     private void setZoom(float zoom)
