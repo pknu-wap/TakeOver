@@ -156,7 +156,16 @@ namespace TakeOver.Operations
             int rowsPerPage = doc is SnapshotDocument snapshot ? snapshot.RowsPerPage : 0;
             int start = rowsPerPage > 0 ? currentPage * rowsPerPage : 0;
             int end = rowsPerPage > 0 ? Math.Min(start + rowsPerPage, rows.Count) : rows.Count;
-            for (int i = start; i < end; i++) addInfo(rows[i].label, rows[i].value);
+            for (int i = start; i < end; i++)
+            {
+                DocumentInfo info = rows[i];
+                addInfo(info.label, info.value);
+                if (doc is EmployeeRenewalDocument renewal && renewal.IsStatComparisonRow(info))
+                {
+                    documentNumber.text = $"NO. {renewal.DocumentNumber}";
+                    infoRows[infoRows.Count - 1].GetComponent<DocumentInfoRow>().BindEmployeeRenewalHover(renewal);
+                }
+            }
             if (doc is IApprovalDocument approval)
                 foreach (var line in approval.BodyLines)
                     if (!string.IsNullOrWhiteSpace(line) && !rows.Any(row => row.value == line || row.label + ": " + row.value == line)) addInfo("", line);
