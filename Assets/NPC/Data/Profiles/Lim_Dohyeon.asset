@@ -62,8 +62,8 @@ MonoBehaviour:
     npcId: npc-polaris-finance-ceo-lim-dohyeon
     companyId: polaris-finance
     profile:
-      standingIllustration: {fileID: 0}
-      dimmedStandingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: c53506e1369e41a4ba82cefd00565cd1, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: f02a9c25afbe3df40a5e63a04881d26d, type: 3}
       displayName: "\uC784\uB3C4\uD604"
       role: CEO
       affiliation: "\uD3F4\uB77C\uB9AC\uC2A4\uD30C\uC774\uB0B8\uC2A4"
