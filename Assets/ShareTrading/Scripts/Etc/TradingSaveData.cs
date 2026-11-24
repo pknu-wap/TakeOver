@@ -38,6 +38,7 @@ public class TradingSaveData
         public CompanyStateData state;
         public CompanyMarketData market;
         public List<CompanyHistoryEntry> history;
+        public List<float> priceHistory;
     }
 
     [Serializable]

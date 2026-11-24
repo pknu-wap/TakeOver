@@ -83,7 +83,8 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
                 npcSentiment = company.npcRelations.npcSentiment, eventPriceMultiplier = market.eventPriceMultiplier,
                 marketNoise = market.marketNoise
             },
-            history = new List<CompanyHistoryEntry>(company.history.History)
+            history = new List<CompanyHistoryEntry>(company.history.History),
+            priceHistory = new List<float>(company.history.PriceHistory)
         };
         if (company.createdFromCode && (startups == null || !startups.tryGetRecord(data.companyId, out data.startup)))
             throw new InvalidDataException("스타트업 원본 기록을 찾을 수 없습니다.");
@@ -230,6 +231,21 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
             }
             previousTurn = history.turn;
         }
+
+        if (entry.priceHistory != null)
+        {
+            if (entry.priceHistory.Count > CompanyHistory.MAX_PRICE_HISTORY)
+            {
+                throw new InvalidDataException("회사 주가 기록이 올바르지 않습니다.");
+            }
+            foreach (float price in entry.priceHistory)
+            {
+                if (!finite(price) || price < 0f)
+                {
+                    throw new InvalidDataException("회사 주가 기록이 올바르지 않습니다.");
+                }
+            }
+        }
     }
 
     public void applyLoad()
@@ -287,6 +303,11 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         market.marketNoise = entry.market.marketNoise;
         company.history.Entries.Clear();
         company.history.Entries.AddRange(entry.history);
+        company.history.PriceEntries.Clear();
+        if (entry.priceHistory != null)
+        {
+            company.history.PriceEntries.AddRange(entry.priceHistory);
+        }
     }
 
     private void applyEffects(List<TradingSaveData.ScheduledEffectData> data, List<(Company company, int executionDay, float value)> effects)
