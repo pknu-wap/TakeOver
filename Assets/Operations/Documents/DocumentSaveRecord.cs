@@ -33,5 +33,6 @@ namespace TakeOver.Documents
         public string title;
         public string author;
         public List<NameText> infoRows;
+        public EmployeeRenewalDocument.SavedData employeeRenewal;
     }
 }

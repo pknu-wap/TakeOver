@@ -82,14 +82,6 @@ namespace TakeOver.Startups
         [Tooltip("보너스가 이어지는 턴. 실적은 7턴마다 갱신되므로 이 기간 안에 든 실적 갱신에만 보너스가 붙는다")]
         [Min(1)] public int facilityBonusDurationTurns = 21;
 
-        [Header("지원 인원 배치 (임시 값, 밸런스 때 조정)")]
-        [Tooltip("배치된 직원의 관리 능력치 1당 줄어드는 주간 비용 비율 (0.005 = 0.5%). 관리 20이면 10%")]
-        public float supportCostReductionPerManagement = 0.005f;
-        [Tooltip("한 회사의 비용 감소 비율 상한 (0.3 = 30%). 여러 명을 배치해도 이 이상 줄지 않는다")]
-        public float supportMaxCostReduction = 0.3f;
-        [Tooltip("배치된 직원의 관리 능력치 1당 붙는 주간 매출 성장률 보너스 (0.001 = 0.1%p). 관리 20이면 2%p")]
-        public float supportGrowthPerManagement = 0.001f;
-
         [Header("화면")]
         [Tooltip("스타트업 탭의 매출 그래프에 보여줄 주 수 (이번 주 + 지난 N주)")]
         [Min(1)] public int revenueHistoryWeeks = 8;

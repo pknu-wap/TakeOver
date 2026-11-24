@@ -45,7 +45,8 @@ public sealed class HelpProbe:MonoBehaviour
         {
             var help=UnityEngine.Object.FindFirstObjectByType<HelpScreen>();
             Check(help!=null,"Help component initialized");
-            Check(HelpTopics.Items.Length==12 && HelpTopics.Items.All(t=>t.title!="다시 시작하기"),"All concise help topics are available");
+            Check(HelpTopics.Items.Length == 13 && HelpTopics.Items.Any(t => t.title == "직원 재계약")
+                && HelpTopics.Items.All(t => t.title != "다시 시작하기"), "All help topics include employee renewal");
             var tab=UnityEngine.Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b=>b.name=="HelpTab");
             var template=UnityEngine.Object.FindFirstObjectByType<TakeOver.Events.EventNegotiationView>(FindObjectsInactive.Include);
             var question=(CanvasGroup)typeof(TakeOver.Events.EventNegotiationView).GetField("questionBlock",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(template);

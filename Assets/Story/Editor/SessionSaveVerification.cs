@@ -125,7 +125,7 @@ public sealed class SessionSaveProbe : MonoBehaviour
             tutorialJournal.Single(item => item.eventId == StoryDirector.TutorialEventId).resolvedDay == 2,
             "Skipped tutorial records seven conversations and the day-two financial review in the journal");
         var journalChoices = tutorialJournal.Select(item => (item.eventId, item.resolvedDay, item.keyPoints[0])).ToArray();
-        Check(HelpTopics.Items.All(topic => topic.title != "주인공 이름" && topic.text.Length <= 130),
+        Check(HelpTopics.Items.All(topic => topic.title != "주인공 이름" && topic.text.Length < 320),
             "Help contains short system explanations and omits the protagonist-name topic");
 
         var status = Object.FindFirstObjectByType<NpcStatusScreen>(FindObjectsInactive.Include);

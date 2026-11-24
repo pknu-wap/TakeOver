@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc0f7dbf7193c624cb3558d5a13c7908, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Documents.SupportRequestService
   settings: {fileID: 11400000, guid: b3c1c1066f4f57945b994cad25693a00, type: 2}
 --- !u!114 &4770750136947293480
@@ -148,6 +148,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53a8b37b16774bd4c8b9a2a8815ab978, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Documents.AcquisitionOperationsService
   settings: {fileID: 11400000, guid: b3c1c1066f4f57945b994cad25693a00, type: 2}
