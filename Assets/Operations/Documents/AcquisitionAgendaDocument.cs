@@ -69,6 +69,12 @@ namespace TakeOver.Documents
                 reason = "운영 대상 회사가 없습니다";
                 return false;
             }
+            if (TargetCompany.state.totalShares <= 0 || TargetCompany.state.getBaseStat(CompanyStat.PLAYER_SHARES) /
+                TargetCompany.state.totalShares < Settings.takeoverRatio)
+            {
+                reason = "인수 지분이 부족합니다";
+                return false;
+            }
             reason = scale.value.HasValue ? "" : "규모를 선택해 주세요";
             return reason.Length == 0;
         }
