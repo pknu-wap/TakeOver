@@ -23,7 +23,9 @@ public sealed class TopBarNavigationController : MonoBehaviour
     private int currentTab;
     private TakeOver.Help.HelpScreen help;
     private int helpTab;
+    public DashboardTab CurrentTab => tabKinds[currentTab];
     public void OpenHelp() => onTabClicked(helpTab);
+    public void OpenCompanies() => Navigate(DashboardTab.Companies);
 
     private void Start()
     {

@@ -2481,7 +2481,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcProfilePanelView
   registry: {fileID: 0}
-  manualSpriteOverrides: []
+  manualSpriteOverrides:
+  - npcNameOrId: npc-mirae-construction-ceo-kang-junhyeok
+    sprite: {fileID: 0}
+    portraitOffsetY: 0
+    standingHeight: 0
+    standingOffsetY: -64
+    standingOffsetX: 0
+  - npcNameOrId: npc-political-lobbyist-park-sanghyeon
+    sprite: {fileID: 0}
+    portraitOffsetY: 0
+    standingHeight: 0
+    standingOffsetY: -64
+    standingOffsetX: 0
+  - npcNameOrId: npc-institutional-investor-kim-taeseong
+    sprite: {fileID: 0}
+    portraitOffsetY: 0
+    standingHeight: 0
+    standingOffsetY: -24
+    standingOffsetX: 0
+  - npcNameOrId: npc-economic-reporter-lee-mingyu
+    sprite: {fileID: 0}
+    portraitOffsetY: 0
+    standingHeight: 0
+    standingOffsetY: -64
+    standingOffsetX: 0
+  - npcNameOrId: npc-broker-yoon-hajin
+    sprite: {fileID: 0}
+    portraitOffsetY: 0
+    standingHeight: 0
+    standingOffsetY: 64
+    standingOffsetX: 0
   npcListContent: {fileID: 1538239973791934069}
   npcListItemPrefab: {fileID: 0}
   npcListScrollRect: {fileID: 7409925641983954001}
