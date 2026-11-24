@@ -17,8 +17,8 @@ MonoBehaviour:
   linearDialogue: 0
   tutorialOnly: 0
   title: "\uC815\uC218\uC544 \u2014 \uC778\uD130\uBDF0 \uC778\uC6A9 \uBC94\uC704"
-  image: {fileID: 21300000, guid: e4f06f328acf53c4385995fb1f2c1e65, type: 3}
-  cardImage: {fileID: 21300000, guid: d04aa39026668454991718ef00702904, type: 3}
+  image: {fileID: 21300000, guid: b0c2d642c28a21742b1c9e2acbb476d8, type: 3}
+  cardImage: {fileID: 21300000, guid: 408461e7a731f4842b6f83c82be8a2da, type: 3}
   npcArts: []
   highlightImage: {fileID: 0}
   negotiationBackground: {fileID: 0}

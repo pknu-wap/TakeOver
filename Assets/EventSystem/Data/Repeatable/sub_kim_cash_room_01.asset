@@ -18,8 +18,8 @@ MonoBehaviour:
   tutorialOnly: 0
   title: "\uAE40\uD0DC\uC131 \u2014 \uB2E4\uC74C \uC9C0\uCD9C\uC5D0 \uB300\uBE44\uD55C
     \uD604\uAE08"
-  image: {fileID: 21300000, guid: e4f06f328acf53c4385995fb1f2c1e65, type: 3}
-  cardImage: {fileID: 21300000, guid: d04aa39026668454991718ef00702904, type: 3}
+  image: {fileID: 21300000, guid: 3fef45f36dfe7e942b8a97a8b7a11b1d, type: 3}
+  cardImage: {fileID: 21300000, guid: edbece4f5d572784f86d72c924e08667, type: 3}
   npcArts: []
   highlightImage: {fileID: 0}
   negotiationBackground: {fileID: 0}
