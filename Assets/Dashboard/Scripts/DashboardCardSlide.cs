@@ -14,6 +14,7 @@ public class DashboardCardSlide : MonoBehaviour
     {
         public RectTransform cardRect;
         public UnityEngine.UI.Image cardImage;
+        public Image reflectionImage;
         public TextMeshProUGUI speakerText;
         public TextMeshProUGUI apCostText;
     }
@@ -416,6 +417,7 @@ public class DashboardCardSlide : MonoBehaviour
     {
         if (info == null) return;
         if (card.cardImage != null) card.cardImage.sprite = info.cardImage;
+        if (card.reflectionImage != null) card.reflectionImage.sprite = info.cardImage;
         if (card.speakerText != null) card.speakerText.text = info.speakerLabel;
         if (card.apCostText != null) card.apCostText.text = $"소모 에너지 {info.definition.getApCost()}";
     }
