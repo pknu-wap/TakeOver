@@ -46,6 +46,14 @@ namespace TakeOver.SaveSystem
             message.text = loadOnly ? "이어서 진행할 저장을 선택해 주세요." : "수동저장은 자동저장과 별개로 보관됩니다. 사건 전에 저장하면 같은 시점부터 다시 진행할 수 있습니다.";
             message.fontSize = 18;
             message.rectTransform.sizeDelta = new Vector2(-36, 50);
+            var ruleSource = heading.transform.parent.Find("Underline");
+            for (int boundary = 0; boundary <= labels.Length + 1; boundary++)
+            {
+                var rule = Instantiate(ruleSource, panel.transform, false);
+                rule.name = "Save slot boundary " + boundary;
+                Place((RectTransform)rule, new Vector2(0, 140 - boundary * 80), new Vector2(784, ((RectTransform)ruleSource).rect.height));
+                foreach (var graphic in rule.GetComponentsInChildren<Graphic>(true)) graphic.raycastTarget = false;
+            }
             automaticLabel = Instantiate(message, panel.transform, false);
             automaticLabel.name = "Automatic save slot"; automaticLabel.fontSize = 20;
             Place(automaticLabel.rectTransform, new Vector2(-150, 100), new Vector2(450, 56));

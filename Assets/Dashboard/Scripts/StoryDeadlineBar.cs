@@ -11,6 +11,7 @@ namespace TakeOver.Dashboard
     public sealed class StoryDeadlineBar : MonoBehaviour
     {
         private EventSystemController controller;
+        private TopBarNavigationController navigation;
         private RectTransform divider;
         private bool showingMission;
         private int displayedDays = int.MinValue;
@@ -21,6 +22,7 @@ namespace TakeOver.Dashboard
         private void Start()
         {
             controller = FindFirstObjectByType<EventSystemController>();
+            navigation = GetComponent<TopBarNavigationController>();
             var source = transform.Find("TopBar_Background").GetComponent<Image>();
             var fontSource = GetComponentsInChildren<TMP_Text>(true).First(text => text.font != null && text.text == "홈");
             var background = Instantiate(source, transform, false);
@@ -57,7 +59,8 @@ namespace TakeOver.Dashboard
         private void Refresh()
         {
             if (Bar == null || controller == null) return;
-            bool visible = !StoryDirector.IsRunning && controller.MandatoryState != MandatoryStoryState.Failed;
+            bool visible = navigation != null && navigation.CurrentTab == DashboardTab.Home &&
+                !StoryDirector.IsRunning && controller.MandatoryState != MandatoryStoryState.Failed;
             if (Bar.gameObject.activeSelf != visible) Bar.gameObject.SetActive(visible);
             if (!visible) return;
             bool hasMission = controller.HasActiveMission;

@@ -15,6 +15,7 @@ namespace TakeOver.Help
         private ScrollRect scroll;
         private EventNegotiationView template;
         private GameObject photoOverlay;
+        private readonly System.Collections.Generic.List<TakeOver.UI.ButtonHoverFeedback> topicFeedback = new System.Collections.Generic.List<TakeOver.UI.ButtonHoverFeedback>();
         public bool IsOpen => panel != null && panel.activeSelf;
         private void EnsureBuilt()
         {
@@ -66,10 +67,13 @@ namespace TakeOver.Help
             {
                 int index=i;
                 var button=template.CreateActionButton(panel.transform,"Help topic "+i,HelpTopics.Items[i].title,()=>Select(index));
+                TakeOver.UI.ButtonHoverFeedback.Attach(button);
+                topicFeedback.Add(button.GetComponent<TakeOver.UI.ButtonHoverFeedback>());
                 float height = topicStep - topicGap;
                 Place((RectTransform)button.transform,24,topicListTop-i*topicStep-height,204,height);
             }
             var close=template.CreateActionButton(panel.transform,"Close help","닫기",Close);
+            TakeOver.UI.ButtonHoverFeedback.Attach(close);
             Place((RectTransform)close.transform,1020,550,180,36);
             panel.SetActive(false);
         }
@@ -87,6 +91,7 @@ namespace TakeOver.Help
         private void OnDestroy(){if(canvasObject!=null)Destroy(canvasObject);}
         private void Select(int index)
         {
+            for (int i = 0; i < topicFeedback.Count; i++) topicFeedback[i].SetSelected(i == index);
             var topic=HelpTopics.Items[index];
             body.text=topic.title+"\n\n"+topic.text;
             photo.sprite=string.IsNullOrEmpty(topic.image)?null:Resources.Load<Sprite>("HelpImages/"+topic.image);
@@ -141,6 +146,7 @@ namespace TakeOver.Help
             image.GetComponent<Image>().sprite=photo.sprite;image.GetComponent<Image>().preserveAspect=true;image.GetComponent<Image>().raycastTarget=false;
             Place((RectTransform)image.transform,40,82,1200,600);
             var close=template.CreateActionButton(overlay.transform,"Close enlarged image","닫기",ClosePhoto);
+            TakeOver.UI.ButtonHoverFeedback.Attach(close);
             Place((RectTransform)close.transform,540,24,200,42);
         }
         private void Introduce()
@@ -158,6 +164,7 @@ namespace TakeOver.Help
             title.text="게임 기능이 기억나지 않을 때";
             text.text="게임 진행이 궁금할 때는 상단의 ‘도움말’을 열어보세요. 거래와 하루 진행, 대화와 미션을 간단히 확인할 수 있습니다.";
             var open=template.CreateActionButton(notice.transform,"Open help","도움말 열기",()=>{Destroy(introduction);FindFirstObjectByType<TopBarNavigationController>().OpenHelp();});
+            TakeOver.UI.ButtonHoverFeedback.Attach(open);
             Place((RectTransform)open.transform,18,16,330,38);
             var confirm=template.CreateActionButton(notice.transform,"Confirm help notice","확인",()=>Destroy(introduction));
             Place((RectTransform)confirm.transform,370,16,330,38);

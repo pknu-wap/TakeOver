@@ -41,6 +41,7 @@ namespace TakeOver.NPC
         }
 
         public void FocusMemories() => profilePanel?.FocusMemories();
+        public void SetTutorialNpc(string npcId) => profilePanel?.SetTutorialNpc(npcId);
 
         private void OnEnable()
         {

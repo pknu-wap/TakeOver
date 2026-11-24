@@ -67,7 +67,7 @@ MonoBehaviour:
       displayName: "\uC815\uB3C4\uD604"
       role: CEO
       affiliation: "\uC2E0\uC131\uAC1C\uBC1C"
-      personalitySummary: "정도현은 얼어붙은 사업을 다시 움직일 자리를 빠르게 찾아내는 개발업자다. 다만 투자설명서의 숫자를 맞추는 데 몰두하다 보면 자신이 내세웠던 개발 명분이 흐려진다는 말을 듣곤 한다."
+      personalitySummary: "얼어붙은 개발 사업을 다시 움직일 자리를 빠르게 찾아낸다. 다만 투자설명서의 숫자를 맞추는 데 몰두하다 보면 자신이 내세웠던 개발 명분이 흐려진다는 말을 듣곤 한다."
       gameplayRoleSummary: "인허가와 임대 수요를 차근차근 증명할 수 있는 거래에 관심을 보인다. 부지를 서둘러 팔기 위해 권리관계를 건너뛰거나, 자신을 일회성 협상 카드로 쓰려는 상대에게는 선을 긋는다."
       anyEventRelationDelta:
         trust: 0

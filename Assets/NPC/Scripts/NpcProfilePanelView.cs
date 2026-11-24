@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using TMPro;
+using TakeOver.Events;
 using UnityEngine;
 using UnityEngine.UI;
 #if UNITY_EDITOR
@@ -118,7 +119,7 @@ namespace TakeOver.NPC
         private static readonly Color GaugeTick = new Color(0.06f, 0.17f, 0.34f, 1f);
         private static readonly Color GaugeLabel = new Color(0.36f, 0.42f, 0.50f, 1f);
 
-        // Array order controls the first characters shown in the list.
+        // Preserve familiar character order within each affiliation group.
         private static readonly string[][] Identities =
         {
             new[] { "hajin", "윤하진", "하진" },
@@ -145,6 +146,7 @@ namespace TakeOver.NPC
         private sealed class NpcEntryData
         {
             public string id;
+            public string companyId;
             public string displayName;
             public string subtitle;
             public string description;
@@ -161,6 +163,9 @@ namespace TakeOver.NPC
         private string requestedNpcId;
         private ScrollRect profileDetailsScroll;
         private float memorySectionOffset;
+        private string tutorialNpcId;
+        private RectMask2D tutorialClip;
+        private RectTransform traitsDivider, memoriesDivider;
         private readonly Dictionary<TMP_Text, float> tutorialFontSizes = new Dictionary<TMP_Text, float>();
         public string SelectedNpcId => _entries.Count > _selectedIndex ? _entries[_selectedIndex].id : requestedNpcId;
 
@@ -187,11 +192,15 @@ namespace TakeOver.NPC
         {
             foreach (var entry in tutorialFontSizes) if (entry.Key != null) entry.Key.fontSize = entry.Value;
             tutorialFontSizes.Clear();
+            SetTutorialNpc(null);
+            if (tutorialClip != null) tutorialClip.enabled = false;
             if (registry != null) registry.StateChanged -= OnStateChanged;
         }
 
         public void SetTutorialReadable()
         {
+            if (tutorialClip == null) tutorialClip = GetOrAdd<RectMask2D>(gameObject);
+            tutorialClip.enabled = true;
             bool changed = false;
             foreach (var text in GetComponentsInChildren<TMP_Text>(true))
             {
@@ -274,9 +283,17 @@ namespace TakeOver.NPC
         public void SelectNpc(string npcId)
         {
             if (string.IsNullOrEmpty(npcId)) return;
+            if (!string.IsNullOrEmpty(tutorialNpcId) && npcId != tutorialNpcId) return;
             requestedNpcId = npcId;
             int index = _entries.FindIndex(entry => entry.id == npcId);
             if (index >= 0 && isActiveAndEnabled) SelectIndex(index);
+        }
+
+        public void SetTutorialNpc(string npcId)
+        {
+            tutorialNpcId = npcId;
+            for (int i = 0; i < _spawnedItems.Count; i++)
+                _spawnedItems[i].SetAvailable(string.IsNullOrEmpty(npcId) || _entries[i].id == npcId);
         }
 
         public void FocusMemories()
@@ -573,17 +590,62 @@ namespace TakeOver.NPC
             SetRect(rect, new Vector2(.5f, 1f), new Vector2(.5f, 1f),
                 new Vector2(564f, 220f), new Vector2(0f, -522f));
             viewport.GetComponent<Image>().color = Color.clear;
+            for (int edge = 0; edge < 4; edge++)
+            {
+                var line = CreateProfileRule(rect, "Profile details border " + edge);
+                if (line == null) continue;
+                if (edge < 2)
+                    SetRect(line, new Vector2(edge, 0), new Vector2(edge, 1), new Vector2(edge, .5f), new Vector2(1.5f, 0), Vector2.zero);
+                else
+                    SetRect(line, new Vector2(0, edge - 2), new Vector2(1, edge - 2), new Vector2(.5f, edge - 2), new Vector2(0, 1.5f), Vector2.zero);
+            }
+            var content = new GameObject("Profile details content", typeof(RectTransform)).GetComponent<RectTransform>();
+            content.SetParent(rect, false);
+            SetRect(content, new Vector2(0, 1), Vector2.one, new Vector2(.5f, 1), new Vector2(0, 220), Vector2.zero);
             var details = descriptionText.rectTransform;
-            details.SetParent(rect, false);
+            details.SetParent(content, false);
             SetRect(details, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(.5f, 1f),
-                new Vector2(-24f, 220f), Vector2.zero);
+                new Vector2(-24f, 196f), new Vector2(0, -12));
+            traitsDivider = CreateProfileRule(details, "Traits section divider");
+            memoriesDivider = CreateProfileRule(details, "Memories section divider");
             descriptionText.raycastTarget = false;
             profileDetailsScroll = viewport.GetComponent<ScrollRect>();
             profileDetailsScroll.viewport = rect;
-            profileDetailsScroll.content = details;
+            profileDetailsScroll.content = content;
             profileDetailsScroll.horizontal = false;
             profileDetailsScroll.movementType = ScrollRect.MovementType.Clamped;
             profileDetailsScroll.scrollSensitivity = 35f;
+        }
+
+        private static RectTransform CreateProfileRule(Transform parent, string name)
+        {
+            var template = FindObjectsByType<EventNegotiationView>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .FirstOrDefault(view => view.GetComponentInParent<TakeOver.Story.StoryDirector>() == null);
+            var source = template != null ? template.GetComponentsInChildren<RectTransform>(true).FirstOrDefault(rect => rect.name == "Underline") : null;
+            if (source == null) return null;
+            var rule = Instantiate(source, parent, false);
+            rule.name = name; rule.gameObject.SetActive(true);
+            foreach (var graphic in rule.GetComponentsInChildren<Graphic>(true))
+            {
+                graphic.color = new Color(GaugeTrack.r, GaugeTrack.g, GaugeTrack.b, .8f);
+                graphic.raycastTarget = false;
+            }
+            return rule;
+        }
+
+        private float SectionTop(string heading)
+        {
+            int index = descriptionText.text.IndexOf("<b>" + heading + "</b>", StringComparison.Ordinal) + 3;
+            var info = descriptionText.textInfo;
+            for (int i = 0; i < info.characterCount; i++)
+                if (info.characterInfo[i].index == index) return -info.lineInfo[info.characterInfo[i].lineNumber].ascender;
+            return 0;
+        }
+
+        private static void PlaceSectionRule(RectTransform rule, float headingTop)
+        {
+            if (rule != null) SetRect(rule, new Vector2(0, 1), Vector2.one, new Vector2(.5f, .5f),
+                new Vector2(0, 1.5f), new Vector2(0, -headingTop + 12));
         }
 
         private static void GetGaugeParts(NpcRelationGaugeView gauge, out RectTransform fill, out RectTransform tick)
@@ -859,7 +921,14 @@ namespace TakeOver.NPC
             if (registry == null) return;
 
             ExtractEntriesFromRegistry(registry, _entries);
-            _entries.Sort((a, b) => GetDisplayOrder(a).CompareTo(GetDisplayOrder(b)));
+            _entries.Sort((a, b) =>
+            {
+                int companyOrder = AffiliationOrder(a.companyId).CompareTo(AffiliationOrder(b.companyId));
+                if (companyOrder == 0) companyOrder = StringComparer.Ordinal.Compare(a.companyId, b.companyId);
+                if (companyOrder != 0) return companyOrder;
+                int characterOrder = GetDisplayOrder(a).CompareTo(GetDisplayOrder(b));
+                return characterOrder != 0 ? characterOrder : StringComparer.Ordinal.Compare(a.id, b.id);
+            });
 
             foreach (NpcEntryData entry in _entries) ApplyManualOverride(entry);
         }
@@ -901,12 +970,26 @@ namespace TakeOver.NPC
                 output.Add(new NpcEntryData
                 {
                     id = string.IsNullOrEmpty(entry.npcId) ? displayName : entry.npcId,
+                    companyId = entry.companyId,
                     displayName = displayName,
                     subtitle = BuildSubtitle(profile.affiliation, profile.role),
                     description = string.IsNullOrWhiteSpace(profile.personalitySummary)
                         ? profile.gameplayRoleSummary ?? string.Empty : profile.personalitySummary,
                     sprite = profile.standingIllustration
                 });
+            }
+        }
+
+        private static int AffiliationOrder(string companyId)
+        {
+            if (string.IsNullOrWhiteSpace(companyId) || companyId == "external-network") return 0;
+            switch (companyId)
+            {
+                case "mirae-construction": return 1;
+                case "haneul-food": return 2;
+                case "dongbang-trading": return 3;
+                case "hansung-industry": return 4;
+                default: return 5;
             }
         }
 
@@ -979,6 +1062,7 @@ namespace TakeOver.NPC
                 item.gameObject.SetActive(true);
 
                 BindListItem(item, _entries[i], () => SelectIndex(index));
+                item.SetAvailable(string.IsNullOrEmpty(tutorialNpcId) || _entries[i].id == tutorialNpcId);
                 _spawnedItems.Add(item);
             }
         }
@@ -986,6 +1070,7 @@ namespace TakeOver.NPC
         private void SelectIndex(int index)
         {
             if (index < 0 || index >= _entries.Count) return;
+            if (!string.IsNullOrEmpty(tutorialNpcId) && _entries[index].id != tutorialNpcId) return;
             _selectedIndex = index;
             requestedNpcId = null;
             NpcEntryData data = _entries[index];
@@ -1022,8 +1107,8 @@ namespace TakeOver.NPC
             {
                 descriptionText.gameObject.SetActive(true);
                 descriptionText.enabled = true;
-                var text = new StringBuilder(data.description ?? "");
-                text.Append("\n\n<b>기억</b>");
+                var text = new StringBuilder("<b>성향</b>\n").Append(data.description ?? "");
+                text.Append("\n\n\n<b>기억</b>");
                 if (state == null || state.memories.Count == 0) text.Append("\n아직 기록된 기억이 없습니다.");
                 else
                     for (int i = state.memories.Count - 1; i >= 0; i--)
@@ -1035,7 +1120,7 @@ namespace TakeOver.NPC
                             .Append(string.IsNullOrWhiteSpace(memory.interpretation)
                                 ? NpcMemoryPresentation.GetMemoryLabel(memory.memoryType) : memory.interpretation).Append('\n');
                     }
-                text.Append("\n\n<b>호불호 단서</b>");
+                text.Append("\n\n\n<b>호불호 단서</b>");
                 bool hasClue = false;
                 if (seed?.memoryPreferences != null)
                     foreach (var preference in seed.memoryPreferences)
@@ -1051,15 +1136,18 @@ namespace TakeOver.NPC
                 if (profileDetailsScroll != null)
                 {
                     var details = descriptionText.rectTransform;
-                    memorySectionOffset = string.IsNullOrWhiteSpace(data.description) ? 0f
-                        : descriptionText.GetPreferredValues(data.description + "\n\n ", details.rect.width, 0f).y;
                     float height = descriptionText.GetPreferredValues(descriptionText.text, details.rect.width, 0f).y;
-                    details.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,
-                        Mathf.Max(profileDetailsScroll.viewport.rect.height, height + 12f));
+                    details.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+                    profileDetailsScroll.content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,
+                        Mathf.Max(profileDetailsScroll.viewport.rect.height, height + 24f));
+                    descriptionText.ForceMeshUpdate(true, true);
+                    memorySectionOffset = SectionTop("기억");
+                    PlaceSectionRule(traitsDivider, memorySectionOffset);
+                    PlaceSectionRule(memoriesDivider, SectionTop("호불호 단서"));
                     if (resetScroll)
                     {
                         profileDetailsScroll.StopMovement();
-                        details.anchoredPosition = Vector2.zero;
+                        profileDetailsScroll.content.anchoredPosition = Vector2.zero;
                     }
                 }
             }
@@ -1362,6 +1450,7 @@ namespace TakeOver.NPC
                 SetRect(tmp.rectTransform, MiddleLeft, new Vector2(0.5f, 0.5f),
                     new Vector2(NameWidth, NameHeight), new Vector2(selected ? NameXSelected : NameXNormal, 0f));
             }
+            item.SetListVisualState(selected, PillSelected, PillNormal, NameSelected, NameNormal);
         }
 
         #endregion

@@ -305,6 +305,7 @@ namespace TakeOver.Events
         private void paginate(string text)
         {
             pages.Clear();
+            text = breakLongDialogueSentences(text);
             var settings = currentDialogue.GetGenerationSettings(currentDialogue.rectTransform.rect.size);
             settings.verticalOverflow = VerticalWrapMode.Overflow;
             float height = currentDialogue.rectTransform.rect.height * currentDialogue.pixelsPerUnit;
@@ -319,12 +320,36 @@ namespace TakeOver.Events
                     else high = middle - 1;
                 }
                 if (fit < text.Length)
-                    for (int i = fit - 1; i >= fit / 2; i--)
-                        if (char.IsWhiteSpace(text[i]) || text[i] == '.' || text[i] == '?' || text[i] == '!') { fit = i + 1; break; }
+                {
+                    int sentenceBreak = text.LastIndexOf('\n', fit - 1, fit);
+                    if (sentenceBreak > 0) fit = sentenceBreak + 1;
+                    else
+                        for (int i = fit - 1; i >= fit / 2; i--)
+                            if (char.IsWhiteSpace(text[i]) || text[i] == '.' || text[i] == '?' || text[i] == '!') { fit = i + 1; break; }
+                }
                 pages.Add(text.Substring(0, fit).TrimEnd());
                 text = text.Substring(fit).TrimStart();
             }
             if (pages.Count == 0) pages.Add("");
+        }
+
+        private string breakLongDialogueSentences(string text)
+        {
+            var settings = currentDialogue.GetGenerationSettings(currentDialogue.rectTransform.rect.size);
+            settings.horizontalOverflow = HorizontalWrapMode.Overflow;
+            float width = currentDialogue.rectTransform.rect.width * currentDialogue.pixelsPerUnit;
+            var paragraphs = text.Replace("\r\n", "\n").Split('\n');
+            const int longParagraphLength = 64;
+            for (int i = 0; i < paragraphs.Length; i++)
+            {
+                if (paragraphs[i].Length < longParagraphLength &&
+                    currentDialogue.cachedTextGeneratorForLayout.GetPreferredWidth(paragraphs[i], settings) <= width)
+                    continue;
+                // Keep authored paragraphs and short lines; long dialogue starts each sentence on a new line.
+                paragraphs[i] = System.Text.RegularExpressions.Regex.Replace(paragraphs[i],
+                    @"(?<=[.!?。！？])[ \t]+(?=\S)", "\n");
+            }
+            return string.Join("\n", paragraphs);
         }
 
         private void showPage()

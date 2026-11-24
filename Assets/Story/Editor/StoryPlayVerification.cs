@@ -59,7 +59,7 @@ namespace TakeOver.Story.Editor
                 bool failed=File.ReadAllText(Path.Combine(Output,"play-results.txt")).Contains("FAIL");
                 SessionState.SetBool("TakeOver.StorySkip.Normal",false);
                 SessionState.SetBool(Key + ".DashboardOnly", false);
-                if(Application.isBatchMode) EditorApplication.Exit(failed?1:0);
+                if(Application.isBatchMode || Environment.GetEnvironmentVariable("TAKEOVER_QA_EXIT") == "1") EditorApplication.Exit(failed?1:0);
             }
         }
     }
@@ -344,6 +344,11 @@ namespace TakeOver.Story.Editor
                 if(beat.goal!=StoryGoal.None && beat.goal!=StoryGoal.OpenEvent && beat.goal!=StoryGoal.CompleteEvent)
                 {
                     Check(director.View.InformationBody.preferredHeight<=director.View.InformationBody.rectTransform.rect.height+.5f,"Contextual explanation fits beside target: "+beat.id);
+                    var bar = Object.FindFirstObjectByType<TopBarNavigationController>().transform.Find("TopBar_Background") as RectTransform;
+                    var barCorners = new Vector3[4]; var infoCorners = new Vector3[4];
+                    bar.GetWorldCorners(barCorners); director.View.InformationRect.GetWorldCorners(infoCorners);
+                    Check(infoCorners[2].y <= barCorners[0].y - 1 && infoCorners[0].y >= 0,
+                        "Tutorial explanation stays below the top bar and above the screen bottom: " + beat.id);
                 }
                 if(beat.id=="lesson-026" || beat.id=="lesson-041" || beat.id=="intro-026" || beat.id=="intro-070")
                 { var cap=Await(Capture("polish-"+beat.id)); while(cap.MoveNext())yield return null; }
@@ -360,6 +365,9 @@ namespace TakeOver.Story.Editor
                 }
                 else if(beat.goal==StoryGoal.BuyShares || beat.goal==StoryGoal.BuyMore || beat.goal==StoryGoal.SellShares)
                 {
+                    Check(!detail.IsTutorialPreview && detail.gameObject.activeInHierarchy &&
+                        detail.GetComponentsInChildren<Button>(true).Where(b => b.name == "BuyButton" || b.name == "SellButton").All(b => b.interactable),
+                        "Trading lessons keep the original interactive company panel: " + beat.id);
                     Canvas.ForceUpdateCanvases();
                     var panelCorners=new Vector3[4]; var windowCorners=new Vector3[4];
                     director.View.InformationRect.GetWorldCorners(panelCorners);
@@ -435,9 +443,26 @@ namespace TakeOver.Story.Editor
                 }
                 else if(beat.goal==StoryGoal.ViewCompany || beat.goal==StoryGoal.CompareCompany || beat.goal==StoryGoal.ViewStake)
                 {
-                    Check(detail.gameObject.activeInHierarchy && detail.current.definition.companyID==(string.IsNullOrEmpty(beat.companyId)?StoryDirector.CompanyId:beat.companyId),"Mandatory company comparison/holdings view uses target company: "+beat.id);
-                    Check(!trading.buyShares(detail.current,1) && !trading.sellShares(detail.current,1),"Information review cannot accidentally trade");
-                    var cap=Await(Capture(beat.goal==StoryGoal.CompareCompany?"14-company-comparison":"14-company-metrics"));while(cap.MoveNext())yield return null;
+                    var reading = Object.FindObjectsByType<CompanyDetailPanel>(FindObjectsSortMode.None).Single(panel => panel.IsTutorialPreview);
+                    Check(reading.gameObject.activeInHierarchy && reading.current.definition.companyID==(string.IsNullOrEmpty(beat.companyId)?StoryDirector.CompanyId:beat.companyId),"Mandatory company comparison/holdings view uses target company: "+beat.id);
+                    Check(!trading.buyShares(reading.current,1) && !trading.sellShares(reading.current,1),"Information review cannot accidentally trade");
+                    {
+                        Check(reading != detail && !detail.gameObject.activeInHierarchy, "Only the copied financial statement is shown: " + beat.id);
+                        var tradeButtons = reading.GetComponentsInChildren<Button>(true).Where(b => b.name == "BuyButton" || b.name == "SellButton").ToArray();
+                        Check(tradeButtons.Length == 2 && tradeButtons.All(b => !b.interactable && b.onClick.GetPersistentEventCount() == 0),
+                            "Preview buy/sell controls are visibly disabled and disconnected: " + beat.id);
+                        var labels = tradeButtons.SelectMany(b => b.GetComponentsInChildren<Graphic>(true)).Where(g => g is TMPro.TMP_Text || g is Text).ToArray();
+                        Check(labels.Length >= 2 && labels.All(t =>
+                            Mathf.Abs(t.color.r - t.color.g) < .001f && Mathf.Abs(t.color.g - t.color.b) < .001f && t.color.a < 1),
+                            "Preview buy/sell labels use the shared light-gray disabled color: " + beat.id);
+                        Check(!reading.GetComponentInChildren<TMPro.TMP_InputField>(true).interactable, "Preview quantity input is read-only: " + beat.id);
+                        float unchangedCash = player.state.cash, unchangedShares = reading.current.state.getStat(CompanyStat.PLAYER_SHARES);
+                        foreach (var button in tradeButtons) button.onClick.Invoke();
+                        reading.buy(); reading.sell();
+                        Check(player.state.cash == unchangedCash && reading.current.state.getStat(CompanyStat.PLAYER_SHARES) == unchangedShares,
+                            "Preview callbacks and direct trade methods cannot change cash or holdings: " + beat.id);
+                    }
+                    var cap=Await(Capture(beat.goal==StoryGoal.ViewStake ? "14-holdings-" + beat.id : beat.goal==StoryGoal.CompareCompany?"14-company-comparison":"14-company-metrics"));while(cap.MoveNext())yield return null;
                     Click(Named(director.transform,"Confirm profile"));
                 }
                 else if(beat.goal==StoryGoal.ViewRepresentative || beat.goal==StoryGoal.ViewMemory || beat.goal==StoryGoal.ViewEventMemory)
@@ -447,13 +472,20 @@ namespace TakeOver.Story.Editor
                     string target = beat.goal == StoryGoal.ViewRepresentative ? StoryDirector.Representative
                         : beat.goal == StoryGoal.ViewMemory ? StoryDirector.FieldDirector : StoryDirector.TutorialContact;
                     Check(status.SelectedNpcId == target, "Profile shows the tutorial NPC: " + target);
-                    var detailText = profile.transform.Find("RightProfileCard/Profile details/DescriptionText").GetComponent<TMPro.TMP_Text>();
+                    var detailText = profile.GetComponentsInChildren<TMPro.TMP_Text>().Single(text => text.name == "DescriptionText");
                     Check(detailText.text.Contains("기억") && detailText.text.Contains("호불호 단서"), "Profile exposes memory and preferences");
                     var other = profile.GetComponentsInChildren<NpcListItemView>()
                         .First(item => item.GetComponentsInChildren<TMPro.TMP_Text>().Any(label => label.text == "윤하진"));
-                    Click(other.GetComponent<Button>() ?? other.GetComponentInChildren<Button>());
-                    Check(status.SelectedNpcId == "npc-broker-yoon-hajin", "Tutorial layer allows native profile clicks");
-                    status.SelectNpc(target);
+                    var rows = profile.GetComponentsInChildren<NpcListItemView>();
+                    Check(rows.Count(row => row.GetComponent<Button>().IsInteractable()) == 1,
+                        "Only the tutorial target NPC is interactable: " + beat.id);
+                    Check(rows.Where(row => !row.GetComponent<Button>().IsInteractable()).All(row => row.GetComponent<CanvasGroup>().alpha < .5f),
+                        "Other NPC buttons are visibly faded gray: " + beat.id);
+                    other.GetComponent<Button>().onClick.Invoke(); status.SelectNpc("npc-broker-yoon-hajin");
+                    Check(status.SelectedNpcId == target, "Disabled NPC callbacks and direct selection cannot change the tutorial target: " + beat.id);
+                    Canvas.ForceUpdateCanvases();
+                    Check(profile.GetComponent<RectMask2D>().isActiveAndEnabled && profile.GetComponentsInChildren<Image>().Single(image => image.name == "StandingIllustration").canvasRenderer.hasRectClipping,
+                        "Tutorial standing illustration is clipped to its profile window: " + beat.id);
                     if (beat.goal != StoryGoal.ViewRepresentative) status.FocusMemories();
                     if(beat.goal==StoryGoal.ViewMemory)
                     {
@@ -600,6 +632,12 @@ namespace TakeOver.Story.Editor
             {
                 Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b => b.name == "Confirm help notice"));
                 yield return null;
+                var navigation = Object.FindFirstObjectByType<TopBarNavigationController>();
+                navigation.Navigate(DashboardTab.Npcs); yield return null; yield return null;
+                var restoredProfile = Object.FindFirstObjectByType<NpcProfilePanelView>();
+                Check(restoredProfile.GetComponentsInChildren<NpcListItemView>().All(row => row.GetComponent<Button>().IsInteractable()) &&
+                    !restoredProfile.GetComponent<RectMask2D>().enabled, "All NPC buttons and normal standing framing are restored after tutorial completion");
+                navigation.Navigate(DashboardTab.Home); yield return null;
                 var home = Await(Capture("home-after-tutorial")); while (home.MoveNext()) yield return null;
                 var operations = VerifyOperations(); while (operations.MoveNext()) yield return null;
             }

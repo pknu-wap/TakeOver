@@ -79,7 +79,7 @@ MonoBehaviour:
       displayName: "\uAE40\uC131\uD638"
       role: CEO
       affiliation: "\uB300\uC131\uC0B0\uC5C5"
-      personalitySummary: "김성호는 대성산업의 공장이 매일 돌아가는 것 자체가 경영의 성과라고 여긴다. 오랫동안 지켜온 공급망이 자랑인 만큼, 자신의 방식이 그룹의 요구와 어디에서 갈라지는지는 좀처럼 말하지 않는다."
+      personalitySummary: "대성산업의 공장이 매일 돌아가는 것 자체를 경영의 성과로 여긴다. 오랫동안 지켜온 공급망이 자랑인 만큼, 자신의 방식이 그룹의 요구와 어디에서 갈라지는지는 좀처럼 말하지 않는다."
       gameplayRoleSummary: "현장 인력과 주요 설비를 어떻게 지킬지 설명한 상대에게는 먼저 운영 계획을 묻는다. 지분을 확보하자마자 납품처를 바꾸거나 공장을 담보로 내놓으라는 사람에게는 회의 시간을 내주지 않는다."
       anyEventRelationDelta:
         trust: 0

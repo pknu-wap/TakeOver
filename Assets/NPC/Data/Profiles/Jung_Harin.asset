@@ -67,7 +67,7 @@ MonoBehaviour:
       displayName: "\uC815\uD558\uB9B0"
       role: "\uC218\uC11D\uACFC\uD559\uC790"
       affiliation: "\uC624\uB85C\uB77C\uD478\uB4DC\uD14C\uD06C"
-      personalitySummary: "정하린의 연구실에서는 성공한 실험 옆에 실패한 실험 노트도 그대로 꽂혀 있다. 누구보다 기술이 제품이 되기를 바라지만, 한계가 빠진 발표 자료에 연구팀의 이름이 올라가는 순간만큼은 오래 묵묵해진다."
+      personalitySummary: "성공한 실험뿐 아니라 실패한 실험 노트도 연구실에 그대로 보관한다. 누구보다 기술이 제품이 되기를 바라지만, 한계가 빠진 발표 자료에 연구팀의 이름이 올라가는 순간만큼은 오래 묵묵해진다."
       gameplayRoleSummary: "같은 조건에서 결과를 다시 확인하고 특허와 출시 책임을 분명히 하는 일에는 협조한다. 효능을 부풀리거나 실험 노트를 바꾸자는 요구가 들어오면 일정이 밀리더라도 원본부터 지킨다."
       anyEventRelationDelta:
         trust: 0

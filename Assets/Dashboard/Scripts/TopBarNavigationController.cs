@@ -21,6 +21,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
     [SerializeField] private GameObject operationsSelection;
     [SerializeField] private TMPro.TMP_Text operationsLabel;
     private int currentTab;
+    public DashboardTab CurrentTab => tabKinds[currentTab];
     private TakeOver.Help.HelpScreen help;
     private int helpTab;
     public void OpenHelp() => onTabClicked(helpTab);
@@ -42,6 +43,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
         if (label != null) label.text = "도움말";
         var legacy = helpButton.GetComponentInChildren<Text>();
         if (legacy != null) legacy.text = "도움말";
+        TakeOver.UI.ButtonHoverFeedback.Attach(helpButton);
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)source.transform.parent);
         helpTab = tabButtons.Length;
         System.Array.Resize(ref tabButtons, helpTab + 1);

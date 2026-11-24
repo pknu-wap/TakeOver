@@ -78,7 +78,7 @@ MonoBehaviour:
       displayName: "\uC11C\uC720\uC9C4"
       role: CEO
       affiliation: "\uBE14\uB8E8\uD558\uBC84\uB9AC\uD14C\uC77C"
-      personalitySummary: "서유진은 매장 보고서에 이익률과 고객 불만을 나란히 적어 둔다. 오랫동안 쌓아온 판매망에 자신이 있지만, 계열사 제품에 좋은 자리를 내주는 일을 다른 입점사에 설명할 때면 말이 길어진다."
+      personalitySummary: "매장 보고서에 이익률과 고객 불만을 나란히 적어 둔다. 오랫동안 쌓아온 판매망에 자신이 있지만, 계열사 제품에 좋은 자리를 내주는 일을 다른 입점사에 설명할 때면 말이 길어진다."
       gameplayRoleSummary: "품질과 납품 일정이 검증된 제품이라면 경쟁사의 것이라도 거래할 수 있다. 고객 정보를 사고팔거나 사적인 대가로 진열 자리를 바꾸라는 제안에는 협상 문을 닫는다."
       anyEventRelationDelta:
         trust: 0
