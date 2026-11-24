@@ -54,6 +54,6 @@ public class MarketEventNews : MonoBehaviour
         }
         string targets = isAllCompanies ? "전체 기업" : companyNames.Count > 0 ? string.Join(", ", companyNames) : "관련 기업";
         string description = entry.definition.description?.Replace("{targetCompany}", targets);
-        newsFeed.addNews(currentTurn, entry.definition.MarketEventName, companyIDs, description);
+        newsFeed.addNews(currentTurn, entry.definition.MarketEventName, companyIDs, description, entry.definition.MarketEventID);
     }
 }

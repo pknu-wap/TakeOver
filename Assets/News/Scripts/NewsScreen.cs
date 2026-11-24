@@ -162,7 +162,8 @@ public class NewsScreen : MonoBehaviour
             NewsEntry entry = entries[i];
             if (entry.turn != selectedTurn) continue;
 
-            newsCards[cardIndex].setup(entry.title, getCompanyNames(entry), entry.description);
+            Sprite thumbnailSprite = NewsImageLookup.getSprite(entry);
+            newsCards[cardIndex].setup(entry.title, getCompanyNames(entry), entry.description, thumbnailSprite: thumbnailSprite);
             newsCards[cardIndex].gameObject.SetActive(true);
             cardIndex++;
         }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class NewsEntry
 {
     public int turn;
+    public int marketEventID;
     public string title;
     public string description;
     public List<string> companyIDs = new List<string>();
