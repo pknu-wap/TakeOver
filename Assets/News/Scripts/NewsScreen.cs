@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class NewsScreen : MonoBehaviour
 {
+    private const float cardWidth = 350f;
+    private const float hoveredCardWidth = 470f;
+    private const float cardHeight = 600f;
+
     [SerializeField] private NewsFeed feed;
     [SerializeField] private GameObject cardsRoot;
     [SerializeField] private GameObject secretNewsPlaceholder;
@@ -30,6 +34,7 @@ public class NewsScreen : MonoBehaviour
 
     private GameTurnClock turnClock;
     private Companies companies;
+    private UnityEngine.UI.HorizontalLayoutGroup cardsLayout;
     private int selectedTurn;
     private int latestTurn;
     private bool isSecretNews;
@@ -47,19 +52,7 @@ public class NewsScreen : MonoBehaviour
         secretTabButton.onClick.AddListener(showSecretNews);
         nextDateButton.onClick.AddListener(showNextDate);
         previousDateButton.onClick.AddListener(showPreviousDate);
-        var layout = cardsRoot.GetComponent<HorizontalLayoutGroup>();
-        if (layout != null && newsCards.Length > 0)
-        {
-            float width = Mathf.Min(320, (((RectTransform)cardsRoot.transform).rect.width - layout.spacing * (newsCards.Length - 1)) / newsCards.Length);
-            layout.childForceExpandWidth = false;
-            layout.childAlignment = TextAnchor.MiddleCenter;
-            foreach (var card in newsCards)
-            {
-                var size = card.GetComponent<LayoutElement>() ?? card.gameObject.AddComponent<LayoutElement>();
-                size.minWidth = size.preferredWidth = Mathf.Max(160, width);
-                size.flexibleWidth = 0;
-            }
-        }
+        cardsLayout = cardsRoot.GetComponent<UnityEngine.UI.HorizontalLayoutGroup>();
     }
 
     private void OnDestroy()
@@ -69,7 +62,31 @@ public class NewsScreen : MonoBehaviour
 
     private void OnEnable()
     {
+        updateCardSizes();
         handleNewsChanged();
+    }
+
+    private void OnRectTransformDimensionsChange()
+    {
+        if (cardsLayout != null && isActiveAndEnabled) updateCardSizes();
+    }
+
+    private void updateCardSizes()
+    {
+        int gaps = newsCards.Length - 1;
+        Rect area = ((RectTransform)cardsRoot.transform).rect;
+        float availableWidth = area.width - cardsLayout.padding.horizontal - cardsLayout.spacing * gaps;
+        float availableHeight = area.height - cardsLayout.padding.vertical;
+        float designRowWidth = cardWidth * gaps + hoveredCardWidth;
+        float scale = Mathf.Max(0f, Mathf.Min(availableWidth / designRowWidth, availableHeight / cardHeight));
+        float normalWidth = cardWidth * scale;
+        float hoveredWidth = hoveredCardWidth * scale;
+        float height = cardHeight * scale;
+
+        foreach (NewsRow card in newsCards)
+        {
+            card.setSize(normalWidth, hoveredWidth, height);
+        }
     }
 
     public void open()
@@ -138,8 +155,6 @@ public class NewsScreen : MonoBehaviour
         secretNewsPlaceholder.SetActive(isSecretNews);
         if (isSecretNews) return;
 
-        foreach (NewsRow card in newsCards) card.gameObject.SetActive(false);
-
         int cardIndex = 0;
         IReadOnlyList<NewsEntry> entries = feed.Entries;
         for (int i = entries.Count - 1; i >= 0 && cardIndex < newsCards.Length; i--)
@@ -147,14 +162,19 @@ public class NewsScreen : MonoBehaviour
             NewsEntry entry = entries[i];
             if (entry.turn != selectedTurn) continue;
 
-            newsCards[cardIndex].gameObject.SetActive(true);
             newsCards[cardIndex].setup(entry.title, getCompanyNames(entry), entry.description);
+            newsCards[cardIndex].gameObject.SetActive(true);
             cardIndex++;
         }
         if (cardIndex == 0 && newsCards.Length > 0)
         {
+            newsCards[0].setup("", "", "이 날짜에는 뉴스가 없습니다.", hasNews: false);
             newsCards[0].gameObject.SetActive(true);
-            newsCards[0].setup("", "", "이 날짜에는 뉴스가 없습니다.");
+            cardIndex++;
+        }
+        for (; cardIndex < newsCards.Length; cardIndex++)
+        {
+            newsCards[cardIndex].gameObject.SetActive(false);
         }
     }
 
