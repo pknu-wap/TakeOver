@@ -23,3 +23,28 @@ MonoBehaviour:
   historyLimit: 20
   supportRequestDeadlineTurns: 7
   supportRequestRetryTurns: 7
+  agendaDeadlineTurns: 7
+  facilityLiquidityThreshold: 2
+  facilityInvestmentRatios:
+  - 0.2
+  - 0.4
+  - 0.6
+  facilityDelayTurns: 14
+  facilityDurationTurns: 21
+  facilityGrowthCoefficient: 0.025
+  facilityEffectThresholds:
+  - 0.02
+  - 0.04
+  restructuringLossWeeks: 3
+  restructuringEmployeeRatios:
+  - 0.1
+  - 0.2
+  - 0.3
+  restructuringReputationLosses:
+  - 2
+  - 5
+  - 10
+  restructuringSavingThresholds:
+  - 0.02
+  - 0.04
+  restructuringReputationThreshold: 7

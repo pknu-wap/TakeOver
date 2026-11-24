@@ -22,6 +22,9 @@ namespace TakeOver.Documents
             clock = FindFirstObjectByType<GameTurnClock>();
             Inbox = new DocumentInbox(new ChangeApplier(player), clock, settings.historyLimit);
             sources = new List<IDocumentSource> { new DividendPolicySource(companies, settings) };
+            var acquisitionOperations = FindFirstObjectByType<AcquisitionOperationsService>();
+            if (acquisitionOperations != null)
+                sources.Add(new AcquisitionAgendaSource(companies, acquisitionOperations, clock, runner.performancePeriodTurns));
 
             StartupSystem startupSystem = FindFirstObjectByType<StartupSystem>();
             if (startupSystem != null)

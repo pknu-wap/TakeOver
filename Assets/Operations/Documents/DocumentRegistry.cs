@@ -10,6 +10,8 @@ namespace TakeOver.Documents
             = new Dictionary<string, Func<DocumentSaveRecord, DocumentContext, IApprovalDocument>>
             {
                 { DividendPolicyDocument.typeId, DividendPolicyDocument.CreateFromSaveRecord },
+                { FacilityInvestmentDocument.typeId, FacilityInvestmentDocument.Restore },
+                { RestructuringDocument.typeId, RestructuringDocument.Restore },
                 { SampleChoiceDocument.typeId, (record, context) => new SampleChoiceDocument(record.deadlineTurn) },
                 { StartupFundingDocument.typeId, StartupFundingDocument.restore },
                 { StartupFollowUpDocument.typeId, StartupFollowUpDocument.restore },

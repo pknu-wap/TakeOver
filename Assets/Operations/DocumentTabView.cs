@@ -90,7 +90,7 @@ namespace TakeOver.Operations
                     else due = resolved != null ? "완료" : "새 보고";
                     var card = Instantiate(rowTemplate, listRoot, false);
                     card.gameObject.SetActive(true);
-                    string heading = doc is DividendPolicyDocument
+                    string heading = doc is DividendPolicyDocument || doc is AcquisitionAgendaDocument
                         ? $"{doc.Title} · {approval.TargetCompany.definition.companyName}" : doc.Title;
                     card.Bind(heading, string.IsNullOrEmpty(doc.Author)
                         ? approval?.TargetCompany?.definition.companyName ?? "대상 없음" : doc.Author,

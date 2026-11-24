@@ -6,7 +6,7 @@ namespace TakeOver.CompanyRules
     public sealed class PerformanceRule : ICompanyRule
     {
         private readonly CompanyRuleSettings.PerformanceSettings settings;
-        // 회사별 추가 성장률. 스타트업용 규칙에만 시설 투자 보너스를 연결하고, 상장 기업용 규칙은 null이라 0이다.
+        // 회사별 추가 성장률. 시장 기업과 스타트업의 투자 기록은 각각의 서비스에서 읽는다.
         private readonly Func<Company, int, float> extraGrowth;
         private readonly Func<Company, float> costReduction;
         public int PeriodTurns => settings.periodTurns;
