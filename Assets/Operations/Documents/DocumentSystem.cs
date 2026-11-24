@@ -68,9 +68,11 @@ namespace TakeOver.Documents
             Inbox.Add(new SampleChoiceDocument(clock.CurrentTurn + 7));
         }
 
+        public const string OverdueBlockReason = "기한이 지난 결재 문서가 있습니다";
+
         public bool IsBlocking(out string reason)
         {
-            reason = "기한이 지난 결재 문서가 있습니다";
+            reason = OverdueBlockReason;
             return Inbox.HasOverdue(clock.CurrentTurn);
         }
     }
