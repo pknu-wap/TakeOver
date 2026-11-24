@@ -21,8 +21,8 @@ namespace TakeOver.Documents
         public int DeadlineTurn { get; }
         public string BodyId => "generic";
         public string DedupKey => TargetCompany.definition.companyID;
-        public string Title => "후속 투자";
-        public string Author => "";
+        public string Title => "후속 투자 승인 요청";
+        public string Author => $"{TargetCompany.definition.companyName} 대표";
         public string ApproveLabel => "";
         public string RejectLabel => "";
         public string DoneLabel => "";
@@ -34,6 +34,7 @@ namespace TakeOver.Documents
         {
             new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
             new DocumentInfo("투자금", $"{Amount:N0}원"),
+            new DocumentInfo("기업가치", $"{companyValue():N0}원"),
             new DocumentInfo("내 지분", resolvedStakeText ?? stakeText())
         };
 
@@ -42,12 +43,7 @@ namespace TakeOver.Documents
             return $"{stakePercent(TargetCompany.state.totalShares):0.##}% → {stakePercent(newTotalShares()):0.##}%";
         }
 
-        public IReadOnlyList<string> BodyLines => new[]
-        {
-            $"{TargetCompany.definition.companyName}이(가) {Amount:N0}원의 후속 투자를 받으려 합니다.",
-            "승인하면 회사 현금이 늘고, 새 주식이 발행되어 내 지분율이 낮아집니다.",
-            "내 주식 수와 보유 현금은 바뀌지 않습니다."
-        };
+        public IReadOnlyList<string> BodyLines => Array.Empty<string>();
 
         public IReadOnlyList<DocumentField> Fields => Array.Empty<DocumentField>();
         public IReadOnlyList<DocumentChoiceField> ChoiceFields => Array.Empty<DocumentChoiceField>();

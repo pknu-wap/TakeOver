@@ -31,6 +31,7 @@ namespace TakeOver.Documents
             foreach (var record in data.records)
             {
                 if (record == null || string.IsNullOrWhiteSpace(record.type) || record.arrival < 1 || !arrivals.Add(record.arrival) ||
+                    record.arrivalTurn < 0 || record.arrivalTurn > day.day ||
                     record.fields == null || record.fields.Any(field => string.IsNullOrWhiteSpace(field.name) || float.IsNaN(field.value) || float.IsInfinity(field.value)) ||
                     record.resolved && (record.resolvedTurn < 1 || record.resolvedTurn > day.day) ||
                     record.snapshot && (record.infoRows == null || string.IsNullOrWhiteSpace(record.title)) ||
@@ -56,7 +57,8 @@ namespace TakeOver.Documents
                 probeRecords.Add(record);
             }
             var probe = new DocumentInbox(new ChangeApplier(FindFirstObjectByType<Player>()), clock, settings.historyLimit);
-            probe.RestoreFrom(probeRecords, documentRegistry, new DocumentContext(companies, settings));
+            probe.RestoreFrom(probeRecords, documentRegistry, new DocumentContext(companies, settings,
+                clock: clock, acquisitionOperations: FindFirstObjectByType<AcquisitionOperationsService>()));
             preparedDocuments = data;
         }
 
@@ -81,6 +83,8 @@ namespace TakeOver.Documents
                         or StartupBusinessPlanDocument.marketingName or StartupBusinessPlanDocument.stanceName
                         or StartupBusinessPlanDocument.facilityName,
                     SupportRequestDocument.typeId => field.name is "employee" or "cancelled",
+                    FacilityInvestmentDocument.typeId or RestructuringDocument.typeId => field.name == AcquisitionAgendaDocument.scaleName
+                        && field.value >= 0f && field.value <= 2f && field.value == Mathf.Floor(field.value),
                     _ => false
                 };
                 if (!recognized) throw new InvalidDataException("스타트업 문서의 입력 항목이 올바르지 않습니다.");
@@ -89,7 +93,8 @@ namespace TakeOver.Documents
         public void applyLoad() { }
         public void rebuildAfterLoad()
         {
-            Inbox.RestoreFrom(preparedDocuments.records, documentRegistry, new DocumentContext(FindFirstObjectByType<Companies>(), settings));
+            Inbox.RestoreFrom(preparedDocuments.records, documentRegistry, new DocumentContext(FindFirstObjectByType<Companies>(), settings,
+                clock: clock, acquisitionOperations: FindFirstObjectByType<AcquisitionOperationsService>()));
             preparedDocuments = null;
         }
         public bool TryCreateLegacySection(int version, out SaveSectionData section)

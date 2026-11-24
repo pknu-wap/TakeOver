@@ -38,15 +38,12 @@ namespace TakeOver.Documents
 
                 if (!meetsListing(startup, settings)) continue;
                 record.listingTurn = turn + 1;
-                inbox.Add(new SnapshotDocument(reportTypeId, "상장 추진 보고서",
+                inbox.Add(new SnapshotDocument(reportTypeId, "상장 확정 보고",
                     $"{startup.definition.companyName} 대표", new[]
                     {
-                        new DocumentInfo("보고일", $"{turn}일"),
-                        new DocumentInfo("회사", startup.definition.companyName),
+                        new DocumentInfo("대상 회사", startup.definition.companyName),
                         new DocumentInfo("업종", startup.definition.industry),
-                        new DocumentInfo("내용", "상장 조건을 만족하여 다음 날 상장합니다"),
-                        new DocumentInfo("상장 예정일", $"{record.listingTurn}일"),
-                        new DocumentInfo("현재 매출", $"{startup.state.getBaseStat(CompanyStat.REVENUE):N0}"),
+                        new DocumentInfo("내용", "다음 날 상장"),
                         new DocumentInfo("현재 기업가치", $"{startup.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE):N0}"),
                         new DocumentInfo("내 지분", $"{stakePercent(startup):0.##}%")
                     }, startup.definition.companyID));

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TakeOver.Employees;
 using TakeOver.NPC;
 using TakeOver.Startups;
 using UnityEngine;
@@ -30,10 +32,11 @@ namespace TakeOver.Operations
         [Tooltip("글꼴을 빌려 오고 빈 상태 문구를 적을 글자. 비워 두면 이 오브젝트 아래의 첫 Text('준비 중')를 쓴다.")]
         [FormerlySerializedAs("listText")]
         [SerializeField] private Text templateText;
-        [SerializeField] private string emptyMessage = "스타트업이 없습니다";
+        [SerializeField] private string emptyMessage = "계약한 스타트업이 없습니다.";
 
         private Companies companies;
         private StartupSystem startupSystem;
+        private JobService jobs;
         private GameTurnClock turnClock;
         private bool built;
         private Company selected;
@@ -44,6 +47,7 @@ namespace TakeOver.Operations
 
         private Text titleText;
         private Text stakeText;
+        private Text supportText;
         private readonly Text[] metricValues = new Text[MetricLabels.Length];
         private StartupLineGraph graph;
         private Text graphStartLabel;
@@ -105,7 +109,8 @@ namespace TakeOver.Operations
         {
             if (!built) return;
 
-            IReadOnlyList<Company> startups = companies != null ? companies.StartupList : null;
+            IReadOnlyList<Company> startups = companies != null ? companies.StartupList
+                .Where(company => company.state.getBaseStat(CompanyStat.PLAYER_SHARES) > 0f).ToList() : null;
             bool empty = startups == null || startups.Count == 0;
             contentRoot.gameObject.SetActive(!empty);
             templateText.gameObject.SetActive(empty);
@@ -152,6 +157,8 @@ namespace TakeOver.Operations
         {
             titleText.text = $"{startup.definition.companyName} · {startup.definition.industry}";
             stakeText.text = $"플레이어 지분 {CompanyUIUtil.getDerived(startup, CompanyDerivedStat.STAKE):0.#}%";
+            string names = jobs != null ? jobs.SupportEmployeeNamesFor(startup) : "";
+            supportText.text = $"파견 직원: {(string.IsNullOrEmpty(names) ? "없음" : names)}";
 
             metricValues[0].text = $"{CompanyUIUtil.getDerived(startup, CompanyDerivedStat.FUNDAMENTAL_VALUE):N0}";
             metricValues[1].text = $"{CompanyUIUtil.getStat(startup, CompanyStat.CASH):N0}";
@@ -176,6 +183,7 @@ namespace TakeOver.Operations
 
         private void build()
         {
+            jobs = FindFirstObjectByType<JobService>();
             contentRoot = makeRect("Startup content", transform);
             stretch(contentRoot, 0f, 0f, 0f, 0f);
 
@@ -285,6 +293,9 @@ namespace TakeOver.Operations
 
             int metricLines = (MetricLabels.Length + 1) / 2;
             float chartTop = MetricTop + metricLines * (MetricHeight + MetricGap) + 8f;
+            supportText = makeText("Support employees", panel, 15, Muted, TextAnchor.MiddleLeft);
+            topRow(supportText.rectTransform, chartTop, 24f, Pad, Pad);
+            chartTop += 32f;
             RectTransform chart = makeRect("Revenue chart", panel);
             stretch(chart, Pad, Pad, Pad, chartTop);
 

@@ -20,12 +20,7 @@ public class CalendarController : MonoBehaviour
     [SerializeField] private Color sundayColor = new Color(0.9f, 0.3f, 0.3f);
     [SerializeField] private Color saturdayColor = new Color(0.4f, 0.6f, 1f);
 
-    [Header("Start Date (DayPanel과 같은 값)")]
-    [SerializeField] private int startYear = 2026;
-    [SerializeField] private int startMonth = 1;
-    [SerializeField] private int startDay = 1;
-
-    private DateTime currentDate = new DateTime(2026, 1, 1);
+    private DateTime currentDate = GameCalendar.DateOf(1);
     private GameTurnClock turnClock;
 
     private void OnEnable()
@@ -61,17 +56,16 @@ public class CalendarController : MonoBehaviour
             if (dateTitleText != null && dayCountText.font != dateTitleText.font) dayCountText.font = dateTitleText.font;
             dayCountText.text = $"{turn}일째";
         }
-        UpdateCalendarUI(new DateTime(startYear, startMonth, startDay).AddDays(turn - 1));
+        UpdateCalendarUI(GameCalendar.DateOf(turn));
     }
 
     public void UpdateCalendarUI(DateTime targetDate)
     {
         currentDate = targetDate;
 
-        string dayOfWeekKorean = GetKoreanDayOfWeek(currentDate.DayOfWeek);
         if (dateTitleText != null)
         {
-            dateTitleText.text = $"{currentDate:yyyy.MM.dd} ({dayOfWeekKorean})";
+            dateTitleText.text = GameCalendar.Format(currentDate);
         }
 
         int diffToSunday = (int)currentDate.DayOfWeek;
@@ -112,18 +106,4 @@ public class CalendarController : MonoBehaviour
         }
     }
 
-    private string GetKoreanDayOfWeek(DayOfWeek dayOfWeek)
-    {
-        return dayOfWeek switch
-        {
-            DayOfWeek.Sunday => "일",
-            DayOfWeek.Monday => "월",
-            DayOfWeek.Tuesday => "화",
-            DayOfWeek.Wednesday => "수",
-            DayOfWeek.Thursday => "목",
-            DayOfWeek.Friday => "금",
-            DayOfWeek.Saturday => "토",
-            _ => ""
-        };
-    }
 }

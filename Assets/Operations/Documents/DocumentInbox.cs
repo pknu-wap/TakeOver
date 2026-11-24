@@ -13,6 +13,7 @@ namespace TakeOver.Documents
         private readonly List<IDocument> open = new List<IDocument>();
         private readonly List<ResolvedDocument> history = new List<ResolvedDocument>();
         private readonly Dictionary<IDocument, int> arrivals = new Dictionary<IDocument, int>();
+        private readonly Dictionary<IDocument, int> arrivalTurns = new Dictionary<IDocument, int>();
         private int nextArrival = 1;
         private readonly ChangeApplier applier;
         private readonly GameTurnClock clock;
@@ -23,6 +24,7 @@ namespace TakeOver.Documents
         public event Action Changed;
         public event Action<IApprovalDocument, bool> DocumentResolved;
         public int GetArrival(IDocument document) => arrivals[document];
+        public int GetArrivalTurn(IDocument document) => arrivalTurns[document];
 
         public DocumentInbox(ChangeApplier applier, GameTurnClock clock, int historyLimit)
         {
@@ -33,16 +35,17 @@ namespace TakeOver.Documents
 
         public bool Add(IDocument document)
         {
-            return add(document, nextArrival);
+            return add(document, nextArrival, clock.CurrentTurn);
         }
 
-        private bool add(IDocument document, int arrival)
+        private bool add(IDocument document, int arrival, int arrivalTurn)
         {
             if (!string.IsNullOrEmpty(document.DedupKey))
                 foreach (IDocument current in open)
                     if (current.TypeId == document.TypeId && current.DedupKey == document.DedupKey) return false;
             open.Add(document);
             arrivals.Add(document, arrival);
+            arrivalTurns.Add(document, arrivalTurn);
             nextArrival = Math.Max(nextArrival, arrival + 1);
             Debug.Log($"[Documents] Add type={document.TypeId} dedup={document.DedupKey} deadline={(document as IApprovalDocument)?.DeadlineTurn.ToString() ?? "-"}");
             Changed?.Invoke();
@@ -99,6 +102,7 @@ namespace TakeOver.Documents
             {
                 DocumentSaveRecord record = document.ToSaveRecord();
                 record.arrival = arrivals[document];
+                record.arrivalTurn = arrivalTurns[document];
                 records.Add(record);
             }
             foreach (ResolvedDocument entry in history)
@@ -109,6 +113,7 @@ namespace TakeOver.Documents
                 record.approved = entry.approved;
                 record.resolvedTurn = entry.resolvedTurn;
                 record.arrival = arrivals[entry.document];
+                record.arrivalTurn = arrivalTurns[entry.document];
                 records.Add(record);
             }
             return records;
@@ -119,6 +124,7 @@ namespace TakeOver.Documents
             open.Clear();
             history.Clear();
             arrivals.Clear();
+            arrivalTurns.Clear();
             bool legacy = records.All(record => record.arrival == 0);
             nextArrival = legacy || records.Count == 0 ? 1 : records.Max(record => record.arrival) + 1;
             foreach (DocumentSaveRecord record in records.OrderBy(record => record.arrival))
@@ -131,9 +137,10 @@ namespace TakeOver.Documents
                     history.Add(new ResolvedDocument(document, record.approved, record.resolvedTurn,
                         record.fields ?? new List<NameValue>()));
                     arrivals.Add(document, arrival);
+                    arrivalTurns.Add(document, record.arrivalTurn);
                     nextArrival = Math.Max(nextArrival, arrival + 1);
                 }
-                else add(document, arrival);
+                else add(document, arrival, record.arrivalTurn);
             }
             trimHistory();
             Changed?.Invoke();
@@ -144,6 +151,7 @@ namespace TakeOver.Documents
             while (history.Count > historyLimit)
             {
                 arrivals.Remove(history[0].document);
+                arrivalTurns.Remove(history[0].document);
                 history.RemoveAt(0);
             }
         }

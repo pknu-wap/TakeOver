@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TakeOver.CompanyRules;
 using TakeOver.Documents;
+using TakeOver.Employees;
 using TakeOver.Events;
 using TakeOver.NPC;
 using TakeOver.Operations;
@@ -17,6 +18,8 @@ namespace TakeOver.Startups
         private Player player;
         private Marketdata marketData;
         private GameTurnClock clock;
+        private EmployeeService employees;
+        private JobService jobs;
         private EventSystemController events;
         private EventNegotiationView negotiationTemplate;
         private EventNegotiationView negotiation;
@@ -30,6 +33,8 @@ namespace TakeOver.Startups
             player = FindFirstObjectByType<Player>();
             marketData = FindFirstObjectByType<Marketdata>();
             clock = FindFirstObjectByType<GameTurnClock>();
+            employees = FindFirstObjectByType<EmployeeService>();
+            jobs = FindFirstObjectByType<JobService>();
             events = FindFirstObjectByType<EventSystemController>();
             negotiationTemplate = FindFirstObjectByType<EventNegotiationView>(FindObjectsInactive.Include);
             clock.RegisterBlocker(this);
@@ -69,7 +74,7 @@ namespace TakeOver.Startups
             Company company = requests.Dequeue().company;
             if (company == null || !containsStartup(company) || company.state.getStat(CompanyStat.PLAYER_SHARES) > 0f) return;
 
-            contract = new StartupContractDocument(company, player, companies, clock.CurrentTurn);
+            contract = new StartupContractDocument(company, player, companies, clock.CurrentTurn, employees, jobs);
             previousSelection = EventSystem.current.currentSelectedGameObject;
             negotiation = Instantiate(negotiationTemplate, negotiationTemplate.transform.parent, false);
             negotiation.name = "Startup contract negotiation";
@@ -101,20 +106,33 @@ namespace TakeOver.Startups
             negotiation.ContinueButton.gameObject.SetActive(false);
             negotiation.SkipButton.gameObject.SetActive(false);
             if (detail != null) return;
-            detail = Instantiate(contractPrefab, negotiation.transform, false);
+            detail = Instantiate(contractPrefab, negotiation.transform.parent, false);
             detail.name = "Startup investment contract";
-            var source = FindFirstObjectByType<OperationsScreen>(FindObjectsInactive.Include).GetComponentInChildren<DocumentDetailView>(true);
+            var operations = FindFirstObjectByType<OperationsScreen>(FindObjectsInactive.Include);
+            bool operationsActive = operations.gameObject.activeSelf;
+            operations.gameObject.SetActive(true);
+            Canvas.ForceUpdateCanvases();
+            var source = operations.GetComponentInChildren<DocumentDetailView>(true);
             var sourceRect = (RectTransform)source.transform;
             var rect = (RectTransform)detail.transform;
             rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(.5f, .5f);
             rect.anchoredPosition = Vector2.zero;
             rect.sizeDelta = sourceRect.rect.size;
-            float sourceScale = source.GetComponentInParent<Canvas>(true).rootCanvas.scaleFactor;
-            float targetScale = negotiation.GetComponentInParent<Canvas>(true).rootCanvas.scaleFactor;
-            rect.localScale = Vector3.one * (sourceScale / targetScale);
+            Vector3 sourceScale = sourceRect.lossyScale;
+            Vector3 targetScale = rect.parent.lossyScale;
+            rect.localScale = new Vector3(sourceScale.x / targetScale.x, sourceScale.y / targetScale.y, 1f);
+            operations.gameObject.SetActive(operationsActive);
             detail.gameObject.SetActive(true);
             detail.Decided += decide;
-            detail.Show(contract);
+            var overlay = detail.gameObject.AddComponent<Canvas>();
+            overlay.overrideSorting = true;
+            overlay.sortingOrder = 601;
+            detail.gameObject.AddComponent<UnityEngine.UI.GraphicRaycaster>();
+            detail.Show(contract, arrivalTurn: clock.CurrentTurn);
+            negotiation.transform.Find("DialogueBand").gameObject.SetActive(false);
+            var backdrop = negotiation.GetComponent<Canvas>();
+            backdrop.overrideSorting = true;
+            backdrop.sortingOrder = 600;
             detail.GetComponentInChildren<UnityEngine.UI.Button>().Select();
         }
 
@@ -123,8 +141,21 @@ namespace TakeOver.Startups
             if (approved)
             {
                 if (!contract.CanApprove(out _)) return;
-                new ChangeApplier(player).Apply(contract.OnApprove(), contract.TargetCompany);
-                FindFirstObjectByType<StartupSystem>()?.markContracted(contract.TargetCompany, clock.CurrentTurn);
+                Employee staff = contract.SelectedStaff;
+                if (staff != null && (jobs == null || !jobs.AssignSupport(staff, contract.TargetCompany)))
+                {
+                    Debug.LogWarning($"[StartupContract] {staff.Name} 배치에 실패해 계약을 확정하지 않았습니다.", this);
+                    return;
+                }
+                var result = contract.OnApprove();
+                new ChangeApplier(player).Apply(result, contract.TargetCompany);
+                var startupSystem = FindFirstObjectByType<StartupSystem>();
+                if (startupSystem != null)
+                {
+                    startupSystem.markContracted(contract.TargetCompany, clock.CurrentTurn);
+                    if (startupSystem.tryGetRecord(contract.TargetCompany.definition.companyID, out var investmentRecord))
+                        investmentRecord.cumulativeInvestment -= result.playerCash;
+                }
                 contract.TargetCompany.calculator.recalculate(contract.TargetCompany, marketData);
                 var startupTab = FindFirstObjectByType<StartupTabView>();
                 if (startupTab != null) startupTab.refreshAfterInvestment();
@@ -136,6 +167,11 @@ namespace TakeOver.Startups
 
         private void close()
         {
+            if (detail != null)
+            {
+                detail.gameObject.SetActive(false);
+                Destroy(detail.gameObject);
+            }
             if (negotiation != null)
             {
                 negotiation.gameObject.SetActive(false);

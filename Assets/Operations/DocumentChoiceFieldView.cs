@@ -15,6 +15,15 @@ namespace TakeOver.Operations
         [SerializeField] private Text fieldLabel;
         private readonly List<GameObject> options = new List<GameObject>();
 
+        private void Awake()
+        {
+            var canvas = optionsRoot.GetComponent<Canvas>();
+            if (canvas == null) canvas = optionsRoot.AddComponent<Canvas>();
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 700;
+            if (optionsRoot.GetComponent<GraphicRaycaster>() == null) optionsRoot.AddComponent<GraphicRaycaster>();
+        }
+
         public void Bind(IApprovalDocument document, DocumentChoiceField field, bool readOnly, int? value, Action changed)
         {
             clearOptions();

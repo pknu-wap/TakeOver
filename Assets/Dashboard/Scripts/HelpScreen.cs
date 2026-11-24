@@ -38,23 +38,27 @@ namespace TakeOver.Help
             Place(rule, 24, 540, 1184, 2);
             var viewport = new GameObject("Reading viewport", typeof(RectTransform), typeof(Image), typeof(Mask));
             viewport.transform.SetParent(panel.transform, false);
-            Place((RectTransform)viewport.transform, 250, 24, 570, 508);
+            Place((RectTransform)viewport.transform, 250, 170, 570, 340);
             viewport.GetComponent<Mask>().showMaskGraphic = false;
             body.transform.SetParent(viewport.transform, false);
             var rect = body.rectTransform; rect.anchorMin = new Vector2(0,1); rect.anchorMax = Vector2.one; rect.pivot = new Vector2(0,1);
             rect.anchoredPosition = Vector2.zero; rect.sizeDelta = Vector2.zero;
             body.verticalOverflow = VerticalWrapMode.Overflow; body.horizontalOverflow = HorizontalWrapMode.Wrap;
+            body.alignment = TextAnchor.MiddleLeft;
+            var readingLayout = body.gameObject.AddComponent<LayoutElement>(); readingLayout.minHeight = 340;
             var fit = body.gameObject.AddComponent<ContentSizeFitter>(); fit.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
             scroll = viewport.AddComponent<ScrollRect>(); scroll.viewport = (RectTransform)viewport.transform; scroll.content = rect;
             scroll.horizontal = false; scroll.movementType = ScrollRect.MovementType.Clamped; scroll.scrollSensitivity = 30;
             body.raycastTarget = true;
             var picture = new GameObject("Explanation image", typeof(RectTransform), typeof(Image)); picture.transform.SetParent(panel.transform,false);
             photo = picture.GetComponent<Image>(); photo.preserveAspect = true; photo.raycastTarget = false;
-            Place(photo.rectTransform, 846, 170, 360, 340);
+            const float photoLeft = 832;
+            const float photoWidth = 384;
+            Place(photo.rectTransform, photoLeft, 170, photoWidth, 340);
             photo.gameObject.AddComponent<Button>().onClick.AddListener(ShowPhoto);
             photo.raycastTarget=true;
             var caption=Instantiate(heading,panel.transform,false);caption.text="사진 선택: 크게 보기";caption.fontSize=14;
-            Place(caption.rectTransform,846,130,360,30);
+            Place(caption.rectTransform, photoLeft, 130, photoWidth, 30);
             caption.gameObject.name="Photo caption";
             const float topicListTop = 536;
             const float topicListBottom = 24;
@@ -135,11 +139,25 @@ namespace TakeOver.Help
             var rect=(RectTransform)overlay.transform;rect.anchorMin=Vector2.zero;rect.anchorMax=Vector2.one;rect.offsetMin=rect.offsetMax=Vector2.zero;
             overlay.GetComponent<Image>().color=new Color(0,0,0,.96f);
             overlay.AddComponent<Button>().onClick.AddListener(ClosePhoto);
-            var image=new GameObject("Screenshot",typeof(RectTransform),typeof(Image));image.transform.SetParent(overlay.transform,false);
-            image.GetComponent<Image>().sprite=photo.sprite;image.GetComponent<Image>().preserveAspect=true;image.GetComponent<Image>().raycastTarget=false;
-            Place((RectTransform)image.transform,40,82,1200,600);
-            var close=template.CreateActionButton(overlay.transform,"Close enlarged image","닫기",ClosePhoto);
-            Place((RectTransform)close.transform,540,24,200,42);
+            var image = new GameObject("Screenshot", typeof(RectTransform), typeof(UnityEngine.UI.Image));
+            image.transform.SetParent(overlay.transform, false);
+            var screenshot = image.GetComponent<UnityEngine.UI.Image>();
+            screenshot.sprite = photo.sprite;
+            screenshot.preserveAspect = true;
+            screenshot.raycastTarget = false;
+
+            var imageRect = screenshot.rectTransform;
+            imageRect.anchorMin = Vector2.zero;
+            imageRect.anchorMax = Vector2.one;
+            imageRect.pivot = new Vector2(0.5f, 0.5f);
+            imageRect.offsetMin = new Vector2(16, 64);
+            imageRect.offsetMax = new Vector2(-16, -12);
+
+            var close = template.CreateActionButton(overlay.transform, "Close enlarged image", "닫기", ClosePhoto);
+            var closeRect = (RectTransform)close.transform;
+            closeRect.anchorMin = closeRect.anchorMax = closeRect.pivot = new Vector2(0.5f, 0);
+            closeRect.anchoredPosition = new Vector2(0, 12);
+            closeRect.sizeDelta = new Vector2(200, 42);
         }
         private void Introduce()
         {

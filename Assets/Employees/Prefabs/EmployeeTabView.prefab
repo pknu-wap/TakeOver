@@ -1376,7 +1376,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB4F1\uAE09"
+  m_Text: "\uC5F0\uCC28"
 --- !u!1 &984398621444673626
 GameObject:
   m_ObjectHideFlags: 0
@@ -2125,7 +2125,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB4F1\uAE09"
+  m_Text: "\uC5F0\uCC28"
 --- !u!1 &1397763927399202070
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,9 +2219,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Employees.EmployeeTabView
   employeeService: {fileID: 0}
   gameTurnClock: {fileID: 0}
-  employeeCountText: {fileID: 2293034653854634827}
+  actionPointService: {fileID: 0}
+  employeeCountText: {fileID: 0}
   employeeListContent: {fileID: 6012645190465626550}
   employeeRowPrefab: {fileID: 5663904797208595699, guid: 4b97c7842b590b84a8a4c5fa1e0a5cb1, type: 3}
+  emptyEmployeeText: {fileID: 0}
   sortNameButton: {fileID: 5893131689161640684}
   sortGradeButton: {fileID: 1328492780521261091}
   sortAnalysisButton: {fileID: 4616576212874859627}
@@ -2235,12 +2237,15 @@ MonoBehaviour:
   sortAmbitionButton: {fileID: 6050361288462288847}
   sortPotentialButton: {fileID: 1887953696165851459}
   recruitButton: {fileID: 3102994410118621081}
-  recruitButtonText: {fileID: 9157820166004171328}
-  applicantNoticeText: {fileID: 3184629581906095817}
+  recruitButtonText: {fileID: 0}
+  applicantArrivalText: {fileID: 0}
   closeApplicantsButton: {fileID: 7753982019368088429}
   applicantListContent: {fileID: 8719053811795523009}
   applicantRowPrefab: {fileID: 3432945884440035876, guid: 6ca356c14927c744095c5b7a549e1226, type: 3}
+  emptyApplicantText: {fileID: 0}
   detailView: {fileID: 1387889834887676435}
+  debugStatusText: {fileID: 0}
+  debugAdvanceTurnButton: {fileID: 0}
 --- !u!1 &1571764060268601739
 GameObject:
   m_ObjectHideFlags: 0
@@ -6953,38 +6958,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f2cd95a8cd9174cb60b60eb5e29b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.Employees.EmployeeDetailView
-  nameText: {fileID: 1578671343580712027}
-  gradeText: {fileID: 802154436419638733}
+  nameText: {fileID: 0}
+  gradeText: {fileID: 0}
   closeButton: {fileID: 7697386234914584715}
-  salaryText: {fileID: 5117759798676565877}
-  remainingContractText: {fileID: 7851830646676587427}
-  analysisBar:
-    fillImage: {fileID: 4666956187153178313}
-    valueText: {fileID: 6029228402418953265}
-  networkBar:
-    fillImage: {fileID: 520275114759676591}
-    valueText: {fileID: 7652014840003514210}
-  eyeBar:
-    fillImage: {fileID: 2270045770449239344}
-    valueText: {fileID: 187357826565626973}
-  legworkBar:
-    fillImage: {fileID: 3497221433707889099}
-    valueText: {fileID: 6816514284750728537}
-  managementBar:
-    fillImage: {fileID: 3389027092556203906}
-    valueText: {fileID: 2684442349610716268}
-  diligenceBar:
-    fillImage: {fileID: 8217086473854292337}
-    valueText: {fileID: 6641721330009073659}
-  loyaltyBar:
-    fillImage: {fileID: 8295890177102659196}
-    valueText: {fileID: 8730970610014677998}
-  ambitionBar:
-    fillImage: {fileID: 7330370514167462747}
-    valueText: {fileID: 6472248653321165716}
-  potentialValueText: {fileID: 5014829258338853194}
-  severanceText: {fileID: 1293797701450607644}
+  salaryText: {fileID: 0}
+  remainingContractText: {fileID: 0}
+  analysisFill: {fileID: 0}
+  analysisValueText: {fileID: 0}
+  networkFill: {fileID: 0}
+  networkValueText: {fileID: 0}
+  eyeFill: {fileID: 0}
+  eyeValueText: {fileID: 0}
+  legworkFill: {fileID: 0}
+  legworkValueText: {fileID: 0}
+  managementFill: {fileID: 0}
+  managementValueText: {fileID: 0}
+  diligenceFill: {fileID: 0}
+  diligenceValueText: {fileID: 0}
+  loyaltyFill: {fileID: 0}
+  loyaltyValueText: {fileID: 0}
+  ambitionFill: {fileID: 0}
+  ambitionValueText: {fileID: 0}
+  potentialValueText: {fileID: 0}
+  severanceText: {fileID: 0}
   dismissButton: {fileID: 7625611766415811757}
+  jobNameText: {fileID: 0}
+  jobRemainingText: {fileID: 0}
+  appraisalButton: {fileID: 0}
+  discoveryButton: {fileID: 0}
+  clearJobButton: {fileID: 0}
+  appraisalPicker: {fileID: 0}
 --- !u!1 &6274014760134639165
 GameObject:
   m_ObjectHideFlags: 0

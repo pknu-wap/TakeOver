@@ -23,12 +23,16 @@ public sealed class TopBarNavigationController : MonoBehaviour
     private int currentTab;
     private TakeOver.Help.HelpScreen help;
     private int helpTab;
+    public DashboardTab CurrentTab => tabKinds[currentTab];
     public void OpenHelp() => onTabClicked(helpTab);
+    public void OpenCompanies() => Navigate(DashboardTab.Companies);
 
     private void Start()
     {
         if (tabKinds.Length != tabButtons.Length || System.Array.IndexOf(tabKinds, DashboardTab.Home) < 0)
         { Debug.LogError("상단 메뉴 버튼과 화면 식별자 연결을 확인해 주십시오.", this); return; }
+        operationsSelection.SetActive(false);
+        operationsLabel.color = Color.white;
         help = gameObject.AddComponent<TakeOver.Help.HelpScreen>();
         gameObject.AddComponent<TakeOver.Dashboard.StoryDeadlineBar>();
         var source = tabButtons[tabButtons.Length - 1];
@@ -55,14 +59,20 @@ public sealed class TopBarNavigationController : MonoBehaviour
         var dialogueTemplate = FindFirstObjectByType<EventNegotiationView>(FindObjectsInactive.Include);
         if (dialogueTemplate != null)
         {
-            var saves = dialogueTemplate.CreateActionButton(source.transform.parent, "SaveMenuButton", "저장",
-                () => TakeOver.SaveSystem.SaveSlotWindow.Show(dialogueTemplate));
-            var layout = saves.GetComponent<LayoutElement>() ?? saves.gameObject.AddComponent<LayoutElement>();
-            layout.minWidth = layout.preferredWidth = 64;
-            layout.minHeight = layout.preferredHeight = 32;
-            saves.GetComponentInChildren<Text>().fontSize = 18;
-            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)source.transform.parent);
+            var saves = Instantiate(source, source.transform.parent, false);
+            saves.name = "SaveMenuButton";
+            var badge = saves.GetComponent<TakeOver.Operations.DocumentCountBadge>();
+            if (badge != null) badge.Hide();
+            var saveLabel = saves.GetComponentInChildren<TMPro.TMP_Text>();
+            if (saveLabel != null) saveLabel.text = "저장";
+            var saveLegacy = saves.GetComponentInChildren<Text>();
+            if (saveLegacy != null) saveLegacy.text = "저장";
+            saves.onClick.RemoveAllListeners();
+            saves.onClick.AddListener(() => TakeOver.SaveSystem.SaveSlotWindow.Show(dialogueTemplate));
         }
+        var menuLayout = source.transform.parent.GetComponent<HorizontalLayoutGroup>();
+        if (menuLayout != null) menuLayout.spacing = 8f;
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)source.transform.parent);
         for (int i = 0; i < tabButtons.Length; i++)
         {
             int index = i;
@@ -102,7 +112,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
             if (newsScreen != null) newsScreen.close();
             if (journalScreen != null) journalScreen.close();
             browser.close(); statusScreen.Close(); help.Open();
-            currentTab = index; indicator.OnTabClicked(index); operationsSelection.SetActive(false); operationsLabel.color = Color.white; return;
+            currentTab = index; indicator.OnTabClicked(index); return;
         }
         help.Close();
         if ((tab == DashboardTab.News && newsScreen == null) || (tab == DashboardTab.Log && journalScreen == null) || (tab == DashboardTab.Operations && operationsScreen == null))
@@ -153,8 +163,6 @@ public sealed class TopBarNavigationController : MonoBehaviour
         }
         currentTab = index;
         indicator.OnTabClicked(index);
-        operationsSelection.SetActive(tab == DashboardTab.Operations);
-        operationsLabel.color = tab == DashboardTab.Operations ? new Color(1f, .81f, .3f) : Color.white;
     }
 
     private void LateUpdate()

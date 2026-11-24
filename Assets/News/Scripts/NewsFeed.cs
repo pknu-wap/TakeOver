@@ -96,7 +96,7 @@ public partial class NewsFeed : MonoBehaviour
         entries.RemoveAll(entry => entry.turn < newTurn - retainedDayCount + 1);
         if (useDummyNews)
         {
-            addDummyNews(newTurn, dummyRandom.Next(0, 3));
+            addDummyNews(newTurn, dummyRandom.Next(1, 3));
         }
         NewsChanged?.Invoke();
     }

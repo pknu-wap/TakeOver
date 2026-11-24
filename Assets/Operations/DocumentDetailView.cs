@@ -16,6 +16,7 @@ namespace TakeOver.Operations
         [SerializeField] private Text sender;
         [SerializeField] private Text deadline;
         [SerializeField] private Text documentNumber;
+        [SerializeField] private Text arrivalDate;
         [SerializeField] private Text approveLabel;
         [SerializeField] private Text rejectLabel;
         [SerializeField] private GameObject doneButton;
@@ -57,7 +58,7 @@ namespace TakeOver.Operations
         }
 
         // readOnly = 이미 처리한(읽은) 문서. 읽기 전용 문서(approval == null)는 기한·D-day·거절·입력 칸이 없다.
-        public void Show(IDocument doc, ResolvedDocument resolved = null, int arrival = 0)
+        public void Show(IDocument doc, ResolvedDocument resolved = null, int arrival = 0, int arrivalTurn = 0)
         {
             if (document != doc) currentPage = 0;
             document = doc;
@@ -68,6 +69,11 @@ namespace TakeOver.Operations
             errorText.gameObject.SetActive(false);
             title.text = doc.Title;
             documentNumber.text = "NO. " + numberFor(doc, arrival);
+            if (arrivalDate != null)
+            {
+                arrivalDate.gameObject.SetActive(arrivalTurn > 0);
+                arrivalDate.text = arrivalTurn > 0 ? GameCalendar.Format(arrivalTurn) : "";
+            }
             sender.gameObject.SetActive(!string.IsNullOrEmpty(doc.Author));
             sender.text = $"<color=#2C507A>작성자</color> {doc.Author}";
             if (approval != null)
@@ -131,6 +137,10 @@ namespace TakeOver.Operations
             }
             approve.gameObject.SetActive(!readOnly);
             reject.gameObject.SetActive(!readOnly && approval != null);
+            fieldsRoot.SetAsLastSibling();
+            Canvas.ForceUpdateCanvases();
+            var informationScroll = infoRoot.GetComponentInParent<ScrollRect>();
+            if (informationScroll != null) informationScroll.verticalNormalizedPosition = 1f;
         }
 
         // Only called on the tutorial's disposable clone, after Show.
@@ -182,8 +192,9 @@ namespace TakeOver.Operations
             if (resolved != null && !resolved.isReadOnly)
             {
                 addInfo("처리 결과", resolved.approved ? "승인" : "거절");
-                addInfo("처리한 턴", resolved.resolvedTurn.ToString());
+                addInfo("처리일", GameCalendar.Format(resolved.resolvedTurn));
             }
+            fieldsRoot.SetAsLastSibling();
         }
 
         private void configurePages(IDocument doc)
