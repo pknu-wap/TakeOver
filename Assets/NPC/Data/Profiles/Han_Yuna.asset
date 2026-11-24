@@ -68,7 +68,7 @@ MonoBehaviour:
       displayName: "\uD55C\uC720\uB098"
       role: "\uC0AC\uC5C5\uAC1C\uBC1C\uCC45\uC784\uC790"
       affiliation: "\uC624\uB85C\uB77C\uD478\uB4DC\uD14C\uD06C"
-      personalitySummary: "한유나는 연구 성과가 계약서 어디에 적히는지를 살피는 사업개발 책임자다. 기술을 세상에 내놓으려면 유통망이 필요하다고 믿었고, 때로는 기업을 한 거래처에 묶는 조항까지 자기 손으로 써 내려갔다."
+      personalitySummary: "연구 성과가 계약서 어디에 적히는지를 살피며 사업개발을 이끈다. 기술을 세상에 내놓으려면 유통망이 필요하다고 믿었고, 때로는 기업을 한 거래처에 묶는 조항까지 자기 손으로 써 내려갔다."
       gameplayRoleSummary: "실제로 제품을 팔 경로가 있고 기술의 권리와 최소 구매량이 정해진 거래에 관심을 보인다. 시험 생산 한 번으로 모든 특허를 요구하거나 대가 없이 몇 년을 묶어 두려는 제안에는 계약서를 다시 돌려준다."
       anyEventRelationDelta:
         trust: 0

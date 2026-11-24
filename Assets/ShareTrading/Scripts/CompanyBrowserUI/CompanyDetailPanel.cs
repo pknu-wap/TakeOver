@@ -41,6 +41,26 @@ public class CompanyDetailPanel : MonoBehaviour
 
     public Company current { get; private set; }
     public int EnteredQuantity => amountInput != null && int.TryParse(amountInput.text, out int quantity) ? quantity : 0;
+    public bool IsTutorialPreview { get; private set; }
+
+    public CompanyDetailPanel CreateTutorialPreview()
+    {
+        var preview = Instantiate(this, transform.parent, false);
+        preview.name = "Tutorial financial statement";
+        preview.gameObject.SetActive(false);
+        preview.IsTutorialPreview = true;
+        preview.OnTraded = null;
+        if (preview.amountInput != null) preview.amountInput.interactable = false;
+        foreach (var button in preview.GetComponentsInChildren<Button>(true))
+        {
+            if (button.name != "BuyButton" && button.name != "SellButton") continue;
+            button.onClick = new Button.ButtonClickedEvent();
+            button.interactable = false;
+            foreach (var graphic in button.GetComponentsInChildren<Graphic>(true))
+                if (graphic != button.targetGraphic) graphic.color = button.colors.disabledColor;
+        }
+        return preview;
+    }
 
     private ShareTradingSystem tradingSystem;
     private Player player;
@@ -139,6 +159,8 @@ public class CompanyDetailPanel : MonoBehaviour
         canvasGroup.alpha = visible ? 1f : 0f;
         canvasGroup.blocksRaycasts = visible;
         canvasGroup.interactable = visible;
+        if (visible && IsTutorialPreview)
+            foreach (var graphic in GetComponentsInChildren<Graphic>(true)) graphic.SetAllDirty();
     }
 
     // 지금 선택된 회사의 정보로 모든 칸을 다시 채운다.
@@ -220,6 +242,7 @@ public class CompanyDetailPanel : MonoBehaviour
 
     private void trade(bool isBuy)
     {
+        if (IsTutorialPreview) return;
         if (current == null)
         {
             return;   // 선택된 회사가 없으면 아무것도 안 함

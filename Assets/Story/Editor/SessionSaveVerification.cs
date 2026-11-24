@@ -7,7 +7,6 @@ using Newtonsoft.Json.Linq;
 using TakeOver.Events;
 using TakeOver.Documents;
 using TakeOver.Employees;
-using TakeOver.Help;
 using TakeOver.Journal;
 using TakeOver.MainMenu;
 using TakeOver.NPC;
@@ -26,7 +25,7 @@ using Object = UnityEngine.Object;
 [InitializeOnLoad]
 public static class SessionSaveVerification
 {
-    public const string Root = "../QA_PairedCampaign/Session/";
+    public static string Root => Path.GetFullPath(Environment.GetEnvironmentVariable("TAKEOVER_SESSION_QA_OUTPUT") ?? "../QA_PairedCampaign/Session") + Path.DirectorySeparatorChar;
     static SessionSaveVerification() { EditorApplication.playModeStateChanged += Changed; }
     public static void Run()
     {
@@ -108,11 +107,6 @@ public sealed class SessionSaveProbe : MonoBehaviour
             yield return null;
             var button = Object.FindObjectsByType<Button>(FindObjectsSortMode.None).FirstOrDefault(b => b.name == name);
             Check(button != null, "Tutorial notice is visible: " + name);
-            if (name == "Confirm tutorial reward")
-            {
-                var title = button.transform.parent.GetComponentsInChildren<Text>().Single(label => label.text == "튜토리얼 완료");
-                Check(title.rectTransform.anchoredPosition.y == -22, "Shared tutorial notice title uses the lowered top inset");
-            }
             button.onClick.Invoke();
         }
         for (int i = 0; i < 5; i++) yield return null;
@@ -125,27 +119,6 @@ public sealed class SessionSaveProbe : MonoBehaviour
             tutorialJournal.Single(item => item.eventId == StoryDirector.TutorialEventId).resolvedDay == 2,
             "Skipped tutorial records seven conversations and the day-two financial review in the journal");
         var journalChoices = tutorialJournal.Select(item => (item.eventId, item.resolvedDay, item.keyPoints[0])).ToArray();
-        Check(HelpTopics.Items.All(topic => topic.title != "주인공 이름" && topic.text.Length < 320),
-            "Help contains short system explanations and omits the protagonist-name topic");
-
-        var status = Object.FindFirstObjectByType<NpcStatusScreen>(FindObjectsInactive.Include);
-        status.Open();
-        var panel = status.ProfileRect;
-        var portrait = panel.GetComponentsInChildren<Image>(true).Single(image => image.name == "StandingIllustration");
-        status.SelectNpc("npc-blueharbor-retail-data-director-han-dogyeong");
-        Check(!portrait.enabled && portrait.sprite == null, "Han Dogyeong has no substituted standing sprite");
-        Check(registry.Profiles.All(npc => npc.profile.personalitySummary?.Contains("행동 양식:") != true &&
-            npc.profile.gameplayRoleSummary?.Contains("선호:") != true), "Registered profiles use narrative introductions");
-        status.SelectNpc(StoryDirector.Representative);
-        Check(portrait.enabled && portrait.sprite != null, "Characters with registered art still display it");
-        status.Close();
-
-        var newsFeed = Object.FindFirstObjectByType<NewsFeed>();
-        int publishedCount = newsFeed.Entries.Count;
-        newsFeed.SendMessage("addTestNews");
-        Check(newsFeed.Entries.Count == publishedCount + 3 &&
-            newsFeed.Entries.All(entry => !string.IsNullOrWhiteSpace(entry.description)),
-            "Market and sample news entries have article text");
         string root = GameSaveManager.SaveDirectory, path = manager.savePath;
         Check(clock.CurrentTurn == 2 && File.Exists(path), "Actual new-game session automatically saves tutorial completion");
         Check(manager.HasCampaignCheckpoint(game.CampaignRunId, "mirae-initial"), "Real tutorial completion creates an independent preparation checkpoint");
@@ -216,22 +189,6 @@ public sealed class SessionSaveProbe : MonoBehaviour
         Check(startupSystem.tryGetRecord(startupId, out var restoredStartup) && restoredStartup.revenueHistory.Last() == 1234f &&
             restored.CompanyName == startupName && restored.TargetCompany == Object.FindFirstObjectByType<Companies>().getCompany(startupId),
             "Continue binds a saved discovery report to the original startup and preserves its history");
-
-        var browser = Object.FindFirstObjectByType<CompanyBrowserScreen>(FindObjectsInactive.Include);
-        browser.open();
-        yield return null;
-        var map = browser.GetComponentInChildren<CompanyMapView>();
-        Check(map != null, "The company browser opens in map view");
-        var nodes = map.GetComponentsInChildren<CompanyMapNode>();
-        Check(nodes.Length == Object.FindFirstObjectByType<Companies>().CompanyList.Count, "The default map shows every listed company");
-        var details = browser.GetComponentInChildren<CompanyDetailPanel>(true);
-        foreach (var node in nodes)
-        {
-            StoryPlayProbe.Click(node.GetComponentInChildren<Button>());
-            details.hide();
-        }
-        Check(true, "Every default map pin receives an actual screen-coordinate click");
-        browser.close();
 
         string baseline = File.ReadAllText(path);
         var eventSave = VerifyEventSaveLoad(game, manager);

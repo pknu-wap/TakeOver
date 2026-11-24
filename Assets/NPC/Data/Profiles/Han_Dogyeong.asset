@@ -66,7 +66,7 @@ MonoBehaviour:
       displayName: "\uD55C\uB3C4\uACBD"
       role: "\uB370\uC774\uD130\uCD1D\uAD04"
       affiliation: "\uBE14\uB8E8\uD558\uBC84\uB9AC\uD14C\uC77C"
-      personalitySummary: "한도경은 판매 보고서를 받으면 마지막 장의 결론보다 집계 기준부터 읽는다. 숫자가 사람의 자의적인 판단을 줄여 준다고 믿지만, 자신이 만든 지표에서 작은 납품사의 손실이 빠져 있다는 지적에는 쉽게 답하지 못한다."
+      personalitySummary: "판매 보고서를 받으면 마지막 장의 결론보다 집계 기준부터 읽는다. 숫자가 사람의 자의적인 판단을 줄여 준다고 믿지만, 자신이 만든 지표에서 작은 납품사의 손실이 빠져 있다는 지적에는 쉽게 답하지 못한다."
       gameplayRoleSummary: "누가 다시 계산해도 같은 결과가 나오고 자료 사용 범위가 분명한 분석을 신뢰한다. 결론에 맞춰 표본을 빼거나 고객 정보를 거래하자는 지시가 내려오면 원본과 수정 이력을 대조한다."
       anyEventRelationDelta:
         trust: 0

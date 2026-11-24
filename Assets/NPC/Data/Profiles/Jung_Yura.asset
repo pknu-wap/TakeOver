@@ -67,7 +67,7 @@ MonoBehaviour:
       displayName: "\uC815\uC720\uB77C"
       role: "M&A \uBCF8\uBD80\uC7A5"
       affiliation: "\uD3F4\uB77C\uB9AC\uC2A4\uD30C\uC774\uB0B8\uC2A4"
-      personalitySummary: "정유라는 협상 상대가 가장 놓치기 싫어하는 조건부터 알아낸다. 일을 감정과 섞지 않는다고 말하지만, 자신의 실수를 덮어준 선배와 그룹에 처음 발을 들인 날만큼은 또렷하게 기억한다."
+      personalitySummary: "협상 상대가 가장 놓치기 싫어하는 조건부터 알아낸다. 일을 감정과 섞지 않는다고 말하지만, 자신의 실수를 덮어준 선배와 그룹에 처음 발을 들인 날만큼은 또렷하게 기억한다."
       gameplayRoleSummary: "소개할 만한 상대에게는 기회를 열어 주되, 거래 범위와 수수료를 먼저 맞춘다. 뒷말이 생길 만한 돈이나 책임이 소개자에게만 돌아오는 거래는 애초에 자리부터 만들지 않는다."
       anyEventRelationDelta:
         trust: 0

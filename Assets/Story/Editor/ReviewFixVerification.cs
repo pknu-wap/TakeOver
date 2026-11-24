@@ -23,14 +23,19 @@ public static class ReviewFixVerification
 {
     public static string Root => Path.GetFullPath(Environment.GetEnvironmentVariable("TAKEOVER_REVIEW_FIX_QA_OUTPUT") ?? "../QA_ReviewFixes/Focused") + Path.DirectorySeparatorChar;
     static ReviewFixVerification() { EditorApplication.playModeStateChanged += Changed; }
+    public static bool PricesOnly => SessionState.GetBool("ReviewFix.PricesOnly", false);
+    public static void RunPrices() { SessionState.SetBool("ReviewFix.PricesOnly", true); Run(); }
     public static void Run()
     {
         Directory.CreateDirectory(Root); File.WriteAllText(Root + "results.txt", "RUNNING\n");
         Environment.SetEnvironmentVariable("TAKEOVER_SAVE_DIRECTORY", Root + "Save");
         SessionState.SetBool("ReviewFix", true);
         EditorSceneManager.OpenScene("Assets/Scenes/Game.unity");
-        var gameView = EditorWindow.GetWindow(Type.GetType("UnityEditor.GameView,UnityEditor"));
-        gameView.position = new Rect(40, 40, 1280, 780); gameView.Show(); gameView.Focus();
+        if (!PricesOnly)
+        {
+            var gameView = EditorWindow.GetWindow(Type.GetType("UnityEditor.GameView,UnityEditor"));
+            gameView.position = new Rect(40, 40, 1280, 780); gameView.Show(); gameView.Focus();
+        }
         EditorApplication.isPlaying = true;
     }
     static void Changed(PlayModeStateChange state)
@@ -39,7 +44,7 @@ public static class ReviewFixVerification
         if (state == PlayModeStateChange.EnteredPlayMode)
         { var root = new GameObject("Review fixes verification"); Object.DontDestroyOnLoad(root); root.AddComponent<ReviewFixProbe>(); }
         if (state == PlayModeStateChange.EnteredEditMode)
-        { SessionState.SetBool("ReviewFix", false); EditorApplication.Exit(File.ReadAllText(Root + "results.txt").Contains("FAIL") ? 1 : 0); }
+        { SessionState.SetBool("ReviewFix", false); SessionState.SetBool("ReviewFix.PricesOnly", false); EditorApplication.Exit(File.ReadAllText(Root + "results.txt").Contains("FAIL") ? 1 : 0); }
     }
 }
 public sealed class ReviewFixProbe : MonoBehaviour
@@ -68,6 +73,7 @@ public sealed class ReviewFixProbe : MonoBehaviour
     IEnumerator Run()
     {
         yield return Frames();
+        if (ReviewFixVerification.PricesOnly) { yield return VerifyPrices(); yield break; }
         var game = Object.FindFirstObjectByType<EventSystemController>();
         var companies = Object.FindFirstObjectByType<Companies>();
         foreach (var company in companies.CompanyList)
@@ -99,8 +105,11 @@ public sealed class ReviewFixProbe : MonoBehaviour
         companies = Object.FindFirstObjectByType<Companies>(); var target = companies.CompanyList.First();
         string original = File.ReadAllText(manager.savePath); float shares = target.state.getStat(CompanyStat.PLAYER_SHARES);
         float quote = target.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
-        Check(quote >= 1 && quote == Mathf.Round(quote), "Tradable quote uses whole currency units and a minimum of one");
+        Check(quote > 0 && Mathf.Abs(quote - target.state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE) / target.state.totalShares) < .000001f,
+            "Tradable quote retains market value per share without rounding or a minimum-price floor");
+        float cashBeforePurchase = player.state.cash;
         Check(trader.buyShares(target, 1), "Trade succeeds"); float cash = player.state.cash; yield return Frames();
+        Check(Mathf.Abs(cash - (cashBeforePurchase - quote)) < .001f, "Trade charges the unrounded quote");
         Check(original != File.ReadAllText(manager.savePath), "Trade updates autosave without another action");
         Check(manager.tryLoad(out _) && player.state.cash == cash && target.state.getStat(CompanyStat.PLAYER_SHARES) == shares + 1, "Continue retains purchased shares and cash"); yield return Frames();
         var inbox = Object.FindFirstObjectByType<DocumentSystem>().Inbox;
@@ -158,6 +167,8 @@ public sealed class ReviewFixProbe : MonoBehaviour
         navigation.Navigate(DashboardTab.Map); yield return new WaitForSecondsRealtime(.5f); yield return Capture("map");
         Check(Object.FindFirstObjectByType<CompanyBrowserScreen>().transform.Find("ListBackground").gameObject.activeSelf,
             "Map uses its opaque browser background to cover the dashboard controls beneath it");
+        Check(UiLayoutAssertions.MapCoversViewport(Object.FindFirstObjectByType<CompanyMapView>()),
+            "Map artwork covers the viewport without uncovered strips");
         navigation.Navigate(DashboardTab.News); yield return Frames(); yield return Capture("news");
         navigation.Navigate(DashboardTab.Home);
         player.SetName(new string('\uAC00', 20));
@@ -179,5 +190,57 @@ public sealed class ReviewFixProbe : MonoBehaviour
         StoryPlayProbe.Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(button => button.name == "Confirm save action")); yield return Frames();
         while (GameSessionCoordinator.Active == null || !GameSessionCoordinator.Active.Ready) yield return null;
         Check(Object.FindFirstObjectByType<GameTurnClock>().CurrentTurn == 2, "The title continue picker restores the selected earlier day");
+    }
+
+    IEnumerator VerifyPrices()
+    {
+        var companies = Object.FindFirstObjectByType<Companies>();
+        var player = Object.FindFirstObjectByType<Player>();
+        var trader = Object.FindFirstObjectByType<ShareTradingSystem>();
+        var market = Object.FindFirstObjectByType<Marketdata>();
+        foreach (var company in companies.CompanyList)
+        {
+            float expected = company.state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE) / company.state.totalShares;
+            float actual = company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
+            Check(Mathf.Abs(actual - expected) <= Mathf.Max(.000001f, Mathf.Abs(expected) * .000001f),
+                "Quote matches unrounded market value per share: " + company.definition.companyID);
+        }
+        var target = companies.getCompany("haneul-food");
+        float quote = target.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
+        Check(quote > 0 && quote < 1, "A valid fractional quote below one is not floored");
+        float initialCash = player.state.cash, shares = target.state.getStat(CompanyStat.PLAYER_SHARES);
+        Check(trader.buyShares(target, 7), "Buy seven shares at the fractional quote");
+        Check(Mathf.Abs(player.state.cash - (initialCash - quote * 7)) < .002f &&
+            target.state.getStat(CompanyStat.PLAYER_SHARES) == shares + 7, "Purchase charges quote times quantity and grants exactly seven shares");
+        float beforeSale = player.state.cash;
+        Check(trader.sellShares(target, 3), "Sell three shares at the fractional quote");
+        Check(Mathf.Abs(player.state.cash - (beforeSale + quote * 3)) < .002f &&
+            target.state.getStat(CompanyStat.PLAYER_SHARES) == shares + 4, "Sale pays quote times quantity and removes exactly three shares");
+        var effects = Object.FindFirstObjectByType<EventStockmanipulationAccept>();
+        var clock = Object.FindFirstObjectByType<GameTurnClock>();
+        var otherPrices = companies.CompanyList.Where(c => c != target).ToDictionary(c => c, c => c.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE));
+        Check(effects.applyEventEffect(target.definition.companyID, 1, .35f), "Schedule a 35 percent rise for the selected company");
+        var execute = typeof(EventStockmanipulationAccept).GetMethod("executeScheduledEffects", Private);
+        execute.Invoke(effects, new object[] { clock.CurrentTurn });
+        Check(target.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE) == quote, "Scheduled rise does not apply before its due day");
+        execute.Invoke(effects, new object[] { clock.CurrentTurn + 1 });
+        float risen = target.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
+        Check(risen > quote && Mathf.Abs(risen - quote * 1.35f) < .000001f, "A 35 percent rise changes the actual fractional trading quote by 35 percent");
+        Check(otherPrices.All(pair => pair.Key.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE) == pair.Value), "The price effect leaves other companies unchanged");
+        beforeSale = player.state.cash;
+        Check(trader.sellShares(target, 4), "Sell the remaining four purchased shares after the rise");
+        Check(Mathf.Abs(player.state.cash - (beforeSale + risen * 4)) < .002f &&
+            Mathf.Abs(player.state.cash - (initialCash + quote * .35f * 4)) < .002f, "The rise produces the expected realized sale profit");
+        float savedCash = player.state.cash;
+        var manager = Object.FindFirstObjectByType<GameSaveManager>() ?? gameObject.AddComponent<GameSaveManager>();
+        Check(manager.trySaveDayEnd(new DayStartData(clock.CurrentTurn, FixedDaySeed.seed)), "Save the fractional quote and applied price effect");
+        player.state.addCash(-player.state.cash);
+        target.marketState.eventPriceMultiplier = 1;
+        target.calculator.recalculate(target, market);
+        Check(manager.tryLoad(out _), "Restore the fractional-price snapshot: " + manager.lastError);
+        Check(player.state.cash == savedCash && target.state.getStat(CompanyStat.PLAYER_SHARES) == shares &&
+            Mathf.Abs(target.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE) - risen) < .000001f,
+            "Save/load preserves actual cash, holdings and the unrounded risen price");
+        yield return null;
     }
 }

@@ -44,6 +44,7 @@ public sealed class TopBarNavigationController : MonoBehaviour
         if (label != null) label.text = "도움말";
         var legacy = helpButton.GetComponentInChildren<Text>();
         if (legacy != null) legacy.text = "도움말";
+        TakeOver.UI.ButtonHoverFeedback.Attach(helpButton);
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)source.transform.parent);
         helpTab = tabButtons.Length;
         System.Array.Resize(ref tabButtons, helpTab + 1);

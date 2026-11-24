@@ -67,7 +67,7 @@ MonoBehaviour:
       displayName: "\uC784\uB3C4\uD604"
       role: CEO
       affiliation: "\uD3F4\uB77C\uB9AC\uC2A4\uD30C\uC774\uB0B8\uC2A4"
-      personalitySummary: "폴라리스파이낸스를 세운 임도현은 돈을 빌려줄 때 담보부터 살핀다. 그룹의 지원으로 사업을 키웠지만, 사람들이 자신을 그저 자금을 대는 창구로 여길 때면 냉정한 표정 뒤로 불쾌함이 드러난다."
+      personalitySummary: "폴라리스파이낸스를 세웠으며, 돈을 빌려줄 때 담보부터 살핀다. 그룹의 지원으로 사업을 키웠지만, 사람들이 자신을 그저 자금을 대는 창구로 여길 때면 냉정한 표정 뒤로 불쾌함이 드러난다."
       gameplayRoleSummary: "책임질 사람이 분명하고 손실을 감당할 수 있는 거래라면 다시 협상할 여지를 남긴다. 손실을 대신 떠안으라는 요구나 독자적인 판단을 포기하라는 제안에는 쉽게 물러서지 않는다."
       anyEventRelationDelta:
         trust: 0

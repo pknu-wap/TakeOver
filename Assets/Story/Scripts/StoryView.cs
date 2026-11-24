@@ -13,6 +13,8 @@ namespace TakeOver.Story
         private StorySequence sequence;
         private StoryDirector director;
         private RectTransform root;
+        private RectTransform topBar;
+        private Rect informationArea;
         private GameObject stage, objectives;
         private Image fade;
         private EventNegotiationView sharedDialogue;
@@ -20,7 +22,7 @@ namespace TakeOver.Story
         private bool nativeEvent, informationOnly;
         private string informationInstruction = "", informationExplanation = "";
         private Text objective, detail;
-        private Button confirm, reopen, skip;
+        private Button confirm, skip;
         private CanvasGroup stageGroup;
         private readonly List<Image> masks = new List<Image>();
         private Image outline;
@@ -53,6 +55,8 @@ namespace TakeOver.Story
             root = Rect("Story safe frame", transform, new Rect(0, 0, 1280, 720));
             root.anchorMin = root.anchorMax = new Vector2(.5f, .5f); root.pivot = new Vector2(.5f,.5f);
             root.anchoredPosition = Vector2.zero;
+            var navigation = FindFirstObjectByType<TopBarNavigationController>(FindObjectsInactive.Include);
+            if (navigation != null) topBar = navigation.transform.Find("TopBar_Background") as RectTransform;
             var template = FindFirstObjectByType<EventNegotiationView>(FindObjectsInactive.Include);
             if (template == null) throw new System.InvalidOperationException("공용 이벤트 대화 UI가 없습니다.");
             var nativeScaler = template.GetComponentInParent<CanvasScaler>();
@@ -80,7 +84,6 @@ namespace TakeOver.Story
             }
             objectives = template.CreateInformationPanel(root, out objective, out detail);
             confirm = template.CreateActionButton(objectives.transform,"Confirm profile","확인",()=>director.Continue());
-            reopen = template.CreateActionButton(objectives.transform,"Reopen profile","인물 정보",()=>director.OpenProfile());
             skip = template.CreateActionButton(root,"Skip to choice","스킵",()=>director.SkipToNextChoice(), useInformationStyle: false);
             PlaceSkip();
             fade = Image("Fade curtain", transform, Color.black); Stretch(fade.rectTransform); fade.raycastTarget = true;
@@ -91,6 +94,7 @@ namespace TakeOver.Story
         {
             float scale = EventNegotiationView.LayoutScale(((RectTransform)transform).rect.size);
             if (scale > 0 && root.localScale.x != scale) root.localScale = new Vector3(scale, scale, 1);
+            if (objectives.activeSelf) PlaceInformationBelowTopBar();
         }
 
         public void Show(StoryBeat beat, NpcStateRegistry registry)
@@ -112,7 +116,7 @@ namespace TakeOver.Story
             if (informationOnly)
             {
                 sharedDialogue.ShowBackdrop(beat.background,beat.backgroundTint);
-                ShowInformation(beat.tutorialTitle ?? "안내",director.Resolve(beat.text),new Rect(280,190,720,320),true,false);
+                ShowInformation(beat.tutorialTitle ?? "안내",director.Resolve(beat.text),new Rect(280,190,720,320),true);
                 confirm.name = "Continue";
                 confirm.interactable = true;
             }
@@ -160,24 +164,36 @@ namespace TakeOver.Story
             informationInstruction = director.Resolve(text);
             informationExplanation = director.Resolve(beat.tutorialText ?? "");
             ShowInformation(title, informationInstruction+"\n\n"+informationExplanation,
-                profile ? new Rect(24,100,312,536) : new Rect(24,160,312,520),confirmation,profile);
+                profile ? new Rect(24,100,312,536) : new Rect(24,160,312,520),confirmation);
             confirm.name="Confirm profile";
             confirm.interactable=false;
         }
 
-        private void ShowInformation(string title,string body,Rect area,bool confirmation,bool profile)
+        private void ShowInformation(string title,string body,Rect area,bool confirmation)
         {
             objectives.SetActive(true);
-            Place((RectTransform)objectives.transform,area);
+            informationArea = area;
+            PlaceInformationBelowTopBar();
             objective.text=title;
             detail.text=body;
             var bodyRect=detail.rectTransform;
             bodyRect.anchorMin=new Vector2(0,1);bodyRect.anchorMax=Vector2.one;bodyRect.pivot=new Vector2(0,1);
-            bodyRect.anchoredPosition=new Vector2(18,-66);bodyRect.sizeDelta=new Vector2(-36,area.height-(profile?174:126));
+            bodyRect.anchoredPosition=new Vector2(18,-66);bodyRect.sizeDelta=new Vector2(-36,area.height-126);
             confirm.gameObject.SetActive(confirmation);
-            reopen.gameObject.SetActive(profile);
             Place(confirm.GetComponent<RectTransform>(),new Rect(18,16,area.width-36,38));
-            Place(reopen.GetComponent<RectTransform>(),new Rect(18,62,area.width-36,38));
+        }
+        private void PlaceInformationBelowTopBar()
+        {
+            var area = informationArea;
+            if (topBar != null && topBar.gameObject.activeInHierarchy)
+            {
+                var corners = new Vector3[4];
+                topBar.GetWorldCorners(corners);
+                float bottom = float.PositiveInfinity;
+                foreach (var corner in corners) bottom = Mathf.Min(bottom, root.InverseTransformPoint(corner).y - root.rect.yMin);
+                area.y = Mathf.Min(area.y, bottom - 12f - area.height);
+            }
+            Place((RectTransform)objectives.transform, area);
         }
         public void ObjectiveDetail(string text)
         {
@@ -249,7 +265,7 @@ namespace TakeOver.Story
         public void SpotlightCompany()
         {
             foreach (var node in FindObjectsByType<CompanyMapNode>(FindObjectsSortMode.None))
-                if (node.company?.definition.companyID == StoryDirector.CompanyId) { Spotlight((RectTransform)node.transform); return; }
+                if (node.company?.definition.companyID == StoryDirector.CompanyId) { Spotlight((RectTransform)node.transform, true); return; }
             Spotlight(null);
         }
         public void SpotlightDayEnd()
@@ -280,7 +296,7 @@ namespace TakeOver.Story
             }
             Spotlight(profile);
         }
-        public void Spotlight(RectTransform target)
+        public void Spotlight(RectTransform target, bool includeChildGraphics = false)
         {
             if (!gated || nativeEvent) return;
             if (target == null) { Place(masks[0].rectTransform,new Rect(0,0,1280,720)); for(int i=1;i<4;i++) masks[i].gameObject.SetActive(false); outline.gameObject.SetActive(false); return; }
@@ -289,6 +305,19 @@ namespace TakeOver.Story
             Camera camera = targetCanvas != null && targetCanvas.renderMode != RenderMode.ScreenSpaceOverlay ? targetCanvas.worldCamera : null;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(root, RectTransformUtility.WorldToScreenPoint(camera,corners[0]), null, out var lower);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(root, RectTransformUtility.WorldToScreenPoint(camera,corners[2]), null, out var upper);
+            if (includeChildGraphics)
+                foreach (var graphic in target.GetComponentsInChildren<Graphic>())
+                {
+                    if (!graphic.isActiveAndEnabled) continue;
+                    graphic.rectTransform.GetWorldCorners(corners);
+                    foreach (var corner in corners)
+                    {
+                        RectTransformUtility.ScreenPointToLocalPointInRectangle(root,
+                            RectTransformUtility.WorldToScreenPoint(camera, corner), null, out var point);
+                        lower = Vector2.Min(lower, point);
+                        upper = Vector2.Max(upper, point);
+                    }
+                }
             float left=Mathf.Clamp(lower.x+640-6,0,1280), right=Mathf.Clamp(upper.x+640+6,0,1280);
             float bottom=Mathf.Clamp(lower.y+360-6,0,720), top=Mathf.Clamp(upper.y+360+6,0,720);
             Rect[] rects={new Rect(0,0,left,720),new Rect(right,0,1280-right,720),new Rect(left,0,right-left,bottom),new Rect(left,top,right-left,720-top)};
@@ -298,7 +327,7 @@ namespace TakeOver.Story
 
         public void ShowError(string text)
         {
-            ShowInformation("안내",text,new Rect(280,190,720,320),false,false);
+            ShowInformation("안내",text,new Rect(280,190,720,320),false);
             fade.color=Color.clear;fade.raycastTarget=false;
         }
         private void SetMasks(bool visible) { foreach(var mask in masks)mask.gameObject.SetActive(visible);outline.gameObject.SetActive(false); }

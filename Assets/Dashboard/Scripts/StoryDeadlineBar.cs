@@ -59,9 +59,8 @@ namespace TakeOver.Dashboard
         private void Refresh()
         {
             if (Bar == null || controller == null) return;
-            DashboardTab tab = navigation.CurrentTab;
-            bool visible = tab != DashboardTab.Npcs && tab != DashboardTab.Log
-                && !StoryDirector.IsRunning && controller.MandatoryState != MandatoryStoryState.Failed;
+            bool visible = navigation != null && navigation.CurrentTab == DashboardTab.Home &&
+                !StoryDirector.IsRunning && controller.MandatoryState != MandatoryStoryState.Failed;
             if (Bar.gameObject.activeSelf != visible) Bar.gameObject.SetActive(visible);
             if (!visible) return;
             bool hasMission = controller.HasActiveMission;

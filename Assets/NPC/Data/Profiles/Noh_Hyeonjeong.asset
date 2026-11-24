@@ -66,7 +66,7 @@ MonoBehaviour:
       displayName: "\uB178\uD604\uC815"
       role: CFO
       affiliation: "\uB300\uC131\uC0B0\uC5C5"
-      personalitySummary: "노현정에게 회사의 사정은 월말 잔액보다 그 돈을 언제 누구에게 갚아야 하는지에 더 잘 드러난다. 대성산업의 자금을 오래 지켜 온 만큼, 자신이 승인한 거래도 다른 사람의 장부만큼 엄격하게 들여다보려 한다."
+      personalitySummary: "월말 잔액보다 상환 시점과 대상을 통해 회사의 사정을 파악한다. 대성산업의 자금을 오래 지켜 온 만큼, 자신이 승인한 거래도 다른 사람의 장부만큼 엄격하게 들여다보려 한다."
       gameplayRoleSummary: "운영에 필요한 현금과 상환 순서를 짚어 주면 이사회에서 반대 의견도 낸다. 장부 일부를 빼거나 상환 계획 없이 빚을 돌려 막자는 제안에는 근거부터 다시 요구한다."
       anyEventRelationDelta:
         trust: 0

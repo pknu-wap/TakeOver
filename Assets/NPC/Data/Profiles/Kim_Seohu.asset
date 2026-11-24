@@ -66,7 +66,7 @@ MonoBehaviour:
       displayName: "\uAE40\uC11C\uD6C4"
       role: CEO
       affiliation: "\uC624\uB85C\uB77C\uD478\uB4DC\uD14C\uD06C"
-      personalitySummary: "김서후는 오로라푸드테크의 시제품을 직접 들고 거래처를 찾는 창업자다. 자금이 바닥났던 때 그룹에 손을 내밀었지만, 도움을 받을 때마다 연구 방향을 스스로 정할 자리가 조금씩 좁아지는 것을 느낀다."
+      personalitySummary: "오로라푸드테크를 창업하고 시제품을 직접 들고 거래처를 찾는다. 자금이 바닥났던 때 그룹에 손을 내밀었지만, 도움을 받을 때마다 연구 방향을 스스로 정할 자리가 조금씩 좁아지는 것을 느낀다."
       gameplayRoleSummary: "연구비가 실제로 들어오고 창업팀이 주요 결정을 맡을 수 있다면 새로운 거래에 적극적이다. 실험 결과가 덜 나온 제품을 서둘러 내거나 자금 지원의 대가로 경영권을 넘기라는 조건은 쉽게 받아들이지 않는다."
       anyEventRelationDelta:
         trust: 0

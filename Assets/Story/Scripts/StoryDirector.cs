@@ -93,6 +93,7 @@ namespace TakeOver.Story
         public string ProtagonistName => player != null ? player.ProtagonistName : Player.DefaultName;
         private GameTurnClock clock;
         private CompanyDetailPanel detail;
+        private CompanyDetailPanel financialPreview;
         private CompanyBrowserScreen browser;
         private NpcStatusScreen status;
         private int index = -1, exchangeStage;
@@ -262,6 +263,7 @@ namespace TakeOver.Story
 
         private void CloseGamePanels()
         {
+            if (financialPreview != null) financialPreview.hide();
             CloseOperationsLesson();
             if (eventController != null && eventController.IsDetailOpen) eventController.closeDetail();
             if (detail != null && detail.gameObject.activeInHierarchy) detail.hide();
@@ -335,10 +337,19 @@ namespace TakeOver.Story
             initialTurn = clock.CurrentTurn;
             if (Goal == StoryGoal.SelectCompany || IsTrading || IsCompanyReading)
             {
-                detail.SetTutorialLayout(true);
                 browser.open();
                 FindFirstObjectByType<BrowserViewToggle>(FindObjectsInactive.Include)?.showMap();
-                if (IsTrading || IsCompanyReading) detail.show(GoalCompany);
+                if (IsCompanyReading)
+                {
+                    if (financialPreview == null) financialPreview = detail.CreateTutorialPreview();
+                    financialPreview.SetTutorialLayout(true);
+                    financialPreview.show(GoalCompany);
+                }
+                else
+                {
+                    detail.SetTutorialLayout(true);
+                    if (IsTrading || IsCompanyReading) detail.show(GoalCompany);
+                }
             }
             if (IsProfile) OpenProfile();
             if (IsGuidingEvent)
@@ -373,6 +384,7 @@ namespace TakeOver.Story
             if (!IsProfile) return;
             status.SelectNpc(Goal == StoryGoal.ViewRepresentative ? Representative : Goal == StoryGoal.ViewMemory ? FieldDirector : TutorialContact);
             status.Open();
+            status.SetTutorialNpc(status.SelectedNpcId);
             if (Goal != StoryGoal.ViewRepresentative) status.FocusMemories();
             view.SpotlightProfile(status.ProfileRect);
         }
@@ -404,9 +416,11 @@ namespace TakeOver.Story
                 case StoryGoal.ViewCompany:
                 case StoryGoal.CompareCompany:
                 case StoryGoal.ViewStake:
-                    if (!detail.gameObject.activeInHierarchy) detail.show(GoalCompany);
-                    view.Spotlight(detail.transform.Find("Window") as RectTransform ?? (RectTransform)detail.transform);
-                    goalObserved |= detail.gameObject.activeInHierarchy && detail.current == GoalCompany;
+                    var readingPanel = financialPreview;
+                    if (readingPanel == null) break;
+                    if (!readingPanel.gameObject.activeInHierarchy) readingPanel.show(GoalCompany);
+                    view.Spotlight(readingPanel.transform.Find("Window") as RectTransform ?? (RectTransform)readingPanel.transform);
+                    goalObserved |= readingPanel.gameObject.activeInHierarchy && readingPanel.current == GoalCompany;
                     view.SetGoalReady(goalObserved);
                     var targetCompany = GoalCompany;
                     view.ObjectiveDetail(Goal == StoryGoal.ViewStake ? $"{targetCompany.definition.companyName} · {targetCompany.state.getStat(CompanyStat.PLAYER_SHARES):N0}주 / 전체 {targetCompany.definition.totalShares:N0}주 · 지분 {targetCompany.state.getDerivedStat(CompanyDerivedStat.STAKE):0.##}%\n지분 조건을 잃으면 관련 이벤트가 닫힐 수 있습니다." :
@@ -489,6 +503,14 @@ namespace TakeOver.Story
             return $"{company.definition.companyName} 주식 {quantity:N0}주를 {action}하였습니다. 현재 보유 주식은 {shares:N0}주이며, 지분율은 {company.state.getDerivedStat(CompanyDerivedStat.STAKE):0.##}%입니다.\n남은 자금은 {player.state.cash:N0}원입니다.";
         }
 
-        private void OnDestroy() { CloseOperationsLesson(); if (Active == this) Active = null; }
+        private void CloseFinancialPreview()
+        {
+            if (financialPreview == null) return;
+            financialPreview.hide();
+            Destroy(financialPreview.gameObject);
+            financialPreview = null;
+        }
+
+        private void OnDestroy() { CloseFinancialPreview(); CloseOperationsLesson(); if (Active == this) Active = null; }
     }
 }
