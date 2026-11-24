@@ -654,16 +654,20 @@ MonoBehaviour:
     npcId: npc-haneul-food-cfo-oh-jaeseong
   - companyId: dongbang-trading
     npcId: npc-dongbang-trading-hr-director-park-minu
+    speakerRole: "\uc778\uc0ac\ucc45\uc784\uc790"
   - companyId: hansung-industry
     npcId: npc-hansung-industry-labor-director-choi-mijeong
   - companyId: polaris-finance
     npcId: npc-polaris-finance-risk-director-song-hyeonseok
   - companyId: daeseong-industry
     npcId: npc-daeseong-industry-hr-director-choi-eunsu
+    speakerRole: "\uc778\uc0ac\ucc45\uc784\uc790"
   - companyId: sinseong-development
     npcId: npc-sinseong-development-community-director-kang-minji
+    speakerRole: "\uc9c0\uc5ed\uad00\uacc4 \ucc45\uc784\uc790"
   - companyId: blueharbor-retail
     npcId: npc-blueharbor-retail-operations-director-kim-dongseok
+    speakerRole: "\ub9e4\uc7a5\uc6b4\uc601 \ucc45\uc784\uc790"
   - companyId: aurora-foodtech
     npcId: npc-aurora-foodtech-chief-scientist-jung-harin
   repeatable: 1

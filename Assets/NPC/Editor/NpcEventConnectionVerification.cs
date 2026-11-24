@@ -173,8 +173,8 @@ namespace TakeOver.NPC.Editor
                     if (related.getSpeakerSource() == EventSpeakerSource.CompanyCeo)
                     {
                         Check(registry.TryFindByPosition(profile.companyId, NpcPosition.CEO, out var ceo)
-                            && previewInfo.companyName == ceo.profile.affiliation && previewInfo.speakerName == ceo.profile.displayName
-                            && previewInfo.description.Contains(ceo.profile.affiliation) && previewInfo.description.Contains(ceo.profile.displayName),
+                            && previewInfo.companyId == ceo.companyId && previewInfo.speakerNpcId == ceo.npcId
+                            && previewInfo.companyName == ceo.profile.affiliation && previewInfo.speakerName == ceo.profile.displayName,
                             "CEO preview uses this company's representative: " + profile.companyId);
                     }
                     for (var i = 0; i < related.getChoices().Count; i++)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Park_Sanghyeon
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 15
     preferenceResponse:
       source: 1
       enabled: 0
@@ -51,7 +51,8 @@ MonoBehaviour:
       dimmedStandingIllustration: {fileID: 21300000, guid: e24733bd840c3994a94a5c41d82cdc42, type: 3}
       displayName: "\uBC15\uC0C1\uD604"
       role: "\uC815\uCE58 \uB85C\uBE44\uC2A4\uD2B8"
-      affiliation: "\uC678\uBD80 \uAC70\uB798\uB9DD"
+      speakerRole: "\ub85c\ube44\uc2a4\ud2b8"
+      affiliation: "\uc678\ubd80 \uc778\ubb3c"
       personalitySummary: "\uC815\uCC45 \uC790\uBB38\uACFC \uC704\uD5D8\uD55C \uC815\uCE58
         \uAC70\uB798 \uC0AC\uC774\uC5D0\uC11C \uAE30\uD68C\uB97C \uCC3E\uC9C0\uB9CC,
         \uB178\uACE8\uC801\uC778 \uC704\uD5D8\uC774 \uCEE4\uC9C0\uBA74 \uAC70\uB9AC\uB97C

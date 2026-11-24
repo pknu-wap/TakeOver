@@ -32,7 +32,7 @@ MonoBehaviour:
   companyIds: []
   speakerNpcId: npc-political-lobbyist-park-sanghyeon
   speakerName: "\uBC15\uC0C1\uD604"
-  speakerRole:
+  speakerRole: "\ub85c\ube44\uc2a4\ud2b8"
   dialogue: "\uC124\uBA85\uD68C\uB294 \uC55E\uC790\uB9AC\uBCF4\uB2E4 \uC9C8\uBB38
     \uC2DC\uAC04\uC5D0 \uB4E4\uC744 \uAC8C \uB9CE\uC2B5\uB2C8\uB2E4. \uC790\uB8CC\uC5D0\uB294
     \uB2E4 \uC88B\uC544 \uBCF4\uC774\uB294 \uB9D0\uB9CC \uC801\uD600 \uC788\uC73C\uB2C8\uAE4C\uC694."

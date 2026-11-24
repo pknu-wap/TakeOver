@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Kim_Taeseong
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 14
     preferenceResponse:
       source: 1
       enabled: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
       dimmedStandingIllustration: {fileID: 21300000, guid: 0cae5acf2b8cfdc47b0a90ceb867182d, type: 3}
       displayName: "\uAE40\uD0DC\uC131"
       role: "\uAE30\uAD00\uD22C\uC790\uC790"
-      affiliation: "\uC678\uBD80 \uD22C\uC790\uC790"
+      affiliation: "\uc678\ubd80 \uc778\ubb3c"
       personalitySummary: "\uAE30\uC5C5 \uC131\uC7A5\uB960\uACFC \uD604\uAE08\uD750\uB984\uC744
         \uB530\uC838\uBCF8\uB2E4. \uB2E8\uAE30 \uC131\uACFC\uBCF4\uB2E4 \uC7A5\uAE30
         \uC704\uD5D8\uC744 \uD06C\uAC8C \uBCF8\uB2E4."

@@ -2804,7 +2804,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC678\uBD80 \uAC70\uB798\uB9DD \xB7 M&A \uBE0C\uB85C\uCEE4"
+  m_text: "\uC678\uBD80 \uC778\uBB3C \xB7 M&A \uBE0C\uB85C\uCEE4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ffcce61cd2828be45a67f220555d888c, type: 2}
   m_sharedMaterial: {fileID: 623819182685503895, guid: ffcce61cd2828be45a67f220555d888c, type: 2}

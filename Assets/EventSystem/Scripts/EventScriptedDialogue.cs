@@ -27,11 +27,14 @@ namespace TakeOver.Events
             var line = scriptLines[scriptIndex];
             var registry = FindFirstObjectByType<NpcStateRegistry>();
             string npcId = ScriptNpcAt(scriptIndex);
-            var profile = registry != null && registry.TryGetProfile(npcId, out var seed) ? seed.profile : null;
+            NpcStateRegistry.NpcSeed seed = null;
+            var profile = registry != null && registry.TryGetProfile(npcId, out seed) ? seed.profile : null;
             bool choosing = !scriptedResult && scriptIndex == scriptLines.Count - 1 && !activeInfo.definition.IsLinearDialogue;
             negotiationView.ShowDialogue(new DialoguePresentation
             {
-                speaker = line.player ? EventNegotiationView.ProtagonistName() : line.narration ? "" : profile?.displayName ?? activeInfo.speakerName,
+                speaker = line.player ? EventNegotiationView.ProtagonistName() : line.narration ? ""
+                    : npcId == activeInfo.speakerNpcId ? activeInfo.speakerLabel
+                    : profile != null ? seed.GetSpeakerLabel() : activeInfo.speakerLabel,
                 text = activeInfo.resolve(line.text), player = line.player, narration = line.narration,
                 npcStanding = profile?.standingIllustration ?? (profile != null ? NpcInfoPanel.FallbackStanding : null),
                 npcDimmed = profile?.dimmedStandingIllustration,
