@@ -108,15 +108,20 @@ namespace TakeOver.Startups
             if (detail != null) return;
             detail = Instantiate(contractPrefab, negotiation.transform.parent, false);
             detail.name = "Startup investment contract";
-            var source = FindFirstObjectByType<OperationsScreen>(FindObjectsInactive.Include).GetComponentInChildren<DocumentDetailView>(true);
+            var operations = FindFirstObjectByType<OperationsScreen>(FindObjectsInactive.Include);
+            bool operationsActive = operations.gameObject.activeSelf;
+            operations.gameObject.SetActive(true);
+            Canvas.ForceUpdateCanvases();
+            var source = operations.GetComponentInChildren<DocumentDetailView>(true);
             var sourceRect = (RectTransform)source.transform;
             var rect = (RectTransform)detail.transform;
             rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(.5f, .5f);
             rect.anchoredPosition = Vector2.zero;
             rect.sizeDelta = sourceRect.rect.size;
-            float sourceScale = source.GetComponentInParent<Canvas>(true).rootCanvas.scaleFactor;
-            float targetScale = negotiation.GetComponentInParent<Canvas>(true).rootCanvas.scaleFactor;
-            rect.localScale = Vector3.one * (sourceScale / targetScale);
+            Vector3 sourceScale = sourceRect.lossyScale;
+            Vector3 targetScale = rect.parent.lossyScale;
+            rect.localScale = new Vector3(sourceScale.x / targetScale.x, sourceScale.y / targetScale.y, 1f);
+            operations.gameObject.SetActive(operationsActive);
             detail.gameObject.SetActive(true);
             detail.Decided += decide;
             var overlay = detail.gameObject.AddComponent<Canvas>();
@@ -124,7 +129,10 @@ namespace TakeOver.Startups
             overlay.sortingOrder = 601;
             detail.gameObject.AddComponent<UnityEngine.UI.GraphicRaycaster>();
             detail.Show(contract, arrivalTurn: clock.CurrentTurn);
-            negotiation.gameObject.SetActive(false);
+            negotiation.transform.Find("DialogueBand").gameObject.SetActive(false);
+            var backdrop = negotiation.GetComponent<Canvas>();
+            backdrop.overrideSorting = true;
+            backdrop.sortingOrder = 600;
             detail.GetComponentInChildren<UnityEngine.UI.Button>().Select();
         }
 
