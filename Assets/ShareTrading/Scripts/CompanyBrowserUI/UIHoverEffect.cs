@@ -23,6 +23,8 @@ public class UIHoverEffect : MonoBehaviour,
     [Header("색 바꾸기 (선택)")]
     [Tooltip("호버하면 색이 바뀔 그래픽. 비우면 색은 안 바뀜")]
     [SerializeField] private Graphic tintTarget;
+    [Tooltip("Tint Target이 비어 있으면, 실행 중에 이 이름의 자식을 찾아 색 대상으로 쓴다")]
+    [SerializeField] private string tintTargetChildName = "";
     [Tooltip("호버했을 때 색. 투명도(A)는 원래 값을 유지")]
     [SerializeField] private Color hoverColor = new Color32(242, 205, 130, 255);
     [Tooltip("누르고 있는 동안 밝기 (1 = 그대로, 0.8 = 20% 어둡게)")]
@@ -45,6 +47,13 @@ public class UIHoverEffect : MonoBehaviour,
     private Color baseTintColor;
     private Color baseOutlineColor;
 
+    private Graphic hitGraphic;
+    private Vector4 baseRaycastPadding;
+
+    private Vector2 lastWrittenPosition;
+
+    private bool initialized;
+
     private bool isHovered;
     private bool isPressed;
 
@@ -54,12 +63,6 @@ public class UIHoverEffect : MonoBehaviour,
 
     void Awake()
     {
-        if (scaleTarget == null) scaleTarget = (RectTransform)transform;
-        selectable = GetComponent<Selectable>();
-
-        baseScale = scaleTarget.localScale;
-        if (tintTarget != null) baseTintColor = tintTarget.color;
-
         if (outlineEffect != null)
         {
             baseOutlineColor = outlineEffect.effectColor;
@@ -67,8 +70,38 @@ public class UIHoverEffect : MonoBehaviour,
         }
     }
 
+    void Start()
+    {
+        ensureInitialized();
+    }
+
+    private void ensureInitialized()
+    {
+        if (initialized) return;
+        initialized = true;
+
+        if (scaleTarget == null) scaleTarget = (RectTransform)transform;
+        selectable = GetComponent<Selectable>();
+
+        if (tintTarget == null && !string.IsNullOrEmpty(tintTargetChildName))
+        {
+            Transform child = transform.Find(tintTargetChildName);
+            if (child != null) tintTarget = child.GetComponent<Graphic>();
+            else Debug.LogWarning($"[UIHoverEffect] '{tintTargetChildName}' 자식을 찾지 못해 색은 바꾸지 않습니다.", this);
+        }
+
+        baseScale = scaleTarget.localScale;
+        if (tintTarget != null) baseTintColor = tintTarget.color;
+
+        hitGraphic = scaleTarget.GetComponent<Graphic>();
+        if (hitGraphic != null) baseRaycastPadding = hitGraphic.raycastPadding;
+
+        lastWrittenPosition = scaleTarget.anchoredPosition;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
+        ensureInitialized();
         if (!canReact()) return;
         if (eventData.dragging) return;
 
@@ -84,6 +117,7 @@ public class UIHoverEffect : MonoBehaviour,
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        ensureInitialized();
         if (!canReact()) return;
         if (eventData.button != PointerEventData.InputButton.Left) return;
         isPressed = true;
@@ -96,6 +130,8 @@ public class UIHoverEffect : MonoBehaviour,
 
     void Update()
     {
+        if (!initialized) return;
+
         bool active = canReact();
         float targetHover = (isHovered && active) ? 1f : 0f;
         float targetPress = (isPressed && active) ? 1f : 0f;
@@ -115,7 +151,7 @@ public class UIHoverEffect : MonoBehaviour,
         isPressed = false;
         hoverAmount = 0f;
         pressAmount = 0f;
-        applyVisuals();
+        if (initialized) applyVisuals();
     }
 
     private bool canReact()
@@ -134,11 +170,25 @@ public class UIHoverEffect : MonoBehaviour,
         if (scaleTarget == null) return;
 
         float scaleFactor = Mathf.Lerp(1f, hoverScale, hoverAmount);
-        scaleTarget.localScale = baseScale * scaleFactor;
+        Vector3 currentScale = baseScale * scaleFactor;
+        scaleTarget.localScale = currentScale;
+
+        if (scaleTarget.anchoredPosition != lastWrittenPosition)
+        {
+            appliedOffset = Vector2.zero;
+        }
 
         Vector2 newOffset = hoverOffset * hoverAmount;
         scaleTarget.anchoredPosition += newOffset - appliedOffset;
         appliedOffset = newOffset;
+        lastWrittenPosition = scaleTarget.anchoredPosition;
+
+        if (hitGraphic != null)
+        {
+            float localX = currentScale.x != 0f ? newOffset.x / currentScale.x : 0f;
+            float localY = currentScale.y != 0f ? newOffset.y / currentScale.y : 0f;
+            hitGraphic.raycastPadding = baseRaycastPadding + new Vector4(-localX, -localY, localX, localY);
+        }
 
         if (tintTarget != null)
         {
