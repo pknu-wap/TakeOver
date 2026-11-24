@@ -6,6 +6,9 @@ namespace TakeOver.Documents
 
     public sealed class DocumentField
     {
+        public string initialOptionLabel { get; }
+        public float initialValue { get; }
+        public bool initialSelected { get; internal set; }
         public string name { get; }
         public string label { get; }
         public IReadOnlyList<float> options { get; }
@@ -17,8 +20,11 @@ namespace TakeOver.Documents
 
         public DocumentField(string name, string label, float value, IReadOnlyList<float> options,
             float min = 0f, float max = 0f, float step = 0f,
-            DocumentValueFormat format = DocumentValueFormat.Percent)
+            DocumentValueFormat format = DocumentValueFormat.Percent, string initialOptionLabel = null)
         {
+            this.initialOptionLabel = initialOptionLabel;
+            initialValue = value;
+            initialSelected = initialOptionLabel != null;
             this.name = name;
             this.label = label;
             this.value = value;

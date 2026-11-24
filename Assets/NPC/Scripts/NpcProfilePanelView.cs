@@ -409,6 +409,7 @@ namespace TakeOver.NPC
                 npcListScrollRect.vertical = true;
                 npcListScrollRect.horizontal = false;
                 npcListScrollRect.movementType = ScrollRect.MovementType.Clamped;
+                npcListScrollRect.scrollSensitivity = 35f;
             }
 
             if (sv.Find("Viewport") is RectTransform viewport)
@@ -418,6 +419,9 @@ namespace TakeOver.NPC
                 {
                     viewport.gameObject.AddComponent<RectMask2D>();
                 }
+                Image viewportHitArea = GetOrAdd<Image>(viewport.gameObject);
+                viewportHitArea.color = new Color(1f, 1f, 1f, 0f);
+                viewportHitArea.raycastTarget = true;
             }
         }
 

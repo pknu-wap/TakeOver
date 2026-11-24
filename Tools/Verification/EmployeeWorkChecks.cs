@@ -91,7 +91,7 @@ try
         check(appraisal.performance == MarketAppraisal.Direction.Up && appraisal.market == MarketAppraisal.Direction.Unknown, "회사 지표 연결");
         check(companies.RegisterStartup(company), "스타트업 등록");
         player.state.addCash(10000f - player.state.cash);
-        var document = new StartupContractDocument(company, player, companies, 1);
+        var document = new StartupContractDocument(company, player, companies, 1, employees: null, jobs: null);
         document.SetField("stake", ratio);
         check(document.CanApprove(out _), "계약 가능");
         float cash = player.state.cash;

@@ -231,7 +231,7 @@ namespace TakeOver.SaveSystem
 
         private static void upgradeLegacySections(SaveFileData data, ISaveParticipant[] modules)
         {
-            if (data == null || !IsReadableFormat(data.formatVersion) || data.formatVersion == SaveFileData.currentFormatVersion || data.sections == null) return;
+            if (data == null || !IsReadableFormat(data.formatVersion) || data.sections == null) return;
             int sourceVersion = data.formatVersion;
             foreach (var module in modules)
                 if (!data.sections.Any(savedSection => savedSection != null && savedSection.id == module.saveId) &&

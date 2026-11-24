@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace TakeOver.Journal
         [Tooltip("가운데 종이 카드 전체. 기록이 없으면 숨긴다")]
         [SerializeField] private GameObject cardRoot;
         [SerializeField] private TMP_Text titleText;
+        [SerializeField] private TMP_Text dateText;
         [SerializeField] private TMP_Text summaryText;
         [Tooltip("'주요 내용' 아래 점 목록을 한 텍스트에 줄바꿈으로 넣는다")]
         [SerializeField] private TMP_Text keyPointsText;
@@ -38,10 +40,14 @@ namespace TakeOver.Journal
         [SerializeField] private GameObject previousPeek;
         [Tooltip("오른쪽에 살짝 보이는 다음 종이. 다음 기록이 있을 때만 보인다 (선택)")]
         [SerializeField] private GameObject nextPeek;
+        [SerializeField] private UnityEngine.UI.Image entryIndicator;
 
         [Tooltip("기록이 하나도 없을 때 보여줄 안내")]
         [SerializeField] private GameObject emptyMessage;
 
+        private static readonly Color selectedIndicatorColor = new Color32(247, 232, 203, 255);
+        private static readonly Color inactiveIndicatorColor = new Color32(143, 157, 175, 255);
+        private readonly UnityEngine.UI.Image[] entryIndicators = new UnityEngine.UI.Image[7];
         private EventSystemController events;
         private NpcStateRegistry npcs;
         private List<JournalEntry> entries = new List<JournalEntry>();
@@ -55,6 +61,10 @@ namespace TakeOver.Journal
         {
             previousButton.onClick.AddListener(showPrevious);
             nextButton.onClick.AddListener(showNext);
+
+            entryIndicators[0] = entryIndicator;
+            for (int i = 1; i < entryIndicators.Length; i++)
+                entryIndicators[i] = Instantiate(entryIndicator, entryIndicator.transform.parent);
         }
 
         
@@ -101,6 +111,7 @@ namespace TakeOver.Journal
             if (!hasEntries)
             {
                 setArrows(false, false);
+                refreshIndicators();
                 return;
             }
 
@@ -114,6 +125,9 @@ namespace TakeOver.Journal
             JournalEntry entry = entries[index];
 
             titleText.text = entry.title;
+            dateText.text = entry.resolvedDay > 0
+                ? GameCalendar.DateOf(entry.resolvedDay).ToString("yyyy.MM.dd", CultureInfo.InvariantCulture)
+                : string.Empty;
             summaryText.text = entry.summary;
 
             textBuilder.Clear();
@@ -130,6 +144,22 @@ namespace TakeOver.Journal
 
             showPeople(entry.people);
             setArrows(index > 0, index < entries.Count - 1);
+            refreshIndicators();
+        }
+
+        private void refreshIndicators()
+        {
+            int visibleCount = Mathf.Min(entries.Count, entryIndicators.Length);
+            int firstIndex = Mathf.Clamp(currentIndex - entryIndicators.Length / 2, 0, entries.Count - visibleCount);
+
+            for (int i = 0; i < entryIndicators.Length; i++)
+            {
+                var indicator = entryIndicators[i];
+                bool visible = i < visibleCount;
+                indicator.gameObject.SetActive(visible);
+                if (visible)
+                    indicator.color = firstIndex + i == currentIndex ? selectedIndicatorColor : inactiveIndicatorColor;
+            }
         }
 
         private void showPeople(List<JournalPerson> people)
@@ -169,6 +199,7 @@ namespace TakeOver.Journal
             var first = new JournalEntry
             {
                 title = "주가 조작 제안 사건",
+                resolvedDay = 1,
                 summary = "비공개 거래를 통해 주가를 인위적으로 조작하자는 제안을 받았다.\n제안의 발신자는 아직 특정되지 않았으나, 내부 인물일 가능성이 높다.",
                 photo = photoImage.sprite
             };
@@ -178,7 +209,7 @@ namespace TakeOver.Journal
             first.people.Add(new JournalPerson { npcId = "sample-a", displayName = "윤하진" });
             first.people.Add(new JournalPerson { npcId = "sample-b", displayName = "서지아" });
 
-            var second = new JournalEntry { title = "두 번째 예시 사건", summary = "화살표 넘김 확인용 카드입니다." };
+            var second = new JournalEntry { title = "두 번째 예시 사건", resolvedDay = 2, summary = "화살표 넘김 확인용 카드입니다." };
             second.keyPoints.Add("나의 선택: 협력 방안을 함께 검토한다");
             second.keyPoints.Add("관계 변화 없음");
 

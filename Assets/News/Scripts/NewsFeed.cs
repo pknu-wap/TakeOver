@@ -57,9 +57,15 @@ public partial class NewsFeed : MonoBehaviour
     }
 
     // 시장 이벤트 쪽에서 뉴스를 넣을 때 부르는 함수. 턴 순서대로 넣는다고 가정한다.
-    public void addNews(int turn, string title, IEnumerable<string> companyIDs, string description)
+    public void addNews(int turn, string title, IEnumerable<string> companyIDs, string description, int marketEventID = 0)
     {
-        NewsEntry entry = new NewsEntry { turn = turn, title = title, description = describeNews(title, description) };
+        NewsEntry entry = new NewsEntry
+        {
+            turn = turn,
+            marketEventID = marketEventID,
+            title = title,
+            description = describeNews(title, description)
+        };
         if (companyIDs != null)
         {
             foreach (string id in companyIDs)
@@ -96,7 +102,7 @@ public partial class NewsFeed : MonoBehaviour
         entries.RemoveAll(entry => entry.turn < newTurn - retainedDayCount + 1);
         if (useDummyNews)
         {
-            addDummyNews(newTurn, dummyRandom.Next(0, 3));
+            addDummyNews(newTurn, dummyRandom.Next(1, 3));
         }
         NewsChanged?.Invoke();
     }

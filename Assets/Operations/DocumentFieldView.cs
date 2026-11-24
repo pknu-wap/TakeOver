@@ -14,6 +14,15 @@ namespace TakeOver.Operations
         [SerializeField] private Text fieldLabel;
         private readonly List<GameObject> options = new List<GameObject>();
 
+        private void Awake()
+        {
+            var canvas = optionsRoot.GetComponent<Canvas>();
+            if (canvas == null) canvas = optionsRoot.AddComponent<Canvas>();
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = 700;
+            if (optionsRoot.GetComponent<GraphicRaycaster>() == null) optionsRoot.AddComponent<GraphicRaycaster>();
+        }
+
         public void Bind(IApprovalDocument document, DocumentField field, bool readOnly, float value, Action changed)
         {
             if (field.options == null || field.options.Count == 0)
@@ -27,8 +36,23 @@ namespace TakeOver.Operations
             optionsRoot.SetActive(false);
             optionTemplate.gameObject.SetActive(false);
             fieldLabel.text = field.label;
-            valueButton.Bind($"{formatValue(value, field.format)}{(readOnly ? "" : " ▾")}", () => optionsRoot.SetActive(!optionsRoot.activeSelf), !readOnly);
+            string initialText = !readOnly && field.initialSelected ? field.initialOptionLabel : formatValue(value, field.format);
+            valueButton.Bind($"{initialText}{(readOnly ? "" : " ▾")}", () => optionsRoot.SetActive(!optionsRoot.activeSelf), !readOnly);
             if (readOnly) return;
+            if (field.initialOptionLabel != null)
+            {
+                var initial = Instantiate(optionTemplate, optionTemplate.transform.parent, false);
+                initial.gameObject.SetActive(true);
+                initial.Bind(field.initialOptionLabel, () =>
+                {
+                    document.SetField(field.name, field.initialValue);
+                    field.initialSelected = true;
+                    valueButton.Bind(field.initialOptionLabel + " ▾", () => optionsRoot.SetActive(!optionsRoot.activeSelf));
+                    optionsRoot.SetActive(false);
+                    changed();
+                });
+                options.Add(initial.gameObject);
+            }
             foreach (float choice in field.options)
             {
                 var button = Instantiate(optionTemplate, optionTemplate.transform.parent, false);
@@ -36,6 +60,7 @@ namespace TakeOver.Operations
                 button.Bind(formatValue(choice, field.format), () =>
                 {
                     document.SetField(field.name, choice);
+                    field.initialSelected = false;
                     valueButton.Bind($"{formatValue(choice, field.format)} ▾", () => optionsRoot.SetActive(!optionsRoot.activeSelf));
                     optionsRoot.SetActive(false);
                     changed();

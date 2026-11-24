@@ -145,11 +145,11 @@ namespace TakeOver.Employees
             return true;
         }
         public bool HasSupportFor(Company company) => assignments.Values.Any(job => job.Job == JobType.Support && job.Targets.Contains(company));
+        public string SupportEmployeeNamesFor(Company company) => string.Join(", ", employeeService.Employees
+            .Where(employee => assignments.TryGetValue(employee.Id, out var job) && job.Job == JobType.Support && job.Targets.Contains(company))
+            .Select(employee => employee.Name));
         public string SupportTargetName(Employee emp) => emp != null && assignments.TryGetValue(emp.Id, out var job) &&
             job.Job == JobType.Support ? job.Targets.FirstOrDefault()?.definition.companyName ?? "" : "";
-        public int SupportManagementFor(Company company) => assignments.Values
-            .Where(job => job.Job == JobType.Support && job.Targets.Contains(company))
-            .Select(job => Find(job.EmployeeId)).Where(emp => emp != null).Sum(emp => emp.Management.Current);
 
         public JobType GetJob(Employee emp)
         {

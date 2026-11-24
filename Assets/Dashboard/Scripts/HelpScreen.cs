@@ -53,11 +53,13 @@ namespace TakeOver.Help
             body.raycastTarget = true;
             var picture = new GameObject("Explanation image", typeof(RectTransform), typeof(Image)); picture.transform.SetParent(panel.transform,false);
             photo = picture.GetComponent<Image>(); photo.preserveAspect = true; photo.raycastTarget = false;
-            Place(photo.rectTransform, 846, 170, 360, 340);
+            const float photoLeft = 832;
+            const float photoWidth = 384;
+            Place(photo.rectTransform, photoLeft, 170, photoWidth, 340);
             photo.gameObject.AddComponent<Button>().onClick.AddListener(ShowPhoto);
             photo.raycastTarget=true;
             var caption=Instantiate(heading,panel.transform,false);caption.text="사진 선택: 크게 보기";caption.fontSize=14;
-            Place(caption.rectTransform,846,130,360,30);
+            Place(caption.rectTransform, photoLeft, 130, photoWidth, 30);
             caption.gameObject.name="Photo caption";
             const float topicListTop = 536;
             const float topicListBottom = 24;

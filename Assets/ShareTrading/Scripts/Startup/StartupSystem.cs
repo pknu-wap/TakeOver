@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TakeOver.CompanyRules;
-using TakeOver.Employees;
 using UnityEngine;
 
 namespace TakeOver.Startups
@@ -14,8 +13,6 @@ namespace TakeOver.Startups
         [SerializeField] private CompanyRuleRunner ruleRunner;
 
         private readonly List<StartupRecord> records = new List<StartupRecord>();
-        private JobService jobs;
-        private bool warnedMissingJobs;
         private Transform startupRoot;
         private int lastIdNumber;
 
@@ -273,35 +270,6 @@ namespace TakeOver.Startups
             foreach (StartupFacilityInvestment investment in record.facilityInvestments)
                 if (turn >= investment.startTurn && turn < investment.endTurn) bonus += investment.growthBonus;
             return bonus;
-        }
-
-        public float extraGrowthBonus(Company company, int turn) =>
-            facilityGrowthBonus(company, turn) + supportGrowthBonus(company);
-
-        public float supportGrowthBonus(Company company)
-        {
-            JobService service = findJobs();
-            if (service == null || settings == null) return 0f;
-            return service.SupportManagementFor(company) * settings.supportGrowthPerManagement;
-        }
-
-        public float supportCostReduction(Company company)
-        {
-            JobService service = findJobs();
-            if (service == null || settings == null) return 0f;
-            float reduction = service.SupportManagementFor(company) * settings.supportCostReductionPerManagement;
-            return Mathf.Clamp(reduction, 0f, settings.supportMaxCostReduction);
-        }
-
-        private JobService findJobs()
-        {
-            if (jobs == null) jobs = FindFirstObjectByType<JobService>();
-            if (jobs == null && !warnedMissingJobs)
-            {
-                warnedMissingJobs = true;
-                Debug.LogWarning("[StartupSystem] JobService를 찾지 못해 지원 인원 효과를 적용하지 않습니다.", this);
-            }
-            return jobs;
         }
 
         [ContextMenu("검증용: 첫 스타트업 연간 사업 계획 바로 받기")]

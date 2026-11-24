@@ -28,9 +28,11 @@ namespace TakeOver.Documents
         public bool approved;
         public int resolvedTurn;
         public int arrival;
+        public int arrivalTurn;
         public bool snapshot;
         public string title;
         public string author;
         public List<NameText> infoRows;
+        public EmployeeRenewalDocument.SavedData employeeRenewal;
     }
 }

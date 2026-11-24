@@ -1,3 +1,4 @@
+using TakeOver.Documents;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,13 @@ namespace TakeOver.Operations
                 layout.preferredHeight = Mathf.Max(36, value.preferredHeight + 8);
                 ((RectTransform)transform).SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, layout.preferredHeight);
             }
+        }
+
+        public void BindEmployeeRenewalHover(EmployeeRenewalDocument document)
+        {
+            value.raycastTarget = true;
+            value.color = new Color(.17f, .31f, .48f);
+            value.gameObject.AddComponent<EmployeeRenewalStatHover>().Bind(document);
         }
     }
 }

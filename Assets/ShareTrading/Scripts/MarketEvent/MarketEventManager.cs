@@ -58,7 +58,8 @@ public class MarketEventManager : MonoBehaviour
     public void processTurn(int currentTurn)
     {
         expireEvents(currentTurn);
-        addEvent(currentTurn);
+        addEvent(currentTurn, "market");
+        addEvent(currentTurn, "market-second");
         EffectControl.applyMarketEventEffects(currentTurn);
         lastProcessedTurn = currentTurn;
     }
@@ -137,11 +138,11 @@ public class MarketEventManager : MonoBehaviour
         }
     }
 
-    private void addEvent(int currentTurn)
+    private void addEvent(int currentTurn, string selectionKey)
     {
         if (availableEventIDs.Count == 0) return;
 
-        int index = (int)(FixedDaySeed.StableOrder(currentTurn, "market") % (uint)availableEventIDs.Count);
+        int index = (int)(FixedDaySeed.StableOrder(currentTurn, selectionKey) % (uint)availableEventIDs.Count);
         int eventID = availableEventIDs[index];
         if (!eventsByID.TryGetValue(eventID, out MarketEventDefinition definition))
         {
