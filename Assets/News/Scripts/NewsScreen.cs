@@ -8,6 +8,7 @@ public class NewsScreen : MonoBehaviour
 {
     [SerializeField] private NewsFeed feed;
     [SerializeField] private GameObject cardsRoot;
+    [SerializeField] private GameObject secretNewsPlaceholder;
     [SerializeField] private NewsRow[] newsCards;
     [SerializeField] private Text dateText;
     [SerializeField] private Button generalTabButton;
@@ -134,6 +135,7 @@ public class NewsScreen : MonoBehaviour
         generalTabButton.GetComponentInChildren<Text>().color = isSecretNews ? inactiveColor : activeColor;
         secretTabButton.GetComponentInChildren<Text>().color = isSecretNews ? activeColor : inactiveColor;
         cardsRoot.SetActive(!isSecretNews);
+        secretNewsPlaceholder.SetActive(isSecretNews);
         if (isSecretNews) return;
 
         foreach (NewsRow card in newsCards) card.gameObject.SetActive(false);
