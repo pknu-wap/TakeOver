@@ -7,6 +7,7 @@ public class NewsRow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private const float hoverSpeed = 30f;
     private const float hoverSnapThreshold = 0.005f;
     private const float thumbnailHorizontalInset = 61f;
+    private const float thumbnailHoverWidthRatio = 0.5f;
 
     [SerializeField] private UnityEngine.UI.Text titleText;
     [SerializeField] private UnityEngine.UI.Text companyText;
@@ -45,8 +46,6 @@ public class NewsRow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         this.normalWidth = normalWidth;
         this.hoveredWidth = hoveredWidth;
         cardLayout.preferredHeight = height;
-        float thumbnailWidth = Mathf.Max(0f, normalWidth - thumbnailHorizontalInset);
-        thumbnailMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, thumbnailWidth);
         updateWidth();
     }
 
@@ -81,6 +80,11 @@ public class NewsRow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void updateWidth()
     {
-        cardLayout.preferredWidth = Mathf.Lerp(normalWidth, hoveredWidth, hoverProgress);
+        float cardWidth = Mathf.Lerp(normalWidth, hoveredWidth, hoverProgress);
+        cardLayout.preferredWidth = cardWidth;
+
+        float normalThumbnailWidth = Mathf.Max(0f, normalWidth - thumbnailHorizontalInset);
+        float thumbnailWidth = normalThumbnailWidth + (cardWidth - normalWidth) * thumbnailHoverWidthRatio;
+        thumbnailMask.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, thumbnailWidth);
     }
 }
