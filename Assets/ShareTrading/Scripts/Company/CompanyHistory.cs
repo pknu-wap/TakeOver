@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class CompanyHistory
 {
     internal const int MAX_HISTORY = 5;
+    internal const int MAX_PRICE_HISTORY = 14;
 
     private CompanyState state;
     private List<CompanyHistoryEntry> history
@@ -11,6 +12,10 @@ public class CompanyHistory
 
     public IReadOnlyList<CompanyHistoryEntry> History => history;
     internal List<CompanyHistoryEntry> Entries => history;
+
+    private readonly List<float> priceHistory = new List<float>();
+    public IReadOnlyList<float> PriceHistory => priceHistory;
+    internal List<float> PriceEntries => priceHistory;
 
     public CompanyHistory(CompanyState state)
     {
@@ -31,6 +36,12 @@ public class CompanyHistory
         if (history.Count > MAX_HISTORY)
         {
             history.RemoveAt(0);
+        }
+
+        priceHistory.Add(state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE));
+        if (priceHistory.Count > MAX_PRICE_HISTORY)
+        {
+            priceHistory.RemoveAt(0);
         }
     }
 
