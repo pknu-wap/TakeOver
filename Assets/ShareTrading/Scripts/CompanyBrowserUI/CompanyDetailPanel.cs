@@ -1,5 +1,6 @@
 using System;
 using System.Collections;   // IEnumerator (코루틴)
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +30,9 @@ public class CompanyDetailPanel : MonoBehaviour
     [Header("핵심 지표 (왼쪽부터 6칸)")]
     [SerializeField] private MetricBox[] metricBoxes;
 
+    [Header("주가 추이")]
+    [SerializeField] private StockChartGraphic stockChart;
+
     [Header("내 보유")]
     [SerializeField] private TMP_Text holdingText;
 
@@ -49,6 +53,7 @@ public class CompanyDetailPanel : MonoBehaviour
     private Vector2 originalWindowPosition;
     private bool tutorialWindowMoved;
     private GameTurnClock turnClock;
+    private readonly List<float> chartPrices = new List<float>();
 
     // 지도 노드·목록 줄을 누르면 불린다.
     public void show(Company company)
@@ -181,6 +186,8 @@ public class CompanyDetailPanel : MonoBehaviour
         setMetric(4, "부채비율", $"{CompanyUIUtil.getDerived(current, CompanyDerivedStat.DEBT_RATIO):P1}");
         setMetric(5, "보유 지분", $"{stake:0.#}%");
 
+        refreshChart(price);
+
         setText(holdingText, $"보유 주식  {myShares:N0}주\n평가 금액  {myShares * price:N0}");
 
         // 내 잔액. Unity 오브젝트에는 ?.가 제대로 동작하지 않는 경우가 있어서 != null로 직접 확인한다.
@@ -190,6 +197,33 @@ public class CompanyDetailPanel : MonoBehaviour
             myCash = player.state.cash;
         }
         setText(playerCashText, $"내 잔액  {myCash:N0}");
+    }
+
+    private void refreshChart(float todayPrice)
+    {
+        if (stockChart == null)
+        {
+            return;
+        }
+
+        chartPrices.Clear();
+        if (current.history != null)
+        {
+            IReadOnlyList<float> past = current.history.PriceHistory;
+            for (int i = 0; i < past.Count; i++)
+            {
+                if (past[i] > 0f)
+                {
+                    chartPrices.Add(past[i]);
+                }
+            }
+        }
+        if (todayPrice > 0f)
+        {
+            chartPrices.Add(todayPrice);
+        }
+
+        stockChart.setValues(chartPrices);
     }
 
     private void setMetric(int index, string label, string value)
