@@ -21,7 +21,6 @@ public sealed class TopBarNavigationController : MonoBehaviour
     [SerializeField] private GameObject operationsSelection;
     [SerializeField] private TMPro.TMP_Text operationsLabel;
     private int currentTab;
-    public DashboardTab CurrentTab => tabKinds[currentTab];
     private TakeOver.Help.HelpScreen help;
     private int helpTab;
     public DashboardTab CurrentTab => tabKinds[currentTab];
