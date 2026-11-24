@@ -142,12 +142,26 @@ namespace TakeOver.Help
             var rect=(RectTransform)overlay.transform;rect.anchorMin=Vector2.zero;rect.anchorMax=Vector2.one;rect.offsetMin=rect.offsetMax=Vector2.zero;
             overlay.GetComponent<Image>().color=new Color(0,0,0,.96f);
             overlay.AddComponent<Button>().onClick.AddListener(ClosePhoto);
-            var image=new GameObject("Screenshot",typeof(RectTransform),typeof(Image));image.transform.SetParent(overlay.transform,false);
-            image.GetComponent<Image>().sprite=photo.sprite;image.GetComponent<Image>().preserveAspect=true;image.GetComponent<Image>().raycastTarget=false;
-            Place((RectTransform)image.transform,40,82,1200,600);
-            var close=template.CreateActionButton(overlay.transform,"Close enlarged image","닫기",ClosePhoto);
+            var image = new GameObject("Screenshot", typeof(RectTransform), typeof(UnityEngine.UI.Image));
+            image.transform.SetParent(overlay.transform, false);
+            var screenshot = image.GetComponent<UnityEngine.UI.Image>();
+            screenshot.sprite = photo.sprite;
+            screenshot.preserveAspect = true;
+            screenshot.raycastTarget = false;
+
+            var imageRect = screenshot.rectTransform;
+            imageRect.anchorMin = Vector2.zero;
+            imageRect.anchorMax = Vector2.one;
+            imageRect.pivot = new Vector2(0.5f, 0.5f);
+            imageRect.offsetMin = new Vector2(16, 64);
+            imageRect.offsetMax = new Vector2(-16, -12);
+
+            var close = template.CreateActionButton(overlay.transform, "Close enlarged image", "닫기", ClosePhoto);
             TakeOver.UI.ButtonHoverFeedback.Attach(close);
-            Place((RectTransform)close.transform,540,24,200,42);
+            var closeRect = (RectTransform)close.transform;
+            closeRect.anchorMin = closeRect.anchorMax = closeRect.pivot = new Vector2(0.5f, 0);
+            closeRect.anchoredPosition = new Vector2(0, 12);
+            closeRect.sizeDelta = new Vector2(200, 42);
         }
         private void Introduce()
         {

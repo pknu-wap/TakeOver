@@ -189,6 +189,8 @@ public sealed class UiLayoutProbe : MonoBehaviour
     IEnumerator Verify()
     {
         yield return Frames(10);
+        Check(HelpTopics.Items.Any(topic => topic.title == "직원 재계약" && !string.IsNullOrWhiteSpace(topic.text)),
+            "Help includes the employee renewal topic without fixing the total topic count");
         Check(HelpTopics.Items.All(topic => !string.IsNullOrWhiteSpace(topic.title) && !string.IsNullOrWhiteSpace(topic.text) &&
             topic.title != "주인공 이름" && topic.title != "다시 시작하기" &&
             !System.Text.RegularExpressions.Regex.IsMatch(topic.text, @"\d+일차|\d+%")), "Help authoring is complete and omits tutorial spoilers, without an arbitrary length cap");
