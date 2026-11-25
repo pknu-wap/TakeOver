@@ -28,7 +28,12 @@ public sealed class EscMenu : MonoBehaviour
     [Tooltip("비워두면 씬에서 자동으로 찾음")]
     [SerializeField] private NpcStatusScreen npcStatusScreen;
 
+    [Tooltip("끄면 esc 키로 메뉴가 열리지 않는다 (메인메뉴에서는 꺼서 설정 화면만 사용)")]
+    [SerializeField] private bool openWithEsc = true;
+
     private Action pendingAction;
+
+    private bool settingsOnly;
 
     private bool npcHiddenByMenu;
 
@@ -58,7 +63,7 @@ public sealed class EscMenu : MonoBehaviour
         {
             closeTopLayer();
         }
-        else
+        else if (openWithEsc)
         {
             openMenu();
         }
@@ -72,7 +77,7 @@ public sealed class EscMenu : MonoBehaviour
         {
             closeConfirm();
         }
-        else if (settingsPanel.activeSelf)
+        else if (settingsPanel.activeSelf && !settingsOnly)
         {
             closeSettings();
         }
@@ -89,8 +94,16 @@ public sealed class EscMenu : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    public void openSettingsOnly()
+    {
+        settingsOnly = true;
+        menuRoot.SetActive(true);
+        openSettings();
+    }
+
     public void resumeGame()
     {
+        settingsOnly = false;
         closeConfirm();
         // 설정 화면을 연 채로 메뉴를 닫아도, 다음에 열 때는 버튼 4개 화면부터 보이게 한다.
         closeSettings();
