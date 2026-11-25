@@ -12,10 +12,13 @@ public sealed class EscMenu : MonoBehaviour
 {
     private const string mainMenuScenePath = "Assets/Scenes/MainMenu.unity";
 
-    [Tooltip("esc로 켜고 끄는 메뉴 전체 (어두운 배경 + 버튼 묶음)")]
+    [Tooltip("esc로 켜고 끄는 메뉴 전체 (어두운 배경 + 패널)")]
     [SerializeField] private GameObject menuRoot;
 
-    [Tooltip("설정 버튼을 누르면 열리는 패널")]
+    [Tooltip("첫 화면의 버튼 4개 묶음. 설정을 열면 숨기고, 닫으면 다시 보인다")]
+    [SerializeField] private GameObject mainButtons;
+
+    [Tooltip("설정 버튼을 누르면 버튼 묶음 자리에 대신 보이는 설정 화면")]
     [SerializeField] private GameObject settingsPanel;
 
     [Tooltip("메인메뉴로 / 게임 끄기 전에 한 번 더 묻는 창")]
@@ -27,7 +30,6 @@ public sealed class EscMenu : MonoBehaviour
 
     private Action pendingAction;
 
-  
     private bool npcHiddenByMenu;
 
     public bool isOpen => menuRoot.activeSelf;
@@ -40,6 +42,7 @@ public sealed class EscMenu : MonoBehaviour
         }
 
         menuRoot.SetActive(false);
+        mainButtons.SetActive(true);
         settingsPanel.SetActive(false);
         confirmPanel.SetActive(false);
     }
@@ -51,10 +54,19 @@ public sealed class EscMenu : MonoBehaviour
             return;
         }
 
-        handleEscape();
+        if (isOpen)
+        {
+            closeTopLayer();
+        }
+        else
+        {
+            openMenu();
+        }
     }
 
-    private void handleEscape()
+    // esc 키와 패널 오른쪽 위 X 버튼이 같이 쓰는 "한 단계 닫기".
+    // 확인창 → 설정 화면 → 메뉴 전체 순서로, 맨 위에 떠 있는 것 하나만 닫는다.
+    public void closeTopLayer()
     {
         if (confirmPanel.activeSelf)
         {
@@ -64,13 +76,9 @@ public sealed class EscMenu : MonoBehaviour
         {
             closeSettings();
         }
-        else if (isOpen)
-        {
-            resumeGame();
-        }
         else
         {
-            openMenu();
+            resumeGame();
         }
     }
 
@@ -83,8 +91,9 @@ public sealed class EscMenu : MonoBehaviour
 
     public void resumeGame()
     {
-        settingsPanel.SetActive(false);
         closeConfirm();
+        // 설정 화면을 연 채로 메뉴를 닫아도, 다음에 열 때는 버튼 4개 화면부터 보이게 한다.
+        closeSettings();
         menuRoot.SetActive(false);
         Time.timeScale = 1f;
         restoreNpcScreen();
@@ -92,12 +101,14 @@ public sealed class EscMenu : MonoBehaviour
 
     public void openSettings()
     {
+        mainButtons.SetActive(false);
         settingsPanel.SetActive(true);
     }
 
     public void closeSettings()
     {
         settingsPanel.SetActive(false);
+        mainButtons.SetActive(true);
     }
 
     public void askGoToMainMenu()
