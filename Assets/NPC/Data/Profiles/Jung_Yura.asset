@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Jung_Yura
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 10
     preferenceResponse:
       source: 1
       enabled: 0

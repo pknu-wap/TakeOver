@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Han_Dogyeong
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 7
     preferenceResponse:
       source: 1
       enabled: 0

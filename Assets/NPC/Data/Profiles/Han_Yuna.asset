@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Han_Yuna
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 5
     preferenceResponse:
       source: 1
       enabled: 0

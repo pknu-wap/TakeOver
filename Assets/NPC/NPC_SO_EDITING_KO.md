@@ -52,3 +52,56 @@ Inspector 미리보기는 3~4단계만 계산한다. 2단계의 고정 보정과
 
 - `TakeOver > NPC > Verify Individual SO Settings`: SO별 보너스, Inspector 편집·Undo·그리기, 실제 런타임 기록·저장 및 기존 NPC Play 검증.
 - `TakeOver > NPC > Verify Event Connection`: 실제 이벤트 선택부터 NPC 관계·기억까지 연결 검증.
+
+## 검색용 직책 분류 (30명)
+
+대화창 직책은 NPC 프로필의 `speakerRole`로 지정하며 비어 있으면 `role`을 사용한다. 튜토리얼도 이 값을 사용한다. 프로필 화면은 기존 `role`을 유지한다. 고정 화자 이벤트는 이벤트 SO의 `speakerRole`, 구조조정 담당자는 해당 이벤트 SO의 `restructuringSpeakers` 항목별 `speakerRole`을 우선 사용하며 비어 있으면 NPC의 대화창 직책을 사용한다.
+
+대화창은 소속에 관계없이 `소속 · 직책 이름`으로 표시한다. 중립 대화창에도 `외부 인물 ·`을 붙인다. 홈 이벤트 카드는 별도 이름표를 사용하며 회사 소속은 `회사 이름`, 중립(`companyId = external-network`)은 `직책 이름`으로 표시한다. 고정 화자도 NPC ID로 등록 프로필의 소속·기본 대화창 직책을 읽는다. 검색용 `position` enum은 표시 직책을 결정하지 않는다.
+
+| NPC | 이벤트 speakerRole |
+|---|---|
+| 박민우 | 인사책임자 |
+| 최은수 | 인사책임자 |
+| 강민지 | 지역관계 책임자 |
+| 김동석 | 매장운영 책임자 |
+| 박상현 | 로비스트 |
+
+`seed.position`은 검색용 공통 직무, `seed.profile.role`은 기존 표시 직책이다. `None = 0`, `CEO = 1`은 유지하며 추가 enum 값도 명시적으로 고정한다. 신규 작성용 NpcTemplate만 None으로 둔다.
+
+회사 NPC는 유사 직무끼리 분류한다. 겸직 인물은 이벤트 검색에 사용할 대표 직무 하나를 지정한다. 중립 5명은 서로 다른 전용 분류를 사용하며 회사 직무와도 공유하지 않는다. 정수아는 탐사보도, 이민규는 경제보도로 구분한다.
+
+검색은 `TryFindByPosition(companyId, position, out npc)`을 사용한다. 중립의 회사 ID는 `external-network`다. 후보가 없거나 중복이면 실패하며 다른 직책이나 회사 인물로 대체하지 않는다. 특정 인물의 서사 이벤트는 NPC ID 직접 지정을 유지한다. 이 분류 추가로 기존 이벤트의 화자 선택·표시 직책은 변경하지 않는다.
+
+| 소속 | NPC | position | 표시 role |
+|---|---|---|---|
+| 오로라푸드테크 | 김서후 | `CEO` | CEO |
+| 오로라푸드테크 | 정하린 | `Research` | 수석과학자 |
+| 오로라푸드테크 | 한유나 | `BusinessDevelopment` | 사업개발책임자 |
+| 블루하버리테일 | 김동석 | `HRLabor` | 매장운영·노무책임자 |
+| 블루하버리테일 | 서유진 | `CEO` | CEO |
+| 블루하버리테일 | 한도경 | `Data` | 데이터총괄 |
+| 대성산업 | 김성호 | `CEO` | CEO |
+| 대성산업 | 노현정 | `Finance` | CFO |
+| 대성산업 | 오진우 | `BusinessDevelopment` | 사업개발총괄 |
+| 대성산업 | 최은수 | `HRLabor` | 조직·인사책임자 |
+| 동방물산 | 강재현 | `CEO` | CEO |
+| 동방물산 | 박민우 | `HRLabor` | 인사·노무 책임자 |
+| 외부 인물 | 박상현 | `PoliticalLobbyist` | 정치 로비스트 |
+| 외부 인물 | 윤하진 | `MABroker` | M&A 브로커 |
+| 외부 인물 | 이민규 | `EconomicReporter` | 경제지 기자 |
+| 외부 인물 | 정수아 | `InvestigativeReporter` | 탐사보도 기자 |
+| 외부 인물 | 김태성 | `InstitutionalInvestor` | 기관투자자 |
+| 하늘식품 | 김하린 | `CEO` | CEO |
+| 하늘식품 | 오재성 | `Finance` | CFO |
+| 한성공업 | 조민석 | `CEO` | CEO |
+| 한성공업 | 최미정 | `HRLabor` | 노무 책임자 |
+| 미래건설 | 강준혁 | `CEO` | CEO |
+| 미래건설 | 박도식 | `Operations` | 현장총괄 |
+| 미래건설 | 서지아 | `Finance` | CFO |
+| 폴라리스파이낸스 | 송현석 | `RiskManagement` | 리스크관리책임자 |
+| 폴라리스파이낸스 | 임도현 | `CEO` | CEO |
+| 폴라리스파이낸스 | 정유라 | `MA` | M&A 본부장 |
+| 신성개발 | 강민지 | `CommunityRelations` | 임차인·지역관계 책임자 |
+| 신성개발 | 유정민 | `BusinessDevelopment` | 개발기획책임자 |
+| 신성개발 | 정도현 | `CEO` | CEO |

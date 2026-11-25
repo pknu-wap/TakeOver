@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Kim_Dongseok
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 3
     preferenceResponse:
       source: 1
       enabled: 0
@@ -78,6 +78,7 @@ MonoBehaviour:
       dimmedStandingIllustration: {fileID: 0}
       displayName: "\uAE40\uB3D9\uC11D"
       role: "\uB9E4\uC7A5\uC6B4\uC601\xB7\uB178\uBB34\uCC45\uC784\uC790"
+      speakerRole: "\ub9e4\uc7a5\uc6b4\uc601 \ucc45\uc784\uc790"
       affiliation: "\uBE14\uB8E8\uD558\uBC84\uB9AC\uD14C\uC77C"
       personalitySummary: "겉으로 잘 돌아가는 매장에서도 근무표와 고객 불만을 같이 본다. 회사가 위태로웠을 때 현장에 인력 부담을 넘긴 기억이 있어, 비용을 조금 아끼자는 말도 그 뒤의 교대 일정까지 따져 듣는다."
       gameplayRoleSummary: "현장 의견을 듣고 고용 조건을 지킨 운영안에는 힘을 보탠다. 장부의 빈칸을 채우려고 교대 인원을 무리하게 줄이거나, 손실의 책임을 점장에게만 묻는 계획에는 반대한다."

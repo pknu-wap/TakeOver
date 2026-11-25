@@ -38,8 +38,11 @@ namespace TakeOver.Events
             if (item.FirstContact) return tutorialRewardGranted && !TakeOver.Story.StoryDirector.IsRunning;
             if (!item.Repeatable) return true;
             if (TakeOver.Story.StoryDirector.IsRunning) return false;
-            if (item.hasCompanyConditions() && !CompanyStoryStarted(companyId)) return false;
-            return !string.IsNullOrEmpty(item.RepeatGroup) || CompanyStoryStarted(companyId);
+            // 메인 회사 스토리가 없는 추가 회사는 자체 지분·실적 조건으로 반복 사건에 진입한다.
+            bool independentCompany = item.hasCompanyConditions() && !StoryCompanyIds.Contains(companyId)
+                && worldReader.getCompany(companyId) != null;
+            if (item.hasCompanyConditions() && !independentCompany && !CompanyStoryStarted(companyId)) return false;
+            return !string.IsNullOrEmpty(item.RepeatGroup) || independentCompany || CompanyStoryStarted(companyId);
         }
         private string RepeatKey(EventDefinition item, string companyId) => string.IsNullOrEmpty(item.RepeatGroup) ? companyId : item.RepeatGroup;
         private bool RepeatReady(EventDefinition item, string companyId, HashSet<string> groupsOnCooldown)

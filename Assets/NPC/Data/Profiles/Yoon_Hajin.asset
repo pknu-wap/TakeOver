@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Yoon_Hajin
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 11
     preferenceResponse:
       source: 1
       enabled: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
       dimmedStandingIllustration: {fileID: 21300000, guid: 422793b121c24244e99fefb94f88ed17, type: 3}
       displayName: "\uC724\uD558\uC9C4"
       role: "M&A \uBE0C\uB85C\uCEE4"
-      affiliation: "\uC678\uBD80 \uAC70\uB798\uB9DD"
+      affiliation: "\uc678\ubd80 \uc778\ubb3c"
       personalitySummary: "\uAC70\uB798 \uC218\uC218\uB8CC\uC640 \uD611\uC0C1 \uC2E0\uB8B0\uB97C
         \uC911\uC2DC\uD55C\uB2E4. \uAC70\uB798\uB97C \uB298\uB9AC\uB294 \uC0C1\uB300\uB97C
         \uC120\uD638\uD558\uBA70, \uC57D\uC18D\uC744 \uAE68\uBA74 \uC815\uBCF4 \uC815\uD655\uB3C4\uB97C

@@ -31,6 +31,7 @@ namespace TakeOver.Events
             setBlock(playerBlock, false);
             setBlock(responseBlock, false);
             speakerText.text = info.speakerLabel;
+            FitNpcName(speakerText, dialogueText);
             responseSpeakerText.text = speakerText.text;
             dialogueText.text = info.dialogue;
             npcIllustration.sprite = speakerIllustration;

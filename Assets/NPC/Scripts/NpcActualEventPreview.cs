@@ -31,8 +31,8 @@ namespace TakeOver.NPC
                     ?? FindFirstObjectByType<Companies>()?.CompanyList.FirstOrDefault()?.definition.companyID
                     ?? registry.Profiles.FirstOrDefault(p => p.position == NpcPosition.CEO)?.companyId ?? "";
             }
-            var company = new EventWorldReader(FindFirstObjectByType<Companies>(), registry).getCompany(eventCompany, definition);
-            return new TodayEventInfo(definition, company, definition.getValidDays());
+            var world = new EventWorldReader(FindFirstObjectByType<Companies>(), registry);
+            return world.getEventInfo(definition, eventCompany, definition.getValidDays());
         }
 
         /// <summary>등장 조건을 우회하는 NPC 결과 테스트다. 실제 SO의 선택을 공용 수신 경계에 전달한다.</summary>

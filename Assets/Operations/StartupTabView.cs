@@ -39,6 +39,13 @@ namespace TakeOver.Operations
         private JobService jobs;
         private GameTurnClock turnClock;
         private bool built;
+        private bool tutorialPreview;
+        public bool IsTutorialPreview => tutorialPreview;
+        public void SetTutorialPreview(bool enabled)
+        {
+            tutorialPreview = enabled;
+            refresh();
+        }
         private Company selected;
 
         private RectTransform contentRoot;
@@ -112,6 +119,31 @@ namespace TakeOver.Operations
             IReadOnlyList<Company> startups = companies != null ? companies.StartupList
                 .Where(company => company.state.getBaseStat(CompanyStat.PLAYER_SHARES) > 0f).ToList() : null;
             bool empty = startups == null || startups.Count == 0;
+            if (empty && tutorialPreview)
+            {
+                contentRoot.gameObject.SetActive(true);
+                templateText.gameObject.SetActive(false);
+                if (items.Count == 0) items.Add(createItem());
+                for (int i = 0; i < items.Count; i++) items[i].root.SetActive(i == 0);
+                var sample = items[0];
+                sample.company = null;
+                sample.nameText.text = "새봄테크";
+                sample.industryText.text = "정보기술";
+                sample.stakeText.text = "20%";
+                sample.outline.enabled = true;
+                titleText.text = "새봄테크";
+                stakeText.text = "플레이어 지분 20%";
+                supportText.text = "파견 직원: 없음";
+                metricValues[0].text = "1,000,000";
+                metricValues[1].text = "250,000";
+                metricValues[2].text = "120,000";
+                metricValues[3].text = "12명";
+                graph.setValues(new[] { 60000f, 80000f, 95000f, 120000f });
+                graphEmptyLabel.gameObject.SetActive(false);
+                graphStartLabel.text = "3주 전";
+                selected = null;
+                return;
+            }
             contentRoot.gameObject.SetActive(!empty);
             templateText.gameObject.SetActive(empty);
             if (empty)

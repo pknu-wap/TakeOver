@@ -56,6 +56,7 @@ namespace TakeOver.Events
         private bool initialized, dialogueMode, dialogueInput;
         private bool playerNameMeasured;
         private float playerNameWidth, playerNameRight, playerRuleWidth, playerRuleRight;
+        private readonly Dictionary<Text, Vector4> npcNameLayouts = new Dictionary<Text, Vector4>();
         private Action dialogueAdvance, dialogueSkip;
         private Func<bool> dialogueCanSkip;
         private Action<int> dialogueChoose;
@@ -179,6 +180,28 @@ namespace TakeOver.Events
             rule.anchoredPosition = new Vector2(playerRuleRight - (1 - rule.pivot.x) * lineWidth, rule.anchoredPosition.y);
         }
 
+        private void FitNpcName(Text label, Text body)
+        {
+            var rect = label.rectTransform;
+            var rule = label.transform.parent.Find("Underline") as RectTransform;
+            if (!npcNameLayouts.TryGetValue(label, out var original))
+            {
+                original = new Vector4(rect.rect.width, rect.anchoredPosition.x - rect.pivot.x * rect.rect.width,
+                    rule != null ? rule.rect.width : 0,
+                    rule != null ? rule.anchoredPosition.x - rule.pivot.x * rule.rect.width : 0);
+                npcNameLayouts.Add(label, original);
+            }
+            float width = Mathf.Clamp(label.preferredWidth + 8, original.x, Mathf.Max(original.x, body.rectTransform.rect.width));
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            rect.anchoredPosition = new Vector2(original.y + rect.pivot.x * width, rect.anchoredPosition.y);
+            if (rule != null)
+            {
+                float ruleWidth = Mathf.Max(original.z, width);
+                rule.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ruleWidth);
+                rule.anchoredPosition = new Vector2(original.w + rule.pivot.x * ruleWidth, rule.anchoredPosition.y);
+            }
+        }
+
         public static void ApplySkipButtonStyle(Button button)
         {
             if (button == null) return;
@@ -282,6 +305,7 @@ namespace TakeOver.Events
             if (line.player) currentSpeaker.supportRichText = false;
             currentSpeaker.text = line.speaker;
             if (line.player) FitPlayerName();
+            else if (!line.narration) FitNpcName(currentSpeaker, currentDialogue);
             currentSpeaker.gameObject.SetActive(!line.narration);
             currentDialogue.alignment = line.narration ? TextAnchor.MiddleCenter : line.player ? TextAnchor.UpperRight : TextAnchor.UpperLeft;
             npcStandingIllustration = line.npcStanding; npcDimmedIllustration = line.npcDimmed;

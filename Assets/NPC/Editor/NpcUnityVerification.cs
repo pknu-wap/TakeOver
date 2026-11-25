@@ -165,6 +165,8 @@ namespace TakeOver.NPC.Editor
             Require(harness != null && ui != null, "NPC runtime exists in Game scene");
             var registry = harness.GetComponent<NpcStateRegistry>();
             Require(registry.Profiles.Count == 30 && registry.States.Count == 30, "All 30 NPCs initialized in Play mode");
+            VerifyPositionLookups(registry);
+            VerifySpeakerRoleOverrides(registry);
             NpcMemoryBalanceVerification.Verify(registry);
             VerifyPreferenceRegistration(registry);
             // 타 팀은 비활성 상태로 유지하고 초기화된 정식 ID 인덱스만 조회한다.
@@ -256,6 +258,72 @@ namespace TakeOver.NPC.Editor
             VerifyCautiousInterview(channel, registry);
             VerifyProfileGauges(registry);
             NpcPreferenceDefinitionVerification.VerifyRuntime();
+        }
+
+        private static void VerifySpeakerRoleOverrides(NpcStateRegistry registry)
+        {
+            var expected = new Dictionary<string, string>
+            {
+                { "npc-dongbang-trading-hr-director-park-minu", "인사책임자" },
+                { "npc-daeseong-industry-hr-director-choi-eunsu", "인사책임자" },
+                { "npc-sinseong-development-community-director-kang-minji", "지역관계 책임자" },
+                { "npc-blueharbor-retail-operations-director-kim-dongseok", "매장운영 책임자" },
+                { "npc-political-lobbyist-park-sanghyeon", "로비스트" }
+            };
+            var restructuring = AssetDatabase.LoadAssetAtPath<EventDefinition>("Assets/EventSystem/Data/Restructuring.asset");
+            var world = new EventWorldReader(null, registry);
+            foreach (var seed in registry.Profiles.Where(s => s.companyId != "external-network"))
+            {
+                if (!restructuring.tryGetRestructuringNpcId(seed.companyId, out var npcId) || npcId != seed.npcId) continue;
+                var info = world.getEventInfo(restructuring, seed.companyId, 1);
+                var role = expected.TryGetValue(seed.npcId, out var configured) ? configured : seed.profile.role;
+                Require(info.speakerNpcId == seed.npcId && info.speakerRole == role,
+                    "Restructuring speaker role override or fallback: " + seed.npcId);
+                Require(info.speakerLabel.Contains(role) && info.resolve("{speakerRole}") == role,
+                    "Speaker label and placeholder use event role: " + seed.npcId);
+            }
+            var fixedCount = 0;
+            foreach (var guid in AssetDatabase.FindAssets("t:EventDefinition", new[] { "Assets/EventSystem/Data", "Assets/Story/Data" }))
+            {
+                var definition = AssetDatabase.LoadAssetAtPath<EventDefinition>(AssetDatabase.GUIDToAssetPath(guid));
+                if (definition.getSpeakerSource() != EventSpeakerSource.Fixed
+                    || !expected.TryGetValue(definition.getSpeakerNpcId(), out var role)) continue;
+                var info = world.getEventInfo(definition, "", 1);
+                Require(info.speakerRole == role && info.speakerLabel.Contains(role),
+                    "Fixed speaker event role: " + definition.getId());
+                fixedCount++;
+            }
+            Require(fixedCount == 7, "All seven existing fixed-speaker events have configured roles");
+        }
+
+        private static void VerifyPositionLookups(NpcStateRegistry registry)
+        {
+            var neutralPositions = new HashSet<NpcPosition>
+            {
+                NpcPosition.MABroker, NpcPosition.InvestigativeReporter, NpcPosition.EconomicReporter,
+                NpcPosition.InstitutionalInvestor, NpcPosition.PoliticalLobbyist
+            };
+            var assignedNeutralPositions = new HashSet<NpcPosition>();
+            foreach (var seed in registry.Profiles)
+            {
+                Require(seed.position != NpcPosition.None && Enum.IsDefined(typeof(NpcPosition), seed.position),
+                    "Assigned search position: " + seed.npcId);
+                Require(registry.TryFindByPosition(seed.companyId, seed.position, out var found) && found.npcId == seed.npcId,
+                    "Company and position resolve exact NPC: " + seed.npcId);
+                if (seed.companyId == "external-network")
+                    Require(neutralPositions.Contains(seed.position) && assignedNeutralPositions.Add(seed.position),
+                        "Independent neutral position: " + seed.npcId);
+                else
+                    Require(!neutralPositions.Contains(seed.position), "Company NPC excludes neutral positions: " + seed.npcId);
+            }
+            Require(assignedNeutralPositions.SetEquals(neutralPositions), "All five neutral positions assigned");
+            Require(!registry.TryFindByPosition("external-network", NpcPosition.MA, out _), "Company MA does not select neutral broker");
+            Require(!registry.TryFindByPosition("polaris-finance", NpcPosition.MABroker, out _), "Neutral broker does not select company MA");
+            Require(!registry.TryFindByPosition("missing-company", NpcPosition.CEO, out _), "Unknown company has no substitute NPC");
+            Require(!registry.TryFindByPosition("external-network", NpcPosition.None, out _), "None has no substitute NPC");
+            foreach (var seed in NpcStateRegistry.CreateDefaultNpcRoster())
+                Require(registry.TryGetProfile(seed.npcId, out var registered) && registered.position == seed.position,
+                    "Fallback position matches SO: " + seed.npcId);
         }
 
         private static void VerifyCautiousInterview(NpcEventChannel channel, NpcStateRegistry registry)
