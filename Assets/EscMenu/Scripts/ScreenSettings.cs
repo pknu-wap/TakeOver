@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public sealed class ScreenSettings : MonoBehaviour
 {
-   
     private static readonly Vector2Int[] baseResolutions =
     {
         new Vector2Int(1920, 1080),
@@ -21,7 +19,7 @@ public sealed class ScreenSettings : MonoBehaviour
     [Tooltip("해상도 선택")]
     [SerializeField] private Dropdown resolutionDropdown;
 
-    [Tooltip("창모드 / 전체화면 선택")]
+    [Tooltip("창 모드 / 전체 화면 선택")]
     [SerializeField] private Dropdown screenModeDropdown;
 
     private void Awake()
@@ -30,22 +28,38 @@ public sealed class ScreenSettings : MonoBehaviour
         setupScreenModeDropdown();
     }
 
+    private void OnEnable()
+    {
+        showCurrentScreen();
+    }
+
+    public void applyToScreen()
+    {
+        Vector2Int size = resolutionOptions[resolutionDropdown.value];
+        FullScreenMode mode = screenModeDropdown.value == windowedIndex
+            ? FullScreenMode.Windowed
+            : FullScreenMode.FullScreenWindow;
+
+        Screen.SetResolution(size.x, size.y, mode);
+    }
+
+    public void resetToDefault()
+    {
+        resolutionDropdown.SetValueWithoutNotify(0);
+        screenModeDropdown.SetValueWithoutNotify(fullScreenIndex);
+    }
+
     private void setupResolutionDropdown()
     {
-        
         buildResolutionOptions();
         resolutionDropdown.ClearOptions();
 
         List<string> labels = new List<string>(resolutionOptions.Count);
         foreach (Vector2Int size in resolutionOptions)
         {
-            labels.Add($"{size.x} x {size.y}");
+            labels.Add($"{size.x} X {size.y}");
         }
         resolutionDropdown.AddOptions(labels);
-
-       
-        resolutionDropdown.SetValueWithoutNotify(findCurrentResolutionIndex());
-        resolutionDropdown.onValueChanged.AddListener(onOptionChanged);
     }
 
     private void buildResolutionOptions()
@@ -69,25 +83,17 @@ public sealed class ScreenSettings : MonoBehaviour
     private void setupScreenModeDropdown()
     {
         screenModeDropdown.ClearOptions();
-        screenModeDropdown.AddOptions(new List<string> { "창모드", "전체화면" });
-
-        int currentIndex = Screen.fullScreenMode == FullScreenMode.Windowed ? windowedIndex : fullScreenIndex;
-        screenModeDropdown.SetValueWithoutNotify(currentIndex);
-        screenModeDropdown.onValueChanged.AddListener(onOptionChanged);
+        screenModeDropdown.AddOptions(new List<string> { "창 모드", "전체 화면" });
     }
 
-    
-    private void onOptionChanged(int _)
+    private void showCurrentScreen()
     {
-        Vector2Int size = resolutionOptions[resolutionDropdown.value];
-        FullScreenMode mode = screenModeDropdown.value == windowedIndex
-            ? FullScreenMode.Windowed
-            : FullScreenMode.FullScreenWindow;
+        resolutionDropdown.SetValueWithoutNotify(findCurrentResolutionIndex());
 
-        Screen.SetResolution(size.x, size.y, mode);
+        int modeIndex = Screen.fullScreenMode == FullScreenMode.Windowed ? windowedIndex : fullScreenIndex;
+        screenModeDropdown.SetValueWithoutNotify(modeIndex);
     }
 
-    
     private int findCurrentResolutionIndex()
     {
         for (int i = 0; i < resolutionOptions.Count; i++)
