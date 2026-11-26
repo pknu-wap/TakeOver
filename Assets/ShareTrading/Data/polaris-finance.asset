@@ -25,14 +25,14 @@ MonoBehaviour:
     \uBD80\uC11C\uAC00 \uC11C\uB85C \uB2E4\uB978 \uAE30\uC900\uC73C\uB85C \uAC70\uB798\uB97C
     \uD3C9\uAC00\uD55C\uB2E4."
   coverImage: {fileID: 0}
-  totalShares: 10000
-  initialBaseCompanyValue: 9000
-  initialRevenue: 520
-  initialCost: 310
-  initialCash: 3400
-  initialDebt: 2200
+  totalShares: 31250000
+  initialBaseCompanyValue: 10000
+  initialRevenue: 153.85
+  initialCost: 130.76
+  initialCash: 6000
+  initialDebt: 4000
   initialTangibleAssets: 500
-  initialIntangibleAssets: 1400
+  initialIntangibleAssets: 1200
   initialReputationB2C: 50
   initialReputationB2B: 50
   initialReputaionPlayer: 0
@@ -40,6 +40,6 @@ MonoBehaviour:
   initialPlayerShares: 0
   initialTangibleCoefficient: 0.75
   initialIntangibleCoefficient: 0.75
-  growthRate: 0.01
-  initialEmployeeCount: 100
+  growthRate: 0.003
+  initialEmployeeCount: 769
   dividendRatio: 0.2

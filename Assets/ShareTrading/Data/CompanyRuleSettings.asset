@@ -20,13 +20,13 @@ MonoBehaviour:
     employeeWeight: 0.01
     minGrowth: -0.5
     maxGrowth: 0.5
-    fixedCost: 100
-    costPerEmployee: 1
-    variableCostRatio: 0.8
+    fixedCost: 0
+    costPerEmployee: 0.02
+    variableCostRatio: 0.75
   employees:
     periodTurns: 7
-    revenueChangeWeight: 0.01
-    lossWeight: 0.01
+    revenueChangeWeight: 10
+    lossWeight: 5
   dividend:
     periodTurns: 7
   delisting:

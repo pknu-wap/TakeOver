@@ -15,6 +15,14 @@ MonoBehaviour:
   initialCount: 10
   randomSeed: 0
   idPrefix: startup-
+  fundingAmount: {x: 10, y: 30}
+  listingRevenue: 3
+  followUpAmount: {x: 10, y: 40}
+  marketingNormalCost: 2
+  marketingFocusCost: 5
+  facilityMediumCost: 5
+  facilityLargeCost: 15
+  facilityGrowthPer100: 0.2
   stageCount: 5
   initialStage: 1
   names:
@@ -39,12 +47,12 @@ MonoBehaviour:
     coreValue: "\uC18D\uB3C4\uC640 \uC790\uB3D9\uD654"
     description: "\uBB3C\uB958 \uCC3D\uACE0\uC758 \uBD84\uB958\uC640 \uBC30\uC1A1
       \uACBD\uB85C\uB97C AI\uB85C \uC904\uC5EC \uC8FC\uB294 \uD68C\uC0AC."
-    revenue: {x: 250, y: 450}
-    initialCostRatio: 1.15
-    cash: {x: 500, y: 900}
-    debt: {x: 0, y: 100}
-    tangibleAssets: {x: 20, y: 60}
-    intangibleAssets: {x: 60, y: 160}
+    revenue: {x: 0.5, y: 1.0}
+    initialCostRatio: 1.3
+    cash: {x: 20, y: 50}
+    debt: {x: 0, y: 5}
+    tangibleAssets: {x: 2, y: 6}
+    intangibleAssets: {x: 6, y: 16}
     baseCompanyValue: {x: 150, y: 350}
     employees: {x: 10, y: 25}
     growthRate: {x: 0.01, y: 0.1}
@@ -52,12 +60,12 @@ MonoBehaviour:
     coreValue: "\uAE30\uC220\uACFC \uC591\uC0B0"
     description: "\uC804\uAE30\uCC28 \uBC30\uD130\uB9AC\uC5D0 \uB4E4\uC5B4\uAC00\uB294
       \uC18C\uC7AC\uB97C \uB9CC\uB4DC\uB294 \uD68C\uC0AC."
-    revenue: {x: 200, y: 400}
-    initialCostRatio: 1.15
-    cash: {x: 600, y: 1100}
-    debt: {x: 50, y: 200}
-    tangibleAssets: {x: 80, y: 200}
-    intangibleAssets: {x: 40, y: 100}
+    revenue: {x: 0.4, y: 0.9}
+    initialCostRatio: 1.3
+    cash: {x: 30, y: 60}
+    debt: {x: 3, y: 10}
+    tangibleAssets: {x: 8, y: 20}
+    intangibleAssets: {x: 4, y: 10}
     baseCompanyValue: {x: 200, y: 450}
     employees: {x: 15, y: 30}
     growthRate: {x: 0, y: 0.09}
@@ -65,12 +73,12 @@ MonoBehaviour:
     coreValue: "\uC815\uD655\uB3C4\uC640 \uC2E0\uB8B0"
     description: "\uBCD1\uC6D0 \uBC16\uC5D0\uC11C\uB3C4 \uC4F8 \uC218 \uC788\uB294
       \uAC04\uD3B8 \uC9C4\uB2E8 \uD0A4\uD2B8\uB97C \uB9CC\uB4DC\uB294 \uD68C\uC0AC."
-    revenue: {x: 150, y: 350}
-    initialCostRatio: 1.15
-    cash: {x: 700, y: 1200}
-    debt: {x: 0, y: 150}
-    tangibleAssets: {x: 30, y: 80}
-    intangibleAssets: {x: 100, y: 250}
+    revenue: {x: 0.3, y: 0.8}
+    initialCostRatio: 1.3
+    cash: {x: 30, y: 70}
+    debt: {x: 0, y: 8}
+    tangibleAssets: {x: 3, y: 8}
+    intangibleAssets: {x: 10, y: 25}
     baseCompanyValue: {x: 200, y: 500}
     employees: {x: 10, y: 25}
     growthRate: {x: -0.01, y: 0.12}
@@ -78,12 +86,12 @@ MonoBehaviour:
     coreValue: "\uD3B8\uC758\uC640 \uBCF4\uC548"
     description: "\uC18C\uC0C1\uACF5\uC778\uC758 \uACB0\uC81C\uC640 \uC815\uC0B0\uC744
       \uD55C \uBC88\uC5D0 \uCC98\uB9AC\uD574 \uC8FC\uB294 \uD68C\uC0AC."
-    revenue: {x: 300, y: 500}
-    initialCostRatio: 1.15
-    cash: {x: 400, y: 800}
-    debt: {x: 0, y: 100}
-    tangibleAssets: {x: 10, y: 40}
-    intangibleAssets: {x: 80, y: 200}
+    revenue: {x: 0.6, y: 1.0}
+    initialCostRatio: 1.3
+    cash: {x: 20, y: 45}
+    debt: {x: 0, y: 5}
+    tangibleAssets: {x: 1, y: 4}
+    intangibleAssets: {x: 8, y: 20}
     baseCompanyValue: {x: 180, y: 400}
     employees: {x: 10, y: 20}
     growthRate: {x: 0, y: 0.08}
@@ -91,12 +99,12 @@ MonoBehaviour:
     coreValue: "\uB9DB\uACFC \uC6D0\uAC00"
     description: "\uC2DD\uB2F9 \uC8FC\uBC29\uC758 \uC870\uB9AC \uACFC\uC815\uC744
       \uC790\uB3D9\uD654\uD558\uB294 \uD68C\uC0AC."
-    revenue: {x: 250, y: 480}
-    initialCostRatio: 1.15
-    cash: {x: 400, y: 800}
-    debt: {x: 50, y: 150}
-    tangibleAssets: {x: 50, y: 120}
-    intangibleAssets: {x: 30, y: 90}
+    revenue: {x: 0.5, y: 1.0}
+    initialCostRatio: 1.3
+    cash: {x: 20, y: 45}
+    debt: {x: 3, y: 8}
+    tangibleAssets: {x: 5, y: 12}
+    intangibleAssets: {x: 3, y: 9}
     baseCompanyValue: {x: 120, y: 300}
     employees: {x: 15, y: 30}
     growthRate: {x: -0.01, y: 0.07}
