@@ -65,8 +65,9 @@ public class MarketEventManager : MonoBehaviour
         expireEvents(currentTurn);
         addEvent(currentTurn, "market");
         addEvent(currentTurn, "market-second");
+        addEvent(currentTurn, "market-third");
         if (FixedDaySeed.StableOrder(currentTurn, "market-count") <= uint.MaxValue / 2u)
-            addEvent(currentTurn, "market-third");
+            addEvent(currentTurn, "market-fourth");
         EffectControl.applyMarketEventEffects(currentTurn);
         lastProcessedTurn = currentTurn;
     }
