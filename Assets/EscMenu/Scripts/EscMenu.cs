@@ -59,6 +59,8 @@ public sealed class EscMenu : MonoBehaviour
             return;
         }
 
+        if (TakeOver.Events.DialogueLogWindow.CloseForEscape()) return;
+
         if (isOpen)
         {
             closeTopLayer();

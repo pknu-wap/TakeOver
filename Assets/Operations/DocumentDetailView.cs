@@ -143,17 +143,20 @@ namespace TakeOver.Operations
             if (informationScroll != null) informationScroll.verticalNormalizedPosition = 1f;
         }
 
-        // Only called on the tutorial's disposable clone, after Show.
+        // Only used with a temporary tutorial document, never registered in the real inbox.
         public void ShowTutorialPreview()
         {
             readOnly = true;
-            title.text = document.Title + " · 설명용 미리보기";
-            deadline.text = "미리보기";
-            deadline.color = sender.color;
-            documentNumber.text = "설명용 예시";
-            approve.gameObject.SetActive(false);
-            reject.gameObject.SetActive(false);
+            title.text = document.Title;
+            documentNumber.text = "NO. 1";
+            approve.gameObject.SetActive(true);
+            reject.gameObject.SetActive(document is IApprovalDocument);
             doneButton.SetActive(false);
+            if (arrivalDate != null)
+            {
+                arrivalDate.gameObject.SetActive(true);
+                arrivalDate.text = GameCalendar.Format(clock.CurrentTurn);
+            }
             foreach (var input in fieldsRoot.GetComponentsInChildren<Selectable>()) input.interactable = false;
         }
 

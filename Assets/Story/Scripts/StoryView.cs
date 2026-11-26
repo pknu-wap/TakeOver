@@ -27,6 +27,8 @@ namespace TakeOver.Story
         private readonly List<Image> masks = new List<Image>();
         private Image outline;
         private bool gated;
+        private StoryBeat logBeat;
+        private object logSceneKey;
         public Text Dialogue => informationOnly ? detail : sharedDialogue.CurrentDialogue;
         public Text Speaker => sharedDialogue.CurrentSpeaker;
         public Image PlayerImage => sharedDialogue.PlayerImage;
@@ -99,6 +101,14 @@ namespace TakeOver.Story
 
         public void Show(StoryBeat beat, NpcStateRegistry registry)
         {
+            if (logBeat == null || logBeat.background != beat.background || logBeat.sceneTitle != beat.sceneTitle ||
+                logBeat.goal != StoryGoal.None || beat.goal != StoryGoal.None ||
+                logBeat.speaker == StorySpeaker.System || beat.speaker == StorySpeaker.System)
+            {
+                logSceneKey = new object();
+                sharedDialogue.ClearDialogueHistory();
+            }
+            logBeat = beat;
             informationOnly = beat.goal == StoryGoal.None && beat.speaker == StorySpeaker.System;
             nativeEvent = beat.goal == StoryGoal.OpenEvent || beat.goal == StoryGoal.CompleteEvent;
             raycaster.enabled = !nativeEvent;
@@ -145,9 +155,11 @@ namespace TakeOver.Story
             }
             sharedDialogue.ShowDialogue(new DialoguePresentation
             {
+                sceneKey = logSceneKey,
+                npcId = npcId, allowNpcTransition = fade.color.a < .99f,
                 background = beat.background, backgroundTint = beat.backgroundTint,
                 speaker = narration ? "" : player ? director.ProtagonistName : speaking == StorySpeaker.UnregisteredVoice ? beat.voiceLabel :
-                    profile != null ? profile.profile.affiliation+" · "+profile.profile.role+"  "+profile.profile.displayName : "",
+                    profile != null ? profile.GetSpeakerLabel() : "",
                 text = line, player = player, narration = narration, response = response,
                 showPlayer = beat.showPlayer,
                 npcStanding = profile?.profile.standingIllustration ?? (profile != null ? NpcInfoPanel.FallbackStanding : null),
@@ -201,23 +213,14 @@ namespace TakeOver.Story
         }
         public void SetGoalReady(bool ready)=>confirm.interactable=ready;
 
-        public void ShowOperationsFocus(RectTransform screen)
+        public OperationsTutorialView CreateOperationsPreview(StoryGoal goal, TakeOver.Documents.IDocument document)
         {
-            // Fit the actual inner content; moving an overlay Canvas does not move its UI.
-            Canvas.ForceUpdateCanvases();
-            var corners = new Vector3[4];
-            screen.GetWorldCorners(corners);
-            Vector3 lower = root.InverseTransformPoint(corners[0]);
-            Vector3 upper = root.InverseTransformPoint(corners[2]);
-            var area = new Rect(-280, -290, 896, 600);
-            float fit = Mathf.Min(area.width / (upper.x - lower.x), area.height / (upper.y - lower.y));
-            screen.localScale *= fit;
-            screen.GetWorldCorners(corners);
-            Vector3 center = root.InverseTransformPoint((corners[0] + corners[2]) * .5f);
-            screen.position += root.TransformVector(new Vector3(area.center.x - center.x, area.center.y - center.y, 0));
-            Spotlight(screen);
-            // The focused screen is a read-only preview; the only required action is confirmation.
+            var container = Rect("Operations tutorial preview", root, new Rect(360, 110, 896, 510));
+            var preview = container.gameObject.AddComponent<OperationsTutorialView>();
+            preview.Initialize(goal, document);
+            Spotlight(container);
             confirm.interactable = true;
+            return preview;
         }
         public void HideContent()
         {

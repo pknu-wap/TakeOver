@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Kang_Minji
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 6
     preferenceResponse:
       source: 1
       enabled: 0
@@ -65,6 +65,7 @@ MonoBehaviour:
       dimmedStandingIllustration: {fileID: 0}
       displayName: "\uAC15\uBBFC\uC9C0"
       role: "\uC784\uCC28\uC778\xB7\uC9C0\uC5ED\uAD00\uACC4 \uCC45\uC784\uC790"
+      speakerRole: "\uc9c0\uc5ed\uad00\uacc4 \ucc45\uc784\uc790"
       affiliation: "\uC2E0\uC131\uAC1C\uBC1C"
       personalitySummary: "설명회가 끝나면 남아서 주민과 임차인의 말을 다시 듣는다. 자신이 회의에 참석했다는 사실이 지역 전체의 동의로 옮겨 적힌 일을 겪은 뒤부터 회의록의 주어를 특히 꼼꼼히 살핀다."
       gameplayRoleSummary: "이전할 곳과 보상 재원이 마련된 협상이라면 당사자들을 다시 한자리에 부른다. 일정부터 정해 놓고 통보하거나 주민을 여론전의 방패로 삼으려는 사람과는 타협하지 않는다."

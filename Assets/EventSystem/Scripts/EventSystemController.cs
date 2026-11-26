@@ -312,7 +312,7 @@ namespace TakeOver.Events
                 if (!ShowMandatoryOccurrence(occurrence.definition)) continue;
                 if (!hasRequiredHoldings(occurrence.definition) || !meetsConditions(occurrence.definition, occurrence.companyId)) continue;
                 todayEvents.Add(occurrence.definition);
-                todayInfos.Add(new TodayEventInfo(occurrence.definition, worldReader.getCompany(occurrence.companyId, occurrence.definition),
+                todayInfos.Add(worldReader.getEventInfo(occurrence.definition, occurrence.companyId,
                     IsMandatory(occurrence.definition) ? Mathf.Max(0, DueDay(occurrence.definition) - currentDay) : occurrence.firstDay + occurrence.definition.getValidDays() - currentDay));
             }
             if (previous.Count != todayInfos.Count) return true;

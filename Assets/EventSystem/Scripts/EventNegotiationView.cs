@@ -15,6 +15,9 @@ namespace TakeOver.Events
         public bool player, narration, showPlayer = true, response;
         public IReadOnlyList<string> choices;
         public IReadOnlyList<string> choiceDescriptions;
+        public object sceneKey;
+        public string npcId;
+        public bool allowNpcTransition = true;
     }
 
     public sealed partial class EventNegotiationView : MonoBehaviour
@@ -56,10 +59,12 @@ namespace TakeOver.Events
         private bool initialized, dialogueMode, dialogueInput;
         private bool playerNameMeasured;
         private float playerNameWidth, playerNameRight, playerRuleWidth, playerRuleRight;
+        private readonly Dictionary<Text, Vector4> npcNameLayouts = new Dictionary<Text, Vector4>();
         private Action dialogueAdvance, dialogueSkip;
         private Func<bool> dialogueCanSkip;
         private Action<int> dialogueChoose;
         private DialoguePresentation presentation;
+        private string lastDialogueNpcId;
         private readonly List<string> pages = new List<string>();
         private int page;
         private Text currentDialogue, currentSpeaker;
@@ -90,12 +95,14 @@ namespace TakeOver.Events
             configureBodyLayout(false);
             ensureSkipButton();
             AlignButtonCenters(closeButton, skipButton);
+            EnsureDialogueControls();
+            closeButton.gameObject.SetActive(false);
         }
 
         internal static float LayoutScale(Vector2 viewport) =>
             Mathf.Min(1, Mathf.Min(viewport.x / LayoutSize.x, viewport.y / LayoutSize.y));
 
-        private void LateUpdate() => FitLayout();
+        private void LateUpdate() { FitLayout(); UpdateDialogueControls(); }
 
         private void FitLayout()
         {
@@ -179,6 +186,28 @@ namespace TakeOver.Events
             rule.anchoredPosition = new Vector2(playerRuleRight - (1 - rule.pivot.x) * lineWidth, rule.anchoredPosition.y);
         }
 
+        private void FitNpcName(Text label, Text body)
+        {
+            var rect = label.rectTransform;
+            var rule = label.transform.parent.Find("Underline") as RectTransform;
+            if (!npcNameLayouts.TryGetValue(label, out var original))
+            {
+                original = new Vector4(rect.rect.width, rect.anchoredPosition.x - rect.pivot.x * rect.rect.width,
+                    rule != null ? rule.rect.width : 0,
+                    rule != null ? rule.anchoredPosition.x - rule.pivot.x * rule.rect.width : 0);
+                npcNameLayouts.Add(label, original);
+            }
+            float width = Mathf.Clamp(label.preferredWidth + 8, original.x, Mathf.Max(original.x, body.rectTransform.rect.width));
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            rect.anchoredPosition = new Vector2(original.y + rect.pivot.x * width, rect.anchoredPosition.y);
+            if (rule != null)
+            {
+                float ruleWidth = Mathf.Max(original.z, width);
+                rule.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ruleWidth);
+                rule.anchoredPosition = new Vector2(original.w + rule.pivot.x * ruleWidth, rule.anchoredPosition.y);
+            }
+        }
+
         public static void ApplySkipButtonStyle(Button button)
         {
             if (button == null) return;
@@ -245,11 +274,12 @@ namespace TakeOver.Events
         public void ShowBackdrop(Sprite background, Color tint)
         {
             initialize(); cancelSkip(); stopResultRoutine();
+            ClearDialogueHistory();
             roomBackground.sprite = background != null ? background : defaultBackground;
             roomBackground.color = tint;
             questionBlock.transform.parent.parent.gameObject.SetActive(false);
             npcIllustration.gameObject.SetActive(false); playerIllustration.gameObject.SetActive(false);
-            choicesRoot.gameObject.SetActive(false); closeButton.gameObject.SetActive(false);
+            choicesRoot.gameObject.SetActive(false); SetContinueVisible(false);
             skipButton.gameObject.SetActive(false);
             gameObject.SetActive(true);
         }
@@ -260,7 +290,35 @@ namespace TakeOver.Events
             bool fadeSkip = false)
         {
             initialize();
+            bool npcChanged = line.allowNpcTransition && isActiveAndEnabled && dialogueMode &&
+                Equals(logSceneKey, line.sceneKey) && presentation != null && presentation.background == line.background &&
+                !string.IsNullOrEmpty(lastDialogueNpcId) && !string.IsNullOrEmpty(line.npcId) &&
+                lastDialogueNpcId != line.npcId;
+            if (npcChanged && !EventSceneTransition.IsBusy)
+            {
+                SetDialogueInput(false);
+                EventSceneTransition.Play(() =>
+                {
+                    if (this == null || !isActiveAndEnabled) return;
+                    bool input = dialogueInput;
+                    PresentDialogue(line, advance, choose, skip, canSkip, fadeSkip);
+                    SetDialogueInput(input);
+                }, seconds: .12f);
+                return;
+            }
+            PresentDialogue(line, advance, choose, skip, canSkip, fadeSkip);
+        }
+
+        private void PresentDialogue(DialoguePresentation line, Action advance, Action<int> choose, Action skip, Func<bool> canSkip,
+            bool fadeSkip)
+        {
+            initialize();
             cancelSkip(); stopResultRoutine(); clearChoices();
+            if (!dialogueMode || !Equals(logSceneKey, line.sceneKey) ||
+                presentation != null && presentation.background != line.background)
+                ClearDialogueHistory();
+            logSceneKey = line.sceneKey;
+            if (!string.IsNullOrEmpty(line.npcId)) lastDialogueNpcId = line.npcId;
             dialogueMode = true; dialogueInput = false; controller = null;
             presentation = line; dialogueAdvance = advance; dialogueChoose = choose;
             dialogueSkip = skip; dialogueCanSkip = canSkip;
@@ -282,6 +340,7 @@ namespace TakeOver.Events
             if (line.player) currentSpeaker.supportRichText = false;
             currentSpeaker.text = line.speaker;
             if (line.player) FitPlayerName();
+            else if (!line.narration) FitNpcName(currentSpeaker, currentDialogue);
             currentSpeaker.gameObject.SetActive(!line.narration);
             currentDialogue.alignment = line.narration ? TextAnchor.MiddleCenter : line.player ? TextAnchor.UpperRight : TextAnchor.UpperLeft;
             npcStandingIllustration = line.npcStanding; npcDimmedIllustration = line.npcDimmed;
@@ -355,6 +414,7 @@ namespace TakeOver.Events
         private void showPage()
         {
             currentDialogue.text = pages[page];
+            RecordCurrentLine();
             clearChoices();
             bool showChoicesNow = !HasMorePages && presentation.choices != null && presentation.choices.Count > 0;
             choicesRoot.gameObject.SetActive(showChoicesNow);
@@ -364,14 +424,14 @@ namespace TakeOver.Events
                     int index = i;
                     createChoice(i, presentation.choices.Count, presentation.choices[i], presentation.choiceDescriptions != null && i < presentation.choiceDescriptions.Count ? presentation.choiceDescriptions[i] : "", () => dialogueChoose?.Invoke(index));
                 }
-            closeButton.gameObject.SetActive(!showChoicesNow);
+            SetContinueVisible(!showChoicesNow);
             SetDialogueInput(dialogueInput);
             Canvas.ForceUpdateCanvases();
         }
 
         private void advanceDialogue()
         {
-            if (!dialogueInput || EventSceneTransition.IsBusy) return;
+            if (!dialogueInput || EventSceneTransition.IsBusy || (!HasMorePages && presentation.choices != null && presentation.choices.Count > 0)) return;
             if (HasMorePages) { page++; showPage(); }
             else dialogueAdvance?.Invoke();
         }
@@ -405,7 +465,8 @@ namespace TakeOver.Events
             description.gameObject.SetActive(!string.IsNullOrWhiteSpace(detail));
             description.rectTransform.sizeDelta = new Vector2(-33f, 23f);
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => selected?.Invoke());
+            button.onClick.AddListener(() => { RecordDialogue(ProtagonistName(), text); selected?.Invoke(); });
+            button.navigation = new Navigation { mode = Navigation.Mode.None };
             button.interactable = true;
             button.gameObject.SetActive(true);
             choices.Add(button);
@@ -490,6 +551,7 @@ namespace TakeOver.Events
         private void OnDisable()
         {
             stopResultRoutine();
+            ClearDialogueHistory();
             if (!completingSkip) cancelSkip();
         }
 

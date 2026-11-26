@@ -424,7 +424,7 @@ namespace TakeOver.NPC.Editor
             nameTmp.fontStyle = FontStyles.Bold;
             SetTopCenterRect(nameTmp.rectTransform, 64f, 560f, 48f);
 
-            TextMeshProUGUI subTmp = CreateText(cardGo.transform, "NpcSubtitleText", "외부 거래망 · M&A 브로커", 19, ColSubText, TextAlignmentOptions.Center, font);
+            TextMeshProUGUI subTmp = CreateText(cardGo.transform, "NpcSubtitleText", "외부 인물 · M&A 브로커", 19, ColSubText, TextAlignmentOptions.Center, font);
             SetTopCenterRect(subTmp.rectTransform, 118f, 560f, 32f);
 
             NpcRelationGaugeView g1 = CreateBipolarGauge(cardGo.transform, "Gauge_HostilityTrust", "적대감", "신뢰", 200f, font);

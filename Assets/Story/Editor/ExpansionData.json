@@ -1448,7 +1448,7 @@
       "startButtonText": "만나기",
       "speakerNpcId": "npc-dongbang-trading-hr-director-park-minu",
       "speakerName": "박민우",
-      "speakerRole": "",
+      "speakerRole": "인사책임자",
       "companyIds": [
         "dongbang-trading"
       ],
@@ -3125,7 +3125,7 @@
       "startButtonText": "만나기",
       "speakerNpcId": "npc-political-lobbyist-park-sanghyeon",
       "speakerName": "박상현",
-      "speakerRole": "",
+      "speakerRole": "로비스트",
       "companyIds": [],
       "openingLines": [
         {
@@ -3282,7 +3282,7 @@
       "startButtonText": "만나기",
       "speakerNpcId": "npc-political-lobbyist-park-sanghyeon",
       "speakerName": "박상현",
-      "speakerRole": "",
+      "speakerRole": "로비스트",
       "companyIds": [],
       "openingLines": [
         {
@@ -3436,7 +3436,7 @@
       "startButtonText": "만나기",
       "speakerNpcId": "npc-political-lobbyist-park-sanghyeon",
       "speakerName": "박상현",
-      "speakerRole": "",
+      "speakerRole": "로비스트",
       "companyIds": [],
       "openingLines": [
         {
@@ -4673,7 +4673,7 @@
       "startButtonText": "만나기",
       "speakerNpcId": "npc-political-lobbyist-park-sanghyeon",
       "speakerName": "박상현",
-      "speakerRole": "",
+      "speakerRole": "로비스트",
       "companyIds": [],
       "openingLines": [
         {
@@ -5892,7 +5892,7 @@
       "startButtonText": "만나기",
       "speakerNpcId": "npc-dongbang-trading-hr-director-park-minu",
       "speakerName": "박민우",
-      "speakerRole": "",
+      "speakerRole": "인사책임자",
       "companyIds": [
         "dongbang-trading"
       ],
@@ -8979,7 +8979,7 @@
       "startButtonText": "만나기",
       "speakerNpcId": "npc-dongbang-trading-hr-director-park-minu",
       "speakerName": "박민우",
-      "speakerRole": "",
+      "speakerRole": "인사책임자",
       "companyIds": [
         "dongbang-trading"
       ],

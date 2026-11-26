@@ -76,6 +76,20 @@ namespace TakeOver.Employees
         private bool sortAscending = true;
         private int fallbackTurn;
         private string lastActionMessage = "";
+        private bool tutorialPreview;
+        private Employee tutorialEmployee, tutorialApplicant;
+        public bool IsTutorialPreview => tutorialPreview;
+        public void SetTutorialPreview(bool enabled)
+        {
+            tutorialPreview = enabled;
+            if (enabled && tutorialEmployee == null)
+            {
+                int turn = gameTurnClock != null ? gameTurnClock.CurrentTurn : 1;
+                tutorialEmployee = new Employee("김민준", 8, 12, 7, 12, 6, 12, 9, 12, 8, 12, 12, 10, 8, 250, turn, turn + 30, null);
+                tutorialApplicant = new Employee("이서연", 6, 12, 8, 12, 7, 12, 6, 12, 5, 12, 10, 9, 7, 200, turn, turn + 30, null);
+            }
+            RefreshAll();
+        }
 
         private void Awake()
         {
@@ -267,6 +281,12 @@ namespace TakeOver.Employees
             RefreshEmployeeTable();
             RefreshApplicantTable();
             RefreshDebugBar();
+            if (tutorialPreview)
+            {
+                if (employeeCountText != null) employeeCountText.text = "재직 직원 1명";
+                if (recruitButtonText != null) recruitButtonText.text = "직원 모집";
+                if (applicantArrivalText != null) applicantArrivalText.text = "지원자 1명";
+            }
         }
 
         private void RefreshHeaderAndRecruitState()
@@ -313,7 +333,7 @@ namespace TakeOver.Employees
                 return;
             }
 
-            IEnumerable<Employee> ordered = GetSortedEmployees(employeeService.Employees);
+            IEnumerable<Employee> ordered = GetSortedEmployees(tutorialPreview ? new[] { tutorialEmployee } : employeeService.Employees);
             int rendered = 0;
 
             if (employeeRowPrefab != null)
@@ -323,7 +343,7 @@ namespace TakeOver.Employees
                     EmployeeRowView row = Instantiate(employeeRowPrefab, employeeListContent);
                     row.gameObject.SetActive(true);
                     row.transform.localScale = Vector3.one;
-                    row.Bind(emp, employeeService, HandleEmployeeRowClicked);
+                    row.Bind(emp, tutorialPreview ? null : employeeService, tutorialPreview ? (Action<Employee>)(_ => { }) : HandleEmployeeRowClicked);
                     spawnedEmployeeRows.Add(row);
                     rendered++;
                 }
@@ -356,7 +376,7 @@ namespace TakeOver.Employees
                 return;
             }
 
-            IReadOnlyList<Employee> list = employeeService.Applicants;
+            IReadOnlyList<Employee> list = tutorialPreview ? new[] { tutorialApplicant } : employeeService.Applicants;
             bool hasApplicants = list != null && list.Count > 0;
             bool canHireMore = employeeService.Employees.Count < employeeService.Capacity;
 
@@ -381,7 +401,7 @@ namespace TakeOver.Employees
                     ApplicantRowView row = Instantiate(applicantRowPrefab, applicantListContent);
                     row.gameObject.SetActive(true);
                     row.transform.localScale = Vector3.one;
-                    row.Bind(list[i], canHireMore, HandleHireApplicantClicked);
+                    row.Bind(list[i], tutorialPreview || canHireMore, tutorialPreview ? (Action<Employee>)(_ => { }) : HandleHireApplicantClicked);
                     spawnedApplicantRows.Add(row);
                 }
             }

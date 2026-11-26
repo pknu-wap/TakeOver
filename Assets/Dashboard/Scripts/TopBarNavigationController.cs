@@ -27,6 +27,14 @@ public sealed class TopBarNavigationController : MonoBehaviour
     public void OpenHelp() => onTabClicked(helpTab);
     public void OpenCompanies() => Navigate(DashboardTab.Companies);
 
+    public bool OpenNpc(string npcId)
+    {
+        var registry = FindFirstObjectByType<NpcStateRegistry>();
+        if (registry == null || !registry.TryGetProfile(npcId, out _) || !Navigate(DashboardTab.Npcs)) return false;
+        statusScreen.SelectNpc(npcId);
+        return true;
+    }
+
     private void Start()
     {
         if (tabKinds.Length != tabButtons.Length || System.Array.IndexOf(tabKinds, DashboardTab.Home) < 0)

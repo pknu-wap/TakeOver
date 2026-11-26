@@ -54,32 +54,53 @@ namespace TakeOver.NPC
         /// <summary>게임의 턴 종료 경로에서 호출한다. 등록된 각 NPC에 경과 처리를 적용한다.</summary>
         public void AdvanceTurn()
         {
-            if (!TakeOver.Story.StoryDirector.CanAdvanceTurn) return;
+            if (!CanAdvance()) return;
+            SettleTurn();
+        }
+
+        /// <summary>화면 입력으로 하루를 마감할 때 암전 중앙에서 날짜와 경제를 갱신한다.</summary>
+        public void AdvanceWithTransition()
+        {
+            if (TakeOver.Events.EventSceneTransition.IsBusy || !CanAdvance()) return;
+            TakeOver.Events.EventSceneTransition.Play(() =>
+            {
+                if (this != null && CanAdvance()) SettleTurn();
+            }, seconds: .4f);
+        }
+
+        private bool CanAdvance()
+        {
+            if (!TakeOver.Story.StoryDirector.CanAdvanceTurn) return false;
             // A failed save also locks event entry. Recover it before a document or
             // mandatory-story guard can ask the player to enter that locked UI.
             var session = TakeOver.SaveSystem.GameSessionCoordinator.Active;
             if (session != null && session.IsPersistenceBlocked)
             {
                 session.OnTurnAdvanceBlocked();
-                return;
+                return false;
             }
             foreach (ITurnBlocker blocker in blockers)
             {
                 if (blocker.IsBlocking(out string reason))
                 {
                     AdvanceBlocked?.Invoke(reason);
-                    return;
+                    return false;
                 }
             }
             foreach (var component in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None))
                 if (component.isActiveAndEnabled && component is ITurnAdvanceGuard guard && !guard.CanAdvanceTurn(currentTurn))
-                { guard.OnTurnAdvanceBlocked(); return; }
+                { guard.OnTurnAdvanceBlocked(); return false; }
+            return true;
+        }
+
+        private void SettleTurn()
+        {
             currentTurn++;
             if (registry != null)
                 foreach (var state in registry.States) memoryService.AdvanceTurn(state, currentTurn);
             TurnAdvanced?.Invoke(currentTurn);
             DayStarted?.Invoke(currentTurn);
-            session?.SaveSettledState();
+            TakeOver.SaveSystem.GameSessionCoordinator.Active?.SaveSettledState();
         }
 
         /// <summary>저장 데이터에서 턴을 복원한다. 잘못된 0 이하 값은 1턴으로 보정한다.</summary>

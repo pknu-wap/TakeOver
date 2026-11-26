@@ -13,6 +13,7 @@ namespace TakeOver.Events
         public string companyName;
         public string ceoNpcId;
         public string ceoName;
+        public string ceoRole;
         public string restructuringNpcId;
         public string restructuringName;
         public string restructuringRole;
@@ -39,6 +40,8 @@ namespace TakeOver.Events
                     result.Add(getCompany(company.definition.companyID));
             return result;
         }
+        public TodayEventInfo getEventInfo(EventDefinition definition, string companyId, int remainingDays)
+            => new TodayEventInfo(definition, getCompany(companyId, definition), remainingDays, registry);
         public EventCompanyData getCompany(string companyId, EventDefinition definition = null)
         {
             string companyName = null;
@@ -59,13 +62,14 @@ namespace TakeOver.Events
             {
                 data.ceoNpcId = ceo.npcId;
                 data.ceoName = ceo.profile.displayName;
+                data.ceoRole = ceo.profile.DialogueRole;
             }
-            if (registry != null && definition != null && definition.tryGetRestructuringNpcId(companyId, out string npcId)
+            if (registry != null && definition != null && definition.tryGetRestructuringNpcId(companyId, out string npcId, out string speakerRole)
                 && registry.TryGetProfile(npcId, out var contact) && contact.companyId == companyId && contact.profile != null)
             {
                 data.restructuringNpcId = contact.npcId;
                 data.restructuringName = contact.profile.displayName;
-                data.restructuringRole = contact.profile.role;
+                data.restructuringRole = string.IsNullOrWhiteSpace(speakerRole) ? contact.profile.DialogueRole : speakerRole;
             }
             return data;
         }

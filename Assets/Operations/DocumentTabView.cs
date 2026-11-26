@@ -22,6 +22,13 @@ namespace TakeOver.Operations
         private GameTurnClock clock;
         private IDocument selected;
         private int filter;
+        private IDocument tutorialDocument;
+        public bool IsTutorialPreview => tutorialDocument != null;
+        public void SetTutorialPreview(IDocument document)
+        {
+            tutorialDocument = document;
+            refresh();
+        }
 
         private void Awake()
         {
@@ -68,6 +75,22 @@ namespace TakeOver.Operations
             {
                 filterLabels[i].color = i == filter ? Color.white : new Color(.72f, .73f, .76f);
                 filterUnderlines[i].gameObject.SetActive(i == filter);
+            }
+            if (tutorialDocument != null)
+            {
+                var card = Instantiate(rowTemplate, listRoot, false);
+                card.gameObject.SetActive(true);
+                var previewClock = clock != null ? clock : FindFirstObjectByType<GameTurnClock>();
+                string status = tutorialDocument is IApprovalDocument approval
+                    ? $"D-{approval.DeadlineTurn - previewClock.CurrentTurn}" : "새 보고";
+                card.Bind(tutorialDocument.Title, tutorialDocument.Author, status, false, () => { });
+                card.SetSelected(true);
+                cards.Add(card); cardDocuments.Add(tutorialDocument);
+                emptyMessage.SetActive(false);
+                selected = tutorialDocument;
+                detail.Show(tutorialDocument);
+                detail.ShowTutorialPreview();
+                return;
             }
             if (inbox != null)
             {

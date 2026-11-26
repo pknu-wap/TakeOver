@@ -226,6 +226,8 @@ GameObject:
   - component: {fileID: 2729820736147137614}
   - component: {fileID: 6084082305778579277}
   - component: {fileID: 8887161218069948666}
+  - component: {fileID: 4287383176475390202}
+  - component: {fileID: 3304380031077653607}
   m_Layer: 5
   m_Name: CompanyNode
   m_TagString: Untagged
@@ -350,7 +352,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompanyMapNode
   nameText: {fileID: 1271778113455714930}
   logoImage: {fileID: 4650304534947596055}
+  letterText: {fileID: 0}
   button: {fileID: 6084082305778579277}
+--- !u!114 &4287383176475390202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5150824197214743797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 0.9490196, g: 0.8039216, b: 0.50980395, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 0
+--- !u!114 &3304380031077653607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5150824197214743797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407a7efc734967c4b88bbc870f809366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIHoverEffect
+  scaleTarget: {fileID: 0}
+  hoverScale: 1.08
+  hoverOffset: {x: 0, y: 0}
+  tintTarget: {fileID: 1271778113455714930}
+  hoverColor: {r: 0.9490196, g: 0.8039216, b: 0.50980395, a: 1}
+  pressedBrightness: 0.8
+  outlineEffect: {fileID: 4287383176475390202}
+  outlineAlpha: 0.9
+  bringToFront: 1
+  animationSpeed: 14
 --- !u!1 &6019819714093681466
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Park_Dosik
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 4
     preferenceResponse:
       source: 1
       enabled: 0

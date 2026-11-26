@@ -17,6 +17,9 @@ namespace TakeOver.NPC
             public NpcMobAppearance mobAppearance;
             public string displayName;
             public string role;
+            [Tooltip("대화창의 표시 직책. 비워 두면 프로필 직책(role)을 사용합니다.")]
+            public string speakerRole;
+            public string DialogueRole => string.IsNullOrWhiteSpace(speakerRole) ? role : speakerRole;
             public string affiliation;
             [TextArea(2, 4)] public string personalitySummary;
             [TextArea(2, 4)] public string gameplayRoleSummary;
@@ -41,6 +44,22 @@ namespace TakeOver.NPC
             public string npcId = "";
             public string companyId = "";
             public NpcProfile profile = new NpcProfile();
+            public string GetSpeakerLabel(string roleOverride = null)
+            {
+                if (profile == null) return "";
+                string role = string.IsNullOrWhiteSpace(roleOverride) ? profile.DialogueRole : roleOverride;
+                string label = $"{role} {profile.displayName}".Trim();
+                return string.IsNullOrWhiteSpace(profile.affiliation)
+                    ? label : $"{profile.affiliation} · {label}".Trim();
+            }
+            public string GetCardLabel(string roleOverride = null)
+            {
+                if (profile == null) return "";
+                string prefix = companyId == "external-network"
+                    ? (string.IsNullOrWhiteSpace(roleOverride) ? profile.DialogueRole : roleOverride)
+                    : profile.affiliation;
+                return $"{prefix} {profile.displayName}".Trim();
+            }
             public List<NpcActionPreference> actionPreferences = new List<NpcActionPreference>();
         }
 

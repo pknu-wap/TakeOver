@@ -40,6 +40,7 @@ namespace TakeOver.NPC.Editor
             if (showProfile)
             {
                 Field(profile, "displayName", "이름"); Field(profile, "role", "표시 직책");
+                Field(profile, "speakerRole", "대화창 표시 직책 · 비우면 표시 직책 사용");
                 Field(profile, "affiliation", "소속 표시명");
                 Field(profile, "standingIllustration", "기본 스탠딩");
                 Field(profile, "dimmedStandingIllustration", "어두운 스탠딩");

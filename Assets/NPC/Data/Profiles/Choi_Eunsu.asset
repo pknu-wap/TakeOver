@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Choi_Eunsu
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 3
     preferenceResponse:
       source: 1
       enabled: 0
@@ -77,6 +77,7 @@ MonoBehaviour:
       dimmedStandingIllustration: {fileID: 0}
       displayName: "\uCD5C\uC740\uC218"
       role: "\uC870\uC9C1\xB7\uC778\uC0AC\uCC45\uC784\uC790"
+      speakerRole: "\uc778\uc0ac\ucc45\uc784\uc790"
       affiliation: "\uB300\uC131\uC0B0\uC5C5"
       personalitySummary: "생산 일정이 밀리면 작업자와 납품처 양쪽의 요구를 조율한다. 모든 일자리를 지키기 어렵다는 현실을 알기에, 지킬 수 없는 약속에 자신의 이름을 보태는 일을 경계한다."
       gameplayRoleSummary: "수익을 따지더라도 안전과 숙련 인력의 승계부터 짚는다. 인수 직후 해고나 검수 생략을 요구하는 안에는, 자기 의견이 소수여도 회의록에 반대 이유를 남긴다."

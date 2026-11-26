@@ -44,6 +44,8 @@ namespace TakeOver.Events
     {
         public string companyId;
         public string npcId;
+        [Tooltip("이 이벤트에서 사용할 표시 직책. 비워 두면 NPC SO의 대화창 직책을 사용합니다.")]
+        public string speakerRole;
     }
 
     [Serializable]
@@ -177,9 +179,13 @@ namespace TakeOver.Events
         public EventSpeakerSource getSpeakerSource() => speakerSource;
         public EventChoiceGeneration getChoiceGeneration() => choiceGeneration;
         public bool tryGetRestructuringNpcId(string companyId, out string npcId)
+            => tryGetRestructuringNpcId(companyId, out npcId, out _);
+
+        public bool tryGetRestructuringNpcId(string companyId, out string npcId, out string speakerRole)
         {
             EventRestructuringSpeaker speaker = restructuringSpeakers.Find(item => item.companyId == companyId);
             npcId = speaker?.npcId ?? "";
+            speakerRole = speaker?.speakerRole ?? "";
             return speaker != null;
         }
         public bool hasCompanyConditions() => conditions.Exists(condition => string.IsNullOrEmpty(condition.companyId) &&

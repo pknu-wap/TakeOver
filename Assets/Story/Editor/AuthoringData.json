@@ -205,7 +205,7 @@
     {
       "file": "Song_Hyeonseok",
       "seed": {
-        "position": 0,
+        "position": 9,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -290,7 +290,7 @@
     {
       "file": "Jung_Yura",
       "seed": {
-        "position": 0,
+        "position": 10,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -475,7 +475,7 @@
     {
       "file": "Noh_Hyeonjeong",
       "seed": {
-        "position": 0,
+        "position": 2,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -560,7 +560,7 @@
     {
       "file": "Oh_Jinu",
       "seed": {
-        "position": 0,
+        "position": 5,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -645,7 +645,7 @@
     {
       "file": "Choi_Eunsu",
       "seed": {
-        "position": 0,
+        "position": 3,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -719,6 +719,7 @@
         "profile": {
           "displayName": "최은수",
           "role": "조직·인사책임자",
+          "speakerRole": "인사책임자",
           "affiliation": "대성산업",
           "personalitySummary": "생산 일정이 밀리면 작업자와 납품처 양쪽의 요구를 조율한다. 모든 일자리를 지키기 어렵다는 현실을 알기에, 지킬 수 없는 약속에 자신의 이름을 보태는 일을 경계한다.",
           "gameplayRoleSummary": "수익을 따지더라도 안전과 숙련 인력의 승계부터 짚는다. 인수 직후 해고나 검수 생략을 요구하는 안에는, 자기 의견이 소수여도 회의록에 반대 이유를 남긴다.",
@@ -830,7 +831,7 @@
     {
       "file": "Yoo_Jeongmin",
       "seed": {
-        "position": 0,
+        "position": 5,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -915,7 +916,7 @@
     {
       "file": "Kang_Minji",
       "seed": {
-        "position": 0,
+        "position": 6,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -974,6 +975,7 @@
         "profile": {
           "displayName": "강민지",
           "role": "임차인·지역관계 책임자",
+          "speakerRole": "지역관계 책임자",
           "affiliation": "신성개발",
           "personalitySummary": "설명회가 끝나면 남아서 주민과 임차인의 말을 다시 듣는다. 자신이 회의에 참석했다는 사실이 지역 전체의 동의로 옮겨 적힌 일을 겪은 뒤부터 회의록의 주어를 특히 꼼꼼히 살핀다.",
           "gameplayRoleSummary": "이전할 곳과 보상 재원이 마련된 협상이라면 당사자들을 다시 한자리에 부른다. 일정부터 정해 놓고 통보하거나 주민을 여론전의 방패로 삼으려는 사람과는 타협하지 않는다.",
@@ -1100,7 +1102,7 @@
     {
       "file": "Han_Dogyeong",
       "seed": {
-        "position": 0,
+        "position": 7,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -1185,7 +1187,7 @@
     {
       "file": "Kim_Dongseok",
       "seed": {
-        "position": 0,
+        "position": 3,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -1259,6 +1261,7 @@
         "profile": {
           "displayName": "김동석",
           "role": "매장운영·노무책임자",
+          "speakerRole": "매장운영 책임자",
           "affiliation": "블루하버리테일",
           "personalitySummary": "겉으로 잘 돌아가는 매장에서도 근무표와 고객 불만을 같이 본다. 회사가 위태로웠을 때 현장에 인력 부담을 넘긴 기억이 있어, 비용을 조금 아끼자는 말도 그 뒤의 교대 일정까지 따져 듣는다.",
           "gameplayRoleSummary": "현장 의견을 듣고 고용 조건을 지킨 운영안에는 힘을 보탠다. 장부의 빈칸을 채우려고 교대 인원을 무리하게 줄이거나, 손실의 책임을 점장에게만 묻는 계획에는 반대한다.",
@@ -1370,7 +1373,7 @@
     {
       "file": "Jung_Harin",
       "seed": {
-        "position": 0,
+        "position": 8,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -1455,7 +1458,7 @@
     {
       "file": "Han_Yuna",
       "seed": {
-        "position": 0,
+        "position": 5,
         "preferenceResponse": {
           "source": 1,
           "enabled": false,
@@ -5028,7 +5031,7 @@
       "choices": [],
       "skipDefaultChoice": 0,
       "tutorialTitle": "투자 계약",
-      "tutorialText": "실제 계약에서는 지분율에 따라 필요한 투자금이 달라집니다. 조건을 보고 확정하거나 거절하세요.\n\n오른쪽은 지분 20%와 투자금의 관계를 보여주는 가상 예시입니다. 실제 계약이 아니며 자금과 지분은 바뀌지 않습니다."
+      "tutorialText": "계약에서는 지분율에 따라 필요한 투자금이 달라집니다. 지분율과 투자금을 확인한 뒤 조건을 보고 확정하거나 거절하세요."
     },
     {
       "id": "operations-008",
@@ -5072,7 +5075,7 @@
       "choices": [],
       "skipDefaultChoice": 0,
       "tutorialTitle": "문서와 결재",
-      "tutorialText": "문서함에는 조사 보고서와 결재 요청이 모입니다. 결재 요청은 내용과 조건을 읽고 승인하거나 거절합니다.\n\n기한이 지난 미처리 결재가 있으면 하루를 마칠 수 없습니다.\n\n지금은 설명용 문서입니다. 승인이나 거절 없이 확인을 누르면 됩니다."
+      "tutorialText": "문서함에는 조사 보고서와 결재 요청이 모입니다. 결재 요청은 내용과 조건을 읽고 승인하거나 거절합니다.\n\n기한이 지난 미처리 결재가 있으면 하루를 마칠 수 없습니다."
     },
     {
       "id": "operations-010",

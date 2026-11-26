@@ -51,7 +51,7 @@ public class DayPanel : MonoBehaviour
             Debug.LogWarning("GameTurnClock을 찾을 수 없습니다.", this);
             return;
         }
-        turnClock.AdvanceTurn();
+        turnClock.AdvanceWithTransition();
     }
 
     private void handleTurnAdvanced(int newTurn)

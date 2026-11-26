@@ -32,7 +32,7 @@ MonoBehaviour:
   - dongbang-trading
   speakerNpcId: npc-dongbang-trading-hr-director-park-minu
   speakerName: "\uBC15\uBBFC\uC6B0"
-  speakerRole:
+  speakerRole: "\uc778\uc0ac\ucc45\uc784\uc790"
   dialogue: "\uADF8 \uB4A4\uC5D0\uB3C4 \uC6B4\uC601\uC744 \uC774\uC5B4\uC654\uB124\uC694.
     \uD604\uC7AC\uB294 \uACE0\uAC1D\uB3C4 \uB098\uB220 \uBC1B\uB294 \uCABD\uC774\uACE0\uC694.
     \uACFC\uAC70 \uAC70\uB798 \uD558\uB098\uB9CC \uBCF4\uC9C0 \uB9D0\uACE0 \uC9C0\uAE08

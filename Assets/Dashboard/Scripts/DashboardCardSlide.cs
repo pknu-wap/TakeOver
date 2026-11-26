@@ -14,6 +14,7 @@ public class DashboardCardSlide : MonoBehaviour
     {
         public RectTransform cardRect;
         public UnityEngine.UI.Image cardImage;
+        public Image reflectionImage;
         public TextMeshProUGUI speakerText;
         public TextMeshProUGUI apCostText;
     }
@@ -88,6 +89,10 @@ public class DashboardCardSlide : MonoBehaviour
 
         foreach (var cardUI in cardUIList)
         {
+            if (cardUI.cardRect != null && cardUI.speakerText != null)
+            {
+                cardUI.speakerText.textWrappingMode = TextWrappingModes.NoWrap;
+            }
             if (cardUI.cardRect != null)
             {
                 targetPositions.Add(cardUI.cardRect.anchoredPosition);
@@ -416,8 +421,27 @@ public class DashboardCardSlide : MonoBehaviour
     {
         if (info == null) return;
         if (card.cardImage != null) card.cardImage.sprite = info.cardImage;
-        if (card.speakerText != null) card.speakerText.text = info.speakerLabel;
+        if (card.reflectionImage != null) card.reflectionImage.sprite = info.cardImage;
+        float aspect = info.cardImage != null ? info.cardImage.rect.width / info.cardImage.rect.height : 1f;
+        SetArtAspect(card.cardImage, aspect);
+        SetArtAspect(card.reflectionImage, aspect);
+        if (card.speakerText != null)
+        {
+            if (!card.speakerText.enableAutoSizing)
+            {
+                card.speakerText.fontSizeMax = card.speakerText.fontSize;
+                card.speakerText.fontSizeMin = Mathf.Max(12f, card.speakerText.fontSize * .65f);
+                card.speakerText.enableAutoSizing = true;
+            }
+            card.speakerText.text = info.cardSpeakerLabel;
+        }
         if (card.apCostText != null) card.apCostText.text = $"소모 에너지 {info.definition.getApCost()}";
+    }
+
+    private static void SetArtAspect(Image image, float aspect)
+    {
+        var fitter = image != null ? image.GetComponent<AspectRatioFitter>() : null;
+        if (fitter != null) fitter.aspectRatio = aspect;
     }
 
     private int VisibleCardCount => Mathf.Min(targetDisplayCount, cardUIList.Count, displayEventList.Count);

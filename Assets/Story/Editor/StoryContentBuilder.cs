@@ -47,7 +47,7 @@ namespace TakeOver.Story.Editor
             {
                 var path = "Assets/NPC/Data/Profiles/" + npc.file + ".asset";
                 var definition = LoadOrCreate<NpcDefinition>(path);
-                JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(npc), definition);
+                ApplyNpcDraftJson(definition, JsonUtility.ToJson(npc));
                 definition.name = npc.file; EditorUtility.SetDirty(definition); definitions.Add(definition);
             }
             var companies = new List<CompanyDefinition>();
@@ -132,6 +132,21 @@ namespace TakeOver.Story.Editor
             if(Application.isBatchMode) EditorApplication.Exit(0);
         }
 
+        internal static void ApplyNpcDraftJson(NpcDefinition definition, string json)
+        {
+            // 원화는 생성된 NPC SO에서 관리한다. 대본 JSON의 빈 Sprite 필드로 지우지 않는다.
+            var serialized = new SerializedObject(definition);
+            var profile = serialized.FindProperty("seed").FindPropertyRelative("profile");
+            var standing = profile.FindPropertyRelative("standingIllustration").objectReferenceValue;
+            var dimmed = profile.FindPropertyRelative("dimmedStandingIllustration").objectReferenceValue;
+            JsonUtility.FromJsonOverwrite(json, definition);
+            serialized.Update();
+            profile = serialized.FindProperty("seed").FindPropertyRelative("profile");
+            profile.FindPropertyRelative("standingIllustration").objectReferenceValue = standing;
+            profile.FindPropertyRelative("dimmedStandingIllustration").objectReferenceValue = dimmed;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         private static void ConnectCompanyEvents(List<NpcDefinition> definitions)
         {
             var seeds = definitions.Select(d=>d.CreateRuntimeSeed()).ToList();
@@ -154,6 +169,7 @@ namespace TakeOver.Story.Editor
                         if(found) continue;
                         field.InsertArrayElementAtIndex(field.arraySize); var entry=field.GetArrayElementAtIndex(field.arraySize-1);
                         entry.FindPropertyRelative("companyId").stringValue=contact.companyId; entry.FindPropertyRelative("npcId").stringValue=contact.npcId;
+                        entry.FindPropertyRelative("speakerRole").stringValue="";
                     }
                     so.ApplyModifiedPropertiesWithoutUndo();
                 }

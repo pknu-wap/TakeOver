@@ -41,7 +41,26 @@ namespace TakeOver.NPC
     public enum NpcMemoryType { GoodFaith, ContractBreach, MassLayoff, HostileTakeover, SavedCompany, PublicHumiliation, LeakedInfo, Bribery, Custom }
 
     /// <summary>이벤트가 회사와 직책으로 화자를 찾는 검색용 값이다. 표시용 role과 분리한다.</summary>
-    public enum NpcPosition { None, CEO }
+    public enum NpcPosition
+    {
+        None = 0,
+        CEO = 1,
+        Finance = 2,
+        HRLabor = 3,
+        Operations = 4,
+        BusinessDevelopment = 5,
+        CommunityRelations = 6,
+        Data = 7,
+        Research = 8,
+        RiskManagement = 9,
+        MA = 10,
+        // 중립 인물은 회사 직무 및 다른 중립 인물과 검색 분류를 공유하지 않는다.
+        MABroker = 11,
+        InvestigativeReporter = 12,
+        EconomicReporter = 13,
+        InstitutionalInvestor = 14,
+        PoliticalLobbyist = 15
+    }
 
     /// <summary>NPC가 특정 플레이어 행동을 선호하는지 나타낸다.</summary>
     public enum NpcActionDisposition { Unspecified, Likes, Dislikes }

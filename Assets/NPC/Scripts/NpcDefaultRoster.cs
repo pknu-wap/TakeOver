@@ -14,10 +14,10 @@ namespace TakeOver.NPC
             {
                 new NpcSeed
                 {
-                    npcId = "npc-broker-yoon-hajin", companyId = "external-network",
+                    npcId = "npc-broker-yoon-hajin", companyId = "external-network", position = NpcPosition.MABroker,
                     profile = new NpcProfile
                     {
-                        displayName = "윤하진", role = "M&A 브로커", affiliation = "외부 거래망",
+                        displayName = "윤하진", role = "M&A 브로커", affiliation = "외부 인물",
                         personalitySummary = "거래 수수료와 협상 신뢰를 중시한다. 거래를 늘리는 상대를 선호하며, 약속을 깨면 정보 정확도를 낮춘다.",
                         gameplayRoleSummary = "비공개 매물과 거래 상대를 연결한다. 주가조작 제안 사건의 발신자이기도 하다.",
                         eventRelationBiases = new List<NpcEventRelationBias>
@@ -33,7 +33,7 @@ namespace TakeOver.NPC
                 },
                 new NpcSeed
                 {
-                    npcId = "npc-investigative-reporter-jung-sua", companyId = "external-network",
+                    npcId = "npc-investigative-reporter-jung-sua", companyId = "external-network", position = NpcPosition.InvestigativeReporter,
                     profile = new NpcProfile
                     {
                         displayName = "정수아", role = "탐사보도 기자", affiliation = "외부 인물",
@@ -57,10 +57,10 @@ namespace TakeOver.NPC
                 },
                 new NpcSeed
                 {
-                    npcId = "npc-institutional-investor-kim-taeseong", companyId = "external-network",
+                    npcId = "npc-institutional-investor-kim-taeseong", companyId = "external-network", position = NpcPosition.InstitutionalInvestor,
                     profile = new NpcProfile
                     {
-                        displayName = "김태성", role = "기관투자자", affiliation = "외부 투자자",
+                        displayName = "김태성", role = "기관투자자", affiliation = "외부 인물",
                         personalitySummary = "기업 성장률과 현금흐름을 따져본다. 단기 성과보다 장기 위험을 크게 본다.",
                         gameplayRoleSummary = "예측 가능한 성장과 투명한 재무를 기준으로 투자금 배분을 판단하는 외부 자본 주체다.",
                         eventRelationBiases = new List<NpcEventRelationBias>
@@ -79,10 +79,10 @@ namespace TakeOver.NPC
                 },
                 new NpcSeed
                 {
-                    npcId = "npc-political-lobbyist-park-sanghyeon", companyId = "external-network",
+                    npcId = "npc-political-lobbyist-park-sanghyeon", companyId = "external-network", position = NpcPosition.PoliticalLobbyist,
                     profile = new NpcProfile
                     {
-                        displayName = "박상현", role = "정치 로비스트", affiliation = "외부 거래망",
+                        displayName = "박상현", role = "정치 로비스트", speakerRole = "로비스트", affiliation = "외부 인물",
                         personalitySummary = "정책 자문과 위험한 정치 거래 사이에서 기회를 찾지만, 노골적인 위험이 커지면 거리를 둔다.",
                         gameplayRoleSummary = "정부 계약과 규제 환경 관련 기회를 연결하며 정치 결탁 사건의 접점이 될 수 있다.",
                         eventRelationBiases = new List<NpcEventRelationBias>
@@ -100,7 +100,7 @@ namespace TakeOver.NPC
                     npcId = "npc-mirae-construction-ceo-kang-junhyeok", companyId = "mirae-construction", position = NpcPosition.CEO,
                     profile = new NpcProfile
                     {
-                        displayName = "강준혁", role = "CEO / 창업자", affiliation = "미래건설",
+                        displayName = "강준혁", role = "CEO", affiliation = "미래건설",
                         personalitySummary = "신중하고 현실적이며 자존심이 강하다. 회사명·계약·현장 인력의 연속성과 문서화된 보장을 중시한다.",
                         gameplayRoleSummary = "미래건설 인수 협상의 핵심 인물이다. 약속 이행은 신뢰를 쌓고, 계약·인력·회사 정체성의 해체는 강한 반발을 부른다.",
                         eventRelationBiases = new List<NpcEventRelationBias>

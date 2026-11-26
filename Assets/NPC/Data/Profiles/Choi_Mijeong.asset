@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Choi_Mijeong
   m_EditorClassIdentifier: Assembly-CSharp::TakeOver.NPC.NpcDefinition
   seed:
-    position: 0
+    position: 3
     preferenceResponse:
       source: 1
       enabled: 0
