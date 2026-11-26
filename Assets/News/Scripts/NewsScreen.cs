@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using TakeOver.NPC;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class NewsScreen : MonoBehaviour
+public class NewsScreen : MonoBehaviour, IPointerClickHandler
 {
     private const float cardWidth = 350f;
     private const float hoveredCardWidth = 470f;
@@ -14,6 +16,12 @@ public class NewsScreen : MonoBehaviour
     [SerializeField] private GameObject cardsRoot;
     [SerializeField] private GameObject secretNewsPlaceholder;
     [SerializeField] private NewsRow[] newsCards;
+    [SerializeField] private GameObject detailsOverlay;
+    [SerializeField] private UnityEngine.UI.Text detailsTitle;
+    [SerializeField] private UnityEngine.UI.Text detailsDate;
+    [SerializeField] private UnityEngine.UI.Text detailsCompanies;
+    [SerializeField] private UnityEngine.UI.Text detailsBody;
+    [SerializeField] private UnityEngine.UI.ScrollRect detailsScroll;
     [SerializeField] private Text dateText;
     [SerializeField] private Button generalTabButton;
     [SerializeField] private Button secretTabButton;
@@ -34,16 +42,21 @@ public class NewsScreen : MonoBehaviour
 
     private GameTurnClock turnClock;
     private Companies companies;
+    private MarketEventManager marketEventManager;
     private UnityEngine.UI.HorizontalLayoutGroup cardsLayout;
+    private NewsEntry[] displayedEntries;
     private int selectedTurn;
     private int latestTurn;
     private bool isSecretNews;
+    private bool detailsDismissRequested;
+    private EscMenu suspendedEscMenu;
 
     private void Awake()
     {
         if (feed == null) feed = FindFirstObjectByType<NewsFeed>();
         turnClock = FindFirstObjectByType<GameTurnClock>();
         companies = FindFirstObjectByType<Companies>();
+        marketEventManager = FindFirstObjectByType<MarketEventManager>();
         selectedTurn = turnClock.CurrentTurn;
         latestTurn = selectedTurn;
 
@@ -52,6 +65,12 @@ public class NewsScreen : MonoBehaviour
         secretTabButton.onClick.AddListener(showSecretNews);
         nextDateButton.onClick.AddListener(showNextDate);
         previousDateButton.onClick.AddListener(showPreviousDate);
+        displayedEntries = new NewsEntry[newsCards.Length];
+        for (int i = 0; i < newsCards.Length; i++)
+        {
+            int cardIndex = i;
+            newsCards[i].DetailsButton.onClick.AddListener(() => showDetails(displayedEntries[cardIndex]));
+        }
         cardsLayout = cardsRoot.GetComponent<UnityEngine.UI.HorizontalLayoutGroup>();
     }
 
@@ -64,6 +83,11 @@ public class NewsScreen : MonoBehaviour
     {
         updateCardSizes();
         handleNewsChanged();
+    }
+
+    private void OnDisable()
+    {
+        closeDetails();
     }
 
     private void OnRectTransformDimensionsChange()
@@ -97,6 +121,67 @@ public class NewsScreen : MonoBehaviour
     public void close()
     {
         gameObject.SetActive(false);
+    }
+
+    private void showDetails(NewsEntry entry)
+    {
+        string companyNames = getCompanyNames(entry);
+        bool isMarketNews = marketEventManager.tryGetDefinition(entry.marketEventID, out MarketEventDefinition definition);
+        bool hasArticle = isMarketNews && !string.IsNullOrWhiteSpace(definition.articleBody);
+
+        detailsTitle.text = entry.title;
+        detailsDate.text = formatDate(entry.turn);
+        detailsCompanies.text = isMarketNews && entry.companyIDs.Count == 0 ? "전체 기업" : companyNames;
+        detailsBody.supportRichText = hasArticle;
+        if (hasArticle)
+        {
+            string articleTarget = entry.companyIDs.Count > 1 ? "해당 업체들" : detailsCompanies.text;
+            detailsBody.text = definition.articleBody.Replace("{targetCompany}", articleTarget);
+        }
+        else
+        {
+            detailsBody.text = entry.description;
+        }
+
+        detailsOverlay.SetActive(true);
+        UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(detailsScroll.content);
+        detailsScroll.StopMovement();
+        detailsScroll.verticalNormalizedPosition = 1f;
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+
+        EscMenu escMenu = FindFirstObjectByType<EscMenu>();
+        if (escMenu != null && escMenu.isActiveAndEnabled)
+        {
+            suspendedEscMenu = escMenu;
+            suspendedEscMenu.enabled = false;
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (detailsOverlay.activeSelf) detailsDismissRequested = true;
+    }
+
+    private void LateUpdate()
+    {
+        if (!detailsOverlay.activeSelf) return;
+
+        // [일시정지 메뉴의 Update가 끝난 뒤 Esc 입력 복구]
+        if (detailsDismissRequested || Keyboard.current?.escapeKey.wasPressedThisFrame == true)
+        {
+            closeDetails();
+        }
+    }
+
+    private void closeDetails()
+    {
+        detailsOverlay.SetActive(false);
+        detailsDismissRequested = false;
+        if (suspendedEscMenu != null)
+        {
+            suspendedEscMenu.enabled = true;
+            suspendedEscMenu = null;
+        }
     }
 
     private void handleNewsChanged()
@@ -135,6 +220,7 @@ public class NewsScreen : MonoBehaviour
 
     private void refresh()
     {
+        Array.Clear(displayedEntries, 0, displayedEntries.Length);
         int currentTurn = turnClock.CurrentTurn;
         dateText.text = formatDate(selectedTurn);
         nextDateButton.interactable = selectedTurn < currentTurn;
@@ -163,6 +249,7 @@ public class NewsScreen : MonoBehaviour
             if (entry.turn != selectedTurn) continue;
 
             Sprite thumbnailSprite = NewsImageLookup.getSprite(entry);
+            displayedEntries[cardIndex] = entry;
             newsCards[cardIndex].setup(entry.title, getCompanyNames(entry), entry.description, thumbnailSprite: thumbnailSprite);
             newsCards[cardIndex].gameObject.SetActive(true);
             cardIndex++;

@@ -54,12 +54,20 @@ public class MarketEventManager : MonoBehaviour
         initialAvailable = new List<int>(availableEventIDs);
     }
 
+    public bool tryGetDefinition(int marketEventID, out MarketEventDefinition definition)
+    {
+        return eventsByID.TryGetValue(marketEventID, out definition);
+    }
+
     // 새 턴의 시장 갱신 이후, 회사 수치 재계산 이전에 호출
     public void processTurn(int currentTurn)
     {
         expireEvents(currentTurn);
         addEvent(currentTurn, "market");
         addEvent(currentTurn, "market-second");
+        addEvent(currentTurn, "market-third");
+        if (FixedDaySeed.StableOrder(currentTurn, "market-count") <= uint.MaxValue / 2u)
+            addEvent(currentTurn, "market-fourth");
         EffectControl.applyMarketEventEffects(currentTurn);
         lastProcessedTurn = currentTurn;
     }
