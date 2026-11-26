@@ -12,15 +12,14 @@ namespace TakeOver.Operations
         [SerializeField] private GameObject optionsRoot;
         [SerializeField] private DocumentButton optionTemplate;
         [SerializeField] private Text fieldLabel;
-        private readonly List<GameObject> options = new List<GameObject>();
+        private DocumentDropdownMenu menu;
+        private Action openMenu;
+        private string selectedText;
 
         private void Awake()
         {
-            var canvas = optionsRoot.GetComponent<Canvas>();
-            if (canvas == null) canvas = optionsRoot.AddComponent<Canvas>();
-            canvas.overrideSorting = true;
-            canvas.sortingOrder = 700;
-            if (optionsRoot.GetComponent<GraphicRaycaster>() == null) optionsRoot.AddComponent<GraphicRaycaster>();
+            menu = optionsRoot.GetComponent<DocumentDropdownMenu>();
+            if (menu == null) menu = optionsRoot.AddComponent<DocumentDropdownMenu>();
         }
 
         public void Bind(IApprovalDocument document, DocumentField field, bool readOnly, float value, Action changed)
@@ -31,42 +30,70 @@ namespace TakeOver.Operations
                 gameObject.SetActive(false);
                 return;
             }
-            foreach (var option in options) Destroy(option);
-            options.Clear();
-            optionsRoot.SetActive(false);
+            menu.Close();
             optionTemplate.gameObject.SetActive(false);
             fieldLabel.text = field.label;
+            configureLayout();
             string initialText = !readOnly && field.initialSelected ? field.initialOptionLabel : formatValue(value, field.format);
-            valueButton.Bind($"{initialText}{(readOnly ? "" : " ▾")}", () => optionsRoot.SetActive(!optionsRoot.activeSelf), !readOnly);
-            if (readOnly) return;
-            if (field.initialOptionLabel != null)
+            var choices = new List<DocumentDropdownOption>();
+            if (!readOnly && field.initialOptionLabel != null)
             {
-                var initial = Instantiate(optionTemplate, optionTemplate.transform.parent, false);
-                initial.gameObject.SetActive(true);
-                initial.Bind(field.initialOptionLabel, () =>
+                choices.Add(new DocumentDropdownOption
                 {
-                    document.SetField(field.name, field.initialValue);
-                    field.initialSelected = true;
-                    valueButton.Bind(field.initialOptionLabel + " ▾", () => optionsRoot.SetActive(!optionsRoot.activeSelf));
-                    optionsRoot.SetActive(false);
-                    changed();
+                    label = field.initialOptionLabel,
+                    selected = () =>
+                    {
+                        document.SetField(field.name, field.initialValue);
+                        field.initialSelected = true;
+                        bindValue(field.initialOptionLabel, true);
+                        menu.Close();
+                        changed();
+                    }
                 });
-                options.Add(initial.gameObject);
             }
-            foreach (float choice in field.options)
+            if (!readOnly) foreach (float choice in field.options)
             {
-                var button = Instantiate(optionTemplate, optionTemplate.transform.parent, false);
-                button.gameObject.SetActive(true);
-                button.Bind(formatValue(choice, field.format), () =>
+                float selectedChoice = choice;
+                choices.Add(new DocumentDropdownOption
                 {
-                    document.SetField(field.name, choice);
-                    field.initialSelected = false;
-                    valueButton.Bind($"{formatValue(choice, field.format)} ▾", () => optionsRoot.SetActive(!optionsRoot.activeSelf));
-                    optionsRoot.SetActive(false);
-                    changed();
+                    label = formatValue(selectedChoice, field.format),
+                    selected = () =>
+                    {
+                        document.SetField(field.name, selectedChoice);
+                        field.initialSelected = false;
+                        bindValue(formatValue(selectedChoice, field.format), true);
+                        menu.Close();
+                        changed();
+                    }
                 });
-                options.Add(button.gameObject);
             }
+            openMenu = readOnly ? null : (Action)(() => menu.Show(valueButton, optionTemplate, selectedText, choices,
+                () => menu.Close()));
+            bindValue(initialText, !readOnly);
+        }
+
+        private void bindValue(string text, bool interactable)
+        {
+            selectedText = text;
+            valueButton.Bind(text, interactable ? openMenu : null, interactable);
+            valueButton.SetDropdownStyle(true, interactable ? new Color32(96, 96, 96, 255) : new Color32(186, 186, 186, 255), interactable);
+        }
+
+        private void configureLayout()
+        {
+            RectTransform row = (RectTransform)transform;
+            row.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 446f);
+            row.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 36f);
+            RectTransform label = fieldLabel.rectTransform;
+            label.anchorMin = label.anchorMax = new Vector2(0f, 1f);
+            label.pivot = new Vector2(0f, 1f);
+            label.anchoredPosition = Vector2.zero;
+            label.sizeDelta = new Vector2(148f, 36f);
+            RectTransform value = (RectTransform)valueButton.transform;
+            value.anchorMin = value.anchorMax = new Vector2(0f, 1f);
+            value.pivot = new Vector2(0f, 1f);
+            value.anchoredPosition = new Vector2(148f, -2f);
+            value.sizeDelta = new Vector2(142f, 32f);
         }
 
         private static string formatValue(float value, DocumentValueFormat format)

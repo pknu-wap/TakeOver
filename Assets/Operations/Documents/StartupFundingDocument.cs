@@ -32,13 +32,11 @@ namespace TakeOver.Documents
             new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
             new DocumentInfo("회사 현금", MoneyText.Format(TargetCompany.state.getBaseStat(CompanyStat.CASH))),
             new DocumentInfo("요청 금액", MoneyText.Format(Amount)),
-            new DocumentInfo("내 보유자금", $"{MoneyText.Format(player.state.cash)} → {MoneyText.Format(player.state.cash - Amount)}")
+            new DocumentInfo("내 보유자금", $"{MoneyText.Format(player.state.cash)} → {MoneyText.Format(player.state.cash - Amount)}"),
+            new DocumentInfo("", "거절하면 이 회사는 다시 자금을 요청하지 않습니다.", true)
         };
 
-        public IReadOnlyList<string> BodyLines => new[]
-        {
-            "거절하면 이 회사는 다시 자금을 요청하지 않습니다."
-        };
+        public IReadOnlyList<string> BodyLines => Array.Empty<string>();
 
         public IReadOnlyList<DocumentField> Fields => Array.Empty<DocumentField>();
         public IReadOnlyList<DocumentChoiceField> ChoiceFields => Array.Empty<DocumentChoiceField>();

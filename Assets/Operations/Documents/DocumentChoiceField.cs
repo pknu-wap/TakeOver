@@ -7,6 +7,7 @@ namespace TakeOver.Documents
     {
         public int key;
         public string label;
+        public bool enabled = true;
     }
 
     public sealed class DocumentChoiceField

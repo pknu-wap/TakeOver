@@ -4,7 +4,7 @@ using System.Globalization;
 namespace TakeOver.Documents
 {
     // 읽기 전용 문서의 범용 구현. 저장할 때 제목·작성자·정보 줄을 그대로 스냅샷으로 남긴다.
-    public sealed class SnapshotDocument : IDocument
+    public sealed class SnapshotDocument : IDocument, IDocumentPages
     {
         private readonly List<DocumentInfo> infoRows;
         public string TypeId { get; }
@@ -14,6 +14,19 @@ namespace TakeOver.Documents
         public string DedupKey { get; }
         public IReadOnlyList<DocumentInfo> InfoRows => infoRows;
         public int RowsPerPage { get; }
+        public int PageCount => RowsPerPage > 0 ? System.Math.Max(1, (infoRows.Count + RowsPerPage - 1) / RowsPerPage) : 1;
+
+        public IReadOnlyList<DocumentInfo> GetInfoRows(int pageIndex)
+        {
+            if (RowsPerPage <= 0) return infoRows;
+            int start = System.Math.Max(0, pageIndex) * RowsPerPage;
+            if (start >= infoRows.Count) return System.Array.Empty<DocumentInfo>();
+            int count = System.Math.Min(RowsPerPage, infoRows.Count - start);
+            return infoRows.GetRange(start, count);
+        }
+
+        public IReadOnlyList<DocumentField> GetFields(int pageIndex) => System.Array.Empty<DocumentField>();
+        public IReadOnlyList<DocumentChoiceField> GetChoiceFields(int pageIndex) => System.Array.Empty<DocumentChoiceField>();
 
         public SnapshotDocument(string typeId, string title, string author, IEnumerable<DocumentInfo> infoRows,
             string dedupKey = "", int rowsPerPage = 0)
@@ -34,7 +47,7 @@ namespace TakeOver.Documents
                 foreach (NameText row in record.infoRows)
                 {
                     if (row.label == "rows-per-page") rowsPerPage = int.Parse(row.value, CultureInfo.InvariantCulture);
-                    else rows.Add(new DocumentInfo(row.label, row.value));
+                    else rows.Add(new DocumentInfo(row.label, row.value, row.isNotice));
                 }
             return new SnapshotDocument(record.type, record.title, record.author, rows, rowsPerPage: rowsPerPage);
         }
@@ -50,7 +63,8 @@ namespace TakeOver.Documents
                 fields = new List<NameValue>(),
                 infoRows = new List<NameText>()
             };
-            foreach (DocumentInfo row in infoRows) record.infoRows.Add(new NameText { label = row.label, value = row.value });
+            foreach (DocumentInfo row in infoRows)
+                record.infoRows.Add(new NameText { label = row.label, value = row.value, isNotice = row.isNotice });
             if (RowsPerPage > 0) record.infoRows.Add(new NameText { label = "rows-per-page", value = RowsPerPage.ToString(CultureInfo.InvariantCulture) });
             return record;
         }
