@@ -313,7 +313,6 @@ namespace TakeOver.Story
                 previous.sceneTitle != upcoming.sceneTitle || previous.goal != StoryGoal.None || upcoming.goal != StoryGoal.None ||
                 previous.speaker == StorySpeaker.System || upcoming.speaker == StorySpeaker.System;
             if (sceneChange) yield return view.FadeTo(1, sequence.fadeSeconds);
-            else yield return view.FadeDialogue(0, .12f);
             CloseGamePanels();
             index++;
             exchangeStage = 0; choiceCommitted = false; selectedChoice = null; goalObserved = false;
@@ -325,7 +324,6 @@ namespace TakeOver.Story
             view.Show(Current, registry);
             if (Goal != StoryGoal.None) { preparing = true; PrepareGoal(); preparing = false; }
             if (sceneChange) yield return view.FadeTo(0, sequence.fadeSeconds);
-            else yield return view.FadeDialogue(1, .12f);
             busy = false;
             view.SetInput(true);
         }
