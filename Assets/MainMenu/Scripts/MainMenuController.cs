@@ -18,8 +18,10 @@ namespace TakeOver.MainMenu
         [SerializeField] private GameObject tutorialPrompt;
         [SerializeField] private EventNegotiationView eventUi;
         [SerializeField] private EventDetailView informationStyle;
+        [SerializeField] private Button settingsButton;
         public Toggle SkipIntroToggle => skipIntroToggle;
         private bool starting;
+        private EscMenu settingsMenu;
 
         private void Awake()
         {
@@ -34,6 +36,20 @@ namespace TakeOver.MainMenu
                 continueButton.onClick.AddListener(startContinue);
                 continueButton.interactable = eventUi != null;
             }
+
+            settingsMenu = FindFirstObjectByType<EscMenu>(FindObjectsInactive.Include);
+            if (settingsButton != null)
+            {
+                settingsButton.onClick.RemoveAllListeners();
+                settingsButton.onClick.AddListener(openSettings);
+                settingsButton.interactable = settingsMenu != null;
+            }
+        }
+
+        public void openSettings()
+        {
+            if (starting || tutorialPrompt.activeSelf || settingsMenu == null) return;
+            settingsMenu.openSettingsOnly();
         }
 
         public void showNewGamePrompt()
