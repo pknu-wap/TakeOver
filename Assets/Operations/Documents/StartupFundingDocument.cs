@@ -30,9 +30,9 @@ namespace TakeOver.Documents
         public IReadOnlyList<DocumentInfo> InfoRows => new[]
         {
             new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
-            new DocumentInfo("회사 현금", $"{TargetCompany.state.getBaseStat(CompanyStat.CASH):N0}원"),
-            new DocumentInfo("요청 금액", $"{Amount:N0}원"),
-            new DocumentInfo("내 보유자금", $"{player.state.cash:N0}원 → {player.state.cash - Amount:N0}원")
+            new DocumentInfo("회사 현금", MoneyText.Format(TargetCompany.state.getBaseStat(CompanyStat.CASH))),
+            new DocumentInfo("요청 금액", MoneyText.Format(Amount)),
+            new DocumentInfo("내 보유자금", $"{MoneyText.Format(player.state.cash)} → {MoneyText.Format(player.state.cash - Amount)}")
         };
 
         public IReadOnlyList<string> BodyLines => new[]

@@ -10,7 +10,7 @@ namespace TakeOver.Startups
         {
             StartupSettings.IndustryTemplate template = settings.industries[random.Next(settings.industries.Length)];
 
-            float revenue = Mathf.Round(pick(random, template.revenue));
+            float revenue = Mathf.Round(pick(random, template.revenue) * 100f) / 100f;
             return new StartupRecord
             {
                 companyId = companyId,
@@ -20,11 +20,11 @@ namespace TakeOver.Startups
                 description = template.description,
                 baseCompanyValue = Mathf.Round(pick(random, template.baseCompanyValue)),
                 revenue = revenue,
-                cost = Mathf.Round(revenue * template.initialCostRatio),
-                cash = Mathf.Round(pick(random, template.cash)),
-                debt = Mathf.Round(pick(random, template.debt)),
-                tangibleAssets = Mathf.Round(pick(random, template.tangibleAssets)),
-                intangibleAssets = Mathf.Round(pick(random, template.intangibleAssets)),
+                cost = Mathf.Round(revenue * template.initialCostRatio * 100f) / 100f,
+                cash = Mathf.Round(pick(random, template.cash) * 100f) / 100f,
+                debt = Mathf.Round(pick(random, template.debt) * 100f) / 100f,
+                tangibleAssets = Mathf.Round(pick(random, template.tangibleAssets) * 100f) / 100f,
+                intangibleAssets = Mathf.Round(pick(random, template.intangibleAssets) * 100f) / 100f,
                 growthRate = pick(random, template.growthRate),
                 employeeCount = pick(random, template.employees),
                 revenueHistory = new List<float> { revenue }

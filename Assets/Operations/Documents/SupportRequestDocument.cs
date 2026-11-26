@@ -47,7 +47,7 @@ namespace TakeOver.Documents
             {
                 new DocumentInfo("대상 회사", company.definition.companyName),
                 new DocumentInfo("매출 성장", $"{company.state.getDerivedStat(CompanyDerivedStat.REVENUE_GROWTH):P1}"),
-                new DocumentInfo("순이익", $"{company.state.getDerivedStat(CompanyDerivedStat.NET_PROFIT):N0}")
+                new DocumentInfo("순이익", MoneyText.Format(company.state.getDerivedStat(CompanyDerivedStat.NET_PROFIT)))
             };
             bool declining = company.state.getDerivedStat(CompanyDerivedStat.REVENUE_GROWTH) < 0f;
             bool loss = company.state.getDerivedStat(CompanyDerivedStat.NET_PROFIT) < 0f;

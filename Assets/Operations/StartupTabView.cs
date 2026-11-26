@@ -130,19 +130,19 @@ namespace TakeOver.Operations
                 detailTitle.text = "새봄테크 <color=#BABABA>(정보기술)</color>";
                 supportEmployees.text = "파견 직원 : 없음";
                 investmentValues[0].text = "20%";
-                investmentValues[1].text = "200,000만원";
-                investmentValues[2].text = "150,000만원";
+                investmentValues[1].text = MoneyText.Format(20f);
+                investmentValues[2].text = MoneyText.Format(15f);
                 investmentValues[3].text = "+33.3%";
                 colorSigned(investmentValues[3], 1f);
-                financeValues[0].text = "250,000만원";
-                financeValues[1].text = "120,000만원";
-                financeValues[2].text = "+15,000만원";
+                financeValues[0].text = MoneyText.Format(25f);
+                financeValues[1].text = MoneyText.Format(0.8f);
+                financeValues[2].text = MoneyText.FormatSigned(-0.24f);
                 financeValues[3].text = "+4.0%";
                 colorSigned(financeValues[2], 1f);
                 colorSigned(financeValues[3], 1f);
                 coreValue.text = "핵심 가치 : 정보의 빠른 연결";
                 description.text = "여러 산업의 데이터를 모아 빠르게 필요한 정보를 제공하는 기술 스타트업입니다.";
-                setGraph(new[] { 60000f, 72000f, 68000f, 81000f, 90000f });
+                setGraph(new[] { 0.6f, 0.72f, 0.68f, 0.81f, 0.9f });
                 return;
             }
 
@@ -219,8 +219,8 @@ namespace TakeOver.Operations
                 investment = record.cumulativeInvestment;
 
             investmentValues[0].text = $"{stake:0.#}%";
-            investmentValues[1].text = $"{equity:N0}만원";
-            investmentValues[2].text = $"{investment:N0}만원";
+            investmentValues[1].text = MoneyText.Format(equity);
+            investmentValues[2].text = MoneyText.Format(investment);
             if (investment > 0f)
             {
                 float rate = (equity - investment) / investment;
@@ -237,9 +237,9 @@ namespace TakeOver.Operations
             float revenue = CompanyUIUtil.getStat(startup, CompanyStat.REVENUE);
             float profit = CompanyUIUtil.getDerived(startup, CompanyDerivedStat.NET_PROFIT);
             float growth = CompanyUIUtil.getDerived(startup, CompanyDerivedStat.REVENUE_GROWTH);
-            financeValues[0].text = $"{cash:N0}만원";
-            financeValues[1].text = $"{revenue:N0}만원";
-            financeValues[2].text = signedAmount(profit) + "만원";
+            financeValues[0].text = MoneyText.Format(cash);
+            financeValues[1].text = MoneyText.Format(revenue);
+            financeValues[2].text = MoneyText.FormatSigned(profit);
             financeValues[3].text = signedPercent(growth);
             colorSigned(financeValues[2], profit);
             colorSigned(financeValues[3], growth);
@@ -283,7 +283,7 @@ namespace TakeOver.Operations
 
             IReadOnlyList<float> ticks = graph.TickValues;
             for (int i = 0; i < graphTickLabels.Length; i++)
-                graphTickLabels[i].text = hasGraph && i < ticks.Count ? $"{ticks[ticks.Count - 1 - i]:N0}" : "";
+                graphTickLabels[i].text = hasGraph && i < ticks.Count ? MoneyText.Format(ticks[ticks.Count - 1 - i]) : "";
         }
 
         private static string signedPercent(float value)
@@ -294,7 +294,7 @@ namespace TakeOver.Operations
 
         private static string signedAmount(float value)
         {
-            return value > 0f ? "+" + value.ToString("N0") : value < 0f ? value.ToString("N0") : "0";
+            return MoneyText.FormatSigned(value);
         }
 
         private static void colorSigned(TMP_Text text, float value)

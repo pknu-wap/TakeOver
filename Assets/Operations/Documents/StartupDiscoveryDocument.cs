@@ -49,11 +49,11 @@ namespace TakeOver.Documents
             {
                 new DocumentInfo("대상 회사", CompanyName),
                 new DocumentInfo("업종", startup.definition.industry),
-                new DocumentInfo("매출", $"{CompanyUIUtil.getStat(startup, CompanyStat.REVENUE):N0}원"),
-                new DocumentInfo("보유 자금", $"{CompanyUIUtil.getStat(startup, CompanyStat.CASH):N0}원"),
+                new DocumentInfo("매출", MoneyText.Format(CompanyUIUtil.getStat(startup, CompanyStat.REVENUE))),
+                new DocumentInfo("보유 자금", MoneyText.Format(CompanyUIUtil.getStat(startup, CompanyStat.CASH))),
                 new DocumentInfo("직원 수", $"{CompanyUIUtil.getStat(startup, CompanyStat.EMPLOYEE_COUNT):N0}명"),
                 new DocumentInfo("제시 기업가치",
-                    $"{CompanyUIUtil.getDerived(startup, CompanyDerivedStat.FUNDAMENTAL_VALUE):N0}원"),
+                    MoneyText.Format(CompanyUIUtil.getDerived(startup, CompanyDerivedStat.FUNDAMENTAL_VALUE))),
                 new DocumentInfo("성장 전망", outlook)
             };
         }

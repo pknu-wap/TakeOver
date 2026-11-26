@@ -35,9 +35,9 @@ namespace TakeOver.Startups
         public IReadOnlyList<DocumentInfo> InfoRows => new[]
         {
             new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
-            new DocumentInfo("기업가치", $"{companyValue:N0}"),
-            new DocumentInfo("투자금", $"{investment:N0}"),
-            new DocumentInfo("내 보유자금", $"{player.state.cash:N0} → {player.state.cash - investment:N0}")
+            new DocumentInfo("기업가치", MoneyText.Format(companyValue)),
+            new DocumentInfo("투자금", MoneyText.Format(investment)),
+            new DocumentInfo("내 보유자금", $"{MoneyText.Format(player.state.cash)} → {MoneyText.Format(player.state.cash - investment)}")
         };
 
         public Employee SelectedStaff => staff.value.HasValue ? findEmployee(staff.value.Value) : null;

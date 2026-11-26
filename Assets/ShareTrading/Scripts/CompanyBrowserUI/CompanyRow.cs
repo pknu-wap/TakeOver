@@ -41,12 +41,12 @@ public class CompanyRow : MonoBehaviour
         setText(letterText, showLetter ? companyName.Substring(0, 1) : "");
 
         setText(industryText, company.definition.industry);
-        setText(priceText, $"{price:N0}");
-        setText(revenueText, $"{CompanyUIUtil.getStat(company, CompanyStat.REVENUE):N0}");
-        setText(netProfitText, $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.NET_PROFIT):N0}");
+        setText(priceText, MoneyText.Format(price));
+        setText(revenueText, MoneyText.Format(CompanyUIUtil.getStat(company, CompanyStat.REVENUE)));
+        setText(netProfitText, MoneyText.Format(CompanyUIUtil.getDerived(company, CompanyDerivedStat.NET_PROFIT)));
         setText(debtRatioText, $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.DEBT_RATIO):P1}");
         setText(stakeText, $"{stake:0.#}%");
-        setText(summaryText, $"{formatSignedRate(changeRate)}  |  {price:N0}₩");
+        setText(summaryText, $"{formatSignedRate(changeRate)}  |  {MoneyText.Format(price)}");
         setChange(changeRate);
 
         button.onClick.RemoveAllListeners();

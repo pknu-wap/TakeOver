@@ -74,7 +74,7 @@ namespace TakeOver.Operations
             switch (format)
             {
                 case DocumentValueFormat.Number: return value.ToString("N0");
-                case DocumentValueFormat.Money: return value.ToString("N0") + "원";
+                case DocumentValueFormat.Money: return MoneyText.Format(value);
                 default: return value.ToString("P0");
             }
         }

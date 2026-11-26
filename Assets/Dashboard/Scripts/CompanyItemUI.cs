@@ -19,7 +19,7 @@ public class CompanyItemUI : MonoBehaviour
             stakeText.text = $"{stake:F1}%";
 
         if (valueText != null)
-            valueText.text = $"{value:N0}₩";
+            valueText.text = MoneyText.Format(value);
 
         if (changeRateText != null)
         {

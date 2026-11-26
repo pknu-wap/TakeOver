@@ -40,7 +40,7 @@ namespace TakeOver.Documents
             return new[]
             {
                 new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
-                new DocumentInfo("순이익", $"{profit:N0}원"),
+                new DocumentInfo("순이익", MoneyText.Format(profit)),
                 new DocumentInfo("연속 적자", $"{operations.LossWeeks(TargetCompany)}주째"),
                 new DocumentInfo("직원 수", scale.value.HasValue ? $"{Employees:N0}명 → {NextEmployees:N0}명" : "—"),
                 new DocumentInfo("비용 절감", scale.value.HasValue ? Degree(saving, Settings.restructuringSavingThresholds) : "—"),
