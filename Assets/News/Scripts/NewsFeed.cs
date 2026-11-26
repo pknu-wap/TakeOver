@@ -12,8 +12,8 @@ public partial class NewsFeed : MonoBehaviour
     private const string MarketBriefingHeadline = "기관투자자, 동방물산·하늘식품 실적에 주목";
     private const string MarketBriefingBody = "기관투자자들이 동방물산과 하늘식품의 정기 실적 설명회에 참석해 장기 거래처와 다음 분기 수주 계획을 물었다.";
 
-    [Tooltip("시장 이벤트를 연결하기 전까지 하루 마감마다 임시 뉴스를 만들지")]
-    [SerializeField] private bool useDummyNews = true;
+    [Tooltip("하루 마감마다 테스트용 임시 뉴스를 자동 발행")]
+    [SerializeField] private bool useDummyNews;
 
     [SerializeField] private string[] dummyTitles =
     {

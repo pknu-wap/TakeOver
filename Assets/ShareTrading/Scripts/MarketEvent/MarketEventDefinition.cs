@@ -43,6 +43,7 @@ public class MarketEventDefinition : ScriptableObject
 
     public string MarketEventName;
     [TextArea(3, 6)] public string description;
+    [TextArea(12, 24)] public string articleBody;
     public int MarketEventID;
     public MarketEventApplyType applyType;
     [Min(1)] public int duration = 1;

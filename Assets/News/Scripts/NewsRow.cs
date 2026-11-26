@@ -12,7 +12,7 @@ public class NewsRow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private UnityEngine.UI.Text titleText;
     [SerializeField] private UnityEngine.UI.Text companyText;
     [SerializeField] private UnityEngine.UI.Text descriptionText;
-    [SerializeField] private UnityEngine.UI.Text detailsText;
+    [SerializeField] private UnityEngine.UI.Button detailsButton;
     [SerializeField] private RectTransform thumbnailMask;
     [SerializeField] private UnityEngine.UI.Image thumbnail;
     [SerializeField] private UnityEngine.UI.Image frame;
@@ -23,11 +23,14 @@ public class NewsRow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private float hoverProgress;
     private bool isHovered;
 
+    public UnityEngine.UI.Button DetailsButton => detailsButton;
+
     public void setup(string title, string companyNames, string description, bool hasNews = true, Sprite thumbnailSprite = null)
     {
         titleText.text = title;
         descriptionText.text = description;
-        detailsText.gameObject.SetActive(hasNews);
+        detailsButton.targetGraphic.gameObject.SetActive(hasNews);
+        detailsButton.interactable = hasNews;
         thumbnail.sprite = thumbnailSprite;
         thumbnailMask.gameObject.SetActive(hasNews && thumbnailSprite != null);
         frame.raycastTarget = hasNews;
