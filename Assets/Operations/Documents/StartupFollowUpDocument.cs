@@ -33,8 +33,8 @@ namespace TakeOver.Documents
         public IReadOnlyList<DocumentInfo> InfoRows => new[]
         {
             new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
-            new DocumentInfo("투자금", $"{Amount:N0}원"),
-            new DocumentInfo("기업가치", $"{companyValue():N0}원"),
+            new DocumentInfo("투자금", MoneyText.Format(Amount)),
+            new DocumentInfo("기업가치", MoneyText.Format(companyValue())),
             new DocumentInfo("내 지분", resolvedStakeText ?? stakeText())
         };
 

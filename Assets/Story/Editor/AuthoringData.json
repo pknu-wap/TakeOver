@@ -5191,7 +5191,7 @@
       "id": "intro-093",
       "sceneTitle": "도입부 완료  /  첫 번째 주주",
       "backgroundPath": "Assets/ShareTrading/Sprites/CityMap.png",
-      "text": "튜토리얼을 완료하였습니다. 현재 {turn}일이며, 미래건설 주식 {shares}주와 지분 {stake}%를 보유하고 있습니다. 남은 자금은 {cash}원, 행동 포인트는 {ap}/{maxAp}입니다. 다음 일정과 거래를 자유롭게 진행하실 수 있습니다.",
+      "text": "튜토리얼을 완료하였습니다. 현재 {turn}일이며, 미래건설 주식 {shares}주와 지분 {stake}%를 보유하고 있습니다. 남은 자금은 {cash}, 행동 포인트는 {ap}/{maxAp}입니다. 다음 일정과 거래를 자유롭게 진행하실 수 있습니다.",
       "speaker": 4,
       "npcId": "",
       "showPlayer": false,

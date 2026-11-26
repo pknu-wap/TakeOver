@@ -1,0 +1,6 @@
+{
+  "name": "TakeOver.MoneyText.Tests",
+  "references": ["TakeOver.MoneyText"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

@@ -79,12 +79,12 @@ public class DashboardController : MonoBehaviour
         if (lastCash != cash)
         {
             lastCash = cash;
-            if (cashText != null) cashText.text = $"{cash:N0}";
+            if (cashText != null) cashText.text = MoneyText.Format(cash);
         }
         if (lastTotalAsset != assets)
         {
             lastTotalAsset = assets;
-            if (totalAssetText != null) totalAssetText.text = $"{assets:N0}";
+            if (totalAssetText != null) totalAssetText.text = MoneyText.Format(assets);
         }
     }
 }

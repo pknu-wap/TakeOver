@@ -405,7 +405,7 @@ namespace TakeOver.Story
                     int quantity = detail.EnteredQuantity;
                     float afterShares = initialShares + (IsBuying ? quantity : -quantity);
                     float afterCash = initialCash + (IsBuying ? -price * quantity : price * quantity);
-                    view.ObjectiveDetail($"현재 주가 {price:N0} · 내 자금 {player.state.cash:N0}\n수량 {quantity}주 · 예상 {(IsBuying ? "매수 대금" : "매도 대금")} {price * quantity:N0}\n거래 후 자금 {afterCash:N0} · {afterShares:N0}주 ({afterShares / company.definition.totalShares * 100:0.##}%) / 이번에는 1주를 입력하세요.");
+                    view.ObjectiveDetail($"현재 주가 {MoneyText.Format(price)} · 내 자금 {MoneyText.Format(player.state.cash)}\n수량 {quantity}주 · 예상 {(IsBuying ? "매수 대금" : "매도 대금")} {MoneyText.Format(price * quantity)}\n거래 후 자금 {MoneyText.Format(afterCash)} · {afterShares:N0}주 ({afterShares / company.definition.totalShares * 100:0.##}%) / 이번에는 1주를 입력하세요.");
                     done = IsBuying ? company.state.getStat(CompanyStat.PLAYER_SHARES) > initialShares && player.state.cash < initialCash :
                         company.state.getStat(CompanyStat.PLAYER_SHARES) < initialShares && player.state.cash > initialCash;
                     if (done) { lastTradeCashBefore = initialCash; lastTradeSharesBefore = initialShares; }
@@ -422,7 +422,7 @@ namespace TakeOver.Story
                     view.SetGoalReady(goalObserved);
                     var targetCompany = GoalCompany;
                     view.ObjectiveDetail(Goal == StoryGoal.ViewStake ? $"{targetCompany.definition.companyName} · {targetCompany.state.getStat(CompanyStat.PLAYER_SHARES):N0}주 / 전체 {targetCompany.definition.totalShares:N0}주 · 지분 {targetCompany.state.getDerivedStat(CompanyDerivedStat.STAKE):0.##}%\n지분 조건을 잃으면 관련 이벤트가 닫힐 수 있습니다." :
-                        $"{targetCompany.definition.companyName} · 매출 {targetCompany.state.getStat(CompanyStat.REVENUE):N0} · 순이익 {targetCompany.state.getDerivedStat(CompanyDerivedStat.NET_PROFIT):N0}\n회사 현금 {targetCompany.state.getStat(CompanyStat.CASH):N0} · 부채비율 {targetCompany.state.getDerivedStat(CompanyDerivedStat.DEBT_RATIO):P1} · 내 자금 {player.state.cash:N0}");
+                        $"{targetCompany.definition.companyName} · 매출 {MoneyText.Format(targetCompany.state.getStat(CompanyStat.REVENUE))} · 순이익 {MoneyText.Format(targetCompany.state.getDerivedStat(CompanyDerivedStat.NET_PROFIT))}\n회사 현금 {MoneyText.Format(targetCompany.state.getStat(CompanyStat.CASH))} · 부채비율 {targetCompany.state.getDerivedStat(CompanyDerivedStat.DEBT_RATIO):P1} · 내 자금 {MoneyText.Format(player.state.cash)}");
                     break;
                 case StoryGoal.OpenEvent:
                     done = !eventController.IsClosed && eventController.ActiveEventId == TutorialEventId;
@@ -450,8 +450,8 @@ namespace TakeOver.Story
 
         public string Resolve(string text)
         {
-            return (text ?? "").Replace("{cash}", player != null ? player.state.cash.ToString("N0") : "")
-                .Replace("{price}", company != null ? company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE).ToString("N0") : "")
+            return (text ?? "").Replace("{cash}", player != null ? MoneyText.Format(player.state.cash) : "")
+                .Replace("{price}", company != null ? MoneyText.Format(company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE)) : "")
                 .Replace("{shares}", company != null ? company.state.getStat(CompanyStat.PLAYER_SHARES).ToString("N0") : "")
                 .Replace("{turn}", clock != null ? clock.CurrentTurn.ToString() : "")
                 .Replace("{ap}", actionPoints != null ? actionPoints.Current.ToString() : "")
@@ -487,7 +487,7 @@ namespace TakeOver.Story
         {
             if (!hasEventSnapshot || !registry.TryGet(TutorialContact, out var state)) return "";
             var a = beforeEventRelation; var b = state.relation;
-            return $"면담 결과를 반영하였습니다.\n행동 포인트 {beforeEventAp} → {actionPoints.Current} · 자금 {beforeEventCash:N0} → {player.state.cash:N0}\n" +
+            return $"면담 결과를 반영하였습니다.\n행동 포인트 {beforeEventAp} → {actionPoints.Current} · 자금 {MoneyText.Format(beforeEventCash)} → {MoneyText.Format(player.state.cash)}\n" +
                 NpcMemoryPresentation.FormatDelta(new NpcRelationDelta {
                     trust = b.trust - a.trust, respect = b.respect - a.respect, closeness = b.closeness - a.closeness });
         }
@@ -498,7 +498,7 @@ namespace TakeOver.Story
             float shares = company.state.getStat(CompanyStat.PLAYER_SHARES);
             float quantity = Mathf.Abs(shares - lastTradeSharesBefore);
             string action = shares >= lastTradeSharesBefore ? "매수" : "매도";
-            return $"{company.definition.companyName} 주식 {quantity:N0}주를 {action}하였습니다. 현재 보유 주식은 {shares:N0}주이며, 지분율은 {company.state.getDerivedStat(CompanyDerivedStat.STAKE):0.##}%입니다.\n남은 자금은 {player.state.cash:N0}원입니다.";
+            return $"{company.definition.companyName} 주식 {quantity:N0}주를 {action}하였습니다. 현재 보유 주식은 {shares:N0}주이며, 지분율은 {company.state.getDerivedStat(CompanyDerivedStat.STAKE):0.##}%입니다.\n남은 자금은 {MoneyText.Format(player.state.cash)}입니다.";
         }
 
         private void CloseFinancialPreview()

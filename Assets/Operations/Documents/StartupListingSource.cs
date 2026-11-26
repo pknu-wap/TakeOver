@@ -44,7 +44,7 @@ namespace TakeOver.Documents
                         new DocumentInfo("대상 회사", startup.definition.companyName),
                         new DocumentInfo("업종", startup.definition.industry),
                         new DocumentInfo("내용", "다음 날 상장"),
-                        new DocumentInfo("현재 기업가치", $"{startup.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE):N0}"),
+                        new DocumentInfo("현재 기업가치", MoneyText.Format(startup.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE))),
                         new DocumentInfo("내 지분", $"{stakePercent(startup):0.##}%")
                     }, startup.definition.companyID));
             }

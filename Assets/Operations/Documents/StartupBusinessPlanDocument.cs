@@ -53,10 +53,10 @@ namespace TakeOver.Documents
             List<DocumentInfo> rows = new List<DocumentInfo>
             {
                 new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
-                new DocumentInfo("회사 현금", $"{cash:N0}원"),
-                new DocumentInfo("예상 지출", $"{spend:N0}원")
+                new DocumentInfo("회사 현금", MoneyText.Format(cash)),
+                new DocumentInfo("예상 지출", MoneyText.Format(spend))
             };
-            if (spend > cash) rows.Add(new DocumentInfo("부족분 대출", $"{spend - cash:N0}원"));
+            if (spend > cash) rows.Add(new DocumentInfo("부족분 대출", MoneyText.Format(spend - cash)));
             return rows;
         }
 
@@ -90,8 +90,8 @@ namespace TakeOver.Documents
                 new DocumentChoiceField(marketingName, "마케팅 투자", () => new[]
                 {
                     new DocumentChoice { key = none, label = "안 함" },
-                    new DocumentChoice { key = middle, label = $"보통 ({settings.marketingNormalCost:N0}원)" },
-                    new DocumentChoice { key = high, label = $"집중 ({settings.marketingFocusCost:N0}원)" }
+                    new DocumentChoice { key = middle, label = $"보통 ({MoneyText.Format(settings.marketingNormalCost)})" },
+                    new DocumentChoice { key = high, label = $"집중 ({MoneyText.Format(settings.marketingFocusCost)})" }
                 }),
                 new DocumentChoiceField(stanceName, "운영 기조", () => new[]
                 {
@@ -102,8 +102,8 @@ namespace TakeOver.Documents
                 new DocumentChoiceField(facilityName, "시설 투자", () => new[]
                 {
                     new DocumentChoice { key = none, label = "없음" },
-                    new DocumentChoice { key = middle, label = $"중간 ({settings.facilityMediumCost:N0}원)" },
-                    new DocumentChoice { key = high, label = $"대규모 ({settings.facilityLargeCost:N0}원)" }
+                    new DocumentChoice { key = middle, label = $"중간 ({MoneyText.Format(settings.facilityMediumCost)})" },
+                    new DocumentChoice { key = high, label = $"대규모 ({MoneyText.Format(settings.facilityLargeCost)})" }
                 })
             };
         }

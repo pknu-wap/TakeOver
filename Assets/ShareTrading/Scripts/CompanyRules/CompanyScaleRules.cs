@@ -7,8 +7,8 @@ namespace TakeOver.CompanyRules
     /// <summary>이벤트 조건을 확인하는 시점의 기업가치로 규모를 판정한다.</summary>
     public static class CompanyScaleRules
     {
-        public const float MediumMinimum = 1000;
-        public const float LargeMinimum = 10000;
+        public const float MediumMinimum = 2000;
+        public const float LargeMinimum = 7000;
 
         public static bool TryGetScale(float currentCompanyValue, out CompanyScale scale)
         {

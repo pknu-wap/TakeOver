@@ -201,16 +201,16 @@ public class CompanyDetailPanel : MonoBehaviour
         float myShares = CompanyUIUtil.getStat(current, CompanyStat.PLAYER_SHARES);
 
         // 제목과 값을 한 곳에서 정해 두면, 순서를 바꾸거나 지표를 교체할 때 여기만 고치면 된다.
-        setMetric(0, "주가", $"{price:N0}");
-        setMetric(1, "매출", $"{CompanyUIUtil.getStat(current, CompanyStat.REVENUE):N0}");
-        setMetric(2, "순이익", $"{CompanyUIUtil.getDerived(current, CompanyDerivedStat.NET_PROFIT):N0}");
-        setMetric(3, "현금", $"{CompanyUIUtil.getStat(current, CompanyStat.CASH):N0}");
+        setMetric(0, "주가", MoneyText.Format(price));
+        setMetric(1, "매출", MoneyText.Format(CompanyUIUtil.getStat(current, CompanyStat.REVENUE)));
+        setMetric(2, "순이익", MoneyText.Format(CompanyUIUtil.getDerived(current, CompanyDerivedStat.NET_PROFIT)));
+        setMetric(3, "현금", MoneyText.Format(CompanyUIUtil.getStat(current, CompanyStat.CASH)));
         setMetric(4, "부채비율", $"{CompanyUIUtil.getDerived(current, CompanyDerivedStat.DEBT_RATIO):P1}");
         setMetric(5, "보유 지분", $"{stake:0.#}%");
 
         refreshChart(price);
 
-        setText(holdingText, $"보유 주식  {myShares:N0}주\n평가 금액  {myShares * price:N0}");
+        setText(holdingText, $"보유 주식  {myShares:N0}주\n평가 금액  {MoneyText.Format(myShares * price)}");
 
         // 내 잔액. Unity 오브젝트에는 ?.가 제대로 동작하지 않는 경우가 있어서 != null로 직접 확인한다.
         float myCash = 0f;
@@ -218,7 +218,7 @@ public class CompanyDetailPanel : MonoBehaviour
         {
             myCash = player.state.cash;
         }
-        setText(playerCashText, $"내 잔액  {myCash:N0}");
+        setText(playerCashText, $"내 잔액  {MoneyText.Format(myCash)}");
     }
 
     private void refreshChart(float todayPrice)

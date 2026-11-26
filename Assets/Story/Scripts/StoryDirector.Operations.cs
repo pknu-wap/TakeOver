@@ -51,10 +51,10 @@ namespace TakeOver.Story
             public string DoneLabel => "";
             public IReadOnlyList<DocumentInfo> InfoRows => contract ? new[] {
                 new DocumentInfo("대상 회사", "새봄테크"),
-                new DocumentInfo("기업가치", "1,000,000"), new DocumentInfo("투자금", "250,000"),
+                new DocumentInfo("기업가치", MoneyText.Format(300f)), new DocumentInfo("투자금", MoneyText.Format(60f)),
                 new DocumentInfo("취득 지분", "20%")
             } : new[] { new DocumentInfo("대상 회사", "새봄테크"), new DocumentInfo("검토 항목", "운영 계획"),
-                new DocumentInfo("요청 내용", "직원 2명 파견 검토"), new DocumentInfo("예상 비용", "30,000"),
+                new DocumentInfo("요청 내용", "직원 2명 파견 검토"), new DocumentInfo("예상 비용", MoneyText.Format(2f)),
                 new DocumentInfo("검토 기준", "자금 여력과 업무 배치") };
             public IReadOnlyList<string> BodyLines => contract
                 ? new[] { "투자 조건과 취득 지분을 확인한 뒤 계약 여부를 결정합니다." }

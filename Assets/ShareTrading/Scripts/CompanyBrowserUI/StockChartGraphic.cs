@@ -92,11 +92,12 @@ public class StockChartGraphic : MaskableGraphic
         }
 
         float range = max - min;
-        float padding = range > 0f ? range * 0.1f : minimumStep;
+        float padding = range > 0f ? range * 0.1f : Mathf.Abs(max) * 0.1f;
+        if (padding <= 0f) padding = 0.000001f;
         float paddedMin = Mathf.Max(0f, min - padding);
         float paddedMax = max + padding;
 
-        float step = Mathf.Max(minimumStep, niceStep((paddedMax - paddedMin) / gridCount));
+        float step = niceStep((paddedMax - paddedMin) / gridCount);
         for (int tries = 0; tries < 20; tries++)
         {
             axisMin = Mathf.Floor(paddedMin / step) * step;
@@ -147,7 +148,7 @@ public class StockChartGraphic : MaskableGraphic
             }
 
             float t = last > 0 ? 1f - (float)i / last : 0.5f;
-            label.text = hasLine ? (axisMin + (axisMax - axisMin) * t).ToString("N0") : "";
+            label.text = hasLine ? MoneyText.Format(axisMin + (axisMax - axisMin) * t) : "";
 
             label.alignment = TextAlignmentOptions.Right;
             label.textWrappingMode = TextWrappingModes.NoWrap;

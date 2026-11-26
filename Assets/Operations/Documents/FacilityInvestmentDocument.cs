@@ -37,8 +37,8 @@ namespace TakeOver.Documents
             {
                 new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
                 new DocumentInfo("현금 여유", $"비용 {Liquidity(TargetCompany):0.#}주치"),
-                new DocumentInfo("투자 금액", scale.value.HasValue ? $"{Amount:N0}원" : "—"),
-                new DocumentInfo("회사 현금", scale.value.HasValue ? $"{cash:N0}원 → {cash - Amount:N0}원" : $"{cash:N0}원 → —"),
+                new DocumentInfo("투자 금액", scale.value.HasValue ? MoneyText.Format(Amount) : "—"),
+                new DocumentInfo("회사 현금", scale.value.HasValue ? $"{MoneyText.Format(cash)} → {MoneyText.Format(cash - Amount)}" : MoneyText.Format(cash) + " → —"),
                 new DocumentInfo("예상 효과", scale.value.HasValue ? Degree(Bonus, Settings.facilityEffectThresholds) : "—")
             };
         }
