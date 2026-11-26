@@ -26,10 +26,7 @@ namespace TakeOver.Documents
         public string DoneLabel => "";
         public IReadOnlyList<DocumentInfo> InfoRows => infoRows;
 
-        public IReadOnlyList<string> BodyLines => new[]
-        {
-            "넘기면 다른 투자자가 가져가 다시 후보로 나오지 않습니다."
-        };
+        public IReadOnlyList<string> BodyLines => Array.Empty<string>();
 
         public IReadOnlyList<DocumentField> Fields => Array.Empty<DocumentField>();
         public IReadOnlyList<DocumentChoiceField> ChoiceFields => Array.Empty<DocumentChoiceField>();
@@ -54,7 +51,8 @@ namespace TakeOver.Documents
                 new DocumentInfo("직원 수", $"{CompanyUIUtil.getStat(startup, CompanyStat.EMPLOYEE_COUNT):N0}명"),
                 new DocumentInfo("제시 기업가치",
                     MoneyText.Format(CompanyUIUtil.getDerived(startup, CompanyDerivedStat.FUNDAMENTAL_VALUE))),
-                new DocumentInfo("성장 전망", outlook)
+                new DocumentInfo("성장 전망", outlook),
+                new DocumentInfo("", "넘기면 다른 투자자가 가져가 다시 후보로 나오지 않습니다.", true)
             };
         }
 
@@ -70,7 +68,7 @@ namespace TakeOver.Documents
 
             infoRows = new List<DocumentInfo>();
             if (saved.infoRows != null)
-                foreach (NameText row in saved.infoRows) infoRows.Add(new DocumentInfo(row.label, row.value));
+                foreach (NameText row in saved.infoRows) infoRows.Add(new DocumentInfo(row.label, row.value, row.isNotice));
         }
 
         public static StartupDiscoveryDocument restore(DocumentSaveRecord saved, DocumentContext context) =>
@@ -118,7 +116,7 @@ namespace TakeOver.Documents
                 infoRows = new List<NameText>()
             };
             foreach (DocumentInfo row in infoRows)
-                record.infoRows.Add(new NameText { label = row.label, value = row.value });
+                record.infoRows.Add(new NameText { label = row.label, value = row.value, isNotice = row.isNotice });
             return record;
         }
 

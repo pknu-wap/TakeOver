@@ -10,7 +10,7 @@ namespace TakeOver.Documents
     // 스타트업의 1년 운영 방향을 정하는 문서. 빈칸 4개(채용, 마케팅, 운영 기조, 시설 투자)를 모두 골라야 승인할 수 있다.
     // 쓰는 돈은 전부 스타트업 회사 현금에서 나가고, 모자라면 부족한 만큼 부채로 빌린다. 플레이어 현금은 그대로다.
     // 거절: 변화 없음 (임시)
-    public sealed class StartupBusinessPlanDocument : IApprovalDocument
+    public sealed class StartupBusinessPlanDocument : IApprovalDocument, IDocumentPages
     {
         public const string typeId = "startup-business-plan";
         public const string hiringName = "hiring";
@@ -28,6 +28,7 @@ namespace TakeOver.Documents
         private readonly StartupSettings settings;
         private readonly GameTurnClock clock;
         private readonly List<DocumentChoiceField> choiceFields;
+        private IReadOnlyList<DocumentInfo>[] resolvedInfoPages;
 
         public string TypeId => typeId;
         public Company TargetCompany { get; }
@@ -41,12 +42,18 @@ namespace TakeOver.Documents
         public string DoneLabel => "";
 
         // 처리한 순간의 현금·지출 표시. 처리 뒤 기록에서 다시 열어도 돈을 쓴 뒤 숫자로 바뀌지 않게 고정한다.
-        private IReadOnlyList<DocumentInfo> resolvedInfoRows;
+        public int PageCount => 4;
+        public IReadOnlyList<DocumentInfo> InfoRows => GetInfoRows(0);
 
-        // 선택을 바꿀 때마다 화면이 다시 읽어서 예상 지출이 바로 바뀐다. 처리한 뒤에는 고정된 값을 보여 준다.
-        public IReadOnlyList<DocumentInfo> InfoRows => resolvedInfoRows ?? buildInfoRows();
+        public IReadOnlyList<DocumentInfo> GetInfoRows(int pageIndex) =>
+            resolvedInfoPages != null ? resolvedInfoPages[pageIndex] : buildInfoRows(pageIndex);
 
-        private IReadOnlyList<DocumentInfo> buildInfoRows()
+        public IReadOnlyList<DocumentField> GetFields(int pageIndex) => Array.Empty<DocumentField>();
+
+        public IReadOnlyList<DocumentChoiceField> GetChoiceFields(int pageIndex) =>
+            pageIndex >= 0 && pageIndex < choiceFields.Count ? new[] { choiceFields[pageIndex] } : Array.Empty<DocumentChoiceField>();
+
+        private IReadOnlyList<DocumentInfo> buildInfoRows(int pageIndex)
         {
             float cash = TargetCompany.state.getBaseStat(CompanyStat.CASH);
             float spend = totalSpend();
@@ -54,10 +61,41 @@ namespace TakeOver.Documents
             {
                 new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
                 new DocumentInfo("회사 현금", MoneyText.Format(cash)),
-                new DocumentInfo("예상 지출", MoneyText.Format(spend))
+                new DocumentInfo("총 예상 지출", MoneyText.Format(spend)),
+                previewRow(pageIndex)
             };
-            if (spend > cash) rows.Add(new DocumentInfo("부족분 대출", MoneyText.Format(spend - cash)));
+            if (pageIndex == 3 && spend > cash)
+                rows.Add(new DocumentInfo("", $"부족분 {MoneyText.Format(spend - cash)} (대출)", true));
             return rows;
+        }
+
+        private DocumentInfo previewRow(int pageIndex)
+        {
+            float employees = TargetCompany.state.getBaseStat(CompanyStat.EMPLOYEE_COUNT);
+            float reputation = TargetCompany.state.getBaseStat(CompanyStat.REPUTATION_B2C);
+            switch (pageIndex)
+            {
+                case 0:
+                    return new DocumentInfo("직원 수", findField(hiringName).value.HasValue
+                        ? $"{employees:N0}명 → {Mathf.Max(1f, employees + hiringChange(employees)):N0}명" : "-");
+                case 1:
+                    return new DocumentInfo("평판", findField(marketingName).value.HasValue
+                        ? $"{reputation:0.#} → {reputationAfterMarketing(reputation):0.#}" : "-");
+                case 2:
+                    return new DocumentInfo("직원 수", findField(stanceName).value.HasValue
+                        ? $"{employees:N0}명 → {employeeCountAfterPlan(employees):N0}명" : "-");
+                case 3:
+                    return new DocumentInfo("예상 효과", findField(facilityName).value.HasValue
+                        ? facilityEffectLabel() : "-");
+                default:
+                    return new DocumentInfo("결과 미리보기", "-");
+            }
+        }
+
+        private void cacheResolvedInfoPages()
+        {
+            resolvedInfoPages = new IReadOnlyList<DocumentInfo>[PageCount];
+            for (int page = 0; page < PageCount; page++) resolvedInfoPages[page] = buildInfoRows(page);
         }
 
         public IReadOnlyList<string> BodyLines => new[]
@@ -149,19 +187,18 @@ namespace TakeOver.Documents
 
         public RuleResult OnApprove()
         {
-            resolvedInfoRows = buildInfoRows();
+            cacheResolvedInfoPages();
             CompanyState state = TargetCompany.state;
             RuleResult result = new RuleResult();
 
             // 직원: 채용 규모 + 운영 기조. 최소 1명은 남긴다.
             float employees = state.getBaseStat(CompanyStat.EMPLOYEE_COUNT);
-            float employeeChange = hiringChange(employees) + stanceEmployeeChange(employees);
-            employeeChange = Mathf.Max(employeeChange, 1f - employees);
+            float employeeChange = employeeCountAfterPlan(employees) - employees;
             if (employeeChange != 0f) result.stats.Add(new StatChange(CompanyStat.EMPLOYEE_COUNT, employeeChange));
 
             // 소비자 평판: 마케팅 + 운영 기조. 0~100 안에서 끝나게 자른다.
             float reputation = state.getBaseStat(CompanyStat.REPUTATION_B2C);
-            float nextReputation = Mathf.Clamp(reputation + marketingGain(reputation) + stanceReputationChange(), 0f, 100f);
+            float nextReputation = reputationAfterPlan(reputation);
             if (nextReputation != reputation)
                 result.stats.Add(new StatChange(CompanyStat.REPUTATION_B2C, nextReputation - reputation));
 
@@ -177,14 +214,14 @@ namespace TakeOver.Documents
             if (facility > 0f)
             {
                 result.stats.Add(new StatChange(CompanyStat.TANGIBLE_ASSETS, facility));
-                recordFacility(facility);
+                recordFacility(facility, facilityBonus());
             }
             return result;
         }
 
         public RuleResult OnReject()
         {
-            resolvedInfoRows = buildInfoRows();
+            cacheResolvedInfoPages();
             return new RuleResult();
         }
 
@@ -205,6 +242,26 @@ namespace TakeOver.Documents
         private float totalSpend()
         {
             return marketingCost() + facilityCost();
+        }
+
+        private float employeeCountAfterPlan(float employees)
+        {
+            float change = hiringChange(employees) + stanceEmployeeChange(employees);
+            return employees + Mathf.Max(change, 1f - employees);
+        }
+
+        private float reputationAfterMarketing(float reputation) =>
+            Mathf.Clamp(reputation + marketingGain(reputation), 0f, 100f);
+
+        private float reputationAfterPlan(float reputation) =>
+            Mathf.Clamp(reputation + marketingGain(reputation) + stanceReputationChange(), 0f, 100f);
+
+        private float facilityBonus() => facilityCost() / 100f * settings.facilityGrowthPer100;
+
+        private string facilityEffectLabel()
+        {
+            int? value = findField(facilityName).value;
+            return value == none ? "작음" : value == middle ? "보통" : "큼";
         }
 
         private float hiringChange(float employees)
@@ -257,7 +314,7 @@ namespace TakeOver.Documents
         }
 
         // 보너스 = 투자금 ÷ 100 × 100원당 보너스. 지연 기간 뒤 시작해 정해진 기간 동안 성장률에 더해진다.
-        private void recordFacility(float facility)
+        private void recordFacility(float facility, float bonus)
         {
             if (record == null) return;
             int turn = clock != null ? clock.CurrentTurn : 0;
@@ -266,7 +323,7 @@ namespace TakeOver.Documents
             {
                 startTurn = start,
                 endTurn = start + settings.facilityBonusDurationTurns,
-                growthBonus = facility / 100f * settings.facilityGrowthPer100
+                growthBonus = bonus
             });
         }
 

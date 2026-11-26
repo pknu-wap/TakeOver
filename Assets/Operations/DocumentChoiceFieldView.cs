@@ -13,60 +13,61 @@ namespace TakeOver.Operations
         [SerializeField] private GameObject optionsRoot;
         [SerializeField] private DocumentButton optionTemplate;
         [SerializeField] private Text fieldLabel;
-        private readonly List<GameObject> options = new List<GameObject>();
+        private DocumentDropdownMenu menu;
 
         private void Awake()
         {
-            var canvas = optionsRoot.GetComponent<Canvas>();
-            if (canvas == null) canvas = optionsRoot.AddComponent<Canvas>();
-            canvas.overrideSorting = true;
-            canvas.sortingOrder = 700;
-            if (optionsRoot.GetComponent<GraphicRaycaster>() == null) optionsRoot.AddComponent<GraphicRaycaster>();
+            menu = optionsRoot.GetComponent<DocumentDropdownMenu>();
+            if (menu == null) menu = optionsRoot.AddComponent<DocumentDropdownMenu>();
         }
 
         public void Bind(IApprovalDocument document, DocumentChoiceField field, bool readOnly, int? value, Action changed)
         {
-            clearOptions();
-            optionsRoot.SetActive(false);
+            menu.Close();
             optionTemplate.gameObject.SetActive(false);
             fieldLabel.text = field.label;
+            configureLayout();
             if (readOnly)
             {
                 valueButton.Bind(labelFor(field, value), null, false);
+                valueButton.SetDropdownStyle(true, new Color32(186, 186, 186, 255), false);
                 return;
             }
             valueButton.Bind(valueText(field, value), () => toggle(document, field, changed));
+            valueButton.SetDropdownStyle(true, new Color32(96, 96, 96, 255), true);
         }
 
         private void toggle(IApprovalDocument document, DocumentChoiceField field, Action changed)
         {
             if (optionsRoot.activeSelf)
             {
-                optionsRoot.SetActive(false);
+                menu.Close();
                 return;
             }
-            clearOptions();
-            // 열 때마다 최신 목록을 새로 읽는다.
+            var options = new List<DocumentDropdownOption>();
             foreach (DocumentChoice choice in field.GetChoices())
             {
                 DocumentChoice picked = choice;
-                var button = Instantiate(optionTemplate, optionTemplate.transform.parent, false);
-                button.gameObject.SetActive(true);
-                button.Bind(picked.label, () =>
+                options.Add(new DocumentDropdownOption
                 {
-                    document.SetChoice(field.name, picked.key);
-                    valueButton.Bind(valueText(field, picked.key), () => toggle(document, field, changed));
-                    optionsRoot.SetActive(false);
-                    changed();
+                    label = picked.label,
+                    enabled = picked.enabled,
+                    selected = () =>
+                    {
+                        document.SetChoice(field.name, picked.key);
+                        valueButton.Bind(valueText(field, picked.key), () => toggle(document, field, changed));
+                        valueButton.SetDropdownStyle(true, new Color32(96, 96, 96, 255), true);
+                        menu.Close();
+                        changed();
+                    }
                 });
-                options.Add(button.gameObject);
             }
-            optionsRoot.SetActive(true);
+            menu.Show(valueButton, optionTemplate, valueText(field, field.value), options, () => menu.Close());
         }
 
         private static string valueText(DocumentChoiceField field, int? value)
         {
-            return (value.HasValue ? labelFor(field, value) : "선택") + " ▾";
+            return value.HasValue ? labelFor(field, value) : "선택";
         }
 
         private static string labelFor(DocumentChoiceField field, int? value)
@@ -77,10 +78,21 @@ namespace TakeOver.Operations
             return emptyLabel;
         }
 
-        private void clearOptions()
+        private void configureLayout()
         {
-            foreach (var option in options) { option.SetActive(false); Destroy(option); }
-            options.Clear();
+            RectTransform row = (RectTransform)transform;
+            row.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 446f);
+            row.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 36f);
+            RectTransform label = fieldLabel.rectTransform;
+            label.anchorMin = label.anchorMax = new Vector2(0f, 1f);
+            label.pivot = new Vector2(0f, 1f);
+            label.anchoredPosition = Vector2.zero;
+            label.sizeDelta = new Vector2(148f, 36f);
+            RectTransform value = (RectTransform)valueButton.transform;
+            value.anchorMin = value.anchorMax = new Vector2(0f, 1f);
+            value.pivot = new Vector2(0f, 1f);
+            value.anchoredPosition = new Vector2(148f, -2f);
+            value.sizeDelta = new Vector2(142f, 32f);
         }
     }
 }

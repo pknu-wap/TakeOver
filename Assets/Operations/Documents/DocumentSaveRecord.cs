@@ -15,6 +15,7 @@ namespace TakeOver.Documents
     {
         public string label;
         public string value;
+        public bool isNotice;
     }
 
     [Serializable]
