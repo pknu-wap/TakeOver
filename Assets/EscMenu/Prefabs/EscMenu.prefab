@@ -2393,6 +2393,7 @@ MonoBehaviour:
   confirmPanel: {fileID: 5372760290849828156}
   confirmText: {fileID: 372196696856841813}
   npcStatusScreen: {fileID: 0}
+  openWithEsc: 1
 --- !u!1 &1734938822878622413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2719,7 +2720,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC801\uC6A9\t"
+  m_Text: "\uC801\uC6A9"
 --- !u!1 &1887690017839428827
 GameObject:
   m_ObjectHideFlags: 0
@@ -6425,7 +6426,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 4410988883197441494, guid: 1605b39c1ab65e0419a548aaab9e312c, type: 3}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
