@@ -1,15 +1,31 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TakeOver.NPC;
 
 namespace TakeOver.Employees
 {
     [Serializable]
-    public class Employee
+    public class Employee : ISerializationCallbackReceiver
     {
         // EmployeeService가 지원자를 만들 때 붙이는 번호. 1부터 증가하고 재사용하지 않는다(0은 번호 없음).
         [field: SerializeField] public int Id { get; internal set; }
         public string Name;
+        [SerializeField] private int appearance;
+        public NpcMobAppearance Appearance
+        {
+            get => appearance == 0 ? GuessAppearance(Name) : (NpcMobAppearance)(appearance - 1);
+            set => appearance = (int)value + 1;
+        }
+        public string ProfileNumber => $"NO. 2026-{Id:D4}";
+        public static NpcMobAppearance GuessAppearance(string name)
+        {
+            foreach (string given in new[] { "서연", "하은", "수빈", "지민", "예진" })
+                if (!string.IsNullOrEmpty(name) && name.EndsWith(given)) return NpcMobAppearance.Female;
+            return NpcMobAppearance.Male;
+        }
+        public void OnBeforeSerialize() { appearance = (int)Appearance + 1; }
+        public void OnAfterDeserialize() { appearance = (int)Appearance + 1; }
 
         public AbilityStat Analysis;
         public AbilityStat Network;
@@ -80,6 +96,7 @@ namespace TakeOver.Employees
             EmployeeConfig employeeConfig)
         {
             Name = name;
+            Appearance = GuessAppearance(name);
 
             Analysis = new AbilityStat(analysisCur, analysisMax, 0f);
             Network = new AbilityStat(networkCur, networkMax, 0f);

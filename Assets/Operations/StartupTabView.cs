@@ -1,38 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using TakeOver.Employees;
 using TakeOver.NPC;
 using TakeOver.Startups;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace TakeOver.Operations
 {
     public sealed class StartupTabView : MonoBehaviour
     {
-        private static readonly Color Gold = new Color(1f, .81f, .3f);
-        private static readonly Color Muted = new Color(.65f, .75f, .88f);
-        private static readonly Color Ink = new Color(.93f, .95f, .98f);
-        private static readonly Color PanelColor = new Color(.04f, .11f, .22f);
-        private static readonly Color CardColor = new Color(.07f, .17f, .33f);
-        private static readonly Color LineColor = new Color(.16f, .29f, .5f);
+        [Header("화면")]
+        [SerializeField] private GameObject contentRoot;
+        [SerializeField] private GameObject emptyRoot;
+        [SerializeField] private TMP_Text emptyTitle;
+        [SerializeField] private TMP_Text emptyDescription;
 
-        private const float ListWidth = 260f;
-        private const float Gap = 16f;
-        private const float Pad = 16f;
-        private const float ItemHeight = 64f;
-        private const float MetricTop = 58f;
-        private const float MetricHeight = 64f;
-        private const float MetricGap = 8f;
+        [Header("목록")]
+        [SerializeField] private ScrollRect listScroll;
+        [SerializeField] private Scrollbar listScrollbar;
+        [SerializeField] private RectTransform listContent;
+        [SerializeField] private StartupListItemView itemPrefab;
+        [SerializeField] private GameObject scrollThumb;
 
-        private static readonly string[] MetricLabels = { "기업가치", "보유 자금", "매출", "직원 수" };
-
-        [Tooltip("글꼴을 빌려 오고 빈 상태 문구를 적을 글자. 비워 두면 이 오브젝트 아래의 첫 Text('준비 중')를 쓴다.")]
-        [FormerlySerializedAs("listText")]
-        [SerializeField] private Text templateText;
-        [SerializeField] private string emptyMessage = "계약한 스타트업이 없습니다.";
+        [Header("상세")]
+        [SerializeField] private TMP_Text detailTitle;
+        [SerializeField] private TMP_Text supportEmployees;
+        [SerializeField] private TMP_Text[] investmentValues = new TMP_Text[4];
+        [SerializeField] private TMP_Text[] financeValues = new TMP_Text[4];
+        [SerializeField] private TMP_Text coreValue;
+        [SerializeField] private TMP_Text description;
+        [SerializeField] private StartupLineGraph graph;
+        [SerializeField] private TMP_Text[] graphTickLabels = new TMP_Text[5];
+        [SerializeField] private RectTransform graphLabelRoot;
+        [SerializeField] private TMP_Text graphLabelTemplate;
+        [SerializeField] private GameObject graphEmptyRoot;
 
         private Companies companies;
         private StartupSystem startupSystem;
@@ -40,51 +44,36 @@ namespace TakeOver.Operations
         private GameTurnClock turnClock;
         private bool built;
         private bool tutorialPreview;
+        private Company selected;
+        private readonly List<StartupListItemView> items = new List<StartupListItemView>();
+        private int shownItemCount = -1;
+        private readonly List<TMP_Text> graphLabels = new List<TMP_Text>();
+
         public bool IsTutorialPreview => tutorialPreview;
+
+        private static readonly Color UpColor = new Color32(201, 33, 33, 255);
+        private static readonly Color DownColor = new Color32(58, 127, 231, 255);
+        private static readonly Color ValueColor = new Color32(96, 96, 96, 255);
+
         public void SetTutorialPreview(bool enabled)
         {
             tutorialPreview = enabled;
             refresh();
         }
-        private Company selected;
-
-        private RectTransform contentRoot;
-        private RectTransform listContent;
-        private readonly List<ListItem> items = new List<ListItem>();
-
-        private Text titleText;
-        private Text stakeText;
-        private Text supportText;
-        private readonly Text[] metricValues = new Text[MetricLabels.Length];
-        private StartupLineGraph graph;
-        private Text graphStartLabel;
-        private Text graphEmptyLabel;
-
-        private sealed class ListItem
-        {
-            public GameObject root;
-            public Text nameText;
-            public Text industryText;
-            public Text stakeText;
-            public Outline outline;
-            public Company company;
-        }
 
         private void Start()
         {
-            if (templateText == null) templateText = GetComponentInChildren<Text>(true);
-            if (templateText == null)
-            {
-                Debug.LogError("StartupTabView: 글꼴을 빌려 올 Text를 찾을 수 없습니다.", this);
-                return;
-            }
-
             companies = FindFirstObjectByType<Companies>();
             startupSystem = FindFirstObjectByType<StartupSystem>();
+            jobs = FindFirstObjectByType<JobService>();
             turnClock = FindFirstObjectByType<GameTurnClock>();
             if (turnClock != null) turnClock.TurnAdvanced += handleTurnAdvanced;
-
-            build();
+            if (listScrollbar != null && listScroll != null)
+            {
+                listScrollbar.onValueChanged.AddListener(value => listScroll.verticalNormalizedPosition = value);
+                listScroll.onValueChanged.AddListener(value => listScrollbar.SetValueWithoutNotify(value.y));
+                listScrollbar.SetValueWithoutNotify(1f);
+            }
             built = true;
             refresh();
         }
@@ -116,46 +105,55 @@ namespace TakeOver.Operations
         {
             if (!built) return;
 
-            IReadOnlyList<Company> startups = companies != null ? companies.StartupList
-                .Where(company => company.state.getBaseStat(CompanyStat.PLAYER_SHARES) > 0f).ToList() : null;
+            IReadOnlyList<Company> startups = companies != null
+                ? companies.StartupList.Where(company => company.state.getBaseStat(CompanyStat.PLAYER_SHARES) > 0f).ToList()
+                : null;
             bool empty = startups == null || startups.Count == 0;
-            if (empty && tutorialPreview)
+            bool showPreview = empty && tutorialPreview;
+
+            contentRoot.SetActive(!empty || showPreview);
+            emptyRoot.SetActive(empty && !showPreview);
+            if (empty && !showPreview)
             {
-                contentRoot.gameObject.SetActive(true);
-                templateText.gameObject.SetActive(false);
-                if (items.Count == 0) items.Add(createItem());
-                for (int i = 0; i < items.Count; i++) items[i].root.SetActive(i == 0);
-                var sample = items[0];
-                sample.company = null;
-                sample.nameText.text = "새봄테크";
-                sample.industryText.text = "정보기술";
-                sample.stakeText.text = "20%";
-                sample.outline.enabled = true;
-                titleText.text = "새봄테크";
-                stakeText.text = "플레이어 지분 20%";
-                supportText.text = "파견 직원: 없음";
-                metricValues[0].text = "1,000,000";
-                metricValues[1].text = "250,000";
-                metricValues[2].text = "120,000";
-                metricValues[3].text = "12명";
-                graph.setValues(new[] { 60000f, 80000f, 95000f, 120000f });
-                graphEmptyLabel.gameObject.SetActive(false);
-                graphStartLabel.text = "3주 전";
+                emptyTitle.text = "계약한 스타트업이 없습니다";
+                emptyDescription.text = "직원 탭에서 직원에게 스타트업 발굴 직무를 지정하세요";
                 selected = null;
+                setItems(0);
+                scrollThumb.SetActive(false);
                 return;
             }
-            contentRoot.gameObject.SetActive(!empty);
-            templateText.gameObject.SetActive(empty);
-            if (empty)
+
+            if (showPreview)
             {
-                templateText.text = emptyMessage;
-                selected = null;
+                setItems(1);
+                items[0].Bind(null, "새봄테크", "정보기술", null, true, selectPreview);
+                detailTitle.text = "새봄테크 <color=#BABABA>(정보기술)</color>";
+                supportEmployees.text = "파견 직원 : 없음";
+                investmentValues[0].text = "20%";
+                investmentValues[1].text = "200,000만원";
+                investmentValues[2].text = "150,000만원";
+                investmentValues[3].text = "+33.3%";
+                colorSigned(investmentValues[3], 1f);
+                financeValues[0].text = "250,000만원";
+                financeValues[1].text = "120,000만원";
+                financeValues[2].text = "+15,000만원";
+                financeValues[3].text = "+4.0%";
+                colorSigned(financeValues[2], 1f);
+                colorSigned(financeValues[3], 1f);
+                coreValue.text = "핵심 가치 : 정보의 빠른 연결";
+                description.text = "여러 산업의 데이터를 모아 빠르게 필요한 정보를 제공하는 기술 스타트업입니다.";
+                setGraph(new[] { 60000f, 72000f, 68000f, 81000f, 90000f });
                 return;
             }
 
             if (selected == null || !contains(startups, selected)) selected = startups[0];
-
-            refreshList(startups);
+            setItems(startups.Count);
+            for (int i = 0; i < startups.Count; i++)
+            {
+                Company company = startups[i];
+                items[i].Bind(company, company.definition.companyName, company.definition.industry,
+                    company.definition.logo, company == selected, select);
+            }
             refreshDetail(selected);
         }
 
@@ -165,243 +163,151 @@ namespace TakeOver.Operations
             refresh();
         }
 
-        private void refreshList(IReadOnlyList<Company> startups)
+        private void selectPreview(Company company)
         {
-            while (items.Count < startups.Count) items.Add(createItem());
+            selected = null;
+        }
 
+        private void setItems(int count)
+        {
+            bool countChanged = shownItemCount != count;
+            while (items.Count < count)
+            {
+                StartupListItemView item = Instantiate(itemPrefab, listContent);
+                items.Add(item);
+            }
+
+            float rowStep = itemPrefab.GetComponent<RectTransform>().rect.height > 0f
+                ? itemPrefab.GetComponent<RectTransform>().rect.height
+                : 58f;
+            float step = rowStep * (96f / 71.73f);
+            float gap = step - rowStep;
+            float topOffset = rowStep * (30f / 71.73f);
             for (int i = 0; i < items.Count; i++)
             {
-                ListItem item = items[i];
-                bool visible = i < startups.Count;
-                item.root.SetActive(visible);
-                if (!visible) continue;
-
-                Company startup = startups[i];
-                item.company = startup;
-                item.nameText.text = startup.definition.companyName;
-                item.industryText.text = startup.definition.industry;
-                item.stakeText.text = $"{CompanyUIUtil.getDerived(startup, CompanyDerivedStat.STAKE):0.#}%";
-                item.outline.enabled = startup == selected;
+                StartupListItemView item = items[i];
+                item.gameObject.SetActive(i < count);
+                if (i >= count) continue;
+                RectTransform rect = item.GetComponent<RectTransform>();
+                rect.anchoredPosition = new Vector2(8f, -(topOffset + i * step));
             }
+
+            if (listContent != null)
+            {
+                float viewportHeight = listScroll != null && listScroll.viewport != null ? listScroll.viewport.rect.height : 0f;
+                listContent.sizeDelta = new Vector2(listContent.sizeDelta.x, Mathf.Max(viewportHeight, topOffset + count * rowStep + Mathf.Max(0, count - 1) * gap));
+            }
+            if (scrollThumb != null) scrollThumb.SetActive(count > 0);
+            if (countChanged && listScroll != null && listScrollbar != null)
+            {
+                listScroll.verticalNormalizedPosition = 1f;
+                listScrollbar.SetValueWithoutNotify(1f);
+            }
+            shownItemCount = count;
         }
 
         private void refreshDetail(Company startup)
         {
-            titleText.text = $"{startup.definition.companyName} · {startup.definition.industry}";
-            stakeText.text = $"플레이어 지분 {CompanyUIUtil.getDerived(startup, CompanyDerivedStat.STAKE):0.#}%";
+            detailTitle.text = $"{startup.definition.companyName} <color=#BABABA>({startup.definition.industry})</color>";
             string names = jobs != null ? jobs.SupportEmployeeNamesFor(startup) : "";
-            supportText.text = $"파견 직원: {(string.IsNullOrEmpty(names) ? "없음" : names)}";
+            supportEmployees.text = $"파견 직원 : {(string.IsNullOrEmpty(names) ? "없음" : names)}";
 
-            metricValues[0].text = $"{CompanyUIUtil.getDerived(startup, CompanyDerivedStat.FUNDAMENTAL_VALUE):N0}";
-            metricValues[1].text = $"{CompanyUIUtil.getStat(startup, CompanyStat.CASH):N0}";
-            metricValues[2].text = $"{CompanyUIUtil.getStat(startup, CompanyStat.REVENUE):N0}";
-            metricValues[3].text = $"{CompanyUIUtil.getStat(startup, CompanyStat.EMPLOYEE_COUNT):N0}명";
+            float stake = CompanyUIUtil.getDerived(startup, CompanyDerivedStat.STAKE);
+            float equity = CompanyUIUtil.getDerived(startup, CompanyDerivedStat.FUNDAMENTAL_VALUE) * stake / 100f;
+            float investment = 0f;
+            if (startupSystem != null && startupSystem.tryGetRecord(startup.definition.companyID, out StartupRecord record))
+                investment = record.cumulativeInvestment;
+
+            investmentValues[0].text = $"{stake:0.#}%";
+            investmentValues[1].text = $"{equity:N0}만원";
+            investmentValues[2].text = $"{investment:N0}만원";
+            if (investment > 0f)
+            {
+                float rate = (equity - investment) / investment;
+                investmentValues[3].text = signedPercent(rate);
+                colorSigned(investmentValues[3], rate);
+            }
+            else
+            {
+                investmentValues[3].text = "-";
+                investmentValues[3].color = ValueColor;
+            }
+
+            float cash = CompanyUIUtil.getStat(startup, CompanyStat.CASH);
+            float revenue = CompanyUIUtil.getStat(startup, CompanyStat.REVENUE);
+            float profit = CompanyUIUtil.getDerived(startup, CompanyDerivedStat.NET_PROFIT);
+            float growth = CompanyUIUtil.getDerived(startup, CompanyDerivedStat.REVENUE_GROWTH);
+            financeValues[0].text = $"{cash:N0}만원";
+            financeValues[1].text = $"{revenue:N0}만원";
+            financeValues[2].text = signedAmount(profit) + "만원";
+            financeValues[3].text = signedPercent(growth);
+            colorSigned(financeValues[2], profit);
+            colorSigned(financeValues[3], growth);
+
+            coreValue.text = string.IsNullOrEmpty(startup.definition.coreValue)
+                ? "" : $"핵심 가치 : {startup.definition.coreValue}";
+            description.text = startup.definition.description ?? "";
 
             IReadOnlyList<float> history = startupSystem != null ? startupSystem.getRevenueHistory(startup) : null;
-            graph.setValues(history);
-            bool hasGraph = graph.pointCount >= 2;
-            graphEmptyLabel.gameObject.SetActive(!hasGraph);
-            graphStartLabel.text = hasGraph ? $"{graph.pointCount - 1}주 전" : "";
+            setGraph(history);
+        }
+
+        private void setGraph(IReadOnlyList<float> values)
+        {
+            graph.setValues(values);
+            bool hasGraph = values != null && values.Count >= 2;
+            graphEmptyRoot.SetActive(!hasGraph);
+            graphLabelTemplate.gameObject.SetActive(false);
+            while (graphLabels.Count < (hasGraph ? values.Count : 0))
+            {
+                TMP_Text label = Instantiate(graphLabelTemplate, graphLabelRoot);
+                label.gameObject.SetActive(true);
+                graphLabels.Add(label);
+            }
+
+            for (int i = 0; i < graphLabels.Count; i++)
+            {
+                bool visible = hasGraph && i < values.Count;
+                graphLabels[i].gameObject.SetActive(visible);
+                if (!visible) continue;
+                TMP_Text label = graphLabels[i];
+                RectTransform rect = label.rectTransform;
+                float x = (float)i / Mathf.Max(1, values.Count - 1);
+                rect.anchorMin = new Vector2(x, 1f);
+                rect.anchorMax = new Vector2(x, 1f);
+                rect.pivot = new Vector2(0.5f, 1f);
+                rect.anchoredPosition = Vector2.zero;
+                label.alignment = TextAlignmentOptions.Center;
+                label.text = i == values.Count - 1 ? "이번 주" : $"{values.Count - 1 - i}주 전";
+            }
+
+            IReadOnlyList<float> ticks = graph.TickValues;
+            for (int i = 0; i < graphTickLabels.Length; i++)
+                graphTickLabels[i].text = hasGraph && i < ticks.Count ? $"{ticks[ticks.Count - 1 - i]:N0}" : "";
+        }
+
+        private static string signedPercent(float value)
+        {
+            string formatted = (Mathf.Abs(value) * 100f).ToString("0.0", System.Globalization.CultureInfo.InvariantCulture) + "%";
+            return value > 0f ? "+" + formatted : value < 0f ? "-" + formatted : "0.0%";
+        }
+
+        private static string signedAmount(float value)
+        {
+            return value > 0f ? "+" + value.ToString("N0") : value < 0f ? value.ToString("N0") : "0";
+        }
+
+        private static void colorSigned(TMP_Text text, float value)
+        {
+            text.color = value > 0f ? UpColor : value < 0f ? DownColor : ValueColor;
         }
 
         private static bool contains(IReadOnlyList<Company> list, Company target)
         {
+            if (list == null) return false;
             for (int i = 0; i < list.Count; i++)
-            {
                 if (list[i] == target) return true;
-            }
             return false;
-        }
-
-        private void build()
-        {
-            jobs = FindFirstObjectByType<JobService>();
-            contentRoot = makeRect("Startup content", transform);
-            stretch(contentRoot, 0f, 0f, 0f, 0f);
-
-            Image listPanel = makeImage("Startup list", contentRoot, PanelColor);
-            RectTransform listRect = listPanel.rectTransform;
-            listRect.anchorMin = new Vector2(0f, 0f);
-            listRect.anchorMax = new Vector2(0f, 1f);
-            listRect.pivot = new Vector2(0f, 0.5f);
-            listRect.offsetMin = Vector2.zero;
-            listRect.offsetMax = new Vector2(ListWidth, 0f);
-            buildList(listRect);
-
-            Image detailPanel = makeImage("Startup detail", contentRoot, PanelColor);
-            stretch(detailPanel.rectTransform, ListWidth + Gap, 0f, 0f, 0f);
-            buildDetail(detailPanel.rectTransform);
-        }
-
-        private void buildList(RectTransform panel)
-        {
-            RectTransform viewport = makeRect("Viewport", panel);
-            stretch(viewport, 8f, 8f, 8f, 8f);
-            viewport.gameObject.AddComponent<RectMask2D>();
-            viewport.gameObject.AddComponent<Image>().color = Color.clear;
-
-            listContent = makeRect("Content", viewport);
-            listContent.anchorMin = new Vector2(0f, 1f);
-            listContent.anchorMax = new Vector2(1f, 1f);
-            listContent.pivot = new Vector2(0.5f, 1f);
-            listContent.offsetMin = Vector2.zero;
-            listContent.offsetMax = Vector2.zero;
-
-            VerticalLayoutGroup layout = listContent.gameObject.AddComponent<VerticalLayoutGroup>();
-            layout.spacing = 8f;
-            layout.childControlWidth = true;
-            layout.childControlHeight = true;
-            layout.childForceExpandWidth = true;
-            layout.childForceExpandHeight = false;
-            listContent.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-            ScrollRect scroll = panel.gameObject.AddComponent<ScrollRect>();
-            scroll.horizontal = false;
-            scroll.vertical = true;
-            scroll.movementType = ScrollRect.MovementType.Clamped;
-            scroll.scrollSensitivity = 30f;
-            scroll.viewport = viewport;
-            scroll.content = listContent;
-        }
-
-        private ListItem createItem()
-        {
-            Image background = makeImage("Startup item", listContent, CardColor);
-            LayoutElement size = background.gameObject.AddComponent<LayoutElement>();
-            size.minHeight = ItemHeight;
-            size.preferredHeight = ItemHeight;
-
-            Button button = background.gameObject.AddComponent<Button>();
-            button.targetGraphic = background;
-
-            Outline outline = background.gameObject.AddComponent<Outline>();
-            outline.effectColor = Gold;
-            outline.effectDistance = new Vector2(2f, -2f);
-            outline.enabled = false;
-
-            ListItem item = new ListItem { root = background.gameObject, outline = outline };
-
-            item.nameText = makeText("Name", background.transform, 18, Ink, TextAnchor.UpperLeft, true);
-            topRow(item.nameText.rectTransform, 10f, 24f, 12f, 12f);
-
-            item.industryText = makeText("Industry", background.transform, 14, Muted, TextAnchor.LowerLeft);
-            stretch(item.industryText.rectTransform, 12f, 10f, 12f, 34f);
-
-            item.stakeText = makeText("Stake", background.transform, 14, Muted, TextAnchor.LowerRight);
-            stretch(item.stakeText.rectTransform, 12f, 10f, 12f, 34f);
-
-            button.onClick.AddListener(() => select(item.company));
-            return item;
-        }
-
-        private void buildDetail(RectTransform panel)
-        {
-            titleText = makeText("Title", panel, 20, Ink, TextAnchor.MiddleLeft, true);
-            topRow(titleText.rectTransform, Pad, 30f, Pad, Pad);
-            stakeText = makeText("Stake", panel, 15, Muted, TextAnchor.MiddleRight);
-            topRow(stakeText.rectTransform, Pad, 30f, Pad, Pad);
-
-            for (int i = 0; i < MetricLabels.Length; i++)
-            {
-                int line = i / 2;
-                int column = i % 2;
-                float top = MetricTop + line * (MetricHeight + MetricGap);
-
-                Image box = makeImage(MetricLabels[i], panel, CardColor);
-                RectTransform rect = box.rectTransform;
-                rect.anchorMin = new Vector2(column * 0.5f, 1f);
-                rect.anchorMax = new Vector2((column + 1) * 0.5f, 1f);
-                rect.pivot = new Vector2(0.5f, 1f);
-                rect.offsetMin = new Vector2(column == 0 ? Pad : 4f, -(top + MetricHeight));
-                rect.offsetMax = new Vector2(column == 0 ? -4f : -Pad, -top);
-
-                Text label = makeText("Label", box.transform, 14, Muted, TextAnchor.UpperLeft);
-                topRow(label.rectTransform, 8f, 20f, 12f, 12f);
-                label.text = MetricLabels[i];
-
-                metricValues[i] = makeText("Value", box.transform, 22, Ink, TextAnchor.UpperLeft, true);
-                topRow(metricValues[i].rectTransform, 30f, 28f, 12f, 12f);
-            }
-
-            int metricLines = (MetricLabels.Length + 1) / 2;
-            float chartTop = MetricTop + metricLines * (MetricHeight + MetricGap) + 8f;
-            supportText = makeText("Support employees", panel, 15, Muted, TextAnchor.MiddleLeft);
-            topRow(supportText.rectTransform, chartTop, 24f, Pad, Pad);
-            chartTop += 32f;
-            RectTransform chart = makeRect("Revenue chart", panel);
-            stretch(chart, Pad, Pad, Pad, chartTop);
-
-            Text chartTitle = makeText("Title", chart, 16, Muted, TextAnchor.UpperLeft);
-            topRow(chartTitle.rectTransform, 0f, 22f, 0f, 0f);
-            chartTitle.text = "매출";
-
-            Image baseline = makeImage("Baseline", chart, LineColor);
-            baseline.rectTransform.anchorMin = new Vector2(0f, 0f);
-            baseline.rectTransform.anchorMax = new Vector2(1f, 0f);
-            baseline.rectTransform.offsetMin = new Vector2(0f, 28f);
-            baseline.rectTransform.offsetMax = new Vector2(0f, 29f);
-
-            RectTransform graphRect = makeRect("Line", chart);
-            stretch(graphRect, 0f, 28f, 0f, 30f);
-            graph = graphRect.gameObject.AddComponent<StartupLineGraph>();
-            graph.color = Gold;
-            graph.raycastTarget = false;
-
-            graphStartLabel = makeText("Start", chart, 14, Muted, TextAnchor.LowerLeft);
-            stretch(graphStartLabel.rectTransform, 0f, 0f, 0f, 0f);
-            Text endLabel = makeText("End", chart, 14, Muted, TextAnchor.LowerRight);
-            stretch(endLabel.rectTransform, 0f, 0f, 0f, 0f);
-            endLabel.text = "이번 주";
-
-            graphEmptyLabel = makeText("Empty", chart, 15, Muted, TextAnchor.MiddleCenter);
-            stretch(graphEmptyLabel.rectTransform, 0f, 0f, 0f, 0f);
-            graphEmptyLabel.text = "다음 실적 갱신 뒤부터 매출 그래프가 그려집니다";
-        }
-
-        private static RectTransform makeRect(string objectName, Transform parent)
-        {
-            GameObject created = new GameObject(objectName, typeof(RectTransform));
-            created.transform.SetParent(parent, false);
-            return (RectTransform)created.transform;
-        }
-
-        private static Image makeImage(string objectName, Transform parent, Color color)
-        {
-            Image image = makeRect(objectName, parent).gameObject.AddComponent<Image>();
-            image.color = color;
-            return image;
-        }
-
-        private Text makeText(string objectName, Transform parent, int size, Color color,
-            TextAnchor alignment, bool bold = false)
-        {
-            Text text = makeRect(objectName, parent).gameObject.AddComponent<Text>();
-            text.font = templateText.font;
-            text.fontSize = size;
-            text.color = color;
-            text.alignment = alignment;
-            text.fontStyle = bold ? FontStyle.Bold : FontStyle.Normal;
-            text.horizontalOverflow = HorizontalWrapMode.Overflow;
-            text.verticalOverflow = VerticalWrapMode.Overflow;
-            text.raycastTarget = false;
-            return text;
-        }
-
-        private static void stretch(RectTransform rect, float left, float bottom, float right, float top)
-        {
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.offsetMin = new Vector2(left, bottom);
-            rect.offsetMax = new Vector2(-right, -top);
-        }
-
-        private static void topRow(RectTransform rect, float top, float height, float left, float right)
-        {
-            rect.anchorMin = new Vector2(0f, 1f);
-            rect.anchorMax = new Vector2(1f, 1f);
-            rect.pivot = new Vector2(0.5f, 1f);
-            rect.offsetMin = new Vector2(left, -(top + height));
-            rect.offsetMax = new Vector2(-right, -top);
         }
     }
 }

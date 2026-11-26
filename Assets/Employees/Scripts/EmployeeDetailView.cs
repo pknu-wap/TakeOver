@@ -8,6 +8,9 @@ namespace TakeOver.Employees
     public class EmployeeDetailView : MonoBehaviour
     {
         private const float StatBarMax = 20f;
+        [SerializeField] private AbilityRadarGraphic abilityRadar;
+        [SerializeField] private TextMeshProUGUI profileNumber;
+        [SerializeField] private Sprite jobSelectedSprite, jobUnselectedSprite;
 
         [Header("Header")]
         [SerializeField] private TextMeshProUGUI nameText;
@@ -93,12 +96,13 @@ namespace TakeOver.Employees
 
                 if (job == JobType.Appraisal && appraisalPicker != null)
                 {
-                    appraisalPicker.open(currentEmployee, Refresh);
+                    appraisalPicker.open(currentEmployee, () => { Refresh(); onDismissed?.Invoke(); });
                     return;
                 }
 
                 jobService.Assign(currentEmployee, job);
                 Refresh();
+                onDismissed?.Invoke();
             });
         }
 
@@ -151,13 +155,21 @@ namespace TakeOver.Employees
 
             if (nameText != null) nameText.text = currentEmployee.Name;
             if (gradeText != null) gradeText.text = EmployeeTabView.FormatGrade(currentEmployee.Grade);
-            if (salaryText != null) salaryText.text = $"월급: {currentEmployee.MonthlySalary:N0}만원";
+            if (salaryText != null) salaryText.text = $"{currentEmployee.MonthlySalary:N0}만원";
+            if (profileNumber != null) profileNumber.text = currentEmployee.ProfileNumber;
+            if (abilityRadar != null) abilityRadar.SetValues(new[] { currentEmployee.Analysis.Current, currentEmployee.Network.Current, currentEmployee.Eye.Current, currentEmployee.Legwork.Current, currentEmployee.Management.Current });
+            if (nameText != null && gradeText != null)
+            {
+                var p = gradeText.rectTransform.anchoredPosition;
+                p.x = nameText.rectTransform.anchoredPosition.x + nameText.GetPreferredValues(nameText.text).x + 16;
+                gradeText.rectTransform.anchoredPosition = p;
+            }
 
             int nowTurn = currentTurnProvider != null ? currentTurnProvider() : 0;
             int remainingDays = Mathf.Max(0, currentEmployee.ContractEndTurn - nowTurn);
             if (remainingContractText != null)
             {
-                remainingContractText.text = $"남은 계약 일수: {remainingDays}일";
+                remainingContractText.text = $"{remainingDays}일";
             }
 
             SetAbilityStat(analysisFill, analysisValueText, currentEmployee.Analysis.Current);
@@ -182,7 +194,7 @@ namespace TakeOver.Employees
             int severance = employeeService != null ? employeeService.GetSeveranceAmount(currentEmployee) : 0;
             if (severanceText != null)
             {
-                severanceText.text = $"해고 보상금: {severance:N0}만원";
+                severanceText.text = $"해고 보상금 {severance:N0}만원";
             }
         }
 
@@ -191,14 +203,25 @@ namespace TakeOver.Employees
             JobType job = jobService != null ? jobService.GetJob(currentEmployee) : JobType.None;
             if (jobNameText != null)
             {
-                jobNameText.text = $"직무: {FormatJob(job)}";
+                jobNameText.text = job == JobType.None ? "진행 중인 직무 없음" : "진행 중 : " + FormatJob(job) + (job == JobType.Support ? "" : $" D-{jobService.GetRemainingDays(currentEmployee)}");
             }
 
+            StyleJobButton(appraisalButton, job == JobType.Appraisal);
+            StyleJobButton(discoveryButton, job == JobType.Discovery);
+            StyleJobButton(clearJobButton, false);
             if (jobRemainingText != null)
             {
                 jobRemainingText.text = job == JobType.None ? "" : job == JobType.Support
                     ? jobService.SupportTargetName(currentEmployee) + " 지원 중" : $"D-{jobService.GetRemainingDays(currentEmployee)}";
             }
+        }
+
+        private void StyleJobButton(Button button, bool selected)
+        {
+            if (button == null || jobSelectedSprite == null) return;
+            button.image.sprite = selected ? jobSelectedSprite : jobUnselectedSprite;
+            var label = button.GetComponentInChildren<TextMeshProUGUI>();
+            if (label != null) label.color = selected ? new Color32(246,246,246,255) : new Color32(36,72,126,255);
         }
 
         private static string FormatJob(JobType job)

@@ -36,6 +36,9 @@ namespace TakeOver.Employees
         [Header("Top Employee Table Section")]
         [SerializeField] private TextMeshProUGUI employeeCountText;
         [SerializeField] private Transform employeeListContent;
+        [SerializeField] private GameObject employeeHeaders, emptyEmployeeIcon;
+        [SerializeField] private RectTransform vacantRow;
+        [SerializeField] private TextMeshProUGUI vacantText;
         [SerializeField] private EmployeeRowView employeeRowPrefab;
         [SerializeField] private TextMeshProUGUI emptyEmployeeText;
 
@@ -61,6 +64,10 @@ namespace TakeOver.Employees
         [SerializeField] private Transform applicantListContent;
         [SerializeField] private ApplicantRowView applicantRowPrefab;
         [SerializeField] private TextMeshProUGUI emptyApplicantText;
+        [SerializeField] private GameObject applicantHeaders, emptyApplicantIcon;
+        [SerializeField] private TextMeshProUGUI recruitmentTitle;
+        [SerializeField] private Sprite recruitIdleSprite, recruitBusySprite;
+        public event Action<Employee> ApplicantSelected;
 
         [Header("Detail Popup")]
         [SerializeField] private EmployeeDetailView detailView;
@@ -283,7 +290,7 @@ namespace TakeOver.Employees
             RefreshDebugBar();
             if (tutorialPreview)
             {
-                if (employeeCountText != null) employeeCountText.text = "재직 직원 1명";
+                if (employeeCountText != null) employeeCountText.text = "재직 직원 목록 <color=#BABABA>(1/5)</color>";
                 if (recruitButtonText != null) recruitButtonText.text = "직원 모집";
                 if (applicantArrivalText != null) applicantArrivalText.text = "지원자 1명";
             }
@@ -296,7 +303,7 @@ namespace TakeOver.Employees
 
             if (employeeCountText != null)
             {
-                employeeCountText.text = $"직원 {count} / 상한 {cap}";
+                employeeCountText.text = $"재직 직원 목록 <color=#BABABA>({count}/{cap})</color>";
             }
 
             bool isRecruiting = employeeService != null && employeeService.IsRecruiting;
@@ -311,9 +318,10 @@ namespace TakeOver.Employees
 
             if (recruitButtonText != null)
             {
-                recruitButtonText.text = isRecruiting
-                    ? "모집 중입니다"
-                    : $"직원 모집 (AP {apCost})";
+                recruitButtonText.text = $"모집 (AP {apCost})";
+                if (recruitIdleSprite != null) recruitButton.image.sprite = isRecruiting ? recruitBusySprite : recruitIdleSprite;
+                recruitButton.image.color = Color.white;
+                if (recruitmentTitle != null) recruitmentTitle.text = $"직원 모집 <color=#BABABA>(AP {apCost})</color>";
             }
         }
 
@@ -352,8 +360,18 @@ namespace TakeOver.Employees
             if (emptyEmployeeText != null)
             {
                 emptyEmployeeText.gameObject.SetActive(rendered == 0);
+                emptyEmployeeText.text = "아직 고용한 직원이 없습니다\n<size=20><color=#BABABA>지원자를 모집해 보세요</color></size>";
             }
 
+            if (employeeHeaders != null) employeeHeaders.SetActive(rendered > 0);
+            if (emptyEmployeeIcon != null) emptyEmployeeIcon.SetActive(rendered == 0);
+            if (vacantRow != null)
+            {
+                int cap = employeeService.Capacity;
+                vacantRow.gameObject.SetActive(rendered > 0 && rendered < cap);
+                vacantRow.anchoredPosition = new Vector2(441, -(443 + rendered * 83));
+                if (vacantText != null) vacantText.text = $"+ 추가 {cap - rendered}명 채용 가능";
+            }
             if (employeeListContent is RectTransform contentRect)
             {
                 LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
@@ -377,12 +395,11 @@ namespace TakeOver.Employees
             }
 
             IReadOnlyList<Employee> list = tutorialPreview ? new[] { tutorialApplicant } : employeeService.Applicants;
-            bool hasApplicants = list != null && list.Count > 0;
-            bool canHireMore = employeeService.Employees.Count < employeeService.Capacity;
+            bool hasApplicants = list != null && list.Count > 0 && (tutorialPreview || !employeeService.IsRecruiting);
 
             if (applicantArrivalText != null)
             {
-                applicantArrivalText.gameObject.SetActive(hasApplicants);
+                applicantArrivalText.gameObject.SetActive(false);
                 if (hasApplicants)
                 {
                     applicantArrivalText.text = $"{list.Count}명이 지원했습니다";
@@ -391,7 +408,7 @@ namespace TakeOver.Employees
 
             if (closeApplicantsButton != null)
             {
-                closeApplicantsButton.gameObject.SetActive(hasApplicants);
+                closeApplicantsButton.gameObject.SetActive(false);
             }
 
             if (hasApplicants && applicantListContent != null && applicantRowPrefab != null)
@@ -401,7 +418,7 @@ namespace TakeOver.Employees
                     ApplicantRowView row = Instantiate(applicantRowPrefab, applicantListContent);
                     row.gameObject.SetActive(true);
                     row.transform.localScale = Vector3.one;
-                    row.Bind(list[i], tutorialPreview || canHireMore, tutorialPreview ? (Action<Employee>)(_ => { }) : HandleHireApplicantClicked);
+                    row.Bind(list[i], true, tutorialPreview ? (Action<Employee>)(_ => { }) : HandleApplicantRowClicked);
                     spawnedApplicantRows.Add(row);
                 }
             }
@@ -412,11 +429,13 @@ namespace TakeOver.Employees
                 if (!hasApplicants)
                 {
                     emptyApplicantText.text = employeeService.IsRecruiting
-                        ? "모집이 진행 중입니다. 턴을 진행하면 지원자가 도착합니다."
-                        : "현재 지원자가 없습니다.";
+                        ? $"{employeeService.RecruitRemainingTurns}일 뒤 지원자 도착"
+                        : "현재 지원자가 없습니다";
                 }
             }
 
+            if (applicantHeaders != null) applicantHeaders.SetActive(hasApplicants);
+            if (emptyApplicantIcon != null) emptyApplicantIcon.SetActive(!hasApplicants);
             if (applicantListContent is RectTransform contentRect)
             {
                 LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
@@ -498,24 +517,7 @@ namespace TakeOver.Employees
             }
         }
 
-        private void HandleHireApplicantClicked(Employee applicant)
-        {
-            if (employeeService == null || applicant == null)
-            {
-                return;
-            }
-
-            if (employeeService.Hire(applicant))
-            {
-                lastActionMessage = $"{applicant.Name} 고용 완료 (총 {employeeService.Employees.Count}명)";
-                RefreshAll();
-            }
-            else
-            {
-                lastActionMessage = $"고용 실패 (현재 {employeeService.Employees.Count}/{employeeService.Capacity})";
-                RefreshDebugBar();
-            }
-        }
+        private void HandleApplicantRowClicked(Employee applicant) => ApplicantSelected?.Invoke(applicant);
 
         private void HandleCloseApplicantsClicked()
         {

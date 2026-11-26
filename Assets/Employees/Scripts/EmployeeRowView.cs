@@ -61,7 +61,8 @@ namespace TakeOver.Employees
             if (eyeText != null) eyeText.text = boundEmployee.Eye.Current.ToString();
             if (legworkText != null) legworkText.text = boundEmployee.Legwork.Current.ToString();
             if (managementText != null) managementText.text = boundEmployee.Management.Current.ToString();
-            if (salaryText != null) salaryText.text = $"{boundEmployee.MonthlySalary:N0}만";
+            if (salaryText != null) salaryText.text = $"{boundEmployee.MonthlySalary:N0}만원";
+            GetComponent<EmployeeRowDesign>()?.Refresh(boundEmployee);
 
             SetHiddenCell(diligenceText, HiddenStatType.Diligence);
             SetHiddenCell(loyaltyText, HiddenStatType.Loyalty);

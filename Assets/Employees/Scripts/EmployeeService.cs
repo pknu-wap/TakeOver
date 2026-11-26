@@ -30,6 +30,7 @@ namespace TakeOver.Employees
         public IReadOnlyList<Employee> Employees => employees;
         public IReadOnlyList<Employee> Applicants => applicants;
         public bool IsRecruiting => isRecruiting;
+        public int RecruitRemainingTurns => recruitRemainingTurns;
 
         public int Capacity
         {
@@ -435,7 +436,10 @@ namespace TakeOver.Employees
         private Employee CreateRandomApplicant()
         {
             string[] lastNames = { "김", "이", "박", "최", "정", "강", "조", "윤", "장", "임" };
-            string[] firstNames = { "민수", "서연", "지훈", "하은", "도윤", "수빈", "현우", "지민", "준호", "예진" };
+            string[] maleNames = { "민수", "지훈", "도윤", "현우", "준호" };
+            string[] femaleNames = { "서연", "하은", "수빈", "지민", "예진" };
+            var appearance = UnityEngine.Random.Range(0, 2) == 0 ? NpcMobAppearance.Male : NpcMobAppearance.Female;
+            string[] firstNames = appearance == NpcMobAppearance.Female ? femaleNames : maleNames;
             string randomName = lastNames[UnityEngine.Random.Range(0, lastNames.Length)]
                 + firstNames[UnityEngine.Random.Range(0, firstNames.Length)];
 
@@ -469,6 +473,7 @@ namespace TakeOver.Employees
                 0, 0, config.contractDurationTurns,
                 config);
 
+            candidate.Appearance = appearance;
             candidate.Id = nextEmployeeId++;
             candidate.MonthlySalary = CalculateMonthlySalary(candidate);
             return candidate;
