@@ -27,6 +27,8 @@ namespace TakeOver.Story
         private readonly List<Image> masks = new List<Image>();
         private Image outline;
         private bool gated;
+        private StoryBeat logBeat;
+        private object logSceneKey;
         public Text Dialogue => informationOnly ? detail : sharedDialogue.CurrentDialogue;
         public Text Speaker => sharedDialogue.CurrentSpeaker;
         public Image PlayerImage => sharedDialogue.PlayerImage;
@@ -99,6 +101,14 @@ namespace TakeOver.Story
 
         public void Show(StoryBeat beat, NpcStateRegistry registry)
         {
+            if (logBeat == null || logBeat.background != beat.background || logBeat.sceneTitle != beat.sceneTitle ||
+                logBeat.goal != StoryGoal.None || beat.goal != StoryGoal.None ||
+                logBeat.speaker == StorySpeaker.System || beat.speaker == StorySpeaker.System)
+            {
+                logSceneKey = new object();
+                sharedDialogue.ClearDialogueHistory();
+            }
+            logBeat = beat;
             informationOnly = beat.goal == StoryGoal.None && beat.speaker == StorySpeaker.System;
             nativeEvent = beat.goal == StoryGoal.OpenEvent || beat.goal == StoryGoal.CompleteEvent;
             raycaster.enabled = !nativeEvent;
@@ -145,6 +155,8 @@ namespace TakeOver.Story
             }
             sharedDialogue.ShowDialogue(new DialoguePresentation
             {
+                sceneKey = logSceneKey,
+                npcId = npcId, allowNpcTransition = fade.color.a < .99f,
                 background = beat.background, backgroundTint = beat.backgroundTint,
                 speaker = narration ? "" : player ? director.ProtagonistName : speaking == StorySpeaker.UnregisteredVoice ? beat.voiceLabel :
                     profile != null ? profile.GetSpeakerLabel() : "",

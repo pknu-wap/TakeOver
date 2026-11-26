@@ -11,6 +11,7 @@ namespace TakeOver.Events
             Sprite speakerDimmedIllustration = null)
         {
             initialize();
+            ClearDialogueHistory();
             dialogueMode = false;
             configureBodyLayout(false);
             questionBlock.transform.parent.parent.gameObject.SetActive(true);
@@ -56,9 +57,10 @@ namespace TakeOver.Events
         private void showLegacyQuestionPage(Action showAnswers)
         {
             dialogueText.text = pages[page];
+            RecordCurrentLine();
             if (!HasMorePages)
             {
-                closeButton.gameObject.SetActive(false);
+                SetContinueVisible(false);
                 showAnswers();
                 return;
             }
@@ -74,6 +76,7 @@ namespace TakeOver.Events
         private void showChoices(TodayEventInfo info, EventSystemController controller)
         {
             skipTarget = null;
+            SetContinueVisible(false);
             choiceSubmitted = false;
             clearChoices();
             choicesRoot.gameObject.SetActive(true);
@@ -111,6 +114,7 @@ namespace TakeOver.Events
         private void showEventResultPage()
         {
             responseText.text = pages[page];
+            RecordCurrentLine();
             showLegacyAction(HasMorePages ? "계속" : "확인", () =>
             {
                 if (HasMorePages) { page++; showEventResultPage(); }
@@ -124,7 +128,7 @@ namespace TakeOver.Events
             closeButton.onClick.RemoveAllListeners();
             closeButton.onClick.AddListener(() => clicked());
             closeButton.interactable = true;
-            closeButton.gameObject.SetActive(true);
+            SetContinueVisible(true);
         }
 
         public void showExchange(string dialogue, string playerLine, Action completed) =>
@@ -143,22 +147,13 @@ namespace TakeOver.Events
             choiceSubmitted = true;
             foreach (Button button in choices) button.interactable = false;
             choicesRoot.gameObject.SetActive(false);
-            closeButton.gameObject.SetActive(false);
+            SetContinueVisible(false);
             resultRoutine = StartCoroutine(animateExchange(dialogue, playerLine, completed, companyQuestion));
             refreshSkipButton();
         }
 
         private IEnumerator animateExchange(string dialogue, string playerLine, Action completed, bool companyQuestion)
         {
-            Vector2 previousResponsePosition = ((RectTransform)responseBlock.transform).anchoredPosition;
-            for (float elapsed = 0; elapsed < 0.3f; elapsed += Time.unscaledDeltaTime)
-            {
-                float progress = Mathf.SmoothStep(0, 1, elapsed / 0.3f);
-                fadeUp(questionBlock, questionPosition, progress);
-                fadeUp(playerBlock, playerPosition, progress);
-                fadeUp(responseBlock, previousResponsePosition, progress);
-                yield return null;
-            }
             setBlock(questionBlock, false);
             setBlock(playerBlock, false);
             setBlock(responseBlock, false);
@@ -180,32 +175,27 @@ namespace TakeOver.Events
                 paginate(playerLine);
                 page = 0;
                 playerLineText.text = pages[page];
+                RecordCurrentLine();
                 bool advance = false;
                 showLegacyAction("계속", () =>
                 {
-                    if (HasMorePages) playerLineText.text = pages[++page];
+                    if (HasMorePages) { playerLineText.text = pages[++page]; RecordCurrentLine(); }
                     else
                     {
                         advance = true;
-                        closeButton.gameObject.SetActive(false);
+                        SetContinueVisible(false);
                     }
                 });
-                yield return fadeIn(playerBlock);
+                setBlock(playerBlock, true);
                 while (!advance) yield return null;
             }
             if (companyQuestion)
             {
                 if (hasPlayerLine)
                 {
-                    for (float elapsed = 0; elapsed < 0.3f; elapsed += Time.unscaledDeltaTime)
-                    {
-                        fadeUp(playerBlock, playerPosition, Mathf.SmoothStep(0, 1, elapsed / 0.3f));
-                        yield return null;
-                    }
                     setBlock(playerBlock, false);
                 }
                 prepareCompanyQuestion(dialogue);
-                yield return fadeIn(questionBlock);
             }
             else
             {
@@ -214,7 +204,7 @@ namespace TakeOver.Events
                 page = 0;
                 responseText.text = pages[page];
                 highlightPlayer(false);
-                yield return fadeIn(responseBlock);
+                setBlock(responseBlock, true);
             }
             resultRoutine = null;
             if (companyQuestion) showLegacyQuestionPage(completed);

@@ -16,6 +16,7 @@ namespace TakeOver.Events
 
         private void BeginScriptedNegotiation()
         {
+            negotiationView.ClearDialogueHistory();
             scriptLines.Clear(); scriptLines.AddRange(ActiveOpening);
             scriptIndex = 0; scriptedResult = false; scriptStartNpc = null;
             PresentScriptLine();
@@ -32,6 +33,8 @@ namespace TakeOver.Events
             bool choosing = !scriptedResult && scriptIndex == scriptLines.Count - 1 && !activeInfo.definition.IsLinearDialogue;
             negotiationView.ShowDialogue(new DialoguePresentation
             {
+                sceneKey = System.Tuple.Create(activeInfo, line.scene),
+                npcId = npcId,
                 speaker = line.player ? EventNegotiationView.ProtagonistName() : line.narration ? ""
                     : npcId == activeInfo.speakerNpcId ? activeInfo.speakerLabel
                     : profile != null ? seed.GetSpeakerLabel() : activeInfo.speakerLabel,

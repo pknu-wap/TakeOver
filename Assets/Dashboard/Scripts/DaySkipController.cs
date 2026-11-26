@@ -22,7 +22,7 @@ public class DaySkipController : MonoBehaviour
         GameTurnClock turnClock = FindFirstObjectByType<GameTurnClock>();
         if (turnClock != null)
         {
-            turnClock.AdvanceTurn();
+            turnClock.AdvanceWithTransition();
         }
     }
 }

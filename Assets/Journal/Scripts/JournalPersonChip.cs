@@ -64,6 +64,16 @@ namespace TakeOver.Journal
         public void setup(JournalPerson person)
         {
             nameText.text = person.displayName;
+            var button = GetComponent<Button>();
+            if (button == null) button = gameObject.AddComponent<Button>();
+            button.targetGraphic = GetComponent<Graphic>();
+            button.navigation = new Navigation { mode = Navigation.Mode.None };
+            button.onClick.RemoveAllListeners();
+            string npcId = person.npcId;
+            var registry = FindFirstObjectByType<TakeOver.NPC.NpcStateRegistry>();
+            button.interactable = registry != null && registry.TryGetProfile(npcId, out _);
+            button.onClick.AddListener(() => FindFirstObjectByType<TopBarNavigationController>()?.OpenNpc(npcId));
+            nameText.raycastTarget = true;
 
             
             bool hasPortrait = person.portrait != null;
