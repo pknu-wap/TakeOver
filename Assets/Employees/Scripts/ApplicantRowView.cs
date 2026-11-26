@@ -27,6 +27,7 @@ namespace TakeOver.Employees
         [SerializeField] private Button hireButton;
         [SerializeField] private TextMeshProUGUI hireButtonText;
 
+        [SerializeField] private Button rowButton;
         private Employee boundApplicant;
         private Action<Employee> onHireClicked;
 
@@ -47,7 +48,13 @@ namespace TakeOver.Employees
             if (eyeText != null) eyeText.text = applicant.Eye.Current.ToString();
             if (legworkText != null) legworkText.text = applicant.Legwork.Current.ToString();
             if (managementText != null) managementText.text = applicant.Management.Current.ToString();
-            if (salaryText != null) salaryText.text = $"{applicant.MonthlySalary:N0}만";
+            if (salaryText != null) salaryText.text = $"{applicant.MonthlySalary:N0}만원";
+            GetComponent<EmployeeRowDesign>()?.Refresh(applicant);
+            if (rowButton != null)
+            {
+                rowButton.onClick.RemoveAllListeners();
+                rowButton.onClick.AddListener(HandleHireClick);
+            }
 
             if (diligenceText != null) diligenceText.text = "?";
             if (loyaltyText != null) loyaltyText.text = "?";
