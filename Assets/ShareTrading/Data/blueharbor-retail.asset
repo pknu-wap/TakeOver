@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
   companyName: "\uBE14\uB8E8\uD558\uBC84\uB9AC\uD14C\uC77C"
   companyID: blueharbor-retail
+  isStoryCompany: 1
   logo: {fileID: 21300000, guid: 9d5d04a6e1b84b443bf8bfe38f302872, type: 3}
   industry: "\uB300\uD615 \uC720\uD1B5\xB7\uC18C\uB9E4"
   coreValue: "\uACE0\uAC1D \uACBD\uD5D8\uACFC \uD310\uB9E4\uB9DD"

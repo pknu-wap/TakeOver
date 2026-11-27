@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
+  m_Name: greencore-energy
+  m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
+  companyName: "그린코어 에너지"
+  companyID: greencore-energy
+  isStoryCompany: 0
+  logo: {fileID: 0}
+  industry: "재생에너지·전력"
+  coreValue: "지속가능성과 장기 신뢰"
+  description: "태양광·풍력 발전과 전력 저장 사업을 하는 에너지 회사. 장기 발전 계약으로 꾸준히 벌지만, 환경 약속을 어기는 순간 평판이 함께 무너진다."
+  coverImage: {fileID: 0}
+  totalShares: 11330000
+  initialBaseCompanyValue: 6800
+  initialRevenue: 69.23
+  initialCost: 63.69
+  initialCash: 800
+  initialDebt: 4200
+  initialTangibleAssets: 8500
+  initialIntangibleAssets: 900
+  initialReputationB2C: 70
+  initialReputationB2B: 60
+  initialReputaionPlayer: 0
+  initialMarketPosition: 50
+  initialPlayerShares: 0
+  initialTangibleCoefficient: 0.75
+  initialIntangibleCoefficient: 0.7
+  growthRate: 0.004
+  initialEmployeeCount: 588
+  dividendRatio: 0.15

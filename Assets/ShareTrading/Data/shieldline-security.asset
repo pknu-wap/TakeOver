@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
+  m_Name: shieldline-security
+  m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
+  companyName: "실드라인 시큐리티"
+  companyID: shieldline-security
+  isStoryCompany: 0
+  logo: {fileID: 0}
+  industry: "보안·시설관리"
+  coreValue: "통제와 신뢰"
+  description: "기업 보안과 시설 관리를 맡는 회사. 고객이 사는 것은 감시 장비가 아니라 아무 일도 일어나지 않을 거라는 확신이다."
+  coverImage: {fileID: 0}
+  totalShares: 4000000
+  initialBaseCompanyValue: 2400
+  initialRevenue: 50
+  initialCost: 48
+  initialCash: 400
+  initialDebt: 500
+  initialTangibleAssets: 700
+  initialIntangibleAssets: 500
+  initialReputationB2C: 55
+  initialReputationB2B: 75
+  initialReputaionPlayer: 0
+  initialMarketPosition: 60
+  initialPlayerShares: 0
+  initialTangibleCoefficient: 0.7
+  initialIntangibleCoefficient: 0.6
+  growthRate: 0.003
+  initialEmployeeCount: 525
+  dividendRatio: 0.2

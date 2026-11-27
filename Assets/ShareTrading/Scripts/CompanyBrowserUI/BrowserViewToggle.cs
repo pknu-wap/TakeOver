@@ -23,6 +23,19 @@ public class BrowserViewToggle : MonoBehaviour
     public void showMap() => setMode(true);
     public void showList() => setMode(false);
 
+    public void openCompaniesTab()
+    {
+        TopBarNavigationController topBar = FindFirstObjectByType<TopBarNavigationController>();
+        if (topBar != null)
+        {
+            topBar.OpenCompanies();
+        }
+        else
+        {
+            showList();
+        }
+    }
+
     private void setMode(bool showMap)
     {
         modeSpecified = true;

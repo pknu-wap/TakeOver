@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
+  m_Name: donglim-agro
+  m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
+  companyName: "동림농산"
+  companyID: donglim-agro
+  isStoryCompany: 0
+  logo: {fileID: 0}
+  industry: "농업·식품원료"
+  coreValue: "품질과 지역 생태계"
+  description: "식품 회사에 원료를 대는 농업 기업. 화려한 브랜드 대신 오래된 농가 계약과 까다로운 품질 기준으로 신뢰를 쌓아 왔다."
+  coverImage: {fileID: 0}
+  totalShares: 3000000
+  initialBaseCompanyValue: 1500
+  initialRevenue: 34.62
+  initialCost: 32.89
+  initialCash: 220
+  initialDebt: 380
+  initialTangibleAssets: 900
+  initialIntangibleAssets: 60
+  initialReputationB2C: 65
+  initialReputationB2B: 80
+  initialReputaionPlayer: 0
+  initialMarketPosition: 55
+  initialPlayerShares: 0
+  initialTangibleCoefficient: 0.8
+  initialIntangibleCoefficient: 0.5
+  growthRate: 0.002
+  initialEmployeeCount: 346
+  dividendRatio: 0.25

@@ -6,6 +6,12 @@ public class CompanyDefinition : ScriptableObject
     public string companyName;
     public string companyID;
 
+    // 스토리 기업이면 체크, 시장 기업이면 비워 둔다.
+    // 스토리 기업은 도시맵(지도 노드 + 옆 작은 목록)에, 시장 기업은 기업 탭(큰 목록)에 나온다.
+    // 코드로 만드는 스타트업은 자동으로 false(시장 기업)가 된다.
+    [Tooltip("체크 = 스토리 기업(지도에 표시) / 해제 = 시장 기업(기업 탭에 표시)")]
+    public bool isStoryCompany;
+
     // 지도 노드·기업 목록 등 UI에서 쓰는 회사 로고 (없으면 비워 둠)
     public Sprite logo;
 

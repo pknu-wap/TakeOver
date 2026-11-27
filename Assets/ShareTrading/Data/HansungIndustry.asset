@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
   companyName: "\uD55C\uC131\uACF5\uC5C5"
   companyID: hansung-industry
+  isStoryCompany: 1
   logo: {fileID: 21300000, guid: 98a5e78f72eb2154f9a98d745284c4b9, type: 3}
   industry: "\uC815\uBC00\uC81C\uC870"
   coreValue: "\uAE30\uC220\uACC4\uC2B9\uACFC\uC219\uB828\uB178\uB3D9"

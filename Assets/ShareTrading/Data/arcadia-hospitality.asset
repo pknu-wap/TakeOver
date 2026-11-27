@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
+  m_Name: arcadia-hospitality
+  m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
+  companyName: "아르카디아 호스피탈리티"
+  companyID: arcadia-hospitality
+  isStoryCompany: 0
+  logo: {fileID: 0}
+  industry: "호텔·관광"
+  coreValue: "서비스와 경험의 품격"
+  description: "고급 호텔과 리조트를 운영하는 회사. 건물보다 손님이 느끼는 경험과 직원의 서비스가 브랜드의 핵심 자산이다."
+  coverImage: {fileID: 0}
+  totalShares: 6000000
+  initialBaseCompanyValue: 7200
+  initialRevenue: 100
+  initialCost: 93
+  initialCash: 900
+  initialDebt: 5200
+  initialTangibleAssets: 11000
+  initialIntangibleAssets: 1100
+  initialReputationB2C: 80
+  initialReputationB2B: 55
+  initialReputaionPlayer: 0
+  initialMarketPosition: 60
+  initialPlayerShares: 0
+  initialTangibleCoefficient: 0.8
+  initialIntangibleCoefficient: 0.7
+  growthRate: 0.003
+  initialEmployeeCount: 900
+  dividendRatio: 0.2

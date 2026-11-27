@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
+  m_Name: core-telecom
+  m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
+  companyName: "코어 텔레콤"
+  companyID: core-telecom
+  isStoryCompany: 0
+  logo: {fileID: 0}
+  industry: "통신·네트워크"
+  coreValue: "기술 우위와 장기 R&D"
+  description: "통신 장비와 네트워크 인프라를 만드는 기술 기업. 당장의 실적보다 몇 년 뒤 시장을 바꿀 연구에 돈을 쓰는 것을 당연하게 여긴다."
+  coverImage: {fileID: 0}
+  totalShares: 5000000
+  initialBaseCompanyValue: 14000
+  initialRevenue: 182.69
+  initialCost: 164.42
+  initialCash: 2200
+  initialDebt: 3800
+  initialTangibleAssets: 6000
+  initialIntangibleAssets: 4500
+  initialReputationB2C: 60
+  initialReputationB2B: 75
+  initialReputaionPlayer: 0
+  initialMarketPosition: 65
+  initialPlayerShares: 0
+  initialTangibleCoefficient: 0.75
+  initialIntangibleCoefficient: 0.8
+  growthRate: 0.004
+  initialEmployeeCount: 1370
+  dividendRatio: 0.15
