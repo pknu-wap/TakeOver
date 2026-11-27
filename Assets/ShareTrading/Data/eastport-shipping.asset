@@ -15,7 +15,8 @@ MonoBehaviour:
   companyName: "이스트포트 해운"
   companyID: eastport-shipping
   isStoryCompany: 0
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: 7c60c9ae08e242c0a510c5263689899d, type: 3}
+  logoWhite: {fileID: 21300000, guid: 7cf9a448305a480aaadeffaa3d75097d, type: 3}
   industry: "해운·국제물류"
   coreValue: "생존과 현금흐름"
   description: "운임 시세에 따라 한 해 실적이 크게 흔들리는 해운·물류 회사. 호황기에는 현금이 쌓이지만 선박 유지비와 부채 만기가 겹치면 순식간에 버티기 싸움이 된다."

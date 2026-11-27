@@ -16,6 +16,7 @@ MonoBehaviour:
   companyID: dongbang-trading
   isStoryCompany: 1
   logo: {fileID: 21300000, guid: 2a014142f20fbdd4fb7dae528363488d, type: 3}
+  logoWhite: {fileID: 21300000, guid: 8d476385cf88448ba8ac03ffc2767808, type: 3}
   industry: "\uBB3C\uB958\xB7\uCC3D\uACE0\uC790\uB3D9\uD654"
   coreValue: "\uD6A8\uC728\uACFC\uC18D\uB3C4"
   description: "\uCC3D\uACE0\uC790\uB3D9\uD654\uC640 \uC2E4\uC2DC\uAC04\uBC30\uCC28\uB97C
@@ -24,7 +25,7 @@ MonoBehaviour:
     \uC790\uB3D9\uD654 \uC218\uC900\uC774 \uB192\uC744 \uC218 \uB85D\uC778\uAC74\uBE44\uB294
     \uC904\uC9C0\uB9CC \uC870\uC9C1\uBC18\uBC1C\uACFC \uCD08\uAE30\uD22C\uC790\uBE44\uAC00
     \uC99D\uAC00\uD55C\uB2E4."
-  coverImage: {fileID: 0}
+  coverImage: {fileID: 6793926118402545194, guid: 091362fae00114b4195f285ba02e8abf, type: 3}
   totalShares: 4167000
   initialBaseCompanyValue: 4662.9
   initialRevenue: 57.69

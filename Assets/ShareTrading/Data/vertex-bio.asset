@@ -15,7 +15,8 @@ MonoBehaviour:
   companyName: "버텍스 바이오"
   companyID: vertex-bio
   isStoryCompany: 0
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: 0f15aec8b64d4d67b6bbeb438b5c6923, type: 3}
+  logoWhite: {fileID: 21300000, guid: 198ee809f126482680b5eda4f4b19439, type: 3}
   industry: "바이오 연구·신약"
   coreValue: "연구 자유와 과학적 성과"
   description: "신약 후보 물질을 개발하는 바이오 연구 기업. 지금 매출은 작지만 특허와 연구 파이프라인에 대한 기대가 기업가치를 끌어올리고 있다."

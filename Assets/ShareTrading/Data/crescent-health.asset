@@ -15,7 +15,8 @@ MonoBehaviour:
   companyName: "크레센트 헬스 서비스"
   companyID: crescent-health
   isStoryCompany: 0
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: 3989eaba4e88448992a31d80a9c0e009, type: 3}
+  logoWhite: {fileID: 21300000, guid: 4dd7ee09f70043ff8c619482715bbd32, type: 3}
   industry: "의료서비스·클리닉 네트워크"
   coreValue: "환자 신뢰와 서비스 연속성"
   description: "여러 전문 클리닉과 재활센터를 묶어 운영하는 의료서비스 기업. 숙련 의료진과 끊기지 않는 진료망이 곧 회사의 경쟁력이다."

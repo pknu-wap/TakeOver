@@ -16,6 +16,7 @@ MonoBehaviour:
   companyID: sinseong-development
   isStoryCompany: 1
   logo: {fileID: 21300000, guid: 4eed86e6ee6b3e54bac1aabaa7bcdeb5, type: 3}
+  logoWhite: {fileID: 21300000, guid: da3b8f380f8449929973cbc940b48035, type: 3}
   industry: "\uBD80\uB3D9\uC0B0\xB7\uBCF5\uD569\uAC1C\uBC1C"
   coreValue: "\uC790\uC0B0\uAC00\uCE58\uC640 \uB3C4\uC2DC \uC601\uD5A5\uB825"
   description: "\uADF8\uB8F9\uACFC \uB300\uD615 \uAC1C\uBC1C\uC0AC\uC5C5\uC744 \uD568\uAED8
@@ -24,7 +25,7 @@ MonoBehaviour:
     \uC790\uC0B0 \uAC00\uACA9\uBFD0 \uC544\uB2C8\uB77C \uC7A5\uAE30 \uACF5\uAC04
     \uAC00\uCE58\uC640 \uC9C0\uC5ED \uAD00\uACC4\uAC00 \uC0AC\uC5C5\uC758 \uC131\uD328\uB97C
     \uC88C\uC6B0\uD55C\uB2E4."
-  coverImage: {fileID: 0}
+  coverImage: {fileID: 7423639374378589182, guid: 9636e36150074f546b38d93aaf3df8e3, type: 3}
   totalShares: 44444000
   initialBaseCompanyValue: 8000
   initialRevenue: 230.77

@@ -16,6 +16,7 @@ MonoBehaviour:
   companyID: aurora-foodtech
   isStoryCompany: 1
   logo: {fileID: 21300000, guid: 4f89880754eb66e40a6d71a94300962e, type: 3}
+  logoWhite: {fileID: 21300000, guid: da04d19bb14f4bdf96f30ca9cec52188, type: 3}
   industry: "\uB300\uCCB4\uC2DD\uD488\xB7\uBC14\uC774\uC624\uC18C\uC7AC"
   coreValue: "\uD601\uC2E0\uACFC \uC2DC\uC7A5 \uC120\uC810"
   description: "\uADF8\uB8F9\uC758 \uC804\uB7B5\uC801 \uD22C\uC790\uC640 \uD310\uB9E4\uB9DD\uC73C\uB85C
@@ -24,7 +25,7 @@ MonoBehaviour:
     \uD558\uB298\uC2DD\uD488\uC758 \uC2E0\uC2DC\uC7A5\uC744 \uACA8\uB0E5\uD55C\uB2E4.
     \uCC3D\uC5C5\uC790\uC758 \uC18D\uB3C4, \uACFC\uD559\uC790\uC758 \uAC80\uC99D,
     \uC0AC\uC5C5 \uB2F4\uB2F9\uC790\uC758 \uC0C1\uC6A9\uD654\uAC00 \uCDA9\uB3CC\uD55C\uB2E4."
-  coverImage: {fileID: 0}
+  coverImage: {fileID: -210209319873765225, guid: c132e1689c8f1b7478719825698b4b98, type: 3}
   totalShares: 3429000
   initialBaseCompanyValue: 12000
   initialRevenue: 115.38

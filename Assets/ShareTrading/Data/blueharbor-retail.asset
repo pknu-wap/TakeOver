@@ -16,6 +16,7 @@ MonoBehaviour:
   companyID: blueharbor-retail
   isStoryCompany: 1
   logo: {fileID: 21300000, guid: 9d5d04a6e1b84b443bf8bfe38f302872, type: 3}
+  logoWhite: {fileID: 21300000, guid: b8753bd667034cfe9a97a81a554da23a, type: 3}
   industry: "\uB300\uD615 \uC720\uD1B5\xB7\uC18C\uB9E4"
   coreValue: "\uACE0\uAC1D \uACBD\uD5D8\uACFC \uD310\uB9E4\uB9DD"
   description: "\uADF8\uB8F9\uC758 \uC804\uAD6D \uD310\uB9E4\uB9DD\uC744 \uB2F4\uB2F9\uD558\uB294
@@ -24,7 +25,7 @@ MonoBehaviour:
     \uACE0\uAC1D \uC2E0\uB8B0, \uB370\uC774\uD130\uC758 \uC815\uB2F9\uC131, \uD604\uC7A5
     \uC6B4\uC601 \uC0AC\uC774\uC5D0\uC11C \uC218\uC775\uACFC \uC11C\uBE44\uC2A4\uC758
     \uADE0\uD615\uC744 \uB193\uACE0 \uB2E4\uD230\uB2E4."
-  coverImage: {fileID: 0}
+  coverImage: {fileID: 5332754345085543721, guid: 7dc696fb138ccdc48b40a21bcec626b9, type: 3}
   totalShares: 10588000
   initialBaseCompanyValue: 9000
   initialRevenue: 576.92

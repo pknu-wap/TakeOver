@@ -15,7 +15,8 @@ MonoBehaviour:
   companyName: "아르카디아 호스피탈리티"
   companyID: arcadia-hospitality
   isStoryCompany: 0
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: ef5d97e9db97403c9060dcabf5a8e857, type: 3}
+  logoWhite: {fileID: 21300000, guid: 9a41350b108440c8953651f51da7a22b, type: 3}
   industry: "호텔·관광"
   coreValue: "서비스와 경험의 품격"
   description: "고급 호텔과 리조트를 운영하는 회사. 건물보다 손님이 느끼는 경험과 직원의 서비스가 브랜드의 핵심 자산이다."

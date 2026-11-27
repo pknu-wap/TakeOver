@@ -15,7 +15,8 @@ MonoBehaviour:
   companyName: "루멘 디자인"
   companyID: lumen-design
   isStoryCompany: 0
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: de1519da4cc649a2a254877c9382c3a5, type: 3}
+  logoWhite: {fileID: 21300000, guid: 00fd75899b2741c79c6f2e88985cef3d, type: 3}
   industry: "디자인·브랜딩"
   coreValue: "창작의 자율성과 정체성"
   description: "규모는 작지만 독특한 포트폴리오로 이름을 알린 크리에이티브 스튜디오. 핵심 디자이너가 곧 회사의 가치라서 사람이 떠나면 브랜드도 같이 흔들린다."
