@@ -134,7 +134,7 @@ public sealed class SessionSaveProbe : MonoBehaviour
         Check(!trade.buyShares(initialCompany, 1) && !trade.sellShares(initialCompany, 1), "Pending save blocks trades that would invalidate its snapshot");
         var offered = game.getTodayEvents().FirstOrDefault(); if (offered != null) game.openEvent(offered.getId());
         Check(game.IsClosed, "Pending save blocks new event mutations");
-        float cash = Object.FindFirstObjectByType<Player>().state.cash;
+        double cash = Object.FindFirstObjectByType<Player>().state.cash;
         clock.AdvanceTurn(); yield return null;
         Check(clock.CurrentTurn == 3 && Object.FindFirstObjectByType<Player>().state.cash == cash, "Failed save blocks a second economy tick");
         Environment.SetEnvironmentVariable("TAKEOVER_SAVE_DIRECTORY", root);

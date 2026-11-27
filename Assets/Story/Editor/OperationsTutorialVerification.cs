@@ -67,6 +67,7 @@ namespace TakeOver.Story.Editor
         private void OnDisable() => Application.logMessageReceived -= Log;
         private void Log(string message, string stack, LogType type)
         {
+            if (Application.isBatchMode && stack.Contains("UnityEditor.Search.SearchInit.IndexationOnStartup")) return;
             if (type == LogType.Exception || type == LogType.Error || type == LogType.Assert)
                 File.AppendAllText(Path.Combine(OperationsTutorialVerification.Output, "results.txt"), "FAIL runtime: " + message + "\n" + stack + "\n");
         }
@@ -108,9 +109,14 @@ namespace TakeOver.Story.Editor
                 for (int i = 0; i < 10; i++) yield return null;
                 var data = Object.Instantiate(AssetDatabase.LoadAssetAtPath<StorySequence>("Assets/Story/Data/IntroSequence.asset"));
                 data.fadeSeconds = .05f;
-                data.beats = data.beats.Where(b => (int)b.goal >= (int)StoryGoal.ViewEmployees && (int)b.goal <= (int)StoryGoal.ViewStartups).ToList();
+                data.beats = data.beats.SkipWhile(b => b.id != "operations-001").TakeWhile(b => b.id != "operations-012").ToList();
                 var beats = data.beats.ToArray();
-                Check(beats.Length == 6, "All six real operations tutorial screens are covered");
+                Check(beats.Select(b => b.id).SequenceEqual(new[]
+                {
+                    "operations-001", "operations-002", "operations-003", "operations-002-work",
+                    "operations-004", "operations-005", "operations-006", "operations-007",
+                    "operations-008", "operations-009", "operations-010", "operations-011"
+                }), "The six introduction lines alternate with their operations lessons");
                 data.beats.Add(new StoryBeat { id = "operations-qa-end", speaker = StorySpeaker.System, text = "검증 종료", background = data.beats[0].background });
                 var host = new GameObject("Operations tutorial host"); host.SetActive(false);
                 var intro = Object.Instantiate(Resources.Load<GameObject>("Story/Intro"), host.transform, false);
@@ -121,6 +127,20 @@ namespace TakeOver.Story.Editor
                     float deadline = Time.realtimeSinceStartup + 20;
                     while ((director.Current?.id != beat.id || director.Busy) && Time.realtimeSinceStartup < deadline) yield return null;
                     Check(director.Current?.id == beat.id && !director.Busy, "Operations stage ready: " + beat.id + "/" + width);
+                    if (beat.goal == StoryGoal.None)
+                    {
+                        Check(beat.speaker == StorySpeaker.Npc && director.View.Dialogue.isActiveAndEnabled &&
+                            !string.IsNullOrEmpty(director.View.Dialogue.text) && Object.FindFirstObjectByType<OperationsTutorialView>() == null,
+                            "NPC dialogue is visible before opening its lesson: " + beat.id);
+                        deadline = Time.realtimeSinceStartup + 5;
+                        while (director.Current?.id == beat.id && Time.realtimeSinceStartup < deadline)
+                        {
+                            yield return null;
+                            director.View.SharedDialogue.RequestDialogueAdvance();
+                        }
+                        Check(director.Current?.id != beat.id, "The normal dialogue advance opens the next lesson: " + beat.id);
+                        continue;
+                    }
                     for (int i = 0; i < 12; i++) yield return null;
                     Canvas.ForceUpdateCanvases();
                     var preview = Object.FindFirstObjectByType<OperationsTutorialView>();
@@ -128,7 +148,7 @@ namespace TakeOver.Story.Editor
                     var operations = preview.Screen;
                     var visibleText = operations.GetComponentsInChildren<Text>().Select(t => t.text)
                         .Concat(operations.GetComponentsInChildren<TMPro.TMP_Text>().Select(t => t.text));
-                    Check(visibleText.All(t => !new[] { "설명용", "미리보기", "예시", "??" }.Any(marker => t.Contains(marker))),
+                    Check(visibleText.All(t => !new[] { "설명용", "미리보기", "예시", "준비 중", "??" }.Any(marker => t.Contains(marker))),
                         "Tutorial copy has no review labels or corrupted placeholder text: " + beat.id);
                     Check(operations != originalOperations, "Preview uses a separate operations instance");
                     Check(operations.GetComponentsInChildren<Canvas>().All(c => !c.overrideSorting), "Preview has no active desktop sorting canvases");
@@ -151,8 +171,17 @@ namespace TakeOver.Story.Editor
                     if (beat.goal == StoryGoal.ViewEmployees)
                     {
                         var staff = operations.GetComponentInChildren<EmployeeTabView>();
-                        Check(staff.IsTutorialPreview && staff.GetComponentsInChildren<EmployeeRowView>().Any(r => r.BoundEmployee.Name == "김민준"), "Employee example row is populated");
-                        Check(staff.GetComponentsInChildren<ApplicantRowView>().Length == 1, "Applicant example row is populated");
+                        bool showJobs = beat.id == "operations-002-work";
+                        Check(staff.IsTutorialPreview && (showJobs
+                            ? staff.GetComponentsInChildren<EmployeeRowView>().Any(r => r.BoundEmployee.Name == "김민준")
+                            : staff.GetComponentsInChildren<ApplicantRowView>().Length == 1), "The correct employee or applicant page is populated");
+                        var employeeDetail = operations.GetComponentInChildren<EmployeeDetailView>();
+                        Check((employeeDetail != null) == showJobs, "Employee job controls appear only in the assignment lesson");
+                        if (showJobs)
+                            Check(!employeeDetail.GetComponent<Image>().enabled &&
+                                new[] { "appraisalButton", "discoveryButton" }.All(name =>
+                                    Inside((RectTransform)Field<Button>(employeeDetail, name).transform, preview.Content)),
+                                "Job choices stay in the preview without dimming the explanation");
                         Check(staff.GetComponentsInChildren<EmployeeRowView>().All(r => Inside((RectTransform)r.transform, preview.Content))
                             && staff.GetComponentsInChildren<ApplicantRowView>().All(r => Inside((RectTransform)r.transform, preview.Content)),
                             "Employee and applicant rows stay inside their copied frame");
@@ -161,6 +190,9 @@ namespace TakeOver.Story.Editor
                     {
                         var startups = operations.GetComponentInChildren<StartupTabView>();
                         Check(startups.IsTutorialPreview && startups.GetComponentInChildren<StartupLineGraph>().pointCount >= 2, "Startup metrics and graph remain visible");
+                        var rows = startups.GetComponentsInChildren<StartupListItemView>();
+                        Check(rows.Length == 3 && rows.All(row => Inside((RectTransform)row.transform, preview.Content)),
+                            "All three startup examples fit the copied frame");
                     }
                     else
                     {
@@ -169,7 +201,7 @@ namespace TakeOver.Story.Editor
                         var detail = tab.GetComponentInChildren<DocumentDetailView>();
                         Check(detail != null && Field<Button>(detail, "approve").gameObject.activeInHierarchy, "Document decision area stays visible");
                         Check(Field<Text>(detail, "deadline").text == "D-7", "Tutorial document uses the normal deadline display");
-                        Check(detail.GetComponentsInChildren<DocumentInfoRow>().Length >= (beat.goal == StoryGoal.ViewDiscovery ? 1 : 4), "Example document contains its key information rows");
+                        Check(detail.GetComponentsInChildren<DocumentInfoRow>().Length >= (beat.goal == StoryGoal.ViewDiscovery ? 7 : 4), "Example document contains its key information rows");
                         Check(Inside(Field<Text>(detail, "title").rectTransform, preview.Content)
                             && Inside((RectTransform)Field<Button>(detail, "approve").transform, preview.Content), "Document title and decision area stay inside the copied frame");
                         Field<Button>(detail, "approve").onClick.Invoke();

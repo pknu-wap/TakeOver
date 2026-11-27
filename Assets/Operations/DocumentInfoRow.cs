@@ -20,7 +20,7 @@ namespace TakeOver.Operations
         {
             label.text = info.label;
             value.fontSize = originalValueFontSize;
-            value.text = info.value;
+            value.text = info.label == "내 지분" ? StakeText.FormatSaved(info.value) : info.value;
             if (warningIcon != null) warningIcon.gameObject.SetActive(info.isNotice);
             Transform rule = transform.Find("Rule");
             if (rule != null) rule.gameObject.SetActive(!info.isNotice);

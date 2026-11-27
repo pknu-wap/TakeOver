@@ -55,9 +55,9 @@ namespace TakeOver.Events
                     float stake = displayedStakes[i];
                     if (i > 0) display.Append('\n');
                     display.Append(worldReader?.getCompany(goal.companyId)?.companyName ?? goal.companyId)
-                        .Append(' ').Append(goal.percent.ToString("0.#")).Append("% 이상  ")
+                        .Append(' ').Append(StakeText.Format(goal.percent)).Append(" 이상  ")
                         .Append(stake + .0001f >= goal.percent ? "달성" : "미달")
-                        .Append(" (현재 ").Append(stake.ToString("0.#")).Append("%)");
+                        .Append(" (현재 ").Append(StakeText.Format(stake)).Append(')');
                 }
                 missionDisplay = display.ToString();
                 return missionDisplay;

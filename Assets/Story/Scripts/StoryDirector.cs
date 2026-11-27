@@ -100,7 +100,8 @@ namespace TakeOver.Story
         private bool busy, choiceCommitted, preparing;
         private float nextInputAt;
         private StoryChoice selectedChoice;
-        private float initialShares, initialCash;
+        private float initialShares;
+        private double initialCash;
         private int initialTurn;
         private readonly string occurrence = Guid.NewGuid().ToString("N");
         private bool goalObserved;
@@ -109,10 +110,10 @@ namespace TakeOver.Story
         private ActionPointService actionPoints;
         private readonly HashSet<string> completedGoals = new HashSet<string>();
         private int beforeEventAp;
-        private float beforeEventCash;
+        private double beforeEventCash;
         private NpcRelationState beforeEventRelation;
         private bool hasEventSnapshot;
-        private float lastTradeCashBefore, lastTradeSharesBefore;
+        private float lastTradeSharesBefore;
 
         private void Awake()
         {
@@ -239,7 +240,6 @@ namespace TakeOver.Story
                 bool success = true;
                 if (IsTrading)
                 {
-                    lastTradeCashBefore = player.state.cash;
                     lastTradeSharesBefore = company.state.getStat(CompanyStat.PLAYER_SHARES);
                     var trading = FindFirstObjectByType<ShareTradingSystem>();
                     success = IsBuying ? trading.buyShares(company, 1) : trading.sellShares(company, 1);
@@ -404,11 +404,12 @@ namespace TakeOver.Story
                     float price = company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
                     int quantity = detail.EnteredQuantity;
                     float afterShares = initialShares + (IsBuying ? quantity : -quantity);
-                    float afterCash = initialCash + (IsBuying ? -price * quantity : price * quantity);
-                    view.ObjectiveDetail($"현재 주가 {MoneyText.Format(price)} · 내 자금 {MoneyText.Format(player.state.cash)}\n수량 {quantity}주 · 예상 {(IsBuying ? "매수 대금" : "매도 대금")} {MoneyText.Format(price * quantity)}\n거래 후 자금 {MoneyText.Format(afterCash)} · {afterShares:N0}주 ({afterShares / company.definition.totalShares * 100:0.##}%) / 이번에는 1주를 입력하세요.");
+                    double amount = (double)price * quantity;
+                    double afterCash = initialCash + (IsBuying ? -amount : amount);
+                    view.ObjectiveDetail($"현재 주가 {MoneyText.Format(price)} · 내 자금 {MoneyText.Format(player.state.cash)}\n수량 {quantity}주 · 예상 {(IsBuying ? "매수 대금" : "매도 대금")} {MoneyText.Format(amount)}\n거래 후 자금 {MoneyText.Format(afterCash)} · {afterShares:N0}주 ({StakeText.FormatShares(afterShares, company.state.totalShares)}) / 이번에는 1주를 입력하세요.");
                     done = IsBuying ? company.state.getStat(CompanyStat.PLAYER_SHARES) > initialShares && player.state.cash < initialCash :
                         company.state.getStat(CompanyStat.PLAYER_SHARES) < initialShares && player.state.cash > initialCash;
-                    if (done) { lastTradeCashBefore = initialCash; lastTradeSharesBefore = initialShares; }
+                    if (done) lastTradeSharesBefore = initialShares;
                     if (!detail.gameObject.activeInHierarchy) detail.show(company);
                     break;
                 case StoryGoal.ViewCompany:
@@ -421,7 +422,7 @@ namespace TakeOver.Story
                     goalObserved |= readingPanel.gameObject.activeInHierarchy && readingPanel.current == GoalCompany;
                     view.SetGoalReady(goalObserved);
                     var targetCompany = GoalCompany;
-                    view.ObjectiveDetail(Goal == StoryGoal.ViewStake ? $"{targetCompany.definition.companyName} · {targetCompany.state.getStat(CompanyStat.PLAYER_SHARES):N0}주 / 전체 {targetCompany.definition.totalShares:N0}주 · 지분 {targetCompany.state.getDerivedStat(CompanyDerivedStat.STAKE):0.##}%\n지분 조건을 잃으면 관련 이벤트가 닫힐 수 있습니다." :
+                    view.ObjectiveDetail(Goal == StoryGoal.ViewStake ? $"{targetCompany.definition.companyName} · {targetCompany.state.getStat(CompanyStat.PLAYER_SHARES):N0}주 / 전체 {targetCompany.definition.totalShares:N0}주 · 지분 {StakeText.Format(targetCompany.state.getDerivedStat(CompanyDerivedStat.STAKE))}\n지분 조건을 잃으면 관련 이벤트가 닫힐 수 있습니다." :
                         $"{targetCompany.definition.companyName} · 매출 {MoneyText.Format(targetCompany.state.getStat(CompanyStat.REVENUE))} · 순이익 {MoneyText.Format(targetCompany.state.getDerivedStat(CompanyDerivedStat.NET_PROFIT))}\n회사 현금 {MoneyText.Format(targetCompany.state.getStat(CompanyStat.CASH))} · 부채비율 {targetCompany.state.getDerivedStat(CompanyDerivedStat.DEBT_RATIO):P1} · 내 자금 {MoneyText.Format(player.state.cash)}");
                     break;
                 case StoryGoal.OpenEvent:
@@ -460,7 +461,7 @@ namespace TakeOver.Story
                 .Replace("{eventDays}", TutorialEventRemainingDays.ToString())
                 .Replace("{eventResult}", EventResultSummary())
                 .Replace("{tradeResult}", TradeResultSummary())
-                .Replace("{stake}", company != null ? company.state.getDerivedStat(CompanyDerivedStat.STAKE).ToString("0.##") : "");
+                .Replace("{stake}", company != null ? StakeText.FormatNumber(company.state.getDerivedStat(CompanyDerivedStat.STAKE)) : "");
         }
 
         private int TutorialApCost
@@ -498,7 +499,7 @@ namespace TakeOver.Story
             float shares = company.state.getStat(CompanyStat.PLAYER_SHARES);
             float quantity = Mathf.Abs(shares - lastTradeSharesBefore);
             string action = shares >= lastTradeSharesBefore ? "매수" : "매도";
-            return $"{company.definition.companyName} 주식 {quantity:N0}주를 {action}하였습니다. 현재 보유 주식은 {shares:N0}주이며, 지분율은 {company.state.getDerivedStat(CompanyDerivedStat.STAKE):0.##}%입니다.\n남은 자금은 {MoneyText.Format(player.state.cash)}입니다.";
+            return $"{company.definition.companyName} 주식 {quantity:N0}주를 {action}하였습니다. 현재 보유 주식은 {shares:N0}주이며, 지분율은 {StakeText.Format(company.state.getDerivedStat(CompanyDerivedStat.STAKE))}입니다.\n남은 자금은 {MoneyText.Format(player.state.cash)}입니다.";
         }
 
         private void CloseFinancialPreview()

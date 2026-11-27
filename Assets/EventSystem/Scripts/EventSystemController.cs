@@ -121,7 +121,7 @@ namespace TakeOver.Events
         {
             var option = negotiationChoices[choiceIndex];
             if (screenState == ScreenState.CompanyChoice)
-                return $"현재 보유 지분 {worldReader.getStake(option.companyId):0.##}%";
+                return $"현재 보유 지분 {StakeText.Format(worldReader.getStake(option.companyId))}";
             var choice = option.choice;
             if (!string.IsNullOrWhiteSpace(choice.getDescription()))
                 return activeInfo.resolve(choice.getDescription());
@@ -515,8 +515,8 @@ namespace TakeOver.Events
             if (float.IsNaN(delta) || float.IsInfinity(delta)) return false;
             if (delta == 0) return true;
             var player = FindFirstObjectByType<Player>();
-            return player != null && player.state != null && !float.IsNaN(player.state.cash)
-                && !float.IsInfinity(player.state.cash) && (delta >= 0 || player.state.cash >= -delta);
+            return player != null && player.state != null && !double.IsNaN(player.state.cash)
+                && !double.IsInfinity(player.state.cash) && (delta >= 0 || player.state.cash >= -delta);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace TakeOver.Documents
                         new DocumentInfo("업종", startup.definition.industry),
                         new DocumentInfo("내용", "다음 날 상장"),
                         new DocumentInfo("현재 기업가치", MoneyText.Format(startup.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE))),
-                        new DocumentInfo("내 지분", $"{stakePercent(startup):0.##}%")
+                        new DocumentInfo("내 지분", StakeText.FormatShares(startup.state.getBaseStat(CompanyStat.PLAYER_SHARES), startup.state.totalShares))
                     }, startup.definition.companyID));
             }
         }
@@ -73,11 +73,5 @@ namespace TakeOver.Documents
                 || startup.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE) >= settings.listingCompanyValue;
         }
 
-        private static float stakePercent(Company startup)
-        {
-            int totalShares = startup.state.totalShares;
-            if (totalShares <= 0) return 0f;
-            return startup.state.getBaseStat(CompanyStat.PLAYER_SHARES) * 100f / totalShares;
-        }
     }
 }

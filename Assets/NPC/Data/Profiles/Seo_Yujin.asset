@@ -73,8 +73,8 @@ MonoBehaviour:
     npcId: npc-blueharbor-retail-ceo-seo-yujin
     companyId: blueharbor-retail
     profile:
-      standingIllustration: {fileID: 0}
-      dimmedStandingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 00e1046e4f93403ba9331ed1c5efc403, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 2cbd34d5042f478fa4533e75af5cb984, type: 3}
       displayName: "\uC11C\uC720\uC9C4"
       role: CEO
       affiliation: "\uBE14\uB8E8\uD558\uBC84\uB9AC\uD14C\uC77C"

@@ -87,7 +87,7 @@ public sealed class ReviewFixProbe : MonoBehaviour
             if (view.SkipButton.IsInteractable()) { view.SkipToNextChoice(); yield return Fade(); }
             Check(Get<List<Button>>(view, "choices").Count > 0, "Introduction skip stops at unanswered choices: " + definition.getId());
             game.confirmChoice(0); yield return Frames(3);
-            float resultCash = Object.FindFirstObjectByType<Player>().state.cash;
+            double resultCash = Object.FindFirstObjectByType<Player>().state.cash;
             int resultMemories = Object.FindFirstObjectByType<NpcStateRegistry>().States.Sum(npc => npc.memories.Count);
             Check(view.SkipButton.IsInteractable(), "Result skip is available: " + definition.getId());
             view.SkipToNextChoice(); yield return Fade();
@@ -107,9 +107,9 @@ public sealed class ReviewFixProbe : MonoBehaviour
         float quote = target.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
         Check(quote > 0 && Mathf.Abs(quote - target.state.getDerivedStat(CompanyDerivedStat.MARKET_VALUE) / target.state.totalShares) < .000001f,
             "Tradable quote retains market value per share without rounding or a minimum-price floor");
-        float cashBeforePurchase = player.state.cash;
-        Check(trader.buyShares(target, 1), "Trade succeeds"); float cash = player.state.cash; yield return Frames();
-        Check(Mathf.Abs(cash - (cashBeforePurchase - quote)) < .001f, "Trade charges the unrounded quote");
+        double cashBeforePurchase = player.state.cash;
+        Check(trader.buyShares(target, 1), "Trade succeeds"); double cash = player.state.cash; yield return Frames();
+        Check(cash < cashBeforePurchase && System.Math.Abs(cash - (cashBeforePurchase - quote)) < 1e-10, "Trade charges the unrounded quote");
         Check(original != File.ReadAllText(manager.savePath), "Trade updates autosave without another action");
         Check(manager.tryLoad(out _) && player.state.cash == cash && target.state.getStat(CompanyStat.PLAYER_SHARES) == shares + 1, "Continue retains purchased shares and cash"); yield return Frames();
         var inbox = Object.FindFirstObjectByType<DocumentSystem>().Inbox;
@@ -208,13 +208,13 @@ public sealed class ReviewFixProbe : MonoBehaviour
         var target = companies.getCompany("haneul-food");
         float quote = target.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
         Check(quote > 0 && quote < 1, "A valid fractional quote below one is not floored");
-        float initialCash = player.state.cash, shares = target.state.getStat(CompanyStat.PLAYER_SHARES);
+        double initialCash = player.state.cash; float shares = target.state.getStat(CompanyStat.PLAYER_SHARES);
         Check(trader.buyShares(target, 7), "Buy seven shares at the fractional quote");
-        Check(Mathf.Abs(player.state.cash - (initialCash - quote * 7)) < .002f &&
+        Check(System.Math.Abs(player.state.cash - (initialCash - quote * 7)) < .002f &&
             target.state.getStat(CompanyStat.PLAYER_SHARES) == shares + 7, "Purchase charges quote times quantity and grants exactly seven shares");
-        float beforeSale = player.state.cash;
+        double beforeSale = player.state.cash;
         Check(trader.sellShares(target, 3), "Sell three shares at the fractional quote");
-        Check(Mathf.Abs(player.state.cash - (beforeSale + quote * 3)) < .002f &&
+        Check(System.Math.Abs(player.state.cash - (beforeSale + quote * 3)) < .002f &&
             target.state.getStat(CompanyStat.PLAYER_SHARES) == shares + 4, "Sale pays quote times quantity and removes exactly three shares");
         var effects = Object.FindFirstObjectByType<EventStockmanipulationAccept>();
         var clock = Object.FindFirstObjectByType<GameTurnClock>();
@@ -229,9 +229,9 @@ public sealed class ReviewFixProbe : MonoBehaviour
         Check(otherPrices.All(pair => pair.Key.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE) == pair.Value), "The price effect leaves other companies unchanged");
         beforeSale = player.state.cash;
         Check(trader.sellShares(target, 4), "Sell the remaining four purchased shares after the rise");
-        Check(Mathf.Abs(player.state.cash - (beforeSale + risen * 4)) < .002f &&
-            Mathf.Abs(player.state.cash - (initialCash + quote * .35f * 4)) < .002f, "The rise produces the expected realized sale profit");
-        float savedCash = player.state.cash;
+        Check(System.Math.Abs(player.state.cash - (beforeSale + risen * 4)) < .002f &&
+            System.Math.Abs(player.state.cash - (initialCash + quote * .35f * 4)) < .002f, "The rise produces the expected realized sale profit");
+        double savedCash = player.state.cash;
         var manager = Object.FindFirstObjectByType<GameSaveManager>() ?? gameObject.AddComponent<GameSaveManager>();
         Check(manager.trySaveDayEnd(new DayStartData(clock.CurrentTurn, FixedDaySeed.seed)), "Save the fractional quote and applied price effect");
         player.state.addCash(-player.state.cash);

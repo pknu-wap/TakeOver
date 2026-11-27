@@ -19,7 +19,8 @@ public class TradingSaveData
     public class PlayerData
     {
         public string name;
-        public float money, manPower, information, reputation;
+        public double money;
+        public float manPower, information, reputation;
     }
 
     [Serializable]

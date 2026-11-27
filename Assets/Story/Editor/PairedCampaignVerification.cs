@@ -49,7 +49,7 @@ public sealed partial class CampaignIntegrationProbe
                 "All failed goals map to one distinct ending: " + mission.id + "/" + mask);
             Check(game.getTodayEvents().Count == 0 && !game.CanAdvanceTurn(clock.CurrentTurn), "Failure hides normal offers and locks the turn");
             Check(!trading.buyShares(companies.getCompany(companyIds[0]), 1) && !trading.sellShares(companies.getCompany(companyIds[0]), 1), "Failure blocks actual buy and sell APIs");
-            int day = clock.CurrentTurn; float cash = player.state.cash; int memoryCount = Object.FindFirstObjectByType<NpcStateRegistry>().States.Sum(s => s.memories.Count);
+            int day = clock.CurrentTurn; double cash = player.state.cash; int memoryCount = Object.FindFirstObjectByType<NpcStateRegistry>().States.Sum(s => s.memories.Count);
             game.AdvanceEnding(false); yield return null;
             int index = game.EndingLineIndex;
             string original = game.captureJson();

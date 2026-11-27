@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace TakeOver.Documents
 {
-    public enum DocumentValueFormat { Percent, Number, Money }
+    public enum DocumentValueFormat { Percent, Number, Money, Stake }
 
     public sealed class DocumentField
     {

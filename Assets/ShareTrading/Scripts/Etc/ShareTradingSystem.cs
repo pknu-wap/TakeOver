@@ -14,7 +14,7 @@ public class ShareTradingSystem : MonoBehaviour
             return false;
         }
 
-        float cost = sharePrice * buyAmount;
+        double cost = (double)sharePrice * buyAmount;
         if (cost > player.state.cash) {
             Debug.Log("구매 실패");
             return false;
@@ -40,7 +40,7 @@ public class ShareTradingSystem : MonoBehaviour
             return false;
         }
 
-        float revenue = sharePrice * sellAmount;
+        double revenue = (double)sharePrice * sellAmount;
         player.state.addCash(revenue);
         company.state.addStat(CompanyStat.PLAYER_SHARES, -sellAmount);
         company.calculator.calculateAboutShares(company);

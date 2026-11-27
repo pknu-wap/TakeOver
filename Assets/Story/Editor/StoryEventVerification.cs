@@ -137,17 +137,18 @@ public sealed class StoryEventProbe : MonoBehaviour
         Check(game.StoryEvents.Count == 1 && game.StoryEvents[0].getId() == "inside_info_01", "Dedicated story DB supplies original main-story event exactly once");
         Check(!game.TutorialRewardGranted && !StoryDirector.IsRunning, "Direct game entry does not grant tutorial reward");
         var before = game.captureJson();
-        float owned = company.state.getStat(CompanyStat.PLAYER_SHARES), cash = player.state.cash;
+        double owned = company.state.getStat(CompanyStat.PLAYER_SHARES), cash = player.state.cash;
+        float rewardShares = company.state.totalShares * .05f;
         Check(!game.GrantTutorialReward(Object.FindFirstObjectByType<Companies>().CompanyList.First(c => c != company)), "Other company cannot receive the tutorial reward");
         Check(game.GrantTutorialReward(company), "Tutorial reward grant succeeds");
-        Check(company.state.getStat(CompanyStat.PLAYER_SHARES) == owned + 50 && Mathf.Abs(company.state.getDerivedStat(CompanyDerivedStat.STAKE) - 5) < .001f, "Reward adds exactly 50 shares and updates stake immediately");
+        Check(company.state.getStat(CompanyStat.PLAYER_SHARES) == owned + rewardShares && Mathf.Abs(company.state.getDerivedStat(CompanyDerivedStat.STAKE) - 5) < .001f, "Reward adds a 5% stake and updates stake immediately");
         Check(player.state.cash == cash, "Reward does not spend cash");
-        Check(game.GrantTutorialReward(company) && company.state.getStat(CompanyStat.PLAYER_SHARES) == owned + 50, "Repeated completion cannot duplicate reward");
+        Check(game.GrantTutorialReward(company) && company.state.getStat(CompanyStat.PLAYER_SHARES) == owned + rewardShares, "Repeated completion cannot duplicate reward");
         string rewarded = game.captureJson(), rewardedTrading = trading.captureJson();
         game.prepareLoad(before, 2, day); game.applyLoad(); game.rebuildAfterLoad();
         trading.prepareLoad(rewardedTrading, trading.saveVersion, day); trading.applyLoad(); trading.rebuildAfterLoad();
         game.prepareLoad(rewarded, 2, day); game.applyLoad(); game.rebuildAfterLoad();
-        Check(game.TutorialRewardGranted && game.GrantTutorialReward(company) && company.state.getStat(CompanyStat.PLAYER_SHARES) == owned + 50, "Trading and reward record restore without duplicate grant");
+        Check(game.TutorialRewardGranted && game.GrantTutorialReward(company) && company.state.getStat(CompanyStat.PLAYER_SHARES) == owned + rewardShares, "Trading and reward record restore without duplicate grant");
 
         var definitions = (List<EventDefinition>)typeof(EventSystemController).GetField("events", Flags).GetValue(game);
         var yes = Fixture("qa-story-yes", true);
@@ -170,7 +171,7 @@ public sealed class StoryEventProbe : MonoBehaviour
         game.choiceConfirmed += info => { deliveries++; last = info; };
         registry.TryGet(StoryDirector.TutorialContact, out var npc);
         int memories = npc.memories.Count;
-        float startCash = player.state.cash;
+        double startCash = player.state.cash;
         game.openEvent(yes.getId()); game.startNegotiation(); game.confirmChoice(0); game.confirmChoice(0);
         Check(deliveries == 1 && last.resultValue == "qa-success" && last.cashDelta == 7, "Satisfied branch emits success result exactly once");
         Check(player.state.cash == startCash + 7 && npc.memories.Count == memories + 1, "Success applies authored cash and NPC memory");
@@ -180,7 +181,7 @@ public sealed class StoryEventProbe : MonoBehaviour
         float sharesBeforeFailure = company.state.getStat(CompanyStat.PLAYER_SHARES);
         company.state.setStat(CompanyStat.PLAYER_SHARES, 0);
         company.calculator.calculateAboutShares(company);
-        float available = player.state.cash;
+        double available = player.state.cash;
         player.state.addCash(-available);
         game.confirmChoice(0);
         Check(deliveries == 1 && !game.tryGetChoice(no.getId(), out _), "Unaffordable failure branch leaves answer uncommitted");

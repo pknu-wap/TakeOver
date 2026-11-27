@@ -9,9 +9,22 @@ namespace TakeOver.Employees
         [SerializeField] private Button employeeButton, applicantButton;
         [SerializeField] private Sprite normalSprite, selectedSprite;
         private EmployeeService service;
+        private RectTransform tutorialFrame;
         private bool applicantsSelected, unseen;
+
+        public void SetTutorialPreview(RectTransform frame, bool showApplicants)
+        {
+            tutorialFrame = frame;
+            applicantsSelected = showApplicants;
+        }
+
         private void Awake()
         {
+            if (tutorialFrame != null)
+            {
+                RefreshSelection();
+                return;
+            }
             service = FindFirstObjectByType<EmployeeService>();
             if (service != null) { service.OnApplicantsArrived += OnArrived; unseen = service.Applicants.Count > 0; }
             employeeButton.onClick.AddListener(() => SelectPage(false));
@@ -41,8 +54,8 @@ namespace TakeOver.Employees
         }
         private void LateUpdate()
         {
-            Canvas canvas = GetComponentInParent<Canvas>().rootCanvas;
-            RectTransform canvasRect = (RectTransform)canvas.transform;
+            RectTransform canvasRect = tutorialFrame != null
+                ? tutorialFrame : (RectTransform)GetComponentInParent<Canvas>().rootCanvas.transform;
             float scale = Mathf.Min(canvasRect.rect.width / 1920f, canvasRect.rect.height / 1080f);
             designFrame.position = canvasRect.TransformPoint(canvasRect.rect.center);
             Vector3 parentScale = designFrame.parent.lossyScale;

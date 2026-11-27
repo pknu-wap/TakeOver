@@ -16,7 +16,7 @@ public class CompanyItemUI : MonoBehaviour
             companyNameText.text = companyName;
 
         if (stakeText != null)
-            stakeText.text = $"{stake:F1}%";
+            stakeText.text = StakeText.Format(stake);
 
         if (valueText != null)
             valueText.text = MoneyText.Format(value);

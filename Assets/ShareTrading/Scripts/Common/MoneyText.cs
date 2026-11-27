@@ -8,11 +8,22 @@ public static class MoneyText
     public static string Format(float value)
     {
         if (float.IsNaN(value) || float.IsInfinity(value) || System.Math.Abs(value) > 1e12f) return "-";
-        decimal numericValue = roundToSignificantDigits(System.Math.Abs(decimal.Parse(value.ToString("R", CultureInfo.InvariantCulture), NumberStyles.Float, CultureInfo.InvariantCulture)), 6);
+        return format(value.ToString("R", CultureInfo.InvariantCulture), value < 0f);
+    }
+
+    public static string Format(double value)
+    {
+        if (double.IsNaN(value) || double.IsInfinity(value) || System.Math.Abs(value) > 1e12d) return "-";
+        return format(value.ToString("R", CultureInfo.InvariantCulture), value < 0d);
+    }
+
+    private static string format(string value, bool negative)
+    {
+        decimal numericValue = roundToSignificantDigits(System.Math.Abs(decimal.Parse(value, NumberStyles.Float, CultureInfo.InvariantCulture)), 6);
         decimal won = roundToSignificantDigits(System.Math.Abs(numericValue) * 100000000m, 6);
         if (won == 0m) return "0\uc6d0";
 
-        string sign = value < 0f ? "-" : "";
+        string sign = negative ? "-" : "";
         int largest = findLargestUnit(won);
         if (largest < 3)
         {

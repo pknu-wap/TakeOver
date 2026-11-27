@@ -122,7 +122,7 @@ namespace TakeOver.Story.Editor
             Object.FindFirstObjectByType<CompanyDetailPanel>(FindObjectsInactive.Include).show(company);
             yield return AdvanceTo(StoryGoal.BuyShares);
             var player = Object.FindFirstObjectByType<Player>();
-            float cash = player.state.cash; player.state.addCash(-cash);
+            double cash = player.state.cash; player.state.addCash(-cash);
             var trading = Object.FindFirstObjectByType<ShareTradingSystem>();
             Check(!trading.buyShares(company, 1), "Insufficient funds reject actual purchase");
             d.SkipToNextChoice(); yield return Ready();

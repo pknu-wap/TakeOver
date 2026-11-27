@@ -4897,31 +4897,14 @@
       "speaker": 4,
       "npcId": "",
       "voiceLabel": "",
-      "text": "직원 목록과 아래쪽 모집 영역을 확인하세요.",
+      "text": "지원자 관리에서 모집 버튼과 지원자 목록을 확인하세요.",
       "showPlayer": false,
       "goal": 14,
       "companyId": "",
       "choices": [],
       "skipDefaultChoice": 0,
       "tutorialTitle": "직원 모집",
-      "tutorialText": "아래쪽 모집 영역에서 직원을 구합니다. 모집에는 AP가 들고, 표시된 기간 뒤 지원자가 도착합니다.\n\n지원자의 능력과 월급·계약 기간을 보고 채용하세요. 지금은 모집하거나 채용하지 않아도 됩니다."
-    },
-    {
-      "id": "operations-002-work",
-      "sceneTitle": "둘째 날  /  사무실에서",
-      "backgroundPath": "Assets/Story/Art/FamilyOffice.png",
-      "backgroundTint": { "r": 1, "g": 1, "b": 1, "a": 1 },
-      "speaker": 4,
-      "npcId": "",
-      "voiceLabel": "",
-      "text": "채용한 직원을 선택하면 상세 화면에서 업무를 맡길 수 있습니다.",
-      "showPlayer": false,
-      "goal": 14,
-      "companyId": "",
-      "choices": [],
-      "skipDefaultChoice": 0,
-      "tutorialTitle": "업무와 보고서",
-      "tutorialText": "시세 예측은 관심 있는 회사를 조사하는 일이고, 스타트업 발굴은 새로운 투자 후보를 찾는 일입니다.\n\n결과는 문서함으로 옵니다. 맡긴 업무는 변경하거나 해제할 때까지 반복합니다. 지금은 업무를 배정하지 않습니다."
+      "tutorialText": "지원자 관리에서 직원을 모집합니다. 모집에는 AP가 들고, 표시된 기간 뒤 지원자가 도착합니다.\n\n지원자의 능력과 월급·계약 기간을 보고 채용하세요. 지금은 모집하거나 채용하지 않아도 됩니다."
     },
     {
       "id": "operations-003",
@@ -4944,6 +4927,23 @@
       "skipDefaultChoice": 0,
       "tutorialTitle": "",
       "tutorialText": ""
+    },
+    {
+      "id": "operations-002-work",
+      "sceneTitle": "둘째 날  /  사무실에서",
+      "backgroundPath": "Assets/Story/Art/FamilyOffice.png",
+      "backgroundTint": { "r": 1, "g": 1, "b": 1, "a": 1 },
+      "speaker": 4,
+      "npcId": "",
+      "voiceLabel": "",
+      "text": "채용한 직원을 선택하면 상세 화면에서 업무를 맡길 수 있습니다.",
+      "showPlayer": false,
+      "goal": 14,
+      "companyId": "",
+      "choices": [],
+      "skipDefaultChoice": 0,
+      "tutorialTitle": "업무와 보고서",
+      "tutorialText": "시세 예측은 관심 있는 회사를 조사하는 일이고, 스타트업 발굴은 새로운 투자 후보를 찾는 일입니다.\n\n결과는 문서함으로 옵니다. 맡긴 업무는 변경하거나 해제할 때까지 반복합니다. 지금은 업무를 배정하지 않습니다."
     },
     {
       "id": "operations-004",

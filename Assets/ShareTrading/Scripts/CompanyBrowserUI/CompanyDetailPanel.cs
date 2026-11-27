@@ -211,14 +211,14 @@ public class CompanyDetailPanel : MonoBehaviour
         setMetric(2, "순이익", MoneyText.Format(CompanyUIUtil.getDerived(current, CompanyDerivedStat.NET_PROFIT)));
         setMetric(3, "현금", MoneyText.Format(CompanyUIUtil.getStat(current, CompanyStat.CASH)));
         setMetric(4, "부채비율", $"{CompanyUIUtil.getDerived(current, CompanyDerivedStat.DEBT_RATIO):P1}");
-        setMetric(5, "보유 지분", $"{stake:0.#}%");
+        setMetric(5, "보유 지분", StakeText.Format(stake));
 
         refreshChart(price);
 
         setText(holdingText, $"보유 주식  {myShares:N0}주\n평가 금액  {MoneyText.Format(myShares * price)}");
 
         // 내 잔액. Unity 오브젝트에는 ?.가 제대로 동작하지 않는 경우가 있어서 != null로 직접 확인한다.
-        float myCash = 0f;
+        double myCash = 0d;
         if (player != null && player.state != null)
         {
             myCash = player.state.cash;

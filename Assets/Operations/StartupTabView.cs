@@ -12,6 +12,16 @@ namespace TakeOver.Operations
 {
     public sealed class StartupTabView : MonoBehaviour
     {
+        internal const string TutorialCompanyName = "새봄테크";
+        internal const string TutorialCompanyIndustry = "정보기술";
+        private static readonly (string Name, string Industry)[] TutorialCompanies =
+        {
+            (TutorialCompanyName, TutorialCompanyIndustry),
+            ("푸른소재", "첨단소재"),
+            ("온빛헬스", "헬스케어")
+        };
+        private static readonly float[] TutorialRevenue = { 0.6f, 0.72f, 0.68f, 0.81f, 0.9f };
+
         [Header("화면")]
         [SerializeField] private GameObject contentRoot;
         [SerializeField] private GameObject emptyRoot;
@@ -63,11 +73,14 @@ namespace TakeOver.Operations
 
         private void Start()
         {
-            companies = FindFirstObjectByType<Companies>();
-            startupSystem = FindFirstObjectByType<StartupSystem>();
-            jobs = FindFirstObjectByType<JobService>();
-            turnClock = FindFirstObjectByType<GameTurnClock>();
-            if (turnClock != null) turnClock.TurnAdvanced += handleTurnAdvanced;
+            if (!tutorialPreview)
+            {
+                companies = FindFirstObjectByType<Companies>();
+                startupSystem = FindFirstObjectByType<StartupSystem>();
+                jobs = FindFirstObjectByType<JobService>();
+                turnClock = FindFirstObjectByType<GameTurnClock>();
+                if (turnClock != null) turnClock.TurnAdvanced += handleTurnAdvanced;
+            }
             if (listScrollbar != null && listScroll != null)
             {
                 listScrollbar.onValueChanged.AddListener(value => listScroll.verticalNormalizedPosition = value);
@@ -105,44 +118,26 @@ namespace TakeOver.Operations
         {
             if (!built) return;
 
+            if (tutorialPreview)
+            {
+                contentRoot.SetActive(true);
+                emptyRoot.SetActive(false);
+                showTutorialCompanies();
+                return;
+            }
             IReadOnlyList<Company> startups = companies != null
                 ? companies.StartupList.Where(company => company.state.getBaseStat(CompanyStat.PLAYER_SHARES) > 0f).ToList()
                 : null;
             bool empty = startups == null || startups.Count == 0;
-            bool showPreview = empty && tutorialPreview;
-
-            contentRoot.SetActive(!empty || showPreview);
-            emptyRoot.SetActive(empty && !showPreview);
-            if (empty && !showPreview)
+            contentRoot.SetActive(!empty);
+            emptyRoot.SetActive(empty);
+            if (empty)
             {
                 emptyTitle.text = "계약한 스타트업이 없습니다";
                 emptyDescription.text = "직원 탭에서 직원에게 스타트업 발굴 직무를 지정하세요";
                 selected = null;
                 setItems(0);
                 scrollThumb.SetActive(false);
-                return;
-            }
-
-            if (showPreview)
-            {
-                setItems(1);
-                items[0].Bind(null, "새봄테크", "정보기술", null, true, selectPreview);
-                detailTitle.text = "새봄테크 <color=#BABABA>(정보기술)</color>";
-                supportEmployees.text = "파견 직원 : 없음";
-                investmentValues[0].text = "20%";
-                investmentValues[1].text = MoneyText.Format(20f);
-                investmentValues[2].text = MoneyText.Format(15f);
-                investmentValues[3].text = "+33.3%";
-                colorSigned(investmentValues[3], 1f);
-                financeValues[0].text = MoneyText.Format(25f);
-                financeValues[1].text = MoneyText.Format(0.8f);
-                financeValues[2].text = MoneyText.FormatSigned(-0.24f);
-                financeValues[3].text = "+4.0%";
-                colorSigned(financeValues[2], 1f);
-                colorSigned(financeValues[3], 1f);
-                coreValue.text = "핵심 가치 : 정보의 빠른 연결";
-                description.text = "여러 산업의 데이터를 모아 빠르게 필요한 정보를 제공하는 기술 스타트업입니다.";
-                setGraph(new[] { 0.6f, 0.72f, 0.68f, 0.81f, 0.9f });
                 return;
             }
 
@@ -163,9 +158,31 @@ namespace TakeOver.Operations
             refresh();
         }
 
-        private void selectPreview(Company company)
+        private void showTutorialCompanies()
         {
-            selected = null;
+            setItems(TutorialCompanies.Length);
+            for (int i = 0; i < TutorialCompanies.Length; i++)
+            {
+                var company = TutorialCompanies[i];
+                items[i].Bind(null, company.Name, company.Industry, null, i == 0, null);
+            }
+            detailTitle.text = $"{TutorialCompanyName} <color=#BABABA>({TutorialCompanyIndustry})</color>";
+            supportEmployees.text = "직원 수 : 18명 · 파견 직원 : 없음";
+            investmentValues[0].text = StakeText.Format(20d);
+            investmentValues[1].text = MoneyText.Format(72f);
+            investmentValues[2].text = MoneyText.Format(60f);
+            investmentValues[3].text = "+20.0%";
+            colorSigned(investmentValues[3], 0.2f);
+            financeValues[0].text = MoneyText.Format(85f);
+            financeValues[1].text = MoneyText.Format(0.9f);
+            financeValues[2].text = MoneyText.FormatSigned(-0.135f);
+            float growth = TutorialRevenue[TutorialRevenue.Length - 1] / TutorialRevenue[TutorialRevenue.Length - 2] - 1f;
+            financeValues[3].text = signedPercent(growth);
+            colorSigned(financeValues[2], -0.135f);
+            colorSigned(financeValues[3], growth);
+            coreValue.text = "핵심 가치 : 정보의 빠른 연결";
+            description.text = "여러 산업의 데이터를 모아 빠르게 필요한 정보를 제공하는 기술 스타트업입니다.";
+            setGraph(TutorialRevenue);
         }
 
         private void setItems(int count)
@@ -218,7 +235,7 @@ namespace TakeOver.Operations
             if (startupSystem != null && startupSystem.tryGetRecord(startup.definition.companyID, out StartupRecord record))
                 investment = record.cumulativeInvestment;
 
-            investmentValues[0].text = $"{stake:0.#}%";
+            investmentValues[0].text = StakeText.Format(stake);
             investmentValues[1].text = MoneyText.Format(equity);
             investmentValues[2].text = MoneyText.Format(investment);
             if (investment > 0f)
