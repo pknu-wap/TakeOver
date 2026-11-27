@@ -102,6 +102,7 @@ public class DashboardCardSlide : MonoBehaviour
                 targetPositions.Add(Vector2.zero);
             }
         }
+        foreach (var cardUI in cardUIList) UseRotationSafeReflectionClip(cardUI);
         CacheCardPoses();
         if (cardUIList.Count > 2 && cardUIList[2].cardRect != null && cardUIList[2].speakerText != null)
         {
@@ -436,6 +437,26 @@ public class DashboardCardSlide : MonoBehaviour
             card.speakerText.text = info.cardSpeakerLabel;
         }
         if (card.apCostText != null) card.apCostText.text = $"소모 에너지 {info.definition.getApCost()}";
+    }
+
+    // RectMask2D는 회전을 무시하고 화면 기준 직사각형으로 자른다. 그래서 기울어진 옆 카드에서는
+    // 반사 이미지가 정보 패널 아래로 삐져나온다. 정보 패널과 같은 모양의 Mask로 바꿔 회전을 따라가게 한다.
+    private static void UseRotationSafeReflectionClip(CardUI card)
+    {
+        if (card.cardRect == null || card.reflectionImage == null) return;
+        var clip = card.reflectionImage.GetComponentInParent<RectMask2D>(true);
+        if (clip == null || !clip.transform.IsChildOf(card.cardRect)) return;
+
+        Transform panelTransform = card.cardRect.Find("CardInfoPanel");
+        Image panel = panelTransform != null ? panelTransform.GetComponent<Image>() : null;
+        GameObject clipObject = clip.gameObject;
+        Destroy(clip);
+        if (!clipObject.TryGetComponent(out Image shape)) shape = clipObject.AddComponent<Image>();
+        shape.sprite = panel != null ? panel.sprite : null;
+        shape.type = panel != null ? panel.type : Image.Type.Simple;
+        shape.raycastTarget = false;
+        if (!clipObject.TryGetComponent(out Mask mask)) mask = clipObject.AddComponent<Mask>();
+        mask.showMaskGraphic = false;
     }
 
     private static void SetArtAspect(Image image, float aspect)
