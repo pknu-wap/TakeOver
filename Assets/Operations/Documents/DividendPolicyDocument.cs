@@ -23,7 +23,7 @@ namespace TakeOver.Documents
         {
             new DocumentInfo("대상 회사", TargetCompany.definition.companyName),
             new DocumentInfo("현재 배당 비율", $"{TargetCompany.state.getBaseStat(CompanyStat.DIVIDEND_RATIO):P0}"),
-            new DocumentInfo("내 지분", $"{stake():P2}"),
+            new DocumentInfo("내 지분", StakeText.FormatShares(TargetCompany.state.getBaseStat(CompanyStat.PLAYER_SHARES), TargetCompany.state.totalShares)),
             new DocumentInfo("예상 배당금", MoneyText.Format(DividendRule.TotalDividend(TargetCompany.state, fields[0].value) * stake()))
         };
         public IReadOnlyList<DocumentField> Fields => fields;

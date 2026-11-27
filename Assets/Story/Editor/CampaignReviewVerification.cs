@@ -115,7 +115,7 @@ public sealed class CampaignReviewProbe : MonoBehaviour
             }
             Check(inbox.Open.Contains(approval) && inbox.Open.Contains(unread) && inbox.History.Count == historyCount, "Pending-save guard preserves both approval and read-only document state");
         }
-        string before = game.captureJson(); float cash = Object.FindFirstObjectByType<Player>().state.cash;
+        string before = game.captureJson(); double cash = Object.FindFirstObjectByType<Player>().state.cash;
         int memories = Object.FindFirstObjectByType<NpcStateRegistry>().States.Sum(s => s.memories.Count);
         var document = new WaitingDocument(); clock.RegisterBlocker(document);
         Environment.SetEnvironmentVariable("TAKEOVER_SAVE_DIRECTORY", root);

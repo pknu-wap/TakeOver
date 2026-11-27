@@ -213,11 +213,11 @@ namespace TakeOver.Story
         }
         public void SetGoalReady(bool ready)=>confirm.interactable=ready;
 
-        public OperationsTutorialView CreateOperationsPreview(StoryGoal goal, TakeOver.Documents.IDocument document)
+        public OperationsTutorialView CreateOperationsPreview(StoryGoal goal, TakeOver.Documents.IDocument document, bool showEmployeeJobs)
         {
             var container = Rect("Operations tutorial preview", root, new Rect(360, 110, 896, 510));
             var preview = container.gameObject.AddComponent<OperationsTutorialView>();
-            preview.Initialize(goal, document);
+            preview.Initialize(goal, document, showEmployeeJobs);
             Spotlight(container);
             confirm.interactable = true;
             return preview;

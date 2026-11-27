@@ -15,13 +15,16 @@ namespace TakeOver.Story
         public bool Ready { get; private set; }
         private GameObject backdrop;
 
-        public void Initialize(StoryGoal goal, IDocument document)
+        public void Initialize(StoryGoal goal, IDocument document, bool showEmployeeJobs)
         {
+            var group = gameObject.AddComponent<CanvasGroup>();
+            group.alpha = 0;
+            group.interactable = false;
+            group.blocksRaycasts = false;
             var prefab = Resources.Load<GameObject>("Story/OperationsTutorial");
             var copy = Instantiate(prefab, transform, false);
             copy.name = "Tutorial operations copy";
             Screen = copy.GetComponent<OperationsScreen>();
-            Screen.ShowTutorialPage(goal == StoryGoal.ViewEmployees, goal == StoryGoal.ViewStartups);
             Content = (RectTransform)copy.transform;
             var designSize = Content.rect.size;
             Content.anchorMin = Content.anchorMax = Content.pivot = new Vector2(.5f, .5f);
@@ -43,13 +46,26 @@ namespace TakeOver.Story
             background.anchorMin = Vector2.zero; background.anchorMax = Vector2.one;
             background.offsetMin = Vector2.zero; background.offsetMax = new Vector2(0, 80);
             background.GetComponent<Image>().raycastTarget = false;
-            copy.SetActive(true);
-            Screen.GetComponentInChildren<EmployeeTabView>(true)?.SetTutorialPreview(goal == StoryGoal.ViewEmployees);
-            Screen.GetComponentInChildren<StartupTabView>(true)?.SetTutorialPreview(goal == StoryGoal.ViewStartups);
+            if (goal == StoryGoal.ViewEmployees)
+            {
+                Screen.GetComponentInChildren<EmployeeTabView>(true).SetTutorialPreview(showEmployeeJobs);
+                Screen.GetComponentInChildren<EmployeeTabNavigation>(true).SetTutorialPreview(Content, !showEmployeeJobs);
+            }
+            else if (goal == StoryGoal.ViewStartups)
+                Screen.GetComponentInChildren<StartupTabView>(true).SetTutorialPreview(true);
             if (document != null) Screen.GetComponentInChildren<DocumentTabView>(true).SetTutorialPreview(document);
-            var group = gameObject.AddComponent<CanvasGroup>();
-            group.alpha = 0;
-            group.interactable = false;
+            Screen.ShowTutorialPage(goal == StoryGoal.ViewEmployees, goal == StoryGoal.ViewStartups);
+            if (showEmployeeJobs)
+            {
+                var detail = (RectTransform)Screen.GetComponentInChildren<EmployeeDetailView>().transform;
+                var detailSize = detail.rect.size;
+                detail.SetParent(Content, false);
+                detail.anchorMin = detail.anchorMax = detail.pivot = new Vector2(.5f, .5f);
+                detail.sizeDelta = detailSize;
+                detail.anchoredPosition = Vector2.zero;
+                detail.localScale = Vector3.one * Mathf.Min(designSize.x / detailSize.x, designSize.y / detailSize.y);
+                detail.SetAsLastSibling();
+            }
             StartCoroutine(FinishLayout(group));
         }
 

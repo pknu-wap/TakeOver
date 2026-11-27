@@ -102,6 +102,7 @@ namespace TakeOver.Operations
             {
                 case DocumentValueFormat.Number: return value.ToString("N0");
                 case DocumentValueFormat.Money: return MoneyText.Format(value);
+                case DocumentValueFormat.Stake: return StakeText.Format(value * 100d);
                 default: return value.ToString("P0");
             }
         }

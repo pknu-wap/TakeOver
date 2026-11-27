@@ -59,13 +59,14 @@ namespace TakeOver.Employees
         private EmployeeService employeeService;
         private Func<int> currentTurnProvider;
         private Action onDismissed;
+        private bool tutorialPreview;
 
         private void Awake()
         {
             if (closeButton != null)
             {
                 closeButton.onClick.RemoveAllListeners();
-                closeButton.onClick.AddListener(Close);
+                closeButton.onClick.AddListener(() => { if (!tutorialPreview) Close(); });
             }
 
             if (dismissButton != null)
@@ -89,7 +90,7 @@ namespace TakeOver.Employees
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() =>
             {
-                if (currentEmployee == null || jobService == null)
+                if (tutorialPreview || currentEmployee == null || jobService == null)
                 {
                     return;
                 }
@@ -106,13 +107,19 @@ namespace TakeOver.Employees
             });
         }
 
-        public void Open(Employee emp, EmployeeService service, Func<int> turnProvider, Action onEmployeeDismissed)
+        public void Open(Employee emp, EmployeeService service, Func<int> turnProvider, Action onEmployeeDismissed, bool tutorial = false)
         {
+            tutorialPreview = tutorial;
+            if (tutorial)
+            {
+                if (TryGetComponent<Image>(out var scrim)) scrim.enabled = false;
+                if (dismissButton != null) dismissButton.gameObject.SetActive(false);
+            }
             currentEmployee = emp;
             employeeService = service;
             currentTurnProvider = turnProvider;
             onDismissed = onEmployeeDismissed;
-            if (jobService == null)
+            if (!tutorialPreview && jobService == null)
             {
                 jobService = FindFirstObjectByType<JobService>();
             }
@@ -200,7 +207,7 @@ namespace TakeOver.Employees
 
         private void RefreshJob()
         {
-            JobType job = jobService != null ? jobService.GetJob(currentEmployee) : JobType.None;
+            JobType job = !tutorialPreview && jobService != null ? jobService.GetJob(currentEmployee) : JobType.None;
             if (jobNameText != null)
             {
                 jobNameText.text = job == JobType.None ? "진행 중인 직무 없음" : "진행 중 : " + FormatJob(job) + (job == JobType.Support ? "" : $" D-{jobService.GetRemainingDays(currentEmployee)}");

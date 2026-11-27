@@ -38,13 +38,16 @@ namespace TakeOver.Operations
 
         public void ShowTutorialPage(bool employees, bool startups)
         {
-            gameObject.SetActive(true);
             for (int i = 0; i < subTabs.Length; i++)
             {
                 if (employees && subTabs[i].GetComponentInChildren<TakeOver.Employees.EmployeeTabView>(true) != null ||
                     startups && subTabs[i].GetComponentInChildren<StartupTabView>(true) != null ||
                     !employees && !startups && subTabs[i] == documentsTab)
-                { Show(i); return; }
+                {
+                    Show(i);
+                    gameObject.SetActive(true);
+                    return;
+                }
             }
         }
 

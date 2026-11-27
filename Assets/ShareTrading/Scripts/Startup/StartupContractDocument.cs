@@ -50,7 +50,7 @@ namespace TakeOver.Startups
             this.companies = companies;
             DeadlineTurn = turn;
             companyValue = company.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE);
-            stake = new DocumentField("stake", "지분율", stakeOptions[0], stakeOptions);
+            stake = new DocumentField("stake", "지분율", stakeOptions[0], stakeOptions, format: DocumentValueFormat.Stake);
             Fields = new[] { stake };
             this.employees = employees;
             this.jobs = jobs;

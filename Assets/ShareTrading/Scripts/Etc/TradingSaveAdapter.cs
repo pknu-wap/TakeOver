@@ -369,8 +369,8 @@ public class TradingSaveAdapter : MonoBehaviour, ISaveParticipant
         }
     }
 
-    private static bool finite(float value)
+    private static bool finite(double value)
     {
-        return !float.IsNaN(value) && !float.IsInfinity(value);
+        return !double.IsNaN(value) && !double.IsInfinity(value);
     }
 }

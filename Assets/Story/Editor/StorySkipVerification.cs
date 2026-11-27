@@ -123,7 +123,7 @@ namespace TakeOver.Story.Editor
             Check(fullState==normalState,"Whole skip matches normal completed tutorial: cash, all company data/history, NPC relations/Memory, date, AP");
             Check(Object.FindFirstObjectByType<GameTurnClock>().CurrentTurn==2,"Whole skip advances exactly one real day");
             var company=Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId);
-            Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==51,"Whole skip retains one traded share plus 50 bonus shares");
+            Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==1 + company.state.totalShares * .05f,"Whole skip retains one traded share plus a 5% bonus stake");
             Check(StoryDirector.CanNavigate(DashboardTab.Npcs) && StoryDirector.CanTrade(company,false),"Whole skip releases normal gameplay controls");
             Check(Object.FindFirstObjectByType<DashboardCardSlide>().MainCard.gameObject.activeInHierarchy,"Whole skip restores remaining real event cards");
             yield return new WaitForEndOfFrame();ScreenCapture.CaptureScreenshot(Path.Combine(StorySkipVerification.Output,"03-whole-skip-complete.png"));yield return null;
@@ -226,7 +226,8 @@ namespace TakeOver.Story.Editor
             Check(clock.CurrentTurn==2,"Dialogue skipping advances the actual day once");
             var registry=Object.FindFirstObjectByType<NpcStateRegistry>();
             Check(registry.States.Sum(s=>s.memories.Count)==choices + 1,"All conversations and one event record memories without duplicates");
-            Check(Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId).state.getStat(CompanyStat.PLAYER_SHARES)==51,"Initial buy, additional buy and first sale complete with 50 bonus shares");
+            var rewardedCompany = Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId);
+            Check(rewardedCompany.state.getStat(CompanyStat.PLAYER_SHARES) == 1 + rewardedCompany.state.totalShares * .05f, "Initial buy, additional buy and first sale complete with a 5% bonus stake");
             Check(Object.FindFirstObjectByType<TakeOver.Events.EventSystemController>().tryGetChoice(StoryDirector.TutorialEventId,out int selected) && selected==0,"General event choice committed during guided playback");
             Check(Object.FindFirstObjectByType<DashboardCardSlide>().MainCard.gameObject.activeInHierarchy,"Guided completion restores remaining real event cards");
 

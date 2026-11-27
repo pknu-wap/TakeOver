@@ -45,7 +45,7 @@ public class CompanyRow : MonoBehaviour
         setText(revenueText, MoneyText.Format(CompanyUIUtil.getStat(company, CompanyStat.REVENUE)));
         setText(netProfitText, MoneyText.Format(CompanyUIUtil.getDerived(company, CompanyDerivedStat.NET_PROFIT)));
         setText(debtRatioText, $"{CompanyUIUtil.getDerived(company, CompanyDerivedStat.DEBT_RATIO):P1}");
-        setText(stakeText, $"{stake:0.#}%");
+        setText(stakeText, StakeText.Format(stake));
         setText(summaryText, $"{formatSignedRate(changeRate)}  |  {MoneyText.Format(price)}");
         setChange(changeRate);
 

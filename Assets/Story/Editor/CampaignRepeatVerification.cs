@@ -45,10 +45,10 @@ public sealed partial class CampaignIntegrationProbe
                     data.occurrences.Add(new EventSystemController.TimingData { eventId = definition.getId(), companyId = cid, day = 42, serial = ++data.lastOccurrenceSerial });
                     game.prepareLoad(JsonUtility.ToJson(data), game.saveVersion, new DayStartData(42, FixedDaySeed.seed)); game.applyLoad(); game.rebuildAfterLoad();
                     int beforeMemories = Object.FindFirstObjectByType<NpcStateRegistry>().States.Sum(state => state.memories.Count);
-                    float cash = player.state.cash;
+                    double cash = player.state.cash;
                     yield return Complete(definition.getId(), choice, scenes == 1 && choice == 0);
                     Check(game.RepeatHistory.Count == data.repeatHistory.Count + 1, "One unique repeat record: " + definition.getId() + ":" + cid + ":" + choice);
-                    Check(Mathf.Abs(player.state.cash - cash - choices[choice].getCashDelta()) < .01f, "Authored cash delta applied once");
+                    Check(System.Math.Abs(player.state.cash - cash - choices[choice].getCashDelta()) < .01f, "Authored cash delta applied once");
                     Check(Object.FindFirstObjectByType<NpcStateRegistry>().States.Sum(state => state.memories.Count) == beforeMemories + 1, "NPC event connection adds one authored observation memory");
                     string snapshot = game.captureJson();
                     game.prepareLoad(snapshot, game.saveVersion, new DayStartData(42, FixedDaySeed.seed)); game.applyLoad(); game.rebuildAfterLoad();

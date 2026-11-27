@@ -59,7 +59,8 @@ public sealed class NarrativeRevisionProbe:MonoBehaviour
             events.RemoveAll(e=>e.getId()==StoryDirector.TutorialEventId);events.Add(definition);
             var clock=Object.FindFirstObjectByType<GameTurnClock>();clock.AdvanceTurn();
             var player=Object.FindFirstObjectByType<Player>();var company=Object.FindFirstObjectByType<Companies>().getCompany(StoryDirector.CompanyId);
-            var ap=Object.FindFirstObjectByType<ActionPointService>();int beforeAp=ap.Current;float cash=player.state.cash,shares=company.state.getStat(CompanyStat.PLAYER_SHARES);
+            var ap=Object.FindFirstObjectByType<ActionPointService>();int beforeAp=ap.Current;
+            double cash=player.state.cash; float shares=company.state.getStat(CompanyStat.PLAYER_SHARES);
             var registry=Object.FindFirstObjectByType<NpcStateRegistry>();registry.TryGet(StoryDirector.TutorialContact,out var state);int count=state.memories.Count;
             controller.openEvent(StoryDirector.TutorialEventId);controller.startNegotiation();controller.confirmChoice(answer);controller.confirmChoice((answer+1)%3);
             Check(ap.Current==beforeAp-definition.getApCost(),"New event consumes AP exactly once: "+answer);
@@ -93,7 +94,7 @@ public sealed class NarrativeRevisionProbe:MonoBehaviour
         Check(!Meets(game,restructure,StoryDirector.CompanyId),"Losing required stake removes restructuring branch");
         mirae.state.setStat(CompanyStat.PLAYER_SHARES,510);mirae.state.setStat(CompanyStat.COST,0);mirae.calculator.recalculate(mirae,Object.FindFirstObjectByType<Marketdata>());mirae.state.beforeNetProfit=mirae.state.getDerivedStat(CompanyDerivedStat.NET_PROFIT);
         Check(!Meets(game,restructure,StoryDirector.CompanyId),"Stable profitable company is not offered restructuring just for stake");
-        var effects=Object.FindFirstObjectByType<TradingEventEffects>();float held=mirae.state.getStat(CompanyStat.PLAYER_SHARES);float money=Object.FindFirstObjectByType<Player>().state.cash;
+        var effects=Object.FindFirstObjectByType<TradingEventEffects>();float held=mirae.state.getStat(CompanyStat.PLAYER_SHARES);double money=Object.FindFirstObjectByType<Player>().state.cash;
         effects.Apply(new ChoiceConfirmedInfo("greenmail_01",1,"reject",2,null,0,StoryDirector.CompanyId));
         Check(mirae.state.getStat(CompanyStat.PLAYER_SHARES)==held && Object.FindFirstObjectByType<Player>().state.cash==money && !mirae.state.greenmailBuyBlocked,"Rejecting greenmail does not sell holdings or block trading");
         effects.Apply(new ChoiceConfirmedInfo("greenmail_01",0,"accept",2,null,0,StoryDirector.CompanyId,buybackPremiumRatio:.1f));

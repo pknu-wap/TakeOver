@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class PlayerState
 {
-    public float cash { get; internal set; }
+    public double cash { get; internal set; }
     public float manPower { get; internal set; }
     public float information { get; internal set; }
     public float reputation { get; internal set; }
 
     public PlayerState(
-        float initialCash, 
+        double initialCash,
         float initialManPower, 
         float initialInformation, 
         float initialReputation)
@@ -19,7 +19,7 @@ public class PlayerState
         reputation = initialReputation;
     }
 
-    public void addCash(float value)
+    public void addCash(double value)
     {
         cash += value;
     }

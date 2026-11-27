@@ -11,8 +11,8 @@ public class DashboardController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI totalAssetText;
     private Player player;
     private Companies companies;
-    private float lastCash = float.NaN;
-    private float lastTotalAsset = float.NaN;
+    private double lastCash = double.NaN;
+    private double lastTotalAsset = double.NaN;
 
     [Header("Top Bar - AP Cost")]
     [SerializeField] private TextMeshProUGUI apText;
@@ -70,11 +70,11 @@ public class DashboardController : MonoBehaviour
 
     private void updateMoney()
     {
-        float cash = player != null && companies != null && player.state != null ? player.state.cash : 0f;
-        float assets = cash;
+        double cash = player != null && companies != null && player.state != null ? player.state.cash : 0d;
+        double assets = cash;
         if (player != null && companies != null)
             foreach (Company company in companies.CompanyList)
-                assets += CompanyUIUtil.getStat(company, CompanyStat.PLAYER_SHARES)
+                assets += (double)CompanyUIUtil.getStat(company, CompanyStat.PLAYER_SHARES)
                     * CompanyUIUtil.getDerived(company, CompanyDerivedStat.SHARE_PRICE);
         if (lastCash != cash)
         {

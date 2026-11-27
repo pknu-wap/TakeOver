@@ -61,8 +61,8 @@ MonoBehaviour:
     npcId: npc-aurora-foodtech-ceo-kim-seohu
     companyId: aurora-foodtech
     profile:
-      standingIllustration: {fileID: 0}
-      dimmedStandingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 161fc807794040e5822322b910be5996, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 4e1afeb35d834672ba12523ea14ec4e3, type: 3}
       displayName: "\uAE40\uC11C\uD6C4"
       role: CEO
       affiliation: "\uC624\uB85C\uB77C\uD478\uB4DC\uD14C\uD06C"

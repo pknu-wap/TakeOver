@@ -61,8 +61,8 @@ MonoBehaviour:
     npcId: npc-daeseong-industry-cfo-noh-hyeonjeong
     companyId: daeseong-industry
     profile:
-      standingIllustration: {fileID: 0}
-      dimmedStandingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: a820e98be7b54cd1bec5e49f97486e10, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: 79d8c6eb03d74b548ae79364f48cf252, type: 3}
       displayName: "\uB178\uD604\uC815"
       role: CFO
       affiliation: "\uB300\uC131\uC0B0\uC5C5"

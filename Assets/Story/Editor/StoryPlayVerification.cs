@@ -415,7 +415,7 @@ namespace TakeOver.Story.Editor
                     Check(windowCorners[0].x>=panelCorners[2].x+8,"Company window stays beside tutorial explanation: "+beat.id);
                     Check(windowCorners[2].x<=Screen.width,"Company window remains on screen: "+beat.id);
                     var input=(TMPro.TMP_InputField)typeof(CompanyDetailPanel).GetField("amountInput",Fields).GetValue(detail);
-                    float cash=player.state.cash; float shares=company.state.getStat(CompanyStat.PLAYER_SHARES);
+                    double cash=player.state.cash; float shares=company.state.getStat(CompanyStat.PLAYER_SHARES);
                     bool buying = beat.goal != StoryGoal.SellShares;
                     Check(!director.CanSkipToChoice,"Required transaction cannot be skipped: "+beat.id);
                     Check(buying ? !trading.sellShares(company,1) : !trading.buyShares(company,1),"Opposite transaction blocked: "+beat.id);
@@ -427,7 +427,7 @@ namespace TakeOver.Story.Editor
                     var cap=Await(Capture(buying ? beat.goal==StoryGoal.BuyMore?"15-buy-more":"04-buy-shares" : "16-sell-shares")); while(cap.MoveNext()) yield return null;
                     float price=company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE);
                     Click(Persistent(detail.transform,method));
-                    Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==shares+(buying?1:-1) && Mathf.Abs(player.state.cash-(cash+(buying?-price:price)))<.01f,"Actual UI transaction updates holdings and cash: "+beat.id);
+                    Check(company.state.getStat(CompanyStat.PLAYER_SHARES)==shares+(buying?1:-1) && System.Math.Abs(player.state.cash-(cash+(buying?-price:price)))<1e-10,"Actual UI transaction updates holdings and cash: "+beat.id);
                     Check(buying ? !trading.buyShares(company,1) : !trading.sellShares(company,1),"Repeated same-frame transaction rejected");
                 }
                 else if(beat.goal==StoryGoal.OpenEvent)
@@ -454,7 +454,7 @@ namespace TakeOver.Story.Editor
                     Check(!director.View.HasEventOverlay && !director.GetComponent<GraphicRaycaster>().enabled,"Native event has no guide strip, highlight, story skip or input mask");
                     var eventDetail=Object.FindFirstObjectByType<EventDetailView>();
                     int ap=Object.FindFirstObjectByType<ActionPointService>().Current;
-                    float cash=player.state.cash;
+                    double cash=player.state.cash;
                     int cost=events.getTodayEventInfos().First(e=>e.definition.getId()==StoryDirector.TutorialEventId).definition.getApCost();
                     var button=(Button)typeof(EventDetailView).GetField("startButton",Fields).GetValue(eventDetail);
                     var service=Object.FindFirstObjectByType<ActionPointService>();
@@ -496,7 +496,8 @@ namespace TakeOver.Story.Editor
                             Mathf.Abs(t.color.r - t.color.g) < .001f && Mathf.Abs(t.color.g - t.color.b) < .001f && t.color.a < 1),
                             "Preview buy/sell labels use the shared light-gray disabled color: " + beat.id);
                         Check(!reading.GetComponentInChildren<TMPro.TMP_InputField>(true).interactable, "Preview quantity input is read-only: " + beat.id);
-                        float unchangedCash = player.state.cash, unchangedShares = reading.current.state.getStat(CompanyStat.PLAYER_SHARES);
+                        double unchangedCash = player.state.cash;
+                        float unchangedShares = reading.current.state.getStat(CompanyStat.PLAYER_SHARES);
                         foreach (var button in tradeButtons) button.onClick.Invoke();
                         reading.buy(); reading.sell();
                         Check(player.state.cash == unchangedCash && reading.current.state.getStat(CompanyStat.PLAYER_SHARES) == unchangedShares,
@@ -583,14 +584,15 @@ namespace TakeOver.Story.Editor
                     if (beat.goal == StoryGoal.ViewStartups)
                     {
                         var startups = ops.GetComponentInChildren<TakeOver.Operations.StartupTabView>();
-                        Check(startups.IsTutorialPreview && startups.GetComponentsInChildren<Text>().Any(t => t.text.Contains("새봄테크")),
+                        Check(startups.IsTutorialPreview && startups.GetComponentsInChildren<TakeOver.Operations.StartupListItemView>().Length == 3 &&
+                            startups.GetComponentsInChildren<TMPro.TMP_Text>().Any(t => t.text.Contains("새봄테크")),
                             "Startup tutorial shows an actual read-only example screen instead of an empty transparent panel");
                         Check(startups.GetComponentInChildren<TakeOver.Operations.StartupLineGraph>().pointCount >= 2,
                             "Startup tutorial renders its sample revenue graph");
                         Check(startups.GetComponentsInChildren<Image>().Count(i => i.IsActive() && i.color.a > .9f) >= 3,
                             "Startup tutorial has opaque list and detail panels");
                     }
-                    if (beat.goal == StoryGoal.ViewEmployees)
+                    if (beat.goal == StoryGoal.ViewEmployees && beat.id != "operations-002-work")
                     {
                         var staff = ops.GetComponentInChildren<TakeOver.Employees.EmployeeTabView>();
                         var recruit = (Button)typeof(TakeOver.Employees.EmployeeTabView).GetField("recruitButton", Fields).GetValue(staff);
@@ -613,7 +615,7 @@ namespace TakeOver.Story.Editor
                             Check(preview.GetComponentsInChildren<Text>().Any(label => label.text.Contains("새봄테크")),
                                 "Contract preview uses a fictional example company");
                     }
-                    float currentCash = Object.FindFirstObjectByType<Player>().state.cash;
+                    double currentCash = Object.FindFirstObjectByType<Player>().state.cash;
                     int currentDay = clock.CurrentTurn;
                     int currentAp = Object.FindFirstObjectByType<ActionPointService>().Current;
                     var cap=Await(Capture(beat.id)); while(cap.MoveNext()) yield return null;
@@ -677,7 +679,7 @@ namespace TakeOver.Story.Editor
             Check(GameObject.Find("Tutorial completion notice")!=null && GameObject.Find("Help introduction")==null,"Normal completion shows reward before help notice");
             Check(Object.FindObjectsByType<TakeOver.Operations.StartupTabView>(FindObjectsInactive.Include, FindObjectsSortMode.None).All(t => !t.IsTutorialPreview),
                 "Startup example is removed after tutorial without creating an investment");
-            Check(events.TutorialRewardGranted && company.state.getStat(CompanyStat.PLAYER_SHARES)==51,"Normal completion grants 50 bonus shares in addition to the one remaining share");
+            Check(events.TutorialRewardGranted && company.state.getStat(CompanyStat.PLAYER_SHARES)==1 + company.state.totalShares * .05f,"Normal completion grants a 5% bonus stake in addition to the one remaining share");
             Click(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Single(b=>b.name=="Confirm tutorial reward"));
             yield return null;
             Check(GameObject.Find("Help introduction")!=null,"Reward confirmation opens help location notice");

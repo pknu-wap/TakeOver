@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using TakeOver.Documents;
-using UnityEngine;
+using TakeOver.Operations;
+using TakeOver.Startups;
 
 namespace TakeOver.Story
 {
@@ -12,19 +13,10 @@ namespace TakeOver.Story
 
         private void OpenOperationsLesson()
         {
-            IDocument document = null;
-            if (Goal == StoryGoal.ViewContract) document = new ApprovalPreview(clock.CurrentTurn + 7, true);
-            else if (Goal == StoryGoal.ViewApproval) document = new ApprovalPreview(clock.CurrentTurn + 7);
-            else if (Goal == StoryGoal.ViewDiscovery)
-            {
-                var companies = FindFirstObjectByType<Companies>();
-                var candidate = companies?.StartupList.FirstOrDefault();
-                document = candidate != null
-                    ? (IDocument)new StartupDiscoveryDocument(candidate, companies, "발굴 담당", clock.CurrentTurn + 7, "매출과 시장 수요가 꾸준히 성장하고 있습니다.", false)
-                    : new SnapshotDocument("tutorial-preview", "스타트업 발굴 보고", "발굴 담당",
-                        new List<DocumentInfo> { new DocumentInfo("회사 정보", "매출·자금·기업가치를 확인합니다.") });
-            }
-            operationsPreview = view.CreateOperationsPreview(Goal, document);
+            IDocument document = Goal == StoryGoal.ViewDiscovery || Goal == StoryGoal.ViewContract || Goal == StoryGoal.ViewApproval
+                ? new ApprovalPreview(Goal, clock.CurrentTurn + 7)
+                : null;
+            operationsPreview = view.CreateOperationsPreview(Goal, document, Current.id == "operations-002-work");
         }
 
         private void CloseOperationsLesson()
@@ -38,30 +30,59 @@ namespace TakeOver.Story
         // Never registered in the inbox or saved; its decision methods have no effects.
         private sealed class ApprovalPreview : IApprovalDocument
         {
-            private readonly bool contract;
+            private readonly StoryGoal goal;
+            private const string CompanyName = StartupTabView.TutorialCompanyName;
+            private const float CompanyValue = 240f;
+            private const float InitialStake = .2f;
             public string TypeId => "tutorial-approval";
-            public string Title => contract ? "투자 계약서" : "운영 계획 검토";
-            public string Author => "운영 담당";
+            public string Title => goal == StoryGoal.ViewDiscovery ? $"투자 후보 보고 · {CompanyName}"
+                : goal == StoryGoal.ViewContract ? "투자 계약 체결" : "운영 계획 검토";
+            public string Author => goal == StoryGoal.ViewDiscovery ? "김민준" : $"{CompanyName} 대표";
             public string BodyId => "generic";
             public string DedupKey => TypeId;
             public Company TargetCompany => null;
             public int DeadlineTurn { get; }
-            public string ApproveLabel => "승인";
-            public string RejectLabel => "거절";
+            public string ApproveLabel => goal == StoryGoal.ViewDiscovery ? "투자 검토" : goal == StoryGoal.ViewContract ? "확정" : "승인";
+            public string RejectLabel => goal == StoryGoal.ViewDiscovery ? "넘기기" : "거절";
             public string DoneLabel => "";
-            public IReadOnlyList<DocumentInfo> InfoRows => contract ? new[] {
-                new DocumentInfo("대상 회사", "새봄테크"),
-                new DocumentInfo("기업가치", MoneyText.Format(300f)), new DocumentInfo("투자금", MoneyText.Format(60f)),
-                new DocumentInfo("취득 지분", "20%")
-            } : new[] { new DocumentInfo("대상 회사", "새봄테크"), new DocumentInfo("검토 항목", "운영 계획"),
-                new DocumentInfo("요청 내용", "직원 2명 파견 검토"), new DocumentInfo("예상 비용", MoneyText.Format(2f)),
-                new DocumentInfo("검토 기준", "자금 여력과 업무 배치") };
-            public IReadOnlyList<string> BodyLines => contract
-                ? new[] { "투자 조건과 취득 지분을 확인한 뒤 계약 여부를 결정합니다." }
-                : new[] { "운영 계획과 예상 비용을 검토한 뒤 승인 여부를 결정합니다." };
-            public IReadOnlyList<DocumentField> Fields => contract ? new[] { new DocumentField("stake", "지분율", .2f, new[] { .2f }) } : System.Array.Empty<DocumentField>();
-            public IReadOnlyList<DocumentChoiceField> ChoiceFields => System.Array.Empty<DocumentChoiceField>();
-            public ApprovalPreview(int day, bool contract = false) { DeadlineTurn = day; this.contract = contract; }
+            public IReadOnlyList<DocumentInfo> InfoRows { get; }
+            public IReadOnlyList<string> BodyLines => Array.Empty<string>();
+            public IReadOnlyList<DocumentField> Fields { get; }
+            public IReadOnlyList<DocumentChoiceField> ChoiceFields => Array.Empty<DocumentChoiceField>();
+
+            public ApprovalPreview(StoryGoal goal, int day)
+            {
+                this.goal = goal;
+                DeadlineTurn = day;
+                Fields = goal == StoryGoal.ViewContract
+                    ? new[] { new DocumentField("stake", "지분율", InitialStake, new[] { InitialStake, .3f, .4f }, format: DocumentValueFormat.Stake) }
+                    : Array.Empty<DocumentField>();
+                InfoRows = goal switch
+                {
+                    StoryGoal.ViewDiscovery => new[] {
+                        new DocumentInfo("대상 회사", CompanyName),
+                        new DocumentInfo("업종", StartupTabView.TutorialCompanyIndustry),
+                        new DocumentInfo("매출", MoneyText.Format(.81f)),
+                        new DocumentInfo("보유 자금", MoneyText.Format(25f)),
+                        new DocumentInfo("직원 수", "18명"),
+                        new DocumentInfo("제시 기업가치", MoneyText.Format(CompanyValue)),
+                        new DocumentInfo("성장 전망", "매출과 시장 수요가 꾸준히 성장하고 있습니다.")
+                    },
+                    StoryGoal.ViewContract => new[] {
+                        new DocumentInfo("대상 회사", CompanyName),
+                        new DocumentInfo("기업가치", MoneyText.Format(CompanyValue)),
+                        new DocumentInfo("투자금", MoneyText.Format(StartupContractDocument.calculateInvestment(CompanyValue, InitialStake))),
+                        new DocumentInfo("취득 지분", StakeText.Format(InitialStake * 100d))
+                    },
+                    _ => new[] {
+                        new DocumentInfo("대상 회사", CompanyName),
+                        new DocumentInfo("검토 항목", "운영 계획"),
+                        new DocumentInfo("요청 내용", "직원 2명 파견 검토"),
+                        new DocumentInfo("예상 비용", MoneyText.Format(2f)),
+                        new DocumentInfo("검토 기준", "자금 여력과 업무 배치")
+                    }
+                };
+            }
             public void SetField(string name, float value) { }
             public void SetChoice(string name, int key) { }
             public bool CanApprove(out string reason) { reason = "설명용 화면입니다."; return false; }

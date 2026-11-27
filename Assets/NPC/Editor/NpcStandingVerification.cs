@@ -51,10 +51,16 @@ public static class NpcStandingVerification
                 var source = new SerializedObject(definition).FindProperty("seed").FindPropertyRelative("profile");
                 var seed = definition.CreateRuntimeSeed();
                 var original = source.FindPropertyRelative("standingIllustration").objectReferenceValue;
-                if (original != null) { namedCount++; Check(seed.profile.standingIllustration == original, "Named art retained: " + seed.npcId); }
+                var originalDim = source.FindPropertyRelative("dimmedStandingIllustration").objectReferenceValue;
+                if (original != null)
+                {
+                    namedCount++;
+                    Check(originalDim != null && seed.profile.standingIllustration == original
+                        && seed.profile.dimmedStandingIllustration == originalDim, "Named standing pair retained: " + seed.npcId);
+                }
                 else { reservedCount++; Check(!NpcStandingCatalog.CanUseMob(seed) && seed.profile.standingIllustration == null, "Pending story art retained: " + seed.npcId); }
             }
-            Check(namedCount == 14 && reservedCount == 16, "14 named illustrations and 16 reserved story characters unchanged");
+            Check(namedCount == 23 && reservedCount == 7, "23 named standing pairs and 7 pending story characters");
             File.AppendAllText(path, "COMPLETE\n");
             EditorApplication.Exit(0);
         }

@@ -4590,18 +4590,34 @@ MonoBehaviour:
     speaker: 4
     npcId:
     voiceLabel:
-    text: "\uC9C1\uC6D0 \uBAA9\uB85D\uACFC \uC544\uB798\uCABD \uBAA8\uC9D1 \uC601\uC5ED\uC744
-      \uD655\uC778\uD558\uC138\uC694."
+    text: "\uC9C0\uC6D0\uC790 \uAD00\uB9AC\uC5D0\uC11C \uBAA8\uC9D1 \uBC84\uD2BC\uACFC \uC9C0\uC6D0\uC790 \uBAA9\uB85D\uC744 \uD655\uC778\uD558\uC138\uC694."
     showPlayer: 0
     goal: 14
     companyId:
     tutorialTitle: "\uC9C1\uC6D0 \uBAA8\uC9D1"
-    tutorialText: "\uC544\uB798\uCABD \uBAA8\uC9D1 \uC601\uC5ED\uC5D0\uC11C \uC9C1\uC6D0\uC744
-      \uAD6C\uD569\uB2C8\uB2E4. \uBAA8\uC9D1\uC5D0\uB294 AP\uAC00 \uB4E4\uACE0, \uD45C\uC2DC\uB41C
+    tutorialText: "\uC9C0\uC6D0\uC790 \uAD00\uB9AC\uC5D0\uC11C \uC9C1\uC6D0\uC744 \uBAA8\uC9D1\uD569\uB2C8\uB2E4.
+      \uBAA8\uC9D1\uC5D0\uB294 AP\uAC00 \uB4E4\uACE0, \uD45C\uC2DC\uB41C
       \uAE30\uAC04 \uB4A4 \uC9C0\uC6D0\uC790\uAC00 \uB3C4\uCC29\uD569\uB2C8\uB2E4.\n\n\uC9C0\uC6D0\uC790\uC758
       \uB2A5\uB825\uACFC \uC6D4\uAE09\xB7\uACC4\uC57D \uAE30\uAC04\uC744 \uBCF4\uACE0
       \uCC44\uC6A9\uD558\uC138\uC694. \uC9C0\uAE08\uC740 \uBAA8\uC9D1\uD558\uAC70\uB098
       \uCC44\uC6A9\uD558\uC9C0 \uC54A\uC544\uB3C4 \uB429\uB2C8\uB2E4."
+    choices: []
+    skipDefaultChoice: 0
+  - id: operations-003
+    sceneTitle: "\uB458\uC9F8 \uB0A0  /  \uC0AC\uBB34\uC2E4\uC5D0\uC11C"
+    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
+    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
+    speaker: 2
+    npcId: npc-broker-yoon-hajin
+    voiceLabel:
+    text: "\uB208\uC5EC\uACA8\uBCF4\uB294 \uD68C\uC0AC\uAC00 \uC788\uC73C\uBA74 \uC870\uC0AC\uB97C
+      \uB9E1\uACA8\uBCF4\uC138\uC694. \uB2E4\uB9CC \uBCF4\uACE0\uC11C\uC5D0 \uC88B\uAC8C
+      \uC801\uD614\uB2E4\uACE0 \uAF2D \uC624\uB974\uB294 \uAC74 \uC544\uB2C8\uB2C8\uAE4C\uC694."
+    showPlayer: 1
+    goal: 0
+    companyId:
+    tutorialTitle:
+    tutorialText:
     choices: []
     skipDefaultChoice: 0
   - id: operations-002-work
@@ -4623,23 +4639,6 @@ MonoBehaviour:
       \uBB38\uC11C\uD568\uC73C\uB85C \uC635\uB2C8\uB2E4. \uB9E1\uAE34 \uC5C5\uBB34\uB294
       \uBCC0\uACBD\uD558\uAC70\uB098 \uD574\uC81C\uD560 \uB54C\uAE4C\uC9C0 \uBC18\uBCF5\uD569\uB2C8\uB2E4.
       \uC9C0\uAE08\uC740 \uC5C5\uBB34\uB97C \uBC30\uC815\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
-    choices: []
-    skipDefaultChoice: 0
-  - id: operations-003
-    sceneTitle: "\uB458\uC9F8 \uB0A0  /  \uC0AC\uBB34\uC2E4\uC5D0\uC11C"
-    background: {fileID: 21300000, guid: 8e830160013dd9a47b8a42d41ba282ff, type: 3}
-    backgroundTint: {r: 1, g: 1, b: 1, a: 1}
-    speaker: 2
-    npcId: npc-broker-yoon-hajin
-    voiceLabel:
-    text: "\uB208\uC5EC\uACA8\uBCF4\uB294 \uD68C\uC0AC\uAC00 \uC788\uC73C\uBA74 \uC870\uC0AC\uB97C
-      \uB9E1\uACA8\uBCF4\uC138\uC694. \uB2E4\uB9CC \uBCF4\uACE0\uC11C\uC5D0 \uC88B\uAC8C
-      \uC801\uD614\uB2E4\uACE0 \uAF2D \uC624\uB974\uB294 \uAC74 \uC544\uB2C8\uB2C8\uAE4C\uC694."
-    showPlayer: 1
-    goal: 0
-    companyId:
-    tutorialTitle:
-    tutorialText:
     choices: []
     skipDefaultChoice: 0
   - id: operations-004

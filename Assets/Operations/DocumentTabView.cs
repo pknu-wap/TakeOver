@@ -27,7 +27,6 @@ namespace TakeOver.Operations
         public void SetTutorialPreview(IDocument document)
         {
             tutorialDocument = document;
-            refresh();
         }
 
         private void Awake()
@@ -41,12 +40,15 @@ namespace TakeOver.Operations
 
         private void Start()
         {
-            var system = FindFirstObjectByType<DocumentSystem>();
-            inbox = system != null ? system.Inbox : null;
             clock = FindFirstObjectByType<GameTurnClock>();
-            if (inbox != null) inbox.Changed += refresh;
-            clock.TurnAdvanced += onTurn;
-            detail.Decided += decide;
+            if (!IsTutorialPreview)
+            {
+                var system = FindFirstObjectByType<DocumentSystem>();
+                inbox = system != null ? system.Inbox : null;
+                if (inbox != null) inbox.Changed += refresh;
+                clock.TurnAdvanced += onTurn;
+                detail.Decided += decide;
+            }
             refresh();
         }
 

@@ -40,7 +40,8 @@ namespace TakeOver.Documents
 
         private string stakeText()
         {
-            return $"{stakePercent(TargetCompany.state.totalShares):0.##}% → {stakePercent(newTotalShares()):0.##}%";
+            float owned = TargetCompany.state.getBaseStat(CompanyStat.PLAYER_SHARES);
+            return $"{StakeText.FormatShares(owned, TargetCompany.state.totalShares)} → {StakeText.FormatShares(owned, newTotalShares())}";
         }
 
         public IReadOnlyList<string> BodyLines => Array.Empty<string>();
@@ -81,12 +82,6 @@ namespace TakeOver.Documents
         private float companyValue()
         {
             return TargetCompany.state.getDerivedStat(CompanyDerivedStat.FUNDAMENTAL_VALUE);
-        }
-
-        private float stakePercent(int totalShares)
-        {
-            if (totalShares <= 0) return 0f;
-            return TargetCompany.state.getBaseStat(CompanyStat.PLAYER_SHARES) * 100f / totalShares;
         }
 
         public void SetField(string name, float value)

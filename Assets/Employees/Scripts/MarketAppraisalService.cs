@@ -46,7 +46,7 @@ namespace TakeOver.Employees
                     rows.Add(new DocumentInfo("실적 추세", MarketAppraisal.describe(result.performance)));
                     rows.Add(new DocumentInfo("시장 평가", MarketAppraisal.describe(result.market)));
                     rows.Add(new DocumentInfo("현재 주가", MoneyText.Format(company.state.getDerivedStat(CompanyDerivedStat.SHARE_PRICE))));
-                    rows.Add(new DocumentInfo("내 지분", $"{company.state.getDerivedStat(CompanyDerivedStat.STAKE):0.##}%"));
+                    rows.Add(new DocumentInfo("내 지분", StakeText.Format(company.state.getDerivedStat(CompanyDerivedStat.STAKE))));
                 }
                 documents.Inbox.Add(new SnapshotDocument("market-appraisal", "시세 예측 보고", completion.Employee.Name, rows, rowsPerPage: 5));
             }

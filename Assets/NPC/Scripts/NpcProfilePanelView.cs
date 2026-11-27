@@ -147,6 +147,7 @@ namespace TakeOver.NPC
         {
             public string id;
             public string companyId;
+            public NpcPosition position;
             public string displayName;
             public string subtitle;
             public string description;
@@ -930,6 +931,9 @@ namespace TakeOver.NPC
                 int companyOrder = AffiliationOrder(a.companyId).CompareTo(AffiliationOrder(b.companyId));
                 if (companyOrder == 0) companyOrder = StringComparer.Ordinal.Compare(a.companyId, b.companyId);
                 if (companyOrder != 0) return companyOrder;
+                bool aIsCeo = a.position == NpcPosition.CEO;
+                bool bIsCeo = b.position == NpcPosition.CEO;
+                if (aIsCeo != bIsCeo) return aIsCeo ? -1 : 1;
                 int characterOrder = GetDisplayOrder(a).CompareTo(GetDisplayOrder(b));
                 return characterOrder != 0 ? characterOrder : StringComparer.Ordinal.Compare(a.id, b.id);
             });
@@ -975,6 +979,7 @@ namespace TakeOver.NPC
                 {
                     id = string.IsNullOrEmpty(entry.npcId) ? displayName : entry.npcId,
                     companyId = entry.companyId,
+                    position = entry.position,
                     displayName = displayName,
                     subtitle = BuildSubtitle(profile.affiliation, profile.role),
                     description = string.IsNullOrWhiteSpace(profile.personalitySummary)

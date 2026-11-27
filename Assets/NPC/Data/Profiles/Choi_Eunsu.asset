@@ -73,8 +73,8 @@ MonoBehaviour:
     npcId: npc-daeseong-industry-hr-director-choi-eunsu
     companyId: daeseong-industry
     profile:
-      standingIllustration: {fileID: 0}
-      dimmedStandingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: a335224aace34923ad41d824c8863767, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: a1a062b9491948c5971332e6174d3390, type: 3}
       displayName: "\uCD5C\uC740\uC218"
       role: "\uC870\uC9C1\xB7\uC778\uC0AC\uCC45\uC784\uC790"
       speakerRole: "\uc778\uc0ac\ucc45\uc784\uc790"

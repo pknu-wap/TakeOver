@@ -84,18 +84,13 @@ namespace TakeOver.Employees
         private int fallbackTurn;
         private string lastActionMessage = "";
         private bool tutorialPreview;
+        private bool tutorialShowJobs;
         private Employee tutorialEmployee, tutorialApplicant;
         public bool IsTutorialPreview => tutorialPreview;
-        public void SetTutorialPreview(bool enabled)
+        public void SetTutorialPreview(bool showJobs)
         {
-            tutorialPreview = enabled;
-            if (enabled && tutorialEmployee == null)
-            {
-                int turn = gameTurnClock != null ? gameTurnClock.CurrentTurn : 1;
-                tutorialEmployee = new Employee("김민준", 8, 12, 7, 12, 6, 12, 9, 12, 8, 12, 12, 10, 8, 250, turn, turn + 30, null);
-                tutorialApplicant = new Employee("이서연", 6, 12, 8, 12, 7, 12, 6, 12, 5, 12, 10, 9, 7, 200, turn, turn + 30, null);
-            }
-            RefreshAll();
+            tutorialPreview = true;
+            tutorialShowJobs = showJobs;
         }
 
         private void Awake()
@@ -198,13 +193,20 @@ namespace TakeOver.Employees
 
         private void OnEnable()
         {
-            SubscribeEvents();
+            if (tutorialPreview)
+            {
+                int turn = GetCurrentTurn();
+                tutorialEmployee ??= new Employee("김민준", 8, 12, 7, 12, 6, 12, 9, 12, 8, 12, 12, 10, 8, 250, turn, turn + 30, null);
+                tutorialApplicant ??= new Employee("이서연", 6, 12, 8, 12, 7, 12, 6, 12, 5, 12, 10, 9, 7, 200, turn, turn + 30, null);
+            }
+            else SubscribeEvents();
             RefreshAll();
+            if (tutorialShowJobs) detailView.Open(tutorialEmployee, null, GetCurrentTurn, null, tutorial: true);
         }
 
         private void OnDisable()
         {
-            UnsubscribeEvents();
+            if (!tutorialPreview) UnsubscribeEvents();
         }
 
         private void BindButtons()

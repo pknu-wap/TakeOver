@@ -285,7 +285,7 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
             game.confirmChoice(0); yield return null;
         }
         int memories = Object.FindFirstObjectByType<NpcStateRegistry>().States.Sum(state => state.memories.Count);
-        float cash = player.state.cash;
+        double cash = player.state.cash;
         game.confirmChoice(choice);
         Check(player.state.cash == cash && memories == Object.FindFirstObjectByType<NpcStateRegistry>().States.Sum(state => state.memories.Count), "Double confirmation does not duplicate effects: " + id);
         game.closeResult(); game.closeResult(); yield return null;
@@ -335,7 +335,7 @@ public sealed partial class CampaignIntegrationProbe : MonoBehaviour
             yield return CompleteForced(capture && (day == 12 || day == 28 || day == 29));
             if (day == 13 || day == 21)
             {
-                string before = game.captureJson(); float cash = player.state.cash;
+                string before = game.captureJson(); double cash = player.state.cash;
                 Check(saves.trySaveDayEnd(new DayStartData(clock.CurrentTurn, FixedDaySeed.seed)), "Campaign save succeeds day " + day + ": " + saves.lastError);
                 Check(saves.tryLoad(out _), "Campaign load succeeds day " + day + ": " + saves.lastError);
                 yield return null;

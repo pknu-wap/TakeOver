@@ -61,8 +61,8 @@ MonoBehaviour:
     npcId: npc-blueharbor-retail-data-director-han-dogyeong
     companyId: blueharbor-retail
     profile:
-      standingIllustration: {fileID: 0}
-      dimmedStandingIllustration: {fileID: 0}
+      standingIllustration: {fileID: 21300000, guid: 0c5083029ab6462882806234f0a3eb5e, type: 3}
+      dimmedStandingIllustration: {fileID: 21300000, guid: a1fc5a8324b840d8a56c9afe6212363c, type: 3}
       displayName: "\uD55C\uB3C4\uACBD"
       role: "\uB370\uC774\uD130\uCD1D\uAD04"
       affiliation: "\uBE14\uB8E8\uD558\uBC84\uB9AC\uD14C\uC77C"
