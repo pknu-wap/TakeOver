@@ -20,6 +20,9 @@ public class CompanyDetailPanel : MonoBehaviour
     [SerializeField] private Image coverLogoImage;
     [SerializeField] private TMP_Text coverNameText;
     [SerializeField] private Color coverEmptyColor = new Color(0.12f, 0.17f, 0.28f);   // 사진이 없을 때 칸 색
+    [SerializeField] private Color coverPhotoTint = new Color(0.55f, 0.55f, 0.55f);
+
+    [SerializeField] private float coverLogoGap = 16f;
 
     [Header("회사 소개")]
     [SerializeField] private TMP_Text nameText;
@@ -182,14 +185,16 @@ public class CompanyDetailPanel : MonoBehaviour
         if (coverImage != null)
         {
             coverImage.sprite = def.coverImage;
-            coverImage.color = def.coverImage != null ? Color.white : coverEmptyColor;
+            coverImage.color = def.coverImage != null ? coverPhotoTint : coverEmptyColor;
         }
+        Sprite coverLogo = def.logoWhite != null ? def.logoWhite : def.logo;
         if (coverLogoImage != null)
         {
-            coverLogoImage.sprite = def.logo;
-            coverLogoImage.enabled = def.logo != null;
+            coverLogoImage.sprite = coverLogo;
+            coverLogoImage.enabled = coverLogo != null;
         }
         setText(coverNameText, def.companyName);
+        alignCoverName(coverLogo != null);
 
         setText(nameText, def.companyName);
         setText(industryText, def.industry);
@@ -254,6 +259,30 @@ public class CompanyDetailPanel : MonoBehaviour
         {
             metricBoxes[index].set(label, value);
         }
+    }
+
+    private void alignCoverName(bool hasLogo)
+    {
+        if (coverNameText == null) return;
+
+        RectTransform nameRect = coverNameText.rectTransform;
+        float nameY = nameRect.anchoredPosition.y;
+
+        if (!hasLogo || coverLogoImage == null)
+        {
+            nameRect.anchoredPosition = new Vector2(0f, nameY);
+            coverNameText.alignment = TextAlignmentOptions.Center;
+            return;
+        }
+
+        RectTransform logoRect = coverLogoImage.rectTransform;
+        float logoWidth = logoRect.rect.width;
+        float textWidth = coverNameText.GetPreferredValues(coverNameText.text).x;
+        float left = -(logoWidth + coverLogoGap + textWidth) / 2f;
+
+        logoRect.anchoredPosition = new Vector2(left + logoWidth / 2f, logoRect.anchoredPosition.y);
+        nameRect.anchoredPosition = new Vector2(left + logoWidth + coverLogoGap + nameRect.rect.width / 2f, nameY);
+        coverNameText.alignment = TextAlignmentOptions.Left;
     }
 
     private static void setText(TMP_Text target, string value)

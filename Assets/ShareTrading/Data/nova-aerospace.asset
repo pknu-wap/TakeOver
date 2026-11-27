@@ -15,7 +15,8 @@ MonoBehaviour:
   companyName: "노바 에어로스페이스"
   companyID: nova-aerospace
   isStoryCompany: 0
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: 9572127d1dea4d58a92c5f75c4f44dda, type: 3}
+  logoWhite: {fileID: 21300000, guid: 906c52a0a8774be098a29b1db6be5fec, type: 3}
   industry: "항공·우주부품"
   coreValue: "정밀성과 국가 신뢰"
   description: "항공기와 위성에 들어가는 정밀 부품을 만드는 회사. 단가는 높지만 인증 하나만 흔들려도 회사의 존립이 위태로워진다."

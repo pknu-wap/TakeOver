@@ -15,7 +15,8 @@ MonoBehaviour:
   companyName: "동림농산"
   companyID: donglim-agro
   isStoryCompany: 0
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: 30d71c3d13ce42a8bd631075837df757, type: 3}
+  logoWhite: {fileID: 21300000, guid: 6839424a9c5d4d6baf916147232d56d6, type: 3}
   industry: "농업·식품원료"
   coreValue: "품질과 지역 생태계"
   description: "식품 회사에 원료를 대는 농업 기업. 화려한 브랜드 대신 오래된 농가 계약과 까다로운 품질 기준으로 신뢰를 쌓아 왔다."

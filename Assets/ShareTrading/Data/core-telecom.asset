@@ -15,7 +15,8 @@ MonoBehaviour:
   companyName: "코어 텔레콤"
   companyID: core-telecom
   isStoryCompany: 0
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: f4b29c96afbd4457adad0f985c1f9a0d, type: 3}
+  logoWhite: {fileID: 21300000, guid: 984e2ca081114a398a73668246abd8e7, type: 3}
   industry: "통신·네트워크"
   coreValue: "기술 우위와 장기 R&D"
   description: "통신 장비와 네트워크 인프라를 만드는 기술 기업. 당장의 실적보다 몇 년 뒤 시장을 바꿀 연구에 돈을 쓰는 것을 당연하게 여긴다."

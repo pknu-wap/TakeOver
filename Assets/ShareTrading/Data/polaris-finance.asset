@@ -16,6 +16,7 @@ MonoBehaviour:
   companyID: polaris-finance
   isStoryCompany: 1
   logo: {fileID: 21300000, guid: c957edfefd4e559499a3ac717f4f3bea, type: 3}
+  logoWhite: {fileID: 21300000, guid: 8a46be2de1384eb1b23d382e679b1333, type: 3}
   industry: "\uAE08\uC735\xB7\uD22C\uC790"
   coreValue: "\uC790\uBCF8\uD6A8\uC728\uACFC \uC218\uC775\uB960"
   description: "\uADF8\uB8F9\uC758 \uC778\uC218 \uC790\uAE08\uC744 \uACF5\uAE09\uD558\uB294
@@ -25,7 +26,7 @@ MonoBehaviour:
     \uB178\uB9B0\uB2E4. \uACBD\uC601\uC9C4\xB7\uB9AC\uC2A4\uD06C \uBD80\uC11C\xB7M&A
     \uBD80\uC11C\uAC00 \uC11C\uB85C \uB2E4\uB978 \uAE30\uC900\uC73C\uB85C \uAC70\uB798\uB97C
     \uD3C9\uAC00\uD55C\uB2E4."
-  coverImage: {fileID: 0}
+  coverImage: {fileID: -332374167761877909, guid: 3b421aad4ca59344093480d7c4a28795, type: 3}
   totalShares: 31250000
   initialBaseCompanyValue: 10000
   initialRevenue: 153.85

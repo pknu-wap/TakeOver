@@ -15,7 +15,8 @@ MonoBehaviour:
   companyName: "메트로 트랜짓"
   companyID: metro-transit
   isStoryCompany: 0
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: 3c57e66289b443a1afa96768c1fcead5, type: 3}
+  logoWhite: {fileID: 21300000, guid: a9bc381a07f54d8c8b3d9eba8466ec79, type: 3}
   industry: "교통·공공서비스"
   coreValue: "공공성과 안정성"
   description: "도시의 버스·지하철 노선을 운영하는 교통 회사. 정부 계약과 요금 정책, 시민 민원이 모두 실적에 얽혀 있어 수익만 쫓을 수 없는 구조다."

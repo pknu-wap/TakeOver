@@ -16,6 +16,7 @@ MonoBehaviour:
   companyID: daeseong-industry
   isStoryCompany: 1
   logo: {fileID: 21300000, guid: bbf458afe0d41974e93b72aacdebed3b, type: 3}
+  logoWhite: {fileID: 21300000, guid: 5eb0e3fd31334e16a6eef2d0822149b6, type: 3}
   industry: "\uC911\uACF5\uC5C5\xB7\uC0B0\uC5C5\uC124\uBE44"
   coreValue: "\uADDC\uBAA8\uC640 \uACF5\uAE09\uB9DD \uD1B5\uD569"
   description: "\uADF8\uB8F9\uC758 \uC81C\uC870\xB7\uC124\uBE44 \uAE30\uBC18\uC744
@@ -24,7 +25,7 @@ MonoBehaviour:
     \uACBD\uC7C1\uACFC \uC870\uC9C1 \uD1B5\uD569\uC5D0 \uAC15\uD558\uB2E4. \uB0B4\uBD80\uC5D0\uB294
     \uD655\uC7A5 \uC18D\uB3C4\xB7\uC7AC\uBB34 \uC548\uC815\xB7\uD575\uC2EC \uC778\uB825
     \uC2B9\uACC4\uB97C \uB458\uB7EC\uC2FC \uACAC\uD574\uCC28\uAC00 \uC788\uB2E4."
-  coverImage: {fileID: 0}
+  coverImage: {fileID: 1059175791940975846, guid: b5ce8a138dbb6c742bf0364f1295dcf7, type: 3}
   totalShares: 1200000
   initialBaseCompanyValue: 15000
   initialRevenue: 384.62

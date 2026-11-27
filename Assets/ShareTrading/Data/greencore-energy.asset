@@ -15,7 +15,8 @@ MonoBehaviour:
   companyName: "그린코어 에너지"
   companyID: greencore-energy
   isStoryCompany: 0
-  logo: {fileID: 0}
+  logo: {fileID: 21300000, guid: ae54076dfb7e43efb49bde8653ec9d73, type: 3}
+  logoWhite: {fileID: 21300000, guid: e2a37fcc222a4285b030e05fc0e061a0, type: 3}
   industry: "재생에너지·전력"
   coreValue: "지속가능성과 장기 신뢰"
   description: "태양광·풍력 발전과 전력 저장 사업을 하는 에너지 회사. 장기 발전 계약으로 꾸준히 벌지만, 환경 약속을 어기는 순간 평판이 함께 무너진다."
