@@ -38,7 +38,7 @@ public class CompanyMapView : MonoBehaviour
         // 씬의 회사를 찾고, ID순으로 정렬한다.
         // 찾는 순서는 실행할 때마다 달라질 수 있어서, 정렬해 두어야 자동 배치 위치가 매번 같다.
         List<Company> companies = FindObjectsByType<Company>(FindObjectsSortMode.None)
-            .Where(c => c != null && c.state != null && !c.createdFromCode)
+            .Where(c => c != null && c.state != null && !c.createdFromCode && c.definition.isStoryCompany)
             .OrderBy(c => c.definition.companyID)
             .ToList();
 

@@ -13,6 +13,15 @@ public class CompanyListView : MonoBehaviour
     // 0 기업명, 1 업종, 2 주가, 3 매출, 4 순이익, 5 부채비율, 6 보유 지분
     private static readonly string[] ColumnNames = { "기업", "업종", "주가", "매출", "순이익", "부채비율", "보유 지분" };
 
+    public enum CompanyFilter
+    {
+        All,
+        StoryOnly,
+        MarketOnly
+    }
+
+    [SerializeField] private CompanyFilter filter = CompanyFilter.All;
+
     [Header("리스트")]
     [SerializeField] private CompanyRow rowPrefab;
     [SerializeField] private Transform rowParent;
@@ -140,7 +149,7 @@ public class CompanyListView : MonoBehaviour
             return;
         }
 
-        IEnumerable<Company> valid = listed.Where(c => c != null && c.state != null);
+        IEnumerable<Company> valid = listed.Where(c => c != null && c.state != null && passesFilter(c));
 
         int turn = turnClock != null ? turnClock.CurrentTurn : 1;
         if (turn != recordedTurn)
@@ -177,6 +186,19 @@ public class CompanyListView : MonoBehaviour
         for (int i = index; i < rows.Count; i++)
         {
             rows[i].gameObject.SetActive(false);
+        }
+    }
+
+    private bool passesFilter(Company company)
+    {
+        switch (filter)
+        {
+            case CompanyFilter.StoryOnly:
+                return company.definition.isStoryCompany;
+            case CompanyFilter.MarketOnly:
+                return !company.definition.isStoryCompany;
+            default:
+                return true;
         }
     }
 

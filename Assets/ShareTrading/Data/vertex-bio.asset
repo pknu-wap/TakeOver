@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
+  m_Name: vertex-bio
+  m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
+  companyName: "버텍스 바이오"
+  companyID: vertex-bio
+  isStoryCompany: 0
+  logo: {fileID: 0}
+  industry: "바이오 연구·신약"
+  coreValue: "연구 자유와 과학적 성과"
+  description: "신약 후보 물질을 개발하는 바이오 연구 기업. 지금 매출은 작지만 특허와 연구 파이프라인에 대한 기대가 기업가치를 끌어올리고 있다."
+  coverImage: {fileID: 0}
+  totalShares: 3000000
+  initialBaseCompanyValue: 7500
+  initialRevenue: 25
+  initialCost: 24.5
+  initialCash: 1800
+  initialDebt: 400
+  initialTangibleAssets: 900
+  initialIntangibleAssets: 3200
+  initialReputationB2C: 55
+  initialReputationB2B: 65
+  initialReputaionPlayer: 0
+  initialMarketPosition: 40
+  initialPlayerShares: 0
+  initialTangibleCoefficient: 0.7
+  initialIntangibleCoefficient: 0.85
+  growthRate: 0.005
+  initialEmployeeCount: 288
+  dividendRatio: 0.0

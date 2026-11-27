@@ -1537,6 +1537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1cff3477fe20d42bd5a7622bb382d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CompanyListView
+  filter: 1
   rowPrefab: {fileID: 7278652486866722749, guid: a36aea721028e8349801fd90c77b6bca, type: 3}
   rowParent: {fileID: 2051375067415907449}
   headerLabels: []
@@ -5165,6 +5166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1cff3477fe20d42bd5a7622bb382d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CompanyListView
+  filter: 2
   rowPrefab: {fileID: 7278652486866722749, guid: 242af57845e7797419da21b94f34e642, type: 3}
   rowParent: {fileID: 4923189327863540154}
   headerLabels:
@@ -7999,7 +8001,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 925214539111534370}
         m_TargetAssemblyTypeName: BrowserViewToggle, Assembly-CSharp
-        m_MethodName: toggle
+        m_MethodName: openCompaniesTab
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

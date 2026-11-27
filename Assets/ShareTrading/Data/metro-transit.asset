@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0789f7e44065b74f9b37668c078184c, type: 3}
+  m_Name: metro-transit
+  m_EditorClassIdentifier: Assembly-CSharp::CompanyDefinition
+  companyName: "메트로 트랜짓"
+  companyID: metro-transit
+  isStoryCompany: 0
+  logo: {fileID: 0}
+  industry: "교통·공공서비스"
+  coreValue: "공공성과 안정성"
+  description: "도시의 버스·지하철 노선을 운영하는 교통 회사. 정부 계약과 요금 정책, 시민 민원이 모두 실적에 얽혀 있어 수익만 쫓을 수 없는 구조다."
+  coverImage: {fileID: 0}
+  totalShares: 9500000
+  initialBaseCompanyValue: 3800
+  initialRevenue: 80.77
+  initialCost: 79.15
+  initialCash: 900
+  initialDebt: 2600
+  initialTangibleAssets: 6500
+  initialIntangibleAssets: 300
+  initialReputationB2C: 60
+  initialReputationB2B: 70
+  initialReputaionPlayer: 0
+  initialMarketPosition: 80
+  initialPlayerShares: 0
+  initialTangibleCoefficient: 0.7
+  initialIntangibleCoefficient: 0.5
+  growthRate: 0.001
+  initialEmployeeCount: 929
+  dividendRatio: 0.3
